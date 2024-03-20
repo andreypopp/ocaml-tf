@@ -3,34 +3,127 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_document_ai_warehouse_location = {
   access_control_mode : string prop;
-      (** The access control mode for accessing the customer data. Possible values: [ACL_MODE_DOCUMENT_LEVEL_ACCESS_CONTROL_GCI, ACL_MODE_DOCUMENT_LEVEL_ACCESS_CONTROL_BYOID, ACL_MODE_UNIVERSAL_ACCESS] *)
   database_type : string prop;
-      (** The type of database used to store customer data. Possible values: [DB_INFRA_SPANNER, DB_CLOUD_SQL_POSTGRES] *)
   document_creator_default_role : string prop option; [@option]
-      (** The default role for the person who create a document. Possible values: [DOCUMENT_ADMIN, DOCUMENT_EDITOR, DOCUMENT_VIEWER] *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kms_key : string prop option; [@option]
-      (** The KMS key used for CMEK encryption. It is required that
-the kms key is in the same region as the endpoint. The
-same key will be used for all provisioned resources, if
-encryption is available. If the kmsKey is left empty, no
-encryption will be enforced. *)
   location : string prop;
-      (** The location in which the instance is to be provisioned. It takes the form projects/{projectNumber}/locations/{location}. *)
   project_number : string prop;
-      (** The unique identifier of the project. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_document_ai_warehouse_location *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_document_ai_warehouse_location) -> ()
+
+let yojson_of_google_document_ai_warehouse_location =
+  (function
+   | {
+       access_control_mode = v_access_control_mode;
+       database_type = v_database_type;
+       document_creator_default_role =
+         v_document_creator_default_role;
+       id = v_id;
+       kms_key = v_kms_key;
+       location = v_location;
+       project_number = v_project_number;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_project_number
+         in
+         ("project_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_document_creator_default_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "document_creator_default_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_type in
+         ("database_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_access_control_mode
+         in
+         ("access_control_mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_document_ai_warehouse_location ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_document_ai_warehouse_location
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

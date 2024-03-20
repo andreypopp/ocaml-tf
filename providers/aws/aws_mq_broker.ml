@@ -3,111 +3,460 @@
 open! Tf_core
 
 type configuration = {
-  id : string prop option; [@option]  (** id *)
-  revision : float prop option; [@option]  (** revision *)
+  id : string prop option; [@option]
+  revision : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration) -> ()
+
+let yojson_of_configuration =
+  (function
+   | { id = v_id; revision = v_revision } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_revision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "revision", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration
+
+[@@@deriving.end]
 
 type encryption_options = {
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]
   use_aws_owned_key : bool prop option; [@option]
-      (** use_aws_owned_key *)
 }
-[@@deriving yojson_of]
-(** encryption_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_options) -> ()
+
+let yojson_of_encryption_options =
+  (function
+   | {
+       kms_key_id = v_kms_key_id;
+       use_aws_owned_key = v_use_aws_owned_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_aws_owned_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_aws_owned_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : encryption_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_options
+
+[@@@deriving.end]
 
 type ldap_server_metadata = {
-  hosts : string prop list option; [@option]  (** hosts *)
-  role_base : string prop option; [@option]  (** role_base *)
-  role_name : string prop option; [@option]  (** role_name *)
+  hosts : string prop list option; [@option]
+  role_base : string prop option; [@option]
+  role_name : string prop option; [@option]
   role_search_matching : string prop option; [@option]
-      (** role_search_matching *)
   role_search_subtree : bool prop option; [@option]
-      (** role_search_subtree *)
   service_account_password : string prop option; [@option]
-      (** service_account_password *)
   service_account_username : string prop option; [@option]
-      (** service_account_username *)
-  user_base : string prop option; [@option]  (** user_base *)
+  user_base : string prop option; [@option]
   user_role_name : string prop option; [@option]
-      (** user_role_name *)
   user_search_matching : string prop option; [@option]
-      (** user_search_matching *)
   user_search_subtree : bool prop option; [@option]
-      (** user_search_subtree *)
 }
-[@@deriving yojson_of]
-(** ldap_server_metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ldap_server_metadata) -> ()
+
+let yojson_of_ldap_server_metadata =
+  (function
+   | {
+       hosts = v_hosts;
+       role_base = v_role_base;
+       role_name = v_role_name;
+       role_search_matching = v_role_search_matching;
+       role_search_subtree = v_role_search_subtree;
+       service_account_password = v_service_account_password;
+       service_account_username = v_service_account_username;
+       user_base = v_user_base;
+       user_role_name = v_user_role_name;
+       user_search_matching = v_user_search_matching;
+       user_search_subtree = v_user_search_subtree;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user_search_subtree with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "user_search_subtree", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_user_search_matching with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_search_matching", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_user_role_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_role_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_user_base with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_base", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account_username with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account_username", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_search_subtree with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "role_search_subtree", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_search_matching with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_search_matching", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_base with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_base", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hosts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "hosts", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ldap_server_metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ldap_server_metadata
+
+[@@@deriving.end]
 
 type logs = {
-  audit : string prop option; [@option]  (** audit *)
-  general : bool prop option; [@option]  (** general *)
+  audit : string prop option; [@option]
+  general : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logs) -> ()
+
+let yojson_of_logs =
+  (function
+   | { audit = v_audit; general = v_general } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_general with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "general", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_audit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "audit", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : logs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logs
+
+[@@@deriving.end]
 
 type maintenance_window_start_time = {
-  day_of_week : string prop;  (** day_of_week *)
-  time_of_day : string prop;  (** time_of_day *)
-  time_zone : string prop;  (** time_zone *)
+  day_of_week : string prop;
+  time_of_day : string prop;
+  time_zone : string prop;
 }
-[@@deriving yojson_of]
-(** maintenance_window_start_time *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_window_start_time) -> ()
+
+let yojson_of_maintenance_window_start_time =
+  (function
+   | {
+       day_of_week = v_day_of_week;
+       time_of_day = v_time_of_day;
+       time_zone = v_time_zone;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_zone in
+         ("time_zone", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_of_day in
+         ("time_of_day", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_day_of_week in
+         ("day_of_week", arg) :: bnds
+       in
+       `Assoc bnds
+    : maintenance_window_start_time ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_window_start_time
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type user = {
-  console_access : bool prop option; [@option]  (** console_access *)
-  groups : string prop list option; [@option]  (** groups *)
-  password : string prop;  (** password *)
+  console_access : bool prop option; [@option]
+  groups : string prop list option; [@option]
+  password : string prop;
   replication_user : bool prop option; [@option]
-      (** replication_user *)
-  username : string prop;  (** username *)
+  username : string prop;
 }
-[@@deriving yojson_of]
-(** user *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : user) -> ()
+
+let yojson_of_user =
+  (function
+   | {
+       console_access = v_console_access;
+       groups = v_groups;
+       password = v_password;
+       replication_user = v_replication_user;
+       username = v_username;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         match v_replication_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "replication_user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       let bnds =
+         match v_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_console_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "console_access", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : user -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_user
+
+[@@@deriving.end]
 
 type instances = {
-  console_url : string prop;  (** console_url *)
-  endpoints : string prop list;  (** endpoints *)
-  ip_address : string prop;  (** ip_address *)
+  console_url : string prop;
+  endpoints : string prop list;
+  ip_address : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instances) -> ()
+
+let yojson_of_instances =
+  (function
+   | {
+       console_url = v_console_url;
+       endpoints = v_endpoints;
+       ip_address = v_ip_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_address in
+         ("ip_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_endpoints
+         in
+         ("endpoints", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_console_url in
+         ("console_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : instances -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instances
+
+[@@@deriving.end]
 
 type aws_mq_broker = {
   apply_immediately : bool prop option; [@option]
-      (** apply_immediately *)
   authentication_strategy : string prop option; [@option]
-      (** authentication_strategy *)
   auto_minor_version_upgrade : bool prop option; [@option]
-      (** auto_minor_version_upgrade *)
-  broker_name : string prop;  (** broker_name *)
+  broker_name : string prop;
   data_replication_mode : string prop option; [@option]
-      (** data_replication_mode *)
   data_replication_primary_broker_arn : string prop option; [@option]
-      (** data_replication_primary_broker_arn *)
   deployment_mode : string prop option; [@option]
-      (** deployment_mode *)
-  engine_type : string prop;  (** engine_type *)
-  engine_version : string prop;  (** engine_version *)
-  host_instance_type : string prop;  (** host_instance_type *)
-  id : string prop option; [@option]  (** id *)
+  engine_type : string prop;
+  engine_version : string prop;
+  host_instance_type : string prop;
+  id : string prop option; [@option]
   publicly_accessible : bool prop option; [@option]
-      (** publicly_accessible *)
   security_groups : string prop list option; [@option]
-      (** security_groups *)
-  storage_type : string prop option; [@option]  (** storage_type *)
-  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  storage_type : string prop option; [@option]
+  subnet_ids : string prop list option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   configuration : configuration list;
   encryption_options : encryption_options list;
   ldap_server_metadata : ldap_server_metadata list;
@@ -116,8 +465,232 @@ type aws_mq_broker = {
   timeouts : timeouts option;
   user : user list;
 }
-[@@deriving yojson_of]
-(** aws_mq_broker *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_mq_broker) -> ()
+
+let yojson_of_aws_mq_broker =
+  (function
+   | {
+       apply_immediately = v_apply_immediately;
+       authentication_strategy = v_authentication_strategy;
+       auto_minor_version_upgrade = v_auto_minor_version_upgrade;
+       broker_name = v_broker_name;
+       data_replication_mode = v_data_replication_mode;
+       data_replication_primary_broker_arn =
+         v_data_replication_primary_broker_arn;
+       deployment_mode = v_deployment_mode;
+       engine_type = v_engine_type;
+       engine_version = v_engine_version;
+       host_instance_type = v_host_instance_type;
+       id = v_id;
+       publicly_accessible = v_publicly_accessible;
+       security_groups = v_security_groups;
+       storage_type = v_storage_type;
+       subnet_ids = v_subnet_ids;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       configuration = v_configuration;
+       encryption_options = v_encryption_options;
+       ldap_server_metadata = v_ldap_server_metadata;
+       logs = v_logs;
+       maintenance_window_start_time =
+         v_maintenance_window_start_time;
+       timeouts = v_timeouts;
+       user = v_user;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_user v_user in
+         ("user", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_window_start_time
+             v_maintenance_window_start_time
+         in
+         ("maintenance_window_start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_logs v_logs in
+         ("logs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ldap_server_metadata
+             v_ldap_server_metadata
+         in
+         ("ldap_server_metadata", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption_options
+             v_encryption_options
+         in
+         ("encryption_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configuration v_configuration
+         in
+         ("configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "subnet_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_publicly_accessible with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "publicly_accessible", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_host_instance_type
+         in
+         ("host_instance_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_engine_version
+         in
+         ("engine_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_engine_type in
+         ("engine_type", arg) :: bnds
+       in
+       let bnds =
+         match v_deployment_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deployment_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_replication_primary_broker_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_replication_primary_broker_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_replication_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_replication_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_broker_name in
+         ("broker_name", arg) :: bnds
+       in
+       let bnds =
+         match v_auto_minor_version_upgrade with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_minor_version_upgrade", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authentication_strategy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "authentication_strategy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_apply_immediately with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "apply_immediately", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_mq_broker -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_mq_broker
+
+[@@@deriving.end]
 
 let configuration ?id ?revision () : configuration = { id; revision }
 

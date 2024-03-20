@@ -3,53 +3,255 @@
 open! Tf_core
 
 type assessment_reports_destination = {
-  destination : string prop;  (** destination *)
-  destination_type : string prop;  (** destination_type *)
+  destination : string prop;
+  destination_type : string prop;
 }
-[@@deriving yojson_of]
-(** assessment_reports_destination *)
+[@@deriving_inline yojson_of]
 
-type scope__aws_accounts = { id : string prop  (** id *) }
-[@@deriving yojson_of]
-(** scope__aws_accounts *)
+let _ = fun (_ : assessment_reports_destination) -> ()
 
-type scope__aws_services = {
-  service_name : string prop;  (** service_name *)
-}
-[@@deriving yojson_of]
-(** scope__aws_services *)
+let yojson_of_assessment_reports_destination =
+  (function
+   | {
+       destination = v_destination;
+       destination_type = v_destination_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_type
+         in
+         ("destination_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_destination in
+         ("destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : assessment_reports_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_assessment_reports_destination
+
+[@@@deriving.end]
+
+type scope__aws_accounts = { id : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scope__aws_accounts) -> ()
+
+let yojson_of_scope__aws_accounts =
+  (function
+   | { id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : scope__aws_accounts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scope__aws_accounts
+
+[@@@deriving.end]
+
+type scope__aws_services = { service_name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scope__aws_services) -> ()
+
+let yojson_of_scope__aws_services =
+  (function
+   | { service_name = v_service_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_name in
+         ("service_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : scope__aws_services -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scope__aws_services
+
+[@@@deriving.end]
 
 type scope = {
   aws_accounts : scope__aws_accounts list;
   aws_services : scope__aws_services list;
 }
-[@@deriving yojson_of]
-(** scope *)
+[@@deriving_inline yojson_of]
 
-type roles = {
-  role_arn : string prop;  (** role_arn *)
-  role_type : string prop;  (** role_type *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : scope) -> ()
 
-type roles_all = {
-  role_arn : string prop;  (** role_arn *)
-  role_type : string prop;  (** role_type *)
-}
-[@@deriving yojson_of]
+let yojson_of_scope =
+  (function
+   | { aws_accounts = v_aws_accounts; aws_services = v_aws_services }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_scope__aws_services
+             v_aws_services
+         in
+         ("aws_services", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_scope__aws_accounts
+             v_aws_accounts
+         in
+         ("aws_accounts", arg) :: bnds
+       in
+       `Assoc bnds
+    : scope -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scope
+
+[@@@deriving.end]
+
+type roles = { role_arn : string prop; role_type : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : roles) -> ()
+
+let yojson_of_roles =
+  (function
+   | { role_arn = v_role_arn; role_type = v_role_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_type in
+         ("role_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : roles -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_roles
+
+[@@@deriving.end]
+
+type roles_all = { role_arn : string prop; role_type : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : roles_all) -> ()
+
+let yojson_of_roles_all =
+  (function
+   | { role_arn = v_role_arn; role_type = v_role_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_type in
+         ("role_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : roles_all -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_roles_all
+
+[@@@deriving.end]
 
 type aws_auditmanager_assessment = {
-  description : string prop option; [@option]  (** description *)
-  framework_id : string prop;  (** framework_id *)
-  name : string prop;  (** name *)
-  roles : roles list;  (** roles *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  framework_id : string prop;
+  name : string prop;
+  roles : roles list;
+  tags : (string * string prop) list option; [@option]
   assessment_reports_destination :
     assessment_reports_destination list;
   scope : scope list;
 }
-[@@deriving yojson_of]
-(** aws_auditmanager_assessment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_auditmanager_assessment) -> ()
+
+let yojson_of_aws_auditmanager_assessment =
+  (function
+   | {
+       description = v_description;
+       framework_id = v_framework_id;
+       name = v_name;
+       roles = v_roles;
+       tags = v_tags;
+       assessment_reports_destination =
+         v_assessment_reports_destination;
+       scope = v_scope;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_scope v_scope in
+         ("scope", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_assessment_reports_destination
+             v_assessment_reports_destination
+         in
+         ("assessment_reports_destination", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_roles v_roles in
+         ("roles", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_framework_id in
+         ("framework_id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_auditmanager_assessment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_auditmanager_assessment
+
+[@@@deriving.end]
 
 let assessment_reports_destination ~destination ~destination_type ()
     : assessment_reports_destination =

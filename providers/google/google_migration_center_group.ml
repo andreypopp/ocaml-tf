@@ -3,32 +3,147 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_migration_center_group = {
   description : string prop option; [@option]
-      (** Optional. The description of the group. *)
   display_name : string prop option; [@option]
-      (** Optional. User-friendly display name. *)
   group_id : string prop;
-      (** Required. User specified ID for the group. It will become the last component of the group name. The ID must be unique within the project, must conform with RFC-1034, is restricted to lower-cased letters, and has a maximum length of 63 characters. The ID must match the regular expression: '[a-z]([a-z0-9-]{0,61}[a-z0-9])?'. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels as key value pairs. 
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The location of the group. *)
-  project : string prop option; [@option]  (** project *)
+  location : string prop;
+  project : string prop option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_migration_center_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_migration_center_group) -> ()
+
+let yojson_of_google_migration_center_group =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       group_id = v_group_id;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       project = v_project;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group_id in
+         ("group_id", arg) :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_migration_center_group ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_migration_center_group
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

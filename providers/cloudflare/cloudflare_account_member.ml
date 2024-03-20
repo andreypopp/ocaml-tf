@@ -4,18 +4,65 @@ open! Tf_core
 
 type cloudflare_account_member = {
   account_id : string prop;
-      (** Account ID to create the account member in. *)
   email_address : string prop;
-      (** The email address of the user who you wish to manage. Following creation, this field becomes read only via the API and cannot be updated. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   role_ids : string prop list;
-      (** List of account role IDs that you want to assign to a member. *)
   status : string prop option; [@option]
-      (** A member's status in the account. Available values: `accepted`, `pending`. *)
 }
-[@@deriving yojson_of]
-(** Provides a resource which manages Cloudflare account members.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_account_member) -> ()
+
+let yojson_of_cloudflare_account_member =
+  (function
+   | {
+       account_id = v_account_id;
+       email_address = v_email_address;
+       id = v_id;
+       role_ids = v_role_ids;
+       status = v_status;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_role_ids
+         in
+         ("role_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email_address in
+         ("email_address", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_account_member -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_account_member
+
+[@@@deriving.end]
 
 let cloudflare_account_member ?id ?status ~account_id ~email_address
     ~role_ids () : cloudflare_account_member =

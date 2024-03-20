@@ -4,130 +4,316 @@ open! Tf_core
 
 type destination = {
   instance : string prop option; [@option]
-      (** A Compute Engine instance URI. *)
   ip_address : string prop option; [@option]
-      (** The IP address of the endpoint, which can be an external or
-internal IP. An IPv6 address is only allowed when the test's
-destination is a global load balancer VIP. *)
   network : string prop option; [@option]
-      (** A Compute Engine network URI. *)
   port : float prop option; [@option]
-      (** The IP protocol port of the endpoint. Only applicable when
-protocol is TCP or UDP. *)
   project_id : string prop option; [@option]
-      (** Project ID where the endpoint is located. The Project ID can be
-derived from the URI if you provide a VM instance or network URI.
-The following are two cases where you must provide the project ID:
-1. Only the IP address is specified, and the IP address is within
-a GCP project. 2. When you are using Shared VPC and the IP address
-that you provide is from the service project. In this case, the
-network that the IP address resides in is defined in the host
-project. *)
 }
-[@@deriving yojson_of]
-(** Required. Destination specification of the Connectivity Test.
+[@@deriving_inline yojson_of]
 
-You can use a combination of destination IP address, Compute
-Engine VM instance, or VPC network to uniquely identify the
-destination location.
+let _ = fun (_ : destination) -> ()
 
-Even if the destination IP address is not unique, the source IP
-location is unique. Usually, the analysis can infer the destination
-endpoint from route information.
+let yojson_of_destination =
+  (function
+   | {
+       instance = v_instance;
+       ip_address = v_ip_address;
+       network = v_network;
+       port = v_port;
+       project_id = v_project_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-If the destination you specify is a VM instance and the instance has
-multiple network interfaces, then you must also specify either a
-destination IP address or VPC network to identify the destination
-interface.
+let _ = yojson_of_destination
 
-A reachability analysis proceeds even if the destination location
-is ambiguous. However, the result can include endpoints that you
-don't intend to test. *)
+[@@@deriving.end]
 
 type source = {
   instance : string prop option; [@option]
-      (** A Compute Engine instance URI. *)
   ip_address : string prop option; [@option]
-      (** The IP address of the endpoint, which can be an external or
-internal IP. An IPv6 address is only allowed when the test's
-destination is a global load balancer VIP. *)
   network : string prop option; [@option]
-      (** A Compute Engine network URI. *)
   network_type : string prop option; [@option]
-      (** Type of the network where the endpoint is located. Possible values: [GCP_NETWORK, NON_GCP_NETWORK] *)
   port : float prop option; [@option]
-      (** The IP protocol port of the endpoint. Only applicable when
-protocol is TCP or UDP. *)
   project_id : string prop option; [@option]
-      (** Project ID where the endpoint is located. The Project ID can be
-derived from the URI if you provide a VM instance or network URI.
-The following are two cases where you must provide the project ID:
-
-1. Only the IP address is specified, and the IP address is
-   within a GCP project.
-2. When you are using Shared VPC and the IP address
-   that you provide is from the service project. In this case,
-   the network that the IP address resides in is defined in the
-   host project. *)
 }
-[@@deriving yojson_of]
-(** Required. Source specification of the Connectivity Test.
+[@@deriving_inline yojson_of]
 
-You can use a combination of source IP address, virtual machine
-(VM) instance, or Compute Engine network to uniquely identify the
-source location.
+let _ = fun (_ : source) -> ()
 
-Examples: If the source IP address is an internal IP address within
-a Google Cloud Virtual Private Cloud (VPC) network, then you must
-also specify the VPC network. Otherwise, specify the VM instance,
-which already contains its internal IP address and VPC network
-information.
+let yojson_of_source =
+  (function
+   | {
+       instance = v_instance;
+       ip_address = v_ip_address;
+       network = v_network;
+       network_type = v_network_type;
+       port = v_port;
+       project_id = v_project_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-If the source of the test is within an on-premises network, then
-you must provide the destination VPC network.
+let _ = yojson_of_source
 
-If the source endpoint is a Compute Engine VM instance with multiple
-network interfaces, the instance itself is not sufficient to
-identify the endpoint. So, you must also specify the source IP
-address or VPC network.
-
-A reachability analysis proceeds even if the source location is
-ambiguous. However, the test result may include endpoints that
-you don't intend to test. *)
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_network_management_connectivity_test = {
   description : string prop option; [@option]
-      (** The user-supplied description of the Connectivity Test.
-Maximum of 512 characters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Resource labels to represent user-provided metadata.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string prop;  (** Unique name for the connectivity test. *)
-  project : string prop option; [@option]  (** project *)
+  name : string prop;
+  project : string prop option; [@option]
   protocol : string prop option; [@option]
-      (** IP Protocol of the test. When not provided, TCP is assumed. *)
   related_projects : string prop list option; [@option]
-      (** Other projects that may be relevant for reachability analysis.
-This is applicable to scenarios where a test can cross project
-boundaries. *)
   destination : destination list;
   source : source list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_network_management_connectivity_test *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_network_management_connectivity_test) -> ()
+
+let yojson_of_google_network_management_connectivity_test =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       protocol = v_protocol;
+       related_projects = v_related_projects;
+       destination = v_destination;
+       source = v_source;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_source v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destination v_destination
+         in
+         ("destination", arg) :: bnds
+       in
+       let bnds =
+         match v_related_projects with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "related_projects", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_network_management_connectivity_test ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_network_management_connectivity_test
+
+[@@@deriving.end]
 
 let destination ?instance ?ip_address ?network ?port ?project_id () :
     destination =

@@ -3,14 +3,50 @@
 open! Tf_core
 
 type google_container_registry = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location : string prop option; [@option]
-      (** The location of the registry. One of ASIA, EU, US or not specified. See the official documentation for more information on registry locations. *)
   project : string prop option; [@option]
-      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
 }
-[@@deriving yojson_of]
-(** google_container_registry *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_container_registry) -> ()
+
+let yojson_of_google_container_registry =
+  (function
+   | { id = v_id; location = v_location; project = v_project } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_container_registry -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_container_registry
+
+[@@@deriving.end]
 
 let google_container_registry ?id ?location ?project () :
     google_container_registry =

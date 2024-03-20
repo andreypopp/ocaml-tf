@@ -11,10 +11,14 @@ type maintenance_schedule = {
   start_time : string prop;  (** start_time *)
 }
 
+[@@@deriving.end]
+
 type nodes = {
   id : string prop;  (** id *)
   zone : string prop;  (** zone *)
 }
+
+[@@@deriving.end]
 
 type server_ca_certs = {
   cert : string prop;  (** cert *)
@@ -23,6 +27,8 @@ type server_ca_certs = {
   serial_number : string prop;  (** serial_number *)
   sha1_fingerprint : string prop;  (** sha1_fingerprint *)
 }
+
+[@@@deriving.end]
 
 type maintenance_policy__weekly_maintenance_window__start_time
 

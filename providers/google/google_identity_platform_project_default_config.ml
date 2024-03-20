@@ -2,68 +2,318 @@
 
 open! Tf_core
 
-type sign_in__anonymous = {
-  enabled : bool prop;
-      (** Whether anonymous user auth is enabled for the project or not. *)
-}
-[@@deriving yojson_of]
-(** Configuration options related to authenticating an anonymous user. *)
+type sign_in__anonymous = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in__anonymous) -> ()
+
+let yojson_of_sign_in__anonymous =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : sign_in__anonymous -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in__anonymous
+
+[@@@deriving.end]
 
 type sign_in__email = {
   enabled : bool prop option; [@option]
-      (** Whether email auth is enabled for the project or not. *)
   password_required : bool prop option; [@option]
-      (** Whether a password is required for email auth or not. If true, both an email and
-password must be provided to sign in. If false, a user may sign in via either
-email/password or email link. *)
 }
-[@@deriving yojson_of]
-(** Configuration options related to authenticating a user by their email address. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in__email) -> ()
+
+let yojson_of_sign_in__email =
+  (function
+   | { enabled = v_enabled; password_required = v_password_required }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_password_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "password_required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sign_in__email -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in__email
+
+[@@@deriving.end]
 
 type sign_in__phone_number = {
   enabled : bool prop option; [@option]
-      (** Whether phone number auth is enabled for the project or not. *)
   test_phone_numbers : (string * string prop) list option; [@option]
-      (** A map of <test phone number, fake code> that can be used for phone auth testing. *)
 }
-[@@deriving yojson_of]
-(** Configuration options related to authenticated a user by their phone number. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in__phone_number) -> ()
+
+let yojson_of_sign_in__phone_number =
+  (function
+   | {
+       enabled = v_enabled;
+       test_phone_numbers = v_test_phone_numbers;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_test_phone_numbers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "test_phone_numbers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sign_in__phone_number -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in__phone_number
+
+[@@@deriving.end]
 
 type sign_in__hash_config = {
-  algorithm : string prop;  (** algorithm *)
-  memory_cost : float prop;  (** memory_cost *)
-  rounds : float prop;  (** rounds *)
-  salt_separator : string prop;  (** salt_separator *)
-  signer_key : string prop;  (** signer_key *)
+  algorithm : string prop;
+  memory_cost : float prop;
+  rounds : float prop;
+  salt_separator : string prop;
+  signer_key : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in__hash_config) -> ()
+
+let yojson_of_sign_in__hash_config =
+  (function
+   | {
+       algorithm = v_algorithm;
+       memory_cost = v_memory_cost;
+       rounds = v_rounds;
+       salt_separator = v_salt_separator;
+       signer_key = v_signer_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_signer_key in
+         ("signer_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_salt_separator
+         in
+         ("salt_separator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_rounds in
+         ("rounds", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_memory_cost in
+         ("memory_cost", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_algorithm in
+         ("algorithm", arg) :: bnds
+       in
+       `Assoc bnds
+    : sign_in__hash_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in__hash_config
+
+[@@@deriving.end]
 
 type sign_in = {
   allow_duplicate_emails : bool prop option; [@option]
-      (** Whether to allow more than one account to have the same email. *)
   anonymous : sign_in__anonymous list;
   email : sign_in__email list;
   phone_number : sign_in__phone_number list;
 }
-[@@deriving yojson_of]
-(** Configuration related to local sign in methods. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in) -> ()
+
+let yojson_of_sign_in =
+  (function
+   | {
+       allow_duplicate_emails = v_allow_duplicate_emails;
+       anonymous = v_anonymous;
+       email = v_email;
+       phone_number = v_phone_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sign_in__phone_number
+             v_phone_number
+         in
+         ("phone_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sign_in__email v_email in
+         ("email", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sign_in__anonymous v_anonymous
+         in
+         ("anonymous", arg) :: bnds
+       in
+       let bnds =
+         match v_allow_duplicate_emails with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_duplicate_emails", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sign_in -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_identity_platform_project_default_config = {
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   sign_in : sign_in list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_identity_platform_project_default_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_identity_platform_project_default_config) -> ()
+
+let yojson_of_google_identity_platform_project_default_config =
+  (function
+   | {
+       id = v_id;
+       project = v_project;
+       sign_in = v_sign_in;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sign_in v_sign_in in
+         ("sign_in", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_identity_platform_project_default_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_identity_platform_project_default_config
+
+[@@@deriving.end]
 
 let sign_in__anonymous ~enabled () : sign_in__anonymous = { enabled }
 

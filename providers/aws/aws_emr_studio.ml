@@ -3,28 +3,170 @@
 open! Tf_core
 
 type aws_emr_studio = {
-  auth_mode : string prop;  (** auth_mode *)
-  default_s3_location : string prop;  (** default_s3_location *)
-  description : string prop option; [@option]  (** description *)
+  auth_mode : string prop;
+  default_s3_location : string prop;
+  description : string prop option; [@option]
   engine_security_group_id : string prop;
-      (** engine_security_group_id *)
-  id : string prop option; [@option]  (** id *)
-  idp_auth_url : string prop option; [@option]  (** idp_auth_url *)
+  id : string prop option; [@option]
+  idp_auth_url : string prop option; [@option]
   idp_relay_state_parameter_name : string prop option; [@option]
-      (** idp_relay_state_parameter_name *)
-  name : string prop;  (** name *)
-  service_role : string prop;  (** service_role *)
-  subnet_ids : string prop list;  (** subnet_ids *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  name : string prop;
+  service_role : string prop;
+  subnet_ids : string prop list;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  user_role : string prop option; [@option]  (** user_role *)
-  vpc_id : string prop;  (** vpc_id *)
+  user_role : string prop option; [@option]
+  vpc_id : string prop;
   workspace_security_group_id : string prop;
-      (** workspace_security_group_id *)
 }
-[@@deriving yojson_of]
-(** aws_emr_studio *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_emr_studio) -> ()
+
+let yojson_of_aws_emr_studio =
+  (function
+   | {
+       auth_mode = v_auth_mode;
+       default_s3_location = v_default_s3_location;
+       description = v_description;
+       engine_security_group_id = v_engine_security_group_id;
+       id = v_id;
+       idp_auth_url = v_idp_auth_url;
+       idp_relay_state_parameter_name =
+         v_idp_relay_state_parameter_name;
+       name = v_name;
+       service_role = v_service_role;
+       subnet_ids = v_subnet_ids;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       user_role = v_user_role;
+       vpc_id = v_vpc_id;
+       workspace_security_group_id = v_workspace_security_group_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_workspace_security_group_id
+         in
+         ("workspace_security_group_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         match v_user_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_role in
+         ("service_role", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_idp_relay_state_parameter_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "idp_relay_state_parameter_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_idp_auth_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "idp_auth_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_engine_security_group_id
+         in
+         ("engine_security_group_id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_default_s3_location
+         in
+         ("default_s3_location", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_auth_mode in
+         ("auth_mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_emr_studio -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_emr_studio
+
+[@@@deriving.end]
 
 let aws_emr_studio ?description ?id ?idp_auth_url
     ?idp_relay_state_parameter_name ?tags ?tags_all ?user_role

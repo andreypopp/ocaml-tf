@@ -4,34 +4,193 @@ open! Tf_core
 
 type selector = {
   labels : (string * string prop) list option; [@option]
-      (** labels *)
-  namespace : string prop;  (** namespace *)
+  namespace : string prop;
 }
-[@@deriving yojson_of]
-(** selector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : selector) -> ()
+
+let yojson_of_selector =
+  (function
+   | { labels = v_labels; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace in
+         ("namespace", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : selector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_selector
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_eks_fargate_profile = {
-  cluster_name : string prop;  (** cluster_name *)
-  fargate_profile_name : string prop;  (** fargate_profile_name *)
-  id : string prop option; [@option]  (** id *)
+  cluster_name : string prop;
+  fargate_profile_name : string prop;
+  id : string prop option; [@option]
   pod_execution_role_arn : string prop;
-      (** pod_execution_role_arn *)
-  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  subnet_ids : string prop list option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   selector : selector list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_eks_fargate_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_eks_fargate_profile) -> ()
+
+let yojson_of_aws_eks_fargate_profile =
+  (function
+   | {
+       cluster_name = v_cluster_name;
+       fargate_profile_name = v_fargate_profile_name;
+       id = v_id;
+       pod_execution_role_arn = v_pod_execution_role_arn;
+       subnet_ids = v_subnet_ids;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       selector = v_selector;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_selector v_selector in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "subnet_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_pod_execution_role_arn
+         in
+         ("pod_execution_role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_fargate_profile_name
+         in
+         ("fargate_profile_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_name in
+         ("cluster_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_eks_fargate_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_eks_fargate_profile
+
+[@@@deriving.end]
 
 let selector ?labels ~namespace () : selector = { labels; namespace }
 let timeouts ?create ?delete () : timeouts = { create; delete }

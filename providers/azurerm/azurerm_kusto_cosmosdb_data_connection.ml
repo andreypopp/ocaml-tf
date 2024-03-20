@@ -3,29 +3,149 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; read = v_read } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_kusto_cosmosdb_data_connection = {
-  cosmosdb_container_id : string prop;  (** cosmosdb_container_id *)
-  id : string prop option; [@option]  (** id *)
-  kusto_database_id : string prop;  (** kusto_database_id *)
-  location : string prop;  (** location *)
-  managed_identity_id : string prop;  (** managed_identity_id *)
+  cosmosdb_container_id : string prop;
+  id : string prop option; [@option]
+  kusto_database_id : string prop;
+  location : string prop;
+  managed_identity_id : string prop;
   mapping_rule_name : string prop option; [@option]
-      (** mapping_rule_name *)
-  name : string prop;  (** name *)
+  name : string prop;
   retrieval_start_date : string prop option; [@option]
-      (** retrieval_start_date *)
-  table_name : string prop;  (** table_name *)
+  table_name : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_kusto_cosmosdb_data_connection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_kusto_cosmosdb_data_connection) -> ()
+
+let yojson_of_azurerm_kusto_cosmosdb_data_connection =
+  (function
+   | {
+       cosmosdb_container_id = v_cosmosdb_container_id;
+       id = v_id;
+       kusto_database_id = v_kusto_database_id;
+       location = v_location;
+       managed_identity_id = v_managed_identity_id;
+       mapping_rule_name = v_mapping_rule_name;
+       name = v_name;
+       retrieval_start_date = v_retrieval_start_date;
+       table_name = v_table_name;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_name in
+         ("table_name", arg) :: bnds
+       in
+       let bnds =
+         match v_retrieval_start_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "retrieval_start_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mapping_rule_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mapping_rule_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_managed_identity_id
+         in
+         ("managed_identity_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_kusto_database_id
+         in
+         ("kusto_database_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cosmosdb_container_id
+         in
+         ("cosmosdb_container_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_kusto_cosmosdb_data_connection ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_kusto_cosmosdb_data_connection
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }

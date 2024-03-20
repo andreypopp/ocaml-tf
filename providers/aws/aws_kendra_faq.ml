@@ -2,36 +2,194 @@
 
 open! Tf_core
 
-type s3_path = {
-  bucket : string prop;  (** bucket *)
-  key : string prop;  (** key *)
-}
-[@@deriving yojson_of]
-(** s3_path *)
+type s3_path = { bucket : string prop; key : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : s3_path) -> ()
+
+let yojson_of_s3_path =
+  (function
+   | { bucket = v_bucket; key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : s3_path -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_s3_path
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_kendra_faq = {
-  description : string prop option; [@option]  (** description *)
-  file_format : string prop option; [@option]  (** file_format *)
-  id : string prop option; [@option]  (** id *)
-  index_id : string prop;  (** index_id *)
-  language_code : string prop option; [@option]  (** language_code *)
-  name : string prop;  (** name *)
-  role_arn : string prop;  (** role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  file_format : string prop option; [@option]
+  id : string prop option; [@option]
+  index_id : string prop;
+  language_code : string prop option; [@option]
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   s3_path : s3_path list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_kendra_faq *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_kendra_faq) -> ()
+
+let yojson_of_aws_kendra_faq =
+  (function
+   | {
+       description = v_description;
+       file_format = v_file_format;
+       id = v_id;
+       index_id = v_index_id;
+       language_code = v_language_code;
+       name = v_name;
+       role_arn = v_role_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       s3_path = v_s3_path;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_s3_path v_s3_path in
+         ("s3_path", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_language_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "language_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_index_id in
+         ("index_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "file_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_kendra_faq -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_kendra_faq
+
+[@@@deriving.end]
 
 let s3_path ~bucket ~key () : s3_path = { bucket; key }
 let timeouts ?create ?delete () : timeouts = { create; delete }

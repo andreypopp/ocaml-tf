@@ -2,29 +2,122 @@
 
 open! Tf_core
 
-type metadata = { name : string prop  (** The name of the node *) }
-[@@deriving yojson_of]
-(** metadata *)
+type metadata = { name : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type taint = {
-  effect : string prop;  (** The taint effect *)
-  key : string prop;  (** The taint key *)
-  value : string prop;  (** The taint value *)
+  effect : string prop;
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** taint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : taint) -> ()
+
+let yojson_of_taint =
+  (function
+   | { effect = v_effect; key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_effect in
+         ("effect", arg) :: bnds
+       in
+       `Assoc bnds
+    : taint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_taint
+
+[@@@deriving.end]
 
 type kubernetes_node_taint = {
   field_manager : string prop option; [@option]
-      (** Set the name of the field manager for the node taint *)
   force : bool prop option; [@option]
-      (** Force overwriting annotations that were created or edited outside of Terraform. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   metadata : metadata list;
   taint : taint list;
 }
-[@@deriving yojson_of]
-(** kubernetes_node_taint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_node_taint) -> ()
+
+let yojson_of_kubernetes_node_taint =
+  (function
+   | {
+       field_manager = v_field_manager;
+       force = v_force;
+       id = v_id;
+       metadata = v_metadata;
+       taint = v_taint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_taint v_taint in
+         ("taint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_field_manager with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_manager", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_node_taint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_node_taint
+
+[@@@deriving.end]
 
 let metadata ~name () : metadata = { name }
 let taint ~effect ~key ~value () : taint = { effect; key; value }

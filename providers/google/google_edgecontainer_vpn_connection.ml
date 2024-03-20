@@ -3,60 +3,300 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type vpc_project = {
-  project_id : string prop option; [@option]
-      (** The project of the VPC to connect to. If not specified, it is the same as the cluster project. *)
-}
-[@@deriving yojson_of]
-(** Project detail of the VPC network. Required if VPC is in a different project than the cluster project. *)
+let _ = fun (_ : timeouts) -> ()
 
-type details__cloud_vpns = { gateway : string prop  (** gateway *) }
-[@@deriving yojson_of]
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-type details__cloud_router = { name : string prop  (** name *) }
-[@@deriving yojson_of]
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type vpc_project = { project_id : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vpc_project) -> ()
+
+let yojson_of_vpc_project =
+  (function
+   | { project_id = v_project_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : vpc_project -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc_project
+
+[@@@deriving.end]
+
+type details__cloud_vpns = { gateway : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : details__cloud_vpns) -> ()
+
+let yojson_of_details__cloud_vpns =
+  (function
+   | { gateway = v_gateway } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_gateway in
+         ("gateway", arg) :: bnds
+       in
+       `Assoc bnds
+    : details__cloud_vpns -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_details__cloud_vpns
+
+[@@@deriving.end]
+
+type details__cloud_router = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : details__cloud_router) -> ()
+
+let yojson_of_details__cloud_router =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : details__cloud_router -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_details__cloud_router
+
+[@@@deriving.end]
 
 type details = {
-  cloud_router : details__cloud_router list;  (** cloud_router *)
-  cloud_vpns : details__cloud_vpns list;  (** cloud_vpns *)
-  error : string prop;  (** error *)
-  state : string prop;  (** state *)
+  cloud_router : details__cloud_router list;
+  cloud_vpns : details__cloud_vpns list;
+  error : string prop;
+  state : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : details) -> ()
+
+let yojson_of_details =
+  (function
+   | {
+       cloud_router = v_cloud_router;
+       cloud_vpns = v_cloud_vpns;
+       error = v_error;
+       state = v_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_error in
+         ("error", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_details__cloud_vpns v_cloud_vpns
+         in
+         ("cloud_vpns", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_details__cloud_router
+             v_cloud_router
+         in
+         ("cloud_router", arg) :: bnds
+       in
+       `Assoc bnds
+    : details -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_details
+
+[@@@deriving.end]
 
 type google_edgecontainer_vpn_connection = {
   cluster : string prop;
-      (** The canonical Cluster name to connect to. It is in the form of projects/{project}/locations/{location}/clusters/{cluster}. *)
   enable_high_availability : bool prop option; [@option]
-      (** Whether this VPN connection has HA enabled on cluster side. If enabled, when creating VPN connection we will attempt to use 2 ANG floating IPs. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels associated with this resource.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** Google Cloud Platform location. *)
-  name : string prop;  (** The resource name of VPN connection *)
+  location : string prop;
+  name : string prop;
   nat_gateway_ip : string prop option; [@option]
-      (** NAT gateway IP, or WAN IP address. If a customer has multiple NAT IPs, the customer needs to configure NAT such that only one external IP maps to the GMEC Anthos cluster.
-This is empty if NAT is not used. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   router : string prop option; [@option]
-      (** The VPN connection Cloud Router name. *)
   vpc : string prop option; [@option]
-      (** The network ID of VPC to connect to. *)
   timeouts : timeouts option;
   vpc_project : vpc_project list;
 }
-[@@deriving yojson_of]
-(** google_edgecontainer_vpn_connection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_edgecontainer_vpn_connection) -> ()
+
+let yojson_of_google_edgecontainer_vpn_connection =
+  (function
+   | {
+       cluster = v_cluster;
+       enable_high_availability = v_enable_high_availability;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       nat_gateway_ip = v_nat_gateway_ip;
+       project = v_project;
+       router = v_router;
+       vpc = v_vpc;
+       timeouts = v_timeouts;
+       vpc_project = v_vpc_project;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vpc_project v_vpc_project
+         in
+         ("vpc_project", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_vpc with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vpc", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_router with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "router", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nat_gateway_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "nat_gateway_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_high_availability with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_high_availability", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster in
+         ("cluster", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_edgecontainer_vpn_connection ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_edgecontainer_vpn_connection
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

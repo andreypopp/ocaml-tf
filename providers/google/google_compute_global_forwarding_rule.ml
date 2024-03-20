@@ -4,220 +4,356 @@ open! Tf_core
 
 type metadata_filters__filter_labels = {
   name : string prop;
-      (** Name of the metadata label. The length must be between
-1 and 1024 characters, inclusive. *)
   value : string prop;
-      (** The value that the label must match. The value has a maximum
-length of 1024 characters. *)
 }
-[@@deriving yojson_of]
-(** The list of label value pairs that must match labels in the
-provided metadata based on filterMatchCriteria
+[@@deriving_inline yojson_of]
 
-This list must not be empty and can have at the most 64 entries. *)
+let _ = fun (_ : metadata_filters__filter_labels) -> ()
+
+let yojson_of_metadata_filters__filter_labels =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : metadata_filters__filter_labels ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata_filters__filter_labels
+
+[@@@deriving.end]
 
 type metadata_filters = {
   filter_match_criteria : string prop;
-      (** Specifies how individual filterLabel matches within the list of
-filterLabels contribute towards the overall metadataFilter match.
-
-MATCH_ANY - At least one of the filterLabels must have a matching
-label in the provided metadata.
-MATCH_ALL - All filterLabels must have matching labels in the
-provided metadata. Possible values: [MATCH_ANY, MATCH_ALL] *)
   filter_labels : metadata_filters__filter_labels list;
 }
-[@@deriving yojson_of]
-(** Opaque filter criteria used by Loadbalancer to restrict routing
-configuration to a limited set xDS compliant clients. In their xDS
-requests to Loadbalancer, xDS clients present node metadata. If a
-match takes place, the relevant routing configuration is made available
-to those proxies.
+[@@deriving_inline yojson_of]
 
-For each metadataFilter in this list, if its filterMatchCriteria is set
-to MATCH_ANY, at least one of the filterLabels must match the
-corresponding label provided in the metadata. If its filterMatchCriteria
-is set to MATCH_ALL, then all of its filterLabels must match with
-corresponding labels in the provided metadata.
+let _ = fun (_ : metadata_filters) -> ()
 
-metadataFilters specified here can be overridden by those specified in
-the UrlMap that this ForwardingRule references.
+let yojson_of_metadata_filters =
+  (function
+   | {
+       filter_match_criteria = v_filter_match_criteria;
+       filter_labels = v_filter_labels;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_metadata_filters__filter_labels
+             v_filter_labels
+         in
+         ("filter_labels", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_filter_match_criteria
+         in
+         ("filter_match_criteria", arg) :: bnds
+       in
+       `Assoc bnds
+    : metadata_filters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-metadataFilters only applies to Loadbalancers that have their
-loadBalancingScheme set to INTERNAL_SELF_MANAGED. *)
+let _ = yojson_of_metadata_filters
+
+[@@@deriving.end]
 
 type service_directory_registrations = {
   namespace : string prop option; [@option]
-      (** Service Directory namespace to register the forwarding rule under. *)
   service_directory_region : string prop option; [@option]
-      (** [Optional] Service Directory region to register this global forwarding rule under.
-Default to us-central1. Only used for PSC for Google APIs. All PSC for
-Google APIs Forwarding Rules on the same network should use the same Service
-Directory region. *)
 }
-[@@deriving yojson_of]
-(** Service Directory resources to register this forwarding rule with.
+[@@deriving_inline yojson_of]
 
-Currently, only supports a single Service Directory resource. *)
+let _ = fun (_ : service_directory_registrations) -> ()
+
+let yojson_of_service_directory_registrations =
+  (function
+   | {
+       namespace = v_namespace;
+       service_directory_region = v_service_directory_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service_directory_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_directory_region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : service_directory_registrations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_directory_registrations
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_global_forwarding_rule = {
   description : string prop option; [@option]
-      (** An optional description of this resource. Provide this property when
-you create the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_address : string prop option; [@option]
-      (** IP address for which this forwarding rule accepts traffic. When a client
-sends traffic to this IP address, the forwarding rule directs the traffic
-to the referenced 'target'.
-
-While creating a forwarding rule, specifying an 'IPAddress' is
-required under the following circumstances:
-
-* When the 'target' is set to 'targetGrpcProxy' and
-'validateForProxyless' is set to 'true', the
-'IPAddress' should be set to '0.0.0.0'.
-* When the 'target' is a Private Service Connect Google APIs
-bundle, you must specify an 'IPAddress'.
-
-
-Otherwise, you can optionally specify an IP address that references an
-existing static (reserved) IP address resource. When omitted, Google Cloud
-assigns an ephemeral IP address.
-
-Use one of the following formats to specify an IP address while creating a
-forwarding rule:
-
-* IP address number, as in '100.1.2.3'
-* IPv6 address range, as in '2600:1234::/96'
-* Full resource URL, as in
-'https://www.googleapis.com/compute/v1/projects/project_id/regions/region/addresses/address-name'
-* Partial URL or by name, as in:
-  * 'projects/project_id/regions/region/addresses/address-name'
-  * 'regions/region/addresses/address-name'
-  * 'global/addresses/address-name'
-  * 'address-name'
-
-
-The forwarding rule's 'target',
-and in most cases, also the 'loadBalancingScheme', determine the
-type of IP address that you can use. For detailed information, see
-[IP address
-specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts#ip_address_specifications).
-
-When reading an 'IPAddress', the API always returns the IP
-address number. *)
   ip_protocol : string prop option; [@option]
-      (** The IP protocol to which this rule applies.
-
-For protocol forwarding, valid
-options are 'TCP', 'UDP', 'ESP',
-'AH', 'SCTP', 'ICMP' and
-'L3_DEFAULT'.
-
-The valid IP protocols are different for different load balancing products
-as described in [Load balancing
-features](https://cloud.google.com/load-balancing/docs/features#protocols_from_the_load_balancer_to_the_backends). Possible values: [TCP, UDP, ESP, AH, SCTP, ICMP] *)
   ip_version : string prop option; [@option]
-      (** The IP Version that will be used by this global forwarding rule. Possible values: [IPV4, IPV6] *)
   labels : (string * string prop) list option; [@option]
-      (** Labels to apply to this forwarding rule.  A list of key->value pairs.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   load_balancing_scheme : string prop option; [@option]
-      (** Specifies the forwarding rule type.
-
-For more information about forwarding rules, refer to
-[Forwarding rule concepts](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts). Default value: EXTERNAL Possible values: [EXTERNAL, EXTERNAL_MANAGED, INTERNAL_MANAGED, INTERNAL_SELF_MANAGED] *)
   name : string prop;
-      (** Name of the resource; provided by the client when the resource is created.
-The name must be 1-63 characters long, and comply with
-[RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
-
-Specifically, the name must be 1-63 characters long and match the regular
-expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the first
-character must be a lowercase letter, and all following characters must
-be a dash, lowercase letter, or digit, except the last character, which
-cannot be a dash.
-
-For Private Service Connect forwarding rules that forward traffic to Google
-APIs, the forwarding rule name must be a 1-20 characters string with
-lowercase letters and numbers and must start with a letter. *)
   network : string prop option; [@option]
-      (** This field is not used for external load balancing.
-
-For Internal TCP/UDP Load Balancing, this field identifies the network that
-the load balanced IP should belong to for this Forwarding Rule.
-If the subnetwork is specified, the network of the subnetwork will be used.
-If neither subnetwork nor this field is specified, the default network will
-be used.
-
-For Private Service Connect forwarding rules that forward traffic to Google
-APIs, a network must be provided. *)
   no_automate_dns_zone : bool prop option; [@option]
-      (** This is used in PSC consumer ForwardingRule to control whether it should try to auto-generate a DNS zone or not. Non-PSC forwarding rules do not use this field. *)
   port_range : string prop option; [@option]
-      (** The 'portRange' field has the following limitations:
-* It requires that the forwarding rule 'IPProtocol' be TCP, UDP, or SCTP,
-and
-* It's applicable only to the following products: external passthrough
-Network Load Balancers, internal and external proxy Network Load
-Balancers, internal and external Application Load Balancers, external
-protocol forwarding, and Classic VPN.
-* Some products have restrictions on what ports can be used. See
-[port specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts#port_specifications)
-for details.
-
-For external forwarding rules, two or more forwarding rules cannot use the
-same '[IPAddress, IPProtocol]' pair, and cannot have overlapping
-'portRange's.
-
-For internal forwarding rules within the same VPC network, two or more
-forwarding rules cannot use the same '[IPAddress, IPProtocol]' pair, and
-cannot have overlapping 'portRange's.
-
-@pattern: \d+(?:-\d+)? *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   source_ip_ranges : string prop list option; [@option]
-      (** If not empty, this Forwarding Rule will only forward the traffic when the source IP address matches one of the IP addresses or CIDR ranges set here. Note that a Forwarding Rule can only have up to 64 source IP ranges, and this field can only be used with a regional Forwarding Rule whose scheme is EXTERNAL. Each sourceIpRange entry should be either an IP address (for example, 1.2.3.4) or a CIDR range (for example, 1.2.3.0/24). *)
   subnetwork : string prop option; [@option]
-      (** This field identifies the subnetwork that the load balanced IP should
-belong to for this Forwarding Rule, used in internal load balancing and
-network load balancing with IPv6.
-
-If the network specified is in auto subnet mode, this field is optional.
-However, a subnetwork must be specified if the network is in custom subnet
-mode or when creating external forwarding rule with IPv6. *)
   target : string prop;
-      (** The URL of the target resource to receive the matched traffic.  For
-regional forwarding rules, this target must be in the same region as the
-forwarding rule. For global forwarding rules, this target must be a global
-load balancing resource.
-
-The forwarded traffic must be of a type appropriate to the target object.
-*  For load balancers, see the Target column in [Port specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts#ip_address_specifications).
-*  For Private Service Connect forwarding rules that forward traffic to Google APIs, provide the name of a supported Google API bundle:
-  *  'vpc-sc' - [ APIs that support VPC Service Controls](https://cloud.google.com/vpc-service-controls/docs/supported-products).
-  *  'all-apis' - [All supported Google APIs](https://cloud.google.com/vpc/docs/private-service-connect#supported-apis).
-
-
-For Private Service Connect forwarding rules that forward traffic to managed services, the target must be a service attachment. *)
   metadata_filters : metadata_filters list;
   service_directory_registrations :
     service_directory_registrations list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_global_forwarding_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_global_forwarding_rule) -> ()
+
+let yojson_of_google_compute_global_forwarding_rule =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       ip_address = v_ip_address;
+       ip_protocol = v_ip_protocol;
+       ip_version = v_ip_version;
+       labels = v_labels;
+       load_balancing_scheme = v_load_balancing_scheme;
+       name = v_name;
+       network = v_network;
+       no_automate_dns_zone = v_no_automate_dns_zone;
+       port_range = v_port_range;
+       project = v_project;
+       source_ip_ranges = v_source_ip_ranges;
+       subnetwork = v_subnetwork;
+       target = v_target;
+       metadata_filters = v_metadata_filters;
+       service_directory_registrations =
+         v_service_directory_registrations;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_service_directory_registrations
+             v_service_directory_registrations
+         in
+         ("service_directory_registrations", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_metadata_filters
+             v_metadata_filters
+         in
+         ("metadata_filters", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         match v_subnetwork with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_ip_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_ip_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_no_automate_dns_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "no_automate_dns_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_load_balancing_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "load_balancing_scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_global_forwarding_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_global_forwarding_rule
+
+[@@@deriving.end]
 
 let metadata_filters__filter_labels ~name ~value () :
     metadata_filters__filter_labels =

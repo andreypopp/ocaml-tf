@@ -5,8 +5,17 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type certificate_authority = { data : string prop  (** data *) }
+
+[@@@deriving.end]
+
 type identity__oidc = { issuer : string prop  (** issuer *) }
+
+[@@@deriving.end]
+
 type identity = { oidc : identity__oidc list  (** oidc *) }
+
+[@@@deriving.end]
+
 type access_config
 
 val access_config :

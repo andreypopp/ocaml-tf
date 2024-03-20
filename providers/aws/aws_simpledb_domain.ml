@@ -2,9 +2,27 @@
 
 open! Tf_core
 
-type aws_simpledb_domain = { name : string prop  (** name *) }
-[@@deriving yojson_of]
-(** aws_simpledb_domain *)
+type aws_simpledb_domain = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_simpledb_domain) -> ()
+
+let yojson_of_aws_simpledb_domain =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_simpledb_domain -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_simpledb_domain
+
+[@@@deriving.end]
 
 let aws_simpledb_domain ~name () : aws_simpledb_domain = { name }
 

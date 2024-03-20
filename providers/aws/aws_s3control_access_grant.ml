@@ -3,32 +3,158 @@
 open! Tf_core
 
 type access_grants_location_configuration = {
-  s3_sub_prefix : string prop option; [@option]  (** s3_sub_prefix *)
+  s3_sub_prefix : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** access_grants_location_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_grants_location_configuration) -> ()
+
+let yojson_of_access_grants_location_configuration =
+  (function
+   | { s3_sub_prefix = v_s3_sub_prefix } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_s3_sub_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_sub_prefix", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_grants_location_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_grants_location_configuration
+
+[@@@deriving.end]
 
 type grantee = {
-  grantee_identifier : string prop;  (** grantee_identifier *)
-  grantee_type : string prop;  (** grantee_type *)
+  grantee_identifier : string prop;
+  grantee_type : string prop;
 }
-[@@deriving yojson_of]
-(** grantee *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : grantee) -> ()
+
+let yojson_of_grantee =
+  (function
+   | {
+       grantee_identifier = v_grantee_identifier;
+       grantee_type = v_grantee_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_grantee_type in
+         ("grantee_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_grantee_identifier
+         in
+         ("grantee_identifier", arg) :: bnds
+       in
+       `Assoc bnds
+    : grantee -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_grantee
+
+[@@@deriving.end]
 
 type aws_s3control_access_grant = {
   access_grants_location_id : string prop;
-      (** access_grants_location_id *)
-  account_id : string prop option; [@option]  (** account_id *)
-  permission : string prop;  (** permission *)
+  account_id : string prop option; [@option]
+  permission : string prop;
   s3_prefix_type : string prop option; [@option]
-      (** s3_prefix_type *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   access_grants_location_configuration :
     access_grants_location_configuration list;
   grantee : grantee list;
 }
-[@@deriving yojson_of]
-(** aws_s3control_access_grant *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_s3control_access_grant) -> ()
+
+let yojson_of_aws_s3control_access_grant =
+  (function
+   | {
+       access_grants_location_id = v_access_grants_location_id;
+       account_id = v_account_id;
+       permission = v_permission;
+       s3_prefix_type = v_s3_prefix_type;
+       tags = v_tags;
+       access_grants_location_configuration =
+         v_access_grants_location_configuration;
+       grantee = v_grantee;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_grantee v_grantee in
+         ("grantee", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_access_grants_location_configuration
+             v_access_grants_location_configuration
+         in
+         ("access_grants_location_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_s3_prefix_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_prefix_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_permission in
+         ("permission", arg) :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_access_grants_location_id
+         in
+         ("access_grants_location_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_s3control_access_grant -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3control_access_grant
+
+[@@@deriving.end]
 
 let access_grants_location_configuration ?s3_sub_prefix () :
     access_grants_location_configuration =

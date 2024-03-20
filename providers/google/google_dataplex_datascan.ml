@@ -4,162 +4,573 @@ open! Tf_core
 
 type data = {
   entity : string prop option; [@option]
-      (** The Dataplex entity that represents the data source(e.g. BigQuery table) for Datascan. *)
   resource : string prop option; [@option]
-      (** The service-qualified full resource name of the cloud resource for a DataScan job to scan against. The field could be:
-(Cloud Storage bucket for DataDiscoveryScan)BigQuery table of type TABLE for DataProfileScan/DataQualityScan. *)
 }
-[@@deriving yojson_of]
-(** The data source for DataScan. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data) -> ()
+
+let yojson_of_data =
+  (function
+   | { entity = v_entity; resource = v_resource } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_resource with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_entity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "entity", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data
+
+[@@@deriving.end]
 
 type data_profile_spec__exclude_fields = {
   field_names : string prop list option; [@option]
-      (** Expected input is a list of fully qualified names of fields as in the schema.
-Only top-level field names for nested fields are supported.
-For instance, if 'x' is of nested field type, listing 'x' is supported but 'x.y.z' is not supported. Here 'y' and 'y.z' are nested fields of 'x'. *)
 }
-[@@deriving yojson_of]
-(** The fields to exclude from data profile.
-If specified, the fields will be excluded from data profile, regardless of 'include_fields' value. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_profile_spec__exclude_fields) -> ()
+
+let yojson_of_data_profile_spec__exclude_fields =
+  (function
+   | { field_names = v_field_names } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_field_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "field_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_profile_spec__exclude_fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_profile_spec__exclude_fields
+
+[@@@deriving.end]
 
 type data_profile_spec__include_fields = {
   field_names : string prop list option; [@option]
-      (** Expected input is a list of fully qualified names of fields as in the schema.
-Only top-level field names for nested fields are supported.
-For instance, if 'x' is of nested field type, listing 'x' is supported but 'x.y.z' is not supported. Here 'y' and 'y.z' are nested fields of 'x'. *)
 }
-[@@deriving yojson_of]
-(** The fields to include in data profile.
-If not specified, all fields at the time of profile scan job execution are included, except for ones listed in 'exclude_fields'. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_profile_spec__include_fields) -> ()
+
+let yojson_of_data_profile_spec__include_fields =
+  (function
+   | { field_names = v_field_names } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_field_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "field_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_profile_spec__include_fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_profile_spec__include_fields
+
+[@@@deriving.end]
 
 type data_profile_spec__post_scan_actions__bigquery_export = {
   results_table : string prop option; [@option]
-      (** The BigQuery table to export DataProfileScan results to.
-Format://bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID *)
 }
-[@@deriving yojson_of]
-(** If set, results will be exported to the provided BigQuery table. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : data_profile_spec__post_scan_actions__bigquery_export) ->
+  ()
+
+let yojson_of_data_profile_spec__post_scan_actions__bigquery_export =
+  (function
+   | { results_table = v_results_table } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_results_table with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "results_table", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_profile_spec__post_scan_actions__bigquery_export ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_data_profile_spec__post_scan_actions__bigquery_export
+
+[@@@deriving.end]
 
 type data_profile_spec__post_scan_actions = {
   bigquery_export :
     data_profile_spec__post_scan_actions__bigquery_export list;
 }
-[@@deriving yojson_of]
-(** Actions to take upon job completion. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_profile_spec__post_scan_actions) -> ()
+
+let yojson_of_data_profile_spec__post_scan_actions =
+  (function
+   | { bigquery_export = v_bigquery_export } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_profile_spec__post_scan_actions__bigquery_export
+             v_bigquery_export
+         in
+         ("bigquery_export", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_profile_spec__post_scan_actions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_profile_spec__post_scan_actions
+
+[@@@deriving.end]
 
 type data_profile_spec = {
   row_filter : string prop option; [@option]
-      (** A filter applied to all rows in a single DataScan job. The filter needs to be a valid SQL expression for a WHERE clause in BigQuery standard SQL syntax. Example: col1 >= 0 AND col2 < 10 *)
   sampling_percent : float prop option; [@option]
-      (** The percentage of the records to be selected from the dataset for DataScan.
-Value can range between 0.0 and 100.0 with up to 3 significant decimal digits.
-Sampling is not applied if 'sampling_percent' is not specified, 0 or 100. *)
   exclude_fields : data_profile_spec__exclude_fields list;
   include_fields : data_profile_spec__include_fields list;
   post_scan_actions : data_profile_spec__post_scan_actions list;
 }
-[@@deriving yojson_of]
-(** DataProfileScan related setting. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_profile_spec) -> ()
+
+let yojson_of_data_profile_spec =
+  (function
+   | {
+       row_filter = v_row_filter;
+       sampling_percent = v_sampling_percent;
+       exclude_fields = v_exclude_fields;
+       include_fields = v_include_fields;
+       post_scan_actions = v_post_scan_actions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_profile_spec__post_scan_actions
+             v_post_scan_actions
+         in
+         ("post_scan_actions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_profile_spec__include_fields
+             v_include_fields
+         in
+         ("include_fields", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_profile_spec__exclude_fields
+             v_exclude_fields
+         in
+         ("exclude_fields", arg) :: bnds
+       in
+       let bnds =
+         match v_sampling_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "sampling_percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_row_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "row_filter", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_profile_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_profile_spec
+
+[@@@deriving.end]
 
 type data_quality_spec__post_scan_actions__bigquery_export = {
   results_table : string prop option; [@option]
-      (** The BigQuery table to export DataQualityScan results to.
-Format://bigquery.googleapis.com/projects/PROJECT_ID/datasets/DATASET_ID/tables/TABLE_ID *)
 }
-[@@deriving yojson_of]
-(** If set, results will be exported to the provided BigQuery table. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : data_quality_spec__post_scan_actions__bigquery_export) ->
+  ()
+
+let yojson_of_data_quality_spec__post_scan_actions__bigquery_export =
+  (function
+   | { results_table = v_results_table } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_results_table with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "results_table", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__post_scan_actions__bigquery_export ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_data_quality_spec__post_scan_actions__bigquery_export
+
+[@@@deriving.end]
 
 type data_quality_spec__post_scan_actions = {
   bigquery_export :
     data_quality_spec__post_scan_actions__bigquery_export list;
 }
-[@@deriving yojson_of]
-(** Actions to take upon job completion. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_quality_spec__post_scan_actions) -> ()
+
+let yojson_of_data_quality_spec__post_scan_actions =
+  (function
+   | { bigquery_export = v_bigquery_export } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__post_scan_actions__bigquery_export
+             v_bigquery_export
+         in
+         ("bigquery_export", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__post_scan_actions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec__post_scan_actions
+
+[@@@deriving.end]
 
 type data_quality_spec__rules__non_null_expectation = unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : data_quality_spec__rules__non_null_expectation) -> ()
+
+let yojson_of_data_quality_spec__rules__non_null_expectation =
+  (yojson_of_unit
+    : data_quality_spec__rules__non_null_expectation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec__rules__non_null_expectation
+
+[@@@deriving.end]
 
 type data_quality_spec__rules__range_expectation = {
   max_value : string prop option; [@option]
-      (** The maximum column value allowed for a row to pass this validation. At least one of minValue and maxValue need to be provided. *)
   min_value : string prop option; [@option]
-      (** The minimum column value allowed for a row to pass this validation. At least one of minValue and maxValue need to be provided. *)
   strict_max_enabled : bool prop option; [@option]
-      (** Whether each value needs to be strictly lesser than ('<') the maximum, or if equality is allowed.
-Only relevant if a maxValue has been defined. Default = false. *)
   strict_min_enabled : bool prop option; [@option]
-      (** Whether each value needs to be strictly greater than ('>') the minimum, or if equality is allowed.
-Only relevant if a minValue has been defined. Default = false. *)
 }
-[@@deriving yojson_of]
-(** ColumnMap rule which evaluates whether each column value lies between a specified range. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_quality_spec__rules__range_expectation) -> ()
+
+let yojson_of_data_quality_spec__rules__range_expectation =
+  (function
+   | {
+       max_value = v_max_value;
+       min_value = v_min_value;
+       strict_max_enabled = v_strict_max_enabled;
+       strict_min_enabled = v_strict_min_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_strict_min_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "strict_min_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_strict_max_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "strict_max_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__rules__range_expectation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec__rules__range_expectation
+
+[@@@deriving.end]
 
 type data_quality_spec__rules__regex_expectation = {
   regex : string prop;
-      (** A regular expression the column value is expected to match. *)
 }
-[@@deriving yojson_of]
-(** ColumnMap rule which evaluates whether each column value matches a specified regex. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_quality_spec__rules__regex_expectation) -> ()
+
+let yojson_of_data_quality_spec__rules__regex_expectation =
+  (function
+   | { regex = v_regex } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_regex in
+         ("regex", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__rules__regex_expectation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec__rules__regex_expectation
+
+[@@@deriving.end]
 
 type data_quality_spec__rules__row_condition_expectation = {
-  sql_expression : string prop;  (** The SQL expression. *)
+  sql_expression : string prop;
 }
-[@@deriving yojson_of]
-(** Table rule which evaluates whether each row passes the specified condition. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : data_quality_spec__rules__row_condition_expectation) -> ()
+
+let yojson_of_data_quality_spec__rules__row_condition_expectation =
+  (function
+   | { sql_expression = v_sql_expression } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_sql_expression
+         in
+         ("sql_expression", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__rules__row_condition_expectation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec__rules__row_condition_expectation
+
+[@@@deriving.end]
 
 type data_quality_spec__rules__set_expectation = {
   values : string prop list;
-      (** Expected values for the column value. *)
 }
-[@@deriving yojson_of]
-(** ColumnMap rule which evaluates whether each column value is contained by a specified set. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_quality_spec__rules__set_expectation) -> ()
+
+let yojson_of_data_quality_spec__rules__set_expectation =
+  (function
+   | { values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__rules__set_expectation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec__rules__set_expectation
+
+[@@@deriving.end]
 
 type data_quality_spec__rules__statistic_range_expectation = {
   max_value : string prop option; [@option]
-      (** The maximum column statistic value allowed for a row to pass this validation.
-At least one of minValue and maxValue need to be provided. *)
   min_value : string prop option; [@option]
-      (** The minimum column statistic value allowed for a row to pass this validation.
-At least one of minValue and maxValue need to be provided. *)
   statistic : string prop;
-      (** column statistics. Possible values: [STATISTIC_UNDEFINED, MEAN, MIN, MAX] *)
   strict_max_enabled : bool prop option; [@option]
-      (** Whether column statistic needs to be strictly lesser than ('<') the maximum, or if equality is allowed.
-Only relevant if a maxValue has been defined. Default = false. *)
   strict_min_enabled : bool prop option; [@option]
-      (** Whether column statistic needs to be strictly greater than ('>') the minimum, or if equality is allowed.
-Only relevant if a minValue has been defined. Default = false. *)
 }
-[@@deriving yojson_of]
-(** ColumnAggregate rule which evaluates whether the column aggregate statistic lies between a specified range. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : data_quality_spec__rules__statistic_range_expectation) ->
+  ()
+
+let yojson_of_data_quality_spec__rules__statistic_range_expectation =
+  (function
+   | {
+       max_value = v_max_value;
+       min_value = v_min_value;
+       statistic = v_statistic;
+       strict_max_enabled = v_strict_max_enabled;
+       strict_min_enabled = v_strict_min_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_strict_min_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "strict_min_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_strict_max_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "strict_max_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_statistic in
+         ("statistic", arg) :: bnds
+       in
+       let bnds =
+         match v_min_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__rules__statistic_range_expectation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_data_quality_spec__rules__statistic_range_expectation
+
+[@@@deriving.end]
 
 type data_quality_spec__rules__table_condition_expectation = {
-  sql_expression : string prop;  (** The SQL expression. *)
+  sql_expression : string prop;
 }
-[@@deriving yojson_of]
-(** Table rule which evaluates whether the provided expression is true. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : data_quality_spec__rules__table_condition_expectation) ->
+  ()
+
+let yojson_of_data_quality_spec__rules__table_condition_expectation =
+  (function
+   | { sql_expression = v_sql_expression } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_sql_expression
+         in
+         ("sql_expression", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__rules__table_condition_expectation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_data_quality_spec__rules__table_condition_expectation
+
+[@@@deriving.end]
 
 type data_quality_spec__rules__uniqueness_expectation = unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : data_quality_spec__rules__uniqueness_expectation) -> ()
+
+let yojson_of_data_quality_spec__rules__uniqueness_expectation =
+  (yojson_of_unit
+    : data_quality_spec__rules__uniqueness_expectation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec__rules__uniqueness_expectation
+
+[@@@deriving.end]
 
 type data_quality_spec__rules = {
   column : string prop option; [@option]
-      (** The unnested column which this rule is evaluated against. *)
   description : string prop option; [@option]
-      (** Description of the rule.
-The maximum length is 1,024 characters. *)
   dimension : string prop;
-      (** The dimension a rule belongs to. Results are also aggregated at the dimension level. Supported dimensions are [COMPLETENESS, ACCURACY, CONSISTENCY, VALIDITY, UNIQUENESS, INTEGRITY] *)
   ignore_null : bool prop option; [@option]
-      (** Rows with null values will automatically fail a rule, unless ignoreNull is true. In that case, such null rows are trivially considered passing. Only applicable to ColumnMap rules. *)
   name : string prop option; [@option]
-      (** A mutable name for the rule.
-The name must contain only letters (a-z, A-Z), numbers (0-9), or hyphens (-).
-The maximum length is 63 characters.
-Must start with a letter.
-Must end with a number or a letter. *)
   threshold : float prop option; [@option]
-      (** The minimum ratio of passing_rows / total_rows required to pass this rule, with a range of [0.0, 1.0]. 0 indicates default value (i.e. 1.0). *)
   non_null_expectation :
     data_quality_spec__rules__non_null_expectation list;
   range_expectation :
@@ -176,85 +587,520 @@ Must end with a number or a letter. *)
   uniqueness_expectation :
     data_quality_spec__rules__uniqueness_expectation list;
 }
-[@@deriving yojson_of]
-(** The list of rules to evaluate against a data source. At least one rule is required. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_quality_spec__rules) -> ()
+
+let yojson_of_data_quality_spec__rules =
+  (function
+   | {
+       column = v_column;
+       description = v_description;
+       dimension = v_dimension;
+       ignore_null = v_ignore_null;
+       name = v_name;
+       threshold = v_threshold;
+       non_null_expectation = v_non_null_expectation;
+       range_expectation = v_range_expectation;
+       regex_expectation = v_regex_expectation;
+       row_condition_expectation = v_row_condition_expectation;
+       set_expectation = v_set_expectation;
+       statistic_range_expectation = v_statistic_range_expectation;
+       table_condition_expectation = v_table_condition_expectation;
+       uniqueness_expectation = v_uniqueness_expectation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__rules__uniqueness_expectation
+             v_uniqueness_expectation
+         in
+         ("uniqueness_expectation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__rules__table_condition_expectation
+             v_table_condition_expectation
+         in
+         ("table_condition_expectation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__rules__statistic_range_expectation
+             v_statistic_range_expectation
+         in
+         ("statistic_range_expectation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__rules__set_expectation
+             v_set_expectation
+         in
+         ("set_expectation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__rules__row_condition_expectation
+             v_row_condition_expectation
+         in
+         ("row_condition_expectation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__rules__regex_expectation
+             v_regex_expectation
+         in
+         ("regex_expectation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__rules__range_expectation
+             v_range_expectation
+         in
+         ("range_expectation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__rules__non_null_expectation
+             v_non_null_expectation
+         in
+         ("non_null_expectation", arg) :: bnds
+       in
+       let bnds =
+         match v_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_null with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_null", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dimension in
+         ("dimension", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_column with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "column", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec__rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec__rules
+
+[@@@deriving.end]
 
 type data_quality_spec = {
   row_filter : string prop option; [@option]
-      (** A filter applied to all rows in a single DataScan job. The filter needs to be a valid SQL expression for a WHERE clause in BigQuery standard SQL syntax. Example: col1 >= 0 AND col2 < 10 *)
   sampling_percent : float prop option; [@option]
-      (** The percentage of the records to be selected from the dataset for DataScan.
-Value can range between 0.0 and 100.0 with up to 3 significant decimal digits.
-Sampling is not applied if 'sampling_percent' is not specified, 0 or 100. *)
   post_scan_actions : data_quality_spec__post_scan_actions list;
   rules : data_quality_spec__rules list;
 }
-[@@deriving yojson_of]
-(** DataQualityScan related setting. *)
+[@@deriving_inline yojson_of]
 
-type execution_spec__trigger__on_demand = unit [@@deriving yojson_of]
+let _ = fun (_ : data_quality_spec) -> ()
 
-type execution_spec__trigger__schedule = {
-  cron : string prop;
-      (** Cron schedule for running scans periodically. This field is required for Schedule scans. *)
-}
-[@@deriving yojson_of]
-(** The scan is scheduled to run periodically. *)
+let yojson_of_data_quality_spec =
+  (function
+   | {
+       row_filter = v_row_filter;
+       sampling_percent = v_sampling_percent;
+       post_scan_actions = v_post_scan_actions;
+       rules = v_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_quality_spec__rules v_rules
+         in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_quality_spec__post_scan_actions
+             v_post_scan_actions
+         in
+         ("post_scan_actions", arg) :: bnds
+       in
+       let bnds =
+         match v_sampling_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "sampling_percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_row_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "row_filter", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_quality_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_quality_spec
+
+[@@@deriving.end]
+
+type execution_spec__trigger__on_demand = unit
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution_spec__trigger__on_demand) -> ()
+
+let yojson_of_execution_spec__trigger__on_demand =
+  (yojson_of_unit
+    : execution_spec__trigger__on_demand ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution_spec__trigger__on_demand
+
+[@@@deriving.end]
+
+type execution_spec__trigger__schedule = { cron : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution_spec__trigger__schedule) -> ()
+
+let yojson_of_execution_spec__trigger__schedule =
+  (function
+   | { cron = v_cron } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cron in
+         ("cron", arg) :: bnds
+       in
+       `Assoc bnds
+    : execution_spec__trigger__schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution_spec__trigger__schedule
+
+[@@@deriving.end]
 
 type execution_spec__trigger = {
   on_demand : execution_spec__trigger__on_demand list;
   schedule : execution_spec__trigger__schedule list;
 }
-[@@deriving yojson_of]
-(** Spec related to how often and when a scan should be triggered. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution_spec__trigger) -> ()
+
+let yojson_of_execution_spec__trigger =
+  (function
+   | { on_demand = v_on_demand; schedule = v_schedule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_execution_spec__trigger__schedule
+             v_schedule
+         in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_execution_spec__trigger__on_demand v_on_demand
+         in
+         ("on_demand", arg) :: bnds
+       in
+       `Assoc bnds
+    : execution_spec__trigger -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution_spec__trigger
+
+[@@@deriving.end]
 
 type execution_spec = {
   field : string prop option; [@option]
-      (** The unnested field (of type Date or Timestamp) that contains values which monotonically increase over time. If not specified, a data scan will run for all data in the table. *)
   trigger : execution_spec__trigger list;
 }
-[@@deriving yojson_of]
-(** DataScan execution settings. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution_spec) -> ()
+
+let yojson_of_execution_spec =
+  (function
+   | { field = v_field; trigger = v_trigger } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_execution_spec__trigger v_trigger
+         in
+         ("trigger", arg) :: bnds
+       in
+       let bnds =
+         match v_field with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : execution_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution_spec
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type execution_status = {
-  latest_job_end_time : string prop;  (** latest_job_end_time *)
-  latest_job_start_time : string prop;  (** latest_job_start_time *)
+  latest_job_end_time : string prop;
+  latest_job_start_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution_status) -> ()
+
+let yojson_of_execution_status =
+  (function
+   | {
+       latest_job_end_time = v_latest_job_end_time;
+       latest_job_start_time = v_latest_job_start_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_latest_job_start_time
+         in
+         ("latest_job_start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_latest_job_end_time
+         in
+         ("latest_job_end_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : execution_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution_status
+
+[@@@deriving.end]
 
 type google_dataplex_datascan = {
   data_scan_id : string prop;
-      (** DataScan identifier. Must contain only lowercase letters, numbers and hyphens. Must start with a letter. Must end with a number or a letter. *)
   description : string prop option; [@option]
-      (** Description of the scan. *)
   display_name : string prop option; [@option]
-      (** User friendly display name. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** User-defined labels for the scan. A list of key->value pairs.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop;
-      (** The location where the data scan should reside. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   data : data list;
   data_profile_spec : data_profile_spec list;
   data_quality_spec : data_quality_spec list;
   execution_spec : execution_spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dataplex_datascan *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dataplex_datascan) -> ()
+
+let yojson_of_google_dataplex_datascan =
+  (function
+   | {
+       data_scan_id = v_data_scan_id;
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       project = v_project;
+       data = v_data;
+       data_profile_spec = v_data_profile_spec;
+       data_quality_spec = v_data_quality_spec;
+       execution_spec = v_execution_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_execution_spec v_execution_spec
+         in
+         ("execution_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_quality_spec
+             v_data_quality_spec
+         in
+         ("data_quality_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_profile_spec
+             v_data_profile_spec
+         in
+         ("data_profile_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_data v_data in
+         ("data", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_data_scan_id in
+         ("data_scan_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_dataplex_datascan -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dataplex_datascan
+
+[@@@deriving.end]
 
 let data ?entity ?resource () : data = { entity; resource }
 

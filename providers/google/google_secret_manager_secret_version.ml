@@ -3,33 +3,129 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_secret_manager_secret_version = {
   deletion_policy : string prop option; [@option]
-      (** The deletion policy for the secret version. Setting 'ABANDON' allows the resource
-to be abandoned rather than deleted. Setting 'DISABLE' allows the resource to be
-disabled rather than deleted. Default is 'DELETE'. Possible values are:
-  * DELETE
-  * DISABLE
-  * ABANDON *)
   enabled : bool prop option; [@option]
-      (** The current state of the SecretVersion. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   is_secret_data_base64 : bool prop option; [@option]
-      (** If set to 'true', the secret data is expected to be base64-encoded string and would be sent as is. *)
-  secret : string prop;  (** Secret Manager secret resource *)
+  secret : string prop;
   secret_data : string prop;
-      (** The secret data. Must be no larger than 64KiB. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_secret_manager_secret_version *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_secret_manager_secret_version) -> ()
+
+let yojson_of_google_secret_manager_secret_version =
+  (function
+   | {
+       deletion_policy = v_deletion_policy;
+       enabled = v_enabled;
+       id = v_id;
+       is_secret_data_base64 = v_is_secret_data_base64;
+       secret = v_secret;
+       secret_data = v_secret_data;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_data in
+         ("secret_data", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         match v_is_secret_data_base64 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_secret_data_base64", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deletion_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_secret_manager_secret_version ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_secret_manager_secret_version
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

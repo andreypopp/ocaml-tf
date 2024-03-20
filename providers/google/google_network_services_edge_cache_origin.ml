@@ -4,191 +4,499 @@ open! Tf_core
 
 type aws_v4_authentication = {
   access_key_id : string prop;
-      (** The access key ID your origin uses to identify the key. *)
   origin_region : string prop;
-      (** The name of the AWS region that your origin is in. *)
   secret_access_key_version : string prop;
-      (** The Secret Manager secret version of the secret access key used by your origin.
-
-This is the resource name of the secret version in the format 'projects/*/secrets/*/versions/*' where the '*' values are replaced by the project, secret, and version you require. *)
 }
-[@@deriving yojson_of]
-(** Enable AWS Signature Version 4 origin authentication. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_v4_authentication) -> ()
+
+let yojson_of_aws_v4_authentication =
+  (function
+   | {
+       access_key_id = v_access_key_id;
+       origin_region = v_origin_region;
+       secret_access_key_version = v_secret_access_key_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_secret_access_key_version
+         in
+         ("secret_access_key_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_origin_region in
+         ("origin_region", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_access_key_id in
+         ("access_key_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_v4_authentication -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_v4_authentication
+
+[@@@deriving.end]
 
 type origin_override_action__header_action__request_headers_to_add = {
-  header_name : string prop;  (** The name of the header to add. *)
-  header_value : string prop;  (** The value of the header to add. *)
+  header_name : string prop;
+  header_value : string prop;
   replace : bool prop option; [@option]
-      (** Whether to replace all existing headers with the same name.
-
-By default, added header values are appended
-to the response or request headers with the
-same field names. The added values are
-separated by commas.
-
-To overwrite existing values, set 'replace' to 'true'. *)
 }
-[@@deriving yojson_of]
-(** Describes a header to add.
+[@@deriving_inline yojson_of]
 
-You may add a maximum of 25 request headers. *)
+let _ =
+ fun (_ :
+       origin_override_action__header_action__request_headers_to_add) ->
+  ()
+
+let yojson_of_origin_override_action__header_action__request_headers_to_add
+    =
+  (function
+   | {
+       header_name = v_header_name;
+       header_value = v_header_value;
+       replace = v_replace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_replace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "replace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_value in
+         ("header_value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_name in
+         ("header_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin_override_action__header_action__request_headers_to_add ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_origin_override_action__header_action__request_headers_to_add
+
+[@@@deriving.end]
 
 type origin_override_action__header_action = {
   request_headers_to_add :
     origin_override_action__header_action__request_headers_to_add
     list;
 }
-[@@deriving yojson_of]
-(** The header actions, including adding and removing
-headers, for request handled by this origin. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin_override_action__header_action) -> ()
+
+let yojson_of_origin_override_action__header_action =
+  (function
+   | { request_headers_to_add = v_request_headers_to_add } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_origin_override_action__header_action__request_headers_to_add
+             v_request_headers_to_add
+         in
+         ("request_headers_to_add", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin_override_action__header_action ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin_override_action__header_action
+
+[@@@deriving.end]
 
 type origin_override_action__url_rewrite = {
   host_rewrite : string prop option; [@option]
-      (** Prior to forwarding the request to the selected
-origin, the request's host header is replaced with
-contents of the hostRewrite.
-
-This value must be between 1 and 255 characters. *)
 }
-[@@deriving yojson_of]
-(** The URL rewrite configuration for request that are
-handled by this origin. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin_override_action__url_rewrite) -> ()
+
+let yojson_of_origin_override_action__url_rewrite =
+  (function
+   | { host_rewrite = v_host_rewrite } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_host_rewrite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_rewrite", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : origin_override_action__url_rewrite ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin_override_action__url_rewrite
+
+[@@@deriving.end]
 
 type origin_override_action = {
   header_action : origin_override_action__header_action list;
   url_rewrite : origin_override_action__url_rewrite list;
 }
-[@@deriving yojson_of]
-(** The override actions, including url rewrites and header
-additions, for requests that use this origin. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin_override_action) -> ()
+
+let yojson_of_origin_override_action =
+  (function
+   | { header_action = v_header_action; url_rewrite = v_url_rewrite }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_origin_override_action__url_rewrite
+             v_url_rewrite
+         in
+         ("url_rewrite", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_origin_override_action__header_action
+             v_header_action
+         in
+         ("header_action", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin_override_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin_override_action
+
+[@@@deriving.end]
 
 type origin_redirect = {
   redirect_conditions : string prop list option; [@option]
-      (** The set of redirect response codes that the CDN
-follows. Values of
-[RedirectConditions](https://cloud.google.com/media-cdn/docs/reference/rest/v1/projects.locations.edgeCacheOrigins#redirectconditions)
-are accepted. *)
 }
-[@@deriving yojson_of]
-(** Follow redirects from this origin. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin_redirect) -> ()
+
+let yojson_of_origin_redirect =
+  (function
+   | { redirect_conditions = v_redirect_conditions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_redirect_conditions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "redirect_conditions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : origin_redirect -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin_redirect
+
+[@@@deriving.end]
 
 type timeout = {
   connect_timeout : string prop option; [@option]
-      (** The maximum duration to wait for a single origin connection to be established, including DNS lookup, TLS handshake and TCP/QUIC connection establishment.
-
-Defaults to 5 seconds. The timeout must be a value between 1s and 15s.
-
-The connectTimeout capped by the deadline set by the request's maxAttemptsTimeout.  The last connection attempt may have a smaller connectTimeout in order to adhere to the overall maxAttemptsTimeout. *)
   max_attempts_timeout : string prop option; [@option]
-      (** The maximum time across all connection attempts to the origin, including failover origins, before returning an error to the client. A HTTP 504 will be returned if the timeout is reached before a response is returned.
-
-Defaults to 15 seconds. The timeout must be a value between 1s and 30s.
-
-If a failoverOrigin is specified, the maxAttemptsTimeout of the first configured origin sets the deadline for all connection attempts across all failoverOrigins. *)
   read_timeout : string prop option; [@option]
-      (** The maximum duration to wait between reads of a single HTTP connection/stream.
-
-Defaults to 15 seconds.  The timeout must be a value between 1s and 30s.
-
-The readTimeout is capped by the responseTimeout.  All reads of the HTTP connection/stream must be completed by the deadline set by the responseTimeout.
-
-If the response headers have already been written to the connection, the response will be truncated and logged. *)
   response_timeout : string prop option; [@option]
-      (** The maximum duration to wait for the last byte of a response to arrive when reading from the HTTP connection/stream.
-
-Defaults to 30 seconds. The timeout must be a value between 1s and 120s.
-
-The responseTimeout starts after the connection has been established.
-
-This also applies to HTTP Chunked Transfer Encoding responses, and/or when an open-ended Range request is made to the origin. Origins that take longer to write additional bytes to the response than the configured responseTimeout will result in an error being returned to the client.
-
-If the response headers have already been written to the connection, the response will be truncated and logged. *)
 }
-[@@deriving yojson_of]
-(** The connection and HTTP timeout configuration for this origin. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeout) -> ()
+
+let yojson_of_timeout =
+  (function
+   | {
+       connect_timeout = v_connect_timeout;
+       max_attempts_timeout = v_max_attempts_timeout;
+       read_timeout = v_read_timeout;
+       response_timeout = v_response_timeout;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_response_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "response_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_attempts_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_attempts_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connect_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connect_timeout", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeout -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeout
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_network_services_edge_cache_origin = {
   description : string prop option; [@option]
-      (** A human-readable description of the resource. *)
   failover_origin : string prop option; [@option]
-      (** The Origin resource to try when the current origin cannot be reached.
-After maxAttempts is reached, the configured failoverOrigin will be used to fulfil the request.
-
-The value of timeout.maxAttemptsTimeout dictates the timeout across all origins.
-A reference to a Topic resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Set of label tags associated with the EdgeCache resource.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   max_attempts : float prop option; [@option]
-      (** The maximum number of attempts to cache fill from this origin. Another attempt is made when a cache fill fails with one of the retryConditions.
-
-Once maxAttempts to this origin have failed the failoverOrigin will be used, if one is specified. That failoverOrigin may specify its own maxAttempts,
-retryConditions and failoverOrigin to control its own cache fill failures.
-
-The total number of allowed attempts to cache fill across this and failover origins is limited to four.
-The total time allowed for cache fill attempts across this and failover origins can be controlled with maxAttemptsTimeout.
-
-The last valid, non-retried response from all origins will be returned to the client.
-If no origin returns a valid response, an HTTP 502 will be returned to the client.
-
-Defaults to 1. Must be a value greater than 0 and less than 4. *)
   name : string prop;
-      (** Name of the resource; provided by the client when the resource is created.
-The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which means the first character must be a letter,
-and all following characters must be a dash, underscore, letter or digit. *)
   origin_address : string prop;
-      (** A fully qualified domain name (FQDN) or IP address reachable over the public Internet, or the address of a Google Cloud Storage bucket.
-
-This address will be used as the origin for cache requests - e.g. FQDN: media-backend.example.com, IPv4: 35.218.1.1, IPv6: 2607:f8b0:4012:809::200e, Cloud Storage: gs://bucketname
-
-When providing an FQDN (hostname), it must be publicly resolvable (e.g. via Google public DNS) and IP addresses must be publicly routable.  It must not contain a protocol (e.g., https://) and it must not contain any slashes.
-If a Cloud Storage bucket is provided, it must be in the canonical gs://bucketname format. Other forms, such as storage.googleapis.com, will be rejected. *)
   port : float prop option; [@option]
-      (** The port to connect to the origin on.
-Defaults to port 443 for HTTP2 and HTTPS protocols, and port 80 for HTTP. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   protocol : string prop option; [@option]
-      (** The protocol to use to connect to the configured origin. Defaults to HTTP2, and it is strongly recommended that users use HTTP2 for both security & performance.
-
-When using HTTP2 or HTTPS as the protocol, a valid, publicly-signed, unexpired TLS (SSL) certificate must be presented by the origin server. Possible values: [HTTP2, HTTPS, HTTP] *)
   retry_conditions : string prop list option; [@option]
-      (** Specifies one or more retry conditions for the configured origin.
-
-If the failure mode during a connection attempt to the origin matches the configured retryCondition(s),
-the origin request will be retried up to maxAttempts times. The failoverOrigin, if configured, will then be used to satisfy the request.
-
-The default retryCondition is CONNECT_FAILURE.
-
-retryConditions apply to this origin, and not subsequent failoverOrigin(s),
-which may specify their own retryConditions and maxAttempts.
-
-Valid values are:
-
-- CONNECT_FAILURE: Retry on failures connecting to origins, for example due to connection timeouts.
-- HTTP_5XX: Retry if the origin responds with any 5xx response code, or if the origin does not respond at all, example: disconnects, reset, read timeout, connection failure, and refused streams.
-- GATEWAY_ERROR: Similar to 5xx, but only applies to response codes 502, 503 or 504.
-- RETRIABLE_4XX: Retry for retriable 4xx response codes, which include HTTP 409 (Conflict) and HTTP 429 (Too Many Requests)
-- NOT_FOUND: Retry if the origin returns a HTTP 404 (Not Found). This can be useful when generating video content, and the segment is not available yet.
-- FORBIDDEN: Retry if the origin returns a HTTP 403 (Forbidden). Possible values: [CONNECT_FAILURE, HTTP_5XX, GATEWAY_ERROR, RETRIABLE_4XX, NOT_FOUND, FORBIDDEN] *)
   aws_v4_authentication : aws_v4_authentication list;
   origin_override_action : origin_override_action list;
   origin_redirect : origin_redirect list;
   timeout : timeout list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_network_services_edge_cache_origin *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_network_services_edge_cache_origin) -> ()
+
+let yojson_of_google_network_services_edge_cache_origin =
+  (function
+   | {
+       description = v_description;
+       failover_origin = v_failover_origin;
+       id = v_id;
+       labels = v_labels;
+       max_attempts = v_max_attempts;
+       name = v_name;
+       origin_address = v_origin_address;
+       port = v_port;
+       project = v_project;
+       protocol = v_protocol;
+       retry_conditions = v_retry_conditions;
+       aws_v4_authentication = v_aws_v4_authentication;
+       origin_override_action = v_origin_override_action;
+       origin_redirect = v_origin_redirect;
+       timeout = v_timeout;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_timeout v_timeout in
+         ("timeout", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin_redirect v_origin_redirect
+         in
+         ("origin_redirect", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin_override_action
+             v_origin_override_action
+         in
+         ("origin_override_action", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_aws_v4_authentication
+             v_aws_v4_authentication
+         in
+         ("aws_v4_authentication", arg) :: bnds
+       in
+       let bnds =
+         match v_retry_conditions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "retry_conditions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_origin_address
+         in
+         ("origin_address", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_max_attempts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_attempts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failover_origin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "failover_origin", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_network_services_edge_cache_origin ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_network_services_edge_cache_origin
+
+[@@@deriving.end]
 
 let aws_v4_authentication ~access_key_id ~origin_region
     ~secret_access_key_version () : aws_v4_authentication =

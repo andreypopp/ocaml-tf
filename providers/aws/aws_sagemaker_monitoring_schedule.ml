@@ -3,30 +3,165 @@
 open! Tf_core
 
 type monitoring_schedule_config__schedule_config = {
-  schedule_expression : string prop;  (** schedule_expression *)
+  schedule_expression : string prop;
 }
-[@@deriving yojson_of]
-(** monitoring_schedule_config__schedule_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : monitoring_schedule_config__schedule_config) -> ()
+
+let yojson_of_monitoring_schedule_config__schedule_config =
+  (function
+   | { schedule_expression = v_schedule_expression } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_schedule_expression
+         in
+         ("schedule_expression", arg) :: bnds
+       in
+       `Assoc bnds
+    : monitoring_schedule_config__schedule_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_monitoring_schedule_config__schedule_config
+
+[@@@deriving.end]
 
 type monitoring_schedule_config = {
   monitoring_job_definition_name : string prop;
-      (** monitoring_job_definition_name *)
-  monitoring_type : string prop;  (** monitoring_type *)
+  monitoring_type : string prop;
   schedule_config : monitoring_schedule_config__schedule_config list;
 }
-[@@deriving yojson_of]
-(** monitoring_schedule_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : monitoring_schedule_config) -> ()
+
+let yojson_of_monitoring_schedule_config =
+  (function
+   | {
+       monitoring_job_definition_name =
+         v_monitoring_job_definition_name;
+       monitoring_type = v_monitoring_type;
+       schedule_config = v_schedule_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_monitoring_schedule_config__schedule_config
+             v_schedule_config
+         in
+         ("schedule_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_monitoring_type
+         in
+         ("monitoring_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_monitoring_job_definition_name
+         in
+         ("monitoring_job_definition_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : monitoring_schedule_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_monitoring_schedule_config
+
+[@@@deriving.end]
 
 type aws_sagemaker_monitoring_schedule = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  name : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   monitoring_schedule_config : monitoring_schedule_config list;
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_monitoring_schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sagemaker_monitoring_schedule) -> ()
+
+let yojson_of_aws_sagemaker_monitoring_schedule =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       monitoring_schedule_config = v_monitoring_schedule_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_monitoring_schedule_config
+             v_monitoring_schedule_config
+         in
+         ("monitoring_schedule_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_monitoring_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sagemaker_monitoring_schedule
+
+[@@@deriving.end]
 
 let monitoring_schedule_config__schedule_config ~schedule_expression
     () : monitoring_schedule_config__schedule_config =

@@ -3,13 +3,59 @@
 open! Tf_core
 
 type digitalocean_container_registry = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  region : string prop option; [@option]  (** region *)
-  subscription_tier_slug : string prop;  (** subscription_tier_slug *)
+  id : string prop option; [@option]
+  name : string prop;
+  region : string prop option; [@option]
+  subscription_tier_slug : string prop;
 }
-[@@deriving yojson_of]
-(** digitalocean_container_registry *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_container_registry) -> ()
+
+let yojson_of_digitalocean_container_registry =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       region = v_region;
+       subscription_tier_slug = v_subscription_tier_slug;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_subscription_tier_slug
+         in
+         ("subscription_tier_slug", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_container_registry ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_container_registry
+
+[@@@deriving.end]
 
 let digitalocean_container_registry ?id ?region ~name
     ~subscription_tier_slug () : digitalocean_container_registry =

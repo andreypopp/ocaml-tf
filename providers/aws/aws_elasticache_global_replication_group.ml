@@ -3,42 +3,202 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type global_node_groups = {
-  global_node_group_id : string prop;  (** global_node_group_id *)
-  slots : string prop;  (** slots *)
+  global_node_group_id : string prop;
+  slots : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : global_node_groups) -> ()
+
+let yojson_of_global_node_groups =
+  (function
+   | {
+       global_node_group_id = v_global_node_group_id;
+       slots = v_slots;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_slots in
+         ("slots", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_global_node_group_id
+         in
+         ("global_node_group_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : global_node_groups -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_global_node_groups
+
+[@@@deriving.end]
 
 type aws_elasticache_global_replication_group = {
   automatic_failover_enabled : bool prop option; [@option]
-      (** automatic_failover_enabled *)
   cache_node_type : string prop option; [@option]
-      (** cache_node_type *)
   engine_version : string prop option; [@option]
-      (** engine_version *)
   global_replication_group_description : string prop option;
       [@option]
-      (** global_replication_group_description *)
   global_replication_group_id_suffix : string prop;
-      (** global_replication_group_id_suffix *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   num_node_groups : float prop option; [@option]
-      (** num_node_groups *)
   parameter_group_name : string prop option; [@option]
-      (** parameter_group_name *)
   primary_replication_group_id : string prop;
-      (** primary_replication_group_id *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_elasticache_global_replication_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_elasticache_global_replication_group) -> ()
+
+let yojson_of_aws_elasticache_global_replication_group =
+  (function
+   | {
+       automatic_failover_enabled = v_automatic_failover_enabled;
+       cache_node_type = v_cache_node_type;
+       engine_version = v_engine_version;
+       global_replication_group_description =
+         v_global_replication_group_description;
+       global_replication_group_id_suffix =
+         v_global_replication_group_id_suffix;
+       id = v_id;
+       num_node_groups = v_num_node_groups;
+       parameter_group_name = v_parameter_group_name;
+       primary_replication_group_id = v_primary_replication_group_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_primary_replication_group_id
+         in
+         ("primary_replication_group_id", arg) :: bnds
+       in
+       let bnds =
+         match v_parameter_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parameter_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_node_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_node_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_global_replication_group_id_suffix
+         in
+         ("global_replication_group_id_suffix", arg) :: bnds
+       in
+       let bnds =
+         match v_global_replication_group_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "global_replication_group_description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_engine_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cache_node_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cache_node_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_automatic_failover_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "automatic_failover_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_elasticache_global_replication_group ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_elasticache_global_replication_group
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

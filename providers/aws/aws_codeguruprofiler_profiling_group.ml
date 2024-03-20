@@ -2,21 +2,93 @@
 
 open! Tf_core
 
-type agent_orchestration_config = {
-  profiling_enabled : bool prop;  (** profiling_enabled *)
-}
-[@@deriving yojson_of]
-(** agent_orchestration_config *)
+type agent_orchestration_config = { profiling_enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : agent_orchestration_config) -> ()
+
+let yojson_of_agent_orchestration_config =
+  (function
+   | { profiling_enabled = v_profiling_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_profiling_enabled
+         in
+         ("profiling_enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : agent_orchestration_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_agent_orchestration_config
+
+[@@@deriving.end]
 
 type aws_codeguruprofiler_profiling_group = {
   compute_platform : string prop option; [@option]
-      (** compute_platform *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   agent_orchestration_config : agent_orchestration_config list;
 }
-[@@deriving yojson_of]
-(** aws_codeguruprofiler_profiling_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_codeguruprofiler_profiling_group) -> ()
+
+let yojson_of_aws_codeguruprofiler_profiling_group =
+  (function
+   | {
+       compute_platform = v_compute_platform;
+       name = v_name;
+       tags = v_tags;
+       agent_orchestration_config = v_agent_orchestration_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_agent_orchestration_config
+             v_agent_orchestration_config
+         in
+         ("agent_orchestration_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_compute_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compute_platform", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_codeguruprofiler_profiling_group ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_codeguruprofiler_profiling_group
+
+[@@@deriving.end]
 
 let agent_orchestration_config ~profiling_enabled () :
     agent_orchestration_config =

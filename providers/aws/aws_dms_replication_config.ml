@@ -4,57 +4,322 @@ open! Tf_core
 
 type compute_config = {
   availability_zone : string prop option; [@option]
-      (** availability_zone *)
   dns_name_servers : string prop option; [@option]
-      (** dns_name_servers *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]
   max_capacity_units : float prop option; [@option]
-      (** max_capacity_units *)
   min_capacity_units : float prop option; [@option]
-      (** min_capacity_units *)
-  multi_az : bool prop option; [@option]  (** multi_az *)
+  multi_az : bool prop option; [@option]
   preferred_maintenance_window : string prop option; [@option]
-      (** preferred_maintenance_window *)
   replication_subnet_group_id : string prop;
-      (** replication_subnet_group_id *)
   vpc_security_group_ids : string prop list option; [@option]
-      (** vpc_security_group_ids *)
 }
-[@@deriving yojson_of]
-(** compute_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : compute_config) -> ()
+
+let yojson_of_compute_config =
+  (function
+   | {
+       availability_zone = v_availability_zone;
+       dns_name_servers = v_dns_name_servers;
+       kms_key_id = v_kms_key_id;
+       max_capacity_units = v_max_capacity_units;
+       min_capacity_units = v_min_capacity_units;
+       multi_az = v_multi_az;
+       preferred_maintenance_window = v_preferred_maintenance_window;
+       replication_subnet_group_id = v_replication_subnet_group_id;
+       vpc_security_group_ids = v_vpc_security_group_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vpc_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "vpc_security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_replication_subnet_group_id
+         in
+         ("replication_subnet_group_id", arg) :: bnds
+       in
+       let bnds =
+         match v_preferred_maintenance_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preferred_maintenance_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_multi_az with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "multi_az", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_capacity_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_capacity_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_capacity_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_capacity_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dns_name_servers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dns_name_servers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_availability_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "availability_zone", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : compute_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_compute_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_dms_replication_config = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   replication_config_identifier : string prop;
-      (** replication_config_identifier *)
   replication_settings : string prop option; [@option]
-      (** replication_settings *)
-  replication_type : string prop;  (** replication_type *)
+  replication_type : string prop;
   resource_identifier : string prop option; [@option]
-      (** resource_identifier *)
-  source_endpoint_arn : string prop;  (** source_endpoint_arn *)
+  source_endpoint_arn : string prop;
   start_replication : bool prop option; [@option]
-      (** start_replication *)
   supplemental_settings : string prop option; [@option]
-      (** supplemental_settings *)
-  table_mappings : string prop;  (** table_mappings *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  table_mappings : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  target_endpoint_arn : string prop;  (** target_endpoint_arn *)
+  target_endpoint_arn : string prop;
   compute_config : compute_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_dms_replication_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dms_replication_config) -> ()
+
+let yojson_of_aws_dms_replication_config =
+  (function
+   | {
+       id = v_id;
+       replication_config_identifier =
+         v_replication_config_identifier;
+       replication_settings = v_replication_settings;
+       replication_type = v_replication_type;
+       resource_identifier = v_resource_identifier;
+       source_endpoint_arn = v_source_endpoint_arn;
+       start_replication = v_start_replication;
+       supplemental_settings = v_supplemental_settings;
+       table_mappings = v_table_mappings;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       target_endpoint_arn = v_target_endpoint_arn;
+       compute_config = v_compute_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_compute_config v_compute_config
+         in
+         ("compute_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_endpoint_arn
+         in
+         ("target_endpoint_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_table_mappings
+         in
+         ("table_mappings", arg) :: bnds
+       in
+       let bnds =
+         match v_supplemental_settings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "supplemental_settings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_start_replication with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "start_replication", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_endpoint_arn
+         in
+         ("source_endpoint_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_resource_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_replication_type
+         in
+         ("replication_type", arg) :: bnds
+       in
+       let bnds =
+         match v_replication_settings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "replication_settings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_replication_config_identifier
+         in
+         ("replication_config_identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_dms_replication_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dms_replication_config
+
+[@@@deriving.end]
 
 let compute_config ?availability_zone ?dns_name_servers ?kms_key_id
     ?max_capacity_units ?min_capacity_units ?multi_az

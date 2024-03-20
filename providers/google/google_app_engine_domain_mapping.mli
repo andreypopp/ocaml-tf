@@ -10,6 +10,8 @@ type resource_records = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+[@@@deriving.end]
+
 type ssl_settings
 
 val ssl_settings :

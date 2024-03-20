@@ -2,17 +2,70 @@
 
 open! Tf_core
 
-type timeouts = { read : string prop option [@option]  (** read *) }
-[@@deriving yojson_of]
-(** timeouts *)
+type timeouts = { read : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { read = v_read } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_servicecatalog_organizations_access = {
-  enabled : bool prop;  (** enabled *)
-  id : string prop option; [@option]  (** id *)
+  enabled : bool prop;
+  id : string prop option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_servicecatalog_organizations_access *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_servicecatalog_organizations_access) -> ()
+
+let yojson_of_aws_servicecatalog_organizations_access =
+  (function
+   | { enabled = v_enabled; id = v_id; timeouts = v_timeouts } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_servicecatalog_organizations_access ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_servicecatalog_organizations_access
+
+[@@@deriving.end]
 
 let timeouts ?read () : timeouts = { read }
 

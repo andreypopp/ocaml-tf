@@ -3,94 +3,417 @@
 open! Tf_core
 
 type action = {
-  action_group_id : string prop;  (** action_group_id *)
+  action_group_id : string prop;
   webhook_properties : (string * string prop) list option; [@option]
-      (** webhook_properties *)
 }
-[@@deriving yojson_of]
-(** action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : action) -> ()
+
+let yojson_of_action =
+  (function
+   | {
+       action_group_id = v_action_group_id;
+       webhook_properties = v_webhook_properties;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_webhook_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "webhook_properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_action_group_id
+         in
+         ("action_group_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_action
+
+[@@@deriving.end]
 
 type application_insights_web_test_location_availability_criteria = {
-  component_id : string prop;  (** component_id *)
-  failed_location_count : float prop;  (** failed_location_count *)
-  web_test_id : string prop;  (** web_test_id *)
+  component_id : string prop;
+  failed_location_count : float prop;
+  web_test_id : string prop;
 }
-[@@deriving yojson_of]
-(** application_insights_web_test_location_availability_criteria *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       application_insights_web_test_location_availability_criteria) ->
+  ()
+
+let yojson_of_application_insights_web_test_location_availability_criteria
+    =
+  (function
+   | {
+       component_id = v_component_id;
+       failed_location_count = v_failed_location_count;
+       web_test_id = v_web_test_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_web_test_id in
+         ("web_test_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_failed_location_count
+         in
+         ("failed_location_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_component_id in
+         ("component_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : application_insights_web_test_location_availability_criteria ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_application_insights_web_test_location_availability_criteria
+
+[@@@deriving.end]
 
 type criteria__dimension = {
-  name : string prop;  (** name *)
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  name : string prop;
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** criteria__dimension *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : criteria__dimension) -> ()
+
+let yojson_of_criteria__dimension =
+  (function
+   | { name = v_name; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : criteria__dimension -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_criteria__dimension
+
+[@@@deriving.end]
 
 type criteria = {
-  aggregation : string prop;  (** aggregation *)
-  metric_name : string prop;  (** metric_name *)
-  metric_namespace : string prop;  (** metric_namespace *)
-  operator : string prop;  (** operator *)
+  aggregation : string prop;
+  metric_name : string prop;
+  metric_namespace : string prop;
+  operator : string prop;
   skip_metric_validation : bool prop option; [@option]
-      (** skip_metric_validation *)
-  threshold : float prop;  (** threshold *)
+  threshold : float prop;
   dimension : criteria__dimension list;
 }
-[@@deriving yojson_of]
-(** criteria *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : criteria) -> ()
+
+let yojson_of_criteria =
+  (function
+   | {
+       aggregation = v_aggregation;
+       metric_name = v_metric_name;
+       metric_namespace = v_metric_namespace;
+       operator = v_operator;
+       skip_metric_validation = v_skip_metric_validation;
+       threshold = v_threshold;
+       dimension = v_dimension;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_criteria__dimension v_dimension
+         in
+         ("dimension", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_threshold in
+         ("threshold", arg) :: bnds
+       in
+       let bnds =
+         match v_skip_metric_validation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_metric_validation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_metric_namespace
+         in
+         ("metric_namespace", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_metric_name in
+         ("metric_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_aggregation in
+         ("aggregation", arg) :: bnds
+       in
+       `Assoc bnds
+    : criteria -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_criteria
+
+[@@@deriving.end]
 
 type dynamic_criteria__dimension = {
-  name : string prop;  (** name *)
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  name : string prop;
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** dynamic_criteria__dimension *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dynamic_criteria__dimension) -> ()
+
+let yojson_of_dynamic_criteria__dimension =
+  (function
+   | { name = v_name; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : dynamic_criteria__dimension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dynamic_criteria__dimension
+
+[@@@deriving.end]
 
 type dynamic_criteria = {
-  aggregation : string prop;  (** aggregation *)
-  alert_sensitivity : string prop;  (** alert_sensitivity *)
+  aggregation : string prop;
+  alert_sensitivity : string prop;
   evaluation_failure_count : float prop option; [@option]
-      (** evaluation_failure_count *)
   evaluation_total_count : float prop option; [@option]
-      (** evaluation_total_count *)
   ignore_data_before : string prop option; [@option]
-      (** ignore_data_before *)
-  metric_name : string prop;  (** metric_name *)
-  metric_namespace : string prop;  (** metric_namespace *)
-  operator : string prop;  (** operator *)
+  metric_name : string prop;
+  metric_namespace : string prop;
+  operator : string prop;
   skip_metric_validation : bool prop option; [@option]
-      (** skip_metric_validation *)
   dimension : dynamic_criteria__dimension list;
 }
-[@@deriving yojson_of]
-(** dynamic_criteria *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dynamic_criteria) -> ()
+
+let yojson_of_dynamic_criteria =
+  (function
+   | {
+       aggregation = v_aggregation;
+       alert_sensitivity = v_alert_sensitivity;
+       evaluation_failure_count = v_evaluation_failure_count;
+       evaluation_total_count = v_evaluation_total_count;
+       ignore_data_before = v_ignore_data_before;
+       metric_name = v_metric_name;
+       metric_namespace = v_metric_namespace;
+       operator = v_operator;
+       skip_metric_validation = v_skip_metric_validation;
+       dimension = v_dimension;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dynamic_criteria__dimension
+             v_dimension
+         in
+         ("dimension", arg) :: bnds
+       in
+       let bnds =
+         match v_skip_metric_validation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_metric_validation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_metric_namespace
+         in
+         ("metric_namespace", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_metric_name in
+         ("metric_name", arg) :: bnds
+       in
+       let bnds =
+         match v_ignore_data_before with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ignore_data_before", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_evaluation_total_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "evaluation_total_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_evaluation_failure_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "evaluation_failure_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_alert_sensitivity
+         in
+         ("alert_sensitivity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_aggregation in
+         ("aggregation", arg) :: bnds
+       in
+       `Assoc bnds
+    : dynamic_criteria -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dynamic_criteria
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_monitor_metric_alert = {
-  auto_mitigate : bool prop option; [@option]  (** auto_mitigate *)
-  description : string prop option; [@option]  (** description *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  frequency : string prop option; [@option]  (** frequency *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  scopes : string prop list;  (** scopes *)
-  severity : float prop option; [@option]  (** severity *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  auto_mitigate : bool prop option; [@option]
+  description : string prop option; [@option]
+  enabled : bool prop option; [@option]
+  frequency : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string prop list;
+  severity : float prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   target_resource_location : string prop option; [@option]
-      (** The location of the target pluginsdk. Required when using subscription, resource group scope or multiple scopes. *)
   target_resource_type : string prop option; [@option]
-      (** The resource type (e.g. Microsoft.Compute/virtualMachines) of the target pluginsdk. Required when using subscription, resource group scope or multiple scopes. *)
-  window_size : string prop option; [@option]  (** window_size *)
+  window_size : string prop option; [@option]
   action : action list;
   application_insights_web_test_location_availability_criteria :
     application_insights_web_test_location_availability_criteria list;
@@ -98,8 +421,176 @@ type azurerm_monitor_metric_alert = {
   dynamic_criteria : dynamic_criteria list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_monitor_metric_alert *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_monitor_metric_alert) -> ()
+
+let yojson_of_azurerm_monitor_metric_alert =
+  (function
+   | {
+       auto_mitigate = v_auto_mitigate;
+       description = v_description;
+       enabled = v_enabled;
+       frequency = v_frequency;
+       id = v_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       scopes = v_scopes;
+       severity = v_severity;
+       tags = v_tags;
+       target_resource_location = v_target_resource_location;
+       target_resource_type = v_target_resource_type;
+       window_size = v_window_size;
+       action = v_action;
+       application_insights_web_test_location_availability_criteria =
+         v_application_insights_web_test_location_availability_criteria;
+       criteria = v_criteria;
+       dynamic_criteria = v_dynamic_criteria;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dynamic_criteria
+             v_dynamic_criteria
+         in
+         ("dynamic_criteria", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_criteria v_criteria in
+         ("criteria", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_application_insights_web_test_location_availability_criteria
+             v_application_insights_web_test_location_availability_criteria
+         in
+         ( "application_insights_web_test_location_availability_criteria",
+           arg )
+         :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_action v_action in
+         ("action", arg) :: bnds
+       in
+       let bnds =
+         match v_window_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "window_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_resource_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_resource_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_resource_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_resource_location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_severity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "severity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
+         in
+         ("scopes", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_frequency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "frequency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_mitigate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_mitigate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_monitor_metric_alert ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_monitor_metric_alert
+
+[@@@deriving.end]
 
 let action ?webhook_properties ~action_group_id () : action =
   { action_group_id; webhook_properties }

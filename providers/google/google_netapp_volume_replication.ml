@@ -4,86 +4,337 @@ open! Tf_core
 
 type destination_volume_parameters = {
   description : string prop option; [@option]
-      (** Description for the destination volume. *)
   share_name : string prop option; [@option]
-      (** Share name for destination volume. If not specified, name of source volume's share name will be used. *)
   storage_pool : string prop;
-      (** Name of an existing storage pool for the destination volume with format: 'projects/{{project}}/locations/{{location}}/storagePools/{{poolId}}' *)
   volume_id : string prop option; [@option]
-      (** Name for the destination volume to be created. If not specified, the name of the source volume will be used. *)
 }
-[@@deriving yojson_of]
-(** Destination volume parameters. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : destination_volume_parameters) -> ()
+
+let yojson_of_destination_volume_parameters =
+  (function
+   | {
+       description = v_description;
+       share_name = v_share_name;
+       storage_pool = v_storage_pool;
+       volume_id = v_volume_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_volume_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_storage_pool in
+         ("storage_pool", arg) :: bnds
+       in
+       let bnds =
+         match v_share_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "share_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : destination_volume_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination_volume_parameters
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type transfer_stats = {
-  lag_duration : string prop;  (** lag_duration *)
-  last_transfer_bytes : string prop;  (** last_transfer_bytes *)
+  lag_duration : string prop;
+  last_transfer_bytes : string prop;
   last_transfer_duration : string prop;
-      (** last_transfer_duration *)
   last_transfer_end_time : string prop;
-      (** last_transfer_end_time *)
-  last_transfer_error : string prop;  (** last_transfer_error *)
+  last_transfer_error : string prop;
   total_transfer_duration : string prop;
-      (** total_transfer_duration *)
-  transfer_bytes : string prop;  (** transfer_bytes *)
-  update_time : string prop;  (** update_time *)
+  transfer_bytes : string prop;
+  update_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : transfer_stats) -> ()
+
+let yojson_of_transfer_stats =
+  (function
+   | {
+       lag_duration = v_lag_duration;
+       last_transfer_bytes = v_last_transfer_bytes;
+       last_transfer_duration = v_last_transfer_duration;
+       last_transfer_end_time = v_last_transfer_end_time;
+       last_transfer_error = v_last_transfer_error;
+       total_transfer_duration = v_total_transfer_duration;
+       transfer_bytes = v_transfer_bytes;
+       update_time = v_update_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_transfer_bytes
+         in
+         ("transfer_bytes", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_total_transfer_duration
+         in
+         ("total_transfer_duration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_last_transfer_error
+         in
+         ("last_transfer_error", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_last_transfer_end_time
+         in
+         ("last_transfer_end_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_last_transfer_duration
+         in
+         ("last_transfer_duration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_last_transfer_bytes
+         in
+         ("last_transfer_bytes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_lag_duration in
+         ("lag_duration", arg) :: bnds
+       in
+       `Assoc bnds
+    : transfer_stats -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_transfer_stats
+
+[@@@deriving.end]
 
 type google_netapp_volume_replication = {
   delete_destination_volume : bool prop option; [@option]
-      (** A destination volume is created as part of replication creation. The destination volume will not became
-under Terraform management unless you import it manually. If you delete the replication, this volume
-will remain.
-Setting this parameter to true will delete the *current* destination volume when destroying the
-replication. If you reversed the replication direction, this will be your former source volume!
-For production use, it is recommended to keep this parameter false to avoid accidental volume
-deletion. Handle with care. Default is false. *)
   description : string prop option; [@option]
-      (** An description of this resource. *)
   force_stopping : bool prop option; [@option]
-      (** Only replications with mirror_state=MIRRORED can be stopped. A replication in mirror_state=TRANSFERRING
-currently receives an update and stopping the update might be undesirable. Set this parameter to true
-to stop anyway. All data transferred to the destination will be discarded and content of destination
-volume will remain at the state of the last successful update. Default is false. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop;
-      (** Name of region for this resource. The resource needs to be created in the region of the destination volume. *)
   name : string prop;
-      (** The name of the replication. Needs to be unique per location. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   replication_enabled : bool prop option; [@option]
-      (** Set to false to stop/break the mirror. Stopping the mirror makes the destination volume read-write
-and act independently from the source volume.
-Set to true to enable/resume the mirror. WARNING: Resuming a mirror overwrites any changes
-done to the destination volume with the content of the source volume. *)
   replication_schedule : string prop;
-      (** Specifies the replication interval. Possible values: [EVERY_10_MINUTES, HOURLY, DAILY] *)
   volume_name : string prop;
-      (** The name of the existing source volume. *)
   wait_for_mirror : bool prop option; [@option]
-      (** Replication resource state is independent of mirror_state. With enough data, it can take many hours
-for mirror_state to reach MIRRORED. If you want Terraform to wait for the mirror to finish on
-create/stop/resume operations, set this parameter to true. Default is false. *)
   destination_volume_parameters : destination_volume_parameters list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_netapp_volume_replication *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_netapp_volume_replication) -> ()
+
+let yojson_of_google_netapp_volume_replication =
+  (function
+   | {
+       delete_destination_volume = v_delete_destination_volume;
+       description = v_description;
+       force_stopping = v_force_stopping;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       replication_enabled = v_replication_enabled;
+       replication_schedule = v_replication_schedule;
+       volume_name = v_volume_name;
+       wait_for_mirror = v_wait_for_mirror;
+       destination_volume_parameters =
+         v_destination_volume_parameters;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destination_volume_parameters
+             v_destination_volume_parameters
+         in
+         ("destination_volume_parameters", arg) :: bnds
+       in
+       let bnds =
+         match v_wait_for_mirror with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "wait_for_mirror", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_name in
+         ("volume_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_replication_schedule
+         in
+         ("replication_schedule", arg) :: bnds
+       in
+       let bnds =
+         match v_replication_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "replication_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_stopping with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_stopping", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_destination_volume with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete_destination_volume", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_netapp_volume_replication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_netapp_volume_replication
+
+[@@@deriving.end]
 
 let destination_volume_parameters ?description ?share_name ?volume_id
     ~storage_pool () : destination_volume_parameters =

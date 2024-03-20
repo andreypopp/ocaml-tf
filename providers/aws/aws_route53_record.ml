@@ -3,74 +3,295 @@
 open! Tf_core
 
 type alias = {
-  evaluate_target_health : bool prop;  (** evaluate_target_health *)
-  name : string prop;  (** name *)
-  zone_id : string prop;  (** zone_id *)
+  evaluate_target_health : bool prop;
+  name : string prop;
+  zone_id : string prop;
 }
-[@@deriving yojson_of]
-(** alias *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : alias) -> ()
+
+let yojson_of_alias =
+  (function
+   | {
+       evaluate_target_health = v_evaluate_target_health;
+       name = v_name;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_evaluate_target_health
+         in
+         ("evaluate_target_health", arg) :: bnds
+       in
+       `Assoc bnds
+    : alias -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_alias
+
+[@@@deriving.end]
 
 type cidr_routing_policy = {
-  collection_id : string prop;  (** collection_id *)
-  location_name : string prop;  (** location_name *)
+  collection_id : string prop;
+  location_name : string prop;
 }
-[@@deriving yojson_of]
-(** cidr_routing_policy *)
+[@@deriving_inline yojson_of]
 
-type failover_routing_policy = {
-  type_ : string prop; [@key "type"]  (** type *)
-}
-[@@deriving yojson_of]
-(** failover_routing_policy *)
+let _ = fun (_ : cidr_routing_policy) -> ()
+
+let yojson_of_cidr_routing_policy =
+  (function
+   | {
+       collection_id = v_collection_id;
+       location_name = v_location_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location_name in
+         ("location_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_collection_id in
+         ("collection_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cidr_routing_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cidr_routing_policy
+
+[@@@deriving.end]
+
+type failover_routing_policy = { type_ : string prop [@key "type"] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : failover_routing_policy) -> ()
+
+let yojson_of_failover_routing_policy =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : failover_routing_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_failover_routing_policy
+
+[@@@deriving.end]
 
 type geolocation_routing_policy = {
-  continent : string prop option; [@option]  (** continent *)
-  country : string prop option; [@option]  (** country *)
-  subdivision : string prop option; [@option]  (** subdivision *)
+  continent : string prop option; [@option]
+  country : string prop option; [@option]
+  subdivision : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** geolocation_routing_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : geolocation_routing_policy) -> ()
+
+let yojson_of_geolocation_routing_policy =
+  (function
+   | {
+       continent = v_continent;
+       country = v_country;
+       subdivision = v_subdivision;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subdivision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subdivision", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_country with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "country", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_continent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "continent", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : geolocation_routing_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_geolocation_routing_policy
+
+[@@@deriving.end]
 
 type geoproximity_routing_policy__coordinates = {
-  latitude : string prop;  (** latitude *)
-  longitude : string prop;  (** longitude *)
+  latitude : string prop;
+  longitude : string prop;
 }
-[@@deriving yojson_of]
-(** geoproximity_routing_policy__coordinates *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : geoproximity_routing_policy__coordinates) -> ()
+
+let yojson_of_geoproximity_routing_policy__coordinates =
+  (function
+   | { latitude = v_latitude; longitude = v_longitude } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_longitude in
+         ("longitude", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_latitude in
+         ("latitude", arg) :: bnds
+       in
+       `Assoc bnds
+    : geoproximity_routing_policy__coordinates ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_geoproximity_routing_policy__coordinates
+
+[@@@deriving.end]
 
 type geoproximity_routing_policy = {
-  aws_region : string prop option; [@option]  (** aws_region *)
-  bias : float prop option; [@option]  (** bias *)
+  aws_region : string prop option; [@option]
+  bias : float prop option; [@option]
   local_zone_group : string prop option; [@option]
-      (** local_zone_group *)
   coordinates : geoproximity_routing_policy__coordinates list;
 }
-[@@deriving yojson_of]
-(** geoproximity_routing_policy *)
+[@@deriving_inline yojson_of]
 
-type latency_routing_policy = { region : string prop  (** region *) }
-[@@deriving yojson_of]
-(** latency_routing_policy *)
+let _ = fun (_ : geoproximity_routing_policy) -> ()
 
-type weighted_routing_policy = { weight : float prop  (** weight *) }
-[@@deriving yojson_of]
-(** weighted_routing_policy *)
+let yojson_of_geoproximity_routing_policy =
+  (function
+   | {
+       aws_region = v_aws_region;
+       bias = v_bias;
+       local_zone_group = v_local_zone_group;
+       coordinates = v_coordinates;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_geoproximity_routing_policy__coordinates
+             v_coordinates
+         in
+         ("coordinates", arg) :: bnds
+       in
+       let bnds =
+         match v_local_zone_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_zone_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "bias", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_aws_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "aws_region", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : geoproximity_routing_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_geoproximity_routing_policy
+
+[@@@deriving.end]
+
+type latency_routing_policy = { region : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : latency_routing_policy) -> ()
+
+let yojson_of_latency_routing_policy =
+  (function
+   | { region = v_region } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       `Assoc bnds
+    : latency_routing_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_latency_routing_policy
+
+[@@@deriving.end]
+
+type weighted_routing_policy = { weight : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : weighted_routing_policy) -> ()
+
+let yojson_of_weighted_routing_policy =
+  (function
+   | { weight = v_weight } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_weight in
+         ("weight", arg) :: bnds
+       in
+       `Assoc bnds
+    : weighted_routing_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_weighted_routing_policy
+
+[@@@deriving.end]
 
 type aws_route53_record = {
   allow_overwrite : bool prop option; [@option]
-      (** allow_overwrite *)
   health_check_id : string prop option; [@option]
-      (** health_check_id *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   multivalue_answer_routing_policy : bool prop option; [@option]
-      (** multivalue_answer_routing_policy *)
-  name : string prop;  (** name *)
-  records : string prop list option; [@option]  (** records *)
+  name : string prop;
+  records : string prop list option; [@option]
   set_identifier : string prop option; [@option]
-      (** set_identifier *)
-  ttl : float prop option; [@option]  (** ttl *)
-  type_ : string prop; [@key "type"]  (** type *)
-  zone_id : string prop;  (** zone_id *)
+  ttl : float prop option; [@option]
+  type_ : string prop; [@key "type"]
+  zone_id : string prop;
   alias : alias list;
   cidr_routing_policy : cidr_routing_policy list;
   failover_routing_policy : failover_routing_policy list;
@@ -79,8 +300,157 @@ type aws_route53_record = {
   latency_routing_policy : latency_routing_policy list;
   weighted_routing_policy : weighted_routing_policy list;
 }
-[@@deriving yojson_of]
-(** aws_route53_record *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_record) -> ()
+
+let yojson_of_aws_route53_record =
+  (function
+   | {
+       allow_overwrite = v_allow_overwrite;
+       health_check_id = v_health_check_id;
+       id = v_id;
+       multivalue_answer_routing_policy =
+         v_multivalue_answer_routing_policy;
+       name = v_name;
+       records = v_records;
+       set_identifier = v_set_identifier;
+       ttl = v_ttl;
+       type_ = v_type_;
+       zone_id = v_zone_id;
+       alias = v_alias;
+       cidr_routing_policy = v_cidr_routing_policy;
+       failover_routing_policy = v_failover_routing_policy;
+       geolocation_routing_policy = v_geolocation_routing_policy;
+       geoproximity_routing_policy = v_geoproximity_routing_policy;
+       latency_routing_policy = v_latency_routing_policy;
+       weighted_routing_policy = v_weighted_routing_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_weighted_routing_policy
+             v_weighted_routing_policy
+         in
+         ("weighted_routing_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_latency_routing_policy
+             v_latency_routing_policy
+         in
+         ("latency_routing_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_geoproximity_routing_policy
+             v_geoproximity_routing_policy
+         in
+         ("geoproximity_routing_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_geolocation_routing_policy
+             v_geolocation_routing_policy
+         in
+         ("geolocation_routing_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_failover_routing_policy
+             v_failover_routing_policy
+         in
+         ("failover_routing_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cidr_routing_policy
+             v_cidr_routing_policy
+         in
+         ("cidr_routing_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_alias v_alias in
+         ("alias", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_set_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "set_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_records with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "records", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_multivalue_answer_routing_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "multivalue_answer_routing_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_health_check_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "health_check_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_overwrite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_overwrite", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_record -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_record
+
+[@@@deriving.end]
 
 let alias ~evaluate_target_health ~name ~zone_id () : alias =
   { evaluate_target_health; name; zone_id }

@@ -2,81 +2,355 @@
 
 open! Tf_core
 
-type api_server_profile = {
-  visibility : string prop;  (** visibility *)
-}
-[@@deriving yojson_of]
-(** api_server_profile *)
+type api_server_profile = { visibility : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : api_server_profile) -> ()
+
+let yojson_of_api_server_profile =
+  (function
+   | { visibility = v_visibility } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_visibility in
+         ("visibility", arg) :: bnds
+       in
+       `Assoc bnds
+    : api_server_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_api_server_profile
+
+[@@@deriving.end]
 
 type cluster_profile = {
-  domain : string prop;  (** domain *)
-  fips_enabled : bool prop option; [@option]  (** fips_enabled *)
-  pull_secret : string prop option; [@option]  (** pull_secret *)
-  version : string prop;  (** version *)
+  domain : string prop;
+  fips_enabled : bool prop option; [@option]
+  pull_secret : string prop option; [@option]
+  version : string prop;
 }
-[@@deriving yojson_of]
-(** cluster_profile *)
+[@@deriving_inline yojson_of]
 
-type ingress_profile = {
-  visibility : string prop;  (** visibility *)
-}
-[@@deriving yojson_of]
-(** ingress_profile *)
+let _ = fun (_ : cluster_profile) -> ()
+
+let yojson_of_cluster_profile =
+  (function
+   | {
+       domain = v_domain;
+       fips_enabled = v_fips_enabled;
+       pull_secret = v_pull_secret;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         match v_pull_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pull_secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fips_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "fips_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_profile
+
+[@@@deriving.end]
+
+type ingress_profile = { visibility : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ingress_profile) -> ()
+
+let yojson_of_ingress_profile =
+  (function
+   | { visibility = v_visibility } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_visibility in
+         ("visibility", arg) :: bnds
+       in
+       `Assoc bnds
+    : ingress_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ingress_profile
+
+[@@@deriving.end]
 
 type main_profile = {
   disk_encryption_set_id : string prop option; [@option]
-      (** disk_encryption_set_id *)
   encryption_at_host_enabled : bool prop option; [@option]
-      (** encryption_at_host_enabled *)
-  subnet_id : string prop;  (** subnet_id *)
-  vm_size : string prop;  (** vm_size *)
+  subnet_id : string prop;
+  vm_size : string prop;
 }
-[@@deriving yojson_of]
-(** main_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : main_profile) -> ()
+
+let yojson_of_main_profile =
+  (function
+   | {
+       disk_encryption_set_id = v_disk_encryption_set_id;
+       encryption_at_host_enabled = v_encryption_at_host_enabled;
+       subnet_id = v_subnet_id;
+       vm_size = v_vm_size;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vm_size in
+         ("vm_size", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         match v_encryption_at_host_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encryption_at_host_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_encryption_set_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disk_encryption_set_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : main_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_main_profile
+
+[@@@deriving.end]
 
 type network_profile = {
-  outbound_type : string prop option; [@option]  (** outbound_type *)
-  pod_cidr : string prop;  (** pod_cidr *)
-  service_cidr : string prop;  (** service_cidr *)
+  outbound_type : string prop option; [@option]
+  pod_cidr : string prop;
+  service_cidr : string prop;
 }
-[@@deriving yojson_of]
-(** network_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_profile) -> ()
+
+let yojson_of_network_profile =
+  (function
+   | {
+       outbound_type = v_outbound_type;
+       pod_cidr = v_pod_cidr;
+       service_cidr = v_service_cidr;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_cidr in
+         ("service_cidr", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pod_cidr in
+         ("pod_cidr", arg) :: bnds
+       in
+       let bnds =
+         match v_outbound_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "outbound_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_profile
+
+[@@@deriving.end]
 
 type service_principal = {
-  client_id : string prop;  (** client_id *)
-  client_secret : string prop;  (** client_secret *)
+  client_id : string prop;
+  client_secret : string prop;
 }
-[@@deriving yojson_of]
-(** service_principal *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_principal) -> ()
+
+let yojson_of_service_principal =
+  (function
+   | { client_id = v_client_id; client_secret = v_client_secret } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_secret in
+         ("client_secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_id in
+         ("client_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : service_principal -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_principal
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type worker_profile = {
   disk_encryption_set_id : string prop option; [@option]
-      (** disk_encryption_set_id *)
-  disk_size_gb : float prop;  (** disk_size_gb *)
+  disk_size_gb : float prop;
   encryption_at_host_enabled : bool prop option; [@option]
-      (** encryption_at_host_enabled *)
-  node_count : float prop;  (** node_count *)
-  subnet_id : string prop;  (** subnet_id *)
-  vm_size : string prop;  (** vm_size *)
+  node_count : float prop;
+  subnet_id : string prop;
+  vm_size : string prop;
 }
-[@@deriving yojson_of]
-(** worker_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : worker_profile) -> ()
+
+let yojson_of_worker_profile =
+  (function
+   | {
+       disk_encryption_set_id = v_disk_encryption_set_id;
+       disk_size_gb = v_disk_size_gb;
+       encryption_at_host_enabled = v_encryption_at_host_enabled;
+       node_count = v_node_count;
+       subnet_id = v_subnet_id;
+       vm_size = v_vm_size;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vm_size in
+         ("vm_size", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_node_count in
+         ("node_count", arg) :: bnds
+       in
+       let bnds =
+         match v_encryption_at_host_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encryption_at_host_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_disk_size_gb in
+         ("disk_size_gb", arg) :: bnds
+       in
+       let bnds =
+         match v_disk_encryption_set_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disk_encryption_set_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : worker_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_worker_profile
+
+[@@@deriving.end]
 
 type azurerm_redhat_openshift_cluster = {
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   api_server_profile : api_server_profile list;
   cluster_profile : cluster_profile list;
   ingress_profile : ingress_profile list;
@@ -86,8 +360,123 @@ type azurerm_redhat_openshift_cluster = {
   timeouts : timeouts option;
   worker_profile : worker_profile list;
 }
-[@@deriving yojson_of]
-(** azurerm_redhat_openshift_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_redhat_openshift_cluster) -> ()
+
+let yojson_of_azurerm_redhat_openshift_cluster =
+  (function
+   | {
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       api_server_profile = v_api_server_profile;
+       cluster_profile = v_cluster_profile;
+       ingress_profile = v_ingress_profile;
+       main_profile = v_main_profile;
+       network_profile = v_network_profile;
+       service_principal = v_service_principal;
+       timeouts = v_timeouts;
+       worker_profile = v_worker_profile;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_worker_profile v_worker_profile
+         in
+         ("worker_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_service_principal
+             v_service_principal
+         in
+         ("service_principal", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_profile v_network_profile
+         in
+         ("network_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_main_profile v_main_profile
+         in
+         ("main_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ingress_profile v_ingress_profile
+         in
+         ("ingress_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_profile v_cluster_profile
+         in
+         ("cluster_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_api_server_profile
+             v_api_server_profile
+         in
+         ("api_server_profile", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_redhat_openshift_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_redhat_openshift_cluster
+
+[@@@deriving.end]
 
 let api_server_profile ~visibility () : api_server_profile =
   { visibility }

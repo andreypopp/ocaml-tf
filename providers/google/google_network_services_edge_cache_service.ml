@@ -4,77 +4,240 @@ open! Tf_core
 
 type log_config = {
   enable : bool prop option; [@option]
-      (** Specifies whether to enable logging for traffic served by this service. *)
   sample_rate : float prop option; [@option]
-      (** Configures the sampling rate of requests, where 1.0 means all logged requests are reported and 0.0 means no logged requests are reported. The default value is 1.0, and the value of the field must be in [0, 1].
-
-This field can only be specified if logging is enabled for this service. *)
 }
-[@@deriving yojson_of]
-(** Specifies the logging options for the traffic served by this service. If logging is enabled, logs will be exported to Cloud Logging. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log_config) -> ()
+
+let yojson_of_log_config =
+  (function
+   | { enable = v_enable; sample_rate = v_sample_rate } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sample_rate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "sample_rate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : log_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log_config
+
+[@@@deriving.end]
 
 type routing__host_rule = {
   description : string prop option; [@option]
-      (** A human-readable description of the hostRule. *)
   hosts : string prop list;
-      (** The list of host patterns to match.
-
-Host patterns must be valid hostnames. Ports are not allowed. Wildcard hosts are supported in the suffix or prefix form. * matches any string of ([a-z0-9-.]\*\). It does not match the empty string.
-
-When multiple hosts are specified, hosts are matched in the following priority:
-
-  1. Exact domain names: ''www.foo.com''.
-  2. Suffix domain wildcards: ''*.foo.com'' or ''*-bar.foo.com''.
-  3. Prefix domain wildcards: ''foo.*'' or ''foo-*''.
-  4. Special wildcard ''*'' matching any domain.
-
-  Notes:
-
-    The wildcard will not match the empty string. e.g. ''*-bar.foo.com'' will match ''baz-bar.foo.com'' but not ''-bar.foo.com''. The longest wildcards match first. Only a single host in the entire service can match on ''*''. A domain must be unique across all configured hosts within a service.
-
-    Hosts are matched against the HTTP Host header, or for HTTP/2 and HTTP/3, the :authority header, from the incoming request.
-
-    You may specify up to 10 hosts. *)
   path_matcher : string prop;
-      (** The name of the pathMatcher associated with this hostRule. *)
 }
-[@@deriving yojson_of]
-(** The list of hostRules to match against. These rules define which hostnames the EdgeCacheService will match against, and which route configurations apply. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing__host_rule) -> ()
+
+let yojson_of_routing__host_rule =
+  (function
+   | {
+       description = v_description;
+       hosts = v_hosts;
+       path_matcher = v_path_matcher;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path_matcher in
+         ("path_matcher", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_hosts
+         in
+         ("hosts", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__host_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing__host_rule
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__header_action__request_header_to_add = {
-  header_name : string prop;  (** The name of the header to add. *)
-  header_value : string prop;  (** The value of the header to add. *)
+  header_name : string prop;
+  header_value : string prop;
   replace : bool prop option; [@option]
-      (** Whether to replace all existing headers with the same name. *)
 }
-[@@deriving yojson_of]
-(** Describes a header to add. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__header_action__request_header_to_add) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__header_action__request_header_to_add
+    =
+  (function
+   | {
+       header_name = v_header_name;
+       header_value = v_header_value;
+       replace = v_replace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_replace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "replace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_value in
+         ("header_value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_name in
+         ("header_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__header_action__request_header_to_add ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__header_action__request_header_to_add
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__header_action__request_header_to_remove = {
-  header_name : string prop;  (** The name of the header to remove. *)
+  header_name : string prop;
 }
-[@@deriving yojson_of]
-(** A list of header names for headers that need to be removed from the request prior to forwarding the request to the origin. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__header_action__request_header_to_remove) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__header_action__request_header_to_remove
+    =
+  (function
+   | { header_name = v_header_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_name in
+         ("header_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__header_action__request_header_to_remove ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__header_action__request_header_to_remove
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__header_action__response_header_to_add = {
-  header_name : string prop;  (** The name of the header to add. *)
-  header_value : string prop;  (** The value of the header to add. *)
+  header_name : string prop;
+  header_value : string prop;
   replace : bool prop option; [@option]
-      (** Whether to replace all existing headers with the same name. *)
 }
-[@@deriving yojson_of]
-(** Headers to add to the response prior to sending it back to the client.
+[@@deriving_inline yojson_of]
 
-Response headers are only sent to the client, and do not have an effect on the cache serving the response. *)
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__header_action__response_header_to_add) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__header_action__response_header_to_add
+    =
+  (function
+   | {
+       header_name = v_header_name;
+       header_value = v_header_value;
+       replace = v_replace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_replace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "replace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_value in
+         ("header_value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_name in
+         ("header_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__header_action__response_header_to_add ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__header_action__response_header_to_add
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__header_action__response_header_to_remove = {
   header_name : string prop;
-      (** Headers to remove from the response prior to sending it back to the client.
-
-Response headers are only sent to the client, and do not have an effect on the cache serving the response. *)
 }
-[@@deriving yojson_of]
-(** A list of header names for headers that need to be removed from the request prior to forwarding the request to the origin. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__header_action__response_header_to_remove) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__header_action__response_header_to_remove
+    =
+  (function
+   | { header_name = v_header_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_name in
+         ("header_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__header_action__response_header_to_remove ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__header_action__response_header_to_remove
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__header_action = {
   request_header_to_add :
@@ -90,268 +253,520 @@ type routing__path_matcher__route_rule__header_action = {
     routing__path_matcher__route_rule__header_action__response_header_to_remove
     list;
 }
-[@@deriving yojson_of]
-(** The header actions, including adding & removing headers, for requests that match this route. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : routing__path_matcher__route_rule__header_action) -> ()
+
+let yojson_of_routing__path_matcher__route_rule__header_action =
+  (function
+   | {
+       request_header_to_add = v_request_header_to_add;
+       request_header_to_remove = v_request_header_to_remove;
+       response_header_to_add = v_response_header_to_add;
+       response_header_to_remove = v_response_header_to_remove;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__header_action__response_header_to_remove
+             v_response_header_to_remove
+         in
+         ("response_header_to_remove", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__header_action__response_header_to_add
+             v_response_header_to_add
+         in
+         ("response_header_to_add", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__header_action__request_header_to_remove
+             v_request_header_to_remove
+         in
+         ("request_header_to_remove", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__header_action__request_header_to_add
+             v_request_header_to_add
+         in
+         ("request_header_to_add", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__header_action ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing__path_matcher__route_rule__header_action
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__match_rule__header_match = {
   exact_match : string prop option; [@option]
-      (** The value of the header should exactly match contents of exactMatch. *)
-  header_name : string prop;  (** The header name to match on. *)
+  header_name : string prop;
   invert_match : bool prop option; [@option]
-      (** If set to false (default), the headerMatch is considered a match if the match criteria above are met.
-If set to true, the headerMatch is considered a match if the match criteria above are NOT met. *)
   prefix_match : string prop option; [@option]
-      (** The value of the header must start with the contents of prefixMatch. *)
   present_match : bool prop option; [@option]
-      (** A header with the contents of headerName must exist. The match takes place whether or not the request's header has a value. *)
   suffix_match : string prop option; [@option]
-      (** The value of the header must end with the contents of suffixMatch. *)
 }
-[@@deriving yojson_of]
-(** Specifies a list of header match criteria, all of which must match corresponding headers in the request. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__match_rule__header_match) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__match_rule__header_match
+    =
+  (function
+   | {
+       exact_match = v_exact_match;
+       header_name = v_header_name;
+       invert_match = v_invert_match;
+       prefix_match = v_prefix_match;
+       present_match = v_present_match;
+       suffix_match = v_suffix_match;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_suffix_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "suffix_match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_present_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "present_match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prefix_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix_match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invert_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_name in
+         ("header_name", arg) :: bnds
+       in
+       let bnds =
+         match v_exact_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "exact_match", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__match_rule__header_match ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__match_rule__header_match
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__match_rule__query_parameter_match = {
   exact_match : string prop option; [@option]
-      (** The queryParameterMatch matches if the value of the parameter exactly matches the contents of exactMatch. *)
   name : string prop;
-      (** The name of the query parameter to match. The query parameter must exist in the request, in the absence of which the request match fails. *)
   present_match : bool prop option; [@option]
-      (** Specifies that the queryParameterMatch matches if the request contains the query parameter, irrespective of whether the parameter has a value or not. *)
 }
-[@@deriving yojson_of]
-(** Specifies a list of query parameter match criteria, all of which must match corresponding query parameters in the request. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__match_rule__query_parameter_match) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__match_rule__query_parameter_match
+    =
+  (function
+   | {
+       exact_match = v_exact_match;
+       name = v_name;
+       present_match = v_present_match;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_present_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "present_match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_exact_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "exact_match", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__match_rule__query_parameter_match ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__match_rule__query_parameter_match
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__match_rule = {
   full_path_match : string prop option; [@option]
-      (** For satisfying the matchRule condition, the path of the request must exactly match the value specified in fullPathMatch after removing any query parameters and anchor that may be part of the original URL. *)
   ignore_case : bool prop option; [@option]
-      (** Specifies that prefixMatch and fullPathMatch matches are case sensitive. *)
   path_template_match : string prop option; [@option]
-      (** For satisfying the matchRule condition, the path of the request
-must match the wildcard pattern specified in pathTemplateMatch
-after removing any query parameters and anchor that may be part
-of the original URL.
-
-pathTemplateMatch must be between 1 and 255 characters
-(inclusive).  The pattern specified by pathTemplateMatch may
-have at most 5 wildcard operators and at most 5 variable
-captures in total. *)
   prefix_match : string prop option; [@option]
-      (** For satisfying the matchRule condition, the request's path must begin with the specified prefixMatch. prefixMatch must begin with a /. *)
   header_match :
     routing__path_matcher__route_rule__match_rule__header_match list;
   query_parameter_match :
     routing__path_matcher__route_rule__match_rule__query_parameter_match
     list;
 }
-[@@deriving yojson_of]
-(** The list of criteria for matching attributes of a request to this routeRule. This list has OR semantics: the request matches this routeRule when any of the matchRules are satisfied. However predicates
-within a given matchRule have AND semantics. All predicates within a matchRule must match for the request to match the rule. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing__path_matcher__route_rule__match_rule) -> ()
+
+let yojson_of_routing__path_matcher__route_rule__match_rule =
+  (function
+   | {
+       full_path_match = v_full_path_match;
+       ignore_case = v_ignore_case;
+       path_template_match = v_path_template_match;
+       prefix_match = v_prefix_match;
+       header_match = v_header_match;
+       query_parameter_match = v_query_parameter_match;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__match_rule__query_parameter_match
+             v_query_parameter_match
+         in
+         ("query_parameter_match", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__match_rule__header_match
+             v_header_match
+         in
+         ("header_match", arg) :: bnds
+       in
+       let bnds =
+         match v_prefix_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix_match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path_template_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path_template_match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_case with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_case", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_full_path_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "full_path_match", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__match_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing__path_matcher__route_rule__match_rule
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures = {
   actions : string prop list;
-      (** The actions to take to add signatures to responses. Possible values: [GENERATE_COOKIE, GENERATE_TOKEN_HLS_COOKIELESS, PROPAGATE_TOKEN_HLS_COOKIELESS] *)
   copied_parameters : string prop list option; [@option]
-      (** The parameters to copy from the verified token to the generated token.
-
-Only the following parameters may be copied:
-
-  * 'PathGlobs'
-  * 'paths'
-  * 'acl'
-  * 'URLPrefix'
-  * 'IPRanges'
-  * 'SessionID'
-  * 'id'
-  * 'Data'
-  * 'data'
-  * 'payload'
-  * 'Headers'
-
-You may specify up to 6 parameters to copy.  A given parameter is be copied only if the parameter exists in the verified token.  Parameter names are matched exactly as specified.  The order of the parameters does not matter.  Duplicates are not allowed.
-
-This field may only be specified when the GENERATE_COOKIE or GENERATE_TOKEN_HLS_COOKIELESS actions are specified. *)
   keyset : string prop option; [@option]
-      (** The keyset to use for signature generation.
-
-The following are both valid paths to an EdgeCacheKeyset resource:
-
-  * 'projects/project/locations/global/edgeCacheKeysets/yourKeyset'
-  * 'yourKeyset'
-
-This must be specified when the GENERATE_COOKIE or GENERATE_TOKEN_HLS_COOKIELESS actions are specified.  This field may not be specified otherwise. *)
   token_query_parameter : string prop option; [@option]
-      (** The query parameter in which to put the generated token.
-
-If not specified, defaults to 'edge-cache-token'.
-
-If specified, the name must be 1-64 characters long and match the regular expression '[a-zA-Z]([a-zA-Z0-9_-])*' which means the first character must be a letter, and all following characters must be a dash, underscore, letter or digit.
-
-This field may only be set when the GENERATE_TOKEN_HLS_COOKIELESS or PROPAGATE_TOKEN_HLS_COOKIELESS actions are specified. *)
   token_ttl : string prop option; [@option]
-      (** The duration the token is valid starting from the moment the token is first generated.
-
-Defaults to '86400s' (1 day).
-
-The TTL must be >= 0 and <= 604,800 seconds (1 week).
-
-This field may only be specified when the GENERATE_COOKIE or GENERATE_TOKEN_HLS_COOKIELESS actions are specified.
-
-A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
 }
-[@@deriving yojson_of]
-(** Enable signature generation or propagation on this route.
+[@@deriving_inline yojson_of]
 
-This field may only be specified when signedRequestMode is set to REQUIRE_TOKENS. *)
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
+    =
+  (function
+   | {
+       actions = v_actions;
+       copied_parameters = v_copied_parameters;
+       keyset = v_keyset;
+       token_query_parameter = v_token_query_parameter;
+       token_ttl = v_token_ttl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_token_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_token_query_parameter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token_query_parameter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keyset with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keyset", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_copied_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "copied_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_actions
+         in
+         ("actions", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy = {
   exclude_host : bool prop option; [@option]
-      (** If true, requests to different hosts will be cached separately.
-
-Note: this should only be enabled if hosts share the same origin and content. Removing the host from the cache key may inadvertently result in different objects being cached than intended, depending on which route the first user matched. *)
   exclude_query_string : bool prop option; [@option]
-      (** If true, exclude query string parameters from the cache key
-
-If false (the default), include the query string parameters in
-the cache key according to includeQueryParameters and
-excludeQueryParameters. If neither includeQueryParameters nor
-excludeQueryParameters is set, the entire query string will be
-included. *)
   excluded_query_parameters : string prop list option; [@option]
-      (** Names of query string parameters to exclude from cache keys. All other parameters will be included.
-
-Either specify includedQueryParameters or excludedQueryParameters, not both. '&' and '=' will be percent encoded and not treated as delimiters. *)
   include_protocol : bool prop option; [@option]
-      (** If true, http and https requests will be cached separately. *)
   included_cookie_names : string prop list option; [@option]
-      (** Names of Cookies to include in cache keys.  The cookie name and cookie value of each cookie named will be used as part of the cache key.
-
-Cookie names:
-  - must be valid RFC 6265 cookie-name tokens
-  - are case sensitive
-  - cannot start with Edge-Cache- (case insensitive)
-
-  Note that specifying several cookies, and/or cookies that have a large range of values (e.g., per-user) will dramatically impact the cache hit rate, and may result in a higher eviction rate and reduced performance.
-
-  You may specify up to three cookie names. *)
   included_header_names : string prop list option; [@option]
-      (** Names of HTTP request headers to include in cache keys. The value of the header field will be used as part of the cache key.
-
-- Header names must be valid HTTP RFC 7230 header field values.
-- Header field names are case insensitive
-- To include the HTTP method, use :method
-
-Note that specifying several headers, and/or headers that have a large range of values (e.g. per-user) will dramatically impact the cache hit rate, and may result in a higher eviction rate and reduced performance. *)
   included_query_parameters : string prop list option; [@option]
-      (** Names of query string parameters to include in cache keys. All other parameters will be excluded.
-
-Either specify includedQueryParameters or excludedQueryParameters, not both. '&' and '=' will be percent encoded and not treated as delimiters. *)
 }
-[@@deriving yojson_of]
-(** Defines the request parameters that contribute to the cache key. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy
+    =
+  (function
+   | {
+       exclude_host = v_exclude_host;
+       exclude_query_string = v_exclude_query_string;
+       excluded_query_parameters = v_excluded_query_parameters;
+       include_protocol = v_include_protocol;
+       included_cookie_names = v_included_cookie_names;
+       included_header_names = v_included_header_names;
+       included_query_parameters = v_included_query_parameters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_included_query_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "included_query_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_included_header_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "included_header_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_included_cookie_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "included_cookie_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_excluded_query_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "excluded_query_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exclude_query_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "exclude_query_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exclude_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "exclude_host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options = {
   allowed_signature_algorithms : string prop list option; [@option]
-      (** The allowed signature algorithms to use.
-
-Defaults to using only ED25519.
-
-You may specify up to 3 signature algorithms to use. Possible values: [ED25519, HMAC_SHA_256, HMAC_SHA1] *)
   token_query_parameter : string prop option; [@option]
-      (** The query parameter in which to find the token.
-
-The name must be 1-64 characters long and match the regular expression '[a-zA-Z]([a-zA-Z0-9_-])*' which means the first character must be a letter, and all following characters must be a dash, underscore, letter or digit.
-
-Defaults to 'edge-cache-token'. *)
 }
-[@@deriving yojson_of]
-(** Additional options for signed tokens.
+[@@deriving_inline yojson_of]
 
-signedTokenOptions may only be specified when signedRequestMode is REQUIRE_TOKENS. *)
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
+    =
+  (function
+   | {
+       allowed_signature_algorithms = v_allowed_signature_algorithms;
+       token_query_parameter = v_token_query_parameter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_token_query_parameter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token_query_parameter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_signature_algorithms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_signature_algorithms", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__route_action__cdn_policy = {
   cache_mode : string prop option; [@option]
-      (** Cache modes allow users to control the behaviour of the cache, what content it should cache automatically, whether to respect origin headers, or whether to unconditionally cache all responses.
-
-For all cache modes, Cache-Control headers will be passed to the client. Use clientTtl to override what is sent to the client. Possible values: [CACHE_ALL_STATIC, USE_ORIGIN_HEADERS, FORCE_CACHE_ALL, BYPASS_CACHE] *)
   client_ttl : string prop option; [@option]
-      (** Specifies a separate client (e.g. browser client) TTL, separate from the TTL used by the edge caches. Leaving this empty will use the same cache TTL for both the CDN and the client-facing response.
-
-- The TTL must be > 0 and <= 86400s (1 day)
-- The clientTtl cannot be larger than the defaultTtl (if set)
-- Fractions of a second are not allowed.
-
-Omit this field to use the defaultTtl, or the max-age set by the origin, as the client-facing TTL.
-
-When the cache mode is set to USE_ORIGIN_HEADERS or BYPASS_CACHE, you must omit this field.
-A duration in seconds terminated by 's'. Example: 3s. *)
   default_ttl : string prop option; [@option]
-      (** Specifies the default TTL for cached content served by this origin for responses that do not have an existing valid TTL (max-age or s-max-age).
-
-Defaults to 3600s (1 hour).
-
-- The TTL must be >= 0 and <= 31,536,000 seconds (1 year)
-- Setting a TTL of 0 means always revalidate (equivalent to must-revalidate)
-- The value of defaultTTL cannot be set to a value greater than that of maxTTL.
-- Fractions of a second are not allowed.
-- When the cacheMode is set to FORCE_CACHE_ALL, the defaultTTL will overwrite the TTL set in all responses.
-
-Note that infrequently accessed objects may be evicted from the cache before the defined TTL. Objects that expire will be revalidated with the origin.
-
-When the cache mode is set to USE_ORIGIN_HEADERS or BYPASS_CACHE, you must omit this field.
-
-A duration in seconds terminated by 's'. Example: 3s. *)
   max_ttl : string prop option; [@option]
-      (** Specifies the maximum allowed TTL for cached content served by this origin.
-
-Defaults to 86400s (1 day).
-
-Cache directives that attempt to set a max-age or s-maxage higher than this, or an Expires header more than maxTtl seconds in the future will be capped at the value of maxTTL, as if it were the value of an s-maxage Cache-Control directive.
-
-- The TTL must be >= 0 and <= 31,536,000 seconds (1 year)
-- Setting a TTL of 0 means always revalidate
-- The value of maxTtl must be equal to or greater than defaultTtl.
-- Fractions of a second are not allowed.
-
-When the cache mode is set to USE_ORIGIN_HEADERS, FORCE_CACHE_ALL, or BYPASS_CACHE, you must omit this field.
-
-A duration in seconds terminated by 's'. Example: 3s. *)
   negative_caching : bool prop option; [@option]
-      (** Negative caching allows per-status code TTLs to be set, in order to apply fine-grained caching for common errors or redirects. This can reduce the load on your origin and improve end-user experience by reducing response latency.
-
-By default, the CDNPolicy will apply the following default TTLs to these status codes:
-
-- HTTP 300 (Multiple Choice), 301, 308 (Permanent Redirects): 10m
-- HTTP 404 (Not Found), 410 (Gone), 451 (Unavailable For Legal Reasons): 120s
-- HTTP 405 (Method Not Found), 414 (URI Too Long), 501 (Not Implemented): 60s
-
-These defaults can be overridden in negativeCachingPolicy *)
   negative_caching_policy : (string * string prop) list option;
       [@option]
-      (** Sets a cache TTL for the specified HTTP status code. negativeCaching must be enabled to configure negativeCachingPolicy.
-
-- Omitting the policy and leaving negativeCaching enabled will use the default TTLs for each status code, defined in negativeCaching.
-- TTLs must be >= 0 (where 0 is always revalidate) and <= 86400s (1 day)
-
-Note that when specifying an explicit negativeCachingPolicy, you should take care to specify a cache TTL for all response codes that you wish to cache. The CDNPolicy will not apply any default negative caching when a policy exists. *)
   signed_request_keyset : string prop option; [@option]
-      (** The EdgeCacheKeyset containing the set of public keys used to validate signed requests at the edge. *)
   signed_request_maximum_expiration_ttl : string prop option;
       [@option]
-      (** Limit how far into the future the expiration time of a signed request may be.
-
-When set, a signed request is rejected if its expiration time is later than now + signedRequestMaximumExpirationTtl, where now is the time at which the signed request is first handled by the CDN.
-
-- The TTL must be > 0.
-- Fractions of a second are not allowed.
-
-By default, signedRequestMaximumExpirationTtl is not set and the expiration time of a signed request may be arbitrarily far into future. *)
   signed_request_mode : string prop option; [@option]
-      (** Whether to enforce signed requests. The default value is DISABLED, which means all content is public, and does not authorize access.
-
-You must also set a signedRequestKeyset to enable signed requests.
-
-When set to REQUIRE_SIGNATURES, all matching requests will have their signature validated. Requests that were not signed with the corresponding private key, or that are otherwise invalid (expired, do not match the signature, IP address, or header) will be rejected with a HTTP 403 and (if enabled) logged. Possible values: [DISABLED, REQUIRE_SIGNATURES, REQUIRE_TOKENS] *)
   add_signatures :
     routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
     list;
@@ -362,61 +777,304 @@ When set to REQUIRE_SIGNATURES, all matching requests will have their signature 
     routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
     list;
 }
-[@@deriving yojson_of]
-(** The policy to use for defining caching and signed request behaviour for requests that match this route. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__route_action__cdn_policy) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy
+    =
+  (function
+   | {
+       cache_mode = v_cache_mode;
+       client_ttl = v_client_ttl;
+       default_ttl = v_default_ttl;
+       max_ttl = v_max_ttl;
+       negative_caching = v_negative_caching;
+       negative_caching_policy = v_negative_caching_policy;
+       signed_request_keyset = v_signed_request_keyset;
+       signed_request_maximum_expiration_ttl =
+         v_signed_request_maximum_expiration_ttl;
+       signed_request_mode = v_signed_request_mode;
+       add_signatures = v_add_signatures;
+       cache_key_policy = v_cache_key_policy;
+       signed_token_options = v_signed_token_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__signed_token_options
+             v_signed_token_options
+         in
+         ("signed_token_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__cache_key_policy
+             v_cache_key_policy
+         in
+         ("cache_key_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy__add_signatures
+             v_add_signatures
+         in
+         ("add_signatures", arg) :: bnds
+       in
+       let bnds =
+         match v_signed_request_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "signed_request_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_signed_request_maximum_expiration_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "signed_request_maximum_expiration_ttl", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_signed_request_keyset with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "signed_request_keyset", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_negative_caching_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "negative_caching_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_negative_caching with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "negative_caching", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cache_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cache_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__route_action__cdn_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__route_action__cors_policy = {
   allow_credentials : bool prop option; [@option]
-      (** In response to a preflight request, setting this to true indicates that the actual request can include user credentials.
-
-This translates to the Access-Control-Allow-Credentials response header. *)
   allow_headers : string prop list option; [@option]
-      (** Specifies the content for the Access-Control-Allow-Headers response header. *)
   allow_methods : string prop list option; [@option]
-      (** Specifies the content for the Access-Control-Allow-Methods response header. *)
   allow_origins : string prop list option; [@option]
-      (** Specifies the list of origins that will be allowed to do CORS requests.
-
-This translates to the Access-Control-Allow-Origin response header. *)
   disabled : bool prop option; [@option]
-      (** If true, specifies the CORS policy is disabled. The default value is false, which indicates that the CORS policy is in effect. *)
   expose_headers : string prop list option; [@option]
-      (** Specifies the content for the Access-Control-Allow-Headers response header. *)
   max_age : string prop;
-      (** Specifies how long results of a preflight request can be cached by a client in seconds. Note that many browser clients enforce a maximum TTL of 600s (10 minutes).
-
-- Setting the value to -1 forces a pre-flight check for all requests (not recommended)
-- A maximum TTL of 86400s can be set, but note that (as above) some clients may force pre-flight checks at a more regular interval.
-- This translates to the Access-Control-Max-Age header.
-
-A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
 }
-[@@deriving yojson_of]
-(** CORSPolicy defines Cross-Origin-Resource-Sharing configuration, including which CORS response headers will be set. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__route_action__cors_policy) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__route_action__cors_policy
+    =
+  (function
+   | {
+       allow_credentials = v_allow_credentials;
+       allow_headers = v_allow_headers;
+       allow_methods = v_allow_methods;
+       allow_origins = v_allow_origins;
+       disabled = v_disabled;
+       expose_headers = v_expose_headers;
+       max_age = v_max_age;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_max_age in
+         ("max_age", arg) :: bnds
+       in
+       let bnds =
+         match v_expose_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "expose_headers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_origins with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allow_origins", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_methods with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allow_methods", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allow_headers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_credentials with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_credentials", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__route_action__cors_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__route_action__cors_policy
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__route_action__url_rewrite = {
   host_rewrite : string prop option; [@option]
-      (** Prior to forwarding the request to the selected origin, the request's host header is replaced with contents of hostRewrite. *)
   path_prefix_rewrite : string prop option; [@option]
-      (** Prior to forwarding the request to the selected origin, the matching portion of the request's path is replaced by pathPrefixRewrite. *)
   path_template_rewrite : string prop option; [@option]
-      (** Prior to forwarding the request to the selected origin, if the
-request matched a pathTemplateMatch, the matching portion of the
-request's path is replaced re-written using the pattern specified
-by pathTemplateRewrite.
-
-pathTemplateRewrite must be between 1 and 255 characters
-(inclusive), must start with a '/', and must only use variables
-captured by the route's pathTemplate matchers.
-
-pathTemplateRewrite may only be used when all of a route's
-MatchRules specify pathTemplate.
-
-Only one of pathPrefixRewrite and pathTemplateRewrite may be
-specified. *)
 }
-[@@deriving yojson_of]
-(** The URL rewrite configuration for requests that match this route. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing__path_matcher__route_rule__route_action__url_rewrite) ->
+  ()
+
+let yojson_of_routing__path_matcher__route_rule__route_action__url_rewrite
+    =
+  (function
+   | {
+       host_rewrite = v_host_rewrite;
+       path_prefix_rewrite = v_path_prefix_rewrite;
+       path_template_rewrite = v_path_template_rewrite;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path_template_rewrite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path_template_rewrite", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path_prefix_rewrite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path_prefix_rewrite", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_rewrite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_rewrite", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__route_action__url_rewrite ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing__path_matcher__route_rule__route_action__url_rewrite
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__route_action = {
   cdn_policy :
@@ -426,56 +1084,139 @@ type routing__path_matcher__route_rule__route_action = {
   url_rewrite :
     routing__path_matcher__route_rule__route_action__url_rewrite list;
 }
-[@@deriving yojson_of]
-(** In response to a matching path, the routeAction performs advanced routing actions like URL rewrites, header transformations, etc. prior to forwarding the request to the selected origin. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : routing__path_matcher__route_rule__route_action) -> ()
+
+let yojson_of_routing__path_matcher__route_rule__route_action =
+  (function
+   | {
+       cdn_policy = v_cdn_policy;
+       cors_policy = v_cors_policy;
+       url_rewrite = v_url_rewrite;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__route_action__url_rewrite
+             v_url_rewrite
+         in
+         ("url_rewrite", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__route_action__cors_policy
+             v_cors_policy
+         in
+         ("cors_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__route_action__cdn_policy
+             v_cdn_policy
+         in
+         ("cdn_policy", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__route_action ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing__path_matcher__route_rule__route_action
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule__url_redirect = {
   host_redirect : string prop option; [@option]
-      (** The host that will be used in the redirect response instead of the one that was supplied in the request. *)
   https_redirect : bool prop option; [@option]
-      (** If set to true, the URL scheme in the redirected request is set to https. If set to false, the URL scheme of the redirected request will remain the same as that of the request.
-
-This can only be set if there is at least one (1) edgeSslCertificate set on the service. *)
   path_redirect : string prop option; [@option]
-      (** The path that will be used in the redirect response instead of the one that was supplied in the request.
-
-pathRedirect cannot be supplied together with prefixRedirect. Supply one alone or neither. If neither is supplied, the path of the original request will be used for the redirect.
-
-The path value must be between 1 and 1024 characters. *)
   prefix_redirect : string prop option; [@option]
-      (** The prefix that replaces the prefixMatch specified in the routeRule, retaining the remaining portion of the URL before redirecting the request.
-
-prefixRedirect cannot be supplied together with pathRedirect. Supply one alone or neither. If neither is supplied, the path of the original request will be used for the redirect. *)
   redirect_response_code : string prop option; [@option]
-      (** The HTTP Status code to use for this RedirectAction.
-
-The supported values are:
-
-- 'MOVED_PERMANENTLY_DEFAULT', which is the default value and corresponds to 301.
-- 'FOUND', which corresponds to 302.
-- 'SEE_OTHER' which corresponds to 303.
-- 'TEMPORARY_REDIRECT', which corresponds to 307. in this case, the request method will be retained.
-- 'PERMANENT_REDIRECT', which corresponds to 308. in this case, the request method will be retained. Possible values: [MOVED_PERMANENTLY_DEFAULT, FOUND, SEE_OTHER, TEMPORARY_REDIRECT, PERMANENT_REDIRECT] *)
   strip_query : bool prop option; [@option]
-      (** If set to true, any accompanying query portion of the original URL is removed prior to redirecting the request. If set to false, the query portion of the original URL is retained. *)
 }
-[@@deriving yojson_of]
-(** The URL redirect configuration for requests that match this route. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : routing__path_matcher__route_rule__url_redirect) -> ()
+
+let yojson_of_routing__path_matcher__route_rule__url_redirect =
+  (function
+   | {
+       host_redirect = v_host_redirect;
+       https_redirect = v_https_redirect;
+       path_redirect = v_path_redirect;
+       prefix_redirect = v_prefix_redirect;
+       redirect_response_code = v_redirect_response_code;
+       strip_query = v_strip_query;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_strip_query with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "strip_query", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_redirect_response_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "redirect_response_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prefix_redirect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix_redirect", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path_redirect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path_redirect", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_https_redirect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "https_redirect", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_redirect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_redirect", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule__url_redirect ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing__path_matcher__route_rule__url_redirect
+
+[@@@deriving.end]
 
 type routing__path_matcher__route_rule = {
   description : string prop option; [@option]
-      (** A human-readable description of the routeRule. *)
   origin : string prop option; [@option]
-      (** The Origin resource that requests to this route should fetch from when a matching response is not in cache. Origins can be defined as short names (my-origin) or fully-qualified resource URLs - e.g. networkservices.googleapis.com/projects/my-project/global/edgecacheorigins/my-origin
-
-Only one of origin or urlRedirect can be set. *)
   priority : string prop;
-      (** The priority of this route rule, where 1 is the highest priority.
-
-You cannot configure two or more routeRules with the same priority. Priority for each rule must be set to a number between 1 and 999 inclusive.
-
-Priority numbers can have gaps, which enable you to add or remove rules in the future without affecting the rest of the rules. For example, 1, 2, 3, 4, 5, 9, 12, 16 is a valid series of priority numbers
-to which you could add rules numbered from 6 to 8, 10 to 11, and 13 to 15 in the future without any impact on existing rules. *)
   header_action :
     routing__path_matcher__route_rule__header_action list;
   match_rule : routing__path_matcher__route_rule__match_rule list;
@@ -483,77 +1224,365 @@ to which you could add rules numbered from 6 to 8, 10 to 11, and 13 to 15 in the
     routing__path_matcher__route_rule__route_action list;
   url_redirect : routing__path_matcher__route_rule__url_redirect list;
 }
-[@@deriving yojson_of]
-(** The routeRules to match against. routeRules support advanced routing behaviour, and can match on paths, headers and query parameters, as well as status codes and HTTP methods. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing__path_matcher__route_rule) -> ()
+
+let yojson_of_routing__path_matcher__route_rule =
+  (function
+   | {
+       description = v_description;
+       origin = v_origin;
+       priority = v_priority;
+       header_action = v_header_action;
+       match_rule = v_match_rule;
+       route_action = v_route_action;
+       url_redirect = v_url_redirect;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__url_redirect
+             v_url_redirect
+         in
+         ("url_redirect", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__route_action
+             v_route_action
+         in
+         ("route_action", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__match_rule
+             v_match_rule
+         in
+         ("match_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing__path_matcher__route_rule__header_action
+             v_header_action
+         in
+         ("header_action", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_priority in
+         ("priority", arg) :: bnds
+       in
+       let bnds =
+         match v_origin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "origin", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher__route_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing__path_matcher__route_rule
+
+[@@@deriving.end]
 
 type routing__path_matcher = {
   description : string prop option; [@option]
-      (** A human-readable description of the resource. *)
   name : string prop;
-      (** The name to which this PathMatcher is referred by the HostRule. *)
   route_rule : routing__path_matcher__route_rule list;
 }
-[@@deriving yojson_of]
-(** The list of pathMatchers referenced via name by hostRules. PathMatcher is used to match the path portion of the URL when a HostRule matches the URL's host portion. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing__path_matcher) -> ()
+
+let yojson_of_routing__path_matcher =
+  (function
+   | {
+       description = v_description;
+       name = v_name;
+       route_rule = v_route_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_routing__path_matcher__route_rule
+             v_route_rule
+         in
+         ("route_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing__path_matcher -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing__path_matcher
+
+[@@@deriving.end]
 
 type routing = {
   host_rule : routing__host_rule list;
   path_matcher : routing__path_matcher list;
 }
-[@@deriving yojson_of]
-(** Defines how requests are routed, modified, cached and/or which origin content is filled from. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing) -> ()
+
+let yojson_of_routing =
+  (function
+   | { host_rule = v_host_rule; path_matcher = v_path_matcher } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_routing__path_matcher
+             v_path_matcher
+         in
+         ("path_matcher", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_routing__host_rule v_host_rule
+         in
+         ("host_rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_network_services_edge_cache_service = {
   description : string prop option; [@option]
-      (** A human-readable description of the resource. *)
   disable_http2 : bool prop option; [@option]
-      (** Disables HTTP/2.
-
-HTTP/2 (h2) is enabled by default and recommended for performance. HTTP/2 improves connection re-use and reduces connection setup overhead by sending multiple streams over the same connection.
-
-Some legacy HTTP clients may have issues with HTTP/2 connections due to broken HTTP/2 implementations. Setting this to true will prevent HTTP/2 from being advertised and negotiated. *)
   disable_quic : bool prop option; [@option]
-      (** HTTP/3 (IETF QUIC) and Google QUIC are enabled by default. *)
   edge_security_policy : string prop option; [@option]
-      (** Resource URL that points at the Cloud Armor edge security policy that is applied on each request against the EdgeCacheService. *)
   edge_ssl_certificates : string prop list option; [@option]
-      (** URLs to sslCertificate resources that are used to authenticate connections between users and the EdgeCacheService.
-
-Note that only global certificates with a scope of EDGE_CACHE can be attached to an EdgeCacheService. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Set of label tags associated with the EdgeCache resource.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** Name of the resource; provided by the client when the resource is created.
-The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which means the first character must be a letter,
-and all following characters must be a dash, underscore, letter or digit. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   require_tls : bool prop option; [@option]
-      (** Require TLS (HTTPS) for all clients connecting to this service.
-
-Clients who connect over HTTP (port 80) will receive a HTTP 301 to the same URL over HTTPS (port 443).
-You must have at least one (1) edgeSslCertificate specified to enable this. *)
   ssl_policy : string prop option; [@option]
-      (** URL of the SslPolicy resource that will be associated with the EdgeCacheService.
-
-If not set, the EdgeCacheService has no SSL policy configured, and will default to the COMPATIBLE policy. *)
   log_config : log_config list;
   routing : routing list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_network_services_edge_cache_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_network_services_edge_cache_service) -> ()
+
+let yojson_of_google_network_services_edge_cache_service =
+  (function
+   | {
+       description = v_description;
+       disable_http2 = v_disable_http2;
+       disable_quic = v_disable_quic;
+       edge_security_policy = v_edge_security_policy;
+       edge_ssl_certificates = v_edge_ssl_certificates;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       require_tls = v_require_tls;
+       ssl_policy = v_ssl_policy;
+       log_config = v_log_config;
+       routing = v_routing;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_routing v_routing in
+         ("routing", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_log_config v_log_config
+         in
+         ("log_config", arg) :: bnds
+       in
+       let bnds =
+         match v_ssl_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_require_tls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_tls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_edge_ssl_certificates with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "edge_ssl_certificates", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_edge_security_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "edge_security_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_quic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_quic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_http2 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_http2", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_network_services_edge_cache_service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_network_services_edge_cache_service
+
+[@@@deriving.end]
 
 let log_config ?enable ?sample_rate () : log_config =
   { enable; sample_rate }

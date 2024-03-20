@@ -3,21 +3,102 @@
 open! Tf_core
 
 type policy_attribute = {
-  name : string prop option; [@option]  (** name *)
-  value : string prop option; [@option]  (** value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** policy_attribute *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : policy_attribute) -> ()
+
+let yojson_of_policy_attribute =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_attribute -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policy_attribute
+
+[@@@deriving.end]
 
 type aws_load_balancer_policy = {
-  id : string prop option; [@option]  (** id *)
-  load_balancer_name : string prop;  (** load_balancer_name *)
-  policy_name : string prop;  (** policy_name *)
-  policy_type_name : string prop;  (** policy_type_name *)
+  id : string prop option; [@option]
+  load_balancer_name : string prop;
+  policy_name : string prop;
+  policy_type_name : string prop;
   policy_attribute : policy_attribute list;
 }
-[@@deriving yojson_of]
-(** aws_load_balancer_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_load_balancer_policy) -> ()
+
+let yojson_of_aws_load_balancer_policy =
+  (function
+   | {
+       id = v_id;
+       load_balancer_name = v_load_balancer_name;
+       policy_name = v_policy_name;
+       policy_type_name = v_policy_type_name;
+       policy_attribute = v_policy_attribute;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_policy_attribute
+             v_policy_attribute
+         in
+         ("policy_attribute", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_policy_type_name
+         in
+         ("policy_type_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_name in
+         ("policy_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_load_balancer_name
+         in
+         ("load_balancer_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_load_balancer_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_load_balancer_policy
+
+[@@@deriving.end]
 
 let policy_attribute ?name ?value () : policy_attribute =
   { name; value }

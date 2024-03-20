@@ -4,30 +4,163 @@ open! Tf_core
 
 type aws_default_vpc = {
   assign_generated_ipv6_cidr_block : bool prop option; [@option]
-      (** assign_generated_ipv6_cidr_block *)
   enable_dns_hostnames : bool prop option; [@option]
-      (** enable_dns_hostnames *)
   enable_dns_support : bool prop option; [@option]
-      (** enable_dns_support *)
   enable_network_address_usage_metrics : bool prop option; [@option]
-      (** enable_network_address_usage_metrics *)
-  force_destroy : bool prop option; [@option]  (** force_destroy *)
-  id : string prop option; [@option]  (** id *)
+  force_destroy : bool prop option; [@option]
+  id : string prop option; [@option]
   ipv6_cidr_block : string prop option; [@option]
-      (** ipv6_cidr_block *)
   ipv6_cidr_block_network_border_group : string prop option;
       [@option]
-      (** ipv6_cidr_block_network_border_group *)
   ipv6_ipam_pool_id : string prop option; [@option]
-      (** ipv6_ipam_pool_id *)
   ipv6_netmask_length : float prop option; [@option]
-      (** ipv6_netmask_length *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_default_vpc *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_default_vpc) -> ()
+
+let yojson_of_aws_default_vpc =
+  (function
+   | {
+       assign_generated_ipv6_cidr_block =
+         v_assign_generated_ipv6_cidr_block;
+       enable_dns_hostnames = v_enable_dns_hostnames;
+       enable_dns_support = v_enable_dns_support;
+       enable_network_address_usage_metrics =
+         v_enable_network_address_usage_metrics;
+       force_destroy = v_force_destroy;
+       id = v_id;
+       ipv6_cidr_block = v_ipv6_cidr_block;
+       ipv6_cidr_block_network_border_group =
+         v_ipv6_cidr_block_network_border_group;
+       ipv6_ipam_pool_id = v_ipv6_ipam_pool_id;
+       ipv6_netmask_length = v_ipv6_netmask_length;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_netmask_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "ipv6_netmask_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_ipam_pool_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_ipam_pool_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_cidr_block_network_border_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_cidr_block_network_border_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_cidr_block with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_cidr_block", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_network_address_usage_metrics with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_network_address_usage_metrics", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_dns_support with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_dns_support", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_dns_hostnames with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_dns_hostnames", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_assign_generated_ipv6_cidr_block with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "assign_generated_ipv6_cidr_block", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_default_vpc -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_default_vpc
+
+[@@@deriving.end]
 
 let aws_default_vpc ?assign_generated_ipv6_cidr_block
     ?enable_dns_hostnames ?enable_dns_support

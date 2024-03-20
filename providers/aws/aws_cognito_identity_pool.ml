@@ -3,37 +3,211 @@
 open! Tf_core
 
 type cognito_identity_providers = {
-  client_id : string prop option; [@option]  (** client_id *)
-  provider_name : string prop option; [@option]  (** provider_name *)
+  client_id : string prop option; [@option]
+  provider_name : string prop option; [@option]
   server_side_token_check : bool prop option; [@option]
-      (** server_side_token_check *)
 }
-[@@deriving yojson_of]
-(** cognito_identity_providers *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cognito_identity_providers) -> ()
+
+let yojson_of_cognito_identity_providers =
+  (function
+   | {
+       client_id = v_client_id;
+       provider_name = v_provider_name;
+       server_side_token_check = v_server_side_token_check;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_server_side_token_check with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "server_side_token_check", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_provider_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "provider_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cognito_identity_providers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cognito_identity_providers
+
+[@@@deriving.end]
 
 type aws_cognito_identity_pool = {
   allow_classic_flow : bool prop option; [@option]
-      (** allow_classic_flow *)
   allow_unauthenticated_identities : bool prop option; [@option]
-      (** allow_unauthenticated_identities *)
   developer_provider_name : string prop option; [@option]
-      (** developer_provider_name *)
-  id : string prop option; [@option]  (** id *)
-  identity_pool_name : string prop;  (** identity_pool_name *)
+  id : string prop option; [@option]
+  identity_pool_name : string prop;
   openid_connect_provider_arns : string prop list option; [@option]
-      (** openid_connect_provider_arns *)
   saml_provider_arns : string prop list option; [@option]
-      (** saml_provider_arns *)
   supported_login_providers : (string * string prop) list option;
       [@option]
-      (** supported_login_providers *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   cognito_identity_providers : cognito_identity_providers list;
 }
-[@@deriving yojson_of]
-(** aws_cognito_identity_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cognito_identity_pool) -> ()
+
+let yojson_of_aws_cognito_identity_pool =
+  (function
+   | {
+       allow_classic_flow = v_allow_classic_flow;
+       allow_unauthenticated_identities =
+         v_allow_unauthenticated_identities;
+       developer_provider_name = v_developer_provider_name;
+       id = v_id;
+       identity_pool_name = v_identity_pool_name;
+       openid_connect_provider_arns = v_openid_connect_provider_arns;
+       saml_provider_arns = v_saml_provider_arns;
+       supported_login_providers = v_supported_login_providers;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       cognito_identity_providers = v_cognito_identity_providers;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cognito_identity_providers
+             v_cognito_identity_providers
+         in
+         ("cognito_identity_providers", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_supported_login_providers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "supported_login_providers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_saml_provider_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "saml_provider_arns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_openid_connect_provider_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "openid_connect_provider_arns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_identity_pool_name
+         in
+         ("identity_pool_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_developer_provider_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "developer_provider_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_unauthenticated_identities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_unauthenticated_identities", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_classic_flow with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_classic_flow", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cognito_identity_pool -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cognito_identity_pool
+
+[@@@deriving.end]
 
 let cognito_identity_providers ?client_id ?provider_name
     ?server_side_token_check () : cognito_identity_providers =

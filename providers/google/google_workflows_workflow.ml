@@ -3,52 +3,212 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_workflows_workflow = {
   call_log_level : string prop option; [@option]
-      (** Describes the level of platform logging to apply to calls and call responses during
-executions of this workflow. If both the workflow and the execution specify a logging level,
-the execution level takes precedence. Possible values: [CALL_LOG_LEVEL_UNSPECIFIED, LOG_ALL_CALLS, LOG_ERRORS_ONLY, LOG_NONE] *)
   crypto_key_name : string prop option; [@option]
-      (** The KMS key used to encrypt workflow and execution data.
-
-Format: projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey} *)
   description : string prop option; [@option]
-      (** Description of the workflow provided by the user. Must be at most 1000 unicode characters long. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** A set of key/value label pairs to assign to this Workflow.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string prop option; [@option]  (** Name of the Workflow. *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  project : string prop option; [@option]  (** project *)
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The region of the workflow. *)
   service_account : string prop option; [@option]
-      (** Name of the service account associated with the latest workflow version. This service
-account represents the identity of the workflow and determines what permissions the workflow has.
-Format: projects/{project}/serviceAccounts/{account} or {account}.
-Using - as a wildcard for the {project} or not providing one at all will infer the project from the account.
-The {account} value can be the email address or the unique_id of the service account.
-If not provided, workflow will use the project's default service account.
-Modifying this field for an existing workflow results in a new workflow revision. *)
   source_contents : string prop option; [@option]
-      (** Workflow code to be executed. The size limit is 128KB. *)
   user_env_vars : (string * string prop) list option; [@option]
-      (** User-defined environment variables associated with this workflow revision. This map has a maximum length of 20. Each string can take up to 4KiB. Keys cannot be empty strings and cannot start with “GOOGLE” or “WORKFLOWS. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_workflows_workflow *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_workflows_workflow) -> ()
+
+let yojson_of_google_workflows_workflow =
+  (function
+   | {
+       call_log_level = v_call_log_level;
+       crypto_key_name = v_crypto_key_name;
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       project = v_project;
+       region = v_region;
+       service_account = v_service_account;
+       source_contents = v_source_contents;
+       user_env_vars = v_user_env_vars;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_user_env_vars with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "user_env_vars", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_contents with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_contents", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_crypto_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "crypto_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_call_log_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "call_log_level", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_workflows_workflow -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_workflows_workflow
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

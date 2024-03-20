@@ -4,40 +4,215 @@ open! Tf_core
 
 type auto_scaling_group_provider__managed_scaling = {
   instance_warmup_period : float prop option; [@option]
-      (** instance_warmup_period *)
   maximum_scaling_step_size : float prop option; [@option]
-      (** maximum_scaling_step_size *)
   minimum_scaling_step_size : float prop option; [@option]
-      (** minimum_scaling_step_size *)
-  status : string prop option; [@option]  (** status *)
+  status : string prop option; [@option]
   target_capacity : float prop option; [@option]
-      (** target_capacity *)
 }
-[@@deriving yojson_of]
-(** auto_scaling_group_provider__managed_scaling *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auto_scaling_group_provider__managed_scaling) -> ()
+
+let yojson_of_auto_scaling_group_provider__managed_scaling =
+  (function
+   | {
+       instance_warmup_period = v_instance_warmup_period;
+       maximum_scaling_step_size = v_maximum_scaling_step_size;
+       minimum_scaling_step_size = v_minimum_scaling_step_size;
+       status = v_status;
+       target_capacity = v_target_capacity;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_target_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_capacity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minimum_scaling_step_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minimum_scaling_step_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maximum_scaling_step_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_scaling_step_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_warmup_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "instance_warmup_period", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : auto_scaling_group_provider__managed_scaling ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auto_scaling_group_provider__managed_scaling
+
+[@@@deriving.end]
 
 type auto_scaling_group_provider = {
   auto_scaling_group_arn : string prop;
-      (** auto_scaling_group_arn *)
   managed_draining : string prop option; [@option]
-      (** managed_draining *)
   managed_termination_protection : string prop option; [@option]
-      (** managed_termination_protection *)
   managed_scaling : auto_scaling_group_provider__managed_scaling list;
 }
-[@@deriving yojson_of]
-(** auto_scaling_group_provider *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auto_scaling_group_provider) -> ()
+
+let yojson_of_auto_scaling_group_provider =
+  (function
+   | {
+       auto_scaling_group_arn = v_auto_scaling_group_arn;
+       managed_draining = v_managed_draining;
+       managed_termination_protection =
+         v_managed_termination_protection;
+       managed_scaling = v_managed_scaling;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auto_scaling_group_provider__managed_scaling
+             v_managed_scaling
+         in
+         ("managed_scaling", arg) :: bnds
+       in
+       let bnds =
+         match v_managed_termination_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_termination_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_managed_draining with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_draining", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_auto_scaling_group_arn
+         in
+         ("auto_scaling_group_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : auto_scaling_group_provider ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auto_scaling_group_provider
+
+[@@@deriving.end]
 
 type aws_ecs_capacity_provider = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   auto_scaling_group_provider : auto_scaling_group_provider list;
 }
-[@@deriving yojson_of]
-(** aws_ecs_capacity_provider *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ecs_capacity_provider) -> ()
+
+let yojson_of_aws_ecs_capacity_provider =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       auto_scaling_group_provider = v_auto_scaling_group_provider;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auto_scaling_group_provider
+             v_auto_scaling_group_provider
+         in
+         ("auto_scaling_group_provider", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ecs_capacity_provider -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ecs_capacity_provider
+
+[@@@deriving.end]
 
 let auto_scaling_group_provider__managed_scaling
     ?instance_warmup_period ?maximum_scaling_step_size

@@ -3,99 +3,371 @@
 open! Tf_core
 
 type approval_group = {
-  approvals_needed : float prop;  (** Number of approvals needed. *)
+  approvals_needed : float prop;
   email_addresses : string prop list option; [@option]
-      (** List of emails to request approval from. *)
   email_list_uuid : string prop option; [@option]
-      (** email_list_uuid *)
 }
-[@@deriving yojson_of]
-(** approval_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : approval_group) -> ()
+
+let yojson_of_approval_group =
+  (function
+   | {
+       approvals_needed = v_approvals_needed;
+       email_addresses = v_email_addresses;
+       email_list_uuid = v_email_list_uuid;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_email_list_uuid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "email_list_uuid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_approvals_needed
+         in
+         ("approvals_needed", arg) :: bnds
+       in
+       `Assoc bnds
+    : approval_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_approval_group
+
+[@@@deriving.end]
 
 type exclude__auth_context = {
   ac_id : string prop;
-      (** The ACID of the Authentication Context. *)
-  id : string prop;  (** The ID of the Authentication Context. *)
+  id : string prop;
   identity_provider_id : string prop;
-      (** The ID of the Azure Identity provider. *)
 }
-[@@deriving yojson_of]
-(** exclude__auth_context *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude__auth_context) -> ()
+
+let yojson_of_exclude__auth_context =
+  (function
+   | {
+       ac_id = v_ac_id;
+       id = v_id;
+       identity_provider_id = v_identity_provider_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_identity_provider_id
+         in
+         ("identity_provider_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ac_id in
+         ("ac_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : exclude__auth_context -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude__auth_context
+
+[@@@deriving.end]
 
 type exclude__azure = {
   id : string prop list option; [@option]
-      (** The ID of the Azure group or user. *)
   identity_provider_id : string prop option; [@option]
-      (** The ID of the Azure Identity provider. *)
 }
-[@@deriving yojson_of]
-(** exclude__azure *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude__azure) -> ()
+
+let yojson_of_exclude__azure =
+  (function
+   | { id = v_id; identity_provider_id = v_identity_provider_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : exclude__azure -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude__azure
+
+[@@@deriving.end]
 
 type exclude__external_evaluation = {
-  evaluate_url : string prop option; [@option]  (** evaluate_url *)
-  keys_url : string prop option; [@option]  (** keys_url *)
+  evaluate_url : string prop option; [@option]
+  keys_url : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** exclude__external_evaluation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude__external_evaluation) -> ()
+
+let yojson_of_exclude__external_evaluation =
+  (function
+   | { evaluate_url = v_evaluate_url; keys_url = v_keys_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_keys_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keys_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_evaluate_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "evaluate_url", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : exclude__external_evaluation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude__external_evaluation
+
+[@@@deriving.end]
 
 type exclude__github = {
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
-  name : string prop option; [@option]  (** name *)
-  teams : string prop list option; [@option]  (** teams *)
+  name : string prop option; [@option]
+  teams : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** exclude__github *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude__github) -> ()
+
+let yojson_of_exclude__github =
+  (function
+   | {
+       identity_provider_id = v_identity_provider_id;
+       name = v_name;
+       teams = v_teams;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_teams with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "teams", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : exclude__github -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude__github
+
+[@@@deriving.end]
 
 type exclude__gsuite = {
-  email : string prop list option; [@option]  (** email *)
+  email : string prop list option; [@option]
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
 }
-[@@deriving yojson_of]
-(** exclude__gsuite *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude__gsuite) -> ()
+
+let yojson_of_exclude__gsuite =
+  (function
+   | {
+       email = v_email;
+       identity_provider_id = v_identity_provider_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : exclude__gsuite -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude__gsuite
+
+[@@@deriving.end]
 
 type exclude__okta = {
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
-  name : string prop list option; [@option]  (** name *)
+  name : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** exclude__okta *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude__okta) -> ()
+
+let yojson_of_exclude__okta =
+  (function
+   | { identity_provider_id = v_identity_provider_id; name = v_name }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : exclude__okta -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude__okta
+
+[@@@deriving.end]
 
 type exclude__saml = {
   attribute_name : string prop option; [@option]
-      (** attribute_name *)
   attribute_value : string prop option; [@option]
-      (** attribute_value *)
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
 }
-[@@deriving yojson_of]
-(** exclude__saml *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude__saml) -> ()
+
+let yojson_of_exclude__saml =
+  (function
+   | {
+       attribute_name = v_attribute_name;
+       attribute_value = v_attribute_value;
+       identity_provider_id = v_identity_provider_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attribute_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "attribute_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attribute_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "attribute_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : exclude__saml -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude__saml
+
+[@@@deriving.end]
 
 type exclude = {
   any_valid_service_token : bool prop option; [@option]
-      (** any_valid_service_token *)
-  auth_method : string prop option; [@option]  (** auth_method *)
-  certificate : bool prop option; [@option]  (** certificate *)
-  common_name : string prop option; [@option]  (** common_name *)
+  auth_method : string prop option; [@option]
+  certificate : bool prop option; [@option]
+  common_name : string prop option; [@option]
   device_posture : string prop list option; [@option]
-      (** device_posture *)
-  email : string prop list option; [@option]  (** email *)
+  email : string prop list option; [@option]
   email_domain : string prop list option; [@option]
-      (** email_domain *)
-  everyone : bool prop option; [@option]  (** everyone *)
-  geo : string prop list option; [@option]  (** geo *)
-  group : string prop list option; [@option]  (** group *)
+  everyone : bool prop option; [@option]
+  geo : string prop list option; [@option]
+  group : string prop list option; [@option]
   ip : string prop list option; [@option]
-      (** An IPv4 or IPv6 CIDR block. *)
   ip_list : string prop list option; [@option]
-      (** The ID of an existing IP list to reference. *)
   login_method : string prop list option; [@option]
-      (** login_method *)
   service_token : string prop list option; [@option]
-      (** service_token *)
   auth_context : exclude__auth_context list;
   azure : exclude__azure list;
   external_evaluation : exclude__external_evaluation list;
@@ -104,93 +376,529 @@ type exclude = {
   okta : exclude__okta list;
   saml : exclude__saml list;
 }
-[@@deriving yojson_of]
-(** A series of access conditions, see [Access Groups](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/access_group#conditions). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude) -> ()
+
+let yojson_of_exclude =
+  (function
+   | {
+       any_valid_service_token = v_any_valid_service_token;
+       auth_method = v_auth_method;
+       certificate = v_certificate;
+       common_name = v_common_name;
+       device_posture = v_device_posture;
+       email = v_email;
+       email_domain = v_email_domain;
+       everyone = v_everyone;
+       geo = v_geo;
+       group = v_group;
+       ip = v_ip;
+       ip_list = v_ip_list;
+       login_method = v_login_method;
+       service_token = v_service_token;
+       auth_context = v_auth_context;
+       azure = v_azure;
+       external_evaluation = v_external_evaluation;
+       github = v_github;
+       gsuite = v_gsuite;
+       okta = v_okta;
+       saml = v_saml;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_exclude__saml v_saml in
+         ("saml", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_exclude__okta v_okta in
+         ("okta", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_exclude__gsuite v_gsuite
+         in
+         ("gsuite", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_exclude__github v_github
+         in
+         ("github", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_exclude__external_evaluation
+             v_external_evaluation
+         in
+         ("external_evaluation", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_exclude__azure v_azure in
+         ("azure", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_exclude__auth_context
+             v_auth_context
+         in
+         ("auth_context", arg) :: bnds
+       in
+       let bnds =
+         match v_service_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "service_token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_login_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "login_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_geo with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "geo", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_everyone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "everyone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email_domain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_device_posture with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "device_posture", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auth_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auth_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_any_valid_service_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "any_valid_service_token", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : exclude -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude
+
+[@@@deriving.end]
 
 type include__auth_context = {
   ac_id : string prop;
-      (** The ACID of the Authentication Context. *)
-  id : string prop;  (** The ID of the Authentication Context. *)
+  id : string prop;
   identity_provider_id : string prop;
-      (** The ID of the Azure Identity provider. *)
 }
-[@@deriving yojson_of]
-(** include__auth_context *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include__auth_context) -> ()
+
+let yojson_of_include__auth_context =
+  (function
+   | {
+       ac_id = v_ac_id;
+       id = v_id;
+       identity_provider_id = v_identity_provider_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_identity_provider_id
+         in
+         ("identity_provider_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ac_id in
+         ("ac_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : include__auth_context -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include__auth_context
+
+[@@@deriving.end]
 
 type include__azure = {
   id : string prop list option; [@option]
-      (** The ID of the Azure group or user. *)
   identity_provider_id : string prop option; [@option]
-      (** The ID of the Azure Identity provider. *)
 }
-[@@deriving yojson_of]
-(** include__azure *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include__azure) -> ()
+
+let yojson_of_include__azure =
+  (function
+   | { id = v_id; identity_provider_id = v_identity_provider_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : include__azure -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include__azure
+
+[@@@deriving.end]
 
 type include__external_evaluation = {
-  evaluate_url : string prop option; [@option]  (** evaluate_url *)
-  keys_url : string prop option; [@option]  (** keys_url *)
+  evaluate_url : string prop option; [@option]
+  keys_url : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** include__external_evaluation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include__external_evaluation) -> ()
+
+let yojson_of_include__external_evaluation =
+  (function
+   | { evaluate_url = v_evaluate_url; keys_url = v_keys_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_keys_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keys_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_evaluate_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "evaluate_url", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : include__external_evaluation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include__external_evaluation
+
+[@@@deriving.end]
 
 type include__github = {
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
-  name : string prop option; [@option]  (** name *)
-  teams : string prop list option; [@option]  (** teams *)
+  name : string prop option; [@option]
+  teams : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** include__github *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include__github) -> ()
+
+let yojson_of_include__github =
+  (function
+   | {
+       identity_provider_id = v_identity_provider_id;
+       name = v_name;
+       teams = v_teams;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_teams with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "teams", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : include__github -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include__github
+
+[@@@deriving.end]
 
 type include__gsuite = {
-  email : string prop list option; [@option]  (** email *)
+  email : string prop list option; [@option]
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
 }
-[@@deriving yojson_of]
-(** include__gsuite *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include__gsuite) -> ()
+
+let yojson_of_include__gsuite =
+  (function
+   | {
+       email = v_email;
+       identity_provider_id = v_identity_provider_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : include__gsuite -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include__gsuite
+
+[@@@deriving.end]
 
 type include__okta = {
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
-  name : string prop list option; [@option]  (** name *)
+  name : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** include__okta *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include__okta) -> ()
+
+let yojson_of_include__okta =
+  (function
+   | { identity_provider_id = v_identity_provider_id; name = v_name }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : include__okta -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include__okta
+
+[@@@deriving.end]
 
 type include__saml = {
   attribute_name : string prop option; [@option]
-      (** attribute_name *)
   attribute_value : string prop option; [@option]
-      (** attribute_value *)
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
 }
-[@@deriving yojson_of]
-(** include__saml *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include__saml) -> ()
+
+let yojson_of_include__saml =
+  (function
+   | {
+       attribute_name = v_attribute_name;
+       attribute_value = v_attribute_value;
+       identity_provider_id = v_identity_provider_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attribute_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "attribute_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attribute_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "attribute_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : include__saml -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include__saml
+
+[@@@deriving.end]
 
 type include_ = {
   any_valid_service_token : bool prop option; [@option]
-      (** any_valid_service_token *)
-  auth_method : string prop option; [@option]  (** auth_method *)
-  certificate : bool prop option; [@option]  (** certificate *)
-  common_name : string prop option; [@option]  (** common_name *)
+  auth_method : string prop option; [@option]
+  certificate : bool prop option; [@option]
+  common_name : string prop option; [@option]
   device_posture : string prop list option; [@option]
-      (** device_posture *)
-  email : string prop list option; [@option]  (** email *)
+  email : string prop list option; [@option]
   email_domain : string prop list option; [@option]
-      (** email_domain *)
-  everyone : bool prop option; [@option]  (** everyone *)
-  geo : string prop list option; [@option]  (** geo *)
-  group : string prop list option; [@option]  (** group *)
+  everyone : bool prop option; [@option]
+  geo : string prop list option; [@option]
+  group : string prop list option; [@option]
   ip : string prop list option; [@option]
-      (** An IPv4 or IPv6 CIDR block. *)
   ip_list : string prop list option; [@option]
-      (** The ID of an existing IP list to reference. *)
   login_method : string prop list option; [@option]
-      (** login_method *)
   service_token : string prop list option; [@option]
-      (** service_token *)
   auth_context : include__auth_context list;
   azure : include__azure list;
   external_evaluation : include__external_evaluation list;
@@ -199,93 +907,529 @@ type include_ = {
   okta : include__okta list;
   saml : include__saml list;
 }
-[@@deriving yojson_of]
-(** A series of access conditions, see [Access Groups](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/access_group#conditions). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include_) -> ()
+
+let yojson_of_include_ =
+  (function
+   | {
+       any_valid_service_token = v_any_valid_service_token;
+       auth_method = v_auth_method;
+       certificate = v_certificate;
+       common_name = v_common_name;
+       device_posture = v_device_posture;
+       email = v_email;
+       email_domain = v_email_domain;
+       everyone = v_everyone;
+       geo = v_geo;
+       group = v_group;
+       ip = v_ip;
+       ip_list = v_ip_list;
+       login_method = v_login_method;
+       service_token = v_service_token;
+       auth_context = v_auth_context;
+       azure = v_azure;
+       external_evaluation = v_external_evaluation;
+       github = v_github;
+       gsuite = v_gsuite;
+       okta = v_okta;
+       saml = v_saml;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_include__saml v_saml in
+         ("saml", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_include__okta v_okta in
+         ("okta", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_include__gsuite v_gsuite
+         in
+         ("gsuite", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_include__github v_github
+         in
+         ("github", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_include__external_evaluation
+             v_external_evaluation
+         in
+         ("external_evaluation", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_include__azure v_azure in
+         ("azure", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_include__auth_context
+             v_auth_context
+         in
+         ("auth_context", arg) :: bnds
+       in
+       let bnds =
+         match v_service_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "service_token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_login_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "login_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_geo with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "geo", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_everyone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "everyone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email_domain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_device_posture with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "device_posture", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auth_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auth_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_any_valid_service_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "any_valid_service_token", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : include_ -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include_
+
+[@@@deriving.end]
 
 type require__auth_context = {
   ac_id : string prop;
-      (** The ACID of the Authentication Context. *)
-  id : string prop;  (** The ID of the Authentication Context. *)
+  id : string prop;
   identity_provider_id : string prop;
-      (** The ID of the Azure Identity provider. *)
 }
-[@@deriving yojson_of]
-(** require__auth_context *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : require__auth_context) -> ()
+
+let yojson_of_require__auth_context =
+  (function
+   | {
+       ac_id = v_ac_id;
+       id = v_id;
+       identity_provider_id = v_identity_provider_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_identity_provider_id
+         in
+         ("identity_provider_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ac_id in
+         ("ac_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : require__auth_context -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_require__auth_context
+
+[@@@deriving.end]
 
 type require__azure = {
   id : string prop list option; [@option]
-      (** The ID of the Azure group or user. *)
   identity_provider_id : string prop option; [@option]
-      (** The ID of the Azure Identity provider. *)
 }
-[@@deriving yojson_of]
-(** require__azure *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : require__azure) -> ()
+
+let yojson_of_require__azure =
+  (function
+   | { id = v_id; identity_provider_id = v_identity_provider_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : require__azure -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_require__azure
+
+[@@@deriving.end]
 
 type require__external_evaluation = {
-  evaluate_url : string prop option; [@option]  (** evaluate_url *)
-  keys_url : string prop option; [@option]  (** keys_url *)
+  evaluate_url : string prop option; [@option]
+  keys_url : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** require__external_evaluation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : require__external_evaluation) -> ()
+
+let yojson_of_require__external_evaluation =
+  (function
+   | { evaluate_url = v_evaluate_url; keys_url = v_keys_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_keys_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keys_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_evaluate_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "evaluate_url", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : require__external_evaluation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_require__external_evaluation
+
+[@@@deriving.end]
 
 type require__github = {
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
-  name : string prop option; [@option]  (** name *)
-  teams : string prop list option; [@option]  (** teams *)
+  name : string prop option; [@option]
+  teams : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** require__github *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : require__github) -> ()
+
+let yojson_of_require__github =
+  (function
+   | {
+       identity_provider_id = v_identity_provider_id;
+       name = v_name;
+       teams = v_teams;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_teams with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "teams", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : require__github -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_require__github
+
+[@@@deriving.end]
 
 type require__gsuite = {
-  email : string prop list option; [@option]  (** email *)
+  email : string prop list option; [@option]
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
 }
-[@@deriving yojson_of]
-(** require__gsuite *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : require__gsuite) -> ()
+
+let yojson_of_require__gsuite =
+  (function
+   | {
+       email = v_email;
+       identity_provider_id = v_identity_provider_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : require__gsuite -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_require__gsuite
+
+[@@@deriving.end]
 
 type require__okta = {
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
-  name : string prop list option; [@option]  (** name *)
+  name : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** require__okta *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : require__okta) -> ()
+
+let yojson_of_require__okta =
+  (function
+   | { identity_provider_id = v_identity_provider_id; name = v_name }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : require__okta -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_require__okta
+
+[@@@deriving.end]
 
 type require__saml = {
   attribute_name : string prop option; [@option]
-      (** attribute_name *)
   attribute_value : string prop option; [@option]
-      (** attribute_value *)
   identity_provider_id : string prop option; [@option]
-      (** identity_provider_id *)
 }
-[@@deriving yojson_of]
-(** require__saml *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : require__saml) -> ()
+
+let yojson_of_require__saml =
+  (function
+   | {
+       attribute_name = v_attribute_name;
+       attribute_value = v_attribute_value;
+       identity_provider_id = v_identity_provider_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_provider_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_provider_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attribute_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "attribute_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attribute_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "attribute_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : require__saml -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_require__saml
+
+[@@@deriving.end]
 
 type require = {
   any_valid_service_token : bool prop option; [@option]
-      (** any_valid_service_token *)
-  auth_method : string prop option; [@option]  (** auth_method *)
-  certificate : bool prop option; [@option]  (** certificate *)
-  common_name : string prop option; [@option]  (** common_name *)
+  auth_method : string prop option; [@option]
+  certificate : bool prop option; [@option]
+  common_name : string prop option; [@option]
   device_posture : string prop list option; [@option]
-      (** device_posture *)
-  email : string prop list option; [@option]  (** email *)
+  email : string prop list option; [@option]
   email_domain : string prop list option; [@option]
-      (** email_domain *)
-  everyone : bool prop option; [@option]  (** everyone *)
-  geo : string prop list option; [@option]  (** geo *)
-  group : string prop list option; [@option]  (** group *)
+  everyone : bool prop option; [@option]
+  geo : string prop list option; [@option]
+  group : string prop list option; [@option]
   ip : string prop list option; [@option]
-      (** An IPv4 or IPv6 CIDR block. *)
   ip_list : string prop list option; [@option]
-      (** The ID of an existing IP list to reference. *)
   login_method : string prop list option; [@option]
-      (** login_method *)
   service_token : string prop list option; [@option]
-      (** service_token *)
   auth_context : require__auth_context list;
   azure : require__azure list;
   external_evaluation : require__external_evaluation list;
@@ -294,42 +1438,365 @@ type require = {
   okta : require__okta list;
   saml : require__saml list;
 }
-[@@deriving yojson_of]
-(** A series of access conditions, see [Access Groups](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/access_group#conditions). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : require) -> ()
+
+let yojson_of_require =
+  (function
+   | {
+       any_valid_service_token = v_any_valid_service_token;
+       auth_method = v_auth_method;
+       certificate = v_certificate;
+       common_name = v_common_name;
+       device_posture = v_device_posture;
+       email = v_email;
+       email_domain = v_email_domain;
+       everyone = v_everyone;
+       geo = v_geo;
+       group = v_group;
+       ip = v_ip;
+       ip_list = v_ip_list;
+       login_method = v_login_method;
+       service_token = v_service_token;
+       auth_context = v_auth_context;
+       azure = v_azure;
+       external_evaluation = v_external_evaluation;
+       github = v_github;
+       gsuite = v_gsuite;
+       okta = v_okta;
+       saml = v_saml;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_require__saml v_saml in
+         ("saml", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_require__okta v_okta in
+         ("okta", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_require__gsuite v_gsuite
+         in
+         ("gsuite", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_require__github v_github
+         in
+         ("github", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_require__external_evaluation
+             v_external_evaluation
+         in
+         ("external_evaluation", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_require__azure v_azure in
+         ("azure", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_require__auth_context
+             v_auth_context
+         in
+         ("auth_context", arg) :: bnds
+       in
+       let bnds =
+         match v_service_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "service_token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_login_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "login_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_geo with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "geo", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_everyone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "everyone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email_domain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_device_posture with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "device_posture", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auth_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auth_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_any_valid_service_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "any_valid_service_token", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : require -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_require
+
+[@@@deriving.end]
 
 type cloudflare_access_policy = {
   account_id : string prop option; [@option]
-      (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
   application_id : string prop;
-      (** The ID of the application the policy is associated with. *)
   approval_required : bool prop option; [@option]
-      (** approval_required *)
   decision : string prop;
-      (** Defines the action Access will take if the policy matches the user. Available values: `allow`, `deny`, `non_identity`, `bypass`. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   isolation_required : bool prop option; [@option]
-      (** Require this application to be served in an isolated browser for users matching this policy. *)
-  name : string prop;  (** Friendly name of the Access Policy. *)
+  name : string prop;
   precedence : float prop;
-      (** The unique precedence for policies on a single application. *)
   purpose_justification_prompt : string prop option; [@option]
-      (** The prompt to display to the user for a justification for accessing the resource. Required when using `purpose_justification_required`. *)
   purpose_justification_required : bool prop option; [@option]
-      (** Whether to prompt the user for a justification for accessing the resource. *)
   session_duration : string prop option; [@option]
-      (** How often a user will be forced to re-authorise. Must be in the format `48h` or `2h45m`. *)
   zone_id : string prop option; [@option]
-      (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
   approval_group : approval_group list;
   exclude : exclude list;
   include_ : include_ list;
   require : require list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Access Policy resource. Access Policies are
-used in conjunction with Access Applications to restrict access to
-a particular resource.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_access_policy) -> ()
+
+let yojson_of_cloudflare_access_policy =
+  (function
+   | {
+       account_id = v_account_id;
+       application_id = v_application_id;
+       approval_required = v_approval_required;
+       decision = v_decision;
+       id = v_id;
+       isolation_required = v_isolation_required;
+       name = v_name;
+       precedence = v_precedence;
+       purpose_justification_prompt = v_purpose_justification_prompt;
+       purpose_justification_required =
+         v_purpose_justification_required;
+       session_duration = v_session_duration;
+       zone_id = v_zone_id;
+       approval_group = v_approval_group;
+       exclude = v_exclude;
+       include_ = v_include_;
+       require = v_require;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_require v_require in
+         ("require", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_include_ v_include_ in
+         ("include_", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_exclude v_exclude in
+         ("exclude", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_approval_group v_approval_group
+         in
+         ("approval_group", arg) :: bnds
+       in
+       let bnds =
+         match v_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "session_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_purpose_justification_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "purpose_justification_required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_purpose_justification_prompt with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "purpose_justification_prompt", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_precedence in
+         ("precedence", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_isolation_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "isolation_required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_decision in
+         ("decision", arg) :: bnds
+       in
+       let bnds =
+         match v_approval_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "approval_required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_application_id
+         in
+         ("application_id", arg) :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_access_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_access_policy
+
+[@@@deriving.end]
 
 let approval_group ?email_addresses ?email_list_uuid
     ~approvals_needed () : approval_group =

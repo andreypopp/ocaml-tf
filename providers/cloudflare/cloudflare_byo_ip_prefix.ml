@@ -4,19 +4,65 @@ open! Tf_core
 
 type cloudflare_byo_ip_prefix = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   advertisement : string prop option; [@option]
-      (** Whether or not the prefix shall be announced. A prefix can be activated or deactivated once every 15 minutes (attempting more regular updates will trigger rate limiting). Available values: `on`, `off`. *)
   description : string prop option; [@option]
-      (** Description of the BYO IP prefix. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   prefix_id : string prop;
-      (** The assigned Bring-Your-Own-IP prefix ID. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides the ability to manage Bring-Your-Own-IP prefixes (BYOIP)
-which are used with or without Magic Transit.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_byo_ip_prefix) -> ()
+
+let yojson_of_cloudflare_byo_ip_prefix =
+  (function
+   | {
+       account_id = v_account_id;
+       advertisement = v_advertisement;
+       description = v_description;
+       id = v_id;
+       prefix_id = v_prefix_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_prefix_id in
+         ("prefix_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_advertisement with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "advertisement", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_byo_ip_prefix -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_byo_ip_prefix
+
+[@@@deriving.end]
 
 let cloudflare_byo_ip_prefix ?advertisement ?description ?id
     ~account_id ~prefix_id () : cloudflare_byo_ip_prefix =

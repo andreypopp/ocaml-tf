@@ -8,9 +8,13 @@ type training_metrics = {
   training_loss : float prop;  (** training_loss *)
 }
 
+[@@@deriving.end]
+
 type validation_metrics = {
   validation_loss : float prop;  (** validation_loss *)
 }
+
+[@@@deriving.end]
 
 type output_data_config
 

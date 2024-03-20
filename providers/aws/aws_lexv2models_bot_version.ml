@@ -4,28 +4,131 @@ open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type locale_specification = {
-  source_bot_version : string prop;  (** source_bot_version *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type locale_specification = { source_bot_version : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : locale_specification) -> ()
+
+let yojson_of_locale_specification =
+  (function
+   | { source_bot_version = v_source_bot_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_bot_version
+         in
+         ("source_bot_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : locale_specification -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_locale_specification
+
+[@@@deriving.end]
 
 type aws_lexv2models_bot_version = {
-  bot_id : string prop;  (** bot_id *)
-  bot_version : string prop option; [@option]  (** bot_version *)
-  description : string prop option; [@option]  (** description *)
+  bot_id : string prop;
+  bot_version : string prop option; [@option]
+  description : string prop option; [@option]
   locale_specification : (string * locale_specification) list;
-      (** locale_specification *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_lexv2models_bot_version *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lexv2models_bot_version) -> ()
+
+let yojson_of_aws_lexv2models_bot_version =
+  (function
+   | {
+       bot_id = v_bot_id;
+       bot_version = v_bot_version;
+       description = v_description;
+       locale_specification = v_locale_specification;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_locale_specification v1 in
+                   `List [ v0; v1 ])
+             v_locale_specification
+         in
+         ("locale_specification", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bot_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bot_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bot_id in
+         ("bot_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lexv2models_bot_version ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lexv2models_bot_version
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

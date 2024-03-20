@@ -4,16 +4,66 @@ open! Tf_core
 
 type cloudflare_notification_policy_webhooks = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The name of the webhook destination. *)
+  id : string prop option; [@option]
+  name : string prop;
   secret : string prop option; [@option]
-      (** An optional secret can be provided that will be passed in the `cf-webhook-auth` header when dispatching a webhook notification. Secrets are not returned in any API response body. Refer to the [documentation](https://api.cloudflare.com/#notification-webhooks-create-webhook) for more details. *)
   url : string prop option; [@option]
-      (** The URL of the webhook destinations. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a resource, that manages a webhook destination. These destinations can be tied to the notification policies created for Cloudflare's products. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_notification_policy_webhooks) -> ()
+
+let yojson_of_cloudflare_notification_policy_webhooks =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       name = v_name;
+       secret = v_secret;
+       url = v_url;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_notification_policy_webhooks ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_notification_policy_webhooks
+
+[@@@deriving.end]
 
 let cloudflare_notification_policy_webhooks ?id ?secret ?url
     ~account_id ~name () : cloudflare_notification_policy_webhooks =

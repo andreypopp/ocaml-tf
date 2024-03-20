@@ -3,15 +3,70 @@
 open! Tf_core
 
 type aws_iot_certificate = {
-  active : bool prop;  (** active *)
-  ca_pem : string prop option; [@option]  (** ca_pem *)
+  active : bool prop;
+  ca_pem : string prop option; [@option]
   certificate_pem : string prop option; [@option]
-      (** certificate_pem *)
-  csr : string prop option; [@option]  (** csr *)
-  id : string prop option; [@option]  (** id *)
+  csr : string prop option; [@option]
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_iot_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iot_certificate) -> ()
+
+let yojson_of_aws_iot_certificate =
+  (function
+   | {
+       active = v_active;
+       ca_pem = v_ca_pem;
+       certificate_pem = v_certificate_pem;
+       csr = v_csr;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_csr with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "csr", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_pem with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_pem", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ca_pem with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ca_pem", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_active in
+         ("active", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_iot_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iot_certificate
+
+[@@@deriving.end]
 
 let aws_iot_certificate ?ca_pem ?certificate_pem ?csr ?id ~active ()
     : aws_iot_certificate =

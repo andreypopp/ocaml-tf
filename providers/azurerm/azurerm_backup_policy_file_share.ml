@@ -3,70 +3,358 @@
 open! Tf_core
 
 type backup__hourly = {
-  interval : float prop;  (** interval *)
-  start_time : string prop;  (** start_time *)
-  window_duration : float prop;  (** window_duration *)
+  interval : float prop;
+  start_time : string prop;
+  window_duration : float prop;
 }
-[@@deriving yojson_of]
-(** backup__hourly *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backup__hourly) -> ()
+
+let yojson_of_backup__hourly =
+  (function
+   | {
+       interval = v_interval;
+       start_time = v_start_time;
+       window_duration = v_window_duration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_window_duration
+         in
+         ("window_duration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_start_time in
+         ("start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_interval in
+         ("interval", arg) :: bnds
+       in
+       `Assoc bnds
+    : backup__hourly -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup__hourly
+
+[@@@deriving.end]
 
 type backup = {
-  frequency : string prop;  (** frequency *)
-  time : string prop option; [@option]  (** time *)
+  frequency : string prop;
+  time : string prop option; [@option]
   hourly : backup__hourly list;
 }
-[@@deriving yojson_of]
-(** backup *)
+[@@deriving_inline yojson_of]
 
-type retention_daily = { count : float prop  (** count *) }
-[@@deriving yojson_of]
-(** retention_daily *)
+let _ = fun (_ : backup) -> ()
+
+let yojson_of_backup =
+  (function
+   | { frequency = v_frequency; time = v_time; hourly = v_hourly } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_backup__hourly v_hourly
+         in
+         ("hourly", arg) :: bnds
+       in
+       let bnds =
+         match v_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_frequency in
+         ("frequency", arg) :: bnds
+       in
+       `Assoc bnds
+    : backup -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup
+
+[@@@deriving.end]
+
+type retention_daily = { count : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : retention_daily) -> ()
+
+let yojson_of_retention_daily =
+  (function
+   | { count = v_count } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_count in
+         ("count", arg) :: bnds
+       in
+       `Assoc bnds
+    : retention_daily -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retention_daily
+
+[@@@deriving.end]
 
 type retention_monthly = {
-  count : float prop;  (** count *)
-  days : float prop list option; [@option]  (** days *)
+  count : float prop;
+  days : float prop list option; [@option]
   include_last_days : bool prop option; [@option]
-      (** include_last_days *)
-  weekdays : string prop list option; [@option]  (** weekdays *)
-  weeks : string prop list option; [@option]  (** weeks *)
+  weekdays : string prop list option; [@option]
+  weeks : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** retention_monthly *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : retention_monthly) -> ()
+
+let yojson_of_retention_monthly =
+  (function
+   | {
+       count = v_count;
+       days = v_days;
+       include_last_days = v_include_last_days;
+       weekdays = v_weekdays;
+       weeks = v_weeks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_weeks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "weeks", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_weekdays with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "weekdays", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_last_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_last_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_count in
+         ("count", arg) :: bnds
+       in
+       `Assoc bnds
+    : retention_monthly -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retention_monthly
+
+[@@@deriving.end]
 
 type retention_weekly = {
-  count : float prop;  (** count *)
-  weekdays : string prop list;  (** weekdays *)
+  count : float prop;
+  weekdays : string prop list;
 }
-[@@deriving yojson_of]
-(** retention_weekly *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : retention_weekly) -> ()
+
+let yojson_of_retention_weekly =
+  (function
+   | { count = v_count; weekdays = v_weekdays } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_weekdays
+         in
+         ("weekdays", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_count in
+         ("count", arg) :: bnds
+       in
+       `Assoc bnds
+    : retention_weekly -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retention_weekly
+
+[@@@deriving.end]
 
 type retention_yearly = {
-  count : float prop;  (** count *)
-  days : float prop list option; [@option]  (** days *)
+  count : float prop;
+  days : float prop list option; [@option]
   include_last_days : bool prop option; [@option]
-      (** include_last_days *)
-  months : string prop list;  (** months *)
-  weekdays : string prop list option; [@option]  (** weekdays *)
-  weeks : string prop list option; [@option]  (** weeks *)
+  months : string prop list;
+  weekdays : string prop list option; [@option]
+  weeks : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** retention_yearly *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : retention_yearly) -> ()
+
+let yojson_of_retention_yearly =
+  (function
+   | {
+       count = v_count;
+       days = v_days;
+       include_last_days = v_include_last_days;
+       months = v_months;
+       weekdays = v_weekdays;
+       weeks = v_weeks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_weeks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "weeks", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_weekdays with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "weekdays", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_months
+         in
+         ("months", arg) :: bnds
+       in
+       let bnds =
+         match v_include_last_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_last_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_count in
+         ("count", arg) :: bnds
+       in
+       `Assoc bnds
+    : retention_yearly -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retention_yearly
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_backup_policy_file_share = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  recovery_vault_name : string prop;  (** recovery_vault_name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  timezone : string prop option; [@option]  (** timezone *)
+  id : string prop option; [@option]
+  name : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+  timezone : string prop option; [@option]
   backup : backup list;
   retention_daily : retention_daily list;
   retention_monthly : retention_monthly list;
@@ -74,8 +362,102 @@ type azurerm_backup_policy_file_share = {
   retention_yearly : retention_yearly list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_backup_policy_file_share *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_backup_policy_file_share) -> ()
+
+let yojson_of_azurerm_backup_policy_file_share =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       recovery_vault_name = v_recovery_vault_name;
+       resource_group_name = v_resource_group_name;
+       timezone = v_timezone;
+       backup = v_backup;
+       retention_daily = v_retention_daily;
+       retention_monthly = v_retention_monthly;
+       retention_weekly = v_retention_weekly;
+       retention_yearly = v_retention_yearly;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retention_yearly
+             v_retention_yearly
+         in
+         ("retention_yearly", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retention_weekly
+             v_retention_weekly
+         in
+         ("retention_weekly", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retention_monthly
+             v_retention_monthly
+         in
+         ("retention_monthly", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retention_daily v_retention_daily
+         in
+         ("retention_daily", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_backup v_backup in
+         ("backup", arg) :: bnds
+       in
+       let bnds =
+         match v_timezone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timezone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_recovery_vault_name
+         in
+         ("recovery_vault_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_backup_policy_file_share ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_backup_policy_file_share
+
+[@@@deriving.end]
 
 let backup__hourly ~interval ~start_time ~window_duration () :
     backup__hourly =

@@ -3,38 +3,226 @@
 open! Tf_core
 
 type authentication_mode = {
-  passwords : string prop list option; [@option]  (** passwords *)
-  type_ : string prop; [@key "type"]  (** type *)
+  passwords : string prop list option; [@option]
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** authentication_mode *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : authentication_mode) -> ()
+
+let yojson_of_authentication_mode =
+  (function
+   | { passwords = v_passwords; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_passwords with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "passwords", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : authentication_mode -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authentication_mode
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_elasticache_user = {
-  access_string : string prop;  (** access_string *)
-  engine : string prop;  (** engine *)
-  id : string prop option; [@option]  (** id *)
+  access_string : string prop;
+  engine : string prop;
+  id : string prop option; [@option]
   no_password_required : bool prop option; [@option]
-      (** no_password_required *)
-  passwords : string prop list option; [@option]  (** passwords *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  passwords : string prop list option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  user_id : string prop;  (** user_id *)
-  user_name : string prop;  (** user_name *)
+  user_id : string prop;
+  user_name : string prop;
   authentication_mode : authentication_mode list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_elasticache_user *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_elasticache_user) -> ()
+
+let yojson_of_aws_elasticache_user =
+  (function
+   | {
+       access_string = v_access_string;
+       engine = v_engine;
+       id = v_id;
+       no_password_required = v_no_password_required;
+       passwords = v_passwords;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       user_id = v_user_id;
+       user_name = v_user_name;
+       authentication_mode = v_authentication_mode;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authentication_mode
+             v_authentication_mode
+         in
+         ("authentication_mode", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_name in
+         ("user_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_id in
+         ("user_id", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_passwords with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "passwords", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_no_password_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "no_password_required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_engine in
+         ("engine", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_access_string in
+         ("access_string", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_elasticache_user -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_elasticache_user
+
+[@@@deriving.end]
 
 let authentication_mode ?passwords ~type_ () : authentication_mode =
   { passwords; type_ }

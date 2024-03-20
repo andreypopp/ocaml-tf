@@ -3,61 +3,64 @@
 open! Tf_core
 
 type logging_filter__filter__condition__action_condition = {
-  action: string prop;  (** action *)
-} [@@deriving yojson_of]
-(** logging_filter__filter__condition__action_condition *)
+  action: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logging_filter__filter__condition__label_name_condition = {
-  label_name: string prop;  (** label_name *)
-} [@@deriving yojson_of]
-(** logging_filter__filter__condition__label_name_condition *)
+  label_name: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logging_filter__filter__condition = {
   action_condition: logging_filter__filter__condition__action_condition list;
   label_name_condition: logging_filter__filter__condition__label_name_condition list;
-} [@@deriving yojson_of]
-(** logging_filter__filter__condition *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logging_filter__filter = {
-  behavior: string prop;  (** behavior *)
-  requirement: string prop;  (** requirement *)
+  behavior: string prop; 
+  requirement: string prop; 
   condition: logging_filter__filter__condition list;
-} [@@deriving yojson_of]
-(** logging_filter__filter *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logging_filter = {
-  default_behavior: string prop;  (** default_behavior *)
+  default_behavior: string prop; 
   filter: logging_filter__filter list;
-} [@@deriving yojson_of]
-(** logging_filter *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
-type redacted_fields__method = unit [@@deriving yojson_of]
+type redacted_fields__method = unit [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
-type redacted_fields__query_string = unit [@@deriving yojson_of]
+type redacted_fields__query_string = unit [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type redacted_fields__single_header = {
-  name: string prop;  (** name *)
-} [@@deriving yojson_of]
-(** redacted_fields__single_header *)
+  name: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
-type redacted_fields__uri_path = unit [@@deriving yojson_of]
+type redacted_fields__uri_path = unit [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type redacted_fields = {
   method_: redacted_fields__method list;
   query_string: redacted_fields__query_string list;
   single_header: redacted_fields__single_header list;
   uri_path: redacted_fields__uri_path list;
-} [@@deriving yojson_of]
-(** Parts of the request to exclude from logs *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type aws_wafv2_web_acl_logging_configuration = {
-  id: string  prop option; [@option] (** id *)
-  log_destination_configs: string  prop list;  (** AWS Kinesis Firehose Delivery Stream ARNs *)
-  resource_arn: string prop;  (** AWS WebACL ARN *)
+  id: string  prop option; [@option]
+  log_destination_configs: string  prop list; 
+  resource_arn: string prop; 
   logging_filter: logging_filter list;
   redacted_fields: redacted_fields list;
-} [@@deriving yojson_of]
-(** aws_wafv2_web_acl_logging_configuration *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let logging_filter__filter__condition__action_condition ~action () =
   ({

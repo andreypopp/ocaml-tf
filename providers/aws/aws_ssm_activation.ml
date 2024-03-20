@@ -3,20 +3,116 @@
 open! Tf_core
 
 type aws_ssm_activation = {
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   expiration_date : string prop option; [@option]
-      (** expiration_date *)
-  iam_role : string prop;  (** iam_role *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
+  iam_role : string prop;
+  id : string prop option; [@option]
+  name : string prop option; [@option]
   registration_limit : float prop option; [@option]
-      (** registration_limit *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_ssm_activation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssm_activation) -> ()
+
+let yojson_of_aws_ssm_activation =
+  (function
+   | {
+       description = v_description;
+       expiration_date = v_expiration_date;
+       iam_role = v_iam_role;
+       id = v_id;
+       name = v_name;
+       registration_limit = v_registration_limit;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_registration_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "registration_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_iam_role in
+         ("iam_role", arg) :: bnds
+       in
+       let bnds =
+         match v_expiration_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expiration_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ssm_activation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssm_activation
+
+[@@@deriving.end]
 
 let aws_ssm_activation ?description ?expiration_date ?id ?name
     ?registration_limit ?tags ?tags_all ~iam_role () :

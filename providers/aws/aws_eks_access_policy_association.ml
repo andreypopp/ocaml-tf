@@ -3,29 +3,139 @@
 open! Tf_core
 
 type access_scope = {
-  namespaces : string prop list option; [@option]  (** namespaces *)
-  type_ : string prop; [@key "type"]  (** type *)
+  namespaces : string prop list option; [@option]
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** access_scope *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_scope) -> ()
+
+let yojson_of_access_scope =
+  (function
+   | { namespaces = v_namespaces; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_namespaces with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "namespaces", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_scope -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_scope
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_eks_access_policy_association = {
-  cluster_name : string prop;  (** cluster_name *)
-  id : string prop option; [@option]  (** id *)
-  policy_arn : string prop;  (** policy_arn *)
-  principal_arn : string prop;  (** principal_arn *)
+  cluster_name : string prop;
+  id : string prop option; [@option]
+  policy_arn : string prop;
+  principal_arn : string prop;
   access_scope : access_scope list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_eks_access_policy_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_eks_access_policy_association) -> ()
+
+let yojson_of_aws_eks_access_policy_association =
+  (function
+   | {
+       cluster_name = v_cluster_name;
+       id = v_id;
+       policy_arn = v_policy_arn;
+       principal_arn = v_principal_arn;
+       access_scope = v_access_scope;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_scope v_access_scope
+         in
+         ("access_scope", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_principal_arn in
+         ("principal_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_arn in
+         ("policy_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_name in
+         ("cluster_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_eks_access_policy_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_eks_access_policy_association
+
+[@@@deriving.end]
 
 let access_scope ?namespaces ~type_ () : access_scope =
   { namespaces; type_ }

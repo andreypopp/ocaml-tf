@@ -3,29 +3,168 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_macie2_member = {
-  account_id : string prop;  (** account_id *)
-  email : string prop;  (** email *)
-  id : string prop option; [@option]  (** id *)
+  account_id : string prop;
+  email : string prop;
+  id : string prop option; [@option]
   invitation_disable_email_notification : bool prop option; [@option]
-      (** invitation_disable_email_notification *)
   invitation_message : string prop option; [@option]
-      (** invitation_message *)
-  invite : bool prop option; [@option]  (** invite *)
-  status : string prop option; [@option]  (** status *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  invite : bool prop option; [@option]
+  status : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_macie2_member *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_macie2_member) -> ()
+
+let yojson_of_aws_macie2_member =
+  (function
+   | {
+       account_id = v_account_id;
+       email = v_email;
+       id = v_id;
+       invitation_disable_email_notification =
+         v_invitation_disable_email_notification;
+       invitation_message = v_invitation_message;
+       invite = v_invite;
+       status = v_status;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invite", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invitation_message with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "invitation_message", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invitation_disable_email_notification with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "invitation_disable_email_notification", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email in
+         ("email", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_macie2_member -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_macie2_member
+
+[@@@deriving.end]
 
 let timeouts ?create ?update () : timeouts = { create; update }
 

@@ -3,22 +3,145 @@
 open! Tf_core
 
 type aws_macie2_custom_data_identifier = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
   ignore_words : string prop list option; [@option]
-      (** ignore_words *)
-  keywords : string prop list option; [@option]  (** keywords *)
+  keywords : string prop list option; [@option]
   maximum_match_distance : float prop option; [@option]
-      (** maximum_match_distance *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  regex : string prop option; [@option]  (** regex *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  regex : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_macie2_custom_data_identifier *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_macie2_custom_data_identifier) -> ()
+
+let yojson_of_aws_macie2_custom_data_identifier =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       ignore_words = v_ignore_words;
+       keywords = v_keywords;
+       maximum_match_distance = v_maximum_match_distance;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       regex = v_regex;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maximum_match_distance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_match_distance", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keywords with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "keywords", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_words with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ignore_words", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_macie2_custom_data_identifier ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_macie2_custom_data_identifier
+
+[@@@deriving.end]
 
 let aws_macie2_custom_data_identifier ?description ?id ?ignore_words
     ?keywords ?maximum_match_distance ?name ?name_prefix ?regex ?tags

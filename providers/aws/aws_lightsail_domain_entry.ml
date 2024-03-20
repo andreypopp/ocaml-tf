@@ -3,15 +3,68 @@
 open! Tf_core
 
 type aws_lightsail_domain_entry = {
-  domain_name : string prop;  (** domain_name *)
-  id : string prop option; [@option]  (** id *)
-  is_alias : bool prop option; [@option]  (** is_alias *)
-  name : string prop;  (** name *)
-  target : string prop;  (** target *)
-  type_ : string prop; [@key "type"]  (** type *)
+  domain_name : string prop;
+  id : string prop option; [@option]
+  is_alias : bool prop option; [@option]
+  name : string prop;
+  target : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** aws_lightsail_domain_entry *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lightsail_domain_entry) -> ()
+
+let yojson_of_aws_lightsail_domain_entry =
+  (function
+   | {
+       domain_name = v_domain_name;
+       id = v_id;
+       is_alias = v_is_alias;
+       name = v_name;
+       target = v_target;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_is_alias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_alias", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lightsail_domain_entry -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lightsail_domain_entry
+
+[@@@deriving.end]
 
 let aws_lightsail_domain_entry ?id ?is_alias ~domain_name ~name
     ~target ~type_ () : aws_lightsail_domain_entry =

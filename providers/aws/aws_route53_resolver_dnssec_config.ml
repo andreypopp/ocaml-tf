@@ -3,11 +3,38 @@
 open! Tf_core
 
 type aws_route53_resolver_dnssec_config = {
-  id : string prop option; [@option]  (** id *)
-  resource_id : string prop;  (** resource_id *)
+  id : string prop option; [@option]
+  resource_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_route53_resolver_dnssec_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_resolver_dnssec_config) -> ()
+
+let yojson_of_aws_route53_resolver_dnssec_config =
+  (function
+   | { id = v_id; resource_id = v_resource_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_id in
+         ("resource_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_resolver_dnssec_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_resolver_dnssec_config
+
+[@@@deriving.end]
 
 let aws_route53_resolver_dnssec_config ?id ~resource_id () :
     aws_route53_resolver_dnssec_config =

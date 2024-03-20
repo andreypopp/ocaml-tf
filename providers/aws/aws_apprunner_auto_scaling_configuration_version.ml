@@ -4,18 +4,111 @@ open! Tf_core
 
 type aws_apprunner_auto_scaling_configuration_version = {
   auto_scaling_configuration_name : string prop;
-      (** auto_scaling_configuration_name *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   max_concurrency : float prop option; [@option]
-      (** max_concurrency *)
-  max_size : float prop option; [@option]  (** max_size *)
-  min_size : float prop option; [@option]  (** min_size *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  max_size : float prop option; [@option]
+  min_size : float prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_apprunner_auto_scaling_configuration_version *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_apprunner_auto_scaling_configuration_version) -> ()
+
+let yojson_of_aws_apprunner_auto_scaling_configuration_version =
+  (function
+   | {
+       auto_scaling_configuration_name =
+         v_auto_scaling_configuration_name;
+       id = v_id;
+       max_concurrency = v_max_concurrency;
+       max_size = v_max_size;
+       min_size = v_min_size;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_concurrency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_concurrency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_auto_scaling_configuration_name
+         in
+         ("auto_scaling_configuration_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_apprunner_auto_scaling_configuration_version ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_apprunner_auto_scaling_configuration_version
+
+[@@@deriving.end]
 
 let aws_apprunner_auto_scaling_configuration_version ?id
     ?max_concurrency ?max_size ?min_size ?tags ?tags_all

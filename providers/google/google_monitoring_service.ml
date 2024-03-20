@@ -4,50 +4,207 @@ open! Tf_core
 
 type basic_service = {
   service_labels : (string * string prop) list option; [@option]
-      (** Labels that specify the resource that emits the monitoring data
-which is used for SLO reporting of this 'Service'. *)
   service_type : string prop option; [@option]
-      (** The type of service that this basic service defines, e.g.
-APP_ENGINE service type *)
 }
-[@@deriving yojson_of]
-(** A well-known service type, defined by its service type and service labels.
-Valid values of service types and services labels are described at
-https://cloud.google.com/stackdriver/docs/solutions/slo-monitoring/api/api-structures#basic-svc-w-basic-sli *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : basic_service) -> ()
+
+let yojson_of_basic_service =
+  (function
+   | {
+       service_labels = v_service_labels;
+       service_type = v_service_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "service_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : basic_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_basic_service
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type telemetry = {
-  resource_name : string prop;  (** resource_name *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type telemetry = { resource_name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : telemetry) -> ()
+
+let yojson_of_telemetry =
+  (function
+   | { resource_name = v_resource_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_name in
+         ("resource_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : telemetry -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_telemetry
+
+[@@@deriving.end]
 
 type google_monitoring_service = {
   display_name : string prop option; [@option]
-      (** Name used for UI elements listing this Service. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   service_id : string prop;
-      (** An optional service ID to use. If not given, the server will generate a
-service ID. *)
   user_labels : (string * string prop) list option; [@option]
-      (** Labels which have been used to annotate the service. Label keys must start
-with a letter. Label keys and values may contain lowercase letters,
-numbers, underscores, and dashes. Label keys and values have a maximum
-length of 63 characters, and must be less than 128 bytes in size. Up to 64
-label entries may be stored. For labels which do not have a semantic value,
-the empty string may be supplied for the label value. *)
   basic_service : basic_service list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_monitoring_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_monitoring_service) -> ()
+
+let yojson_of_google_monitoring_service =
+  (function
+   | {
+       display_name = v_display_name;
+       id = v_id;
+       project = v_project;
+       service_id = v_service_id;
+       user_labels = v_user_labels;
+       basic_service = v_basic_service;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_basic_service v_basic_service
+         in
+         ("basic_service", arg) :: bnds
+       in
+       let bnds =
+         match v_user_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "user_labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_id in
+         ("service_id", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_monitoring_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_monitoring_service
+
+[@@@deriving.end]
 
 let basic_service ?service_labels ?service_type () : basic_service =
   { service_labels; service_type }

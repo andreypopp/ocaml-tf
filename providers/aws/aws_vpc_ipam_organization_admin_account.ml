@@ -4,11 +4,43 @@ open! Tf_core
 
 type aws_vpc_ipam_organization_admin_account = {
   delegated_admin_account_id : string prop;
-      (** delegated_admin_account_id *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_vpc_ipam_organization_admin_account *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_vpc_ipam_organization_admin_account) -> ()
+
+let yojson_of_aws_vpc_ipam_organization_admin_account =
+  (function
+   | {
+       delegated_admin_account_id = v_delegated_admin_account_id;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_delegated_admin_account_id
+         in
+         ("delegated_admin_account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_vpc_ipam_organization_admin_account ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_vpc_ipam_organization_admin_account
+
+[@@@deriving.end]
 
 let aws_vpc_ipam_organization_admin_account ?id
     ~delegated_admin_account_id () :

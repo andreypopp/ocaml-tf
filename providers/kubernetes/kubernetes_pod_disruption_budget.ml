@@ -4,54 +4,272 @@ open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the pod disruption budget that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the pod disruption budget. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the pod disruption budget, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Namespace defines the space within which name of the pod disruption budget must be unique. *)
 }
-[@@deriving yojson_of]
-(** Standard pod disruption budget's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+       namespace = v_namespace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type spec__selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__selector__match_expressions) -> ()
+
+let yojson_of_spec__selector__match_expressions =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions : spec__selector__match_expressions list;
 }
-[@@deriving yojson_of]
-(** spec__selector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__selector) -> ()
+
+let yojson_of_spec__selector =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__selector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__selector
+
+[@@@deriving.end]
 
 type spec = {
   max_unavailable : string prop option; [@option]
-      (** max_unavailable *)
-  min_available : string prop option; [@option]  (** min_available *)
+  min_available : string prop option; [@option]
   selector : spec__selector list;
 }
-[@@deriving yojson_of]
-(** Specification of the desired behavior of the PodDisruptionBudget. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       max_unavailable = v_max_unavailable;
+       min_available = v_min_available;
+       selector = v_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__selector v_selector
+         in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         match v_min_available with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_available", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_unavailable with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_unavailable", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type kubernetes_pod_disruption_budget = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   metadata : metadata list;
   spec : spec list;
 }
-[@@deriving yojson_of]
-(** kubernetes_pod_disruption_budget *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_pod_disruption_budget) -> ()
+
+let yojson_of_kubernetes_pod_disruption_budget =
+  (function
+   | { id = v_id; metadata = v_metadata; spec = v_spec } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_pod_disruption_budget ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_pod_disruption_budget
+
+[@@@deriving.end]
 
 let metadata ?annotations ?generate_name ?labels ?name ?namespace ()
     : metadata =

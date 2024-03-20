@@ -14,6 +14,8 @@ type instance_view = {
   start_time : string prop;  (** start_time *)
 }
 
+[@@@deriving.end]
+
 type error_blob_managed_identity
 
 val error_blob_managed_identity :

@@ -2,62 +2,147 @@
 
 open! Tf_core
 
-type streaming_config = {
-  filter : string prop;
-      (** Expression that defines the filter to apply across create/update
-events of assets or findings as specified by the event type. The
-expression is a list of zero or more restrictions combined via
-logical operators AND and OR. Parentheses are supported, and OR
-has higher precedence than AND.
+type streaming_config = { filter : string prop }
+[@@deriving_inline yojson_of]
 
-Restrictions have the form <field> <operator> <value> and may have
-a - character in front of them to indicate negation. The fields
-map to those defined in the corresponding resource.
+let _ = fun (_ : streaming_config) -> ()
 
-The supported operators are:
+let yojson_of_streaming_config =
+  (function
+   | { filter = v_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : streaming_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-* = for all value types.
-* >, <, >=, <= for integer values.
-* :, meaning substring matching, for strings.
+let _ = yojson_of_streaming_config
 
-The supported value types are:
-
-* string literals in quotes.
-* integer literals without quotes.
-* boolean literals true and false without quotes.
-
-See
-[Filtering notifications](https://cloud.google.com/security-command-center/docs/how-to-api-filter-notifications)
-for information on how to write a filter. *)
-}
-[@@deriving yojson_of]
-(** The config for triggering streaming-based notifications. *)
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_scc_notification_config = {
   config_id : string prop;
-      (** This must be unique within the organization. *)
   description : string prop option; [@option]
-      (** The description of the notification config (max of 1024 characters). *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   organization : string prop;
-      (** The organization whose Cloud Security Command Center the Notification
-Config lives in. *)
   pubsub_topic : string prop;
-      (** The Pub/Sub topic to send notifications to. Its format is
-projects/[project_id]/topics/[topic]. *)
   streaming_config : streaming_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_scc_notification_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_scc_notification_config) -> ()
+
+let yojson_of_google_scc_notification_config =
+  (function
+   | {
+       config_id = v_config_id;
+       description = v_description;
+       id = v_id;
+       organization = v_organization;
+       pubsub_topic = v_pubsub_topic;
+       streaming_config = v_streaming_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_streaming_config
+             v_streaming_config
+         in
+         ("streaming_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pubsub_topic in
+         ("pubsub_topic", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_organization in
+         ("organization", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_config_id in
+         ("config_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_scc_notification_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_scc_notification_config
+
+[@@@deriving.end]
 
 let streaming_config ~filter () : streaming_config = { filter }
 

@@ -4,79 +4,375 @@ open! Tf_core
 
 type step_scaling_policy_configuration__step_adjustment = {
   metric_interval_lower_bound : string prop option; [@option]
-      (** metric_interval_lower_bound *)
   metric_interval_upper_bound : string prop option; [@option]
-      (** metric_interval_upper_bound *)
-  scaling_adjustment : float prop;  (** scaling_adjustment *)
+  scaling_adjustment : float prop;
 }
-[@@deriving yojson_of]
-(** step_scaling_policy_configuration__step_adjustment *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : step_scaling_policy_configuration__step_adjustment) -> ()
+
+let yojson_of_step_scaling_policy_configuration__step_adjustment =
+  (function
+   | {
+       metric_interval_lower_bound = v_metric_interval_lower_bound;
+       metric_interval_upper_bound = v_metric_interval_upper_bound;
+       scaling_adjustment = v_scaling_adjustment;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_scaling_adjustment
+         in
+         ("scaling_adjustment", arg) :: bnds
+       in
+       let bnds =
+         match v_metric_interval_upper_bound with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metric_interval_upper_bound", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metric_interval_lower_bound with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metric_interval_lower_bound", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : step_scaling_policy_configuration__step_adjustment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_step_scaling_policy_configuration__step_adjustment
+
+[@@@deriving.end]
 
 type step_scaling_policy_configuration = {
   adjustment_type : string prop option; [@option]
-      (** adjustment_type *)
-  cooldown : float prop option; [@option]  (** cooldown *)
+  cooldown : float prop option; [@option]
   metric_aggregation_type : string prop option; [@option]
-      (** metric_aggregation_type *)
   min_adjustment_magnitude : float prop option; [@option]
-      (** min_adjustment_magnitude *)
   step_adjustment :
     step_scaling_policy_configuration__step_adjustment list;
 }
-[@@deriving yojson_of]
-(** step_scaling_policy_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : step_scaling_policy_configuration) -> ()
+
+let yojson_of_step_scaling_policy_configuration =
+  (function
+   | {
+       adjustment_type = v_adjustment_type;
+       cooldown = v_cooldown;
+       metric_aggregation_type = v_metric_aggregation_type;
+       min_adjustment_magnitude = v_min_adjustment_magnitude;
+       step_adjustment = v_step_adjustment;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_step_scaling_policy_configuration__step_adjustment
+             v_step_adjustment
+         in
+         ("step_adjustment", arg) :: bnds
+       in
+       let bnds =
+         match v_min_adjustment_magnitude with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_adjustment_magnitude", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metric_aggregation_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metric_aggregation_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cooldown with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cooldown", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_adjustment_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "adjustment_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : step_scaling_policy_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_step_scaling_policy_configuration
+
+[@@@deriving.end]
 
 type target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions) ->
+  ()
+
+let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions
+
+[@@@deriving.end]
 
 type target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions) ->
+  ()
+
+let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions
+
+[@@@deriving.end]
 
 type target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric = {
-  metric_name : string prop;  (** metric_name *)
-  namespace : string prop;  (** namespace *)
+  metric_name : string prop;
+  namespace : string prop;
   dimensions :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions
     list;
 }
-[@@deriving yojson_of]
-(** target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric) ->
+  ()
+
+let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric
+    =
+  (function
+   | {
+       metric_name = v_metric_name;
+       namespace = v_namespace;
+       dimensions = v_dimensions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric__dimensions
+             v_dimensions
+         in
+         ("dimensions", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace in
+         ("namespace", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_metric_name in
+         ("metric_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric
+
+[@@@deriving.end]
 
 type target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat = {
-  stat : string prop;  (** stat *)
-  unit : string prop option; [@option]  (** unit *)
+  stat : string prop;
+  unit : string prop option; [@option]
   metric :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric
     list;
 }
-[@@deriving yojson_of]
-(** target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat) ->
+  ()
+
+let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat
+    =
+  (function
+   | { stat = v_stat; unit = v_unit; metric = v_metric } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat__metric
+             v_metric
+         in
+         ("metric", arg) :: bnds
+       in
+       let bnds =
+         match v_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stat in
+         ("stat", arg) :: bnds
+       in
+       `Assoc bnds
+    : target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat
+
+[@@@deriving.end]
 
 type target_tracking_scaling_policy_configuration__customized_metric_specification__metrics = {
-  expression : string prop option; [@option]  (** expression *)
-  id : string prop;  (** id *)
-  label : string prop option; [@option]  (** label *)
-  return_data : bool prop option; [@option]  (** return_data *)
+  expression : string prop option; [@option]
+  id : string prop;
+  label : string prop option; [@option]
+  return_data : bool prop option; [@option]
   metric_stat :
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat
     list;
 }
-[@@deriving yojson_of]
-(** target_tracking_scaling_policy_configuration__customized_metric_specification__metrics *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       target_tracking_scaling_policy_configuration__customized_metric_specification__metrics) ->
+  ()
+
+let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
+    =
+  (function
+   | {
+       expression = v_expression;
+       id = v_id;
+       label = v_label;
+       return_data = v_return_data;
+       metric_stat = v_metric_stat;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics__metric_stat
+             v_metric_stat
+         in
+         ("metric_stat", arg) :: bnds
+       in
+       let bnds =
+         match v_return_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "return_data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_label with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "label", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         match v_expression with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expression", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target_tracking_scaling_policy_configuration__customized_metric_specification__metrics ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
+
+[@@@deriving.end]
 
 type target_tracking_scaling_policy_configuration__customized_metric_specification = {
-  metric_name : string prop option; [@option]  (** metric_name *)
-  namespace : string prop option; [@option]  (** namespace *)
-  statistic : string prop option; [@option]  (** statistic *)
-  unit : string prop option; [@option]  (** unit *)
+  metric_name : string prop option; [@option]
+  namespace : string prop option; [@option]
+  statistic : string prop option; [@option]
+  unit : string prop option; [@option]
   dimensions :
     target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions
     list;
@@ -84,26 +380,133 @@ type target_tracking_scaling_policy_configuration__customized_metric_specificati
     target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
     list;
 }
-[@@deriving yojson_of]
-(** target_tracking_scaling_policy_configuration__customized_metric_specification *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       target_tracking_scaling_policy_configuration__customized_metric_specification) ->
+  ()
+
+let yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification
+    =
+  (function
+   | {
+       metric_name = v_metric_name;
+       namespace = v_namespace;
+       statistic = v_statistic;
+       unit = v_unit;
+       dimensions = v_dimensions;
+       metrics = v_metrics;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__metrics
+             v_metrics
+         in
+         ("metrics", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification__dimensions
+             v_dimensions
+         in
+         ("dimensions", arg) :: bnds
+       in
+       let bnds =
+         match v_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_statistic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "statistic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metric_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metric_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target_tracking_scaling_policy_configuration__customized_metric_specification ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification
+
+[@@@deriving.end]
 
 type target_tracking_scaling_policy_configuration__predefined_metric_specification = {
   predefined_metric_type : string prop;
-      (** predefined_metric_type *)
   resource_label : string prop option; [@option]
-      (** resource_label *)
 }
-[@@deriving yojson_of]
-(** target_tracking_scaling_policy_configuration__predefined_metric_specification *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       target_tracking_scaling_policy_configuration__predefined_metric_specification) ->
+  ()
+
+let yojson_of_target_tracking_scaling_policy_configuration__predefined_metric_specification
+    =
+  (function
+   | {
+       predefined_metric_type = v_predefined_metric_type;
+       resource_label = v_resource_label;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_resource_label with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_label", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_predefined_metric_type
+         in
+         ("predefined_metric_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : target_tracking_scaling_policy_configuration__predefined_metric_specification ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_target_tracking_scaling_policy_configuration__predefined_metric_specification
+
+[@@@deriving.end]
 
 type target_tracking_scaling_policy_configuration = {
   disable_scale_in : bool prop option; [@option]
-      (** disable_scale_in *)
   scale_in_cooldown : float prop option; [@option]
-      (** scale_in_cooldown *)
   scale_out_cooldown : float prop option; [@option]
-      (** scale_out_cooldown *)
-  target_value : float prop;  (** target_value *)
+  target_value : float prop;
   customized_metric_specification :
     target_tracking_scaling_policy_configuration__customized_metric_specification
     list;
@@ -111,23 +514,168 @@ type target_tracking_scaling_policy_configuration = {
     target_tracking_scaling_policy_configuration__predefined_metric_specification
     list;
 }
-[@@deriving yojson_of]
-(** target_tracking_scaling_policy_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target_tracking_scaling_policy_configuration) -> ()
+
+let yojson_of_target_tracking_scaling_policy_configuration =
+  (function
+   | {
+       disable_scale_in = v_disable_scale_in;
+       scale_in_cooldown = v_scale_in_cooldown;
+       scale_out_cooldown = v_scale_out_cooldown;
+       target_value = v_target_value;
+       customized_metric_specification =
+         v_customized_metric_specification;
+       predefined_metric_specification =
+         v_predefined_metric_specification;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_target_tracking_scaling_policy_configuration__predefined_metric_specification
+             v_predefined_metric_specification
+         in
+         ("predefined_metric_specification", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_target_tracking_scaling_policy_configuration__customized_metric_specification
+             v_customized_metric_specification
+         in
+         ("customized_metric_specification", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_target_value in
+         ("target_value", arg) :: bnds
+       in
+       let bnds =
+         match v_scale_out_cooldown with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "scale_out_cooldown", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_scale_in_cooldown with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "scale_in_cooldown", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_scale_in with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_scale_in", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target_tracking_scaling_policy_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target_tracking_scaling_policy_configuration
+
+[@@@deriving.end]
 
 type aws_appautoscaling_policy = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  policy_type : string prop option; [@option]  (** policy_type *)
-  resource_id : string prop;  (** resource_id *)
-  scalable_dimension : string prop;  (** scalable_dimension *)
-  service_namespace : string prop;  (** service_namespace *)
+  id : string prop option; [@option]
+  name : string prop;
+  policy_type : string prop option; [@option]
+  resource_id : string prop;
+  scalable_dimension : string prop;
+  service_namespace : string prop;
   step_scaling_policy_configuration :
     step_scaling_policy_configuration list;
   target_tracking_scaling_policy_configuration :
     target_tracking_scaling_policy_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_appautoscaling_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appautoscaling_policy) -> ()
+
+let yojson_of_aws_appautoscaling_policy =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       policy_type = v_policy_type;
+       resource_id = v_resource_id;
+       scalable_dimension = v_scalable_dimension;
+       service_namespace = v_service_namespace;
+       step_scaling_policy_configuration =
+         v_step_scaling_policy_configuration;
+       target_tracking_scaling_policy_configuration =
+         v_target_tracking_scaling_policy_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_target_tracking_scaling_policy_configuration
+             v_target_tracking_scaling_policy_configuration
+         in
+         ("target_tracking_scaling_policy_configuration", arg)
+         :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_step_scaling_policy_configuration
+             v_step_scaling_policy_configuration
+         in
+         ("step_scaling_policy_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_namespace
+         in
+         ("service_namespace", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_scalable_dimension
+         in
+         ("scalable_dimension", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_id in
+         ("resource_id", arg) :: bnds
+       in
+       let bnds =
+         match v_policy_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_appautoscaling_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appautoscaling_policy
+
+[@@@deriving.end]
 
 let step_scaling_policy_configuration__step_adjustment
     ?metric_interval_lower_bound ?metric_interval_upper_bound

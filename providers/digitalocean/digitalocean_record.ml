@@ -3,20 +3,118 @@
 open! Tf_core
 
 type digitalocean_record = {
-  domain : string prop;  (** domain *)
-  flags : float prop option; [@option]  (** flags *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  port : float prop option; [@option]  (** port *)
-  priority : float prop option; [@option]  (** priority *)
-  tag : string prop option; [@option]  (** tag *)
-  ttl : float prop option; [@option]  (** ttl *)
-  type_ : string prop; [@key "type"]  (** type *)
-  value : string prop;  (** value *)
-  weight : float prop option; [@option]  (** weight *)
+  domain : string prop;
+  flags : float prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  port : float prop option; [@option]
+  priority : float prop option; [@option]
+  tag : string prop option; [@option]
+  ttl : float prop option; [@option]
+  type_ : string prop; [@key "type"]
+  value : string prop;
+  weight : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** digitalocean_record *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_record) -> ()
+
+let yojson_of_digitalocean_record =
+  (function
+   | {
+       domain = v_domain;
+       flags = v_flags;
+       id = v_id;
+       name = v_name;
+       port = v_port;
+       priority = v_priority;
+       tag = v_tag;
+       ttl = v_ttl;
+       type_ = v_type_;
+       value = v_value;
+       weight = v_weight;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_weight with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "weight", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_flags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "flags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_record -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_record
+
+[@@@deriving.end]
 
 let digitalocean_record ?flags ?id ?port ?priority ?tag ?ttl ?weight
     ~domain ~name ~type_ ~value () : digitalocean_record =

@@ -3,53 +3,270 @@
 open! Tf_core
 
 type filter = {
-  prefix : string prop option; [@option]  (** prefix *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  prefix : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
 }
-[@@deriving yojson_of]
-(** filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : filter) -> ()
+
+let yojson_of_filter =
+  (function
+   | { prefix = v_prefix; tags = v_tags } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filter
+
+[@@@deriving.end]
 
 type storage_class_analysis__data_export__destination__s3_bucket_destination = {
   bucket_account_id : string prop option; [@option]
-      (** bucket_account_id *)
-  bucket_arn : string prop;  (** bucket_arn *)
-  format : string prop option; [@option]  (** format *)
-  prefix : string prop option; [@option]  (** prefix *)
+  bucket_arn : string prop;
+  format : string prop option; [@option]
+  prefix : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** storage_class_analysis__data_export__destination__s3_bucket_destination *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       storage_class_analysis__data_export__destination__s3_bucket_destination) ->
+  ()
+
+let yojson_of_storage_class_analysis__data_export__destination__s3_bucket_destination
+    =
+  (function
+   | {
+       bucket_account_id = v_bucket_account_id;
+       bucket_arn = v_bucket_arn;
+       format = v_format;
+       prefix = v_prefix;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_arn in
+         ("bucket_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_bucket_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket_account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : storage_class_analysis__data_export__destination__s3_bucket_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_storage_class_analysis__data_export__destination__s3_bucket_destination
+
+[@@@deriving.end]
 
 type storage_class_analysis__data_export__destination = {
   s3_bucket_destination :
     storage_class_analysis__data_export__destination__s3_bucket_destination
     list;
 }
-[@@deriving yojson_of]
-(** storage_class_analysis__data_export__destination *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : storage_class_analysis__data_export__destination) -> ()
+
+let yojson_of_storage_class_analysis__data_export__destination =
+  (function
+   | { s3_bucket_destination = v_s3_bucket_destination } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_storage_class_analysis__data_export__destination__s3_bucket_destination
+             v_s3_bucket_destination
+         in
+         ("s3_bucket_destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : storage_class_analysis__data_export__destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage_class_analysis__data_export__destination
+
+[@@@deriving.end]
 
 type storage_class_analysis__data_export = {
   output_schema_version : string prop option; [@option]
-      (** output_schema_version *)
   destination : storage_class_analysis__data_export__destination list;
 }
-[@@deriving yojson_of]
-(** storage_class_analysis__data_export *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage_class_analysis__data_export) -> ()
+
+let yojson_of_storage_class_analysis__data_export =
+  (function
+   | {
+       output_schema_version = v_output_schema_version;
+       destination = v_destination;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_storage_class_analysis__data_export__destination
+             v_destination
+         in
+         ("destination", arg) :: bnds
+       in
+       let bnds =
+         match v_output_schema_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_schema_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : storage_class_analysis__data_export ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage_class_analysis__data_export
+
+[@@@deriving.end]
 
 type storage_class_analysis = {
   data_export : storage_class_analysis__data_export list;
 }
-[@@deriving yojson_of]
-(** storage_class_analysis *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage_class_analysis) -> ()
+
+let yojson_of_storage_class_analysis =
+  (function
+   | { data_export = v_data_export } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_storage_class_analysis__data_export
+             v_data_export
+         in
+         ("data_export", arg) :: bnds
+       in
+       `Assoc bnds
+    : storage_class_analysis -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage_class_analysis
+
+[@@@deriving.end]
 
 type aws_s3_bucket_analytics_configuration = {
-  bucket : string prop;  (** bucket *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  bucket : string prop;
+  id : string prop option; [@option]
+  name : string prop;
   filter : filter list;
   storage_class_analysis : storage_class_analysis list;
 }
-[@@deriving yojson_of]
-(** aws_s3_bucket_analytics_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_s3_bucket_analytics_configuration) -> ()
+
+let yojson_of_aws_s3_bucket_analytics_configuration =
+  (function
+   | {
+       bucket = v_bucket;
+       id = v_id;
+       name = v_name;
+       filter = v_filter;
+       storage_class_analysis = v_storage_class_analysis;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_storage_class_analysis
+             v_storage_class_analysis
+         in
+         ("storage_class_analysis", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_filter v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_s3_bucket_analytics_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3_bucket_analytics_configuration
+
+[@@@deriving.end]
 
 let filter ?prefix ?tags () : filter = { prefix; tags }
 

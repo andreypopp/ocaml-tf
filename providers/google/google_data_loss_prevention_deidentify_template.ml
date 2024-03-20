@@ -4,49 +4,215 @@ open! Tf_core
 
 type deidentify_config__image_transformations__transforms__all_info_types =
   unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__image_transformations__transforms__all_info_types) ->
+  ()
+
+let yojson_of_deidentify_config__image_transformations__transforms__all_info_types
+    =
+  (yojson_of_unit
+    : deidentify_config__image_transformations__transforms__all_info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__image_transformations__transforms__all_info_types
+
+[@@@deriving.end]
 
 type deidentify_config__image_transformations__transforms__all_text =
   unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__image_transformations__transforms__all_text) ->
+  ()
+
+let yojson_of_deidentify_config__image_transformations__transforms__all_text
+    =
+  (yojson_of_unit
+    : deidentify_config__image_transformations__transforms__all_text ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__image_transformations__transforms__all_text
+
+[@@@deriving.end]
 
 type deidentify_config__image_transformations__transforms__redaction_color = {
   blue : float prop option; [@option]
-      (** The amount of blue in the color as a value in the interval [0, 1]. *)
   green : float prop option; [@option]
-      (** The amount of green in the color as a value in the interval [0, 1]. *)
   red : float prop option; [@option]
-      (** The amount of red in the color as a value in the interval [0, 1]. *)
 }
-[@@deriving yojson_of]
-(** The color to use when redacting content from an image. If not specified, the default is black. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__image_transformations__transforms__redaction_color) ->
+  ()
+
+let yojson_of_deidentify_config__image_transformations__transforms__redaction_color
+    =
+  (function
+   | { blue = v_blue; green = v_green; red = v_red } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_red with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "red", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_green with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "green", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_blue with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "blue", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__image_transformations__transforms__redaction_color ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__image_transformations__transforms__redaction_color
+
+[@@@deriving.end]
 
 type deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score) ->
+  ()
+
+let yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
+
+[@@@deriving.end]
 
 type deidentify_config__image_transformations__transforms__selected_info_types__info_types = {
-  name : string prop;  (** Name of the information type. *)
+  name : string prop;
   version : string prop option; [@option]
-      (** Version name for this InfoType. *)
   sensitivity_score :
     deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** InfoTypes to apply the transformation to. Leaving this empty will apply the transformation to apply to
-all findings that correspond to infoTypes that were requested in InspectConfig. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__image_transformations__transforms__selected_info_types__info_types) ->
+  ()
+
+let yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__image_transformations__transforms__selected_info_types__info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types
+
+[@@@deriving.end]
 
 type deidentify_config__image_transformations__transforms__selected_info_types = {
   info_types :
     deidentify_config__image_transformations__transforms__selected_info_types__info_types
     list;
 }
-[@@deriving yojson_of]
-(** Apply transformation to the selected infoTypes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__image_transformations__transforms__selected_info_types) ->
+  ()
+
+let yojson_of_deidentify_config__image_transformations__transforms__selected_info_types
+    =
+  (function
+   | { info_types = v_info_types } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__image_transformations__transforms__selected_info_types__info_types
+             v_info_types
+         in
+         ("info_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__image_transformations__transforms__selected_info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__image_transformations__transforms__selected_info_types
+
+[@@@deriving.end]
 
 type deidentify_config__image_transformations__transforms = {
   all_info_types :
@@ -62,69 +228,301 @@ type deidentify_config__image_transformations__transforms = {
     deidentify_config__image_transformations__transforms__selected_info_types
     list;
 }
-[@@deriving yojson_of]
-(** For determination of how redaction of images should occur. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : deidentify_config__image_transformations__transforms) -> ()
+
+let yojson_of_deidentify_config__image_transformations__transforms =
+  (function
+   | {
+       all_info_types = v_all_info_types;
+       all_text = v_all_text;
+       redaction_color = v_redaction_color;
+       selected_info_types = v_selected_info_types;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__image_transformations__transforms__selected_info_types
+             v_selected_info_types
+         in
+         ("selected_info_types", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__image_transformations__transforms__redaction_color
+             v_redaction_color
+         in
+         ("redaction_color", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__image_transformations__transforms__all_text
+             v_all_text
+         in
+         ("all_text", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__image_transformations__transforms__all_info_types
+             v_all_info_types
+         in
+         ("all_info_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__image_transformations__transforms ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__image_transformations__transforms
+
+[@@@deriving.end]
 
 type deidentify_config__image_transformations = {
   transforms :
     deidentify_config__image_transformations__transforms list;
 }
-[@@deriving yojson_of]
-(** Treat the dataset as an image and redact. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deidentify_config__image_transformations) -> ()
+
+let yojson_of_deidentify_config__image_transformations =
+  (function
+   | { transforms = v_transforms } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__image_transformations__transforms
+             v_transforms
+         in
+         ("transforms", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__image_transformations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deidentify_config__image_transformations
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__info_types = {
-  name : string prop;  (** Name of the information type. *)
+  name : string prop;
   version : string prop option; [@option]
-      (** Version name for this InfoType. *)
   sensitivity_score :
     deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** InfoTypes to apply the transformation to. Leaving this empty will apply the transformation to apply to
-all findings that correspond to infoTypes that were requested in InspectConfig. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__info_types) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__info_types
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__info_types__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__info_types
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max = {
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
     list;
@@ -132,44 +530,217 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Upper bound of the range, exclusive; type must match min.
-The 'max' block must only contain one argument. See the 'bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+    =
+  (function
+   | {
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min = {
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
     list;
@@ -177,44 +748,217 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Lower bound of the range, inclusive. Type should be the same as max if used.
-The 'min' block must only contain one argument. See the 'bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+    =
+  (function
+   | {
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value = {
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
     list;
@@ -222,9 +966,92 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Replacement value for this bucket.
-The 'replacement_value' block must only contain one argument. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+    =
+  (function
+   | {
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets = {
   max :
@@ -237,93 +1064,340 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     list;
 }
-[@@deriving yojson_of]
-(** Set of buckets. Ranges must be non-overlapping.
-Bucket is represented as a range, along with replacement values. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+    =
+  (function
+   | {
+       max = v_max;
+       min = v_min;
+       replacement_value = v_replacement_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+             v_replacement_value
+         in
+         ("replacement_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+             v_min
+         in
+         ("min", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+             v_max
+         in
+         ("max", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config = {
   buckets :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
     list;
 }
-[@@deriving yojson_of]
-(** Generalization function that buckets values based on ranges. The ranges and replacement values are dynamically provided by the user for custom behavior, such as 1-30 -> LOW 31-65 -> MEDIUM 66-100 -> HIGH
-This can be used on data of type: number, long, string, timestamp.
-If the provided value type differs from the type of data being transformed, we will first attempt converting the type of the data to be transformed to match the type of the bound before comparing.
-See https://cloud.google.com/dlp/docs/concepts-bucketing to learn more. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
+    =
+  (function
+   | { buckets = v_buckets } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+             v_buckets
+         in
+         ("buckets", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore = {
   characters_to_skip : string prop option; [@option]
-      (** Characters to not transform when masking. *)
   common_characters_to_ignore : string prop option; [@option]
-      (** Common characters to not transform when masking. Useful to avoid removing punctuation. Possible values: [NUMERIC, ALPHA_UPPER_CASE, ALPHA_LOWER_CASE, PUNCTUATION, WHITESPACE] *)
 }
-[@@deriving yojson_of]
-(** Characters to skip when doing de-identification of a value. These will be left alone and skipped. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+    =
+  (function
+   | {
+       characters_to_skip = v_characters_to_skip;
+       common_characters_to_ignore = v_common_characters_to_ignore;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_common_characters_to_ignore with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_characters_to_ignore", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_characters_to_skip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "characters_to_skip", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config = {
   masking_character : string prop option; [@option]
-      (** Character to use to mask the sensitive values—for example, * for an alphabetic string such as a name, or 0 for a numeric string
-such as ZIP code or credit card number. This string must have a length of 1. If not supplied, this value defaults to * for
-strings, and 0 for digits. *)
   number_to_mask : float prop option; [@option]
-      (** Number of characters to mask. If not set, all matching chars will be masked. Skipped characters do not count towards this tally. *)
   reverse_order : bool prop option; [@option]
-      (** Mask characters in reverse order. For example, if masking_character is 0, number_to_mask is 14, and reverse_order is 'false', then the
-input string '1234-5678-9012-3456' is masked as '00000000000000-3456'. *)
   characters_to_ignore :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
     list;
 }
-[@@deriving yojson_of]
-(** Partially mask a string by replacing a given number of characters with a fixed character.
-Masking can start from the beginning or end of the string. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
+    =
+  (function
+   | {
+       masking_character = v_masking_character;
+       number_to_mask = v_number_to_mask;
+       reverse_order = v_reverse_order;
+       characters_to_ignore = v_characters_to_ignore;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+             v_characters_to_ignore
+         in
+         ("characters_to_ignore", arg) :: bnds
+       in
+       let bnds =
+         match v_reverse_order with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "reverse_order", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_to_mask with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_to_mask", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_masking_character with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "masking_character", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context = {
   name : string prop option; [@option]
-      (** Name describing the field. *)
 }
-[@@deriving yojson_of]
-(** A context may be used for higher security and maintaining referential integrity such that the same identifier in two different contexts will be given a distinct surrogate. The context is appended to plaintext value being encrypted. On decryption the provided context is validated against the value used during encryption. If a context was provided during encryption, same context must be provided during decryption as well.
+[@@deriving_inline yojson_of]
 
-If the context is not set, plaintext would be used as is for encryption. If the context is set but:
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context) ->
+  ()
 
-1.  there is no record present when transforming a given value or
-2.  the field is not present when transforming a given value,
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-plaintext would be used as is for encryption.
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
 
-Note that case (1) is expected when an 'InfoTypeTransformation' is applied to both structured and non-structured 'ContentItem's. *)
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key).
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key = {
   kms_wrapped :
@@ -336,40 +1410,144 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption function. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type = {
   name : string prop option; [@option]
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed at [https://cloud.google.com/dlp/docs/infotypes-reference](https://cloud.google.com/dlp/docs/infotypes-reference) when specifying a built-in type. When sending Cloud DLP results to Data Catalog, infoType names should conform to the pattern '[A-Za-z0-9$-_]{1,64}'. *)
   version : string prop option; [@option]
-      (** Optional version name for this InfoType. *)
   sensitivity_score :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** The custom info type to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom info type followed by the number of characters comprising the surrogate. The following scheme defines the format: {info type name}({surrogate character count}):{surrogate}
+[@@deriving_inline yojson_of]
 
-For example, if the name of custom info type is 'MY\_TOKEN\_INFO\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\_TOKEN\_INFO\_TYPE(3):abc'
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type) ->
+  ()
 
-This annotation identifies the surrogate when inspecting content using the custom info type 'Surrogate'. This facilitates reversal of the surrogate when it occurs in free text.
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-Note: For record transformations where the entire cell in a table is being transformed, surrogates are not mandatory. Surrogates are used to denote the location of the token and are necessary for re-identification in free form text.
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
 
-In order for inspection to work properly, the name of this info type must not occur naturally anywhere in your data; otherwise, inspection may either
-
-*   reverse a surrogate that does not correspond to an actual identifier
-*   be unable to parse the surrogate and result in an error
-
-Therefore, choose your custom info type name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\_TOKEN\_TYPE. *)
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config = {
   context :
@@ -382,38 +1560,156 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     list;
 }
-[@@deriving yojson_of]
-(** Pseudonymization method that generates deterministic encryption for the given input. Outputs a base64 encoded representation of the encrypted output. Uses AES-SIV based on the RFC [https://tools.ietf.org/html/rfc5297](https://tools.ietf.org/html/rfc5297). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+    =
+  (function
+   | {
+       context = v_context;
+       crypto_key = v_crypto_key;
+       surrogate_info_type = v_surrogate_info_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+             v_surrogate_info_type
+         in
+         ("surrogate_info_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+             v_context
+         in
+         ("context", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key).
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key = {
   kms_wrapped :
@@ -426,70 +1722,226 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption function. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config = {
   crypto_key :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
     list;
 }
-[@@deriving yojson_of]
-(** Pseudonymization method that generates surrogates via cryptographic hashing. Uses SHA-256. The key size must be either 32 or 64 bytes.
-Outputs a base64 encoded representation of the hashed output (for example, L7k0BHmF1ha5U3NfGykjro4xWi1MPVQPjhMAZbSV9mM=).
-Currently, only string and integer values can be hashed.
-See https://cloud.google.com/dlp/docs/pseudonymization to learn more. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+    =
+  (function
+   | { crypto_key = v_crypto_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context = {
   name : string prop option; [@option]
-      (** Name describing the field. *)
 }
-[@@deriving yojson_of]
-(** The 'tweak', a context may be used for higher security since the same identifier in two different contexts won't be given the same surrogate. If the context is not set, a default tweak will be used.
+[@@deriving_inline yojson_of]
 
-If the context is set but:
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context) ->
+  ()
 
-1.  there is no record present when transforming a given value or
-2.  the field is not present when transforming a given value,
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-a default tweak will be used.
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
 
-Note that case (1) is expected when an 'InfoTypeTransformation' is applied to both structured and non-structured 'ContentItem's. Currently, the referenced field may be of value type integer or string.
-
-The tweak is constructed as a sequence of bytes in big endian byte order such that:
-
-*   a 64 bit integer is encoded followed by a single byte of value 1
-*   a string is encoded in UTF-8 format followed by a single byte of value 2 *)
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key).
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key = {
   kms_wrapped :
@@ -502,43 +1954,149 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption algorithm. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type = {
   name : string prop option; [@option]
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed at [https://cloud.google.com/dlp/docs/infotypes-reference](https://cloud.google.com/dlp/docs/infotypes-reference) when specifying a built-in type. When sending Cloud DLP results to Data Catalog, infoType names should conform to the pattern '[A-Za-z0-9$-_]{1,64}'. *)
   version : string prop option; [@option]
-      (** Optional version name for this InfoType. *)
   sensitivity_score :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** The custom infoType to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom infoType followed by the number of characters comprising the surrogate. The following scheme defines the format: info\_type\_name(surrogate\_character\_count):surrogate
+[@@deriving_inline yojson_of]
 
-For example, if the name of custom infoType is 'MY\_TOKEN\_INFO\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\_TOKEN\_INFO\_TYPE(3):abc'
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type) ->
+  ()
 
-This annotation identifies the surrogate when inspecting content using the custom infoType ['SurrogateType'](https://cloud.google.com/dlp/docs/reference/rest/v2/InspectConfig#surrogatetype). This facilitates reversal of the surrogate when it occurs in free text.
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-In order for inspection to work properly, the name of this infoType must not occur naturally anywhere in your data; otherwise, inspection may find a surrogate that does not correspond to an actual identifier. Therefore, choose your custom infoType name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\_TOKEN\_TYPE *)
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config = {
   common_alphabet : string prop option; [@option]
-      (** Common alphabets. Possible values: [FFX_COMMON_NATIVE_ALPHABET_UNSPECIFIED, NUMERIC, HEXADECIMAL, UPPER_CASE_ALPHA_NUMERIC, ALPHA_NUMERIC] *)
   custom_alphabet : string prop option; [@option]
-      (** This is supported by mapping these to the alphanumeric characters that the FFX mode natively supports. This happens before/after encryption/decryption. Each character listed must appear only once. Number of characters must be in the range \[2, 95\]. This must be encoded as ASCII. The order of characters does not matter. The full list of allowed characters is:
-
-''0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ~'!@#$%^&*()_-+={[}]|:;'<,>.?/'' *)
   radix : float prop option; [@option]
-      (** The native way to select the alphabet. Must be in the range \[2, 95\]. *)
   context :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
     list;
@@ -549,45 +2107,213 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list;
 }
-[@@deriving yojson_of]
-(** Replaces an identifier with a surrogate using Format Preserving Encryption (FPE) with the FFX mode of operation; however when used in the 'content.reidentify' API method, it serves the opposite function by reversing the surrogate back into the original identifier. The identifier must be encoded as ASCII. For a given crypto key and context, the same identifier will be replaced with the same surrogate. Identifiers must be at least two characters long. In the case that the identifier is the empty string, it will be skipped. See [https://cloud.google.com/dlp/docs/pseudonymization](https://cloud.google.com/dlp/docs/pseudonymization) to learn more.
+[@@deriving_inline yojson_of]
 
-Note: We recommend using CryptoDeterministicConfig for all use cases which do not require preserving the input alphabet space and size, plus warrant referential integrity. *)
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+    =
+  (function
+   | {
+       common_alphabet = v_common_alphabet;
+       custom_alphabet = v_custom_alphabet;
+       radix = v_radix;
+       context = v_context;
+       crypto_key = v_crypto_key;
+       surrogate_info_type = v_surrogate_info_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+             v_surrogate_info_type
+         in
+         ("surrogate_info_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+             v_context
+         in
+         ("context", arg) :: bnds
+       in
+       let bnds =
+         match v_radix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "radix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_alphabet with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_alphabet", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_alphabet with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_alphabet", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context = {
-  name : string prop;  (** Name describing the field. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** Points to the field that contains the context, for example, an entity id.
-If set, must also set cryptoKey. If set, shift will be consistent for the given context. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key).
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key = {
   kms_wrapped :
@@ -600,15 +2326,60 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption function. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config = {
   lower_bound_days : float prop;
-      (** Range of shift in days. Negative means shift to earlier in time. *)
   upper_bound_days : float prop;
-      (** Range of shift in days. Actual shift will be selected at random within this range (inclusive ends).
-Negative means shift to earlier in time. Must not be more than 365250 days (1000 years) each direction. *)
   context :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
     list;
@@ -616,34 +2387,152 @@ Negative means shift to earlier in time. Must not be more than 365250 days (1000
     deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
     list;
 }
-[@@deriving yojson_of]
-(** Shifts dates by random number of days, with option to be consistent for the same context. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
+    =
+  (function
+   | {
+       lower_bound_days = v_lower_bound_days;
+       upper_bound_days = v_upper_bound_days;
+       context = v_context;
+       crypto_key = v_crypto_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+             v_context
+         in
+         ("context", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_upper_bound_days
+         in
+         ("upper_bound_days", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_lower_bound_days
+         in
+         ("lower_bound_days", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound = {
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
 }
-[@@deriving yojson_of]
-(** Lower bound value of buckets.
-All values less than lower_bound are grouped together into a single bucket; for example if lower_bound = 10, then all values less than 10 are replaced with the value -10.
-The 'lower_bound' block must only contain one argument. See the 'fixed_size_bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+    =
+  (function
+   | { float_value = v_float_value; integer_value = v_integer_value }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound = {
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
 }
-[@@deriving yojson_of]
-(** Upper bound value of buckets.
-All values greater than upper_bound are grouped together into a single bucket; for example if upper_bound = 89, then all values greater than 89 are replaced with the value 89+.
-The 'upper_bound' block must only contain one argument. See the 'fixed_size_bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+    =
+  (function
+   | { float_value = v_float_value; integer_value = v_integer_value }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config = {
   bucket_size : float prop;
-      (** Size of each bucket (except for minimum and maximum buckets).
-So if lower_bound = 10, upper_bound = 89, and bucketSize = 10, then the following buckets would be used: -10, 10-20, 20-30, 30-40, 40-50, 50-60, 60-70, 70-80, 80-89, 89+.
-Precision up to 2 decimals works. *)
   lower_bound :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
     list;
@@ -651,59 +2540,198 @@ Precision up to 2 decimals works. *)
     deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
     list;
 }
-[@@deriving yojson_of]
-(** Buckets values based on fixed size ranges. The Bucketing transformation can provide all of this functionality, but requires more configuration. This message is provided as a convenience to the user for simple bucketing strategies.
+[@@deriving_inline yojson_of]
 
-The transformed value will be a hyphenated string of {lower_bound}-{upper_bound}. For example, if lower_bound = 10 and upper_bound = 20, all values that are within this bucket will be replaced with 10-20.
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config) ->
+  ()
 
-This can be used on data of type: double, long.
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+    =
+  (function
+   | {
+       bucket_size = v_bucket_size;
+       lower_bound = v_lower_bound;
+       upper_bound = v_upper_bound;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+             v_upper_bound
+         in
+         ("upper_bound", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+             v_lower_bound
+         in
+         ("lower_bound", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_bucket_size in
+         ("bucket_size", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-If the bound Value type differs from the type of data being transformed, we will first attempt converting the type of the data to be transformed to match the type of the bound before comparing.
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
 
-See https://cloud.google.com/dlp/docs/concepts-bucketing to learn more. *)
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config =
   unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
+    =
+  (yojson_of_unit
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value = {
   day : float prop option; [@option]
-      (** Day of month. Must be from 1 to 31 and valid for the year and month, or 0 if specifying a
-year by itself or a year and month where the day is not significant. *)
   month : float prop option; [@option]
-      (** Month of year. Must be from 1 to 12, or 0 if specifying a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of date. Must be from 1 to 9999, or 0 if specifying a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : float prop option; [@option]
-      (** An integer value. *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits.
-Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
     list;
@@ -711,43 +2739,242 @@ Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Replace each input value with a given value.
-The 'new_value' block must only contain one argument. For example when replacing the contents of a string-type field, only 'string_value' should be set. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config = {
   new_value :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
     list;
 }
-[@@deriving yojson_of]
-(** Replace each input value with a given value. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
+    =
+  (function
+   | { new_value = v_new_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+             v_new_value
+         in
+         ("new_value", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list = {
   words : string prop list;
-      (** Words or phrases defining the dictionary. The dictionary must contain at least one phrase and every phrase must contain at least 2 characters that are letters or digits. *)
 }
-[@@deriving yojson_of]
-(** A list of words to select from for random replacement. The [limits](https://cloud.google.com/dlp/limits) page contains details about the size limits of dictionaries. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+    =
+  (function
+   | { words = v_words } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_words
+         in
+         ("words", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config = {
   word_list :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
     list;
 }
-[@@deriving yojson_of]
-(** Replace with a value randomly drawn (with replacement) from a dictionary. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+    =
+  (function
+   | { word_list = v_word_list } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+             v_word_list
+         in
+         ("word_list", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config = {
   part_to_extract : string prop option; [@option]
-      (** The part of the time to keep. Possible values: [YEAR, MONTH, DAY_OF_MONTH, DAY_OF_WEEK, WEEK_OF_YEAR, HOUR_OF_DAY] *)
 }
-[@@deriving yojson_of]
-(** For use with Date, Timestamp, and TimeOfDay, extract or preserve a portion of the value. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
+    =
+  (function
+   | { part_to_extract = v_part_to_extract } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_part_to_extract with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "part_to_extract", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations__primitive_transformation = {
   replace_with_info_type_config : bool prop option; [@option]
-      (** Replace each matching finding with the name of the info type. *)
   bucketing_config :
     deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
     list;
@@ -782,9 +3009,139 @@ type deidentify_config__info_type_transformations__transformations__primitive_tr
     deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
     list;
 }
-[@@deriving yojson_of]
-(** Primitive transformation to apply to the infoType.
-The 'primitive_transformation' block must only contain one argument, corresponding to the type of transformation. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations__primitive_transformation) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation
+    =
+  (function
+   | {
+       replace_with_info_type_config =
+         v_replace_with_info_type_config;
+       bucketing_config = v_bucketing_config;
+       character_mask_config = v_character_mask_config;
+       crypto_deterministic_config = v_crypto_deterministic_config;
+       crypto_hash_config = v_crypto_hash_config;
+       crypto_replace_ffx_fpe_config =
+         v_crypto_replace_ffx_fpe_config;
+       date_shift_config = v_date_shift_config;
+       fixed_size_bucketing_config = v_fixed_size_bucketing_config;
+       redact_config = v_redact_config;
+       replace_config = v_replace_config;
+       replace_dictionary_config = v_replace_dictionary_config;
+       time_part_config = v_time_part_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__time_part_config
+             v_time_part_config
+         in
+         ("time_part_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+             v_replace_dictionary_config
+         in
+         ("replace_dictionary_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__replace_config
+             v_replace_config
+         in
+         ("replace_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__redact_config
+             v_redact_config
+         in
+         ("redact_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+             v_fixed_size_bucketing_config
+         in
+         ("fixed_size_bucketing_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__date_shift_config
+             v_date_shift_config
+         in
+         ("date_shift_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+             v_crypto_replace_ffx_fpe_config
+         in
+         ("crypto_replace_ffx_fpe_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+             v_crypto_hash_config
+         in
+         ("crypto_hash_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+             v_crypto_deterministic_config
+         in
+         ("crypto_deterministic_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__character_mask_config
+             v_character_mask_config
+         in
+         ("character_mask_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation__bucketing_config
+             v_bucketing_config
+         in
+         ("bucketing_config", arg) :: bnds
+       in
+       let bnds =
+         match v_replace_with_info_type_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "replace_with_info_type_config", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations__primitive_transformation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations__transformations = {
   info_types :
@@ -794,60 +3151,238 @@ type deidentify_config__info_type_transformations__transformations = {
     deidentify_config__info_type_transformations__transformations__primitive_transformation
     list;
 }
-[@@deriving yojson_of]
-(** Transformation for each infoType. Cannot specify more than one for a given infoType. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__info_type_transformations__transformations) ->
+  ()
+
+let yojson_of_deidentify_config__info_type_transformations__transformations
+    =
+  (function
+   | {
+       info_types = v_info_types;
+       primitive_transformation = v_primitive_transformation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__primitive_transformation
+             v_primitive_transformation
+         in
+         ("primitive_transformation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations__info_types
+             v_info_types
+         in
+         ("info_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations__transformations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__info_type_transformations__transformations
+
+[@@@deriving.end]
 
 type deidentify_config__info_type_transformations = {
   transformations :
     deidentify_config__info_type_transformations__transformations
     list;
 }
-[@@deriving yojson_of]
-(** Treat the dataset as free-form text and apply the same free text transformation everywhere *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deidentify_config__info_type_transformations) -> ()
+
+let yojson_of_deidentify_config__info_type_transformations =
+  (function
+   | { transformations = v_transformations } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations__transformations
+             v_transformations
+         in
+         ("transformations", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__info_type_transformations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deidentify_config__info_type_transformations
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field = {
   name : string prop option; [@option]
-      (** Name describing the field. *)
 }
-[@@deriving yojson_of]
-(** Field within the record this condition is evaluated against. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
     list;
@@ -855,14 +3390,104 @@ type deidentify_config__record_transformations__field_transformations__condition
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Value to compare against.
-The 'value' block must only contain one argument. For example when a condition is evaluated against a string-type field, only 'string_value' should be set.
-This argument is mandatory, except for conditions using the 'EXISTS' operator. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions = {
   operator : string prop;
-      (** Operator used to compare the field or infoType to the value. Possible values: [EQUAL_TO, NOT_EQUAL_TO, GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUALS, LESS_THAN_OR_EQUALS, EXISTS] *)
   field :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
     list;
@@ -870,99 +3495,411 @@ type deidentify_config__record_transformations__field_transformations__condition
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
     list;
 }
-[@@deriving yojson_of]
-(** A collection of conditions. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
+    =
+  (function
+   | { operator = v_operator; field = v_field; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__value
+             v_value
+         in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions__field
+             v_field
+         in
+         ("field", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__condition__expressions__conditions = {
   conditions :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
     list;
 }
-[@@deriving yojson_of]
-(** Conditions to apply to the expression. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__condition__expressions__conditions) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
+    =
+  (function
+   | { conditions = v_conditions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions__conditions
+             v_conditions
+         in
+         ("conditions", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__condition__expressions__conditions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__condition__expressions = {
   logical_operator : string prop option; [@option]
-      (** The operator to apply to the result of conditions. Default and currently only supported value is AND Default value: AND Possible values: [AND] *)
   conditions :
     deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
     list;
 }
-[@@deriving yojson_of]
-(** An expression. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__condition__expressions) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions
+    =
+  (function
+   | {
+       logical_operator = v_logical_operator;
+       conditions = v_conditions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions__conditions
+             v_conditions
+         in
+         ("conditions", arg) :: bnds
+       in
+       let bnds =
+         match v_logical_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "logical_operator", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__condition__expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__condition = {
   expressions :
     deidentify_config__record_transformations__field_transformations__condition__expressions
     list;
 }
-[@@deriving yojson_of]
-(** Only apply the transformation if the condition evaluates to true for the given RecordCondition. The conditions are allowed to reference fields that are not used in the actual transformation.
-Example Use Cases:
-- Apply a different bucket transformation to an age column if the zip code column for the same record is within a specific range.
-- Redact a field if the date of birth field is greater than 85. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__condition) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__condition
+    =
+  (function
+   | { expressions = v_expressions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__condition__expressions
+             v_expressions
+         in
+         ("expressions", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__condition
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__fields = {
   name : string prop option; [@option]
-      (** Name describing the field. *)
 }
-[@@deriving yojson_of]
-(** Input field(s) to apply the transformation to. When you have columns that reference their position within a list, omit the index from the FieldId.
-FieldId name matching ignores the index. For example, instead of contact.nums[0].type, use contact.nums.type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__fields) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__fields
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__fields
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types = {
-  name : string prop;  (** Name of the information type. *)
+  name : string prop;
   version : string prop option; [@option]
-      (** Version name for this InfoType. *)
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** InfoTypes to apply the transformation to. Leaving this empty will apply the transformation to apply to
-all findings that correspond to infoTypes that were requested in InspectConfig. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max = {
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
     list;
@@ -970,44 +3907,217 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Upper bound of the range, exclusive; type must match min.
-The 'max' block must only contain one argument. See the 'bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+    =
+  (function
+   | {
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min = {
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
     list;
@@ -1015,44 +4125,217 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Lower bound of the range, inclusive. Type should be the same as max if used.
-The 'min' block must only contain one argument. See the 'bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+    =
+  (function
+   | {
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value = {
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
     list;
@@ -1060,9 +4343,92 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Replacement value for this bucket.
-The 'replacement_value' block must only contain one argument. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+    =
+  (function
+   | {
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets = {
   max :
@@ -1075,99 +4441,336 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     list;
 }
-[@@deriving yojson_of]
-(** Set of buckets. Ranges must be non-overlapping.
-Bucket is represented as a range, along with replacement values. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+    =
+  (function
+   | {
+       max = v_max;
+       min = v_min;
+       replacement_value = v_replacement_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+             v_replacement_value
+         in
+         ("replacement_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__min
+             v_min
+         in
+         ("min", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets__max
+             v_max
+         in
+         ("max", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config = {
   buckets :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
     list;
 }
-[@@deriving yojson_of]
-(** Generalization function that buckets values based on ranges. The ranges and replacement values are dynamically provided by the user for custom behavior, such as 1-30 -> LOW 31-65 -> MEDIUM 66-100 -> HIGH
-This can be used on data of type: number, long, string, timestamp.
-If the provided value type differs from the type of data being transformed, we will first attempt converting the type of the data to be transformed to match the type of the bound before comparing.
-See https://cloud.google.com/dlp/docs/concepts-bucketing to learn more. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
+    =
+  (function
+   | { buckets = v_buckets } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config__buckets
+             v_buckets
+         in
+         ("buckets", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore = {
   characters_to_skip : string prop option; [@option]
-      (** Characters to not transform when masking. Only one of this or 'common_characters_to_ignore' must be specified. *)
   common_characters_to_ignore : string prop option; [@option]
-      (** Common characters to not transform when masking. Useful to avoid removing punctuation. Only one of this or 'characters_to_skip' must be specified. Possible values: [NUMERIC, ALPHA_UPPER_CASE, ALPHA_LOWER_CASE, PUNCTUATION, WHITESPACE] *)
 }
-[@@deriving yojson_of]
-(** Characters to skip when doing de-identification of a value. These will be left alone and skipped. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+    =
+  (function
+   | {
+       characters_to_skip = v_characters_to_skip;
+       common_characters_to_ignore = v_common_characters_to_ignore;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_common_characters_to_ignore with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_characters_to_ignore", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_characters_to_skip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "characters_to_skip", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config = {
   masking_character : string prop option; [@option]
-      (** Character to use to mask the sensitive values—for example, * for an alphabetic string such as a name, or 0 for a numeric string
-such as ZIP code or credit card number. This string must have a length of 1. If not supplied, this value defaults to * for
-strings, and 0 for digits. *)
   number_to_mask : float prop option; [@option]
-      (** Number of characters to mask. If not set, all matching chars will be masked. Skipped characters do not count towards this tally.
-If number_to_mask is negative, this denotes inverse masking. Cloud DLP masks all but a number of characters. For example, suppose you have the following values:
-- 'masking_character' is *
-- 'number_to_mask' is -4
-- 'reverse_order' is false
-- 'characters_to_ignore' includes -
-- Input string is 1234-5678-9012-3456
-
-The resulting de-identified string is ****-****-****-3456. Cloud DLP masks all but the last four characters. If reverseOrder is true, all but the first four characters are masked as 1234-****-****-****. *)
   reverse_order : bool prop option; [@option]
-      (** Mask characters in reverse order. For example, if masking_character is 0, number_to_mask is 14, and reverse_order is 'false', then the
-input string '1234-5678-9012-3456' is masked as '00000000000000-3456'. *)
   characters_to_ignore :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
     list;
 }
-[@@deriving yojson_of]
-(** Partially mask a string by replacing a given number of characters with a fixed character. Masking can start from the beginning or end of the string. This can be used on data of any type (numbers, longs, and so on) and when de-identifying structured data we'll attempt to preserve the original data's type. (This allows you to take a long like 123 and modify it to a string like **3). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
+    =
+  (function
+   | {
+       masking_character = v_masking_character;
+       number_to_mask = v_number_to_mask;
+       reverse_order = v_reverse_order;
+       characters_to_ignore = v_characters_to_ignore;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config__characters_to_ignore
+             v_characters_to_ignore
+         in
+         ("characters_to_ignore", arg) :: bnds
+       in
+       let bnds =
+         match v_reverse_order with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "reverse_order", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_to_mask with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_to_mask", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_masking_character with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "masking_character", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context = {
-  name : string prop;  (** Name describing the field. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** A context may be used for higher security and maintaining referential integrity such that the same identifier in two different contexts will be given a distinct surrogate. The context is appended to plaintext value being encrypted. On decryption the provided context is validated against the value used during encryption. If a context was provided during encryption, same context must be provided during decryption as well.
+[@@deriving_inline yojson_of]
 
-If the context is not set, plaintext would be used as is for encryption. If the context is set but:
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context) ->
+  ()
 
-1. there is no record present when transforming a given value or
-2. the field is not present when transforming a given value,
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-plaintext would be used as is for encryption.
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
 
-Note that case (1) is expected when an InfoTypeTransformation is applied to both structured and unstructured ContentItems. *)
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key). Only one of this, 'transient' or 'unwrapped' must be specified.
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. Only one of this, 'unwrapped' or 'kms_wrapped' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. Only one of this, 'transient' or 'kms_wrapped' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key = {
   kms_wrapped :
@@ -1180,40 +4783,140 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption function. For deterministic encryption using AES-SIV, the provided key is internally expanded to 64 bytes prior to use. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type = {
   name : string prop;
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed at [https://cloud.google.com/dlp/docs/infotypes-reference](https://cloud.google.com/dlp/docs/infotypes-reference) when specifying a built-in type. When sending Cloud DLP results to Data Catalog, infoType names should conform to the pattern '[A-Za-z0-9$-_]{1,64}'. *)
   version : string prop option; [@option]
-      (** Optional version name for this InfoType. *)
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** The custom info type to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom info type followed by the number of characters comprising the surrogate. The following scheme defines the format: {info type name}({surrogate character count}):{surrogate}
+[@@deriving_inline yojson_of]
 
-For example, if the name of custom info type is 'MY\_TOKEN\_INFO\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\_TOKEN\_INFO\_TYPE(3):abc'
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type) ->
+  ()
 
-This annotation identifies the surrogate when inspecting content using the custom info type 'Surrogate'. This facilitates reversal of the surrogate when it occurs in free text.
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-Note: For record transformations where the entire cell in a table is being transformed, surrogates are not mandatory. Surrogates are used to denote the location of the token and are necessary for re-identification in free form text.
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
 
-In order for inspection to work properly, the name of this info type must not occur naturally anywhere in your data; otherwise, inspection may either
-
-*   reverse a surrogate that does not correspond to an actual identifier
-*   be unable to parse the surrogate and result in an error
-
-Therefore, choose your custom info type name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\_TOKEN\_TYPE. *)
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config = {
   context :
@@ -1226,38 +4929,156 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     list;
 }
-[@@deriving yojson_of]
-(** Pseudonymization method that generates deterministic encryption for the given input. Outputs a base64 encoded representation of the encrypted output. Uses AES-SIV based on the RFC [https://tools.ietf.org/html/rfc5297](https://tools.ietf.org/html/rfc5297). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+    =
+  (function
+   | {
+       context = v_context;
+       crypto_key = v_crypto_key;
+       surrogate_info_type = v_surrogate_info_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+             v_surrogate_info_type
+         in
+         ("surrogate_info_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config__context
+             v_context
+         in
+         ("context", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key). Only one of this, 'transient' or 'unwrapped' must be specified.
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. Only one of this, 'unwrapped' or 'kms_wrapped' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. Only one of this, 'transient' or 'kms_wrapped' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key = {
   kms_wrapped :
@@ -1270,69 +5091,222 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption function. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config = {
   crypto_key :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
     list;
 }
-[@@deriving yojson_of]
-(** Pseudonymization method that generates surrogates via cryptographic hashing. Uses SHA-256. The key size must be either 32 or 64 bytes.
-Outputs a base64 encoded representation of the hashed output (for example, L7k0BHmF1ha5U3NfGykjro4xWi1MPVQPjhMAZbSV9mM=).
-Currently, only string and integer values can be hashed.
-See https://cloud.google.com/dlp/docs/pseudonymization to learn more. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+    =
+  (function
+   | { crypto_key = v_crypto_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context = {
-  name : string prop;  (** Name describing the field. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** The 'tweak', a context may be used for higher security since the same identifier in two different contexts won't be given the same surrogate. If the context is not set, a default tweak will be used.
+[@@deriving_inline yojson_of]
 
-If the context is set but:
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context) ->
+  ()
 
-1.  there is no record present when transforming a given value or
-2.  the field is not present when transforming a given value,
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-a default tweak will be used.
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
 
-Note that case (1) is expected when an 'InfoTypeTransformation' is applied to both structured and non-structured 'ContentItem's. Currently, the referenced field may be of value type integer or string.
-
-The tweak is constructed as a sequence of bytes in big endian byte order such that:
-
-*   a 64 bit integer is encoded followed by a single byte of value 1
-*   a string is encoded in UTF-8 format followed by a single byte of value 2 *)
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key). Only one of this, 'transient' or 'unwrapped' must be specified.
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. Only one of this, 'unwrapped' or 'kms_wrapped' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. Only one of this, 'transient' or 'kms_wrapped' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key = {
   kms_wrapped :
@@ -1345,43 +5319,145 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption algorithm. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type = {
   name : string prop;
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed at [https://cloud.google.com/dlp/docs/infotypes-reference](https://cloud.google.com/dlp/docs/infotypes-reference) when specifying a built-in type. When sending Cloud DLP results to Data Catalog, infoType names should conform to the pattern '[A-Za-z0-9$-_]{1,64}'. *)
   version : string prop option; [@option]
-      (** Optional version name for this InfoType. *)
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** The custom infoType to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom infoType followed by the number of characters comprising the surrogate. The following scheme defines the format: info\_type\_name(surrogate\_character\_count):surrogate
+[@@deriving_inline yojson_of]
 
-For example, if the name of custom infoType is 'MY\_TOKEN\_INFO\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\_TOKEN\_INFO\_TYPE(3):abc'
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type) ->
+  ()
 
-This annotation identifies the surrogate when inspecting content using the custom infoType ['SurrogateType'](https://cloud.google.com/dlp/docs/reference/rest/v2/InspectConfig#surrogatetype). This facilitates reversal of the surrogate when it occurs in free text.
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-In order for inspection to work properly, the name of this infoType must not occur naturally anywhere in your data; otherwise, inspection may find a surrogate that does not correspond to an actual identifier. Therefore, choose your custom infoType name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\_TOKEN\_TYPE *)
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config = {
   common_alphabet : string prop option; [@option]
-      (** Common alphabets. Only one of this, 'custom_alphabet' or 'radix' must be specified. Possible values: [NUMERIC, HEXADECIMAL, UPPER_CASE_ALPHA_NUMERIC, ALPHA_NUMERIC] *)
   custom_alphabet : string prop option; [@option]
-      (** This is supported by mapping these to the alphanumeric characters that the FFX mode natively supports. This happens before/after encryption/decryption. Each character listed must appear only once. Number of characters must be in the range \[2, 95\]. This must be encoded as ASCII. The order of characters does not matter. The full list of allowed characters is:
-
-''0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ~'!@#$%^&*()_-+={[}]|:;'<,>.?/''. Only one of this, 'common_alphabet' or 'radix' must be specified. *)
   radix : float prop option; [@option]
-      (** The native way to select the alphabet. Must be in the range \[2, 95\]. Only one of this, 'custom_alphabet' or 'common_alphabet' must be specified. *)
   context :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
     list;
@@ -1392,47 +5468,213 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list;
 }
-[@@deriving yojson_of]
-(** Replaces an identifier with a surrogate using Format Preserving Encryption (FPE) with the FFX mode of operation; however when used in the 'content.reidentify' API method, it serves the opposite function by reversing the surrogate back into the original identifier. The identifier must be encoded as ASCII. For a given crypto key and context, the same identifier will be replaced with the same surrogate. Identifiers must be at least two characters long. In the case that the identifier is the empty string, it will be skipped. See [https://cloud.google.com/dlp/docs/pseudonymization](https://cloud.google.com/dlp/docs/pseudonymization) to learn more.
+[@@deriving_inline yojson_of]
 
-Note: We recommend using CryptoDeterministicConfig for all use cases which do not require preserving the input alphabet space and size, plus warrant referential integrity. *)
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+    =
+  (function
+   | {
+       common_alphabet = v_common_alphabet;
+       custom_alphabet = v_custom_alphabet;
+       radix = v_radix;
+       context = v_context;
+       crypto_key = v_crypto_key;
+       surrogate_info_type = v_surrogate_info_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+             v_surrogate_info_type
+         in
+         ("surrogate_info_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+             v_context
+         in
+         ("context", arg) :: bnds
+       in
+       let bnds =
+         match v_radix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "radix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_alphabet with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_alphabet", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_alphabet with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_alphabet", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context = {
-  name : string prop;  (** Name describing the field. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** Points to the field that contains the context, for example, an entity id.
-If set, must also set cryptoKey. If set, shift will be consistent for the given context. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key). Only one of this, 'transient' or 'unwrapped' must be specified.
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. Only one of this, 'unwrapped' or 'kms_wrapped' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. Only one of this, 'transient' or 'kms_wrapped' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key = {
   kms_wrapped :
@@ -1445,16 +5687,60 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** Causes the shift to be computed based on this key and the context. This results in the same shift for the same context and cryptoKey. If set, must also set context. Can only be applied to table items. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config = {
   lower_bound_days : float prop;
-      (** For example, -5 means shift date to at most 5 days back in the past. *)
   upper_bound_days : float prop;
-      (** Range of shift in days. Actual shift will be selected at random within this range (inclusive ends). Negative means shift to earlier in time. Must not be more than 365250 days (1000 years) each direction.
-
-For example, 3 means shift date to at most 3 days into the future. *)
   context :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
     list;
@@ -1462,34 +5748,152 @@ For example, 3 means shift date to at most 3 days into the future. *)
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
     list;
 }
-[@@deriving yojson_of]
-(** Shifts dates by random number of days, with option to be consistent for the same context. See https://cloud.google.com/dlp/docs/concepts-date-shifting to learn more. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
+    =
+  (function
+   | {
+       lower_bound_days = v_lower_bound_days;
+       upper_bound_days = v_upper_bound_days;
+       context = v_context;
+       crypto_key = v_crypto_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config__context
+             v_context
+         in
+         ("context", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_upper_bound_days
+         in
+         ("upper_bound_days", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_lower_bound_days
+         in
+         ("lower_bound_days", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound = {
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
 }
-[@@deriving yojson_of]
-(** Lower bound value of buckets.
-All values less than lower_bound are grouped together into a single bucket; for example if lower_bound = 10, then all values less than 10 are replaced with the value -10.
-The 'lower_bound' block must only contain one argument. See the 'fixed_size_bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+    =
+  (function
+   | { float_value = v_float_value; integer_value = v_integer_value }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound = {
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
 }
-[@@deriving yojson_of]
-(** Upper bound value of buckets.
-All values greater than upper_bound are grouped together into a single bucket; for example if upper_bound = 89, then all values greater than 89 are replaced with the value 89+.
-The 'upper_bound' block must only contain one argument. See the 'fixed_size_bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+    =
+  (function
+   | { float_value = v_float_value; integer_value = v_integer_value }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config = {
   bucket_size : float prop;
-      (** Size of each bucket (except for minimum and maximum buckets).
-So if lower_bound = 10, upper_bound = 89, and bucketSize = 10, then the following buckets would be used: -10, 10-20, 20-30, 30-40, 40-50, 50-60, 60-70, 70-80, 80-89, 89+.
-Precision up to 2 decimals works. *)
   lower_bound :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
     list;
@@ -1497,58 +5901,198 @@ Precision up to 2 decimals works. *)
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
     list;
 }
-[@@deriving yojson_of]
-(** Buckets values based on fixed size ranges. The Bucketing transformation can provide all of this functionality, but requires more configuration. This message is provided as a convenience to the user for simple bucketing strategies.
+[@@deriving_inline yojson_of]
 
-The transformed value will be a hyphenated string of {lower_bound}-{upper_bound}. For example, if lower_bound = 10 and upper_bound = 20, all values that are within this bucket will be replaced with 10-20.
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config) ->
+  ()
 
-This can be used on data of type: double, long.
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+    =
+  (function
+   | {
+       bucket_size = v_bucket_size;
+       lower_bound = v_lower_bound;
+       upper_bound = v_upper_bound;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+             v_upper_bound
+         in
+         ("upper_bound", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+             v_lower_bound
+         in
+         ("lower_bound", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_bucket_size in
+         ("bucket_size", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-If the bound Value type differs from the type of data being transformed, we will first attempt converting the type of the data to be transformed to match the type of the bound before comparing.
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
 
-See https://cloud.google.com/dlp/docs/concepts-bucketing to learn more. *)
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config =
   unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
+    =
+  (yojson_of_unit
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits.
-Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
     list;
@@ -1556,43 +6100,257 @@ Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Replace each input value with a given value.
-The 'new_value' block must only contain one argument. For example when replacing the contents of a string-type field, only 'string_value' should be set. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config = {
   new_value :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
     list;
 }
-[@@deriving yojson_of]
-(** Replace each input value with a given value. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
+    =
+  (function
+   | { new_value = v_new_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config__new_value
+             v_new_value
+         in
+         ("new_value", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list = {
   words : string prop list;
-      (** Words or phrases defining the dictionary. The dictionary must contain at least one phrase and every phrase must contain at least 2 characters that are letters or digits. *)
 }
-[@@deriving yojson_of]
-(** A list of words to select from for random replacement. The [limits](https://cloud.google.com/dlp/limits) page contains details about the size limits of dictionaries. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+    =
+  (function
+   | { words = v_words } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_words
+         in
+         ("words", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config = {
   word_list :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
     list;
 }
-[@@deriving yojson_of]
-(** Replace with a value randomly drawn (with replacement) from a dictionary. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+    =
+  (function
+   | { word_list = v_word_list } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config__word_list
+             v_word_list
+         in
+         ("word_list", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config =
   unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
+    =
+  (yojson_of_unit
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config = {
   part_to_extract : string prop;
-      (** The part of the time to keep. Possible values: [YEAR, MONTH, DAY_OF_MONTH, DAY_OF_WEEK, WEEK_OF_YEAR, HOUR_OF_DAY] *)
 }
-[@@deriving yojson_of]
-(** For use with Date, Timestamp, and TimeOfDay, extract or preserve a portion of the value. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
+    =
+  (function
+   | { part_to_extract = v_part_to_extract } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_part_to_extract
+         in
+         ("part_to_extract", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation = {
   bucketing_config :
@@ -1632,9 +6390,139 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
     list;
 }
-[@@deriving yojson_of]
-(** Apply the transformation to the entire field.
-The 'primitive_transformation' block must only contain one argument, corresponding to the type of transformation. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
+    =
+  (function
+   | {
+       bucketing_config = v_bucketing_config;
+       character_mask_config = v_character_mask_config;
+       crypto_deterministic_config = v_crypto_deterministic_config;
+       crypto_hash_config = v_crypto_hash_config;
+       crypto_replace_ffx_fpe_config =
+         v_crypto_replace_ffx_fpe_config;
+       date_shift_config = v_date_shift_config;
+       fixed_size_bucketing_config = v_fixed_size_bucketing_config;
+       redact_config = v_redact_config;
+       replace_config = v_replace_config;
+       replace_dictionary_config = v_replace_dictionary_config;
+       replace_with_info_type_config =
+         v_replace_with_info_type_config;
+       time_part_config = v_time_part_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__time_part_config
+             v_time_part_config
+         in
+         ("time_part_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_with_info_type_config
+             v_replace_with_info_type_config
+         in
+         ("replace_with_info_type_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_dictionary_config
+             v_replace_dictionary_config
+         in
+         ("replace_dictionary_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__replace_config
+             v_replace_config
+         in
+         ("replace_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__redact_config
+             v_redact_config
+         in
+         ("redact_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__fixed_size_bucketing_config
+             v_fixed_size_bucketing_config
+         in
+         ("fixed_size_bucketing_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__date_shift_config
+             v_date_shift_config
+         in
+         ("date_shift_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+             v_crypto_replace_ffx_fpe_config
+         in
+         ("crypto_replace_ffx_fpe_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_hash_config
+             v_crypto_hash_config
+         in
+         ("crypto_hash_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__crypto_deterministic_config
+             v_crypto_deterministic_config
+         in
+         ("crypto_deterministic_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__character_mask_config
+             v_character_mask_config
+         in
+         ("character_mask_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation__bucketing_config
+             v_bucketing_config
+         in
+         ("bucketing_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations = {
   info_types :
@@ -1644,54 +6532,209 @@ type deidentify_config__record_transformations__field_transformations__info_type
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
     list;
 }
-[@@deriving yojson_of]
-(** Transformation for each infoType. Cannot specify more than one for a given infoType. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
+    =
+  (function
+   | {
+       info_types = v_info_types;
+       primitive_transformation = v_primitive_transformation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__primitive_transformation
+             v_primitive_transformation
+         in
+         ("primitive_transformation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations__info_types
+             v_info_types
+         in
+         ("info_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__info_type_transformations = {
   transformations :
     deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
     list;
 }
-[@@deriving yojson_of]
-(** Treat the contents of the field as free text, and selectively transform content that matches an InfoType.
-Only one of 'primitive_transformation' or 'info_type_transformations' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__info_type_transformations) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations
+    =
+  (function
+   | { transformations = v_transformations } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations__transformations
+             v_transformations
+         in
+         ("transformations", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__info_type_transformations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
     list;
@@ -1699,46 +6742,227 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Upper bound of the range, exclusive; type must match min.
-The 'max' block must only contain one argument. See the 'bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
     list;
@@ -1746,46 +6970,227 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Lower bound of the range, inclusive. Type should be the same as max if used.
-The 'min' block must only contain one argument. See the 'bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
     list;
@@ -1793,9 +7198,101 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Replacement value for this bucket.
-The 'replacement_value' block must only contain one argument. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets = {
   max :
@@ -1808,100 +7305,340 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
     list;
 }
-[@@deriving yojson_of]
-(** Set of buckets. Ranges must be non-overlapping.
-Bucket is represented as a range, along with replacement values. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
+    =
+  (function
+   | {
+       max = v_max;
+       min = v_min;
+       replacement_value = v_replacement_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__replacement_value
+             v_replacement_value
+         in
+         ("replacement_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__min
+             v_min
+         in
+         ("min", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets__max
+             v_max
+         in
+         ("max", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config = {
   buckets :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
     list;
 }
-[@@deriving yojson_of]
-(** Generalization function that buckets values based on ranges. The ranges and replacement values are dynamically provided by the user for custom behavior, such as 1-30 -> LOW 31-65 -> MEDIUM 66-100 -> HIGH
-This can be used on data of type: number, long, string, timestamp.
-If the provided value type differs from the type of data being transformed, we will first attempt converting the type of the data to be transformed to match the type of the bound before comparing.
-See https://cloud.google.com/dlp/docs/concepts-bucketing to learn more. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
+    =
+  (function
+   | { buckets = v_buckets } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config__buckets
+             v_buckets
+         in
+         ("buckets", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore = {
   characters_to_skip : string prop option; [@option]
-      (** Characters to not transform when masking. *)
   common_characters_to_ignore : string prop option; [@option]
-      (** Common characters to not transform when masking. Useful to avoid removing punctuation. Possible values: [NUMERIC, ALPHA_UPPER_CASE, ALPHA_LOWER_CASE, PUNCTUATION, WHITESPACE] *)
 }
-[@@deriving yojson_of]
-(** Characters to skip when doing de-identification of a value. These will be left alone and skipped. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
+    =
+  (function
+   | {
+       characters_to_skip = v_characters_to_skip;
+       common_characters_to_ignore = v_common_characters_to_ignore;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_common_characters_to_ignore with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_characters_to_ignore", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_characters_to_skip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "characters_to_skip", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config = {
   masking_character : string prop option; [@option]
-      (** Character to use to mask the sensitive values—for example, * for an alphabetic string such as a name, or 0 for a numeric string
-such as ZIP code or credit card number. This string must have a length of 1. If not supplied, this value defaults to * for
-strings, and 0 for digits. *)
   number_to_mask : float prop option; [@option]
-      (** Number of characters to mask. If not set, all matching chars will be masked. Skipped characters do not count towards this tally.
-If number_to_mask is negative, this denotes inverse masking. Cloud DLP masks all but a number of characters. For example, suppose you have the following values:
-- 'masking_character' is *
-- 'number_to_mask' is -4
-- 'reverse_order' is false
-- 'characters_to_ignore' includes -
-- Input string is 1234-5678-9012-3456
-
-The resulting de-identified string is ****-****-****-3456. Cloud DLP masks all but the last four characters. If reverseOrder is true, all but the first four characters are masked as 1234-****-****-****. *)
   reverse_order : bool prop option; [@option]
-      (** Mask characters in reverse order. For example, if masking_character is 0, number_to_mask is 14, and reverse_order is 'false', then the
-input string '1234-5678-9012-3456' is masked as '00000000000000-3456'. *)
   characters_to_ignore :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
     list;
 }
-[@@deriving yojson_of]
-(** Partially mask a string by replacing a given number of characters with a fixed character. Masking can start from the beginning or end of the string. This can be used on data of any type (numbers, longs, and so on) and when de-identifying structured data we'll attempt to preserve the original data's type. (This allows you to take a long like 123 and modify it to a string like **3). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
+    =
+  (function
+   | {
+       masking_character = v_masking_character;
+       number_to_mask = v_number_to_mask;
+       reverse_order = v_reverse_order;
+       characters_to_ignore = v_characters_to_ignore;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config__characters_to_ignore
+             v_characters_to_ignore
+         in
+         ("characters_to_ignore", arg) :: bnds
+       in
+       let bnds =
+         match v_reverse_order with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "reverse_order", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_to_mask with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_to_mask", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_masking_character with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "masking_character", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context = {
   name : string prop option; [@option]
-      (** Name describing the field. *)
 }
-[@@deriving yojson_of]
-(** A context may be used for higher security and maintaining referential integrity such that the same identifier in two different contexts will be given a distinct surrogate. The context is appended to plaintext value being encrypted. On decryption the provided context is validated against the value used during encryption. If a context was provided during encryption, same context must be provided during decryption as well.
+[@@deriving_inline yojson_of]
 
-If the context is not set, plaintext would be used as is for encryption. If the context is set but:
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context) ->
+  ()
 
-1. there is no record present when transforming a given value or
-2. the field is not present when transforming a given value,
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-plaintext would be used as is for encryption.
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
 
-Note that case (1) is expected when an InfoTypeTransformation is applied to both structured and unstructured ContentItems. *)
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key).
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key = {
   kms_wrapped :
@@ -1914,40 +7651,144 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption function. For deterministic encryption using AES-SIV, the provided key is internally expanded to 64 bytes prior to use. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type = {
   name : string prop option; [@option]
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed at [https://cloud.google.com/dlp/docs/infotypes-reference](https://cloud.google.com/dlp/docs/infotypes-reference) when specifying a built-in type. When sending Cloud DLP results to Data Catalog, infoType names should conform to the pattern '[A-Za-z0-9$-_]{1,64}'. *)
   version : string prop option; [@option]
-      (** Optional version name for this InfoType. *)
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** The custom info type to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom info type followed by the number of characters comprising the surrogate. The following scheme defines the format: {info type name}({surrogate character count}):{surrogate}
+[@@deriving_inline yojson_of]
 
-For example, if the name of custom info type is 'MY\_TOKEN\_INFO\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\_TOKEN\_INFO\_TYPE(3):abc'
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type) ->
+  ()
 
-This annotation identifies the surrogate when inspecting content using the custom info type 'Surrogate'. This facilitates reversal of the surrogate when it occurs in free text.
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-Note: For record transformations where the entire cell in a table is being transformed, surrogates are not mandatory. Surrogates are used to denote the location of the token and are necessary for re-identification in free form text.
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
 
-In order for inspection to work properly, the name of this info type must not occur naturally anywhere in your data; otherwise, inspection may either
-
-*   reverse a surrogate that does not correspond to an actual identifier
-*   be unable to parse the surrogate and result in an error
-
-Therefore, choose your custom info type name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\_TOKEN\_TYPE. *)
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config = {
   context :
@@ -1960,38 +7801,156 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
     list;
 }
-[@@deriving yojson_of]
-(** Pseudonymization method that generates deterministic encryption for the given input. Outputs a base64 encoded representation of the encrypted output. Uses AES-SIV based on the RFC [https://tools.ietf.org/html/rfc5297](https://tools.ietf.org/html/rfc5297). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
+    =
+  (function
+   | {
+       context = v_context;
+       crypto_key = v_crypto_key;
+       surrogate_info_type = v_surrogate_info_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__surrogate_info_type
+             v_surrogate_info_type
+         in
+         ("surrogate_info_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config__context
+             v_context
+         in
+         ("context", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key).
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key = {
   kms_wrapped :
@@ -2004,70 +7963,226 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption function. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config = {
   crypto_key :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
     list;
 }
-[@@deriving yojson_of]
-(** Pseudonymization method that generates surrogates via cryptographic hashing. Uses SHA-256. The key size must be either 32 or 64 bytes.
-Outputs a base64 encoded representation of the hashed output (for example, L7k0BHmF1ha5U3NfGykjro4xWi1MPVQPjhMAZbSV9mM=).
-Currently, only string and integer values can be hashed.
-See https://cloud.google.com/dlp/docs/pseudonymization to learn more. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
+    =
+  (function
+   | { crypto_key = v_crypto_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context = {
   name : string prop option; [@option]
-      (** Name describing the field. *)
 }
-[@@deriving yojson_of]
-(** The 'tweak', a context may be used for higher security since the same identifier in two different contexts won't be given the same surrogate. If the context is not set, a default tweak will be used.
+[@@deriving_inline yojson_of]
 
-If the context is set but:
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context) ->
+  ()
 
-1.  there is no record present when transforming a given value or
-2.  the field is not present when transforming a given value,
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-a default tweak will be used.
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
 
-Note that case (1) is expected when an 'InfoTypeTransformation' is applied to both structured and non-structured 'ContentItem's. Currently, the referenced field may be of value type integer or string.
-
-The tweak is constructed as a sequence of bytes in big endian byte order such that:
-
-*   a 64 bit integer is encoded followed by a single byte of value 1
-*   a string is encoded in UTF-8 format followed by a single byte of value 2 *)
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key).
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key = {
   kms_wrapped :
@@ -2080,43 +8195,149 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** The key used by the encryption algorithm. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type = {
   name : string prop option; [@option]
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed at [https://cloud.google.com/dlp/docs/infotypes-reference](https://cloud.google.com/dlp/docs/infotypes-reference) when specifying a built-in type. When sending Cloud DLP results to Data Catalog, infoType names should conform to the pattern '[A-Za-z0-9$-_]{1,64}'. *)
   version : string prop option; [@option]
-      (** Optional version name for this InfoType. *)
   sensitivity_score :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** The custom infoType to annotate the surrogate with. This annotation will be applied to the surrogate by prefixing it with the name of the custom infoType followed by the number of characters comprising the surrogate. The following scheme defines the format: info\_type\_name(surrogate\_character\_count):surrogate
+[@@deriving_inline yojson_of]
 
-For example, if the name of custom infoType is 'MY\_TOKEN\_INFO\_TYPE' and the surrogate is 'abc', the full replacement value will be: 'MY\_TOKEN\_INFO\_TYPE(3):abc'
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type) ->
+  ()
 
-This annotation identifies the surrogate when inspecting content using the custom infoType ['SurrogateType'](https://cloud.google.com/dlp/docs/reference/rest/v2/InspectConfig#surrogatetype). This facilitates reversal of the surrogate when it occurs in free text.
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-In order for inspection to work properly, the name of this infoType must not occur naturally anywhere in your data; otherwise, inspection may find a surrogate that does not correspond to an actual identifier. Therefore, choose your custom infoType name carefully after considering what your data looks like. One way to select a name that has a high chance of yielding reliable detection is to include one or more unicode characters that are highly improbable to exist in your data. For example, assuming your data is entered from a regular ASCII keyboard, the symbol with the hex code point 29DD might be used like so: ⧝MY\_TOKEN\_TYPE *)
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config = {
   common_alphabet : string prop option; [@option]
-      (** Common alphabets. Possible values: [FFX_COMMON_NATIVE_ALPHABET_UNSPECIFIED, NUMERIC, HEXADECIMAL, UPPER_CASE_ALPHA_NUMERIC, ALPHA_NUMERIC] *)
   custom_alphabet : string prop option; [@option]
-      (** This is supported by mapping these to the alphanumeric characters that the FFX mode natively supports. This happens before/after encryption/decryption. Each character listed must appear only once. Number of characters must be in the range \[2, 95\]. This must be encoded as ASCII. The order of characters does not matter. The full list of allowed characters is:
-
-''0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ~'!@#$%^&*()_-+={[}]|:;'<,>.?/'' *)
   radix : float prop option; [@option]
-      (** The native way to select the alphabet. Must be in the range \[2, 95\]. *)
   context :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
     list;
@@ -2127,48 +8348,217 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
     list;
 }
-[@@deriving yojson_of]
-(** Replaces an identifier with a surrogate using Format Preserving Encryption (FPE) with the FFX mode of operation; however when used in the 'content.reidentify' API method, it serves the opposite function by reversing the surrogate back into the original identifier. The identifier must be encoded as ASCII. For a given crypto key and context, the same identifier will be replaced with the same surrogate. Identifiers must be at least two characters long. In the case that the identifier is the empty string, it will be skipped. See [https://cloud.google.com/dlp/docs/pseudonymization](https://cloud.google.com/dlp/docs/pseudonymization) to learn more.
+[@@deriving_inline yojson_of]
 
-Note: We recommend using CryptoDeterministicConfig for all use cases which do not require preserving the input alphabet space and size, plus warrant referential integrity. *)
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+    =
+  (function
+   | {
+       common_alphabet = v_common_alphabet;
+       custom_alphabet = v_custom_alphabet;
+       radix = v_radix;
+       context = v_context;
+       crypto_key = v_crypto_key;
+       surrogate_info_type = v_surrogate_info_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__surrogate_info_type
+             v_surrogate_info_type
+         in
+         ("surrogate_info_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config__context
+             v_context
+         in
+         ("context", arg) :: bnds
+       in
+       let bnds =
+         match v_radix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "radix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_alphabet with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_alphabet", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_alphabet with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_alphabet", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context = {
   name : string prop option; [@option]
-      (** Name describing the field. *)
 }
-[@@deriving yojson_of]
-(** Points to the field that contains the context, for example, an entity id.
-If set, must also set cryptoKey. If set, shift will be consistent for the given context. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped = {
   crypto_key_name : string prop;
-      (** The resource name of the KMS CryptoKey to use for unwrapping. *)
   wrapped_key : string prop;
-      (** The wrapped data crypto key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** KMS wrapped key.
-Include to use an existing data crypto key wrapped by KMS. The wrapped key must be a 128-, 192-, or 256-bit key. Authorization requires the following IAM permissions when sending a request to perform a crypto transformation using a KMS-wrapped crypto key: dlp.kms.encrypt
-For more information, see [Creating a wrapped key](https://cloud.google.com/dlp/docs/create-wrapped-key).
-Note: When you use Cloud KMS for cryptographic operations, [charges apply](https://cloud.google.com/kms/pricing). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+    =
+  (function
+   | {
+       crypto_key_name = v_crypto_key_name;
+       wrapped_key = v_wrapped_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_wrapped_key in
+         ("wrapped_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_crypto_key_name
+         in
+         ("crypto_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient = {
   name : string prop;
-      (** Name of the key. This is an arbitrary string used to differentiate different keys. A unique key is generated per name: two separate 'TransientCryptoKey' protos share the same generated key if their names are the same. When the data crypto key is generated, this name is not used in any way (repeating the api call will result in a different key being generated). *)
 }
-[@@deriving yojson_of]
-(** Transient crypto key. Use this to have a random data crypto key generated. It will be discarded after the request finishes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped = {
   key : string prop;
-      (** A 128/192/256 bit key.
-
-A base64-encoded string. *)
 }
-[@@deriving yojson_of]
-(** Unwrapped crypto key. Using raw keys is prone to security risks due to accidentally leaking the key. Choose another type of key if possible. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+    =
+  (function
+   | { key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key = {
   kms_wrapped :
@@ -2181,16 +8571,60 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
     list;
 }
-[@@deriving yojson_of]
-(** Causes the shift to be computed based on this key and the context. This results in the same shift for the same context and cryptoKey. If set, must also set context. Can only be applied to table items. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
+    =
+  (function
+   | {
+       kms_wrapped = v_kms_wrapped;
+       transient = v_transient;
+       unwrapped = v_unwrapped;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__unwrapped
+             v_unwrapped
+         in
+         ("unwrapped", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__transient
+             v_transient
+         in
+         ("transient", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key__kms_wrapped
+             v_kms_wrapped
+         in
+         ("kms_wrapped", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config = {
   lower_bound_days : float prop;
-      (** For example, -5 means shift date to at most 5 days back in the past. *)
   upper_bound_days : float prop;
-      (** Range of shift in days. Actual shift will be selected at random within this range (inclusive ends). Negative means shift to earlier in time. Must not be more than 365250 days (1000 years) each direction.
-
-For example, 3 means shift date to at most 3 days into the future. *)
   context :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
     list;
@@ -2198,45 +8632,187 @@ For example, 3 means shift date to at most 3 days into the future. *)
     deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
     list;
 }
-[@@deriving yojson_of]
-(** Shifts dates by random number of days, with option to be consistent for the same context. See https://cloud.google.com/dlp/docs/concepts-date-shifting to learn more. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
+    =
+  (function
+   | {
+       lower_bound_days = v_lower_bound_days;
+       upper_bound_days = v_upper_bound_days;
+       context = v_context;
+       crypto_key = v_crypto_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__crypto_key
+             v_crypto_key
+         in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config__context
+             v_context
+         in
+         ("context", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_upper_bound_days
+         in
+         ("upper_bound_days", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_lower_bound_days
+         in
+         ("lower_bound_days", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
     list;
@@ -2244,47 +8820,227 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Lower bound value of buckets.
-All values less than lower_bound are grouped together into a single bucket; for example if lower_bound = 10, then all values less than 10 are replaced with the value -10.
-The 'lower_bound' block must only contain one argument. See the 'fixed_size_bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
     list;
@@ -2292,16 +9048,104 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Upper bound value of buckets.
-All values greater than upper_bound are grouped together into a single bucket; for example if upper_bound = 89, then all values greater than 89 are replaced with the value 89+.
-The 'upper_bound' block must only contain one argument. See the 'fixed_size_bucketing_config' block description for more information about choosing a data type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config = {
   bucket_size : float prop;
-      (** Size of each bucket (except for minimum and maximum buckets).
-So if lower_bound = 10, upper_bound = 89, and bucketSize = 10, then the following buckets would be used: -10, 10-20, 20-30, 30-40, 40-50, 50-60, 60-70, 70-80, 80-89, 89+.
-Precision up to 2 decimals works. *)
   lower_bound :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
     list;
@@ -2309,57 +9153,198 @@ Precision up to 2 decimals works. *)
     deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
     list;
 }
-[@@deriving yojson_of]
-(** Buckets values based on fixed size ranges. The Bucketing transformation can provide all of this functionality, but requires more configuration. This message is provided as a convenience to the user for simple bucketing strategies.
+[@@deriving_inline yojson_of]
 
-The transformed value will be a hyphenated string of {lower_bound}-{upper_bound}. For example, if lower_bound = 10 and upper_bound = 20, all values that are within this bucket will be replaced with 10-20.
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config) ->
+  ()
 
-This can be used on data of type: double, long.
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
+    =
+  (function
+   | {
+       bucket_size = v_bucket_size;
+       lower_bound = v_lower_bound;
+       upper_bound = v_upper_bound;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__upper_bound
+             v_upper_bound
+         in
+         ("upper_bound", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config__lower_bound
+             v_lower_bound
+         in
+         ("lower_bound", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_bucket_size in
+         ("bucket_size", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-If the bound Value type differs from the type of data being transformed, we will first attempt converting the type of the data to be transformed to match the type of the bound before comparing.
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
 
-See https://cloud.google.com/dlp/docs/concepts-bucketing to learn more. *)
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config =
   unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
+    =
+  (yojson_of_unit
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
     list;
@@ -2367,39 +9352,239 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Replace each input value with a given value.
-The 'new_value' block must only contain one argument. For example when replacing the contents of a string-type field, only 'string_value' should be set. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config = {
   new_value :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
     list;
 }
-[@@deriving yojson_of]
-(** Replace with a specified value. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
+    =
+  (function
+   | { new_value = v_new_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config__new_value
+             v_new_value
+         in
+         ("new_value", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list = {
   words : string prop list;
-      (** Words or phrases defining the dictionary. The dictionary must contain at least one phrase and every phrase must contain at least 2 characters that are letters or digits. *)
 }
-[@@deriving yojson_of]
-(** A list of words to select from for random replacement. The [limits](https://cloud.google.com/dlp/limits) page contains details about the size limits of dictionaries. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
+    =
+  (function
+   | { words = v_words } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_words
+         in
+         ("words", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config = {
   word_list :
     deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
     list;
 }
-[@@deriving yojson_of]
-(** Replace with a value randomly drawn (with replacement) from a dictionary. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
+    =
+  (function
+   | { word_list = v_word_list } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config__word_list
+             v_word_list
+         in
+         ("word_list", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config = {
   part_to_extract : string prop option; [@option]
-      (** The part of the time to keep. Possible values: [YEAR, MONTH, DAY_OF_MONTH, DAY_OF_WEEK, WEEK_OF_YEAR, HOUR_OF_DAY] *)
 }
-[@@deriving yojson_of]
-(** For use with Date, Timestamp, and TimeOfDay, extract or preserve a portion of the value. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
+    =
+  (function
+   | { part_to_extract = v_part_to_extract } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_part_to_extract with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "part_to_extract", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations__primitive_transformation = {
   bucketing_config :
@@ -2436,10 +9621,129 @@ type deidentify_config__record_transformations__field_transformations__primitive
     deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
     list;
 }
-[@@deriving yojson_of]
-(** Apply the transformation to the entire field.
-The 'primitive_transformation' block must only contain one argument, corresponding to the type of transformation.
-Only one of 'primitive_transformation' or 'info_type_transformations' must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations__primitive_transformation) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation
+    =
+  (function
+   | {
+       bucketing_config = v_bucketing_config;
+       character_mask_config = v_character_mask_config;
+       crypto_deterministic_config = v_crypto_deterministic_config;
+       crypto_hash_config = v_crypto_hash_config;
+       crypto_replace_ffx_fpe_config =
+         v_crypto_replace_ffx_fpe_config;
+       date_shift_config = v_date_shift_config;
+       fixed_size_bucketing_config = v_fixed_size_bucketing_config;
+       redact_config = v_redact_config;
+       replace_config = v_replace_config;
+       replace_dictionary_config = v_replace_dictionary_config;
+       time_part_config = v_time_part_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__time_part_config
+             v_time_part_config
+         in
+         ("time_part_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_dictionary_config
+             v_replace_dictionary_config
+         in
+         ("replace_dictionary_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__replace_config
+             v_replace_config
+         in
+         ("replace_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__redact_config
+             v_redact_config
+         in
+         ("redact_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__fixed_size_bucketing_config
+             v_fixed_size_bucketing_config
+         in
+         ("fixed_size_bucketing_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__date_shift_config
+             v_date_shift_config
+         in
+         ("date_shift_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_replace_ffx_fpe_config
+             v_crypto_replace_ffx_fpe_config
+         in
+         ("crypto_replace_ffx_fpe_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_hash_config
+             v_crypto_hash_config
+         in
+         ("crypto_hash_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__crypto_deterministic_config
+             v_crypto_deterministic_config
+         in
+         ("crypto_deterministic_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__character_mask_config
+             v_character_mask_config
+         in
+         ("character_mask_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation__bucketing_config
+             v_bucketing_config
+         in
+         ("bucketing_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations__primitive_transformation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__field_transformations = {
   condition :
@@ -2455,52 +9759,225 @@ type deidentify_config__record_transformations__field_transformations = {
     deidentify_config__record_transformations__field_transformations__primitive_transformation
     list;
 }
-[@@deriving yojson_of]
-(** Transform the record by applying various field transformations. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__field_transformations) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__field_transformations
+    =
+  (function
+   | {
+       condition = v_condition;
+       fields = v_fields;
+       info_type_transformations = v_info_type_transformations;
+       primitive_transformation = v_primitive_transformation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__primitive_transformation
+             v_primitive_transformation
+         in
+         ("primitive_transformation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__info_type_transformations
+             v_info_type_transformations
+         in
+         ("info_type_transformations", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__fields
+             v_fields
+         in
+         ("fields", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations__condition
+             v_condition
+         in
+         ("condition", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__field_transformations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__field_transformations
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field = {
   name : string prop option; [@option]
-      (** Name describing the field. *)
 }
-[@@deriving yojson_of]
-(** Field within the record this condition is evaluated against. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0 to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without a year. *)
 }
-[@@deriving yojson_of]
-(** Represents a whole or partial calendar date. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
+    =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose to allow the value 24:00:00 for scenarios like business closing time. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. An API may allow the value 60 if it allows leap-seconds. *)
 }
-[@@deriving yojson_of]
-(** Represents a time of day. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
+    =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value = {
   boolean_value : bool prop option; [@option]
-      (** A boolean value. *)
   day_of_week_value : string prop option; [@option]
-      (** Represents a day of the week. Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-  float_value : float prop option; [@option]  (** A float value. *)
+  float_value : float prop option; [@option]
   integer_value : string prop option; [@option]
-      (** An integer value (int64 format) *)
   string_value : string prop option; [@option]
-      (** A string value. *)
   timestamp_value : string prop option; [@option]
-      (** A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   date_value :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
     list;
@@ -2508,12 +9985,104 @@ type deidentify_config__record_transformations__record_suppressions__condition__
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
     list;
 }
-[@@deriving yojson_of]
-(** Value to compare against. [Mandatory, except for EXISTS tests.] *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
+    =
+  (function
+   | {
+       boolean_value = v_boolean_value;
+       day_of_week_value = v_day_of_week_value;
+       float_value = v_float_value;
+       integer_value = v_integer_value;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+       date_value = v_date_value;
+       time_value = v_time_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__time_value
+             v_time_value
+         in
+         ("time_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value__date_value
+             v_date_value
+         in
+         ("date_value", arg) :: bnds
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integer_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integer_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_float_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "float_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boolean_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boolean_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions = {
   operator : string prop;
-      (** Operator used to compare the field or infoType to the value. Possible values: [EQUAL_TO, NOT_EQUAL_TO, GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUALS, LESS_THAN_OR_EQUALS, EXISTS] *)
   field :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
     list;
@@ -2521,42 +10090,204 @@ type deidentify_config__record_transformations__record_suppressions__condition__
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
     list;
 }
-[@@deriving yojson_of]
-(** A collection of conditions. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
+    =
+  (function
+   | { operator = v_operator; field = v_field; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__value
+             v_value
+         in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions__field
+             v_field
+         in
+         ("field", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions = {
   conditions :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
     list;
 }
-[@@deriving yojson_of]
-(** Conditions to apply to the expression. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
+    =
+  (function
+   | { conditions = v_conditions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions__conditions
+             v_conditions
+         in
+         ("conditions", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__record_suppressions__condition__expressions = {
   logical_operator : string prop option; [@option]
-      (** The operator to apply to the result of conditions. Default and currently only supported value is AND. Default value: AND Possible values: [AND] *)
   conditions :
     deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
     list;
 }
-[@@deriving yojson_of]
-(** An expression, consisting of an operator and conditions. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__record_suppressions__condition__expressions) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions
+    =
+  (function
+   | {
+       logical_operator = v_logical_operator;
+       conditions = v_conditions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions__conditions
+             v_conditions
+         in
+         ("conditions", arg) :: bnds
+       in
+       let bnds =
+         match v_logical_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "logical_operator", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__record_suppressions__condition__expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__record_suppressions__condition = {
   expressions :
     deidentify_config__record_transformations__record_suppressions__condition__expressions
     list;
 }
-[@@deriving yojson_of]
-(** A condition that when it evaluates to true will result in the record being evaluated to be suppressed from the transformed content. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__record_suppressions__condition) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__record_suppressions__condition
+    =
+  (function
+   | { expressions = v_expressions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__record_suppressions__condition__expressions
+             v_expressions
+         in
+         ("expressions", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__record_suppressions__condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__record_suppressions__condition
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations__record_suppressions = {
   condition :
     deidentify_config__record_transformations__record_suppressions__condition
     list;
 }
-[@@deriving yojson_of]
-(** Configuration defining which records get suppressed entirely. Records that match any suppression rule are omitted from the output. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deidentify_config__record_transformations__record_suppressions) ->
+  ()
+
+let yojson_of_deidentify_config__record_transformations__record_suppressions
+    =
+  (function
+   | { condition = v_condition } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__record_suppressions__condition
+             v_condition
+         in
+         ("condition", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations__record_suppressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deidentify_config__record_transformations__record_suppressions
+
+[@@@deriving.end]
 
 type deidentify_config__record_transformations = {
   field_transformations :
@@ -2566,8 +10297,42 @@ type deidentify_config__record_transformations = {
     deidentify_config__record_transformations__record_suppressions
     list;
 }
-[@@deriving yojson_of]
-(** Treat the dataset as structured. Transformations can be applied to specific locations within structured datasets, such as transforming a column within a table. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deidentify_config__record_transformations) -> ()
+
+let yojson_of_deidentify_config__record_transformations =
+  (function
+   | {
+       field_transformations = v_field_transformations;
+       record_suppressions = v_record_suppressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__record_suppressions
+             v_record_suppressions
+         in
+         ("record_suppressions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations__field_transformations
+             v_field_transformations
+         in
+         ("field_transformations", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config__record_transformations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deidentify_config__record_transformations
+
+[@@@deriving.end]
 
 type deidentify_config = {
   image_transformations :
@@ -2577,39 +10342,179 @@ type deidentify_config = {
   record_transformations :
     deidentify_config__record_transformations list;
 }
-[@@deriving yojson_of]
-(** Configuration of the deidentify template *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deidentify_config) -> ()
+
+let yojson_of_deidentify_config =
+  (function
+   | {
+       image_transformations = v_image_transformations;
+       info_type_transformations = v_info_type_transformations;
+       record_transformations = v_record_transformations;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__record_transformations
+             v_record_transformations
+         in
+         ("record_transformations", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__info_type_transformations
+             v_info_type_transformations
+         in
+         ("info_type_transformations", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deidentify_config__image_transformations
+             v_image_transformations
+         in
+         ("image_transformations", arg) :: bnds
+       in
+       `Assoc bnds
+    : deidentify_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deidentify_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_data_loss_prevention_deidentify_template = {
   description : string prop option; [@option]
-      (** A description of the template. *)
   display_name : string prop option; [@option]
-      (** User set display name of the template. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   parent : string prop;
-      (** The parent of the template in any of the following formats:
-
-* 'projects/{{project}}'
-* 'projects/{{project}}/locations/{{location}}'
-* 'organizations/{{organization_id}}'
-* 'organizations/{{organization_id}}/locations/{{location}}' *)
   template_id : string prop option; [@option]
-      (** The template id can contain uppercase and lowercase letters, numbers, and hyphens;
-that is, it must match the regular expression: [a-zA-Z\d-_]+. The maximum length is
-100 characters. Can be empty to allow the system to generate one. *)
   deidentify_config : deidentify_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_data_loss_prevention_deidentify_template *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_data_loss_prevention_deidentify_template) -> ()
+
+let yojson_of_google_data_loss_prevention_deidentify_template =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       parent = v_parent;
+       template_id = v_template_id;
+       deidentify_config = v_deidentify_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_deidentify_config
+             v_deidentify_config
+         in
+         ("deidentify_config", arg) :: bnds
+       in
+       let bnds =
+         match v_template_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "template_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_data_loss_prevention_deidentify_template ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_data_loss_prevention_deidentify_template
+
+[@@@deriving.end]
 
 let deidentify_config__image_transformations__transforms__all_info_types
     () =

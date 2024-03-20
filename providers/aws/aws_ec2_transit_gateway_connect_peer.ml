@@ -3,28 +3,160 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_ec2_transit_gateway_connect_peer = {
-  bgp_asn : string prop option; [@option]  (** bgp_asn *)
-  id : string prop option; [@option]  (** id *)
-  inside_cidr_blocks : string prop list;  (** inside_cidr_blocks *)
-  peer_address : string prop;  (** peer_address *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  bgp_asn : string prop option; [@option]
+  id : string prop option; [@option]
+  inside_cidr_blocks : string prop list;
+  peer_address : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   transit_gateway_address : string prop option; [@option]
-      (** transit_gateway_address *)
   transit_gateway_attachment_id : string prop;
-      (** transit_gateway_attachment_id *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_ec2_transit_gateway_connect_peer *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_transit_gateway_connect_peer) -> ()
+
+let yojson_of_aws_ec2_transit_gateway_connect_peer =
+  (function
+   | {
+       bgp_asn = v_bgp_asn;
+       id = v_id;
+       inside_cidr_blocks = v_inside_cidr_blocks;
+       peer_address = v_peer_address;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       transit_gateway_address = v_transit_gateway_address;
+       transit_gateway_attachment_id =
+         v_transit_gateway_attachment_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_transit_gateway_attachment_id
+         in
+         ("transit_gateway_attachment_id", arg) :: bnds
+       in
+       let bnds =
+         match v_transit_gateway_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transit_gateway_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_peer_address in
+         ("peer_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_inside_cidr_blocks
+         in
+         ("inside_cidr_blocks", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bgp_asn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bgp_asn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_transit_gateway_connect_peer ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_transit_gateway_connect_peer
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

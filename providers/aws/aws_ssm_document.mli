@@ -11,6 +11,8 @@ type parameter = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+[@@@deriving.end]
+
 type attachments_source
 
 val attachments_source :

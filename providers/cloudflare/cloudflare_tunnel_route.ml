@@ -4,22 +4,71 @@ open! Tf_core
 
 type cloudflare_tunnel_route = {
   account_id : string prop;
-      (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   comment : string prop option; [@option]
-      (** Description of the tunnel route. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   network : string prop;
-      (** The IPv4 or IPv6 network that should use this tunnel route, in CIDR notation. *)
   tunnel_id : string prop;
-      (** The ID of the tunnel that will service the tunnel route. *)
   virtual_network_id : string prop option; [@option]
-      (** The ID of the virtual network for which this route is being added; uses the default virtual network of the account if none is provided. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a resource, that manages Cloudflare tunnel routes for Zero
-Trust. Tunnel routes are used to direct IP traffic through
-Cloudflare Tunnels.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_tunnel_route) -> ()
+
+let yojson_of_cloudflare_tunnel_route =
+  (function
+   | {
+       account_id = v_account_id;
+       comment = v_comment;
+       id = v_id;
+       network = v_network;
+       tunnel_id = v_tunnel_id;
+       virtual_network_id = v_virtual_network_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_virtual_network_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "virtual_network_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tunnel_id in
+         ("tunnel_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_tunnel_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_tunnel_route
+
+[@@@deriving.end]
 
 let cloudflare_tunnel_route ?comment ?id ?virtual_network_id
     ~account_id ~network ~tunnel_id () : cloudflare_tunnel_route =

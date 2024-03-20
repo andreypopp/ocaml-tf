@@ -4,24 +4,159 @@ open! Tf_core
 
 type aws_imagebuilder_component = {
   change_description : string prop option; [@option]
-      (** change_description *)
-  data : string prop option; [@option]  (** data *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
-  name : string prop;  (** name *)
-  platform : string prop;  (** platform *)
-  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  data : string prop option; [@option]
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  kms_key_id : string prop option; [@option]
+  name : string prop;
+  platform : string prop;
+  skip_destroy : bool prop option; [@option]
   supported_os_versions : string prop list option; [@option]
-      (** supported_os_versions *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  uri : string prop option; [@option]  (** uri *)
-  version : string prop;  (** version *)
+  uri : string prop option; [@option]
+  version : string prop;
 }
-[@@deriving yojson_of]
-(** aws_imagebuilder_component *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_imagebuilder_component) -> ()
+
+let yojson_of_aws_imagebuilder_component =
+  (function
+   | {
+       change_description = v_change_description;
+       data = v_data;
+       description = v_description;
+       id = v_id;
+       kms_key_id = v_kms_key_id;
+       name = v_name;
+       platform = v_platform;
+       skip_destroy = v_skip_destroy;
+       supported_os_versions = v_supported_os_versions;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       uri = v_uri;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         match v_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_supported_os_versions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "supported_os_versions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skip_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_platform in
+         ("platform", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_change_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "change_description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_imagebuilder_component -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_imagebuilder_component
+
+[@@@deriving.end]
 
 let aws_imagebuilder_component ?change_description ?data ?description
     ?id ?kms_key_id ?skip_destroy ?supported_os_versions ?tags

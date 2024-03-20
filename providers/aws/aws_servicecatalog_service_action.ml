@@ -3,35 +3,197 @@
 open! Tf_core
 
 type definition = {
-  assume_role : string prop option; [@option]  (** assume_role *)
-  name : string prop;  (** name *)
-  parameters : string prop option; [@option]  (** parameters *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
-  version : string prop;  (** version *)
+  assume_role : string prop option; [@option]
+  name : string prop;
+  parameters : string prop option; [@option]
+  type_ : string prop option; [@option] [@key "type"]
+  version : string prop;
 }
-[@@deriving yojson_of]
-(** definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : definition) -> ()
+
+let yojson_of_definition =
+  (function
+   | {
+       assume_role = v_assume_role;
+       name = v_name;
+       parameters = v_parameters;
+       type_ = v_type_;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_assume_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "assume_role", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_definition
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_servicecatalog_service_action = {
   accept_language : string prop option; [@option]
-      (** accept_language *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   definition : definition list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_servicecatalog_service_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_servicecatalog_service_action) -> ()
+
+let yojson_of_aws_servicecatalog_service_action =
+  (function
+   | {
+       accept_language = v_accept_language;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       definition = v_definition;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_definition v_definition
+         in
+         ("definition", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accept_language with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "accept_language", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_servicecatalog_service_action ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_servicecatalog_service_action
+
+[@@@deriving.end]
 
 let definition ?assume_role ?parameters ?type_ ~name ~version () :
     definition =

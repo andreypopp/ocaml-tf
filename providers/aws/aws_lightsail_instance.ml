@@ -3,30 +3,170 @@
 open! Tf_core
 
 type add_on = {
-  snapshot_time : string prop;  (** snapshot_time *)
-  status : string prop;  (** status *)
-  type_ : string prop; [@key "type"]  (** type *)
+  snapshot_time : string prop;
+  status : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** add_on *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : add_on) -> ()
+
+let yojson_of_add_on =
+  (function
+   | {
+       snapshot_time = v_snapshot_time;
+       status = v_status;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_snapshot_time in
+         ("snapshot_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : add_on -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_add_on
+
+[@@@deriving.end]
 
 type aws_lightsail_instance = {
-  availability_zone : string prop;  (** availability_zone *)
-  blueprint_id : string prop;  (** blueprint_id *)
-  bundle_id : string prop;  (** bundle_id *)
-  id : string prop option; [@option]  (** id *)
+  availability_zone : string prop;
+  blueprint_id : string prop;
+  bundle_id : string prop;
+  id : string prop option; [@option]
   ip_address_type : string prop option; [@option]
-      (** ip_address_type *)
-  key_pair_name : string prop option; [@option]  (** key_pair_name *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  key_pair_name : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  user_data : string prop option; [@option]  (** user_data *)
+  user_data : string prop option; [@option]
   add_on : add_on list;
 }
-[@@deriving yojson_of]
-(** aws_lightsail_instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lightsail_instance) -> ()
+
+let yojson_of_aws_lightsail_instance =
+  (function
+   | {
+       availability_zone = v_availability_zone;
+       blueprint_id = v_blueprint_id;
+       bundle_id = v_bundle_id;
+       id = v_id;
+       ip_address_type = v_ip_address_type;
+       key_pair_name = v_key_pair_name;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       user_data = v_user_data;
+       add_on = v_add_on;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_add_on v_add_on in
+         ("add_on", arg) :: bnds
+       in
+       let bnds =
+         match v_user_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_key_pair_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_pair_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_address_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_address_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bundle_id in
+         ("bundle_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_blueprint_id in
+         ("blueprint_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_availability_zone
+         in
+         ("availability_zone", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lightsail_instance -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lightsail_instance
+
+[@@@deriving.end]
 
 let add_on ~snapshot_time ~status ~type_ () : add_on =
   { snapshot_time; status; type_ }

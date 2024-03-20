@@ -4,48 +4,209 @@ open! Tf_core
 
 type access_control__action = {
   allowed_caller_ip_address_range : string prop list;
-      (** allowed_caller_ip_address_range *)
 }
-[@@deriving yojson_of]
-(** access_control__action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_control__action) -> ()
+
+let yojson_of_access_control__action =
+  (function
+   | {
+       allowed_caller_ip_address_range =
+         v_allowed_caller_ip_address_range;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_caller_ip_address_range
+         in
+         ("allowed_caller_ip_address_range", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_control__action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_control__action
+
+[@@@deriving.end]
 
 type access_control__content = {
   allowed_caller_ip_address_range : string prop list;
-      (** allowed_caller_ip_address_range *)
 }
-[@@deriving yojson_of]
-(** access_control__content *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_control__content) -> ()
+
+let yojson_of_access_control__content =
+  (function
+   | {
+       allowed_caller_ip_address_range =
+         v_allowed_caller_ip_address_range;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_caller_ip_address_range
+         in
+         ("allowed_caller_ip_address_range", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_control__content -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_control__content
+
+[@@@deriving.end]
 
 type access_control__trigger__open_authentication_policy__claim = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** access_control__trigger__open_authentication_policy__claim *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : access_control__trigger__open_authentication_policy__claim) ->
+  ()
+
+let yojson_of_access_control__trigger__open_authentication_policy__claim
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_control__trigger__open_authentication_policy__claim ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_access_control__trigger__open_authentication_policy__claim
+
+[@@@deriving.end]
 
 type access_control__trigger__open_authentication_policy = {
-  name : string prop;  (** name *)
+  name : string prop;
   claim :
     access_control__trigger__open_authentication_policy__claim list;
 }
-[@@deriving yojson_of]
-(** access_control__trigger__open_authentication_policy *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : access_control__trigger__open_authentication_policy) -> ()
+
+let yojson_of_access_control__trigger__open_authentication_policy =
+  (function
+   | { name = v_name; claim = v_claim } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_access_control__trigger__open_authentication_policy__claim
+             v_claim
+         in
+         ("claim", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_control__trigger__open_authentication_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_control__trigger__open_authentication_policy
+
+[@@@deriving.end]
 
 type access_control__trigger = {
   allowed_caller_ip_address_range : string prop list;
-      (** allowed_caller_ip_address_range *)
   open_authentication_policy :
     access_control__trigger__open_authentication_policy list;
 }
-[@@deriving yojson_of]
-(** access_control__trigger *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_control__trigger) -> ()
+
+let yojson_of_access_control__trigger =
+  (function
+   | {
+       allowed_caller_ip_address_range =
+         v_allowed_caller_ip_address_range;
+       open_authentication_policy = v_open_authentication_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_access_control__trigger__open_authentication_policy
+             v_open_authentication_policy
+         in
+         ("open_authentication_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_caller_ip_address_range
+         in
+         ("allowed_caller_ip_address_range", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_control__trigger -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_control__trigger
+
+[@@@deriving.end]
 
 type access_control__workflow_management = {
   allowed_caller_ip_address_range : string prop list;
-      (** allowed_caller_ip_address_range *)
 }
-[@@deriving yojson_of]
-(** access_control__workflow_management *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_control__workflow_management) -> ()
+
+let yojson_of_access_control__workflow_management =
+  (function
+   | {
+       allowed_caller_ip_address_range =
+         v_allowed_caller_ip_address_range;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_caller_ip_address_range
+         in
+         ("allowed_caller_ip_address_range", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_control__workflow_management ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_control__workflow_management
+
+[@@@deriving.end]
 
 type access_control = {
   action : access_control__action list;
@@ -53,51 +214,324 @@ type access_control = {
   trigger : access_control__trigger list;
   workflow_management : access_control__workflow_management list;
 }
-[@@deriving yojson_of]
-(** access_control *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_control) -> ()
+
+let yojson_of_access_control =
+  (function
+   | {
+       action = v_action;
+       content = v_content;
+       trigger = v_trigger;
+       workflow_management = v_workflow_management;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_access_control__workflow_management
+             v_workflow_management
+         in
+         ("workflow_management", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_control__trigger v_trigger
+         in
+         ("trigger", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_control__content v_content
+         in
+         ("content", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_control__action v_action
+         in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_control -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_control
+
+[@@@deriving.end]
 
 type identity = {
   identity_ids : string prop list option; [@option]
-      (** identity_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_logic_app_workflow = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
   integration_service_environment_id : string prop option; [@option]
-      (** integration_service_environment_id *)
-  location : string prop;  (** location *)
+  location : string prop;
   logic_app_integration_account_id : string prop option; [@option]
-      (** logic_app_integration_account_id *)
-  name : string prop;  (** name *)
+  name : string prop;
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   workflow_parameters : (string * string prop) list option; [@option]
-      (** workflow_parameters *)
   workflow_schema : string prop option; [@option]
-      (** workflow_schema *)
   workflow_version : string prop option; [@option]
-      (** workflow_version *)
   access_control : access_control list;
   identity : identity list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_logic_app_workflow *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_logic_app_workflow) -> ()
+
+let yojson_of_azurerm_logic_app_workflow =
+  (function
+   | {
+       enabled = v_enabled;
+       id = v_id;
+       integration_service_environment_id =
+         v_integration_service_environment_id;
+       location = v_location;
+       logic_app_integration_account_id =
+         v_logic_app_integration_account_id;
+       name = v_name;
+       parameters = v_parameters;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       workflow_parameters = v_workflow_parameters;
+       workflow_schema = v_workflow_schema;
+       workflow_version = v_workflow_version;
+       access_control = v_access_control;
+       identity = v_identity;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity v_identity in
+         ("identity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_control v_access_control
+         in
+         ("access_control", arg) :: bnds
+       in
+       let bnds =
+         match v_workflow_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "workflow_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_workflow_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "workflow_schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_workflow_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "workflow_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_logic_app_integration_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "logic_app_integration_account_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_integration_service_environment_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integration_service_environment_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_logic_app_workflow -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_logic_app_workflow
+
+[@@@deriving.end]
 
 let access_control__action ~allowed_caller_ip_address_range () :
     access_control__action =

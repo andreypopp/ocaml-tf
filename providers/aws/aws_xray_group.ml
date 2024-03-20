@@ -3,24 +3,131 @@
 open! Tf_core
 
 type insights_configuration = {
-  insights_enabled : bool prop;  (** insights_enabled *)
+  insights_enabled : bool prop;
   notifications_enabled : bool prop option; [@option]
-      (** notifications_enabled *)
 }
-[@@deriving yojson_of]
-(** insights_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : insights_configuration) -> ()
+
+let yojson_of_insights_configuration =
+  (function
+   | {
+       insights_enabled = v_insights_enabled;
+       notifications_enabled = v_notifications_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_notifications_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "notifications_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_insights_enabled
+         in
+         ("insights_enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : insights_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_insights_configuration
+
+[@@@deriving.end]
 
 type aws_xray_group = {
-  filter_expression : string prop;  (** filter_expression *)
-  group_name : string prop;  (** group_name *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  filter_expression : string prop;
+  group_name : string prop;
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   insights_configuration : insights_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_xray_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_xray_group) -> ()
+
+let yojson_of_aws_xray_group =
+  (function
+   | {
+       filter_expression = v_filter_expression;
+       group_name = v_group_name;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       insights_configuration = v_insights_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_insights_configuration
+             v_insights_configuration
+         in
+         ("insights_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group_name in
+         ("group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_filter_expression
+         in
+         ("filter_expression", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_xray_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_xray_group
+
+[@@@deriving.end]
 
 let insights_configuration ?notifications_enabled ~insights_enabled
     () : insights_configuration =

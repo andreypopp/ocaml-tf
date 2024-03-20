@@ -4,278 +4,383 @@ open! Tf_core
 
 type service_directory_registrations = {
   namespace : string prop option; [@option]
-      (** Service Directory namespace to register the forwarding rule under. *)
   service : string prop option; [@option]
-      (** Service Directory service to register the forwarding rule under. *)
 }
-[@@deriving yojson_of]
-(** Service Directory resources to register this forwarding rule with.
+[@@deriving_inline yojson_of]
 
-Currently, only supports a single Service Directory resource. *)
+let _ = fun (_ : service_directory_registrations) -> ()
+
+let yojson_of_service_directory_registrations =
+  (function
+   | { namespace = v_namespace; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : service_directory_registrations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_directory_registrations
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_forwarding_rule = {
   all_ports : bool prop option; [@option]
-      (** The 'ports', 'portRange', and 'allPorts' fields are mutually exclusive.
-Only packets addressed to ports in the specified range will be forwarded
-to the backends configured with this forwarding rule.
-
-The 'allPorts' field has the following limitations:
-* It requires that the forwarding rule 'IPProtocol' be TCP, UDP, SCTP, or
-L3_DEFAULT.
-* It's applicable only to the following products: internal passthrough
-Network Load Balancers, backend service-based external passthrough Network
-Load Balancers, and internal and external protocol forwarding.
-* Set this field to true to allow packets addressed to any port or packets
-lacking destination port information (for example, UDP fragments after the
-first fragment) to be forwarded to the backends configured with this
-forwarding rule. The L3_DEFAULT protocol requires 'allPorts' be set to
-true. *)
   allow_global_access : bool prop option; [@option]
-      (** This field is used along with the 'backend_service' field for
-internal load balancing or with the 'target' field for internal
-TargetInstance.
-
-If the field is set to 'TRUE', clients can access ILB from all
-regions.
-
-Otherwise only allows access from clients in the same region as the
-internal load balancer. *)
   allow_psc_global_access : bool prop option; [@option]
-      (** This is used in PSC consumer ForwardingRule to control whether the PSC endpoint can be accessed from another region. *)
   backend_service : string prop option; [@option]
-      (** Identifies the backend service to which the forwarding rule sends traffic.
-
-Required for Internal TCP/UDP Load Balancing and Network Load Balancing;
-must be omitted for all other load balancer types. *)
   description : string prop option; [@option]
-      (** An optional description of this resource. Provide this property when
-you create the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_address : string prop option; [@option]
-      (** IP address for which this forwarding rule accepts traffic. When a client
-sends traffic to this IP address, the forwarding rule directs the traffic
-to the referenced 'target' or 'backendService'.
-
-While creating a forwarding rule, specifying an 'IPAddress' is
-required under the following circumstances:
-
-* When the 'target' is set to 'targetGrpcProxy' and
-'validateForProxyless' is set to 'true', the
-'IPAddress' should be set to '0.0.0.0'.
-* When the 'target' is a Private Service Connect Google APIs
-bundle, you must specify an 'IPAddress'.
-
-
-Otherwise, you can optionally specify an IP address that references an
-existing static (reserved) IP address resource. When omitted, Google Cloud
-assigns an ephemeral IP address.
-
-Use one of the following formats to specify an IP address while creating a
-forwarding rule:
-
-* IP address number, as in '100.1.2.3'
-* IPv6 address range, as in '2600:1234::/96'
-* Full resource URL, as in
-'https://www.googleapis.com/compute/v1/projects/project_id/regions/region/addresses/address-name'
-* Partial URL or by name, as in:
-  * 'projects/project_id/regions/region/addresses/address-name'
-  * 'regions/region/addresses/address-name'
-  * 'global/addresses/address-name'
-  * 'address-name'
-
-
-The forwarding rule's 'target' or 'backendService',
-and in most cases, also the 'loadBalancingScheme', determine the
-type of IP address that you can use. For detailed information, see
-[IP address
-specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts#ip_address_specifications).
-
-When reading an 'IPAddress', the API always returns the IP
-address number. *)
   ip_protocol : string prop option; [@option]
-      (** The IP protocol to which this rule applies.
-
-For protocol forwarding, valid
-options are 'TCP', 'UDP', 'ESP',
-'AH', 'SCTP', 'ICMP' and
-'L3_DEFAULT'.
-
-The valid IP protocols are different for different load balancing products
-as described in [Load balancing
-features](https://cloud.google.com/load-balancing/docs/features#protocols_from_the_load_balancer_to_the_backends).
-
-A Forwarding Rule with protocol L3_DEFAULT can attach with target instance or
-backend service with UNSPECIFIED protocol.
-A forwarding rule with L3_DEFAULT IPProtocal cannot be attached to a backend service with TCP or UDP. Possible values: [TCP, UDP, ESP, AH, SCTP, ICMP, L3_DEFAULT] *)
   ip_version : string prop option; [@option]
-      (** The IP address version that will be used by this forwarding rule.
-Valid options are IPV4 and IPV6.
-
-If not set, the IPv4 address will be used by default. Possible values: [IPV4, IPV6] *)
   is_mirroring_collector : bool prop option; [@option]
-      (** Indicates whether or not this load balancer can be used as a collector for
-packet mirroring. To prevent mirroring loops, instances behind this
-load balancer will not have their traffic mirrored even if a
-'PacketMirroring' rule applies to them.
-
-This can only be set to true for load balancers that have their
-'loadBalancingScheme' set to 'INTERNAL'. *)
   labels : (string * string prop) list option; [@option]
-      (** Labels to apply to this forwarding rule.  A list of key->value pairs.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   load_balancing_scheme : string prop option; [@option]
-      (** Specifies the forwarding rule type.
-
-For more information about forwarding rules, refer to
-[Forwarding rule concepts](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts). Default value: EXTERNAL Possible values: [EXTERNAL, EXTERNAL_MANAGED, INTERNAL, INTERNAL_MANAGED] *)
   name : string prop;
-      (** Name of the resource; provided by the client when the resource is created.
-The name must be 1-63 characters long, and comply with
-[RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
-
-Specifically, the name must be 1-63 characters long and match the regular
-expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the first
-character must be a lowercase letter, and all following characters must
-be a dash, lowercase letter, or digit, except the last character, which
-cannot be a dash.
-
-For Private Service Connect forwarding rules that forward traffic to Google
-APIs, the forwarding rule name must be a 1-20 characters string with
-lowercase letters and numbers and must start with a letter. *)
   network : string prop option; [@option]
-      (** This field is not used for external load balancing.
-
-For Internal TCP/UDP Load Balancing, this field identifies the network that
-the load balanced IP should belong to for this Forwarding Rule.
-If the subnetwork is specified, the network of the subnetwork will be used.
-If neither subnetwork nor this field is specified, the default network will
-be used.
-
-For Private Service Connect forwarding rules that forward traffic to Google
-APIs, a network must be provided. *)
   network_tier : string prop option; [@option]
-      (** This signifies the networking tier used for configuring
-this load balancer and can only take the following values:
-'PREMIUM', 'STANDARD'.
-
-For regional ForwardingRule, the valid values are 'PREMIUM' and
-'STANDARD'. For GlobalForwardingRule, the valid value is
-'PREMIUM'.
-
-If this field is not specified, it is assumed to be 'PREMIUM'.
-If 'IPAddress' is specified, this value must be equal to the
-networkTier of the Address. Possible values: [PREMIUM, STANDARD] *)
   no_automate_dns_zone : bool prop option; [@option]
-      (** This is used in PSC consumer ForwardingRule to control whether it should try to auto-generate a DNS zone or not. Non-PSC forwarding rules do not use this field. *)
   port_range : string prop option; [@option]
-      (** The 'ports', 'portRange', and 'allPorts' fields are mutually exclusive.
-Only packets addressed to ports in the specified range will be forwarded
-to the backends configured with this forwarding rule.
-
-The 'portRange' field has the following limitations:
-* It requires that the forwarding rule 'IPProtocol' be TCP, UDP, or SCTP,
-and
-* It's applicable only to the following products: external passthrough
-Network Load Balancers, internal and external proxy Network Load
-Balancers, internal and external Application Load Balancers, external
-protocol forwarding, and Classic VPN.
-* Some products have restrictions on what ports can be used. See
-[port specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts#port_specifications)
-for details.
-
-For external forwarding rules, two or more forwarding rules cannot use the
-same '[IPAddress, IPProtocol]' pair, and cannot have overlapping
-'portRange's.
-
-For internal forwarding rules within the same VPC network, two or more
-forwarding rules cannot use the same '[IPAddress, IPProtocol]' pair, and
-cannot have overlapping 'portRange's.
-
-@pattern: \d+(?:-\d+)? *)
   ports : string prop list option; [@option]
-      (** The 'ports', 'portRange', and 'allPorts' fields are mutually exclusive.
-Only packets addressed to ports in the specified range will be forwarded
-to the backends configured with this forwarding rule.
-
-The 'ports' field has the following limitations:
-* It requires that the forwarding rule 'IPProtocol' be TCP, UDP, or SCTP,
-and
-* It's applicable only to the following products: internal passthrough
-Network Load Balancers, backend service-based external passthrough Network
-Load Balancers, and internal protocol forwarding.
-* You can specify a list of up to five ports by number, separated by
-commas. The ports can be contiguous or discontiguous.
-
-For external forwarding rules, two or more forwarding rules cannot use the
-same '[IPAddress, IPProtocol]' pair if they share at least one port
-number.
-
-For internal forwarding rules within the same VPC network, two or more
-forwarding rules cannot use the same '[IPAddress, IPProtocol]' pair if
-they share at least one port number.
-
-@pattern: \d+(?:-\d+)? *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   recreate_closed_psc : bool prop option; [@option]
-      (** This is used in PSC consumer ForwardingRule to make terraform recreate the ForwardingRule when the status is closed *)
   region : string prop option; [@option]
-      (** A reference to the region where the regional forwarding rule resides.
-
-This field is not applicable to global forwarding rules. *)
   service_label : string prop option; [@option]
-      (** An optional prefix to the service name for this Forwarding Rule.
-If specified, will be the first label of the fully qualified service
-name.
-
-The label must be 1-63 characters long, and comply with RFC1035.
-Specifically, the label must be 1-63 characters long and match the
-regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the first
-character must be a lowercase letter, and all following characters
-must be a dash, lowercase letter, or digit, except the last
-character, which cannot be a dash.
-
-This field is only used for INTERNAL load balancing. *)
   source_ip_ranges : string prop list option; [@option]
-      (** If not empty, this Forwarding Rule will only forward the traffic when the source IP address matches one of the IP addresses or CIDR ranges set here. Note that a Forwarding Rule can only have up to 64 source IP ranges, and this field can only be used with a regional Forwarding Rule whose scheme is EXTERNAL. Each sourceIpRange entry should be either an IP address (for example, 1.2.3.4) or a CIDR range (for example, 1.2.3.0/24). *)
   subnetwork : string prop option; [@option]
-      (** This field identifies the subnetwork that the load balanced IP should
-belong to for this Forwarding Rule, used in internal load balancing and
-network load balancing with IPv6.
-
-If the network specified is in auto subnet mode, this field is optional.
-However, a subnetwork must be specified if the network is in custom subnet
-mode or when creating external forwarding rule with IPv6. *)
   target : string prop option; [@option]
-      (** The URL of the target resource to receive the matched traffic.  For
-regional forwarding rules, this target must be in the same region as the
-forwarding rule. For global forwarding rules, this target must be a global
-load balancing resource.
-
-The forwarded traffic must be of a type appropriate to the target object.
-*  For load balancers, see the Target column in [Port specifications](https://cloud.google.com/load-balancing/docs/forwarding-rule-concepts#ip_address_specifications).
-*  For Private Service Connect forwarding rules that forward traffic to Google APIs, provide the name of a supported Google API bundle:
-  *  'vpc-sc' - [ APIs that support VPC Service Controls](https://cloud.google.com/vpc-service-controls/docs/supported-products).
-  *  'all-apis' - [All supported Google APIs](https://cloud.google.com/vpc/docs/private-service-connect#supported-apis).
-
-
-For Private Service Connect forwarding rules that forward traffic to managed services, the target must be a service attachment. *)
   service_directory_registrations :
     service_directory_registrations list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_forwarding_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_forwarding_rule) -> ()
+
+let yojson_of_google_compute_forwarding_rule =
+  (function
+   | {
+       all_ports = v_all_ports;
+       allow_global_access = v_allow_global_access;
+       allow_psc_global_access = v_allow_psc_global_access;
+       backend_service = v_backend_service;
+       description = v_description;
+       id = v_id;
+       ip_address = v_ip_address;
+       ip_protocol = v_ip_protocol;
+       ip_version = v_ip_version;
+       is_mirroring_collector = v_is_mirroring_collector;
+       labels = v_labels;
+       load_balancing_scheme = v_load_balancing_scheme;
+       name = v_name;
+       network = v_network;
+       network_tier = v_network_tier;
+       no_automate_dns_zone = v_no_automate_dns_zone;
+       port_range = v_port_range;
+       ports = v_ports;
+       project = v_project;
+       recreate_closed_psc = v_recreate_closed_psc;
+       region = v_region;
+       service_label = v_service_label;
+       source_ip_ranges = v_source_ip_ranges;
+       subnetwork = v_subnetwork;
+       target = v_target;
+       service_directory_registrations =
+         v_service_directory_registrations;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_service_directory_registrations
+             v_service_directory_registrations
+         in
+         ("service_directory_registrations", arg) :: bnds
+       in
+       let bnds =
+         match v_target with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnetwork with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_ip_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_ip_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_label with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_label", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_recreate_closed_psc with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "recreate_closed_psc", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ports", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_no_automate_dns_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "no_automate_dns_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_tier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_load_balancing_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "load_balancing_scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_mirroring_collector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_mirroring_collector", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backend_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "backend_service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_psc_global_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_psc_global_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_global_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_global_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_all_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "all_ports", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_forwarding_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_forwarding_rule
+
+[@@@deriving.end]
 
 let service_directory_registrations ?namespace ?service () :
     service_directory_registrations =

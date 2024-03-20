@@ -3,32 +3,122 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_pubsub_schema = {
   definition : string prop option; [@option]
-      (** The definition of the schema.
-This should contain a string representing the full definition of the schema
-that is a valid schema definition of the type specified in type. Changes
-to the definition commit new [schema revisions](https://cloud.google.com/pubsub/docs/commit-schema-revision).
-A schema can only have up to 20 revisions, so updates that fail with an
-error indicating that the limit has been reached require manually
-[deleting old revisions](https://cloud.google.com/pubsub/docs/delete-schema-revision). *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The ID to use for the schema, which will become the final component of the schema's resource name. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
-      (** The type of the schema definition Default value: TYPE_UNSPECIFIED Possible values: [TYPE_UNSPECIFIED, PROTOCOL_BUFFER, AVRO] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_pubsub_schema *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_pubsub_schema) -> ()
+
+let yojson_of_google_pubsub_schema =
+  (function
+   | {
+       definition = v_definition;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       type_ = v_type_;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_definition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "definition", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_pubsub_schema -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_pubsub_schema
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

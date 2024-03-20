@@ -4,63 +4,290 @@ open! Tf_core
 
 type encryption_config = {
   kms_key_name : string prop option; [@option]
-      (** The fully-qualified resource name of the KMS key. Each Cloud KMS key is regionalized and has the following format: projects/[PROJECT]/locations/[REGION]/keyRings/[RING]/cryptoKeys/[KEY_NAME]. *)
 }
-[@@deriving yojson_of]
-(** EncryptionConfig describes the encryption config of a cluster or a backup that is encrypted with a CMEK (customer-managed encryption key). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_config) -> ()
+
+let yojson_of_encryption_config =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : encryption_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type encryption_info = {
-  encryption_type : string prop;  (** encryption_type *)
-  kms_key_versions : string prop list;  (** kms_key_versions *)
+  encryption_type : string prop;
+  kms_key_versions : string prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_info) -> ()
+
+let yojson_of_encryption_info =
+  (function
+   | {
+       encryption_type = v_encryption_type;
+       kms_key_versions = v_kms_key_versions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_kms_key_versions
+         in
+         ("kms_key_versions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_encryption_type
+         in
+         ("encryption_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_info
+
+[@@@deriving.end]
 
 type expiry_quantity = {
-  retention_count : float prop;  (** retention_count *)
-  total_retention_count : float prop;  (** total_retention_count *)
+  retention_count : float prop;
+  total_retention_count : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : expiry_quantity) -> ()
+
+let yojson_of_expiry_quantity =
+  (function
+   | {
+       retention_count = v_retention_count;
+       total_retention_count = v_total_retention_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_total_retention_count
+         in
+         ("total_retention_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_retention_count
+         in
+         ("retention_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : expiry_quantity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_expiry_quantity
+
+[@@@deriving.end]
 
 type google_alloydb_backup = {
   annotations : (string * string prop) list option; [@option]
-      (** Annotations to allow client tools to store small amount of arbitrary data. This is distinct from labels. https://google.aip.dev/128
-An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
-  backup_id : string prop;  (** The ID of the alloydb backup. *)
+  backup_id : string prop;
   cluster_name : string prop;
-      (** The full resource name of the backup source cluster (e.g., projects/{project}/locations/{location}/clusters/{clusterId}). *)
   description : string prop option; [@option]
-      (** User-provided description of the backup. *)
   display_name : string prop option; [@option]
-      (** User-settable and human-readable display name for the Backup. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** User-defined labels for the alloydb backup. An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop;
-      (** The location where the alloydb backup should reside. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
-      (** The backup type, which suggests the trigger for the backup. Possible values: [TYPE_UNSPECIFIED, ON_DEMAND, AUTOMATED, CONTINUOUS] *)
   encryption_config : encryption_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_alloydb_backup *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_alloydb_backup) -> ()
+
+let yojson_of_google_alloydb_backup =
+  (function
+   | {
+       annotations = v_annotations;
+       backup_id = v_backup_id;
+       cluster_name = v_cluster_name;
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       project = v_project;
+       type_ = v_type_;
+       encryption_config = v_encryption_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption_config
+             v_encryption_config
+         in
+         ("encryption_config", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_name in
+         ("cluster_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_backup_id in
+         ("backup_id", arg) :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_alloydb_backup -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_alloydb_backup
+
+[@@@deriving.end]
 
 let encryption_config ?kms_key_name () : encryption_config =
   { kms_key_name }

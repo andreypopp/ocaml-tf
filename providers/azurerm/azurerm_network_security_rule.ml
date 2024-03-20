@@ -3,52 +3,279 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_network_security_rule = {
-  access : string prop;  (** access *)
-  description : string prop option; [@option]  (** description *)
+  access : string prop;
+  description : string prop option; [@option]
   destination_address_prefix : string prop option; [@option]
-      (** destination_address_prefix *)
   destination_address_prefixes : string prop list option; [@option]
-      (** destination_address_prefixes *)
   destination_application_security_group_ids :
     string prop list option;
       [@option]
-      (** destination_application_security_group_ids *)
   destination_port_range : string prop option; [@option]
-      (** destination_port_range *)
   destination_port_ranges : string prop list option; [@option]
-      (** destination_port_ranges *)
-  direction : string prop;  (** direction *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  direction : string prop;
+  id : string prop option; [@option]
+  name : string prop;
   network_security_group_name : string prop;
-      (** network_security_group_name *)
-  priority : float prop;  (** priority *)
-  protocol : string prop;  (** protocol *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  priority : float prop;
+  protocol : string prop;
+  resource_group_name : string prop;
   source_address_prefix : string prop option; [@option]
-      (** source_address_prefix *)
   source_address_prefixes : string prop list option; [@option]
-      (** source_address_prefixes *)
   source_application_security_group_ids : string prop list option;
       [@option]
-      (** source_application_security_group_ids *)
   source_port_range : string prop option; [@option]
-      (** source_port_range *)
   source_port_ranges : string prop list option; [@option]
-      (** source_port_ranges *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_network_security_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_network_security_rule) -> ()
+
+let yojson_of_azurerm_network_security_rule =
+  (function
+   | {
+       access = v_access;
+       description = v_description;
+       destination_address_prefix = v_destination_address_prefix;
+       destination_address_prefixes = v_destination_address_prefixes;
+       destination_application_security_group_ids =
+         v_destination_application_security_group_ids;
+       destination_port_range = v_destination_port_range;
+       destination_port_ranges = v_destination_port_ranges;
+       direction = v_direction;
+       id = v_id;
+       name = v_name;
+       network_security_group_name = v_network_security_group_name;
+       priority = v_priority;
+       protocol = v_protocol;
+       resource_group_name = v_resource_group_name;
+       source_address_prefix = v_source_address_prefix;
+       source_address_prefixes = v_source_address_prefixes;
+       source_application_security_group_ids =
+         v_source_application_security_group_ids;
+       source_port_range = v_source_port_range;
+       source_port_ranges = v_source_port_ranges;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_source_port_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_port_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_port_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_port_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_application_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd =
+               "source_application_security_group_ids", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_address_prefixes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_address_prefixes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_address_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_address_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_priority in
+         ("priority", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_network_security_group_name
+         in
+         ("network_security_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_direction in
+         ("direction", arg) :: bnds
+       in
+       let bnds =
+         match v_destination_port_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "destination_port_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_port_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "destination_port_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_application_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd =
+               "destination_application_security_group_ids", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_address_prefixes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "destination_address_prefixes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_address_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "destination_address_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_access in
+         ("access", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_network_security_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_network_security_rule
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

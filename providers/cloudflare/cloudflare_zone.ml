@@ -4,24 +4,85 @@ open! Tf_core
 
 type cloudflare_zone = {
   account_id : string prop;
-      (** Account ID to manage the zone resource in. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   jump_start : bool prop option; [@option]
-      (** Whether to scan for DNS records on creation. Ignored after zone is created. *)
   paused : bool prop option; [@option]
-      (** Whether this zone is paused (traffic bypasses Cloudflare). Defaults to `false`. *)
   plan : string prop option; [@option]
-      (** The name of the commercial plan to apply to the zone. Available values: `free`, `lite`, `pro`, `pro_plus`, `business`, `enterprise`, `partners_free`, `partners_pro`, `partners_business`, `partners_enterprise`. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** A full zone implies that DNS is hosted with Cloudflare. A partial zone is typically a partner-hosted zone or a CNAME setup. Available values: `full`, `partial`, `secondary`. Defaults to `full`. *)
   zone : string prop;
-      (** The DNS zone name which will be added. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Zone resource. Zone is the basic resource for
-working with Cloudflare and is roughly equivalent to a domain name
-that the user purchases.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_zone) -> ()
+
+let yojson_of_cloudflare_zone =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       jump_start = v_jump_start;
+       paused = v_paused;
+       plan = v_plan;
+       type_ = v_type_;
+       zone = v_zone;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone in
+         ("zone", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_plan with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "plan", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_paused with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "paused", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jump_start with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "jump_start", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_zone -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_zone
+
+[@@@deriving.end]
 
 let cloudflare_zone ?id ?jump_start ?paused ?plan ?type_ ~account_id
     ~zone () : cloudflare_zone =

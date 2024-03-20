@@ -4,217 +4,866 @@ open! Tf_core
 
 type build_config__source__repo_source = {
   branch_name : string prop option; [@option]
-      (** Regex matching branches to build. *)
   commit_sha : string prop option; [@option]
-      (** Regex matching tags to build. *)
   dir : string prop option; [@option]
-      (** Directory, relative to the source root, in which to run the build. *)
   invert_regex : bool prop option; [@option]
-      (** Only trigger a build if the revision regex does
-NOT match the revision regex. *)
   project_id : string prop option; [@option]
-      (** ID of the project that owns the Cloud Source Repository. If omitted, the
-project ID requesting the build is assumed. *)
   repo_name : string prop option; [@option]
-      (** Name of the Cloud Source Repository. *)
   tag_name : string prop option; [@option]
-      (** Regex matching tags to build. *)
 }
-[@@deriving yojson_of]
-(** If provided, get the source from this location in a Cloud Source Repository. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_config__source__repo_source) -> ()
+
+let yojson_of_build_config__source__repo_source =
+  (function
+   | {
+       branch_name = v_branch_name;
+       commit_sha = v_commit_sha;
+       dir = v_dir;
+       invert_regex = v_invert_regex;
+       project_id = v_project_id;
+       repo_name = v_repo_name;
+       tag_name = v_tag_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tag_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_repo_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repo_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invert_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dir with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dir", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_commit_sha with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "commit_sha", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_branch_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "branch_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build_config__source__repo_source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_config__source__repo_source
+
+[@@@deriving.end]
 
 type build_config__source__storage_source = {
   bucket : string prop option; [@option]
-      (** Google Cloud Storage bucket containing the source *)
   generation : float prop option; [@option]
-      (** Google Cloud Storage generation for the object. If the generation
-is omitted, the latest generation will be used. *)
   object_ : string prop option; [@option] [@key "object"]
-      (** Google Cloud Storage object containing the source. *)
 }
-[@@deriving yojson_of]
-(** If provided, get the source from this location in Google Cloud Storage. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_config__source__storage_source) -> ()
+
+let yojson_of_build_config__source__storage_source =
+  (function
+   | {
+       bucket = v_bucket;
+       generation = v_generation;
+       object_ = v_object_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_object_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "generation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build_config__source__storage_source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_config__source__storage_source
+
+[@@@deriving.end]
 
 type build_config__source = {
   repo_source : build_config__source__repo_source list;
   storage_source : build_config__source__storage_source list;
 }
-[@@deriving yojson_of]
-(** The location of the function source code. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_config__source) -> ()
+
+let yojson_of_build_config__source =
+  (function
+   | {
+       repo_source = v_repo_source;
+       storage_source = v_storage_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_build_config__source__storage_source
+             v_storage_source
+         in
+         ("storage_source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build_config__source__repo_source
+             v_repo_source
+         in
+         ("repo_source", arg) :: bnds
+       in
+       `Assoc bnds
+    : build_config__source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_config__source
+
+[@@@deriving.end]
 
 type build_config = {
   docker_repository : string prop option; [@option]
-      (** User managed repository created in Artifact Registry optionally with a customer managed encryption key. *)
   entry_point : string prop option; [@option]
-      (** The name of the function (as defined in source code) that will be executed.
-Defaults to the resource name suffix, if not specified. For backward
-compatibility, if function with given name is not found, then the system
-will try to use function named function. For Node.js this is name of a
-function exported by the module specified in source_location. *)
   environment_variables : (string * string prop) list option;
       [@option]
-      (** User-provided build-time environment variables for the function. *)
   runtime : string prop option; [@option]
-      (** The runtime in which to run the function. Required when deploying a new
-function, optional when updating an existing function. *)
   worker_pool : string prop option; [@option]
-      (** Name of the Cloud Build Custom Worker Pool that should be used to build the function. *)
   source : build_config__source list;
 }
-[@@deriving yojson_of]
-(** Describes the Build step of the function that builds a container
-from the given source. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_config) -> ()
+
+let yojson_of_build_config =
+  (function
+   | {
+       docker_repository = v_docker_repository;
+       entry_point = v_entry_point;
+       environment_variables = v_environment_variables;
+       runtime = v_runtime;
+       worker_pool = v_worker_pool;
+       source = v_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build_config__source v_source
+         in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         match v_worker_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "worker_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_runtime with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "runtime", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_environment_variables with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "environment_variables", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_entry_point with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "entry_point", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_docker_repository with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "docker_repository", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_config
+
+[@@@deriving.end]
 
 type event_trigger__event_filters = {
   attribute : string prop;
-      (** 'Required. The name of a CloudEvents attribute.
-Currently, only a subset of attributes are supported for filtering. Use the 'gcloud eventarc providers describe' command to learn more about events and their attributes.
-Do not filter for the 'type' attribute here, as this is already achieved by the resource's 'event_type' attribute. *)
   operator : string prop option; [@option]
-      (** Optional. The operator used for matching the events with the value of
-the filter. If not specified, only events that have an exact key-value
-pair specified in the filter are matched.
-The only allowed value is 'match-path-pattern'.
-[See documentation on path patterns here](https://cloud.google.com/eventarc/docs/path-patterns)' *)
   value : string prop;
-      (** Required. The value for the attribute.
-If the operator field is set as 'match-path-pattern', this value can be a path pattern instead of an exact value. *)
 }
-[@@deriving yojson_of]
-(** Criteria used to filter events. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : event_trigger__event_filters) -> ()
+
+let yojson_of_event_trigger__event_filters =
+  (function
+   | {
+       attribute = v_attribute;
+       operator = v_operator;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_attribute in
+         ("attribute", arg) :: bnds
+       in
+       `Assoc bnds
+    : event_trigger__event_filters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_event_trigger__event_filters
+
+[@@@deriving.end]
 
 type event_trigger = {
   event_type : string prop option; [@option]
-      (** Required. The type of event to observe. *)
   pubsub_topic : string prop option; [@option]
-      (** The name of a Pub/Sub topic in the same project that will be used
-as the transport topic for the event delivery. *)
   retry_policy : string prop option; [@option]
-      (** Describes the retry policy in case of function's execution failure.
-Retried execution is charged as any other execution. Possible values: [RETRY_POLICY_UNSPECIFIED, RETRY_POLICY_DO_NOT_RETRY, RETRY_POLICY_RETRY] *)
   service_account_email : string prop option; [@option]
-      (** Optional. The email of the trigger's service account. The service account
-must have permission to invoke Cloud Run services. If empty, defaults to the
-Compute Engine default service account: {project_number}-compute@developer.gserviceaccount.com. *)
   trigger_region : string prop option; [@option]
-      (** The region that the trigger will be in. The trigger will only receive
-events originating in this region. It can be the same
-region as the function, a different region or multi-region, or the global
-region. If not provided, defaults to the same region as the function. *)
   event_filters : event_trigger__event_filters list;
 }
-[@@deriving yojson_of]
-(** An Eventarc trigger managed by Google Cloud Functions that fires events in
-response to a condition in another service. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : event_trigger) -> ()
+
+let yojson_of_event_trigger =
+  (function
+   | {
+       event_type = v_event_type;
+       pubsub_topic = v_pubsub_topic;
+       retry_policy = v_retry_policy;
+       service_account_email = v_service_account_email;
+       trigger_region = v_trigger_region;
+       event_filters = v_event_filters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_event_trigger__event_filters
+             v_event_filters
+         in
+         ("event_filters", arg) :: bnds
+       in
+       let bnds =
+         match v_trigger_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "trigger_region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account_email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_retry_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "retry_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pubsub_topic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pubsub_topic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "event_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_trigger -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_event_trigger
+
+[@@@deriving.end]
 
 type service_config__secret_environment_variables = {
-  key : string prop;  (** Name of the environment variable. *)
+  key : string prop;
   project_id : string prop;
-      (** Project identifier (preferrably project number but can also be the project ID) of the project that contains the secret. If not set, it will be populated with the function's project assuming that the secret exists in the same project as of the function. *)
   secret : string prop;
-      (** Name of the secret in secret manager (not the full resource name). *)
   version : string prop;
-      (** Version of the secret (version number or the string 'latest'). It is recommended to use a numeric version for secret environment variables as any updates to the secret value is not reflected until new instances start. *)
 }
-[@@deriving yojson_of]
-(** Secret environment variables configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_config__secret_environment_variables) -> ()
+
+let yojson_of_service_config__secret_environment_variables =
+  (function
+   | {
+       key = v_key;
+       project_id = v_project_id;
+       secret = v_secret;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : service_config__secret_environment_variables ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_config__secret_environment_variables
+
+[@@@deriving.end]
 
 type service_config__secret_volumes__versions = {
   path : string prop;
-      (** Relative path of the file under the mount path where the secret value for this version will be fetched and made available. For example, setting the mountPath as '/etc/secrets' and path as secret_foo would mount the secret value file at /etc/secrets/secret_foo. *)
   version : string prop;
-      (** Version of the secret (version number or the string 'latest'). It is preferable to use latest version with secret volumes as secret value changes are reflected immediately. *)
 }
-[@@deriving yojson_of]
-(** List of secret versions to mount for this secret. If empty, the latest version of the secret will be made available in a file named after the secret under the mount point.' *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_config__secret_volumes__versions) -> ()
+
+let yojson_of_service_config__secret_volumes__versions =
+  (function
+   | { path = v_path; version = v_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : service_config__secret_volumes__versions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_config__secret_volumes__versions
+
+[@@@deriving.end]
 
 type service_config__secret_volumes = {
   mount_path : string prop;
-      (** The path within the container to mount the secret volume. For example, setting the mountPath as /etc/secrets would mount the secret value files under the /etc/secrets directory. This directory will also be completely shadowed and unavailable to mount any other secrets. Recommended mount path: /etc/secrets *)
   project_id : string prop;
-      (** Project identifier (preferrably project number but can also be the project ID) of the project that contains the secret. If not set, it will be populated with the function's project assuming that the secret exists in the same project as of the function. *)
   secret : string prop;
-      (** Name of the secret in secret manager (not the full resource name). *)
   versions : service_config__secret_volumes__versions list;
 }
-[@@deriving yojson_of]
-(** Secret volumes configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_config__secret_volumes) -> ()
+
+let yojson_of_service_config__secret_volumes =
+  (function
+   | {
+       mount_path = v_mount_path;
+       project_id = v_project_id;
+       secret = v_secret;
+       versions = v_versions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_service_config__secret_volumes__versions
+             v_versions
+         in
+         ("versions", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mount_path in
+         ("mount_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : service_config__secret_volumes ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_config__secret_volumes
+
+[@@@deriving.end]
 
 type service_config = {
   all_traffic_on_latest_revision : bool prop option; [@option]
-      (** Whether 100% of traffic is routed to the latest revision. Defaults to true. *)
   available_cpu : string prop option; [@option]
-      (** The number of CPUs used in a single container instance. Default value is calculated from available memory. *)
   available_memory : string prop option; [@option]
-      (** The amount of memory available for a function.
-Defaults to 256M. Supported units are k, M, G, Mi, Gi. If no unit is
-supplied the value is interpreted as bytes. *)
   environment_variables : (string * string prop) list option;
       [@option]
-      (** Environment variables that shall be available during function execution. *)
   ingress_settings : string prop option; [@option]
-      (** Available ingress settings. Defaults to ALLOW_ALL if unspecified. Default value: ALLOW_ALL Possible values: [ALLOW_ALL, ALLOW_INTERNAL_ONLY, ALLOW_INTERNAL_AND_GCLB] *)
   max_instance_count : float prop option; [@option]
-      (** The limit on the maximum number of function instances that may coexist at a
-given time. *)
   max_instance_request_concurrency : float prop option; [@option]
-      (** Sets the maximum number of concurrent requests that each instance can receive. Defaults to 1. *)
   min_instance_count : float prop option; [@option]
-      (** The limit on the minimum number of function instances that may coexist at a
-given time. *)
   service : string prop option; [@option]
-      (** Name of the service associated with a Function. *)
   service_account_email : string prop option; [@option]
-      (** The email of the service account for this function. *)
   timeout_seconds : float prop option; [@option]
-      (** The function execution timeout. Execution is considered failed and
-can be terminated if the function is not completed at the end of the
-timeout period. Defaults to 60 seconds. *)
   vpc_connector : string prop option; [@option]
-      (** The Serverless VPC Access connector that this cloud function can connect to. *)
   vpc_connector_egress_settings : string prop option; [@option]
-      (** Available egress settings. Possible values: [VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED, PRIVATE_RANGES_ONLY, ALL_TRAFFIC] *)
   secret_environment_variables :
     service_config__secret_environment_variables list;
   secret_volumes : service_config__secret_volumes list;
 }
-[@@deriving yojson_of]
-(** Describes the Service being deployed. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_config) -> ()
+
+let yojson_of_service_config =
+  (function
+   | {
+       all_traffic_on_latest_revision =
+         v_all_traffic_on_latest_revision;
+       available_cpu = v_available_cpu;
+       available_memory = v_available_memory;
+       environment_variables = v_environment_variables;
+       ingress_settings = v_ingress_settings;
+       max_instance_count = v_max_instance_count;
+       max_instance_request_concurrency =
+         v_max_instance_request_concurrency;
+       min_instance_count = v_min_instance_count;
+       service = v_service;
+       service_account_email = v_service_account_email;
+       timeout_seconds = v_timeout_seconds;
+       vpc_connector = v_vpc_connector;
+       vpc_connector_egress_settings =
+         v_vpc_connector_egress_settings;
+       secret_environment_variables = v_secret_environment_variables;
+       secret_volumes = v_secret_volumes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_service_config__secret_volumes
+             v_secret_volumes
+         in
+         ("secret_volumes", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_service_config__secret_environment_variables
+             v_secret_environment_variables
+         in
+         ("secret_environment_variables", arg) :: bnds
+       in
+       let bnds =
+         match v_vpc_connector_egress_settings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vpc_connector_egress_settings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_vpc_connector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vpc_connector", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account_email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_instance_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_instance_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_instance_request_concurrency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_instance_request_concurrency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_instance_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_instance_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ingress_settings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ingress_settings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_environment_variables with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "environment_variables", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_available_memory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "available_memory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_available_cpu with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "available_cpu", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_all_traffic_on_latest_revision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "all_traffic_on_latest_revision", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : service_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_cloudfunctions2_function = {
   description : string prop option; [@option]
-      (** User-provided description of a function. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kms_key_name : string prop option; [@option]
-      (** Resource name of a KMS crypto key (managed by the user) used to encrypt/decrypt function resources.
-It must match the pattern projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}. *)
   labels : (string * string prop) list option; [@option]
-      (** A set of key/value label pairs associated with this Cloud Function.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop;
-      (** The location of this cloud function. *)
   name : string prop;
-      (** A user-defined name of the function. Function names must
-be unique globally and match pattern 'projects/*/locations/*/functions/*'. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   build_config : build_config list;
   event_trigger : event_trigger list;
   service_config : service_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_cloudfunctions2_function *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_cloudfunctions2_function) -> ()
+
+let yojson_of_google_cloudfunctions2_function =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       kms_key_name = v_kms_key_name;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       build_config = v_build_config;
+       event_trigger = v_event_trigger;
+       service_config = v_service_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_service_config v_service_config
+         in
+         ("service_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_event_trigger v_event_trigger
+         in
+         ("event_trigger", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build_config v_build_config
+         in
+         ("build_config", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_cloudfunctions2_function ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_cloudfunctions2_function
+
+[@@@deriving.end]
 
 let build_config__source__repo_source ?branch_name ?commit_sha ?dir
     ?invert_regex ?project_id ?repo_name ?tag_name () :

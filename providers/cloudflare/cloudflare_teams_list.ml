@@ -4,21 +4,73 @@ open! Tf_core
 
 type cloudflare_teams_list = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   description : string prop option; [@option]
-      (** The description of the teams list. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   items : string prop list option; [@option]
-      (** The items of the teams list. *)
-  name : string prop;  (** Name of the teams list. *)
+  name : string prop;
   type_ : string prop; [@key "type"]
-      (** The teams list type. Available values: `IP`, `SERIAL`, `URL`, `DOMAIN`, `EMAIL`. *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Teams List resource. Teams lists are
-referenced when creating secure web gateway policies or device
-posture rules.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_teams_list) -> ()
+
+let yojson_of_cloudflare_teams_list =
+  (function
+   | {
+       account_id = v_account_id;
+       description = v_description;
+       id = v_id;
+       items = v_items;
+       name = v_name;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_items with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "items", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_teams_list -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_teams_list
+
+[@@@deriving.end]
 
 let cloudflare_teams_list ?description ?id ?items ~account_id ~name
     ~type_ () : cloudflare_teams_list =

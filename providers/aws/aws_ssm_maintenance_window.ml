@@ -4,26 +4,163 @@ open! Tf_core
 
 type aws_ssm_maintenance_window = {
   allow_unassociated_targets : bool prop option; [@option]
-      (** allow_unassociated_targets *)
-  cutoff : float prop;  (** cutoff *)
-  description : string prop option; [@option]  (** description *)
-  duration : float prop;  (** duration *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  end_date : string prop option; [@option]  (** end_date *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  schedule : string prop;  (** schedule *)
+  cutoff : float prop;
+  description : string prop option; [@option]
+  duration : float prop;
+  enabled : bool prop option; [@option]
+  end_date : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  schedule : string prop;
   schedule_offset : float prop option; [@option]
-      (** schedule_offset *)
   schedule_timezone : string prop option; [@option]
-      (** schedule_timezone *)
-  start_date : string prop option; [@option]  (** start_date *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  start_date : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_ssm_maintenance_window *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssm_maintenance_window) -> ()
+
+let yojson_of_aws_ssm_maintenance_window =
+  (function
+   | {
+       allow_unassociated_targets = v_allow_unassociated_targets;
+       cutoff = v_cutoff;
+       description = v_description;
+       duration = v_duration;
+       enabled = v_enabled;
+       end_date = v_end_date;
+       id = v_id;
+       name = v_name;
+       schedule = v_schedule;
+       schedule_offset = v_schedule_offset;
+       schedule_timezone = v_schedule_timezone;
+       start_date = v_start_date;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_start_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_schedule_timezone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schedule_timezone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_schedule_offset with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "schedule_offset", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schedule in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_end_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "end_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_duration in
+         ("duration", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_cutoff in
+         ("cutoff", arg) :: bnds
+       in
+       let bnds =
+         match v_allow_unassociated_targets with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_unassociated_targets", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ssm_maintenance_window -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssm_maintenance_window
+
+[@@@deriving.end]
 
 let aws_ssm_maintenance_window ?allow_unassociated_targets
     ?description ?enabled ?end_date ?id ?schedule_offset

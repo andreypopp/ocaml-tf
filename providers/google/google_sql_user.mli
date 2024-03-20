@@ -9,11 +9,15 @@ type sql_server_user_details = {
   server_roles : string prop list;  (** server_roles *)
 }
 
+[@@@deriving.end]
+
 type password_policy__status = {
   locked : bool prop;  (** locked *)
   password_expiration_time : string prop;
       (** password_expiration_time *)
 }
+
+[@@@deriving.end]
 
 type password_policy
 

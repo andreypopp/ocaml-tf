@@ -3,64 +3,238 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type version_template = {
   algorithm : string prop;
-      (** The algorithm to use when creating a version based on this template.
-See the [algorithm reference](https://cloud.google.com/kms/docs/reference/rest/v1/CryptoKeyVersionAlgorithm) for possible inputs. *)
   protection_level : string prop option; [@option]
-      (** The protection level to use when creating a version based on this template. Possible values include SOFTWARE, HSM, EXTERNAL, EXTERNAL_VPC. Defaults to SOFTWARE. *)
 }
-[@@deriving yojson_of]
-(** A template describing settings for new crypto key versions. *)
+[@@deriving_inline yojson_of]
 
-type primary = {
-  name : string prop;  (** name *)
-  state : string prop;  (** state *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : version_template) -> ()
+
+let yojson_of_version_template =
+  (function
+   | {
+       algorithm = v_algorithm;
+       protection_level = v_protection_level;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_protection_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protection_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_algorithm in
+         ("algorithm", arg) :: bnds
+       in
+       `Assoc bnds
+    : version_template -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_version_template
+
+[@@@deriving.end]
+
+type primary = { name : string prop; state : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : primary) -> ()
+
+let yojson_of_primary =
+  (function
+   | { name = v_name; state = v_state } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : primary -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_primary
+
+[@@@deriving.end]
 
 type google_kms_crypto_key = {
   destroy_scheduled_duration : string prop option; [@option]
-      (** The period of time that versions of this key spend in the DESTROY_SCHEDULED state before transitioning to DESTROYED.
-If not specified at creation time, the default duration is 24 hours. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   import_only : bool prop option; [@option]
-      (** Whether this key may contain imported versions only. *)
   key_ring : string prop;
-      (** The KeyRing that this key belongs to.
-Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}''. *)
   labels : (string * string prop) list option; [@option]
-      (** Labels with user-defined metadata to apply to this resource.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string prop;  (** The resource name for the CryptoKey. *)
+  name : string prop;
   purpose : string prop option; [@option]
-      (** The immutable purpose of this CryptoKey. See the
-[purpose reference](https://cloud.google.com/kms/docs/reference/rest/v1/projects.locations.keyRings.cryptoKeys#CryptoKeyPurpose)
-for possible inputs.
-Default value is ENCRYPT_DECRYPT. *)
   rotation_period : string prop option; [@option]
-      (** Every time this period passes, generate a new CryptoKeyVersion and set it as the primary.
-The first rotation will take place after the specified period. The rotation period has
-the format of a decimal number with up to 9 fractional digits, followed by the
-letter 's' (seconds). It must be greater than a day (ie, 86400). *)
   skip_initial_version_creation : bool prop option; [@option]
-      (** If set to true, the request will create a CryptoKey without any CryptoKeyVersions.
-You must use the 'google_kms_key_ring_import_job' resource to import the CryptoKeyVersion. *)
   timeouts : timeouts option;
   version_template : version_template list;
 }
-[@@deriving yojson_of]
-(** google_kms_crypto_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_kms_crypto_key) -> ()
+
+let yojson_of_google_kms_crypto_key =
+  (function
+   | {
+       destroy_scheduled_duration = v_destroy_scheduled_duration;
+       id = v_id;
+       import_only = v_import_only;
+       key_ring = v_key_ring;
+       labels = v_labels;
+       name = v_name;
+       purpose = v_purpose;
+       rotation_period = v_rotation_period;
+       skip_initial_version_creation =
+         v_skip_initial_version_creation;
+       timeouts = v_timeouts;
+       version_template = v_version_template;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_version_template
+             v_version_template
+         in
+         ("version_template", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_skip_initial_version_creation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_initial_version_creation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rotation_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rotation_period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_purpose with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "purpose", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_ring in
+         ("key_ring", arg) :: bnds
+       in
+       let bnds =
+         match v_import_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "import_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destroy_scheduled_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "destroy_scheduled_duration", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_kms_crypto_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_kms_crypto_key
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

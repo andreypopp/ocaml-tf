@@ -3,19 +3,107 @@
 open! Tf_core
 
 type aws_transcribe_vocabulary_filter = {
-  id : string prop option; [@option]  (** id *)
-  language_code : string prop;  (** language_code *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  language_code : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   vocabulary_filter_file_uri : string prop option; [@option]
-      (** vocabulary_filter_file_uri *)
   vocabulary_filter_name : string prop;
-      (** vocabulary_filter_name *)
-  words : string prop list option; [@option]  (** words *)
+  words : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_transcribe_vocabulary_filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_transcribe_vocabulary_filter) -> ()
+
+let yojson_of_aws_transcribe_vocabulary_filter =
+  (function
+   | {
+       id = v_id;
+       language_code = v_language_code;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       vocabulary_filter_file_uri = v_vocabulary_filter_file_uri;
+       vocabulary_filter_name = v_vocabulary_filter_name;
+       words = v_words;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_words with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "words", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_vocabulary_filter_name
+         in
+         ("vocabulary_filter_name", arg) :: bnds
+       in
+       let bnds =
+         match v_vocabulary_filter_file_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vocabulary_filter_file_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_language_code in
+         ("language_code", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_transcribe_vocabulary_filter ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_transcribe_vocabulary_filter
+
+[@@@deriving.end]
 
 let aws_transcribe_vocabulary_filter ?id ?tags ?tags_all
     ?vocabulary_filter_file_uri ?words ~language_code

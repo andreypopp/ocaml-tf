@@ -4,43 +4,270 @@ open! Tf_core
 
 type aws_route53_health_check = {
   child_health_threshold : float prop option; [@option]
-      (** child_health_threshold *)
   child_healthchecks : string prop list option; [@option]
-      (** child_healthchecks *)
   cloudwatch_alarm_name : string prop option; [@option]
-      (** cloudwatch_alarm_name *)
   cloudwatch_alarm_region : string prop option; [@option]
-      (** cloudwatch_alarm_region *)
-  disabled : bool prop option; [@option]  (** disabled *)
-  enable_sni : bool prop option; [@option]  (** enable_sni *)
+  disabled : bool prop option; [@option]
+  enable_sni : bool prop option; [@option]
   failure_threshold : float prop option; [@option]
-      (** failure_threshold *)
-  fqdn : string prop option; [@option]  (** fqdn *)
-  id : string prop option; [@option]  (** id *)
+  fqdn : string prop option; [@option]
+  id : string prop option; [@option]
   insufficient_data_health_status : string prop option; [@option]
-      (** insufficient_data_health_status *)
   invert_healthcheck : bool prop option; [@option]
-      (** invert_healthcheck *)
-  ip_address : string prop option; [@option]  (** ip_address *)
+  ip_address : string prop option; [@option]
   measure_latency : bool prop option; [@option]
-      (** measure_latency *)
-  port : float prop option; [@option]  (** port *)
+  port : float prop option; [@option]
   reference_name : string prop option; [@option]
-      (** reference_name *)
-  regions : string prop list option; [@option]  (** regions *)
+  regions : string prop list option; [@option]
   request_interval : float prop option; [@option]
-      (** request_interval *)
-  resource_path : string prop option; [@option]  (** resource_path *)
+  resource_path : string prop option; [@option]
   routing_control_arn : string prop option; [@option]
-      (** routing_control_arn *)
-  search_string : string prop option; [@option]  (** search_string *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  search_string : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** aws_route53_health_check *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_health_check) -> ()
+
+let yojson_of_aws_route53_health_check =
+  (function
+   | {
+       child_health_threshold = v_child_health_threshold;
+       child_healthchecks = v_child_healthchecks;
+       cloudwatch_alarm_name = v_cloudwatch_alarm_name;
+       cloudwatch_alarm_region = v_cloudwatch_alarm_region;
+       disabled = v_disabled;
+       enable_sni = v_enable_sni;
+       failure_threshold = v_failure_threshold;
+       fqdn = v_fqdn;
+       id = v_id;
+       insufficient_data_health_status =
+         v_insufficient_data_health_status;
+       invert_healthcheck = v_invert_healthcheck;
+       ip_address = v_ip_address;
+       measure_latency = v_measure_latency;
+       port = v_port;
+       reference_name = v_reference_name;
+       regions = v_regions;
+       request_interval = v_request_interval;
+       resource_path = v_resource_path;
+       routing_control_arn = v_routing_control_arn;
+       search_string = v_search_string;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_search_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "search_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_routing_control_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "routing_control_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_request_interval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "request_interval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_regions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "regions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_reference_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "reference_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_measure_latency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "measure_latency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invert_healthcheck with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_healthcheck", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_insufficient_data_health_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "insufficient_data_health_status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fqdn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fqdn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_sni with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_sni", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cloudwatch_alarm_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloudwatch_alarm_region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cloudwatch_alarm_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloudwatch_alarm_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_child_healthchecks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "child_healthchecks", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_child_health_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "child_health_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_health_check -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_health_check
+
+[@@@deriving.end]
 
 let aws_route53_health_check ?child_health_threshold
     ?child_healthchecks ?cloudwatch_alarm_name

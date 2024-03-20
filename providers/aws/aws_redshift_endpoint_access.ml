@@ -3,33 +3,173 @@
 open! Tf_core
 
 type vpc_endpoint__network_interface = {
-  availability_zone : string prop;  (** availability_zone *)
-  network_interface_id : string prop;  (** network_interface_id *)
-  private_ip_address : string prop;  (** private_ip_address *)
-  subnet_id : string prop;  (** subnet_id *)
+  availability_zone : string prop;
+  network_interface_id : string prop;
+  private_ip_address : string prop;
+  subnet_id : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vpc_endpoint__network_interface) -> ()
+
+let yojson_of_vpc_endpoint__network_interface =
+  (function
+   | {
+       availability_zone = v_availability_zone;
+       network_interface_id = v_network_interface_id;
+       private_ip_address = v_private_ip_address;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_private_ip_address
+         in
+         ("private_ip_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_network_interface_id
+         in
+         ("network_interface_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_availability_zone
+         in
+         ("availability_zone", arg) :: bnds
+       in
+       `Assoc bnds
+    : vpc_endpoint__network_interface ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc_endpoint__network_interface
+
+[@@@deriving.end]
 
 type vpc_endpoint = {
   network_interface : vpc_endpoint__network_interface list;
-      (** network_interface *)
-  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
-  vpc_id : string prop;  (** vpc_id *)
+  vpc_endpoint_id : string prop;
+  vpc_id : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vpc_endpoint) -> ()
+
+let yojson_of_vpc_endpoint =
+  (function
+   | {
+       network_interface = v_network_interface;
+       vpc_endpoint_id = v_vpc_endpoint_id;
+       vpc_id = v_vpc_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_vpc_endpoint_id
+         in
+         ("vpc_endpoint_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vpc_endpoint__network_interface
+             v_network_interface
+         in
+         ("network_interface", arg) :: bnds
+       in
+       `Assoc bnds
+    : vpc_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc_endpoint
+
+[@@@deriving.end]
 
 type aws_redshift_endpoint_access = {
-  cluster_identifier : string prop;  (** cluster_identifier *)
-  endpoint_name : string prop;  (** endpoint_name *)
-  id : string prop option; [@option]  (** id *)
+  cluster_identifier : string prop;
+  endpoint_name : string prop;
+  id : string prop option; [@option]
   resource_owner : string prop option; [@option]
-      (** resource_owner *)
-  subnet_group_name : string prop;  (** subnet_group_name *)
+  subnet_group_name : string prop;
   vpc_security_group_ids : string prop list option; [@option]
-      (** vpc_security_group_ids *)
 }
-[@@deriving yojson_of]
-(** aws_redshift_endpoint_access *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshift_endpoint_access) -> ()
+
+let yojson_of_aws_redshift_endpoint_access =
+  (function
+   | {
+       cluster_identifier = v_cluster_identifier;
+       endpoint_name = v_endpoint_name;
+       id = v_id;
+       resource_owner = v_resource_owner;
+       subnet_group_name = v_subnet_group_name;
+       vpc_security_group_ids = v_vpc_security_group_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vpc_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "vpc_security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_subnet_group_name
+         in
+         ("subnet_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_resource_owner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_owner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_endpoint_name in
+         ("endpoint_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cluster_identifier
+         in
+         ("cluster_identifier", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_redshift_endpoint_access ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshift_endpoint_access
+
+[@@@deriving.end]
 
 let aws_redshift_endpoint_access ?id ?resource_owner
     ?vpc_security_group_ids ~cluster_identifier ~endpoint_name

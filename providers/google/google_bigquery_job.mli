@@ -10,17 +10,23 @@ type status__errors = {
   reason : string prop;  (** reason *)
 }
 
+[@@@deriving.end]
+
 type status__error_result = {
   location : string prop;  (** location *)
   message : string prop;  (** message *)
   reason : string prop;  (** reason *)
 }
 
+[@@@deriving.end]
+
 type status = {
   error_result : status__error_result list;  (** error_result *)
   errors : status__errors list;  (** errors *)
   state : string prop;  (** state *)
 }
+
+[@@@deriving.end]
 
 type copy__destination_encryption_configuration
 

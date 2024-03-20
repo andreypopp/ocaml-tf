@@ -2,72 +2,363 @@
 
 open! Tf_core
 
-type output_data_config = { s3_uri : string prop  (** s3_uri *) }
-[@@deriving yojson_of]
-(** output_data_config *)
+type output_data_config = { s3_uri : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : output_data_config) -> ()
+
+let yojson_of_output_data_config =
+  (function
+   | { s3_uri = v_s3_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_s3_uri in
+         ("s3_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : output_data_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_output_data_config
+
+[@@@deriving.end]
 
 type timeouts = {
   create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type training_data_config = { s3_uri : string prop  (** s3_uri *) }
-[@@deriving yojson_of]
-(** training_data_config *)
+let _ = fun (_ : timeouts) -> ()
 
-type validation_data_config__validator = {
-  s3_uri : string prop;  (** s3_uri *)
-}
-[@@deriving yojson_of]
-(** validation_data_config__validator *)
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type training_data_config = { s3_uri : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : training_data_config) -> ()
+
+let yojson_of_training_data_config =
+  (function
+   | { s3_uri = v_s3_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_s3_uri in
+         ("s3_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : training_data_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_training_data_config
+
+[@@@deriving.end]
+
+type validation_data_config__validator = { s3_uri : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : validation_data_config__validator) -> ()
+
+let yojson_of_validation_data_config__validator =
+  (function
+   | { s3_uri = v_s3_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_s3_uri in
+         ("s3_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : validation_data_config__validator ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_validation_data_config__validator
+
+[@@@deriving.end]
 
 type validation_data_config = {
   validator : validation_data_config__validator list;
 }
-[@@deriving yojson_of]
-(** validation_data_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : validation_data_config) -> ()
+
+let yojson_of_validation_data_config =
+  (function
+   | { validator = v_validator } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_validation_data_config__validator
+             v_validator
+         in
+         ("validator", arg) :: bnds
+       in
+       `Assoc bnds
+    : validation_data_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_validation_data_config
+
+[@@@deriving.end]
 
 type vpc_config = {
-  security_group_ids : string prop list;  (** security_group_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  security_group_ids : string prop list;
+  subnet_ids : string prop list;
 }
-[@@deriving yojson_of]
-(** vpc_config *)
+[@@deriving_inline yojson_of]
 
-type training_metrics = {
-  training_loss : float prop;  (** training_loss *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : vpc_config) -> ()
 
-type validation_metrics = {
-  validation_loss : float prop;  (** validation_loss *)
-}
-[@@deriving yojson_of]
+let yojson_of_vpc_config =
+  (function
+   | {
+       security_group_ids = v_security_group_ids;
+       subnet_ids = v_subnet_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_security_group_ids
+         in
+         ("security_group_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : vpc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc_config
+
+[@@@deriving.end]
+
+type training_metrics = { training_loss : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : training_metrics) -> ()
+
+let yojson_of_training_metrics =
+  (function
+   | { training_loss = v_training_loss } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_training_loss in
+         ("training_loss", arg) :: bnds
+       in
+       `Assoc bnds
+    : training_metrics -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_training_metrics
+
+[@@@deriving.end]
+
+type validation_metrics = { validation_loss : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : validation_metrics) -> ()
+
+let yojson_of_validation_metrics =
+  (function
+   | { validation_loss = v_validation_loss } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_validation_loss
+         in
+         ("validation_loss", arg) :: bnds
+       in
+       `Assoc bnds
+    : validation_metrics -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_validation_metrics
+
+[@@@deriving.end]
 
 type aws_bedrock_custom_model = {
-  base_model_identifier : string prop;  (** base_model_identifier *)
+  base_model_identifier : string prop;
   custom_model_kms_key_id : string prop option; [@option]
-      (** custom_model_kms_key_id *)
-  custom_model_name : string prop;  (** custom_model_name *)
+  custom_model_name : string prop;
   customization_type : string prop option; [@option]
-      (** customization_type *)
   hyperparameters : (string * string prop) list;
-      (** hyperparameters *)
-  job_name : string prop;  (** job_name *)
-  role_arn : string prop;  (** role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  job_name : string prop;
+  role_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   output_data_config : output_data_config list;
   timeouts : timeouts option;
   training_data_config : training_data_config list;
   validation_data_config : validation_data_config list;
   vpc_config : vpc_config list;
 }
-[@@deriving yojson_of]
-(** aws_bedrock_custom_model *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_bedrock_custom_model) -> ()
+
+let yojson_of_aws_bedrock_custom_model =
+  (function
+   | {
+       base_model_identifier = v_base_model_identifier;
+       custom_model_kms_key_id = v_custom_model_kms_key_id;
+       custom_model_name = v_custom_model_name;
+       customization_type = v_customization_type;
+       hyperparameters = v_hyperparameters;
+       job_name = v_job_name;
+       role_arn = v_role_arn;
+       tags = v_tags;
+       output_data_config = v_output_data_config;
+       timeouts = v_timeouts;
+       training_data_config = v_training_data_config;
+       validation_data_config = v_validation_data_config;
+       vpc_config = v_vpc_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vpc_config v_vpc_config
+         in
+         ("vpc_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_validation_data_config
+             v_validation_data_config
+         in
+         ("validation_data_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_training_data_config
+             v_training_data_config
+         in
+         ("training_data_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_output_data_config
+             v_output_data_config
+         in
+         ("output_data_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_job_name in
+         ("job_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_hyperparameters
+         in
+         ("hyperparameters", arg) :: bnds
+       in
+       let bnds =
+         match v_customization_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "customization_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_custom_model_name
+         in
+         ("custom_model_name", arg) :: bnds
+       in
+       let bnds =
+         match v_custom_model_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_model_kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_base_model_identifier
+         in
+         ("base_model_identifier", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_bedrock_custom_model -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_bedrock_custom_model
+
+[@@@deriving.end]
 
 let output_data_config ~s3_uri () : output_data_config = { s3_uri }
 let timeouts ?create ?delete () : timeouts = { create; delete }

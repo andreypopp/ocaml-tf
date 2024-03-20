@@ -4,61 +4,272 @@ open! Tf_core
 
 type additional_routes = {
   host : string prop;
-      (** The additional host name for which the waiting room to be applied on (no wildcards). *)
   path : string prop option; [@option]
-      (** The path within the additional host to enable the waiting room on. Defaults to `/`. *)
 }
-[@@deriving yojson_of]
-(** A list of additional hostname and paths combination to be applied on the waiting room. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : additional_routes) -> ()
+
+let yojson_of_additional_routes =
+  (function
+   | { host = v_host; path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       `Assoc bnds
+    : additional_routes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_additional_routes
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type cloudflare_waiting_room = {
   cookie_suffix : string prop option; [@option]
-      (** A cookie suffix to be appended to the Cloudflare waiting room cookie name. *)
   custom_page_html : string prop option; [@option]
-      (** This is a templated html file that will be rendered at the edge. *)
   default_template_language : string prop option; [@option]
-      (** The language to use for the default waiting room page. Available values: `de-DE`, `es-ES`, `en-US`, `fr-FR`, `id-ID`, `it-IT`, `ja-JP`, `ko-KR`, `nl-NL`, `pl-PL`, `pt-BR`, `tr-TR`, `zh-CN`, `zh-TW`, `ru-RU`, `fa-IR`. Defaults to `en-US`. *)
   description : string prop option; [@option]
-      (** A description to add more details about the waiting room. *)
   disable_session_renewal : bool prop option; [@option]
-      (** Disables automatic renewal of session cookies. *)
   host : string prop;
-      (** Host name for which the waiting room will be applied (no wildcards). *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   json_response_enabled : bool prop option; [@option]
-      (** If true, requests to the waiting room with the header `Accept: application/json` will receive a JSON response object. *)
   name : string prop;
-      (** A unique name to identify the waiting room. **Modifying this attribute will force creation of a new resource.** *)
   new_users_per_minute : float prop;
-      (** The number of new users that will be let into the route every minute. *)
   path : string prop option; [@option]
-      (** The path within the host to enable the waiting room on. Defaults to `/`. *)
   queue_all : bool prop option; [@option]
-      (** If queue_all is true, then all traffic will be sent to the waiting room. *)
   queueing_method : string prop option; [@option]
-      (** The queueing method used by the waiting room. Available values: `fifo`, `random`, `passthrough`, `reject`. Defaults to `fifo`. *)
   queueing_status_code : float prop option; [@option]
-      (** HTTP status code returned to a user while in the queue. Defaults to `200`. *)
   session_duration : float prop option; [@option]
-      (** Lifetime of a cookie (in minutes) set by Cloudflare for users who get access to the origin. Defaults to `5`. *)
   suspended : bool prop option; [@option]
-      (** Suspends the waiting room. *)
   total_active_users : float prop;
-      (** The total number of active user sessions on the route at a point in time. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   additional_routes : additional_routes list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Waiting Room resource. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_waiting_room) -> ()
+
+let yojson_of_cloudflare_waiting_room =
+  (function
+   | {
+       cookie_suffix = v_cookie_suffix;
+       custom_page_html = v_custom_page_html;
+       default_template_language = v_default_template_language;
+       description = v_description;
+       disable_session_renewal = v_disable_session_renewal;
+       host = v_host;
+       id = v_id;
+       json_response_enabled = v_json_response_enabled;
+       name = v_name;
+       new_users_per_minute = v_new_users_per_minute;
+       path = v_path;
+       queue_all = v_queue_all;
+       queueing_method = v_queueing_method;
+       queueing_status_code = v_queueing_status_code;
+       session_duration = v_session_duration;
+       suspended = v_suspended;
+       total_active_users = v_total_active_users;
+       zone_id = v_zone_id;
+       additional_routes = v_additional_routes;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_additional_routes
+             v_additional_routes
+         in
+         ("additional_routes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_total_active_users
+         in
+         ("total_active_users", arg) :: bnds
+       in
+       let bnds =
+         match v_suspended with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "suspended", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "session_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_queueing_status_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "queueing_status_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_queueing_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "queueing_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_queue_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "queue_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_new_users_per_minute
+         in
+         ("new_users_per_minute", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_json_response_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "json_response_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       let bnds =
+         match v_disable_session_renewal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_session_renewal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_template_language with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_template_language", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_page_html with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_page_html", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cookie_suffix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cookie_suffix", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_waiting_room -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_waiting_room
+
+[@@@deriving.end]
 
 let additional_routes ?path ~host () : additional_routes =
   { host; path }

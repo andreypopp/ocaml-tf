@@ -3,37 +3,209 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_iothub_endpoint_storage_container = {
   authentication_type : string prop option; [@option]
-      (** authentication_type *)
   batch_frequency_in_seconds : float prop option; [@option]
-      (** batch_frequency_in_seconds *)
   connection_string : string prop option; [@option]
-      (** connection_string *)
-  container_name : string prop;  (** container_name *)
-  encoding : string prop option; [@option]  (** encoding *)
-  endpoint_uri : string prop option; [@option]  (** endpoint_uri *)
+  container_name : string prop;
+  encoding : string prop option; [@option]
+  endpoint_uri : string prop option; [@option]
   file_name_format : string prop option; [@option]
-      (** file_name_format *)
-  id : string prop option; [@option]  (** id *)
-  identity_id : string prop option; [@option]  (** identity_id *)
-  iothub_id : string prop;  (** iothub_id *)
+  id : string prop option; [@option]
+  identity_id : string prop option; [@option]
+  iothub_id : string prop;
   max_chunk_size_in_bytes : float prop option; [@option]
-      (** max_chunk_size_in_bytes *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  name : string prop;
+  resource_group_name : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_iothub_endpoint_storage_container *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_iothub_endpoint_storage_container) -> ()
+
+let yojson_of_azurerm_iothub_endpoint_storage_container =
+  (function
+   | {
+       authentication_type = v_authentication_type;
+       batch_frequency_in_seconds = v_batch_frequency_in_seconds;
+       connection_string = v_connection_string;
+       container_name = v_container_name;
+       encoding = v_encoding;
+       endpoint_uri = v_endpoint_uri;
+       file_name_format = v_file_name_format;
+       id = v_id;
+       identity_id = v_identity_id;
+       iothub_id = v_iothub_id;
+       max_chunk_size_in_bytes = v_max_chunk_size_in_bytes;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_max_chunk_size_in_bytes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_chunk_size_in_bytes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_iothub_id in
+         ("iothub_id", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_name_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "file_name_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_endpoint_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "endpoint_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_name
+         in
+         ("container_name", arg) :: bnds
+       in
+       let bnds =
+         match v_connection_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_batch_frequency_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "batch_frequency_in_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authentication_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "authentication_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_iothub_endpoint_storage_container ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_iothub_endpoint_storage_container
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

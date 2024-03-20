@@ -4,18 +4,58 @@ open! Tf_core
 
 type cloudflare_api_shield_operation = {
   endpoint : string prop;
-      (** The endpoint which can contain path parameter templates in curly braces, each will be replaced from left to right with `{varN}`, starting with `{var1}`. This will then be [Cloudflare-normalized](https://developers.cloudflare.com/rules/normalization/how-it-works/). **Modifying this attribute will force creation of a new resource.** *)
   host : string prop;
-      (** RFC3986-compliant host. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   method_ : string prop; [@key "method"]
-      (** The HTTP method used to access the endpoint. **Modifying this attribute will force creation of a new resource.** *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a resource to manage an operation in API Shield Endpoint Management.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_api_shield_operation) -> ()
+
+let yojson_of_cloudflare_api_shield_operation =
+  (function
+   | {
+       endpoint = v_endpoint;
+       host = v_host;
+       id = v_id;
+       method_ = v_method_;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_method_ in
+         ("method", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_endpoint in
+         ("endpoint", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_api_shield_operation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_api_shield_operation
+
+[@@@deriving.end]
 
 let cloudflare_api_shield_operation ?id ~endpoint ~host ~method_
     ~zone_id () : cloudflare_api_shield_operation =

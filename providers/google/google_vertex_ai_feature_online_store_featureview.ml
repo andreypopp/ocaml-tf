@@ -4,66 +4,291 @@ open! Tf_core
 
 type big_query_source = {
   entity_id_columns : string prop list;
-      (** Columns to construct entityId / row keys. Start by supporting 1 only. *)
   uri : string prop;
-      (** The BigQuery view URI that will be materialized on each sync trigger based on FeatureView.SyncConfig. *)
 }
-[@@deriving yojson_of]
-(** Configures how data is supposed to be extracted from a BigQuery source to be loaded onto the FeatureOnlineStore. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : big_query_source) -> ()
+
+let yojson_of_big_query_source =
+  (function
+   | { entity_id_columns = v_entity_id_columns; uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_entity_id_columns
+         in
+         ("entity_id_columns", arg) :: bnds
+       in
+       `Assoc bnds
+    : big_query_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_big_query_source
+
+[@@@deriving.end]
 
 type feature_registry_source__feature_groups = {
   feature_group_id : string prop;
-      (** Identifier of the feature group. *)
   feature_ids : string prop list;
-      (** Identifiers of features under the feature group. *)
 }
-[@@deriving yojson_of]
-(** List of features that need to be synced to Online Store. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : feature_registry_source__feature_groups) -> ()
+
+let yojson_of_feature_registry_source__feature_groups =
+  (function
+   | {
+       feature_group_id = v_feature_group_id;
+       feature_ids = v_feature_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_feature_ids
+         in
+         ("feature_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_feature_group_id
+         in
+         ("feature_group_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : feature_registry_source__feature_groups ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_feature_registry_source__feature_groups
+
+[@@@deriving.end]
 
 type feature_registry_source = {
   feature_groups : feature_registry_source__feature_groups list;
 }
-[@@deriving yojson_of]
-(** Configures the features from a Feature Registry source that need to be loaded onto the FeatureOnlineStore. *)
+[@@deriving_inline yojson_of]
 
-type sync_config = {
-  cron : string prop option; [@option]
-      (** Cron schedule (https://en.wikipedia.org/wiki/Cron) to launch scheduled runs.
-To explicitly set a timezone to the cron tab, apply a prefix in the cron tab: CRON_TZ=${IANA_TIME_ZONE} or TZ=${IANA_TIME_ZONE}. *)
-}
-[@@deriving yojson_of]
-(** Configures when data is to be synced/updated for this FeatureView. At the end of the sync the latest featureValues for each entityId of this FeatureView are made ready for online serving. *)
+let _ = fun (_ : feature_registry_source) -> ()
+
+let yojson_of_feature_registry_source =
+  (function
+   | { feature_groups = v_feature_groups } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_feature_registry_source__feature_groups
+             v_feature_groups
+         in
+         ("feature_groups", arg) :: bnds
+       in
+       `Assoc bnds
+    : feature_registry_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_feature_registry_source
+
+[@@@deriving.end]
+
+type sync_config = { cron : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sync_config) -> ()
+
+let yojson_of_sync_config =
+  (function
+   | { cron = v_cron } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_cron with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cron", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sync_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sync_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_vertex_ai_feature_online_store_featureview = {
   feature_online_store : string prop;
-      (** The name of the FeatureOnlineStore to use for the featureview. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** A set of key/value label pairs to assign to this FeatureView.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop option; [@option]
-      (** Name of the FeatureView. This value may be up to 60 characters, and valid characters are [a-z0-9_]. The first character cannot be a number. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop;
-      (** The region for the resource. It should be the same as the featureonlinestore region. *)
   big_query_source : big_query_source list;
   feature_registry_source : feature_registry_source list;
   sync_config : sync_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vertex_ai_feature_online_store_featureview *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_vertex_ai_feature_online_store_featureview) -> ()
+
+let yojson_of_google_vertex_ai_feature_online_store_featureview =
+  (function
+   | {
+       feature_online_store = v_feature_online_store;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       big_query_source = v_big_query_source;
+       feature_registry_source = v_feature_registry_source;
+       sync_config = v_sync_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sync_config v_sync_config
+         in
+         ("sync_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_feature_registry_source
+             v_feature_registry_source
+         in
+         ("feature_registry_source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_big_query_source
+             v_big_query_source
+         in
+         ("big_query_source", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_feature_online_store
+         in
+         ("feature_online_store", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_vertex_ai_feature_online_store_featureview ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vertex_ai_feature_online_store_featureview
+
+[@@@deriving.end]
 
 let big_query_source ~entity_id_columns ~uri () : big_query_source =
   { entity_id_columns; uri }

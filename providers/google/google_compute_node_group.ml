@@ -4,77 +4,311 @@ open! Tf_core
 
 type autoscaling_policy = {
   max_nodes : float prop option; [@option]
-      (** Maximum size of the node group. Set to a value less than or equal
-to 100 and greater than or equal to min-nodes. *)
   min_nodes : float prop option; [@option]
-      (** Minimum size of the node group. Must be less
-than or equal to max-nodes. The default value is 0. *)
   mode : string prop option; [@option]
-      (** The autoscaling mode. Set to one of the following:
-  - OFF: Disables the autoscaler.
-  - ON: Enables scaling in and scaling out.
-  - ONLY_SCALE_OUT: Enables only scaling out.
-  You must use this mode if your node groups are configured to
-  restart their hosted VMs on minimal servers. Possible values: [OFF, ON, ONLY_SCALE_OUT] *)
 }
-[@@deriving yojson_of]
-(** If you use sole-tenant nodes for your workloads, you can use the node
-group autoscaler to automatically manage the sizes of your node groups.
+[@@deriving_inline yojson_of]
 
-One of 'initial_size' or 'autoscaling_policy' must be configured on resource creation. *)
+let _ = fun (_ : autoscaling_policy) -> ()
 
-type maintenance_window = {
-  start_time : string prop;
-      (** instances.start time of the window. This must be in UTC format that resolves to one of 00:00, 04:00, 08:00, 12:00, 16:00, or 20:00. For example, both 13:00-5 and 08:00 are valid. *)
-}
-[@@deriving yojson_of]
-(** contains properties for the timeframe of maintenance *)
+let yojson_of_autoscaling_policy =
+  (function
+   | {
+       max_nodes = v_max_nodes;
+       min_nodes = v_min_nodes;
+       mode = v_mode;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_nodes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_nodes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : autoscaling_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling_policy
+
+[@@@deriving.end]
+
+type maintenance_window = { start_time : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_window) -> ()
+
+let yojson_of_maintenance_window =
+  (function
+   | { start_time = v_start_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_start_time in
+         ("start_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : maintenance_window -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_window
+
+[@@@deriving.end]
 
 type share_settings__project_map = {
-  id : string prop;  (** id *)
+  id : string prop;
   project_id : string prop;
-      (** The project id/number should be the same as the key of this project config in the project map. *)
 }
-[@@deriving yojson_of]
-(** A map of project id and project config. This is only valid when shareType's value is SPECIFIC_PROJECTS. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : share_settings__project_map) -> ()
+
+let yojson_of_share_settings__project_map =
+  (function
+   | { id = v_id; project_id = v_project_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : share_settings__project_map ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_share_settings__project_map
+
+[@@@deriving.end]
 
 type share_settings = {
   share_type : string prop;
-      (** Node group sharing type. Possible values: [ORGANIZATION, SPECIFIC_PROJECTS, LOCAL] *)
   project_map : share_settings__project_map list;
 }
-[@@deriving yojson_of]
-(** Share settings for the node group. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : share_settings) -> ()
+
+let yojson_of_share_settings =
+  (function
+   | { share_type = v_share_type; project_map = v_project_map } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_share_settings__project_map
+             v_project_map
+         in
+         ("project_map", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_share_type in
+         ("share_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : share_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_share_settings
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_node_group = {
   description : string prop option; [@option]
-      (** An optional textual description of the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   initial_size : float prop option; [@option]
-      (** The initial number of nodes in the node group. One of 'initial_size' or 'autoscaling_policy' must be configured on resource creation. *)
   maintenance_policy : string prop option; [@option]
-      (** Specifies how to handle instances when a node in the group undergoes maintenance. Set to one of: DEFAULT, RESTART_IN_PLACE, or MIGRATE_WITHIN_NODE_GROUP. The default value is DEFAULT. *)
-  name : string prop option; [@option]  (** Name of the resource. *)
+  name : string prop option; [@option]
   node_template : string prop;
-      (** The URL of the node template to which this node group belongs. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   zone : string prop option; [@option]
-      (** Zone where this node group is located *)
   autoscaling_policy : autoscaling_policy list;
   maintenance_window : maintenance_window list;
   share_settings : share_settings list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_node_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_node_group) -> ()
+
+let yojson_of_google_compute_node_group =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       initial_size = v_initial_size;
+       maintenance_policy = v_maintenance_policy;
+       name = v_name;
+       node_template = v_node_template;
+       project = v_project;
+       zone = v_zone;
+       autoscaling_policy = v_autoscaling_policy;
+       maintenance_window = v_maintenance_window;
+       share_settings = v_share_settings;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_share_settings v_share_settings
+         in
+         ("share_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_window
+             v_maintenance_window
+         in
+         ("maintenance_window", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_autoscaling_policy
+             v_autoscaling_policy
+         in
+         ("autoscaling_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_node_template in
+         ("node_template", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maintenance_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "maintenance_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_node_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_node_group
+
+[@@@deriving.end]
 
 let autoscaling_policy ?max_nodes ?min_nodes ?mode () :
     autoscaling_policy =

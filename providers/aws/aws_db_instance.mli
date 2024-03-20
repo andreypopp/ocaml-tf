@@ -10,11 +10,15 @@ type listener_endpoint = {
   port : float prop;  (** port *)
 }
 
+[@@@deriving.end]
+
 type master_user_secret = {
   kms_key_id : string prop;  (** kms_key_id *)
   secret_arn : string prop;  (** secret_arn *)
   secret_status : string prop;  (** secret_status *)
 }
+
+[@@@deriving.end]
 
 type blue_green_update
 

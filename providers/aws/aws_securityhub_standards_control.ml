@@ -3,14 +3,61 @@
 open! Tf_core
 
 type aws_securityhub_standards_control = {
-  control_status : string prop;  (** control_status *)
+  control_status : string prop;
   disabled_reason : string prop option; [@option]
-      (** disabled_reason *)
-  id : string prop option; [@option]  (** id *)
-  standards_control_arn : string prop;  (** standards_control_arn *)
+  id : string prop option; [@option]
+  standards_control_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_securityhub_standards_control *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securityhub_standards_control) -> ()
+
+let yojson_of_aws_securityhub_standards_control =
+  (function
+   | {
+       control_status = v_control_status;
+       disabled_reason = v_disabled_reason;
+       id = v_id;
+       standards_control_arn = v_standards_control_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_standards_control_arn
+         in
+         ("standards_control_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled_reason with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disabled_reason", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_control_status
+         in
+         ("control_status", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_securityhub_standards_control ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securityhub_standards_control
+
+[@@@deriving.end]
 
 let aws_securityhub_standards_control ?disabled_reason ?id
     ~control_status ~standards_control_arn () :

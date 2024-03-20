@@ -11,12 +11,16 @@ type vpc_endpoint__network_interface = {
   subnet_id : string prop;  (** subnet_id *)
 }
 
+[@@@deriving.end]
+
 type vpc_endpoint = {
   network_interface : vpc_endpoint__network_interface list;
       (** network_interface *)
   vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
   vpc_id : string prop;  (** vpc_id *)
 }
+
+[@@@deriving.end]
 
 type aws_redshift_endpoint_access
 

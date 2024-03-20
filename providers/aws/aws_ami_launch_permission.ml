@@ -3,17 +3,80 @@
 open! Tf_core
 
 type aws_ami_launch_permission = {
-  account_id : string prop option; [@option]  (** account_id *)
-  group : string prop option; [@option]  (** group *)
-  id : string prop option; [@option]  (** id *)
-  image_id : string prop;  (** image_id *)
+  account_id : string prop option; [@option]
+  group : string prop option; [@option]
+  id : string prop option; [@option]
+  image_id : string prop;
   organization_arn : string prop option; [@option]
-      (** organization_arn *)
   organizational_unit_arn : string prop option; [@option]
-      (** organizational_unit_arn *)
 }
-[@@deriving yojson_of]
-(** aws_ami_launch_permission *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ami_launch_permission) -> ()
+
+let yojson_of_aws_ami_launch_permission =
+  (function
+   | {
+       account_id = v_account_id;
+       group = v_group;
+       id = v_id;
+       image_id = v_image_id;
+       organization_arn = v_organization_arn;
+       organizational_unit_arn = v_organizational_unit_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_organizational_unit_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "organizational_unit_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_organization_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "organization_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_image_id in
+         ("image_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ami_launch_permission -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ami_launch_permission
+
+[@@@deriving.end]
 
 let aws_ami_launch_permission ?account_id ?group ?id
     ?organization_arn ?organizational_unit_arn ~image_id () :

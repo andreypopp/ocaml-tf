@@ -3,43 +3,252 @@
 open! Tf_core
 
 type sku = {
-  capacity : float prop option; [@option]  (** capacity *)
-  size : string prop;  (** size *)
-  tier : string prop;  (** tier *)
+  capacity : float prop option; [@option]
+  size : string prop;
+  tier : string prop;
 }
-[@@deriving yojson_of]
-(** sku *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sku) -> ()
+
+let yojson_of_sku =
+  (function
+   | { capacity = v_capacity; size = v_size; tier = v_tier } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tier in
+         ("tier", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_size in
+         ("size", arg) :: bnds
+       in
+       let bnds =
+         match v_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "capacity", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sku -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sku
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_app_service_plan = {
   app_service_environment_id : string prop option; [@option]
-      (** app_service_environment_id *)
-  id : string prop option; [@option]  (** id *)
-  is_xenon : bool prop option; [@option]  (** is_xenon *)
-  kind : string prop option; [@option]  (** kind *)
-  location : string prop;  (** location *)
+  id : string prop option; [@option]
+  is_xenon : bool prop option; [@option]
+  kind : string prop option; [@option]
+  location : string prop;
   maximum_elastic_worker_count : float prop option; [@option]
-      (** maximum_elastic_worker_count *)
-  name : string prop;  (** name *)
+  name : string prop;
   per_site_scaling : bool prop option; [@option]
-      (** per_site_scaling *)
-  reserved : bool prop option; [@option]  (** reserved *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
-  zone_redundant : bool prop option; [@option]  (** zone_redundant *)
+  reserved : bool prop option; [@option]
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
+  zone_redundant : bool prop option; [@option]
   sku : sku list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_app_service_plan *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_app_service_plan) -> ()
+
+let yojson_of_azurerm_app_service_plan =
+  (function
+   | {
+       app_service_environment_id = v_app_service_environment_id;
+       id = v_id;
+       is_xenon = v_is_xenon;
+       kind = v_kind;
+       location = v_location;
+       maximum_elastic_worker_count = v_maximum_elastic_worker_count;
+       name = v_name;
+       per_site_scaling = v_per_site_scaling;
+       reserved = v_reserved;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       zone_redundant = v_zone_redundant;
+       sku = v_sku;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sku v_sku in
+         ("sku", arg) :: bnds
+       in
+       let bnds =
+         match v_zone_redundant with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "zone_redundant", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_reserved with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "reserved", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_per_site_scaling with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "per_site_scaling", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_maximum_elastic_worker_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_elastic_worker_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_kind with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kind", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_xenon with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_xenon", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_app_service_environment_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "app_service_environment_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_app_service_plan -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_app_service_plan
+
+[@@@deriving.end]
 
 let sku ?capacity ~size ~tier () : sku = { capacity; size; tier }
 

@@ -3,28 +3,119 @@
 open! Tf_core
 
 type metadata = {
-  name : string prop;  (** The name of the resource. *)
+  name : string prop;
   namespace : string prop option; [@option]
-      (** The namespace of the resource. *)
 }
-[@@deriving yojson_of]
-(** metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type kubernetes_labels = {
   api_version : string prop;
-      (** The apiVersion of the resource to label. *)
   field_manager : string prop option; [@option]
-      (** Set the name of the field manager for the specified labels. *)
   force : bool prop option; [@option]
-      (** Force overwriting labels that were created or edited outside of Terraform. *)
-  id : string prop option; [@option]  (** id *)
-  kind : string prop;  (** The kind of the resource to label. *)
+  id : string prop option; [@option]
+  kind : string prop;
   labels : (string * string prop) list;
-      (** A map of labels to apply to the resource. *)
   metadata : metadata list;
 }
-[@@deriving yojson_of]
-(** kubernetes_labels *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_labels) -> ()
+
+let yojson_of_kubernetes_labels =
+  (function
+   | {
+       api_version = v_api_version;
+       field_manager = v_field_manager;
+       force = v_force;
+       id = v_id;
+       kind = v_kind;
+       labels = v_labels;
+       metadata = v_metadata;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_labels
+         in
+         ("labels", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_field_manager with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_manager", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_version in
+         ("api_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_labels -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_labels
+
+[@@@deriving.end]
 
 let metadata ?namespace ~name () : metadata = { name; namespace }
 

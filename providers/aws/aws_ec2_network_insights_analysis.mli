@@ -9,11 +9,15 @@ type alternate_path_hints = {
   component_id : string prop;  (** component_id *)
 }
 
+[@@@deriving.end]
+
 type explanations__vpn_gateway = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__vpn_connection = {
   arn : string prop;  (** arn *)
@@ -21,11 +25,15 @@ type explanations__vpn_connection = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__vpc_peering_connection = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__vpc_endpoint = {
   arn : string prop;  (** arn *)
@@ -33,11 +41,15 @@ type explanations__vpc_endpoint = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__vpc = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__transit_gateway_route_table_route = {
   attachment_id : string prop;  (** attachment_id *)
@@ -49,11 +61,15 @@ type explanations__transit_gateway_route_table_route = {
   state : string prop;  (** state *)
 }
 
+[@@@deriving.end]
+
 type explanations__transit_gateway_route_table = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__transit_gateway_attachment = {
   arn : string prop;  (** arn *)
@@ -61,11 +77,15 @@ type explanations__transit_gateway_attachment = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__transit_gateway = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__subnet_route_table = {
   arn : string prop;  (** arn *)
@@ -73,11 +93,15 @@ type explanations__subnet_route_table = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__subnet = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__source_vpc = {
   arn : string prop;  (** arn *)
@@ -85,16 +109,22 @@ type explanations__source_vpc = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__security_groups = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__security_group_rule__port_range = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type explanations__security_group_rule = {
   cidr : string prop;  (** cidr *)
@@ -106,11 +136,15 @@ type explanations__security_group_rule = {
   security_group_id : string prop;  (** security_group_id *)
 }
 
+[@@@deriving.end]
+
 type explanations__security_group = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__route_table_route = {
   destination_cidr : string prop;  (** destination_cidr *)
@@ -128,11 +162,15 @@ type explanations__route_table_route = {
       (** vpc_peering_connection_id *)
 }
 
+[@@@deriving.end]
+
 type explanations__route_table = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__prefix_list = {
   arn : string prop;  (** arn *)
@@ -140,10 +178,14 @@ type explanations__prefix_list = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__port_ranges = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type explanations__network_interface = {
   arn : string prop;  (** arn *)
@@ -151,11 +193,15 @@ type explanations__network_interface = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__nat_gateway = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__load_balancer_target_groups = {
   arn : string prop;  (** arn *)
@@ -163,11 +209,15 @@ type explanations__load_balancer_target_groups = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__load_balancer_target_group = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__internet_gateway = {
   arn : string prop;  (** arn *)
@@ -175,11 +225,15 @@ type explanations__internet_gateway = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__ingress_route_table = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__elastic_load_balancer_listener = {
   arn : string prop;  (** arn *)
@@ -187,11 +241,15 @@ type explanations__elastic_load_balancer_listener = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__destination_vpc = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__destination = {
   arn : string prop;  (** arn *)
@@ -199,11 +257,15 @@ type explanations__destination = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__customer_gateway = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations__component = {
   arn : string prop;  (** arn *)
@@ -211,10 +273,14 @@ type explanations__component = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__classic_load_balancer_listener = {
   instance_port : float prop;  (** instance_port *)
   load_balancer_port : float prop;  (** load_balancer_port *)
 }
+
+[@@@deriving.end]
 
 type explanations__attached_to = {
   arn : string prop;  (** arn *)
@@ -222,10 +288,14 @@ type explanations__attached_to = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type explanations__acl_rule__port_range = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type explanations__acl_rule = {
   cidr : string prop;  (** cidr *)
@@ -237,11 +307,15 @@ type explanations__acl_rule = {
   rule_number : float prop;  (** rule_number *)
 }
 
+[@@@deriving.end]
+
 type explanations__acl = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type explanations = {
   acl : explanations__acl list;  (** acl *)
@@ -324,11 +398,15 @@ type explanations = {
   vpn_gateway : explanations__vpn_gateway list;  (** vpn_gateway *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__vpc = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components__transit_gateway_route_table_route = {
   attachment_id : string prop;  (** attachment_id *)
@@ -340,11 +418,15 @@ type forward_path_components__transit_gateway_route_table_route = {
   state : string prop;  (** state *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__transit_gateway = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components__subnet = {
   arn : string prop;  (** arn *)
@@ -352,16 +434,22 @@ type forward_path_components__subnet = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__source_vpc = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__security_group_rule__port_range = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components__security_group_rule = {
   cidr : string prop;  (** cidr *)
@@ -373,6 +461,8 @@ type forward_path_components__security_group_rule = {
   protocol : string prop;  (** protocol *)
   security_group_id : string prop;  (** security_group_id *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components__route_table_route = {
   destination_cidr : string prop;  (** destination_cidr *)
@@ -390,15 +480,21 @@ type forward_path_components__route_table_route = {
       (** vpc_peering_connection_id *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__outbound_header__source_port_ranges = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__outbound_header__destination_port_ranges = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components__outbound_header = {
   destination_addresses : string prop list;
@@ -414,15 +510,21 @@ type forward_path_components__outbound_header = {
       (** source_port_ranges *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__inbound_header__source_port_ranges = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__inbound_header__destination_port_ranges = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components__inbound_header = {
   destination_addresses : string prop list;
@@ -438,11 +540,15 @@ type forward_path_components__inbound_header = {
       (** source_port_ranges *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__destination_vpc = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components__component = {
   arn : string prop;  (** arn *)
@@ -450,17 +556,23 @@ type forward_path_components__component = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__attached_to = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__additional_details__component = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components__additional_details = {
   additional_detail_type : string prop;
@@ -470,10 +582,14 @@ type forward_path_components__additional_details = {
       (** component *)
 }
 
+[@@@deriving.end]
+
 type forward_path_components__acl_rule__port_range = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components__acl_rule = {
   cidr : string prop;  (** cidr *)
@@ -484,6 +600,8 @@ type forward_path_components__acl_rule = {
   rule_action : string prop;  (** rule_action *)
   rule_number : float prop;  (** rule_number *)
 }
+
+[@@@deriving.end]
 
 type forward_path_components = {
   acl_rule : forward_path_components__acl_rule list;  (** acl_rule *)
@@ -518,11 +636,15 @@ type forward_path_components = {
   vpc : forward_path_components__vpc list;  (** vpc *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__vpc = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type return_path_components__transit_gateway_route_table_route = {
   attachment_id : string prop;  (** attachment_id *)
@@ -534,11 +656,15 @@ type return_path_components__transit_gateway_route_table_route = {
   state : string prop;  (** state *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__transit_gateway = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type return_path_components__subnet = {
   arn : string prop;  (** arn *)
@@ -546,16 +672,22 @@ type return_path_components__subnet = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__source_vpc = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__security_group_rule__port_range = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type return_path_components__security_group_rule = {
   cidr : string prop;  (** cidr *)
@@ -567,6 +699,8 @@ type return_path_components__security_group_rule = {
   protocol : string prop;  (** protocol *)
   security_group_id : string prop;  (** security_group_id *)
 }
+
+[@@@deriving.end]
 
 type return_path_components__route_table_route = {
   destination_cidr : string prop;  (** destination_cidr *)
@@ -584,15 +718,21 @@ type return_path_components__route_table_route = {
       (** vpc_peering_connection_id *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__outbound_header__source_port_ranges = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__outbound_header__destination_port_ranges = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type return_path_components__outbound_header = {
   destination_addresses : string prop list;
@@ -608,15 +748,21 @@ type return_path_components__outbound_header = {
       (** source_port_ranges *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__inbound_header__source_port_ranges = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__inbound_header__destination_port_ranges = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type return_path_components__inbound_header = {
   destination_addresses : string prop list;
@@ -632,11 +778,15 @@ type return_path_components__inbound_header = {
       (** source_port_ranges *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__destination_vpc = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type return_path_components__component = {
   arn : string prop;  (** arn *)
@@ -644,17 +794,23 @@ type return_path_components__component = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__attached_to = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__additional_details__component = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type return_path_components__additional_details = {
   additional_detail_type : string prop;
@@ -664,10 +820,14 @@ type return_path_components__additional_details = {
       (** component *)
 }
 
+[@@@deriving.end]
+
 type return_path_components__acl_rule__port_range = {
   from : float prop;  (** from *)
   to_ : float prop; [@key "to"]  (** to *)
 }
+
+[@@@deriving.end]
 
 type return_path_components__acl_rule = {
   cidr : string prop;  (** cidr *)
@@ -678,6 +838,8 @@ type return_path_components__acl_rule = {
   rule_action : string prop;  (** rule_action *)
   rule_number : float prop;  (** rule_number *)
 }
+
+[@@@deriving.end]
 
 type return_path_components = {
   acl_rule : return_path_components__acl_rule list;  (** acl_rule *)
@@ -710,6 +872,8 @@ type return_path_components = {
       (** transit_gateway_route_table_route *)
   vpc : return_path_components__vpc list;  (** vpc *)
 }
+
+[@@@deriving.end]
 
 type aws_ec2_network_insights_analysis
 

@@ -3,24 +3,122 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_ssoadmin_account_assignment = {
-  id : string prop option; [@option]  (** id *)
-  instance_arn : string prop;  (** instance_arn *)
-  permission_set_arn : string prop;  (** permission_set_arn *)
-  principal_id : string prop;  (** principal_id *)
-  principal_type : string prop;  (** principal_type *)
-  target_id : string prop;  (** target_id *)
-  target_type : string prop option; [@option]  (** target_type *)
+  id : string prop option; [@option]
+  instance_arn : string prop;
+  permission_set_arn : string prop;
+  principal_id : string prop;
+  principal_type : string prop;
+  target_id : string prop;
+  target_type : string prop option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_ssoadmin_account_assignment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssoadmin_account_assignment) -> ()
+
+let yojson_of_aws_ssoadmin_account_assignment =
+  (function
+   | {
+       id = v_id;
+       instance_arn = v_instance_arn;
+       permission_set_arn = v_permission_set_arn;
+       principal_id = v_principal_id;
+       principal_type = v_principal_type;
+       target_id = v_target_id;
+       target_type = v_target_type;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_target_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target_id in
+         ("target_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_principal_type
+         in
+         ("principal_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_principal_id in
+         ("principal_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_permission_set_arn
+         in
+         ("permission_set_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance_arn in
+         ("instance_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ssoadmin_account_assignment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssoadmin_account_assignment
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

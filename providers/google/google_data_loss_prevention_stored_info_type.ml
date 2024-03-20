@@ -2,64 +2,242 @@
 
 open! Tf_core
 
-type dictionary__cloud_storage_path = {
-  path : string prop;
-      (** A url representing a file or path (no wildcards) in Cloud Storage. Example: 'gs://[BUCKET_NAME]/dictionary.txt' *)
-}
-[@@deriving yojson_of]
-(** Newline-delimited file of words in Cloud Storage. Only a single file is accepted. *)
+type dictionary__cloud_storage_path = { path : string prop }
+[@@deriving_inline yojson_of]
 
-type dictionary__word_list = {
-  words : string prop list;
-      (** Words or phrases defining the dictionary. The dictionary must contain at least one
-phrase and every phrase must contain at least 2 characters that are letters or digits. *)
-}
-[@@deriving yojson_of]
-(** List of words or phrases to search for. *)
+let _ = fun (_ : dictionary__cloud_storage_path) -> ()
+
+let yojson_of_dictionary__cloud_storage_path =
+  (function
+   | { path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : dictionary__cloud_storage_path ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dictionary__cloud_storage_path
+
+[@@@deriving.end]
+
+type dictionary__word_list = { words : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dictionary__word_list) -> ()
+
+let yojson_of_dictionary__word_list =
+  (function
+   | { words = v_words } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_words
+         in
+         ("words", arg) :: bnds
+       in
+       `Assoc bnds
+    : dictionary__word_list -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dictionary__word_list
+
+[@@@deriving.end]
 
 type dictionary = {
   cloud_storage_path : dictionary__cloud_storage_path list;
   word_list : dictionary__word_list list;
 }
-[@@deriving yojson_of]
-(** Dictionary which defines the rule. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dictionary) -> ()
+
+let yojson_of_dictionary =
+  (function
+   | {
+       cloud_storage_path = v_cloud_storage_path;
+       word_list = v_word_list;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dictionary__word_list v_word_list
+         in
+         ("word_list", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dictionary__cloud_storage_path
+             v_cloud_storage_path
+         in
+         ("cloud_storage_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : dictionary -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dictionary
+
+[@@@deriving.end]
 
 type large_custom_dictionary__big_query_field__field = {
-  name : string prop;  (** Name describing the field. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** Designated field in the BigQuery table. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : large_custom_dictionary__big_query_field__field) -> ()
+
+let yojson_of_large_custom_dictionary__big_query_field__field =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : large_custom_dictionary__big_query_field__field ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_large_custom_dictionary__big_query_field__field
+
+[@@@deriving.end]
 
 type large_custom_dictionary__big_query_field__table = {
-  dataset_id : string prop;  (** The dataset ID of the table. *)
+  dataset_id : string prop;
   project_id : string prop;
-      (** The Google Cloud Platform project ID of the project containing the table. *)
-  table_id : string prop;  (** The name of the table. *)
+  table_id : string prop;
 }
-[@@deriving yojson_of]
-(** Field in a BigQuery table where each cell represents a dictionary phrase. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : large_custom_dictionary__big_query_field__table) -> ()
+
+let yojson_of_large_custom_dictionary__big_query_field__table =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       table_id = v_table_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_id in
+         ("table_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : large_custom_dictionary__big_query_field__table ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_large_custom_dictionary__big_query_field__table
+
+[@@@deriving.end]
 
 type large_custom_dictionary__big_query_field = {
   field : large_custom_dictionary__big_query_field__field list;
   table : large_custom_dictionary__big_query_field__table list;
 }
-[@@deriving yojson_of]
-(** Field in a BigQuery table where each cell represents a dictionary phrase. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : large_custom_dictionary__big_query_field) -> ()
+
+let yojson_of_large_custom_dictionary__big_query_field =
+  (function
+   | { field = v_field; table = v_table } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_large_custom_dictionary__big_query_field__table
+             v_table
+         in
+         ("table", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_large_custom_dictionary__big_query_field__field
+             v_field
+         in
+         ("field", arg) :: bnds
+       in
+       `Assoc bnds
+    : large_custom_dictionary__big_query_field ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_large_custom_dictionary__big_query_field
+
+[@@@deriving.end]
 
 type large_custom_dictionary__cloud_storage_file_set = {
   url : string prop;
-      (** The url, in the format 'gs://<bucket>/<path>'. Trailing wildcard in the path is allowed. *)
 }
-[@@deriving yojson_of]
-(** Set of files containing newline-delimited lists of dictionary phrases. *)
+[@@deriving_inline yojson_of]
 
-type large_custom_dictionary__output_path = {
-  path : string prop;
-      (** A url representing a file or path (no wildcards) in Cloud Storage. Example: 'gs://[BUCKET_NAME]/dictionary.txt' *)
-}
-[@@deriving yojson_of]
-(** Location to store dictionary artifacts in Google Cloud Storage. These files will only be accessible by project owners and the DLP API.
-If any of these artifacts are modified, the dictionary is considered invalid and can no longer be used. *)
+let _ =
+ fun (_ : large_custom_dictionary__cloud_storage_file_set) -> ()
+
+let yojson_of_large_custom_dictionary__cloud_storage_file_set =
+  (function
+   | { url = v_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       `Assoc bnds
+    : large_custom_dictionary__cloud_storage_file_set ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_large_custom_dictionary__cloud_storage_file_set
+
+[@@@deriving.end]
+
+type large_custom_dictionary__output_path = { path : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : large_custom_dictionary__output_path) -> ()
+
+let yojson_of_large_custom_dictionary__output_path =
+  (function
+   | { path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : large_custom_dictionary__output_path ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_large_custom_dictionary__output_path
+
+[@@@deriving.end]
 
 type large_custom_dictionary = {
   big_query_field : large_custom_dictionary__big_query_field list;
@@ -67,51 +245,227 @@ type large_custom_dictionary = {
     large_custom_dictionary__cloud_storage_file_set list;
   output_path : large_custom_dictionary__output_path list;
 }
-[@@deriving yojson_of]
-(** Dictionary which defines the rule. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : large_custom_dictionary) -> ()
+
+let yojson_of_large_custom_dictionary =
+  (function
+   | {
+       big_query_field = v_big_query_field;
+       cloud_storage_file_set = v_cloud_storage_file_set;
+       output_path = v_output_path;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_large_custom_dictionary__output_path
+             v_output_path
+         in
+         ("output_path", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_large_custom_dictionary__cloud_storage_file_set
+             v_cloud_storage_file_set
+         in
+         ("cloud_storage_file_set", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_large_custom_dictionary__big_query_field
+             v_big_query_field
+         in
+         ("big_query_field", arg) :: bnds
+       in
+       `Assoc bnds
+    : large_custom_dictionary -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_large_custom_dictionary
+
+[@@@deriving.end]
 
 type regex = {
   group_indexes : float prop list option; [@option]
-      (** The index of the submatch to extract as findings. When not specified, the entire match is returned. No more than 3 may be included. *)
   pattern : string prop;
-      (** Pattern defining the regular expression.
-Its syntax (https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub. *)
 }
-[@@deriving yojson_of]
-(** Regular expression which defines the rule. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : regex) -> ()
+
+let yojson_of_regex =
+  (function
+   | { group_indexes = v_group_indexes; pattern = v_pattern } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pattern in
+         ("pattern", arg) :: bnds
+       in
+       let bnds =
+         match v_group_indexes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "group_indexes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : regex -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_regex
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_data_loss_prevention_stored_info_type = {
   description : string prop option; [@option]
-      (** A description of the info type. *)
   display_name : string prop option; [@option]
-      (** User set display name of the info type. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   parent : string prop;
-      (** The parent of the info type in any of the following formats:
-
-* 'projects/{{project}}'
-* 'projects/{{project}}/locations/{{location}}'
-* 'organizations/{{organization_id}}'
-* 'organizations/{{organization_id}}/locations/{{location}}' *)
   stored_info_type_id : string prop option; [@option]
-      (** The storedInfoType ID can contain uppercase and lowercase letters, numbers, and hyphens;
-that is, it must match the regular expression: [a-zA-Z\d-_]+. The maximum length is 100
-characters. Can be empty to allow the system to generate one. *)
   dictionary : dictionary list;
   large_custom_dictionary : large_custom_dictionary list;
   regex : regex list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_data_loss_prevention_stored_info_type *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_data_loss_prevention_stored_info_type) -> ()
+
+let yojson_of_google_data_loss_prevention_stored_info_type =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       parent = v_parent;
+       stored_info_type_id = v_stored_info_type_id;
+       dictionary = v_dictionary;
+       large_custom_dictionary = v_large_custom_dictionary;
+       regex = v_regex;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_regex v_regex in
+         ("regex", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_large_custom_dictionary
+             v_large_custom_dictionary
+         in
+         ("large_custom_dictionary", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dictionary v_dictionary
+         in
+         ("dictionary", arg) :: bnds
+       in
+       let bnds =
+         match v_stored_info_type_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stored_info_type_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_data_loss_prevention_stored_info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_data_loss_prevention_stored_info_type
+
+[@@@deriving.end]
 
 let dictionary__cloud_storage_path ~path () :
     dictionary__cloud_storage_path =

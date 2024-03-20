@@ -11,6 +11,8 @@ type accounts = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type aws_organizations_organizational_unit
 
 val aws_organizations_organizational_unit :

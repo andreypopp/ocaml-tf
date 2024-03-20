@@ -3,12 +3,47 @@
 open! Tf_core
 
 type aws_wafregional_web_acl_association = {
-  id : string prop option; [@option]  (** id *)
-  resource_arn : string prop;  (** resource_arn *)
-  web_acl_id : string prop;  (** web_acl_id *)
+  id : string prop option; [@option]
+  resource_arn : string prop;
+  web_acl_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_wafregional_web_acl_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_wafregional_web_acl_association) -> ()
+
+let yojson_of_aws_wafregional_web_acl_association =
+  (function
+   | {
+       id = v_id;
+       resource_arn = v_resource_arn;
+       web_acl_id = v_web_acl_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_web_acl_id in
+         ("web_acl_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_arn in
+         ("resource_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_wafregional_web_acl_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_wafregional_web_acl_association
+
+[@@@deriving.end]
 
 let aws_wafregional_web_acl_association ?id ~resource_arn ~web_acl_id
     () : aws_wafregional_web_acl_association =

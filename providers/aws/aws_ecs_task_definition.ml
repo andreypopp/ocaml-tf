@@ -2,126 +2,561 @@
 
 open! Tf_core
 
-type ephemeral_storage = {
-  size_in_gib : float prop;  (** size_in_gib *)
-}
-[@@deriving yojson_of]
-(** ephemeral_storage *)
+type ephemeral_storage = { size_in_gib : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ephemeral_storage) -> ()
+
+let yojson_of_ephemeral_storage =
+  (function
+   | { size_in_gib = v_size_in_gib } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_size_in_gib in
+         ("size_in_gib", arg) :: bnds
+       in
+       `Assoc bnds
+    : ephemeral_storage -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ephemeral_storage
+
+[@@@deriving.end]
 
 type inference_accelerator = {
-  device_name : string prop;  (** device_name *)
-  device_type : string prop;  (** device_type *)
+  device_name : string prop;
+  device_type : string prop;
 }
-[@@deriving yojson_of]
-(** inference_accelerator *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inference_accelerator) -> ()
+
+let yojson_of_inference_accelerator =
+  (function
+   | { device_name = v_device_name; device_type = v_device_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_device_type in
+         ("device_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_device_name in
+         ("device_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inference_accelerator -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inference_accelerator
+
+[@@@deriving.end]
 
 type placement_constraints = {
-  expression : string prop option; [@option]  (** expression *)
-  type_ : string prop; [@key "type"]  (** type *)
+  expression : string prop option; [@option]
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** placement_constraints *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : placement_constraints) -> ()
+
+let yojson_of_placement_constraints =
+  (function
+   | { expression = v_expression; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_expression with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expression", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement_constraints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement_constraints
+
+[@@@deriving.end]
 
 type proxy_configuration = {
-  container_name : string prop;  (** container_name *)
+  container_name : string prop;
   properties : (string * string prop) list option; [@option]
-      (** properties *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** proxy_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : proxy_configuration) -> ()
+
+let yojson_of_proxy_configuration =
+  (function
+   | {
+       container_name = v_container_name;
+       properties = v_properties;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_name
+         in
+         ("container_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : proxy_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_proxy_configuration
+
+[@@@deriving.end]
 
 type runtime_platform = {
   cpu_architecture : string prop option; [@option]
-      (** cpu_architecture *)
   operating_system_family : string prop option; [@option]
-      (** operating_system_family *)
 }
-[@@deriving yojson_of]
-(** runtime_platform *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : runtime_platform) -> ()
+
+let yojson_of_runtime_platform =
+  (function
+   | {
+       cpu_architecture = v_cpu_architecture;
+       operating_system_family = v_operating_system_family;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_operating_system_family with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operating_system_family", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cpu_architecture with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cpu_architecture", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : runtime_platform -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_runtime_platform
+
+[@@@deriving.end]
 
 type volume__docker_volume_configuration = {
-  autoprovision : bool prop option; [@option]  (** autoprovision *)
-  driver : string prop option; [@option]  (** driver *)
+  autoprovision : bool prop option; [@option]
+  driver : string prop option; [@option]
   driver_opts : (string * string prop) list option; [@option]
-      (** driver_opts *)
   labels : (string * string prop) list option; [@option]
-      (** labels *)
-  scope : string prop option; [@option]  (** scope *)
+  scope : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** volume__docker_volume_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : volume__docker_volume_configuration) -> ()
+
+let yojson_of_volume__docker_volume_configuration =
+  (function
+   | {
+       autoprovision = v_autoprovision;
+       driver = v_driver;
+       driver_opts = v_driver_opts;
+       labels = v_labels;
+       scope = v_scope;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_driver_opts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "driver_opts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_driver with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "driver", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_autoprovision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "autoprovision", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : volume__docker_volume_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_volume__docker_volume_configuration
+
+[@@@deriving.end]
 
 type volume__efs_volume_configuration__authorization_config = {
   access_point_id : string prop option; [@option]
-      (** access_point_id *)
-  iam : string prop option; [@option]  (** iam *)
+  iam : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** volume__efs_volume_configuration__authorization_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : volume__efs_volume_configuration__authorization_config) ->
+  ()
+
+let yojson_of_volume__efs_volume_configuration__authorization_config
+    =
+  (function
+   | { access_point_id = v_access_point_id; iam = v_iam } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_iam with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "iam", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_point_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_point_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : volume__efs_volume_configuration__authorization_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_volume__efs_volume_configuration__authorization_config
+
+[@@@deriving.end]
 
 type volume__efs_volume_configuration = {
-  file_system_id : string prop;  (** file_system_id *)
+  file_system_id : string prop;
   root_directory : string prop option; [@option]
-      (** root_directory *)
   transit_encryption : string prop option; [@option]
-      (** transit_encryption *)
   transit_encryption_port : float prop option; [@option]
-      (** transit_encryption_port *)
   authorization_config :
     volume__efs_volume_configuration__authorization_config list;
 }
-[@@deriving yojson_of]
-(** volume__efs_volume_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : volume__efs_volume_configuration) -> ()
+
+let yojson_of_volume__efs_volume_configuration =
+  (function
+   | {
+       file_system_id = v_file_system_id;
+       root_directory = v_root_directory;
+       transit_encryption = v_transit_encryption;
+       transit_encryption_port = v_transit_encryption_port;
+       authorization_config = v_authorization_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_volume__efs_volume_configuration__authorization_config
+             v_authorization_config
+         in
+         ("authorization_config", arg) :: bnds
+       in
+       let bnds =
+         match v_transit_encryption_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "transit_encryption_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_transit_encryption with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transit_encryption", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_root_directory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "root_directory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_file_system_id
+         in
+         ("file_system_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : volume__efs_volume_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_volume__efs_volume_configuration
+
+[@@@deriving.end]
 
 type volume__fsx_windows_file_server_volume_configuration__authorization_config = {
-  credentials_parameter : string prop;  (** credentials_parameter *)
-  domain : string prop;  (** domain *)
+  credentials_parameter : string prop;
+  domain : string prop;
 }
-[@@deriving yojson_of]
-(** volume__fsx_windows_file_server_volume_configuration__authorization_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       volume__fsx_windows_file_server_volume_configuration__authorization_config) ->
+  ()
+
+let yojson_of_volume__fsx_windows_file_server_volume_configuration__authorization_config
+    =
+  (function
+   | {
+       credentials_parameter = v_credentials_parameter;
+       domain = v_domain;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_credentials_parameter
+         in
+         ("credentials_parameter", arg) :: bnds
+       in
+       `Assoc bnds
+    : volume__fsx_windows_file_server_volume_configuration__authorization_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_volume__fsx_windows_file_server_volume_configuration__authorization_config
+
+[@@@deriving.end]
 
 type volume__fsx_windows_file_server_volume_configuration = {
-  file_system_id : string prop;  (** file_system_id *)
-  root_directory : string prop;  (** root_directory *)
+  file_system_id : string prop;
+  root_directory : string prop;
   authorization_config :
     volume__fsx_windows_file_server_volume_configuration__authorization_config
     list;
 }
-[@@deriving yojson_of]
-(** volume__fsx_windows_file_server_volume_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : volume__fsx_windows_file_server_volume_configuration) -> ()
+
+let yojson_of_volume__fsx_windows_file_server_volume_configuration =
+  (function
+   | {
+       file_system_id = v_file_system_id;
+       root_directory = v_root_directory;
+       authorization_config = v_authorization_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_volume__fsx_windows_file_server_volume_configuration__authorization_config
+             v_authorization_config
+         in
+         ("authorization_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_root_directory
+         in
+         ("root_directory", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_file_system_id
+         in
+         ("file_system_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : volume__fsx_windows_file_server_volume_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_volume__fsx_windows_file_server_volume_configuration
+
+[@@@deriving.end]
 
 type volume = {
-  host_path : string prop option; [@option]  (** host_path *)
-  name : string prop;  (** name *)
+  host_path : string prop option; [@option]
+  name : string prop;
   docker_volume_configuration :
     volume__docker_volume_configuration list;
   efs_volume_configuration : volume__efs_volume_configuration list;
   fsx_windows_file_server_volume_configuration :
     volume__fsx_windows_file_server_volume_configuration list;
 }
-[@@deriving yojson_of]
-(** volume *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : volume) -> ()
+
+let yojson_of_volume =
+  (function
+   | {
+       host_path = v_host_path;
+       name = v_name;
+       docker_volume_configuration = v_docker_volume_configuration;
+       efs_volume_configuration = v_efs_volume_configuration;
+       fsx_windows_file_server_volume_configuration =
+         v_fsx_windows_file_server_volume_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_volume__fsx_windows_file_server_volume_configuration
+             v_fsx_windows_file_server_volume_configuration
+         in
+         ("fsx_windows_file_server_volume_configuration", arg)
+         :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_volume__efs_volume_configuration
+             v_efs_volume_configuration
+         in
+         ("efs_volume_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_volume__docker_volume_configuration
+             v_docker_volume_configuration
+         in
+         ("docker_volume_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_host_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_volume
+
+[@@@deriving.end]
 
 type aws_ecs_task_definition = {
-  container_definitions : string prop;  (** container_definitions *)
-  cpu : string prop option; [@option]  (** cpu *)
+  container_definitions : string prop;
+  cpu : string prop option; [@option]
   execution_role_arn : string prop option; [@option]
-      (** execution_role_arn *)
-  family : string prop;  (** family *)
-  id : string prop option; [@option]  (** id *)
-  ipc_mode : string prop option; [@option]  (** ipc_mode *)
-  memory : string prop option; [@option]  (** memory *)
-  network_mode : string prop option; [@option]  (** network_mode *)
-  pid_mode : string prop option; [@option]  (** pid_mode *)
+  family : string prop;
+  id : string prop option; [@option]
+  ipc_mode : string prop option; [@option]
+  memory : string prop option; [@option]
+  network_mode : string prop option; [@option]
+  pid_mode : string prop option; [@option]
   requires_compatibilities : string prop list option; [@option]
-      (** requires_compatibilities *)
-  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  skip_destroy : bool prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  task_role_arn : string prop option; [@option]  (** task_role_arn *)
-  track_latest : bool prop option; [@option]  (** track_latest *)
+  task_role_arn : string prop option; [@option]
+  track_latest : bool prop option; [@option]
   ephemeral_storage : ephemeral_storage list;
   inference_accelerator : inference_accelerator list;
   placement_constraints : placement_constraints list;
@@ -129,8 +564,215 @@ type aws_ecs_task_definition = {
   runtime_platform : runtime_platform list;
   volume : volume list;
 }
-[@@deriving yojson_of]
-(** aws_ecs_task_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ecs_task_definition) -> ()
+
+let yojson_of_aws_ecs_task_definition =
+  (function
+   | {
+       container_definitions = v_container_definitions;
+       cpu = v_cpu;
+       execution_role_arn = v_execution_role_arn;
+       family = v_family;
+       id = v_id;
+       ipc_mode = v_ipc_mode;
+       memory = v_memory;
+       network_mode = v_network_mode;
+       pid_mode = v_pid_mode;
+       requires_compatibilities = v_requires_compatibilities;
+       skip_destroy = v_skip_destroy;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       task_role_arn = v_task_role_arn;
+       track_latest = v_track_latest;
+       ephemeral_storage = v_ephemeral_storage;
+       inference_accelerator = v_inference_accelerator;
+       placement_constraints = v_placement_constraints;
+       proxy_configuration = v_proxy_configuration;
+       runtime_platform = v_runtime_platform;
+       volume = v_volume;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_volume v_volume in
+         ("volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_runtime_platform
+             v_runtime_platform
+         in
+         ("runtime_platform", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_proxy_configuration
+             v_proxy_configuration
+         in
+         ("proxy_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_placement_constraints
+             v_placement_constraints
+         in
+         ("placement_constraints", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_inference_accelerator
+             v_inference_accelerator
+         in
+         ("inference_accelerator", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ephemeral_storage
+             v_ephemeral_storage
+         in
+         ("ephemeral_storage", arg) :: bnds
+       in
+       let bnds =
+         match v_track_latest with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "track_latest", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_task_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "task_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skip_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_requires_compatibilities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "requires_compatibilities", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pid_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pid_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_memory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "memory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipc_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipc_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_family in
+         ("family", arg) :: bnds
+       in
+       let bnds =
+         match v_execution_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "execution_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cpu with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cpu", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_definitions
+         in
+         ("container_definitions", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ecs_task_definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ecs_task_definition
+
+[@@@deriving.end]
 
 let ephemeral_storage ~size_in_gib () : ephemeral_storage =
   { size_in_gib }

@@ -3,48 +3,260 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type workload_profile = {
-  maximum_count : float prop;  (** maximum_count *)
-  minimum_count : float prop;  (** minimum_count *)
-  name : string prop;  (** name *)
-  workload_profile_type : string prop;  (** workload_profile_type *)
+  maximum_count : float prop;
+  minimum_count : float prop;
+  name : string prop;
+  workload_profile_type : string prop;
 }
-[@@deriving yojson_of]
-(** workload_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : workload_profile) -> ()
+
+let yojson_of_workload_profile =
+  (function
+   | {
+       maximum_count = v_maximum_count;
+       minimum_count = v_minimum_count;
+       name = v_name;
+       workload_profile_type = v_workload_profile_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_workload_profile_type
+         in
+         ("workload_profile_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minimum_count in
+         ("minimum_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_maximum_count in
+         ("maximum_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : workload_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_workload_profile
+
+[@@@deriving.end]
 
 type azurerm_container_app_environment = {
   dapr_application_insights_connection_string : string prop option;
       [@option]
-      (** Application Insights connection string used by Dapr to export Service to Service communication telemetry. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   infrastructure_resource_group_name : string prop option; [@option]
-      (** Name of the platform-managed resource group created for the Managed Environment to host infrastructure resources. **Note:** Only valid if a `workload_profile` is specified. If `infrastructure_subnet_id` is specified, this resource group will be created in the same subscription as `infrastructure_subnet_id`. *)
   infrastructure_subnet_id : string prop option; [@option]
-      (** The existing Subnet to use for the Container Apps Control Plane. **NOTE:** The Subnet must have a `/21` or larger address space. *)
   internal_load_balancer_enabled : bool prop option; [@option]
-      (** Should the Container Environment operate in Internal Load Balancing Mode? Defaults to `false`. **Note:** can only be set to `true` if `infrastructure_subnet_id` is specified. *)
-  location : string prop;  (** location *)
+  location : string prop;
   log_analytics_workspace_id : string prop option; [@option]
-      (** The ID for the Log Analytics Workspace to link this Container Apps Managed Environment to. *)
   name : string prop;
-      (** The name of the Container Apps Managed Environment. *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   zone_redundancy_enabled : bool prop option; [@option]
-      (** zone_redundancy_enabled *)
   timeouts : timeouts option;
   workload_profile : workload_profile list;
 }
-[@@deriving yojson_of]
-(** azurerm_container_app_environment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_container_app_environment) -> ()
+
+let yojson_of_azurerm_container_app_environment =
+  (function
+   | {
+       dapr_application_insights_connection_string =
+         v_dapr_application_insights_connection_string;
+       id = v_id;
+       infrastructure_resource_group_name =
+         v_infrastructure_resource_group_name;
+       infrastructure_subnet_id = v_infrastructure_subnet_id;
+       internal_load_balancer_enabled =
+         v_internal_load_balancer_enabled;
+       location = v_location;
+       log_analytics_workspace_id = v_log_analytics_workspace_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       zone_redundancy_enabled = v_zone_redundancy_enabled;
+       timeouts = v_timeouts;
+       workload_profile = v_workload_profile;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_workload_profile
+             v_workload_profile
+         in
+         ("workload_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_zone_redundancy_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "zone_redundancy_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_log_analytics_workspace_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_analytics_workspace_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_internal_load_balancer_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "internal_load_balancer_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_infrastructure_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "infrastructure_subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_infrastructure_resource_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "infrastructure_resource_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dapr_application_insights_connection_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "dapr_application_insights_connection_string", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_container_app_environment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_container_app_environment
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

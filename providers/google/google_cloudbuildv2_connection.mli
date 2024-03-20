@@ -10,6 +10,8 @@ type installation_state = {
   stage : string prop;  (** stage *)
 }
 
+[@@@deriving.end]
+
 type github_config__authorizer_credential
 
 val github_config__authorizer_credential :

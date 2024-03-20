@@ -3,26 +3,109 @@
 open! Tf_core
 
 type rule__repository_filter = {
-  filter : string prop;  (** filter *)
-  filter_type : string prop;  (** filter_type *)
+  filter : string prop;
+  filter_type : string prop;
 }
-[@@deriving yojson_of]
-(** rule__repository_filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__repository_filter) -> ()
+
+let yojson_of_rule__repository_filter =
+  (function
+   | { filter = v_filter; filter_type = v_filter_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter_type in
+         ("filter_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__repository_filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__repository_filter
+
+[@@@deriving.end]
 
 type rule = {
-  scan_frequency : string prop;  (** scan_frequency *)
+  scan_frequency : string prop;
   repository_filter : rule__repository_filter list;
 }
-[@@deriving yojson_of]
-(** rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule) -> ()
+
+let yojson_of_rule =
+  (function
+   | {
+       scan_frequency = v_scan_frequency;
+       repository_filter = v_repository_filter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__repository_filter
+             v_repository_filter
+         in
+         ("repository_filter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_scan_frequency
+         in
+         ("scan_frequency", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule
+
+[@@@deriving.end]
 
 type aws_ecr_registry_scanning_configuration = {
-  id : string prop option; [@option]  (** id *)
-  scan_type : string prop;  (** scan_type *)
+  id : string prop option; [@option]
+  scan_type : string prop;
   rule : rule list;
 }
-[@@deriving yojson_of]
-(** aws_ecr_registry_scanning_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ecr_registry_scanning_configuration) -> ()
+
+let yojson_of_aws_ecr_registry_scanning_configuration =
+  (function
+   | { id = v_id; scan_type = v_scan_type; rule = v_rule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rule v_rule in
+         ("rule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_scan_type in
+         ("scan_type", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ecr_registry_scanning_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ecr_registry_scanning_configuration
+
+[@@@deriving.end]
 
 let rule__repository_filter ~filter ~filter_type () :
     rule__repository_filter =

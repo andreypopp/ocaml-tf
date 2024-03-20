@@ -3,31 +3,159 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_stream_analytics_output_powerbi = {
-  dataset : string prop;  (** dataset *)
-  group_id : string prop;  (** group_id *)
-  group_name : string prop;  (** group_name *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  dataset : string prop;
+  group_id : string prop;
+  group_name : string prop;
+  id : string prop option; [@option]
+  name : string prop;
   stream_analytics_job_id : string prop;
-      (** stream_analytics_job_id *)
-  table : string prop;  (** table *)
+  table : string prop;
   token_user_display_name : string prop option; [@option]
-      (** token_user_display_name *)
   token_user_principal_name : string prop option; [@option]
-      (** token_user_principal_name *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_stream_analytics_output_powerbi *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_stream_analytics_output_powerbi) -> ()
+
+let yojson_of_azurerm_stream_analytics_output_powerbi =
+  (function
+   | {
+       dataset = v_dataset;
+       group_id = v_group_id;
+       group_name = v_group_name;
+       id = v_id;
+       name = v_name;
+       stream_analytics_job_id = v_stream_analytics_job_id;
+       table = v_table;
+       token_user_display_name = v_token_user_display_name;
+       token_user_principal_name = v_token_user_principal_name;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_token_user_principal_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token_user_principal_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_token_user_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token_user_display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table in
+         ("table", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_stream_analytics_job_id
+         in
+         ("stream_analytics_job_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group_name in
+         ("group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group_id in
+         ("group_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset in
+         ("dataset", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_stream_analytics_output_powerbi ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_stream_analytics_output_powerbi
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

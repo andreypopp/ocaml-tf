@@ -3,23 +3,110 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_lambda_provisioned_concurrency_config = {
-  function_name : string prop;  (** function_name *)
-  id : string prop option; [@option]  (** id *)
+  function_name : string prop;
+  id : string prop option; [@option]
   provisioned_concurrent_executions : float prop;
-      (** provisioned_concurrent_executions *)
-  qualifier : string prop;  (** qualifier *)
-  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  qualifier : string prop;
+  skip_destroy : bool prop option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_lambda_provisioned_concurrency_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lambda_provisioned_concurrency_config) -> ()
+
+let yojson_of_aws_lambda_provisioned_concurrency_config =
+  (function
+   | {
+       function_name = v_function_name;
+       id = v_id;
+       provisioned_concurrent_executions =
+         v_provisioned_concurrent_executions;
+       qualifier = v_qualifier;
+       skip_destroy = v_skip_destroy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_skip_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_qualifier in
+         ("qualifier", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_provisioned_concurrent_executions
+         in
+         ("provisioned_concurrent_executions", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_function_name in
+         ("function_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lambda_provisioned_concurrency_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lambda_provisioned_concurrency_config
+
+[@@@deriving.end]
 
 let timeouts ?create ?update () : timeouts = { create; update }
 

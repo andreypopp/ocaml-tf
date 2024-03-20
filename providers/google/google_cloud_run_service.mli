@@ -12,12 +12,16 @@ type status__traffic = {
   url : string prop;  (** url *)
 }
 
+[@@@deriving.end]
+
 type status__conditions = {
   message : string prop;  (** message *)
   reason : string prop;  (** reason *)
   status : string prop;  (** status *)
   type_ : string prop; [@key "type"]  (** type *)
 }
+
+[@@@deriving.end]
 
 type status = {
   conditions : status__conditions list;  (** conditions *)
@@ -29,6 +33,8 @@ type status = {
   traffic : status__traffic list;  (** traffic *)
   url : string prop;  (** url *)
 }
+
+[@@@deriving.end]
 
 type metadata
 

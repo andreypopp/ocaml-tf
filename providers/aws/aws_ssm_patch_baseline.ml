@@ -3,66 +3,345 @@
 open! Tf_core
 
 type approval_rule__patch_filter = {
-  key : string prop;  (** key *)
-  values : string prop list;  (** values *)
+  key : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** approval_rule__patch_filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : approval_rule__patch_filter) -> ()
+
+let yojson_of_approval_rule__patch_filter =
+  (function
+   | { key = v_key; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : approval_rule__patch_filter ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_approval_rule__patch_filter
+
+[@@@deriving.end]
 
 type approval_rule = {
   approve_after_days : float prop option; [@option]
-      (** approve_after_days *)
   approve_until_date : string prop option; [@option]
-      (** approve_until_date *)
   compliance_level : string prop option; [@option]
-      (** compliance_level *)
   enable_non_security : bool prop option; [@option]
-      (** enable_non_security *)
   patch_filter : approval_rule__patch_filter list;
 }
-[@@deriving yojson_of]
-(** approval_rule *)
+[@@deriving_inline yojson_of]
 
-type global_filter = {
-  key : string prop;  (** key *)
-  values : string prop list;  (** values *)
-}
-[@@deriving yojson_of]
-(** global_filter *)
+let _ = fun (_ : approval_rule) -> ()
+
+let yojson_of_approval_rule =
+  (function
+   | {
+       approve_after_days = v_approve_after_days;
+       approve_until_date = v_approve_until_date;
+       compliance_level = v_compliance_level;
+       enable_non_security = v_enable_non_security;
+       patch_filter = v_patch_filter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_approval_rule__patch_filter
+             v_patch_filter
+         in
+         ("patch_filter", arg) :: bnds
+       in
+       let bnds =
+         match v_enable_non_security with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_non_security", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compliance_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compliance_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_approve_until_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "approve_until_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_approve_after_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "approve_after_days", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : approval_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_approval_rule
+
+[@@@deriving.end]
+
+type global_filter = { key : string prop; values : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : global_filter) -> ()
+
+let yojson_of_global_filter =
+  (function
+   | { key = v_key; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : global_filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_global_filter
+
+[@@@deriving.end]
 
 type source = {
-  configuration : string prop;  (** configuration *)
-  name : string prop;  (** name *)
-  products : string prop list;  (** products *)
+  configuration : string prop;
+  name : string prop;
+  products : string prop list;
 }
-[@@deriving yojson_of]
-(** source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source) -> ()
+
+let yojson_of_source =
+  (function
+   | {
+       configuration = v_configuration;
+       name = v_name;
+       products = v_products;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_products
+         in
+         ("products", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_configuration in
+         ("configuration", arg) :: bnds
+       in
+       `Assoc bnds
+    : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source
+
+[@@@deriving.end]
 
 type aws_ssm_patch_baseline = {
   approved_patches : string prop list option; [@option]
-      (** approved_patches *)
   approved_patches_compliance_level : string prop option; [@option]
-      (** approved_patches_compliance_level *)
   approved_patches_enable_non_security : bool prop option; [@option]
-      (** approved_patches_enable_non_security *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   operating_system : string prop option; [@option]
-      (** operating_system *)
   rejected_patches : string prop list option; [@option]
-      (** rejected_patches *)
   rejected_patches_action : string prop option; [@option]
-      (** rejected_patches_action *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   approval_rule : approval_rule list;
   global_filter : global_filter list;
   source : source list;
 }
-[@@deriving yojson_of]
-(** aws_ssm_patch_baseline *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssm_patch_baseline) -> ()
+
+let yojson_of_aws_ssm_patch_baseline =
+  (function
+   | {
+       approved_patches = v_approved_patches;
+       approved_patches_compliance_level =
+         v_approved_patches_compliance_level;
+       approved_patches_enable_non_security =
+         v_approved_patches_enable_non_security;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       operating_system = v_operating_system;
+       rejected_patches = v_rejected_patches;
+       rejected_patches_action = v_rejected_patches_action;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       approval_rule = v_approval_rule;
+       global_filter = v_global_filter;
+       source = v_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_source v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_global_filter v_global_filter
+         in
+         ("global_filter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_approval_rule v_approval_rule
+         in
+         ("approval_rule", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rejected_patches_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rejected_patches_action", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rejected_patches with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "rejected_patches", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operating_system with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operating_system", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_approved_patches_enable_non_security with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "approved_patches_enable_non_security", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_approved_patches_compliance_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "approved_patches_compliance_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_approved_patches with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "approved_patches", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ssm_patch_baseline -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssm_patch_baseline
+
+[@@@deriving.end]
 
 let approval_rule__patch_filter ~key ~values () :
     approval_rule__patch_filter =

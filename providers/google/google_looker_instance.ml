@@ -4,176 +4,521 @@ open! Tf_core
 
 type admin_settings = {
   allowed_email_domains : string prop list option; [@option]
-      (** Email domain allowlist for the instance.
-
-Define the email domains to which your users can deliver Looker (Google Cloud core) content.
-Updating this list will restart the instance. Updating the allowed email domains from terraform
-means the value provided will be considered as the entire list and not an amendment to the
-existing list of allowed email domains. *)
 }
-[@@deriving yojson_of]
-(** Looker instance Admin settings. *)
+[@@deriving_inline yojson_of]
 
-type custom_domain = {
-  domain : string prop option; [@option]  (** Domain name *)
-}
-[@@deriving yojson_of]
-(** Custom domain settings for a Looker instance. *)
+let _ = fun (_ : admin_settings) -> ()
+
+let yojson_of_admin_settings =
+  (function
+   | { allowed_email_domains = v_allowed_email_domains } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_allowed_email_domains with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_email_domains", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : admin_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_admin_settings
+
+[@@@deriving.end]
+
+type custom_domain = { domain : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_domain) -> ()
+
+let yojson_of_custom_domain =
+  (function
+   | { domain = v_domain } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_domain -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_domain
+
+[@@@deriving.end]
 
 type deny_maintenance_period__end_date = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
-to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a
-month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without
-a year. *)
 }
-[@@deriving yojson_of]
-(** Required. Start date of the deny maintenance period *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deny_maintenance_period__end_date) -> ()
+
+let yojson_of_deny_maintenance_period__end_date =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deny_maintenance_period__end_date ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deny_maintenance_period__end_date
+
+[@@@deriving.end]
 
 type deny_maintenance_period__start_date = {
   day : float prop option; [@option]
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month, or 0
-to specify a year by itself or a year and month where the day isn't significant. *)
   month : float prop option; [@option]
-      (** Month of a year. Must be from 1 to 12, or 0 to specify a year without a
-month and day. *)
   year : float prop option; [@option]
-      (** Year of the date. Must be from 1 to 9999, or 0 to specify a date without
-a year. *)
 }
-[@@deriving yojson_of]
-(** Required. Start date of the deny maintenance period *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deny_maintenance_period__start_date) -> ()
+
+let yojson_of_deny_maintenance_period__start_date =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_year with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "year", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "month", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deny_maintenance_period__start_date ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deny_maintenance_period__start_date
+
+[@@@deriving.end]
 
 type deny_maintenance_period__time = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. *)
 }
-[@@deriving yojson_of]
-(** Required. Start time of the window in UTC time. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deny_maintenance_period__time) -> ()
+
+let yojson_of_deny_maintenance_period__time =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deny_maintenance_period__time ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deny_maintenance_period__time
+
+[@@@deriving.end]
 
 type deny_maintenance_period = {
   end_date : deny_maintenance_period__end_date list;
   start_date : deny_maintenance_period__start_date list;
   time : deny_maintenance_period__time list;
 }
-[@@deriving yojson_of]
-(** Maintenance denial period for this instance.
+[@@deriving_inline yojson_of]
 
-You must allow at least 14 days of maintenance availability
-between any two deny maintenance periods. *)
+let _ = fun (_ : deny_maintenance_period) -> ()
+
+let yojson_of_deny_maintenance_period =
+  (function
+   | {
+       end_date = v_end_date;
+       start_date = v_start_date;
+       time = v_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_deny_maintenance_period__time
+             v_time
+         in
+         ("time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deny_maintenance_period__start_date
+             v_start_date
+         in
+         ("start_date", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_deny_maintenance_period__end_date
+             v_end_date
+         in
+         ("end_date", arg) :: bnds
+       in
+       `Assoc bnds
+    : deny_maintenance_period -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deny_maintenance_period
+
+[@@@deriving.end]
 
 type encryption_config = {
   kms_key_name : string prop option; [@option]
-      (** Name of the customer managed encryption key (CMEK) in KMS. *)
 }
-[@@deriving yojson_of]
-(** Looker instance encryption settings. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_config) -> ()
+
+let yojson_of_encryption_config =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : encryption_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_config
+
+[@@@deriving.end]
 
 type maintenance_window__start_time = {
   hours : float prop option; [@option]
-      (** Hours of day in 24 hour format. Should be from 0 to 23. *)
   minutes : float prop option; [@option]
-      (** Minutes of hour of day. Must be from 0 to 59. *)
   nanos : float prop option; [@option]
-      (** Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999. *)
   seconds : float prop option; [@option]
-      (** Seconds of minutes of the time. Must normally be from 0 to 59. *)
 }
-[@@deriving yojson_of]
-(** Required. Start time of the window in UTC time. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_window__start_time) -> ()
+
+let yojson_of_maintenance_window__start_time =
+  (function
+   | {
+       hours = v_hours;
+       minutes = v_minutes;
+       nanos = v_nanos;
+       seconds = v_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hours", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : maintenance_window__start_time ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_window__start_time
+
+[@@@deriving.end]
 
 type maintenance_window = {
   day_of_week : string prop;
-      (** Required. Day of the week for this MaintenanceWindow (in UTC).
-
-- MONDAY: Monday
-- TUESDAY: Tuesday
-- WEDNESDAY: Wednesday
-- THURSDAY: Thursday
-- FRIDAY: Friday
-- SATURDAY: Saturday
-- SUNDAY: Sunday Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
   start_time : maintenance_window__start_time list;
 }
-[@@deriving yojson_of]
-(** Maintenance window for an instance.
+[@@deriving_inline yojson_of]
 
-Maintenance of your instance takes place once a month, and will require
-your instance to be restarted during updates, which will temporarily
-disrupt service. *)
+let _ = fun (_ : maintenance_window) -> ()
+
+let yojson_of_maintenance_window =
+  (function
+   | { day_of_week = v_day_of_week; start_time = v_start_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_window__start_time
+             v_start_time
+         in
+         ("start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_day_of_week in
+         ("day_of_week", arg) :: bnds
+       in
+       `Assoc bnds
+    : maintenance_window -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_window
+
+[@@@deriving.end]
 
 type oauth_config = {
   client_id : string prop;
-      (** The client ID for the Oauth config. *)
   client_secret : string prop;
-      (** The client secret for the Oauth config. *)
 }
-[@@deriving yojson_of]
-(** Looker Instance OAuth login settings. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : oauth_config) -> ()
+
+let yojson_of_oauth_config =
+  (function
+   | { client_id = v_client_id; client_secret = v_client_secret } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_secret in
+         ("client_secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_id in
+         ("client_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : oauth_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_oauth_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type user_metadata = {
   additional_developer_user_count : float prop option; [@option]
-      (** Number of additional Developer Users to allocate to the Looker Instance. *)
   additional_standard_user_count : float prop option; [@option]
-      (** Number of additional Standard Users to allocate to the Looker Instance. *)
   additional_viewer_user_count : float prop option; [@option]
-      (** Number of additional Viewer Users to allocate to the Looker Instance. *)
 }
-[@@deriving yojson_of]
-(** Metadata about users for a Looker instance.
+[@@deriving_inline yojson_of]
 
-These settings are only available when platform edition LOOKER_CORE_STANDARD is set.
+let _ = fun (_ : user_metadata) -> ()
 
-There are ten Standard and two Developer users included in the cost of the product.
-You can allocate additional Standard, Viewer, and Developer users for this instance.
-It is an optional step and can be modified later.
+let yojson_of_user_metadata =
+  (function
+   | {
+       additional_developer_user_count =
+         v_additional_developer_user_count;
+       additional_standard_user_count =
+         v_additional_standard_user_count;
+       additional_viewer_user_count = v_additional_viewer_user_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_additional_viewer_user_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "additional_viewer_user_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_additional_standard_user_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "additional_standard_user_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_additional_developer_user_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "additional_developer_user_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : user_metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-With the Standard edition of Looker (Google Cloud core), you can provision up to 50
-total users, distributed across Viewer, Standard, and Developer. *)
+let _ = yojson_of_user_metadata
+
+[@@@deriving.end]
 
 type google_looker_instance = {
   consumer_network : string prop option; [@option]
-      (** Network name in the consumer project in the format of: projects/{project}/global/networks/{network}
-Note that the consumer network may be in a different GCP project than the consumer
-project that is hosting the Looker Instance. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The ID of the instance or a fully qualified identifier for the instance. *)
   platform_edition : string prop option; [@option]
-      (** Platform editions for a Looker instance. Each edition maps to a set of instance features, like its size. Must be one of these values:
-- LOOKER_CORE_TRIAL: trial instance
-- LOOKER_CORE_STANDARD: pay as you go standard instance
-- LOOKER_CORE_STANDARD_ANNUAL: subscription standard instance
-- LOOKER_CORE_ENTERPRISE_ANNUAL: subscription enterprise instance
-- LOOKER_CORE_EMBED_ANNUAL: subscription embed instance Default value: LOOKER_CORE_TRIAL Possible values: [LOOKER_CORE_TRIAL, LOOKER_CORE_STANDARD, LOOKER_CORE_STANDARD_ANNUAL, LOOKER_CORE_ENTERPRISE_ANNUAL, LOOKER_CORE_EMBED_ANNUAL] *)
   private_ip_enabled : bool prop option; [@option]
-      (** Whether private IP is enabled on the Looker instance. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   public_ip_enabled : bool prop option; [@option]
-      (** Whether public IP is enabled on the Looker instance. *)
   region : string prop option; [@option]
-      (** The name of the Looker region of the instance. *)
   reserved_range : string prop option; [@option]
-      (** Name of a reserved IP address range within the consumer network, to be used for
-private service access connection. User may or may not specify this in a request. *)
   admin_settings : admin_settings list;
   custom_domain : custom_domain list;
   deny_maintenance_period : deny_maintenance_period list;
@@ -183,8 +528,157 @@ private service access connection. User may or may not specify this in a request
   timeouts : timeouts option;
   user_metadata : user_metadata list;
 }
-[@@deriving yojson_of]
-(** google_looker_instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_looker_instance) -> ()
+
+let yojson_of_google_looker_instance =
+  (function
+   | {
+       consumer_network = v_consumer_network;
+       id = v_id;
+       name = v_name;
+       platform_edition = v_platform_edition;
+       private_ip_enabled = v_private_ip_enabled;
+       project = v_project;
+       public_ip_enabled = v_public_ip_enabled;
+       region = v_region;
+       reserved_range = v_reserved_range;
+       admin_settings = v_admin_settings;
+       custom_domain = v_custom_domain;
+       deny_maintenance_period = v_deny_maintenance_period;
+       encryption_config = v_encryption_config;
+       maintenance_window = v_maintenance_window;
+       oauth_config = v_oauth_config;
+       timeouts = v_timeouts;
+       user_metadata = v_user_metadata;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_user_metadata v_user_metadata
+         in
+         ("user_metadata", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_oauth_config v_oauth_config
+         in
+         ("oauth_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_window
+             v_maintenance_window
+         in
+         ("maintenance_window", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption_config
+             v_encryption_config
+         in
+         ("encryption_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_deny_maintenance_period
+             v_deny_maintenance_period
+         in
+         ("deny_maintenance_period", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_domain v_custom_domain
+         in
+         ("custom_domain", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_admin_settings v_admin_settings
+         in
+         ("admin_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_reserved_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "reserved_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_ip_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "public_ip_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_ip_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "private_ip_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_platform_edition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "platform_edition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_consumer_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "consumer_network", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_looker_instance -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_looker_instance
+
+[@@@deriving.end]
 
 let admin_settings ?allowed_email_domains () : admin_settings =
   { allowed_email_domains }

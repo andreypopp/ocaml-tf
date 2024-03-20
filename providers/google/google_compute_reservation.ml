@@ -3,103 +3,390 @@
 open! Tf_core
 
 type share_settings__project_map = {
-  id : string prop;  (** id *)
+  id : string prop;
   project_id : string prop option; [@option]
-      (** The project id/number, should be same as the key of this project config in the project map. *)
 }
-[@@deriving yojson_of]
-(** A map of project number and project config. This is only valid when shareType's value is SPECIFIC_PROJECTS. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : share_settings__project_map) -> ()
+
+let yojson_of_share_settings__project_map =
+  (function
+   | { id = v_id; project_id = v_project_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : share_settings__project_map ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_share_settings__project_map
+
+[@@@deriving.end]
 
 type share_settings = {
   share_type : string prop option; [@option]
-      (** Type of sharing for this shared-reservation Possible values: [LOCAL, SPECIFIC_PROJECTS] *)
   project_map : share_settings__project_map list;
 }
-[@@deriving yojson_of]
-(** The share setting for reservations. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : share_settings) -> ()
+
+let yojson_of_share_settings =
+  (function
+   | { share_type = v_share_type; project_map = v_project_map } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_share_settings__project_map
+             v_project_map
+         in
+         ("project_map", arg) :: bnds
+       in
+       let bnds =
+         match v_share_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "share_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : share_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_share_settings
+
+[@@@deriving.end]
 
 type specific_reservation__instance_properties__guest_accelerators = {
   accelerator_count : float prop;
-      (** The number of the guest accelerator cards exposed to
-this instance. *)
   accelerator_type : string prop;
-      (** The full or partial URL of the accelerator type to
-attach to this instance. For example:
-'projects/my-project/zones/us-central1-c/acceleratorTypes/nvidia-tesla-p100'
-
-If you are creating an instance template, specify only the accelerator name. *)
 }
-[@@deriving yojson_of]
-(** Guest accelerator type and count. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       specific_reservation__instance_properties__guest_accelerators) ->
+  ()
+
+let yojson_of_specific_reservation__instance_properties__guest_accelerators
+    =
+  (function
+   | {
+       accelerator_count = v_accelerator_count;
+       accelerator_type = v_accelerator_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_accelerator_type
+         in
+         ("accelerator_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_accelerator_count
+         in
+         ("accelerator_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : specific_reservation__instance_properties__guest_accelerators ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_specific_reservation__instance_properties__guest_accelerators
+
+[@@@deriving.end]
 
 type specific_reservation__instance_properties__local_ssds = {
   disk_size_gb : float prop;
-      (** The size of the disk in base-2 GB. *)
   interface : string prop option; [@option]
-      (** The disk interface to use for attaching this disk. Default value: SCSI Possible values: [SCSI, NVME] *)
 }
-[@@deriving yojson_of]
-(** The amount of local ssd to reserve with each instance. This
-reserves disks of type 'local-ssd'. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : specific_reservation__instance_properties__local_ssds) ->
+  ()
+
+let yojson_of_specific_reservation__instance_properties__local_ssds =
+  (function
+   | { disk_size_gb = v_disk_size_gb; interface = v_interface } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_interface with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "interface", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_disk_size_gb in
+         ("disk_size_gb", arg) :: bnds
+       in
+       `Assoc bnds
+    : specific_reservation__instance_properties__local_ssds ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_specific_reservation__instance_properties__local_ssds
+
+[@@@deriving.end]
 
 type specific_reservation__instance_properties = {
   machine_type : string prop;
-      (** The name of the machine type to reserve. *)
   min_cpu_platform : string prop option; [@option]
-      (** The minimum CPU platform for the reservation. For example,
-'Intel Skylake'. See
-the CPU platform availability reference](https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform#availablezones)
-for information on available CPU platforms. *)
   guest_accelerators :
     specific_reservation__instance_properties__guest_accelerators
     list;
   local_ssds :
     specific_reservation__instance_properties__local_ssds list;
 }
-[@@deriving yojson_of]
-(** The instance properties for the reservation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : specific_reservation__instance_properties) -> ()
+
+let yojson_of_specific_reservation__instance_properties =
+  (function
+   | {
+       machine_type = v_machine_type;
+       min_cpu_platform = v_min_cpu_platform;
+       guest_accelerators = v_guest_accelerators;
+       local_ssds = v_local_ssds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_specific_reservation__instance_properties__local_ssds
+             v_local_ssds
+         in
+         ("local_ssds", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_specific_reservation__instance_properties__guest_accelerators
+             v_guest_accelerators
+         in
+         ("guest_accelerators", arg) :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_machine_type in
+         ("machine_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : specific_reservation__instance_properties ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_specific_reservation__instance_properties
+
+[@@@deriving.end]
 
 type specific_reservation = {
   count : float prop;
-      (** The number of resources that are allocated. *)
   instance_properties :
     specific_reservation__instance_properties list;
 }
-[@@deriving yojson_of]
-(** Reservation for instances with specific machine shapes. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : specific_reservation) -> ()
+
+let yojson_of_specific_reservation =
+  (function
+   | { count = v_count; instance_properties = v_instance_properties }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_specific_reservation__instance_properties
+             v_instance_properties
+         in
+         ("instance_properties", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_count in
+         ("count", arg) :: bnds
+       in
+       `Assoc bnds
+    : specific_reservation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_specific_reservation
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_reservation = {
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Name of the resource. Provided by the client when the resource is
-created. The name must be 1-63 characters long, and comply with
-RFC1035. Specifically, the name must be 1-63 characters long and match
-the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
-first character must be a lowercase letter, and all following
-characters must be a dash, lowercase letter, or digit, except the last
-character, which cannot be a dash. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   specific_reservation_required : bool prop option; [@option]
-      (** When set to true, only VMs that target this reservation by name can
-consume this reservation. Otherwise, it can be consumed by VMs with
-affinity for any reservation. Defaults to false. *)
-  zone : string prop;  (** The zone where the reservation is made. *)
+  zone : string prop;
   share_settings : share_settings list;
   specific_reservation : specific_reservation list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_reservation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_reservation) -> ()
+
+let yojson_of_google_compute_reservation =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       specific_reservation_required =
+         v_specific_reservation_required;
+       zone = v_zone;
+       share_settings = v_share_settings;
+       specific_reservation = v_specific_reservation;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_specific_reservation
+             v_specific_reservation
+         in
+         ("specific_reservation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_share_settings v_share_settings
+         in
+         ("share_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone in
+         ("zone", arg) :: bnds
+       in
+       let bnds =
+         match v_specific_reservation_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "specific_reservation_required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_reservation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_reservation
+
+[@@@deriving.end]
 
 let share_settings__project_map ?project_id ~id () :
     share_settings__project_map =

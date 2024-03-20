@@ -3,36 +3,146 @@
 open! Tf_core
 
 type notifications__slack = {
-  channel : string prop;  (** The Slack channel to send alerts to *)
-  url : string prop;  (** The webhook URL for Slack *)
+  channel : string prop;
+  url : string prop;
 }
-[@@deriving yojson_of]
-(** notifications__slack *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notifications__slack) -> ()
+
+let yojson_of_notifications__slack =
+  (function
+   | { channel = v_channel; url = v_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_channel in
+         ("channel", arg) :: bnds
+       in
+       `Assoc bnds
+    : notifications__slack -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notifications__slack
+
+[@@@deriving.end]
 
 type notifications = {
   email : string prop list option; [@option]
-      (** List of email addresses to sent notifications to *)
   slack : notifications__slack list;
 }
-[@@deriving yojson_of]
-(** The notification settings for a trigger alert. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notifications) -> ()
+
+let yojson_of_notifications =
+  (function
+   | { email = v_email; slack = v_slack } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_notifications__slack v_slack
+         in
+         ("slack", arg) :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : notifications -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notifications
+
+[@@@deriving.end]
 
 type digitalocean_uptime_alert = {
-  check_id : string prop;  (** A unique identifier for a check. *)
+  check_id : string prop;
   comparison : string prop option; [@option]
-      (** The comparison operator used against the alert's threshold. Enum: 'greater_than' 'less_than *)
   name : string prop;
-      (** A human-friendly display name for the alert. *)
   period : string prop option; [@option]
-      (** Period of time the threshold must be exceeded to trigger the alert. Enum '2m' '3m' '5m' '10m' '15m' '30m' '1h' *)
   threshold : float prop option; [@option]
-      (** The threshold at which the alert will enter a trigger state. The specific threshold is dependent on the alert type. *)
   type_ : string prop; [@key "type"]
-      (** The type of health check to perform. Enum: 'latency' 'down' 'down_global' 'ssl_expiry' *)
   notifications : notifications list;
 }
-[@@deriving yojson_of]
-(** digitalocean_uptime_alert *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_uptime_alert) -> ()
+
+let yojson_of_digitalocean_uptime_alert =
+  (function
+   | {
+       check_id = v_check_id;
+       comparison = v_comparison;
+       name = v_name;
+       period = v_period;
+       threshold = v_threshold;
+       type_ = v_type_;
+       notifications = v_notifications;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_notifications v_notifications
+         in
+         ("notifications", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_comparison with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comparison", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_check_id in
+         ("check_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_uptime_alert -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_uptime_alert
+
+[@@@deriving.end]
 
 let notifications__slack ~channel ~url () : notifications__slack =
   { channel; url }

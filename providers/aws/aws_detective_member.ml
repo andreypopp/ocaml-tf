@@ -3,16 +3,72 @@
 open! Tf_core
 
 type aws_detective_member = {
-  account_id : string prop;  (** account_id *)
+  account_id : string prop;
   disable_email_notification : bool prop option; [@option]
-      (** disable_email_notification *)
-  email_address : string prop;  (** email_address *)
-  graph_arn : string prop;  (** graph_arn *)
-  id : string prop option; [@option]  (** id *)
-  message : string prop option; [@option]  (** message *)
+  email_address : string prop;
+  graph_arn : string prop;
+  id : string prop option; [@option]
+  message : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_detective_member *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_detective_member) -> ()
+
+let yojson_of_aws_detective_member =
+  (function
+   | {
+       account_id = v_account_id;
+       disable_email_notification = v_disable_email_notification;
+       email_address = v_email_address;
+       graph_arn = v_graph_arn;
+       id = v_id;
+       message = v_message;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_message with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "message", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_graph_arn in
+         ("graph_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email_address in
+         ("email_address", arg) :: bnds
+       in
+       let bnds =
+         match v_disable_email_notification with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_email_notification", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_detective_member -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_detective_member
+
+[@@@deriving.end]
 
 let aws_detective_member ?disable_email_notification ?id ?message
     ~account_id ~email_address ~graph_arn () : aws_detective_member =

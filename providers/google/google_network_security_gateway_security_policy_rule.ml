@@ -3,41 +3,175 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_network_security_gateway_security_policy_rule = {
   application_matcher : string prop option; [@option]
-      (** CEL expression for matching on L7/application level criteria. *)
   basic_profile : string prop;
-      (** Profile which tells what the primitive action should be. Possible values are: * ALLOW * DENY. Possible values: [BASIC_PROFILE_UNSPECIFIED, ALLOW, DENY] *)
   description : string prop option; [@option]
-      (** Free-text description of the resource. *)
-  enabled : bool prop;  (** Whether the rule is enforced. *)
+  enabled : bool prop;
   gateway_security_policy : string prop;
-      (** The name of the gatewat security policy this rule belongs to. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location : string prop;
-      (** The location of the gateway security policy. *)
   name : string prop;
-      (** Name of the resource. ame is the full resource name so projects/{project}/locations/{location}/gatewaySecurityPolicies/{gateway_security_policy}/rules/{rule}
-rule should match the pattern: (^a-z?$). *)
   priority : float prop;
-      (** Priority of the rule. Lower number corresponds to higher precedence. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   session_matcher : string prop;
-      (** CEL expression for matching on session criteria. *)
   tls_inspection_enabled : bool prop option; [@option]
-      (** Flag to enable TLS inspection of traffic matching on. Can only be true if the
-parent GatewaySecurityPolicy references a TLSInspectionConfig. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_network_security_gateway_security_policy_rule *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_network_security_gateway_security_policy_rule) -> ()
+
+let yojson_of_google_network_security_gateway_security_policy_rule =
+  (function
+   | {
+       application_matcher = v_application_matcher;
+       basic_profile = v_basic_profile;
+       description = v_description;
+       enabled = v_enabled;
+       gateway_security_policy = v_gateway_security_policy;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       priority = v_priority;
+       project = v_project;
+       session_matcher = v_session_matcher;
+       tls_inspection_enabled = v_tls_inspection_enabled;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tls_inspection_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "tls_inspection_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_session_matcher
+         in
+         ("session_matcher", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_priority in
+         ("priority", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gateway_security_policy
+         in
+         ("gateway_security_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_basic_profile in
+         ("basic_profile", arg) :: bnds
+       in
+       let bnds =
+         match v_application_matcher with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "application_matcher", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_network_security_gateway_security_policy_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_google_network_security_gateway_security_policy_rule
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

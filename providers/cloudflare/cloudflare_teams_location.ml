@@ -2,26 +2,85 @@
 
 open! Tf_core
 
-type networks = {
-  network : string prop;
-      (** CIDR notation representation of the network IP. *)
-}
-[@@deriving yojson_of]
-(** The networks CIDRs that comprise the location. *)
+type networks = { network : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : networks) -> ()
+
+let yojson_of_networks =
+  (function
+   | { network = v_network } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       `Assoc bnds
+    : networks -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_networks
+
+[@@@deriving.end]
 
 type cloudflare_teams_location = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   client_default : bool prop option; [@option]
-      (** Indicator that this is the default location. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** Name of the teams location. *)
+  id : string prop option; [@option]
+  name : string prop;
   networks : networks list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Teams Location resource. Teams Locations are
-referenced when creating secure web gateway policies.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_teams_location) -> ()
+
+let yojson_of_cloudflare_teams_location =
+  (function
+   | {
+       account_id = v_account_id;
+       client_default = v_client_default;
+       id = v_id;
+       name = v_name;
+       networks = v_networks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_networks v_networks in
+         ("networks", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_default with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "client_default", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_teams_location -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_teams_location
+
+[@@@deriving.end]
 
 let networks ~network () : networks = { network }
 

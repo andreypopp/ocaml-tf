@@ -3,39 +3,226 @@
 open! Tf_core
 
 type segment_configurations = {
-  db_paths : string prop list;  (** db_paths *)
-  volume_name : string prop;  (** volume_name *)
+  db_paths : string prop list;
+  volume_name : string prop;
 }
-[@@deriving yojson_of]
-(** segment_configurations *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : segment_configurations) -> ()
+
+let yojson_of_segment_configurations =
+  (function
+   | { db_paths = v_db_paths; volume_name = v_volume_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_name in
+         ("volume_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_db_paths
+         in
+         ("db_paths", arg) :: bnds
+       in
+       `Assoc bnds
+    : segment_configurations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_segment_configurations
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_finspace_kx_dataview = {
-  auto_update : bool prop;  (** auto_update *)
+  auto_update : bool prop;
   availability_zone_id : string prop option; [@option]
-      (** availability_zone_id *)
-  az_mode : string prop;  (** az_mode *)
-  changeset_id : string prop option; [@option]  (** changeset_id *)
-  database_name : string prop;  (** database_name *)
-  description : string prop option; [@option]  (** description *)
-  environment_id : string prop;  (** environment_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  az_mode : string prop;
+  changeset_id : string prop option; [@option]
+  database_name : string prop;
+  description : string prop option; [@option]
+  environment_id : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   segment_configurations : segment_configurations list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_finspace_kx_dataview *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_finspace_kx_dataview) -> ()
+
+let yojson_of_aws_finspace_kx_dataview =
+  (function
+   | {
+       auto_update = v_auto_update;
+       availability_zone_id = v_availability_zone_id;
+       az_mode = v_az_mode;
+       changeset_id = v_changeset_id;
+       database_name = v_database_name;
+       description = v_description;
+       environment_id = v_environment_id;
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       segment_configurations = v_segment_configurations;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_segment_configurations
+             v_segment_configurations
+         in
+         ("segment_configurations", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_environment_id
+         in
+         ("environment_id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_name in
+         ("database_name", arg) :: bnds
+       in
+       let bnds =
+         match v_changeset_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "changeset_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_az_mode in
+         ("az_mode", arg) :: bnds
+       in
+       let bnds =
+         match v_availability_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "availability_zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_auto_update in
+         ("auto_update", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_finspace_kx_dataview -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_finspace_kx_dataview
+
+[@@@deriving.end]
 
 let segment_configurations ~db_paths ~volume_name () :
     segment_configurations =

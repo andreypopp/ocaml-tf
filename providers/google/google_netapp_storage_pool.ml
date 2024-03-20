@@ -3,47 +3,184 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_netapp_storage_pool = {
   active_directory : string prop option; [@option]
-      (** Specifies the Active Directory policy to be used. Format: 'projects/{{project}}/locations/{{location}}/activeDirectories/{{name}}'.
-The policy needs to be in the same location as the storage pool. *)
   capacity_gib : string prop;
-      (** Capacity of the storage pool (in GiB). *)
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kms_config : string prop option; [@option]
-      (** Specifies the CMEK policy to be used for volume encryption. Format: 'projects/{{project}}/locations/{{location}}/kmsConfigs/{{name}}'.
-The policy needs to be in the same location as the storage pool. *)
   labels : (string * string prop) list option; [@option]
-      (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   ldap_enabled : bool prop option; [@option]
-      (** When enabled, the volumes uses Active Directory as LDAP name service for UID/GID lookups. Required to enable extended group support for NFSv3,
-using security identifiers for NFSv4.1 or principal names for kerberized NFSv4.1. *)
   location : string prop;
-      (** Name of the location. Usually a region name, expect for some STANDARD service level pools which require a zone name. *)
   name : string prop;
-      (** The resource name of the storage pool. Needs to be unique per location. *)
   network : string prop;
-      (** VPC network name with format: 'projects/{{project}}/global/networks/{{network}}' *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   service_level : string prop;
-      (** Service level of the storage pool. Possible values: [PREMIUM, EXTREME, STANDARD] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_netapp_storage_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_netapp_storage_pool) -> ()
+
+let yojson_of_google_netapp_storage_pool =
+  (function
+   | {
+       active_directory = v_active_directory;
+       capacity_gib = v_capacity_gib;
+       description = v_description;
+       id = v_id;
+       kms_config = v_kms_config;
+       labels = v_labels;
+       ldap_enabled = v_ldap_enabled;
+       location = v_location;
+       name = v_name;
+       network = v_network;
+       project = v_project;
+       service_level = v_service_level;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_level in
+         ("service_level", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_ldap_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ldap_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_config", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_capacity_gib in
+         ("capacity_gib", arg) :: bnds
+       in
+       let bnds =
+         match v_active_directory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "active_directory", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_netapp_storage_pool -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_netapp_storage_pool
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

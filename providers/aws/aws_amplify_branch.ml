@@ -3,39 +3,232 @@
 open! Tf_core
 
 type aws_amplify_branch = {
-  app_id : string prop;  (** app_id *)
+  app_id : string prop;
   backend_environment_arn : string prop option; [@option]
-      (** backend_environment_arn *)
   basic_auth_credentials : string prop option; [@option]
-      (** basic_auth_credentials *)
-  branch_name : string prop;  (** branch_name *)
-  description : string prop option; [@option]  (** description *)
-  display_name : string prop option; [@option]  (** display_name *)
+  branch_name : string prop;
+  description : string prop option; [@option]
+  display_name : string prop option; [@option]
   enable_auto_build : bool prop option; [@option]
-      (** enable_auto_build *)
   enable_basic_auth : bool prop option; [@option]
-      (** enable_basic_auth *)
   enable_notification : bool prop option; [@option]
-      (** enable_notification *)
   enable_performance_mode : bool prop option; [@option]
-      (** enable_performance_mode *)
   enable_pull_request_preview : bool prop option; [@option]
-      (** enable_pull_request_preview *)
   environment_variables : (string * string prop) list option;
       [@option]
-      (** environment_variables *)
-  framework : string prop option; [@option]  (** framework *)
-  id : string prop option; [@option]  (** id *)
+  framework : string prop option; [@option]
+  id : string prop option; [@option]
   pull_request_environment_name : string prop option; [@option]
-      (** pull_request_environment_name *)
-  stage : string prop option; [@option]  (** stage *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  stage : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  ttl : string prop option; [@option]  (** ttl *)
+  ttl : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_amplify_branch *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_amplify_branch) -> ()
+
+let yojson_of_aws_amplify_branch =
+  (function
+   | {
+       app_id = v_app_id;
+       backend_environment_arn = v_backend_environment_arn;
+       basic_auth_credentials = v_basic_auth_credentials;
+       branch_name = v_branch_name;
+       description = v_description;
+       display_name = v_display_name;
+       enable_auto_build = v_enable_auto_build;
+       enable_basic_auth = v_enable_basic_auth;
+       enable_notification = v_enable_notification;
+       enable_performance_mode = v_enable_performance_mode;
+       enable_pull_request_preview = v_enable_pull_request_preview;
+       environment_variables = v_environment_variables;
+       framework = v_framework;
+       id = v_id;
+       pull_request_environment_name =
+         v_pull_request_environment_name;
+       stage = v_stage;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       ttl = v_ttl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_stage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pull_request_environment_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pull_request_environment_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_framework with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "framework", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_environment_variables with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "environment_variables", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_pull_request_preview with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_pull_request_preview", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_performance_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_performance_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_notification with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_notification", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_basic_auth with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_basic_auth", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_auto_build with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_auto_build", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_branch_name in
+         ("branch_name", arg) :: bnds
+       in
+       let bnds =
+         match v_basic_auth_credentials with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "basic_auth_credentials", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backend_environment_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "backend_environment_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_app_id in
+         ("app_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_amplify_branch -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_amplify_branch
+
+[@@@deriving.end]
 
 let aws_amplify_branch ?backend_environment_arn
     ?basic_auth_credentials ?description ?display_name

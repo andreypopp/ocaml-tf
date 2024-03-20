@@ -3,34 +3,119 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_data_catalog_policy_tag = {
   description : string prop option; [@option]
-      (** Description of this policy tag. It must: contain only unicode characters, tabs,
-newlines, carriage returns and page breaks; and be at most 2000 bytes long when
-encoded in UTF-8. If not set, defaults to an empty description.
-If not set, defaults to an empty description. *)
   display_name : string prop;
-      (** User defined name of this policy tag. It must: be unique within the parent
-taxonomy; contain only unicode letters, numbers, underscores, dashes and spaces;
-not start or end with spaces; and be at most 200 bytes long when encoded in UTF-8. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   parent_policy_tag : string prop option; [@option]
-      (** Resource name of this policy tag's parent policy tag.
-If empty, it means this policy tag is a top level policy tag.
-If not set, defaults to an empty string. *)
   taxonomy : string prop;
-      (** Taxonomy the policy tag is associated with *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_data_catalog_policy_tag *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_data_catalog_policy_tag) -> ()
+
+let yojson_of_google_data_catalog_policy_tag =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       parent_policy_tag = v_parent_policy_tag;
+       taxonomy = v_taxonomy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_taxonomy in
+         ("taxonomy", arg) :: bnds
+       in
+       let bnds =
+         match v_parent_policy_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parent_policy_tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_data_catalog_policy_tag ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_data_catalog_policy_tag
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

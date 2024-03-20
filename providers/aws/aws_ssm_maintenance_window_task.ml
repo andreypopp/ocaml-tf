@@ -2,80 +2,315 @@
 
 open! Tf_core
 
-type targets = {
-  key : string prop;  (** key *)
-  values : string prop list;  (** values *)
-}
-[@@deriving yojson_of]
-(** targets *)
+type targets = { key : string prop; values : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : targets) -> ()
+
+let yojson_of_targets =
+  (function
+   | { key = v_key; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : targets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_targets
+
+[@@@deriving.end]
 
 type task_invocation_parameters__automation_parameters__parameter = {
-  name : string prop;  (** name *)
-  values : string prop list;  (** values *)
+  name : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** task_invocation_parameters__automation_parameters__parameter *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       task_invocation_parameters__automation_parameters__parameter) ->
+  ()
+
+let yojson_of_task_invocation_parameters__automation_parameters__parameter
+    =
+  (function
+   | { name = v_name; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : task_invocation_parameters__automation_parameters__parameter ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_task_invocation_parameters__automation_parameters__parameter
+
+[@@@deriving.end]
 
 type task_invocation_parameters__automation_parameters = {
   document_version : string prop option; [@option]
-      (** document_version *)
   parameter :
     task_invocation_parameters__automation_parameters__parameter list;
 }
-[@@deriving yojson_of]
-(** task_invocation_parameters__automation_parameters *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : task_invocation_parameters__automation_parameters) -> ()
+
+let yojson_of_task_invocation_parameters__automation_parameters =
+  (function
+   | {
+       document_version = v_document_version;
+       parameter = v_parameter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_invocation_parameters__automation_parameters__parameter
+             v_parameter
+         in
+         ("parameter", arg) :: bnds
+       in
+       let bnds =
+         match v_document_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "document_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : task_invocation_parameters__automation_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_task_invocation_parameters__automation_parameters
+
+[@@@deriving.end]
 
 type task_invocation_parameters__lambda_parameters = {
   client_context : string prop option; [@option]
-      (** client_context *)
-  payload : string prop option; [@option]  (** payload *)
-  qualifier : string prop option; [@option]  (** qualifier *)
+  payload : string prop option; [@option]
+  qualifier : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** task_invocation_parameters__lambda_parameters *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : task_invocation_parameters__lambda_parameters) -> ()
+
+let yojson_of_task_invocation_parameters__lambda_parameters =
+  (function
+   | {
+       client_context = v_client_context;
+       payload = v_payload;
+       qualifier = v_qualifier;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_qualifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "qualifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_payload with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "payload", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_context with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_context", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : task_invocation_parameters__lambda_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_task_invocation_parameters__lambda_parameters
+
+[@@@deriving.end]
 
 type task_invocation_parameters__run_command_parameters__cloudwatch_config = {
   cloudwatch_log_group_name : string prop option; [@option]
-      (** cloudwatch_log_group_name *)
   cloudwatch_output_enabled : bool prop option; [@option]
-      (** cloudwatch_output_enabled *)
 }
-[@@deriving yojson_of]
-(** task_invocation_parameters__run_command_parameters__cloudwatch_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       task_invocation_parameters__run_command_parameters__cloudwatch_config) ->
+  ()
+
+let yojson_of_task_invocation_parameters__run_command_parameters__cloudwatch_config
+    =
+  (function
+   | {
+       cloudwatch_log_group_name = v_cloudwatch_log_group_name;
+       cloudwatch_output_enabled = v_cloudwatch_output_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_cloudwatch_output_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cloudwatch_output_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cloudwatch_log_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloudwatch_log_group_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : task_invocation_parameters__run_command_parameters__cloudwatch_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_task_invocation_parameters__run_command_parameters__cloudwatch_config
+
+[@@@deriving.end]
 
 type task_invocation_parameters__run_command_parameters__notification_config = {
   notification_arn : string prop option; [@option]
-      (** notification_arn *)
   notification_events : string prop list option; [@option]
-      (** notification_events *)
   notification_type : string prop option; [@option]
-      (** notification_type *)
 }
-[@@deriving yojson_of]
-(** task_invocation_parameters__run_command_parameters__notification_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       task_invocation_parameters__run_command_parameters__notification_config) ->
+  ()
+
+let yojson_of_task_invocation_parameters__run_command_parameters__notification_config
+    =
+  (function
+   | {
+       notification_arn = v_notification_arn;
+       notification_events = v_notification_events;
+       notification_type = v_notification_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_notification_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notification_events with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "notification_events", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notification_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : task_invocation_parameters__run_command_parameters__notification_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_task_invocation_parameters__run_command_parameters__notification_config
+
+[@@@deriving.end]
 
 type task_invocation_parameters__run_command_parameters__parameter = {
-  name : string prop;  (** name *)
-  values : string prop list;  (** values *)
+  name : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** task_invocation_parameters__run_command_parameters__parameter *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       task_invocation_parameters__run_command_parameters__parameter) ->
+  ()
+
+let yojson_of_task_invocation_parameters__run_command_parameters__parameter
+    =
+  (function
+   | { name = v_name; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : task_invocation_parameters__run_command_parameters__parameter ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_task_invocation_parameters__run_command_parameters__parameter
+
+[@@@deriving.end]
 
 type task_invocation_parameters__run_command_parameters = {
-  comment : string prop option; [@option]  (** comment *)
-  document_hash : string prop option; [@option]  (** document_hash *)
+  comment : string prop option; [@option]
+  document_hash : string prop option; [@option]
   document_hash_type : string prop option; [@option]
-      (** document_hash_type *)
   document_version : string prop option; [@option]
-      (** document_version *)
   output_s3_bucket : string prop option; [@option]
-      (** output_s3_bucket *)
   output_s3_key_prefix : string prop option; [@option]
-      (** output_s3_key_prefix *)
   service_role_arn : string prop option; [@option]
-      (** service_role_arn *)
   timeout_seconds : float prop option; [@option]
-      (** timeout_seconds *)
   cloudwatch_config :
     task_invocation_parameters__run_command_parameters__cloudwatch_config
     list;
@@ -86,15 +321,165 @@ type task_invocation_parameters__run_command_parameters = {
     task_invocation_parameters__run_command_parameters__parameter
     list;
 }
-[@@deriving yojson_of]
-(** task_invocation_parameters__run_command_parameters *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : task_invocation_parameters__run_command_parameters) -> ()
+
+let yojson_of_task_invocation_parameters__run_command_parameters =
+  (function
+   | {
+       comment = v_comment;
+       document_hash = v_document_hash;
+       document_hash_type = v_document_hash_type;
+       document_version = v_document_version;
+       output_s3_bucket = v_output_s3_bucket;
+       output_s3_key_prefix = v_output_s3_key_prefix;
+       service_role_arn = v_service_role_arn;
+       timeout_seconds = v_timeout_seconds;
+       cloudwatch_config = v_cloudwatch_config;
+       notification_config = v_notification_config;
+       parameter = v_parameter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_invocation_parameters__run_command_parameters__parameter
+             v_parameter
+         in
+         ("parameter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_invocation_parameters__run_command_parameters__notification_config
+             v_notification_config
+         in
+         ("notification_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_invocation_parameters__run_command_parameters__cloudwatch_config
+             v_cloudwatch_config
+         in
+         ("cloudwatch_config", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_output_s3_key_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_s3_key_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_output_s3_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_s3_bucket", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_document_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "document_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_document_hash_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "document_hash_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_document_hash with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "document_hash", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : task_invocation_parameters__run_command_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_task_invocation_parameters__run_command_parameters
+
+[@@@deriving.end]
 
 type task_invocation_parameters__step_functions_parameters = {
-  input : string prop option; [@option]  (** input *)
-  name : string prop option; [@option]  (** name *)
+  input : string prop option; [@option]
+  name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** task_invocation_parameters__step_functions_parameters *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : task_invocation_parameters__step_functions_parameters) ->
+  ()
+
+let yojson_of_task_invocation_parameters__step_functions_parameters =
+  (function
+   | { input = v_input; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_input with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "input", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : task_invocation_parameters__step_functions_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_task_invocation_parameters__step_functions_parameters
+
+[@@@deriving.end]
 
 type task_invocation_parameters = {
   automation_parameters :
@@ -106,29 +491,193 @@ type task_invocation_parameters = {
   step_functions_parameters :
     task_invocation_parameters__step_functions_parameters list;
 }
-[@@deriving yojson_of]
-(** task_invocation_parameters *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : task_invocation_parameters) -> ()
+
+let yojson_of_task_invocation_parameters =
+  (function
+   | {
+       automation_parameters = v_automation_parameters;
+       lambda_parameters = v_lambda_parameters;
+       run_command_parameters = v_run_command_parameters;
+       step_functions_parameters = v_step_functions_parameters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_invocation_parameters__step_functions_parameters
+             v_step_functions_parameters
+         in
+         ("step_functions_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_invocation_parameters__run_command_parameters
+             v_run_command_parameters
+         in
+         ("run_command_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_invocation_parameters__lambda_parameters
+             v_lambda_parameters
+         in
+         ("lambda_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_invocation_parameters__automation_parameters
+             v_automation_parameters
+         in
+         ("automation_parameters", arg) :: bnds
+       in
+       `Assoc bnds
+    : task_invocation_parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_task_invocation_parameters
+
+[@@@deriving.end]
 
 type aws_ssm_maintenance_window_task = {
   cutoff_behavior : string prop option; [@option]
-      (** cutoff_behavior *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
   max_concurrency : string prop option; [@option]
-      (** max_concurrency *)
-  max_errors : string prop option; [@option]  (** max_errors *)
-  name : string prop option; [@option]  (** name *)
-  priority : float prop option; [@option]  (** priority *)
+  max_errors : string prop option; [@option]
+  name : string prop option; [@option]
+  priority : float prop option; [@option]
   service_role_arn : string prop option; [@option]
-      (** service_role_arn *)
-  task_arn : string prop;  (** task_arn *)
-  task_type : string prop;  (** task_type *)
-  window_id : string prop;  (** window_id *)
+  task_arn : string prop;
+  task_type : string prop;
+  window_id : string prop;
   targets : targets list;
   task_invocation_parameters : task_invocation_parameters list;
 }
-[@@deriving yojson_of]
-(** aws_ssm_maintenance_window_task *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssm_maintenance_window_task) -> ()
+
+let yojson_of_aws_ssm_maintenance_window_task =
+  (function
+   | {
+       cutoff_behavior = v_cutoff_behavior;
+       description = v_description;
+       id = v_id;
+       max_concurrency = v_max_concurrency;
+       max_errors = v_max_errors;
+       name = v_name;
+       priority = v_priority;
+       service_role_arn = v_service_role_arn;
+       task_arn = v_task_arn;
+       task_type = v_task_type;
+       window_id = v_window_id;
+       targets = v_targets;
+       task_invocation_parameters = v_task_invocation_parameters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_task_invocation_parameters
+             v_task_invocation_parameters
+         in
+         ("task_invocation_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_targets v_targets in
+         ("targets", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_window_id in
+         ("window_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_task_type in
+         ("task_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_task_arn in
+         ("task_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_service_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_errors with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_errors", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_concurrency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_concurrency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cutoff_behavior with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cutoff_behavior", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ssm_maintenance_window_task ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssm_maintenance_window_task
+
+[@@@deriving.end]
 
 let targets ~key ~values () : targets = { key; values }
 

@@ -8,6 +8,6 @@
   ContainersLabels
   -open
   Ppx_yojson_conv_lib.Yojson_conv.Primitives)
- (preprocess
+ (lint
   (pps ppx_yojson_conv))
- (libraries tf yojson))
+ (libraries tf yojson ppx_yojson_conv_lib))

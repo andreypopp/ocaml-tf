@@ -2,25 +2,99 @@
 
 open! Tf_core
 
-type timeouts = {
-  delete : string prop option; [@option]  (** delete *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+type timeouts = { delete : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type digitalocean_vpc = {
   description : string prop option; [@option]
-      (** A free-form description for the VPC *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_range : string prop option; [@option]
-      (** The range of IP addresses for the VPC in CIDR notation *)
-  name : string prop;  (** The name of the VPC *)
+  name : string prop;
   region : string prop;
-      (** DigitalOcean region slug for the VPC's location *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** digitalocean_vpc *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_vpc) -> ()
+
+let yojson_of_digitalocean_vpc =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       ip_range = v_ip_range;
+       name = v_name;
+       region = v_region;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_ip_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_vpc -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_vpc
+
+[@@@deriving.end]
 
 let timeouts ?delete () : timeouts = { delete }
 

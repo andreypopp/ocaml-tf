@@ -3,29 +3,148 @@
 open! Tf_core
 
 type rule__default_retention = {
-  days : float prop option; [@option]  (** days *)
-  mode : string prop option; [@option]  (** mode *)
-  years : float prop option; [@option]  (** years *)
+  days : float prop option; [@option]
+  mode : string prop option; [@option]
+  years : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** rule__default_retention *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__default_retention) -> ()
+
+let yojson_of_rule__default_retention =
+  (function
+   | { days = v_days; mode = v_mode; years = v_years } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_years with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "years", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "days", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__default_retention -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__default_retention
+
+[@@@deriving.end]
 
 type rule = { default_retention : rule__default_retention list }
-[@@deriving yojson_of]
-(** rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule) -> ()
+
+let yojson_of_rule =
+  (function
+   | { default_retention = v_default_retention } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__default_retention
+             v_default_retention
+         in
+         ("default_retention", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule
+
+[@@@deriving.end]
 
 type aws_s3_bucket_object_lock_configuration = {
-  bucket : string prop;  (** bucket *)
+  bucket : string prop;
   expected_bucket_owner : string prop option; [@option]
-      (** expected_bucket_owner *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   object_lock_enabled : string prop option; [@option]
-      (** object_lock_enabled *)
-  token : string prop option; [@option]  (** token *)
+  token : string prop option; [@option]
   rule : rule list;
 }
-[@@deriving yojson_of]
-(** aws_s3_bucket_object_lock_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_s3_bucket_object_lock_configuration) -> ()
+
+let yojson_of_aws_s3_bucket_object_lock_configuration =
+  (function
+   | {
+       bucket = v_bucket;
+       expected_bucket_owner = v_expected_bucket_owner;
+       id = v_id;
+       object_lock_enabled = v_object_lock_enabled;
+       token = v_token;
+       rule = v_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rule v_rule in
+         ("rule", arg) :: bnds
+       in
+       let bnds =
+         match v_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_object_lock_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_lock_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expected_bucket_owner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expected_bucket_owner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_s3_bucket_object_lock_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3_bucket_object_lock_configuration
+
+[@@@deriving.end]
 
 let rule__default_retention ?days ?mode ?years () :
     rule__default_retention =

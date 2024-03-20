@@ -3,14 +3,59 @@
 open! Tf_core
 
 type aws_mskconnect_worker_configuration = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   properties_file_content : string prop;
-      (** properties_file_content *)
 }
-[@@deriving yojson_of]
-(** aws_mskconnect_worker_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_mskconnect_worker_configuration) -> ()
+
+let yojson_of_aws_mskconnect_worker_configuration =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       properties_file_content = v_properties_file_content;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_properties_file_content
+         in
+         ("properties_file_content", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_mskconnect_worker_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_mskconnect_worker_configuration
+
+[@@@deriving.end]
 
 let aws_mskconnect_worker_configuration ?description ?id ~name
     ~properties_file_content () : aws_mskconnect_worker_configuration

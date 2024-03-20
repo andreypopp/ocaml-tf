@@ -2,154 +2,396 @@
 
 open! Tf_core
 
-type notification_config = {
-  pubsub_topic : string prop;
-      (** The Cloud Pub/Sub topic that notifications of changes are published on. Supplied by the client.
-PubsubMessage.Data will contain the resource name. PubsubMessage.MessageId is the ID of this message.
-It is guaranteed to be unique within the topic. PubsubMessage.PublishTime is the time at which the message
-was published. Notifications are only sent if the topic is non-empty. Topic names must be scoped to a
-project. service-PROJECT_NUMBER@gcp-sa-healthcare.iam.gserviceaccount.com must have publisher permissions on the given
-Cloud Pub/Sub topic. Not having adequate permissions will cause the calls that send notifications to fail. *)
-}
-[@@deriving yojson_of]
-(** A nested object resource *)
+type notification_config = { pubsub_topic : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notification_config) -> ()
+
+let yojson_of_notification_config =
+  (function
+   | { pubsub_topic = v_pubsub_topic } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pubsub_topic in
+         ("pubsub_topic", arg) :: bnds
+       in
+       `Assoc bnds
+    : notification_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notification_config
+
+[@@@deriving.end]
 
 type stream_configs__bigquery_destination__schema_config__last_updated_partition_config = {
   expiration_ms : string prop option; [@option]
-      (** Number of milliseconds for which to keep the storage for a partition. *)
   type_ : string prop; [@key "type"]
-      (** Type of partitioning. Possible values: [PARTITION_TYPE_UNSPECIFIED, HOUR, DAY, MONTH, YEAR] *)
 }
-[@@deriving yojson_of]
-(** The configuration for exported BigQuery tables to be partitioned by FHIR resource's last updated time column. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       stream_configs__bigquery_destination__schema_config__last_updated_partition_config) ->
+  ()
+
+let yojson_of_stream_configs__bigquery_destination__schema_config__last_updated_partition_config
+    =
+  (function
+   | { expiration_ms = v_expiration_ms; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_expiration_ms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expiration_ms", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : stream_configs__bigquery_destination__schema_config__last_updated_partition_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_stream_configs__bigquery_destination__schema_config__last_updated_partition_config
+
+[@@@deriving.end]
 
 type stream_configs__bigquery_destination__schema_config = {
   recursive_structure_depth : float prop;
-      (** The depth for all recursive structures in the output analytics schema. For example, concept in the CodeSystem
-resource is a recursive structure; when the depth is 2, the CodeSystem table will have a column called
-concept.concept but not concept.concept.concept. If not specified or set to 0, the server will use the default
-value 2. The maximum depth allowed is 5. *)
   schema_type : string prop option; [@option]
-      (** Specifies the output schema type.
- * ANALYTICS: Analytics schema defined by the FHIR community.
-  See https://github.com/FHIR/sql-on-fhir/blob/master/sql-on-fhir.md.
- * ANALYTICS_V2: Analytics V2, similar to schema defined by the FHIR community, with added support for extensions with one or more occurrences and contained resources in stringified JSON.
- * LOSSLESS: A data-driven schema generated from the fields present in the FHIR data being exported, with no additional simplification. Default value: ANALYTICS Possible values: [ANALYTICS, ANALYTICS_V2, LOSSLESS] *)
   last_updated_partition_config :
     stream_configs__bigquery_destination__schema_config__last_updated_partition_config
     list;
 }
-[@@deriving yojson_of]
-(** The configuration for the exported BigQuery schema. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : stream_configs__bigquery_destination__schema_config) -> ()
+
+let yojson_of_stream_configs__bigquery_destination__schema_config =
+  (function
+   | {
+       recursive_structure_depth = v_recursive_structure_depth;
+       schema_type = v_schema_type;
+       last_updated_partition_config =
+         v_last_updated_partition_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_stream_configs__bigquery_destination__schema_config__last_updated_partition_config
+             v_last_updated_partition_config
+         in
+         ("last_updated_partition_config", arg) :: bnds
+       in
+       let bnds =
+         match v_schema_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schema_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_recursive_structure_depth
+         in
+         ("recursive_structure_depth", arg) :: bnds
+       in
+       `Assoc bnds
+    : stream_configs__bigquery_destination__schema_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_stream_configs__bigquery_destination__schema_config
+
+[@@@deriving.end]
 
 type stream_configs__bigquery_destination = {
   dataset_uri : string prop;
-      (** BigQuery URI to a dataset, up to 2000 characters long, in the format bq://projectId.bqDatasetId *)
   schema_config :
     stream_configs__bigquery_destination__schema_config list;
 }
-[@@deriving yojson_of]
-(** The destination BigQuery structure that contains both the dataset location and corresponding schema config.
-The output is organized in one table per resource type. The server reuses the existing tables (if any) that
-are named after the resource types, e.g. Patient, Observation. When there is no existing table for a given
-resource type, the server attempts to create one.
-See the [streaming config reference](https://cloud.google.com/healthcare/docs/reference/rest/v1beta1/projects.locations.datasets.fhirStores#streamconfig) for more details. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : stream_configs__bigquery_destination) -> ()
+
+let yojson_of_stream_configs__bigquery_destination =
+  (function
+   | { dataset_uri = v_dataset_uri; schema_config = v_schema_config }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_stream_configs__bigquery_destination__schema_config
+             v_schema_config
+         in
+         ("schema_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_uri in
+         ("dataset_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : stream_configs__bigquery_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_stream_configs__bigquery_destination
+
+[@@@deriving.end]
 
 type stream_configs = {
   resource_types : string prop list option; [@option]
-      (** Supply a FHIR resource type (such as Patient or Observation). See
-https://www.hl7.org/fhir/valueset-resource-types.html for a list of all FHIR resource types. The server treats
-an empty list as an intent to stream all the supported resource types in this FHIR store. *)
   bigquery_destination : stream_configs__bigquery_destination list;
 }
-[@@deriving yojson_of]
-(** A list of streaming configs that configure the destinations of streaming export for every resource mutation in
-this FHIR store. Each store is allowed to have up to 10 streaming configs. After a new config is added, the next
-resource mutation is streamed to the new location in addition to the existing ones. When a location is removed
-from the list, the server stops streaming to that location. Before adding a new config, you must add the required
-bigquery.dataEditor role to your project's Cloud Healthcare Service Agent service account. Some lag (typically on
-the order of dozens of seconds) is expected before the results show up in the streaming destination. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : stream_configs) -> ()
+
+let yojson_of_stream_configs =
+  (function
+   | {
+       resource_types = v_resource_types;
+       bigquery_destination = v_bigquery_destination;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_stream_configs__bigquery_destination
+             v_bigquery_destination
+         in
+         ("bigquery_destination", arg) :: bnds
+       in
+       let bnds =
+         match v_resource_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resource_types", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : stream_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_stream_configs
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_healthcare_fhir_store = {
   complex_data_type_reference_parsing : string prop option; [@option]
-      (** Enable parsing of references within complex FHIR data types such as Extensions. If this value is set to ENABLED, then features like referential integrity and Bundle reference rewriting apply to all references. If this flag has not been specified the behavior of the FHIR store will not change, references in complex data types will not be parsed. New stores will have this value set to ENABLED by default after a notification period. Warning: turning on this flag causes processing existing resources to fail if they contain references to non-existent resources. Possible values: [COMPLEX_DATA_TYPE_REFERENCE_PARSING_UNSPECIFIED, DISABLED, ENABLED] *)
   dataset : string prop;
-      (** Identifies the dataset addressed by this request. Must be in the format
-'projects/{project}/locations/{location}/datasets/{dataset}' *)
   default_search_handling_strict : bool prop option; [@option]
-      (** If true, overrides the default search behavior for this FHIR store to handling=strict which returns an error for unrecognized search parameters.
-If false, uses the FHIR specification default handling=lenient which ignores unrecognized search parameters.
-The handling can always be changed from the default on an individual API call by setting the HTTP header Prefer: handling=strict or Prefer: handling=lenient. *)
   disable_referential_integrity : bool prop option; [@option]
-      (** Whether to disable referential integrity in this FHIR store. This field is immutable after FHIR store
-creation. The default value is false, meaning that the API will enforce referential integrity and fail the
-requests that will result in inconsistent state in the FHIR store. When this field is set to true, the API
-will skip referential integrity check. Consequently, operations that rely on references, such as
-Patient.get$everything, will not return all the results if broken references exist.
-
-** Changing this property may recreate the FHIR store (removing all data) ** *)
   disable_resource_versioning : bool prop option; [@option]
-      (** Whether to disable resource versioning for this FHIR store. This field can not be changed after the creation
-of FHIR store. If set to false, which is the default behavior, all write operations will cause historical
-versions to be recorded automatically. The historical versions can be fetched through the history APIs, but
-cannot be updated. If set to true, no historical versions will be kept. The server will send back errors for
-attempts to read the historical versions.
-
-** Changing this property may recreate the FHIR store (removing all data) ** *)
   enable_history_import : bool prop option; [@option]
-      (** Whether to allow the bulk import API to accept history bundles and directly insert historical resource
-versions into the FHIR store. Importing resource histories creates resource interactions that appear to have
-occurred in the past, which clients may not want to allow. If set to false, history bundles within an import
-will fail with an error.
-
-** Changing this property may recreate the FHIR store (removing all data) **
-
-** This property can be changed manually in the Google Cloud Healthcare admin console without recreating the FHIR store ** *)
   enable_update_create : bool prop option; [@option]
-      (** Whether this FHIR store has the updateCreate capability. This determines if the client can use an Update
-operation to create a new resource with a client-specified ID. If false, all IDs are server-assigned through
-the Create operation and attempts to Update a non-existent resource will return errors. Please treat the audit
-logs with appropriate levels of care if client-specified resource IDs contain sensitive data such as patient
-identifiers, those IDs will be part of the FHIR resource path recorded in Cloud audit logs and Cloud Pub/Sub
-notifications. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** User-supplied key-value pairs used to organize FHIR stores.
-
-Label keys must be between 1 and 63 characters long, have a UTF-8 encoding of maximum 128 bytes, and must
-conform to the following PCRE regular expression: [\p{Ll}\p{Lo}][\p{Ll}\p{Lo}\p{N}_-]{0,62}
-
-Label values are optional, must be between 1 and 63 characters long, have a UTF-8 encoding of maximum 128
-bytes, and must conform to the following PCRE regular expression: [\p{Ll}\p{Lo}\p{N}_-]{0,63}
-
-No more than 64 labels can be associated with a given store.
-
-An object containing a list of key: value pairs.
-Example: { name: wrench, mass: 1.3kg, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** The resource name for the FhirStore.
-
-** Changing this property may recreate the FHIR store (removing all data) ** *)
   version : string prop;
-      (** The FHIR specification version. Possible values: [DSTU2, STU3, R4] *)
   notification_config : notification_config list;
   stream_configs : stream_configs list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_healthcare_fhir_store *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_healthcare_fhir_store) -> ()
+
+let yojson_of_google_healthcare_fhir_store =
+  (function
+   | {
+       complex_data_type_reference_parsing =
+         v_complex_data_type_reference_parsing;
+       dataset = v_dataset;
+       default_search_handling_strict =
+         v_default_search_handling_strict;
+       disable_referential_integrity =
+         v_disable_referential_integrity;
+       disable_resource_versioning = v_disable_resource_versioning;
+       enable_history_import = v_enable_history_import;
+       enable_update_create = v_enable_update_create;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       version = v_version;
+       notification_config = v_notification_config;
+       stream_configs = v_stream_configs;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_stream_configs v_stream_configs
+         in
+         ("stream_configs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_notification_config
+             v_notification_config
+         in
+         ("notification_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_update_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_update_create", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_history_import with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_history_import", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_resource_versioning with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_resource_versioning", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_referential_integrity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_referential_integrity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_search_handling_strict with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "default_search_handling_strict", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset in
+         ("dataset", arg) :: bnds
+       in
+       let bnds =
+         match v_complex_data_type_reference_parsing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "complex_data_type_reference_parsing", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_healthcare_fhir_store ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_healthcare_fhir_store
+
+[@@@deriving.end]
 
 let notification_config ~pubsub_topic () : notification_config =
   { pubsub_topic }

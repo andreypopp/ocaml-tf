@@ -3,18 +3,85 @@
 open! Tf_core
 
 type aws_lambda_layer_version_permission = {
-  action : string prop;  (** action *)
-  id : string prop option; [@option]  (** id *)
-  layer_name : string prop;  (** layer_name *)
+  action : string prop;
+  id : string prop option; [@option]
+  layer_name : string prop;
   organization_id : string prop option; [@option]
-      (** organization_id *)
-  principal : string prop;  (** principal *)
-  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
-  statement_id : string prop;  (** statement_id *)
-  version_number : float prop;  (** version_number *)
+  principal : string prop;
+  skip_destroy : bool prop option; [@option]
+  statement_id : string prop;
+  version_number : float prop;
 }
-[@@deriving yojson_of]
-(** aws_lambda_layer_version_permission *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lambda_layer_version_permission) -> ()
+
+let yojson_of_aws_lambda_layer_version_permission =
+  (function
+   | {
+       action = v_action;
+       id = v_id;
+       layer_name = v_layer_name;
+       organization_id = v_organization_id;
+       principal = v_principal;
+       skip_destroy = v_skip_destroy;
+       statement_id = v_statement_id;
+       version_number = v_version_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_version_number in
+         ("version_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_statement_id in
+         ("statement_id", arg) :: bnds
+       in
+       let bnds =
+         match v_skip_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_principal in
+         ("principal", arg) :: bnds
+       in
+       let bnds =
+         match v_organization_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "organization_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_layer_name in
+         ("layer_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lambda_layer_version_permission ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lambda_layer_version_permission
+
+[@@@deriving.end]
 
 let aws_lambda_layer_version_permission ?id ?organization_id
     ?skip_destroy ~action ~layer_name ~principal ~statement_id

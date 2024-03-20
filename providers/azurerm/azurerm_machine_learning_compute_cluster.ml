@@ -4,63 +4,333 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
-      (** identity_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
 
 type scale_settings = {
-  max_node_count : float prop;  (** max_node_count *)
-  min_node_count : float prop;  (** min_node_count *)
+  max_node_count : float prop;
+  min_node_count : float prop;
   scale_down_nodes_after_idle_duration : string prop;
-      (** scale_down_nodes_after_idle_duration *)
 }
-[@@deriving yojson_of]
-(** scale_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scale_settings) -> ()
+
+let yojson_of_scale_settings =
+  (function
+   | {
+       max_node_count = v_max_node_count;
+       min_node_count = v_min_node_count;
+       scale_down_nodes_after_idle_duration =
+         v_scale_down_nodes_after_idle_duration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_scale_down_nodes_after_idle_duration
+         in
+         ("scale_down_nodes_after_idle_duration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_node_count in
+         ("min_node_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_node_count in
+         ("max_node_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : scale_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scale_settings
+
+[@@@deriving.end]
 
 type ssh = {
   admin_password : string prop option; [@option]
-      (** admin_password *)
-  admin_username : string prop;  (** admin_username *)
-  key_value : string prop option; [@option]  (** key_value *)
+  admin_username : string prop;
+  key_value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** ssh *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ssh) -> ()
+
+let yojson_of_ssh =
+  (function
+   | {
+       admin_password = v_admin_password;
+       admin_username = v_admin_username;
+       key_value = v_key_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_key_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_admin_username
+         in
+         ("admin_username", arg) :: bnds
+       in
+       let bnds =
+         match v_admin_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "admin_password", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ssh -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ssh
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; read = v_read } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_machine_learning_compute_cluster = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
   local_auth_enabled : bool prop option; [@option]
-      (** local_auth_enabled *)
-  location : string prop;  (** location *)
+  location : string prop;
   machine_learning_workspace_id : string prop;
-      (** machine_learning_workspace_id *)
-  name : string prop;  (** name *)
+  name : string prop;
   node_public_ip_enabled : bool prop option; [@option]
-      (** node_public_ip_enabled *)
   ssh_public_access_enabled : bool prop option; [@option]
-      (** ssh_public_access_enabled *)
   subnet_resource_id : string prop option; [@option]
-      (** subnet_resource_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
-  vm_priority : string prop;  (** vm_priority *)
-  vm_size : string prop;  (** vm_size *)
+  tags : (string * string prop) list option; [@option]
+  vm_priority : string prop;
+  vm_size : string prop;
   identity : identity list;
   scale_settings : scale_settings list;
   ssh : ssh list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_machine_learning_compute_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_machine_learning_compute_cluster) -> ()
+
+let yojson_of_azurerm_machine_learning_compute_cluster =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       local_auth_enabled = v_local_auth_enabled;
+       location = v_location;
+       machine_learning_workspace_id =
+         v_machine_learning_workspace_id;
+       name = v_name;
+       node_public_ip_enabled = v_node_public_ip_enabled;
+       ssh_public_access_enabled = v_ssh_public_access_enabled;
+       subnet_resource_id = v_subnet_resource_id;
+       tags = v_tags;
+       vm_priority = v_vm_priority;
+       vm_size = v_vm_size;
+       identity = v_identity;
+       scale_settings = v_scale_settings;
+       ssh = v_ssh;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_ssh v_ssh in
+         ("ssh", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_scale_settings v_scale_settings
+         in
+         ("scale_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity v_identity in
+         ("identity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vm_size in
+         ("vm_size", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vm_priority in
+         ("vm_priority", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_resource_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_resource_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ssh_public_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ssh_public_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_public_ip_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "node_public_ip_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_machine_learning_workspace_id
+         in
+         ("machine_learning_workspace_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_local_auth_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "local_auth_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_machine_learning_compute_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_machine_learning_compute_cluster
+
+[@@@deriving.end]
 
 let identity ?identity_ids ~type_ () : identity =
   { identity_ids; type_ }

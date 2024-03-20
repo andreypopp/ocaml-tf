@@ -3,89 +3,467 @@
 open! Tf_core
 
 type recurrence__daily_settings = {
-  hour_of_day : float prop;  (** hour_of_day *)
-  minute_of_hour : float prop;  (** minute_of_hour *)
+  hour_of_day : float prop;
+  minute_of_hour : float prop;
 }
-[@@deriving yojson_of]
-(** recurrence__daily_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : recurrence__daily_settings) -> ()
+
+let yojson_of_recurrence__daily_settings =
+  (function
+   | {
+       hour_of_day = v_hour_of_day;
+       minute_of_hour = v_minute_of_hour;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minute_of_hour in
+         ("minute_of_hour", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hour_of_day in
+         ("hour_of_day", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence__daily_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence__daily_settings
+
+[@@@deriving.end]
 
 type recurrence__monthly_settings__hand_off_time = {
-  hour_of_day : float prop;  (** hour_of_day *)
-  minute_of_hour : float prop;  (** minute_of_hour *)
+  hour_of_day : float prop;
+  minute_of_hour : float prop;
 }
-[@@deriving yojson_of]
-(** recurrence__monthly_settings__hand_off_time *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : recurrence__monthly_settings__hand_off_time) -> ()
+
+let yojson_of_recurrence__monthly_settings__hand_off_time =
+  (function
+   | {
+       hour_of_day = v_hour_of_day;
+       minute_of_hour = v_minute_of_hour;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minute_of_hour in
+         ("minute_of_hour", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hour_of_day in
+         ("hour_of_day", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence__monthly_settings__hand_off_time ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence__monthly_settings__hand_off_time
+
+[@@@deriving.end]
 
 type recurrence__monthly_settings = {
-  day_of_month : float prop;  (** day_of_month *)
+  day_of_month : float prop;
   hand_off_time : recurrence__monthly_settings__hand_off_time list;
 }
-[@@deriving yojson_of]
-(** recurrence__monthly_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : recurrence__monthly_settings) -> ()
+
+let yojson_of_recurrence__monthly_settings =
+  (function
+   | {
+       day_of_month = v_day_of_month;
+       hand_off_time = v_hand_off_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_recurrence__monthly_settings__hand_off_time
+             v_hand_off_time
+         in
+         ("hand_off_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_day_of_month in
+         ("day_of_month", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence__monthly_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence__monthly_settings
+
+[@@@deriving.end]
 
 type recurrence__shift_coverages__coverage_times__end = {
-  hour_of_day : float prop;  (** hour_of_day *)
-  minute_of_hour : float prop;  (** minute_of_hour *)
+  hour_of_day : float prop;
+  minute_of_hour : float prop;
 }
-[@@deriving yojson_of]
-(** recurrence__shift_coverages__coverage_times__end *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : recurrence__shift_coverages__coverage_times__end) -> ()
+
+let yojson_of_recurrence__shift_coverages__coverage_times__end =
+  (function
+   | {
+       hour_of_day = v_hour_of_day;
+       minute_of_hour = v_minute_of_hour;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minute_of_hour in
+         ("minute_of_hour", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hour_of_day in
+         ("hour_of_day", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence__shift_coverages__coverage_times__end ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence__shift_coverages__coverage_times__end
+
+[@@@deriving.end]
 
 type recurrence__shift_coverages__coverage_times__start = {
-  hour_of_day : float prop;  (** hour_of_day *)
-  minute_of_hour : float prop;  (** minute_of_hour *)
+  hour_of_day : float prop;
+  minute_of_hour : float prop;
 }
-[@@deriving yojson_of]
-(** recurrence__shift_coverages__coverage_times__start *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : recurrence__shift_coverages__coverage_times__start) -> ()
+
+let yojson_of_recurrence__shift_coverages__coverage_times__start =
+  (function
+   | {
+       hour_of_day = v_hour_of_day;
+       minute_of_hour = v_minute_of_hour;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minute_of_hour in
+         ("minute_of_hour", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hour_of_day in
+         ("hour_of_day", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence__shift_coverages__coverage_times__start ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence__shift_coverages__coverage_times__start
+
+[@@@deriving.end]
 
 type recurrence__shift_coverages__coverage_times = {
   end_ : recurrence__shift_coverages__coverage_times__end list;
   start : recurrence__shift_coverages__coverage_times__start list;
 }
-[@@deriving yojson_of]
-(** recurrence__shift_coverages__coverage_times *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : recurrence__shift_coverages__coverage_times) -> ()
+
+let yojson_of_recurrence__shift_coverages__coverage_times =
+  (function
+   | { end_ = v_end_; start = v_start } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_recurrence__shift_coverages__coverage_times__start
+             v_start
+         in
+         ("start", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_recurrence__shift_coverages__coverage_times__end
+             v_end_
+         in
+         ("end_", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence__shift_coverages__coverage_times ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence__shift_coverages__coverage_times
+
+[@@@deriving.end]
 
 type recurrence__shift_coverages = {
-  map_block_key : string prop;  (** map_block_key *)
+  map_block_key : string prop;
   coverage_times : recurrence__shift_coverages__coverage_times list;
 }
-[@@deriving yojson_of]
-(** recurrence__shift_coverages *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : recurrence__shift_coverages) -> ()
+
+let yojson_of_recurrence__shift_coverages =
+  (function
+   | {
+       map_block_key = v_map_block_key;
+       coverage_times = v_coverage_times;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_recurrence__shift_coverages__coverage_times
+             v_coverage_times
+         in
+         ("coverage_times", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_map_block_key in
+         ("map_block_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence__shift_coverages ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence__shift_coverages
+
+[@@@deriving.end]
 
 type recurrence__weekly_settings__hand_off_time = {
-  hour_of_day : float prop;  (** hour_of_day *)
-  minute_of_hour : float prop;  (** minute_of_hour *)
+  hour_of_day : float prop;
+  minute_of_hour : float prop;
 }
-[@@deriving yojson_of]
-(** recurrence__weekly_settings__hand_off_time *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : recurrence__weekly_settings__hand_off_time) -> ()
+
+let yojson_of_recurrence__weekly_settings__hand_off_time =
+  (function
+   | {
+       hour_of_day = v_hour_of_day;
+       minute_of_hour = v_minute_of_hour;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minute_of_hour in
+         ("minute_of_hour", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hour_of_day in
+         ("hour_of_day", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence__weekly_settings__hand_off_time ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence__weekly_settings__hand_off_time
+
+[@@@deriving.end]
 
 type recurrence__weekly_settings = {
-  day_of_week : string prop;  (** day_of_week *)
+  day_of_week : string prop;
   hand_off_time : recurrence__weekly_settings__hand_off_time list;
 }
-[@@deriving yojson_of]
-(** recurrence__weekly_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : recurrence__weekly_settings) -> ()
+
+let yojson_of_recurrence__weekly_settings =
+  (function
+   | { day_of_week = v_day_of_week; hand_off_time = v_hand_off_time }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_recurrence__weekly_settings__hand_off_time
+             v_hand_off_time
+         in
+         ("hand_off_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_day_of_week in
+         ("day_of_week", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence__weekly_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence__weekly_settings
+
+[@@@deriving.end]
 
 type recurrence = {
-  number_of_on_calls : float prop;  (** number_of_on_calls *)
-  recurrence_multiplier : float prop;  (** recurrence_multiplier *)
+  number_of_on_calls : float prop;
+  recurrence_multiplier : float prop;
   daily_settings : recurrence__daily_settings list;
   monthly_settings : recurrence__monthly_settings list;
   shift_coverages : recurrence__shift_coverages list;
   weekly_settings : recurrence__weekly_settings list;
 }
-[@@deriving yojson_of]
-(** recurrence *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : recurrence) -> ()
+
+let yojson_of_recurrence =
+  (function
+   | {
+       number_of_on_calls = v_number_of_on_calls;
+       recurrence_multiplier = v_recurrence_multiplier;
+       daily_settings = v_daily_settings;
+       monthly_settings = v_monthly_settings;
+       shift_coverages = v_shift_coverages;
+       weekly_settings = v_weekly_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_recurrence__weekly_settings
+             v_weekly_settings
+         in
+         ("weekly_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_recurrence__shift_coverages
+             v_shift_coverages
+         in
+         ("shift_coverages", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_recurrence__monthly_settings
+             v_monthly_settings
+         in
+         ("monthly_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_recurrence__daily_settings
+             v_daily_settings
+         in
+         ("daily_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_recurrence_multiplier
+         in
+         ("recurrence_multiplier", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_number_of_on_calls
+         in
+         ("number_of_on_calls", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence
+
+[@@@deriving.end]
 
 type aws_ssmcontacts_rotation = {
-  contact_ids : string prop list;  (** contact_ids *)
-  name : string prop;  (** name *)
-  start_time : string prop option; [@option]  (** start_time *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
-  time_zone_id : string prop;  (** time_zone_id *)
+  contact_ids : string prop list;
+  name : string prop;
+  start_time : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
+  time_zone_id : string prop;
   recurrence : recurrence list;
 }
-[@@deriving yojson_of]
-(** aws_ssmcontacts_rotation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssmcontacts_rotation) -> ()
+
+let yojson_of_aws_ssmcontacts_rotation =
+  (function
+   | {
+       contact_ids = v_contact_ids;
+       name = v_name;
+       start_time = v_start_time;
+       tags = v_tags;
+       time_zone_id = v_time_zone_id;
+       recurrence = v_recurrence;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_recurrence v_recurrence
+         in
+         ("recurrence", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_zone_id in
+         ("time_zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_contact_ids
+         in
+         ("contact_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ssmcontacts_rotation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssmcontacts_rotation
+
+[@@@deriving.end]
 
 let recurrence__daily_settings ~hour_of_day ~minute_of_hour () :
     recurrence__daily_settings =

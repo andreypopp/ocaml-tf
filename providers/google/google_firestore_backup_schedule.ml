@@ -2,39 +2,170 @@
 
 open! Tf_core
 
-type daily_recurrence = unit [@@deriving yojson_of]
+type daily_recurrence = unit [@@deriving_inline yojson_of]
+
+let _ = fun (_ : daily_recurrence) -> ()
+
+let yojson_of_daily_recurrence =
+  (yojson_of_unit
+    : daily_recurrence -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_daily_recurrence
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type weekly_recurrence = {
-  day : string prop option; [@option]
-      (** The day of week to run. Possible values: [DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
-}
-[@@deriving yojson_of]
-(** For a schedule that runs weekly on a specific day and time. *)
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type weekly_recurrence = { day : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : weekly_recurrence) -> ()
+
+let yojson_of_weekly_recurrence =
+  (function
+   | { day = v_day } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : weekly_recurrence -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_weekly_recurrence
+
+[@@@deriving.end]
 
 type google_firestore_backup_schedule = {
   database : string prop option; [@option]
-      (** The Firestore database id. Defaults to '(default)'. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   retention : string prop;
-      (** At what relative time in the future, compared to its creation time, the backup should be deleted, e.g. keep backups for 7 days.
-A duration in seconds with up to nine fractional digits, ending with 's'. Example: 3.5s.
-
-For a daily backup recurrence, set this to a value up to 7 days. If you set a weekly backup recurrence, set this to a value up to 14 weeks. *)
   daily_recurrence : daily_recurrence list;
   timeouts : timeouts option;
   weekly_recurrence : weekly_recurrence list;
 }
-[@@deriving yojson_of]
-(** google_firestore_backup_schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_firestore_backup_schedule) -> ()
+
+let yojson_of_google_firestore_backup_schedule =
+  (function
+   | {
+       database = v_database;
+       id = v_id;
+       project = v_project;
+       retention = v_retention;
+       daily_recurrence = v_daily_recurrence;
+       timeouts = v_timeouts;
+       weekly_recurrence = v_weekly_recurrence;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_weekly_recurrence
+             v_weekly_recurrence
+         in
+         ("weekly_recurrence", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_daily_recurrence
+             v_daily_recurrence
+         in
+         ("daily_recurrence", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_retention in
+         ("retention", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_database with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "database", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_firestore_backup_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_firestore_backup_schedule
+
+[@@@deriving.end]
 
 let daily_recurrence () = ()
 

@@ -3,14 +3,58 @@
 open! Tf_core
 
 type aws_iot_logging_options = {
-  default_log_level : string prop;  (** default_log_level *)
+  default_log_level : string prop;
   disable_all_logs : bool prop option; [@option]
-      (** disable_all_logs *)
-  id : string prop option; [@option]  (** id *)
-  role_arn : string prop;  (** role_arn *)
+  id : string prop option; [@option]
+  role_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_iot_logging_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iot_logging_options) -> ()
+
+let yojson_of_aws_iot_logging_options =
+  (function
+   | {
+       default_log_level = v_default_log_level;
+       disable_all_logs = v_disable_all_logs;
+       id = v_id;
+       role_arn = v_role_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_all_logs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_all_logs", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_default_log_level
+         in
+         ("default_log_level", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_iot_logging_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iot_logging_options
+
+[@@@deriving.end]
 
 let aws_iot_logging_options ?disable_all_logs ?id ~default_log_level
     ~role_arn () : aws_iot_logging_options =

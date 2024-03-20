@@ -2,48 +2,216 @@
 
 open! Tf_core
 
-type big_query__big_query_source = {
-  input_uri : string prop;
-      (** BigQuery URI to a table, up to 2000 characters long. For example: 'bq://projectId.bqDatasetId.bqTableId.' *)
-}
-[@@deriving yojson_of]
-(** The BigQuery source URI that points to either a BigQuery Table or View. *)
+type big_query__big_query_source = { input_uri : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : big_query__big_query_source) -> ()
+
+let yojson_of_big_query__big_query_source =
+  (function
+   | { input_uri = v_input_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_input_uri in
+         ("input_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : big_query__big_query_source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_big_query__big_query_source
+
+[@@@deriving.end]
 
 type big_query = {
   entity_id_columns : string prop list option; [@option]
-      (** Columns to construct entityId / row keys. Currently only supports 1 entity_id_column. If not provided defaults to entityId. *)
   big_query_source : big_query__big_query_source list;
 }
-[@@deriving yojson_of]
-(** Indicates that features for this group come from BigQuery Table/View. By default treats the source as a sparse time series source, which is required to have an entityId and a feature_timestamp column in the source. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : big_query) -> ()
+
+let yojson_of_big_query =
+  (function
+   | {
+       entity_id_columns = v_entity_id_columns;
+       big_query_source = v_big_query_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_big_query__big_query_source
+             v_big_query_source
+         in
+         ("big_query_source", arg) :: bnds
+       in
+       let bnds =
+         match v_entity_id_columns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "entity_id_columns", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : big_query -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_big_query
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_vertex_ai_feature_group = {
   description : string prop option; [@option]
-      (** The description of the FeatureGroup. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** The labels with user-defined metadata to organize your FeatureGroup.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop option; [@option]
-      (** The resource name of the Feature Group. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The region of feature group. eg us-central1 *)
   big_query : big_query list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vertex_ai_feature_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_vertex_ai_feature_group) -> ()
+
+let yojson_of_google_vertex_ai_feature_group =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       big_query = v_big_query;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_big_query v_big_query in
+         ("big_query", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_vertex_ai_feature_group ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vertex_ai_feature_group
+
+[@@@deriving.end]
 
 let big_query__big_query_source ~input_uri () :
     big_query__big_query_source =

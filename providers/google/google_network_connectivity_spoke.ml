@@ -4,71 +4,247 @@ open! Tf_core
 
 type linked_interconnect_attachments = {
   site_to_site_data_transfer : bool prop;
-      (** A value that controls whether site-to-site data transfer is enabled for these resources. Note that data transfer is available only in supported locations. *)
   uris : string prop list;
-      (** The URIs of linked interconnect attachment resources *)
 }
-[@@deriving yojson_of]
-(** A collection of VLAN attachment resources. These resources should be redundant attachments that all advertise the same prefixes to Google Cloud. Alternatively, in active/passive configurations, all attachments should be capable of advertising the same prefixes. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : linked_interconnect_attachments) -> ()
+
+let yojson_of_linked_interconnect_attachments =
+  (function
+   | {
+       site_to_site_data_transfer = v_site_to_site_data_transfer;
+       uris = v_uris;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_uris
+         in
+         ("uris", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_site_to_site_data_transfer
+         in
+         ("site_to_site_data_transfer", arg) :: bnds
+       in
+       `Assoc bnds
+    : linked_interconnect_attachments ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_linked_interconnect_attachments
+
+[@@@deriving.end]
 
 type linked_router_appliance_instances__instances = {
   ip_address : string prop option; [@option]
-      (** The IP address on the VM to use for peering. *)
   virtual_machine : string prop option; [@option]
-      (** The URI of the virtual machine resource *)
 }
-[@@deriving yojson_of]
-(** The list of router appliance instances *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : linked_router_appliance_instances__instances) -> ()
+
+let yojson_of_linked_router_appliance_instances__instances =
+  (function
+   | {
+       ip_address = v_ip_address;
+       virtual_machine = v_virtual_machine;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_virtual_machine with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "virtual_machine", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_address", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : linked_router_appliance_instances__instances ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_linked_router_appliance_instances__instances
+
+[@@@deriving.end]
 
 type linked_router_appliance_instances = {
   site_to_site_data_transfer : bool prop;
-      (** A value that controls whether site-to-site data transfer is enabled for these resources. Note that data transfer is available only in supported locations. *)
   instances : linked_router_appliance_instances__instances list;
 }
-[@@deriving yojson_of]
-(** The URIs of linked Router appliance resources *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : linked_router_appliance_instances) -> ()
+
+let yojson_of_linked_router_appliance_instances =
+  (function
+   | {
+       site_to_site_data_transfer = v_site_to_site_data_transfer;
+       instances = v_instances;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_linked_router_appliance_instances__instances
+             v_instances
+         in
+         ("instances", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_site_to_site_data_transfer
+         in
+         ("site_to_site_data_transfer", arg) :: bnds
+       in
+       `Assoc bnds
+    : linked_router_appliance_instances ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_linked_router_appliance_instances
+
+[@@@deriving.end]
 
 type linked_vpc_network = {
   exclude_export_ranges : string prop list option; [@option]
-      (** IP ranges encompassing the subnets to be excluded from peering. *)
-  uri : string prop;  (** The URI of the VPC network resource. *)
+  uri : string prop;
 }
-[@@deriving yojson_of]
-(** VPC network that is associated with the spoke. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : linked_vpc_network) -> ()
+
+let yojson_of_linked_vpc_network =
+  (function
+   | { exclude_export_ranges = v_exclude_export_ranges; uri = v_uri }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_exclude_export_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exclude_export_ranges", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : linked_vpc_network -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_linked_vpc_network
+
+[@@@deriving.end]
 
 type linked_vpn_tunnels = {
   site_to_site_data_transfer : bool prop;
-      (** A value that controls whether site-to-site data transfer is enabled for these resources. Note that data transfer is available only in supported locations. *)
   uris : string prop list;
-      (** The URIs of linked VPN tunnel resources. *)
 }
-[@@deriving yojson_of]
-(** The URIs of linked VPN tunnel resources *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : linked_vpn_tunnels) -> ()
+
+let yojson_of_linked_vpn_tunnels =
+  (function
+   | {
+       site_to_site_data_transfer = v_site_to_site_data_transfer;
+       uris = v_uris;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_uris
+         in
+         ("uris", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_site_to_site_data_transfer
+         in
+         ("site_to_site_data_transfer", arg) :: bnds
+       in
+       `Assoc bnds
+    : linked_vpn_tunnels -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_linked_vpn_tunnels
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_network_connectivity_spoke = {
   description : string prop option; [@option]
-      (** An optional description of the spoke. *)
   hub : string prop;
-      (** Immutable. The URI of the hub that this spoke is attached to. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Optional labels in key:value format. For more information about labels, see [Requirements for labels](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements).
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field `effective_labels` for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
+  location : string prop;
   name : string prop;
-      (** Immutable. The name of the spoke. Spoke names must be unique. *)
   project : string prop option; [@option]
-      (** The project for the resource *)
   linked_interconnect_attachments :
     linked_interconnect_attachments list;
   linked_router_appliance_instances :
@@ -77,8 +253,122 @@ Please refer to the field `effective_labels` for all of the labels present on th
   linked_vpn_tunnels : linked_vpn_tunnels list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_network_connectivity_spoke *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_network_connectivity_spoke) -> ()
+
+let yojson_of_google_network_connectivity_spoke =
+  (function
+   | {
+       description = v_description;
+       hub = v_hub;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       linked_interconnect_attachments =
+         v_linked_interconnect_attachments;
+       linked_router_appliance_instances =
+         v_linked_router_appliance_instances;
+       linked_vpc_network = v_linked_vpc_network;
+       linked_vpn_tunnels = v_linked_vpn_tunnels;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_linked_vpn_tunnels
+             v_linked_vpn_tunnels
+         in
+         ("linked_vpn_tunnels", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_linked_vpc_network
+             v_linked_vpc_network
+         in
+         ("linked_vpc_network", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_linked_router_appliance_instances
+             v_linked_router_appliance_instances
+         in
+         ("linked_router_appliance_instances", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_linked_interconnect_attachments
+             v_linked_interconnect_attachments
+         in
+         ("linked_interconnect_attachments", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_hub in
+         ("hub", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_network_connectivity_spoke ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_network_connectivity_spoke
+
+[@@@deriving.end]
 
 let linked_interconnect_attachments ~site_to_site_data_transfer ~uris
     () : linked_interconnect_attachments =

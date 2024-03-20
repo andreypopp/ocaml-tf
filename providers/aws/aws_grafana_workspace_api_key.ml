@@ -3,14 +3,61 @@
 open! Tf_core
 
 type aws_grafana_workspace_api_key = {
-  id : string prop option; [@option]  (** id *)
-  key_name : string prop;  (** key_name *)
-  key_role : string prop;  (** key_role *)
-  seconds_to_live : float prop;  (** seconds_to_live *)
-  workspace_id : string prop;  (** workspace_id *)
+  id : string prop option; [@option]
+  key_name : string prop;
+  key_role : string prop;
+  seconds_to_live : float prop;
+  workspace_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_grafana_workspace_api_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_grafana_workspace_api_key) -> ()
+
+let yojson_of_aws_grafana_workspace_api_key =
+  (function
+   | {
+       id = v_id;
+       key_name = v_key_name;
+       key_role = v_key_role;
+       seconds_to_live = v_seconds_to_live;
+       workspace_id = v_workspace_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workspace_id in
+         ("workspace_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_seconds_to_live
+         in
+         ("seconds_to_live", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_role in
+         ("key_role", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_name in
+         ("key_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_grafana_workspace_api_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_grafana_workspace_api_key
+
+[@@@deriving.end]
 
 let aws_grafana_workspace_api_key ?id ~key_name ~key_role
     ~seconds_to_live ~workspace_id () : aws_grafana_workspace_api_key

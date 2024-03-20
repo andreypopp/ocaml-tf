@@ -4,15 +4,50 @@ open! Tf_core
 
 type cloudflare_access_keys_configuration = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   key_rotation_interval_days : float prop option; [@option]
-      (** Number of days to trigger a rotation of the keys. *)
 }
-[@@deriving yojson_of]
-(** Access Keys Configuration defines the rotation policy for the keys
-that access will use to sign data.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_access_keys_configuration) -> ()
+
+let yojson_of_cloudflare_access_keys_configuration =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       key_rotation_interval_days = v_key_rotation_interval_days;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_key_rotation_interval_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "key_rotation_interval_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_access_keys_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_access_keys_configuration
+
+[@@@deriving.end]
 
 let cloudflare_access_keys_configuration ?id
     ?key_rotation_interval_days ~account_id () :

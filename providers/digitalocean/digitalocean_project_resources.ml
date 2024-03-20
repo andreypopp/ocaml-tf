@@ -3,13 +3,47 @@
 open! Tf_core
 
 type digitalocean_project_resources = {
-  id : string prop option; [@option]  (** id *)
-  project : string prop;  (** project ID *)
+  id : string prop option; [@option]
+  project : string prop;
   resources : string prop list;
-      (** the resources associated with the project *)
 }
-[@@deriving yojson_of]
-(** digitalocean_project_resources *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_project_resources) -> ()
+
+let yojson_of_digitalocean_project_resources =
+  (function
+   | { id = v_id; project = v_project; resources = v_resources } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_resources
+         in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project in
+         ("project", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_project_resources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_project_resources
+
+[@@@deriving.end]
 
 let digitalocean_project_resources ?id ~project ~resources () :
     digitalocean_project_resources =

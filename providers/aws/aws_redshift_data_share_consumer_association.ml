@@ -3,16 +3,73 @@
 open! Tf_core
 
 type aws_redshift_data_share_consumer_association = {
-  allow_writes : bool prop option; [@option]  (** allow_writes *)
+  allow_writes : bool prop option; [@option]
   associate_entire_account : bool prop option; [@option]
-      (** associate_entire_account *)
-  consumer_arn : string prop option; [@option]  (** consumer_arn *)
+  consumer_arn : string prop option; [@option]
   consumer_region : string prop option; [@option]
-      (** consumer_region *)
-  data_share_arn : string prop;  (** data_share_arn *)
+  data_share_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_redshift_data_share_consumer_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshift_data_share_consumer_association) -> ()
+
+let yojson_of_aws_redshift_data_share_consumer_association =
+  (function
+   | {
+       allow_writes = v_allow_writes;
+       associate_entire_account = v_associate_entire_account;
+       consumer_arn = v_consumer_arn;
+       consumer_region = v_consumer_region;
+       data_share_arn = v_data_share_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_share_arn
+         in
+         ("data_share_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_consumer_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "consumer_region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_consumer_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "consumer_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_associate_entire_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "associate_entire_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_writes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_writes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_redshift_data_share_consumer_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshift_data_share_consumer_association
+
+[@@@deriving.end]
 
 let aws_redshift_data_share_consumer_association ?allow_writes
     ?associate_entire_account ?consumer_arn ?consumer_region

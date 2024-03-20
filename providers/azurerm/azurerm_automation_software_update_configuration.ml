@@ -4,132 +4,677 @@ open! Tf_core
 
 type linux = {
   classification_included : string prop option; [@option]
-      (** classification_included *)
   classifications_included : string prop list option; [@option]
-      (** classifications_included *)
   excluded_packages : string prop list option; [@option]
-      (** excluded_packages *)
   included_packages : string prop list option; [@option]
-      (** included_packages *)
-  reboot : string prop option; [@option]  (** reboot *)
+  reboot : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** linux *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : linux) -> ()
+
+let yojson_of_linux =
+  (function
+   | {
+       classification_included = v_classification_included;
+       classifications_included = v_classifications_included;
+       excluded_packages = v_excluded_packages;
+       included_packages = v_included_packages;
+       reboot = v_reboot;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_reboot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "reboot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_included_packages with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "included_packages", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_excluded_packages with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "excluded_packages", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_classifications_included with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "classifications_included", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_classification_included with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "classification_included", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : linux -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_linux
+
+[@@@deriving.end]
 
 type post_task = {
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
-  source : string prop option; [@option]  (** source *)
+  source : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** post_task *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : post_task) -> ()
+
+let yojson_of_post_task =
+  (function
+   | { parameters = v_parameters; source = v_source } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : post_task -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_post_task
+
+[@@@deriving.end]
 
 type pre_task = {
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
-  source : string prop option; [@option]  (** source *)
+  source : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** pre_task *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : pre_task) -> ()
+
+let yojson_of_pre_task =
+  (function
+   | { parameters = v_parameters; source = v_source } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : pre_task -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pre_task
+
+[@@@deriving.end]
 
 type schedule__monthly_occurrence = {
-  day : string prop;  (** day *)
-  occurrence : float prop;  (** occurrence *)
+  day : string prop;
+  occurrence : float prop;
 }
-[@@deriving yojson_of]
-(** schedule__monthly_occurrence *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schedule__monthly_occurrence) -> ()
+
+let yojson_of_schedule__monthly_occurrence =
+  (function
+   | { day = v_day; occurrence = v_occurrence } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_occurrence in
+         ("occurrence", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_day in
+         ("day", arg) :: bnds
+       in
+       `Assoc bnds
+    : schedule__monthly_occurrence ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schedule__monthly_occurrence
+
+[@@@deriving.end]
 
 type schedule = {
   advanced_month_days : float prop list option; [@option]
-      (** advanced_month_days *)
   advanced_week_days : string prop list option; [@option]
-      (** advanced_week_days *)
-  description : string prop option; [@option]  (** description *)
-  expiry_time : string prop option; [@option]  (** expiry_time *)
+  description : string prop option; [@option]
+  expiry_time : string prop option; [@option]
   expiry_time_offset_minutes : float prop option; [@option]
-      (** expiry_time_offset_minutes *)
-  frequency : string prop;  (** frequency *)
-  interval : float prop option; [@option]  (** interval *)
-  is_enabled : bool prop option; [@option]  (** is_enabled *)
-  next_run : string prop option; [@option]  (** next_run *)
+  frequency : string prop;
+  interval : float prop option; [@option]
+  is_enabled : bool prop option; [@option]
+  next_run : string prop option; [@option]
   next_run_offset_minutes : float prop option; [@option]
-      (** next_run_offset_minutes *)
-  start_time : string prop option; [@option]  (** start_time *)
+  start_time : string prop option; [@option]
   start_time_offset_minutes : float prop option; [@option]
-      (** start_time_offset_minutes *)
-  time_zone : string prop option; [@option]  (** time_zone *)
+  time_zone : string prop option; [@option]
   monthly_occurrence : schedule__monthly_occurrence list;
 }
-[@@deriving yojson_of]
-(** schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schedule) -> ()
+
+let yojson_of_schedule =
+  (function
+   | {
+       advanced_month_days = v_advanced_month_days;
+       advanced_week_days = v_advanced_week_days;
+       description = v_description;
+       expiry_time = v_expiry_time;
+       expiry_time_offset_minutes = v_expiry_time_offset_minutes;
+       frequency = v_frequency;
+       interval = v_interval;
+       is_enabled = v_is_enabled;
+       next_run = v_next_run;
+       next_run_offset_minutes = v_next_run_offset_minutes;
+       start_time = v_start_time;
+       start_time_offset_minutes = v_start_time_offset_minutes;
+       time_zone = v_time_zone;
+       monthly_occurrence = v_monthly_occurrence;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_schedule__monthly_occurrence
+             v_monthly_occurrence
+         in
+         ("monthly_occurrence", arg) :: bnds
+       in
+       let bnds =
+         match v_time_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "time_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_start_time_offset_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "start_time_offset_minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_run_offset_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "next_run_offset_minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_run with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_run", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_interval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "interval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_frequency in
+         ("frequency", arg) :: bnds
+       in
+       let bnds =
+         match v_expiry_time_offset_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "expiry_time_offset_minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expiry_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expiry_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_advanced_week_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "advanced_week_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_advanced_month_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "advanced_month_days", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schedule
+
+[@@@deriving.end]
 
 type target__azure_query__tags = {
-  tag : string prop;  (** tag *)
-  values : string prop list;  (** values *)
+  tag : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** target__azure_query__tags *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target__azure_query__tags) -> ()
+
+let yojson_of_target__azure_query__tags =
+  (function
+   | { tag = v_tag; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tag in
+         ("tag", arg) :: bnds
+       in
+       `Assoc bnds
+    : target__azure_query__tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target__azure_query__tags
+
+[@@@deriving.end]
 
 type target__azure_query = {
-  locations : string prop list option; [@option]  (** locations *)
-  scope : string prop list option; [@option]  (** scope *)
-  tag_filter : string prop option; [@option]  (** tag_filter *)
+  locations : string prop list option; [@option]
+  scope : string prop list option; [@option]
+  tag_filter : string prop option; [@option]
   tags : target__azure_query__tags list;
 }
-[@@deriving yojson_of]
-(** target__azure_query *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target__azure_query) -> ()
+
+let yojson_of_target__azure_query =
+  (function
+   | {
+       locations = v_locations;
+       scope = v_scope;
+       tag_filter = v_tag_filter;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_target__azure_query__tags v_tags
+         in
+         ("tags", arg) :: bnds
+       in
+       let bnds =
+         match v_tag_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag_filter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_locations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "locations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target__azure_query -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target__azure_query
+
+[@@@deriving.end]
 
 type target__non_azure_query = {
   function_alias : string prop option; [@option]
-      (** function_alias *)
-  workspace_id : string prop option; [@option]  (** workspace_id *)
+  workspace_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** target__non_azure_query *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target__non_azure_query) -> ()
+
+let yojson_of_target__non_azure_query =
+  (function
+   | {
+       function_alias = v_function_alias;
+       workspace_id = v_workspace_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_workspace_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "workspace_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_function_alias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "function_alias", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target__non_azure_query -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target__non_azure_query
+
+[@@@deriving.end]
 
 type target = {
   azure_query : target__azure_query list;
   non_azure_query : target__non_azure_query list;
 }
-[@@deriving yojson_of]
-(** target *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target) -> ()
+
+let yojson_of_target =
+  (function
+   | {
+       azure_query = v_azure_query;
+       non_azure_query = v_non_azure_query;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_target__non_azure_query
+             v_non_azure_query
+         in
+         ("non_azure_query", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_target__azure_query v_azure_query
+         in
+         ("azure_query", arg) :: bnds
+       in
+       `Assoc bnds
+    : target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type windows = {
   classification_included : string prop option; [@option]
-      (** classification_included *)
   classifications_included : string prop list option; [@option]
-      (** classifications_included *)
   excluded_knowledge_base_numbers : string prop list option;
       [@option]
-      (** excluded_knowledge_base_numbers *)
   included_knowledge_base_numbers : string prop list option;
       [@option]
-      (** included_knowledge_base_numbers *)
-  reboot : string prop option; [@option]  (** reboot *)
+  reboot : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** windows *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : windows) -> ()
+
+let yojson_of_windows =
+  (function
+   | {
+       classification_included = v_classification_included;
+       classifications_included = v_classifications_included;
+       excluded_knowledge_base_numbers =
+         v_excluded_knowledge_base_numbers;
+       included_knowledge_base_numbers =
+         v_included_knowledge_base_numbers;
+       reboot = v_reboot;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_reboot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "reboot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_included_knowledge_base_numbers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "included_knowledge_base_numbers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_excluded_knowledge_base_numbers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "excluded_knowledge_base_numbers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_classifications_included with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "classifications_included", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_classification_included with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "classification_included", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : windows -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_windows
+
+[@@@deriving.end]
 
 type azurerm_automation_software_update_configuration = {
-  automation_account_id : string prop;  (** automation_account_id *)
-  duration : string prop option; [@option]  (** duration *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  automation_account_id : string prop;
+  duration : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   non_azure_computer_names : string prop list option; [@option]
-      (** non_azure_computer_names *)
   operating_system : string prop option; [@option]
-      (** operating_system *)
   virtual_machine_ids : string prop list option; [@option]
-      (** virtual_machine_ids *)
   linux : linux list;
   post_task : post_task list;
   pre_task : pre_task list;
@@ -138,8 +683,121 @@ type azurerm_automation_software_update_configuration = {
   timeouts : timeouts option;
   windows : windows list;
 }
-[@@deriving yojson_of]
-(** azurerm_automation_software_update_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : azurerm_automation_software_update_configuration) -> ()
+
+let yojson_of_azurerm_automation_software_update_configuration =
+  (function
+   | {
+       automation_account_id = v_automation_account_id;
+       duration = v_duration;
+       id = v_id;
+       name = v_name;
+       non_azure_computer_names = v_non_azure_computer_names;
+       operating_system = v_operating_system;
+       virtual_machine_ids = v_virtual_machine_ids;
+       linux = v_linux;
+       post_task = v_post_task;
+       pre_task = v_pre_task;
+       schedule = v_schedule;
+       target = v_target;
+       timeouts = v_timeouts;
+       windows = v_windows;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_windows v_windows in
+         ("windows", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_target v_target in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_schedule v_schedule in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_pre_task v_pre_task in
+         ("pre_task", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_post_task v_post_task in
+         ("post_task", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_linux v_linux in
+         ("linux", arg) :: bnds
+       in
+       let bnds =
+         match v_virtual_machine_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "virtual_machine_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operating_system with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operating_system", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_non_azure_computer_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "non_azure_computer_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_automation_account_id
+         in
+         ("automation_account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_automation_software_update_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_automation_software_update_configuration
+
+[@@@deriving.end]
 
 let linux ?classification_included ?classifications_included
     ?excluded_packages ?included_packages ?reboot () : linux =

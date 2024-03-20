@@ -3,102 +3,365 @@
 open! Tf_core
 
 type gcs_fileset_spec__sample_gcs_file_specs = {
-  file_path : string prop;  (** file_path *)
-  size_bytes : float prop;  (** size_bytes *)
+  file_path : string prop;
+  size_bytes : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
 
-type gcs_fileset_spec = {
-  file_patterns : string prop list;
-      (** Patterns to identify a set of files in Google Cloud Storage.
-See [Cloud Storage documentation](https://cloud.google.com/storage/docs/gsutil/addlhelp/WildcardNames)
-for more information. Note that bucket wildcards are currently not supported. Examples of valid filePatterns:
+let _ = fun (_ : gcs_fileset_spec__sample_gcs_file_specs) -> ()
 
-* gs://bucket_name/dir/*: matches all files within bucket_name/dir directory.
-* gs://bucket_name/dir/**: matches all files in bucket_name/dir spanning all subdirectories.
-* gs://bucket_name/file*: matches files prefixed by file in bucket_name
-* gs://bucket_name/??.txt: matches files with two characters followed by .txt in bucket_name
-* gs://bucket_name/[aeiou].txt: matches files that contain a single vowel character followed by .txt in bucket_name
-* gs://bucket_name/[a-m].txt: matches files that contain a, b, ... or m followed by .txt in bucket_name
-* gs://bucket_name/a/*/b: matches all files in bucket_name that match a/*/b pattern, such as a/c/b, a/d/b
-* gs://another_bucket/a.txt: matches gs://another_bucket/a.txt *)
-}
-[@@deriving yojson_of]
-(** Specification that applies to a Cloud Storage fileset. This is only valid on entries of type FILESET. *)
+let yojson_of_gcs_fileset_spec__sample_gcs_file_specs =
+  (function
+   | { file_path = v_file_path; size_bytes = v_size_bytes } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_size_bytes in
+         ("size_bytes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_file_path in
+         ("file_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : gcs_fileset_spec__sample_gcs_file_specs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gcs_fileset_spec__sample_gcs_file_specs
+
+[@@@deriving.end]
+
+type gcs_fileset_spec = { file_patterns : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : gcs_fileset_spec) -> ()
+
+let yojson_of_gcs_fileset_spec =
+  (function
+   | { file_patterns = v_file_patterns } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_file_patterns
+         in
+         ("file_patterns", arg) :: bnds
+       in
+       `Assoc bnds
+    : gcs_fileset_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gcs_fileset_spec
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type bigquery_date_sharded_spec = {
-  dataset : string prop;  (** dataset *)
-  shard_count : float prop;  (** shard_count *)
-  table_prefix : string prop;  (** table_prefix *)
+  dataset : string prop;
+  shard_count : float prop;
+  table_prefix : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
 
-type bigquery_table_spec__view_spec = {
-  view_query : string prop;  (** view_query *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : bigquery_date_sharded_spec) -> ()
+
+let yojson_of_bigquery_date_sharded_spec =
+  (function
+   | {
+       dataset = v_dataset;
+       shard_count = v_shard_count;
+       table_prefix = v_table_prefix;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_prefix in
+         ("table_prefix", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_shard_count in
+         ("shard_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset in
+         ("dataset", arg) :: bnds
+       in
+       `Assoc bnds
+    : bigquery_date_sharded_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bigquery_date_sharded_spec
+
+[@@@deriving.end]
+
+type bigquery_table_spec__view_spec = { view_query : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bigquery_table_spec__view_spec) -> ()
+
+let yojson_of_bigquery_table_spec__view_spec =
+  (function
+   | { view_query = v_view_query } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_view_query in
+         ("view_query", arg) :: bnds
+       in
+       `Assoc bnds
+    : bigquery_table_spec__view_spec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bigquery_table_spec__view_spec
+
+[@@@deriving.end]
 
 type bigquery_table_spec__table_spec = {
-  grouped_entry : string prop;  (** grouped_entry *)
+  grouped_entry : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bigquery_table_spec__table_spec) -> ()
+
+let yojson_of_bigquery_table_spec__table_spec =
+  (function
+   | { grouped_entry = v_grouped_entry } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_grouped_entry in
+         ("grouped_entry", arg) :: bnds
+       in
+       `Assoc bnds
+    : bigquery_table_spec__table_spec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bigquery_table_spec__table_spec
+
+[@@@deriving.end]
 
 type bigquery_table_spec = {
-  table_source_type : string prop;  (** table_source_type *)
+  table_source_type : string prop;
   table_spec : bigquery_table_spec__table_spec list;
-      (** table_spec *)
-  view_spec : bigquery_table_spec__view_spec list;  (** view_spec *)
+  view_spec : bigquery_table_spec__view_spec list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bigquery_table_spec) -> ()
+
+let yojson_of_bigquery_table_spec =
+  (function
+   | {
+       table_source_type = v_table_source_type;
+       table_spec = v_table_spec;
+       view_spec = v_view_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bigquery_table_spec__view_spec
+             v_view_spec
+         in
+         ("view_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bigquery_table_spec__table_spec
+             v_table_spec
+         in
+         ("table_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_table_source_type
+         in
+         ("table_source_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : bigquery_table_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bigquery_table_spec
+
+[@@@deriving.end]
 
 type google_data_catalog_entry = {
   description : string prop option; [@option]
-      (** Entry description, which can consist of several sentences or paragraphs that describe entry contents. *)
   display_name : string prop option; [@option]
-      (** Display information such as title and description. A short name to identify the entry,
-for example, Analytics Data - Jan 2011. *)
   entry_group : string prop;
-      (** The name of the entry group this entry is in. *)
-  entry_id : string prop;  (** The id of the entry to create. *)
-  id : string prop option; [@option]  (** id *)
+  entry_id : string prop;
+  id : string prop option; [@option]
   linked_resource : string prop option; [@option]
-      (** The resource this metadata entry refers to.
-For Google Cloud Platform resources, linkedResource is the full name of the resource.
-For example, the linkedResource for a table resource from BigQuery is:
-//bigquery.googleapis.com/projects/projectId/datasets/datasetId/tables/tableId
-Output only when Entry is of type in the EntryType enum. For entries with userSpecifiedType,
-this field is optional and defaults to an empty string. *)
   schema : string prop option; [@option]
-      (** Schema of the entry (e.g. BigQuery, GoogleSQL, Avro schema), as a json string. An entry might not have any schema
-attached to it. See
-https://cloud.google.com/data-catalog/docs/reference/rest/v1/projects.locations.entryGroups.entries#schema
-for what fields this schema can contain. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The type of the entry. Only used for Entries with types in the EntryType enum.
-Currently, only FILESET enum value is allowed. All other entries created through Data Catalog must use userSpecifiedType. Possible values: [FILESET] *)
   user_specified_system : string prop option; [@option]
-      (** This field indicates the entry's source system that Data Catalog does not integrate with.
-userSpecifiedSystem strings must begin with a letter or underscore and can only contain letters, numbers,
-and underscores; are case insensitive; must be at least 1 character and at most 64 characters long. *)
   user_specified_type : string prop option; [@option]
-      (** Entry type if it does not fit any of the input-allowed values listed in EntryType enum above.
-When creating an entry, users should check the enum values first, if nothing matches the entry
-to be created, then provide a custom value, for example my_special_type.
-userSpecifiedType strings must begin with a letter or underscore and can only contain letters,
-numbers, and underscores; are case insensitive; must be at least 1 character and at most 64 characters long. *)
   gcs_fileset_spec : gcs_fileset_spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_data_catalog_entry *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_data_catalog_entry) -> ()
+
+let yojson_of_google_data_catalog_entry =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       entry_group = v_entry_group;
+       entry_id = v_entry_id;
+       id = v_id;
+       linked_resource = v_linked_resource;
+       schema = v_schema;
+       type_ = v_type_;
+       user_specified_system = v_user_specified_system;
+       user_specified_type = v_user_specified_type;
+       gcs_fileset_spec = v_gcs_fileset_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_gcs_fileset_spec
+             v_gcs_fileset_spec
+         in
+         ("gcs_fileset_spec", arg) :: bnds
+       in
+       let bnds =
+         match v_user_specified_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_specified_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_user_specified_system with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_specified_system", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_linked_resource with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "linked_resource", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_entry_id in
+         ("entry_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_entry_group in
+         ("entry_group", arg) :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_data_catalog_entry -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_data_catalog_entry
+
+[@@@deriving.end]
 
 let gcs_fileset_spec ~file_patterns () : gcs_fileset_spec =
   { file_patterns }

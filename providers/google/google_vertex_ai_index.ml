@@ -3,18 +3,64 @@
 open! Tf_core
 
 type metadata__config__algorithm_config__brute_force_config = unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : metadata__config__algorithm_config__brute_force_config) ->
+  ()
+
+let yojson_of_metadata__config__algorithm_config__brute_force_config
+    =
+  (yojson_of_unit
+    : metadata__config__algorithm_config__brute_force_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_metadata__config__algorithm_config__brute_force_config
+
+[@@@deriving.end]
 
 type metadata__config__algorithm_config__tree_ah_config = {
   leaf_node_embedding_count : float prop option; [@option]
-      (** Number of embeddings on each leaf node. The default value is 1000 if not set. *)
   leaf_nodes_to_search_percent : float prop option; [@option]
-      (** The default percentage of leaf nodes that any query may be searched. Must be in
-range 1-100, inclusive. The default value is 10 (means 10%) if not set. *)
 }
-[@@deriving yojson_of]
-(** Configuration options for using the tree-AH algorithm (Shallow tree + Asymmetric Hashing).
-Please refer to this paper for more details: https://arxiv.org/abs/1908.10396 *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : metadata__config__algorithm_config__tree_ah_config) -> ()
+
+let yojson_of_metadata__config__algorithm_config__tree_ah_config =
+  (function
+   | {
+       leaf_node_embedding_count = v_leaf_node_embedding_count;
+       leaf_nodes_to_search_percent = v_leaf_nodes_to_search_percent;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_leaf_nodes_to_search_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "leaf_nodes_to_search_percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_leaf_node_embedding_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "leaf_node_embedding_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata__config__algorithm_config__tree_ah_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata__config__algorithm_config__tree_ah_config
+
+[@@@deriving.end]
 
 type metadata__config__algorithm_config = {
   brute_force_config :
@@ -22,97 +68,384 @@ type metadata__config__algorithm_config = {
   tree_ah_config :
     metadata__config__algorithm_config__tree_ah_config list;
 }
-[@@deriving yojson_of]
-(** The configuration with regard to the algorithms used for efficient search. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata__config__algorithm_config) -> ()
+
+let yojson_of_metadata__config__algorithm_config =
+  (function
+   | {
+       brute_force_config = v_brute_force_config;
+       tree_ah_config = v_tree_ah_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_metadata__config__algorithm_config__tree_ah_config
+             v_tree_ah_config
+         in
+         ("tree_ah_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_metadata__config__algorithm_config__brute_force_config
+             v_brute_force_config
+         in
+         ("brute_force_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : metadata__config__algorithm_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata__config__algorithm_config
+
+[@@@deriving.end]
 
 type metadata__config = {
   approximate_neighbors_count : float prop option; [@option]
-      (** The default number of neighbors to find via approximate search before exact reordering is
-performed. Exact reordering is a procedure where results returned by an
-approximate search algorithm are reordered via a more expensive distance computation.
-Required if tree-AH algorithm is used. *)
   dimensions : float prop;
-      (** The number of dimensions of the input vectors. *)
   distance_measure_type : string prop option; [@option]
-      (** The distance measure used in nearest neighbor search. The value must be one of the followings:
-* SQUARED_L2_DISTANCE: Euclidean (L_2) Distance
-* L1_DISTANCE: Manhattan (L_1) Distance
-* COSINE_DISTANCE: Cosine Distance. Defined as 1 - cosine similarity.
-* DOT_PRODUCT_DISTANCE: Dot Product Distance. Defined as a negative of the dot product *)
   feature_norm_type : string prop option; [@option]
-      (** Type of normalization to be carried out on each vector. The value must be one of the followings:
-* UNIT_L2_NORM: Unit L2 normalization type
-* NONE: No normalization type is specified. *)
   shard_size : string prop option; [@option]
-      (** Index data is split into equal parts to be processed. These are called shards.
-The shard size must be specified when creating an index. The value must be one of the followings:
-* SHARD_SIZE_SMALL: Small (2GB)
-* SHARD_SIZE_MEDIUM: Medium (20GB)
-* SHARD_SIZE_LARGE: Large (50GB) *)
   algorithm_config : metadata__config__algorithm_config list;
 }
-[@@deriving yojson_of]
-(** The configuration of the Matching Engine Index. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata__config) -> ()
+
+let yojson_of_metadata__config =
+  (function
+   | {
+       approximate_neighbors_count = v_approximate_neighbors_count;
+       dimensions = v_dimensions;
+       distance_measure_type = v_distance_measure_type;
+       feature_norm_type = v_feature_norm_type;
+       shard_size = v_shard_size;
+       algorithm_config = v_algorithm_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_metadata__config__algorithm_config
+             v_algorithm_config
+         in
+         ("algorithm_config", arg) :: bnds
+       in
+       let bnds =
+         match v_shard_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "shard_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_feature_norm_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "feature_norm_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_distance_measure_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "distance_measure_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_dimensions in
+         ("dimensions", arg) :: bnds
+       in
+       let bnds =
+         match v_approximate_neighbors_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "approximate_neighbors_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata__config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata__config
+
+[@@@deriving.end]
 
 type metadata = {
   contents_delta_uri : string prop;
-      (** Allows inserting, updating  or deleting the contents of the Matching Engine Index.
-The string must be a valid Cloud Storage directory path. If this
-field is set when calling IndexService.UpdateIndex, then no other
-Index field can be also updated as part of the same call.
-The expected structure and format of the files this URI points to is
-described at https://cloud.google.com/vertex-ai/docs/matching-engine/using-matching-engine#input-data-format *)
   is_complete_overwrite : bool prop option; [@option]
-      (** If this field is set together with contentsDeltaUri when calling IndexService.UpdateIndex,
-then existing content of the Index will be replaced by the data from the contentsDeltaUri. *)
   config : metadata__config list;
 }
-[@@deriving yojson_of]
-(** An additional information about the Index *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       contents_delta_uri = v_contents_delta_uri;
+       is_complete_overwrite = v_is_complete_overwrite;
+       config = v_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_metadata__config v_config
+         in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         match v_is_complete_overwrite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_complete_overwrite", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_contents_delta_uri
+         in
+         ("contents_delta_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type deployed_indexes = {
-  deployed_index_id : string prop;  (** deployed_index_id *)
-  index_endpoint : string prop;  (** index_endpoint *)
+  deployed_index_id : string prop;
+  index_endpoint : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployed_indexes) -> ()
+
+let yojson_of_deployed_indexes =
+  (function
+   | {
+       deployed_index_id = v_deployed_index_id;
+       index_endpoint = v_index_endpoint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_index_endpoint
+         in
+         ("index_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_deployed_index_id
+         in
+         ("deployed_index_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployed_indexes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployed_indexes
+
+[@@@deriving.end]
 
 type index_stats = {
-  shards_count : float prop;  (** shards_count *)
-  vectors_count : string prop;  (** vectors_count *)
+  shards_count : float prop;
+  vectors_count : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : index_stats) -> ()
+
+let yojson_of_index_stats =
+  (function
+   | {
+       shards_count = v_shards_count;
+       vectors_count = v_vectors_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vectors_count in
+         ("vectors_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_shards_count in
+         ("shards_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : index_stats -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_index_stats
+
+[@@@deriving.end]
 
 type google_vertex_ai_index = {
   description : string prop option; [@option]
-      (** The description of the Index. *)
   display_name : string prop;
-      (** The display name of the Index. The name can be up to 128 characters long and can consist of any UTF-8 characters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   index_update_method : string prop option; [@option]
-      (** The update method to use with this Index. The value must be the followings. If not set, BATCH_UPDATE will be used by default.
-* BATCH_UPDATE: user can call indexes.patch with files on Cloud Storage of datapoints to update.
-* STREAM_UPDATE: user can call indexes.upsertDatapoints/DeleteDatapoints to update the Index and the updates will be applied in corresponding DeployedIndexes in nearly real-time. *)
   labels : (string * string prop) list option; [@option]
-      (** The labels with user-defined metadata to organize your Indexes.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The region of the index. eg us-central1 *)
   metadata : metadata list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vertex_ai_index *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_vertex_ai_index) -> ()
+
+let yojson_of_google_vertex_ai_index =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       index_update_method = v_index_update_method;
+       labels = v_labels;
+       project = v_project;
+       region = v_region;
+       metadata = v_metadata;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_index_update_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "index_update_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_vertex_ai_index -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vertex_ai_index
+
+[@@@deriving.end]
 
 let metadata__config__algorithm_config__brute_force_config () = ()
 

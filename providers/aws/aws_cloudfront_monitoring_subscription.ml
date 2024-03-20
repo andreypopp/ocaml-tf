@@ -4,26 +4,120 @@ open! Tf_core
 
 type monitoring_subscription__realtime_metrics_subscription_config = {
   realtime_metrics_subscription_status : string prop;
-      (** realtime_metrics_subscription_status *)
 }
-[@@deriving yojson_of]
-(** monitoring_subscription__realtime_metrics_subscription_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       monitoring_subscription__realtime_metrics_subscription_config) ->
+  ()
+
+let yojson_of_monitoring_subscription__realtime_metrics_subscription_config
+    =
+  (function
+   | {
+       realtime_metrics_subscription_status =
+         v_realtime_metrics_subscription_status;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_realtime_metrics_subscription_status
+         in
+         ("realtime_metrics_subscription_status", arg) :: bnds
+       in
+       `Assoc bnds
+    : monitoring_subscription__realtime_metrics_subscription_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_monitoring_subscription__realtime_metrics_subscription_config
+
+[@@@deriving.end]
 
 type monitoring_subscription = {
   realtime_metrics_subscription_config :
     monitoring_subscription__realtime_metrics_subscription_config
     list;
 }
-[@@deriving yojson_of]
-(** monitoring_subscription *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : monitoring_subscription) -> ()
+
+let yojson_of_monitoring_subscription =
+  (function
+   | {
+       realtime_metrics_subscription_config =
+         v_realtime_metrics_subscription_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_monitoring_subscription__realtime_metrics_subscription_config
+             v_realtime_metrics_subscription_config
+         in
+         ("realtime_metrics_subscription_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : monitoring_subscription -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_monitoring_subscription
+
+[@@@deriving.end]
 
 type aws_cloudfront_monitoring_subscription = {
-  distribution_id : string prop;  (** distribution_id *)
-  id : string prop option; [@option]  (** id *)
+  distribution_id : string prop;
+  id : string prop option; [@option]
   monitoring_subscription : monitoring_subscription list;
 }
-[@@deriving yojson_of]
-(** aws_cloudfront_monitoring_subscription *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudfront_monitoring_subscription) -> ()
+
+let yojson_of_aws_cloudfront_monitoring_subscription =
+  (function
+   | {
+       distribution_id = v_distribution_id;
+       id = v_id;
+       monitoring_subscription = v_monitoring_subscription;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_monitoring_subscription
+             v_monitoring_subscription
+         in
+         ("monitoring_subscription", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_distribution_id
+         in
+         ("distribution_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudfront_monitoring_subscription ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudfront_monitoring_subscription
+
+[@@@deriving.end]
 
 let monitoring_subscription__realtime_metrics_subscription_config
     ~realtime_metrics_subscription_status () :

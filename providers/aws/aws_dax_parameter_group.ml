@@ -2,21 +2,85 @@
 
 open! Tf_core
 
-type parameters = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
-}
-[@@deriving yojson_of]
-(** parameters *)
+type parameters = { name : string prop; value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : parameters) -> ()
+
+let yojson_of_parameters =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_parameters
+
+[@@@deriving.end]
 
 type aws_dax_parameter_group = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   parameters : parameters list;
 }
-[@@deriving yojson_of]
-(** aws_dax_parameter_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dax_parameter_group) -> ()
+
+let yojson_of_aws_dax_parameter_group =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       parameters = v_parameters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_parameters v_parameters
+         in
+         ("parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_dax_parameter_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dax_parameter_group
+
+[@@@deriving.end]
 
 let parameters ~name ~value () : parameters = { name; value }
 

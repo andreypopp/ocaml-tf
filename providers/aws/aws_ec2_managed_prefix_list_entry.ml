@@ -3,13 +3,59 @@
 open! Tf_core
 
 type aws_ec2_managed_prefix_list_entry = {
-  cidr : string prop;  (** cidr *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  prefix_list_id : string prop;  (** prefix_list_id *)
+  cidr : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  prefix_list_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_ec2_managed_prefix_list_entry *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_managed_prefix_list_entry) -> ()
+
+let yojson_of_aws_ec2_managed_prefix_list_entry =
+  (function
+   | {
+       cidr = v_cidr;
+       description = v_description;
+       id = v_id;
+       prefix_list_id = v_prefix_list_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_prefix_list_id
+         in
+         ("prefix_list_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cidr in
+         ("cidr", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_managed_prefix_list_entry ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_managed_prefix_list_entry
+
+[@@@deriving.end]
 
 let aws_ec2_managed_prefix_list_entry ?description ?id ~cidr
     ~prefix_list_id () : aws_ec2_managed_prefix_list_entry =

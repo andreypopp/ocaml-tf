@@ -3,16 +3,77 @@
 open! Tf_core
 
 type aws_cloudfront_origin_access_control = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   origin_access_control_origin_type : string prop;
-      (** origin_access_control_origin_type *)
-  signing_behavior : string prop;  (** signing_behavior *)
-  signing_protocol : string prop;  (** signing_protocol *)
+  signing_behavior : string prop;
+  signing_protocol : string prop;
 }
-[@@deriving yojson_of]
-(** aws_cloudfront_origin_access_control *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudfront_origin_access_control) -> ()
+
+let yojson_of_aws_cloudfront_origin_access_control =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       origin_access_control_origin_type =
+         v_origin_access_control_origin_type;
+       signing_behavior = v_signing_behavior;
+       signing_protocol = v_signing_protocol;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_signing_protocol
+         in
+         ("signing_protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_signing_behavior
+         in
+         ("signing_behavior", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_origin_access_control_origin_type
+         in
+         ("origin_access_control_origin_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudfront_origin_access_control ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudfront_origin_access_control
+
+[@@@deriving.end]
 
 let aws_cloudfront_origin_access_control ?description ?id ~name
     ~origin_access_control_origin_type ~signing_behavior

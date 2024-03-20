@@ -3,16 +3,67 @@
 open! Tf_core
 
 type aws_acmpca_permission = {
-  actions : string prop list;  (** actions *)
+  actions : string prop list;
   certificate_authority_arn : string prop;
-      (** certificate_authority_arn *)
-  id : string prop option; [@option]  (** id *)
-  principal : string prop;  (** principal *)
+  id : string prop option; [@option]
+  principal : string prop;
   source_account : string prop option; [@option]
-      (** source_account *)
 }
-[@@deriving yojson_of]
-(** aws_acmpca_permission *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_acmpca_permission) -> ()
+
+let yojson_of_aws_acmpca_permission =
+  (function
+   | {
+       actions = v_actions;
+       certificate_authority_arn = v_certificate_authority_arn;
+       id = v_id;
+       principal = v_principal;
+       source_account = v_source_account;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_principal in
+         ("principal", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_certificate_authority_arn
+         in
+         ("certificate_authority_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_actions
+         in
+         ("actions", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_acmpca_permission -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_acmpca_permission
+
+[@@@deriving.end]
 
 let aws_acmpca_permission ?id ?source_account ~actions
     ~certificate_authority_arn ~principal () : aws_acmpca_permission

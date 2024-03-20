@@ -3,22 +3,138 @@
 open! Tf_core
 
 type aws_ec2_host = {
-  asset_id : string prop option; [@option]  (** asset_id *)
+  asset_id : string prop option; [@option]
   auto_placement : string prop option; [@option]
-      (** auto_placement *)
-  availability_zone : string prop;  (** availability_zone *)
-  host_recovery : string prop option; [@option]  (** host_recovery *)
-  id : string prop option; [@option]  (** id *)
+  availability_zone : string prop;
+  host_recovery : string prop option; [@option]
+  id : string prop option; [@option]
   instance_family : string prop option; [@option]
-      (** instance_family *)
-  instance_type : string prop option; [@option]  (** instance_type *)
-  outpost_arn : string prop option; [@option]  (** outpost_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  instance_type : string prop option; [@option]
+  outpost_arn : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_ec2_host *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_host) -> ()
+
+let yojson_of_aws_ec2_host =
+  (function
+   | {
+       asset_id = v_asset_id;
+       auto_placement = v_auto_placement;
+       availability_zone = v_availability_zone;
+       host_recovery = v_host_recovery;
+       id = v_id;
+       instance_family = v_instance_family;
+       instance_type = v_instance_type;
+       outpost_arn = v_outpost_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_outpost_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "outpost_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_family with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_family", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_recovery with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_recovery", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_availability_zone
+         in
+         ("availability_zone", arg) :: bnds
+       in
+       let bnds =
+         match v_auto_placement with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auto_placement", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_asset_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "asset_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_host -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_host
+
+[@@@deriving.end]
 
 let aws_ec2_host ?asset_id ?auto_placement ?host_recovery ?id
     ?instance_family ?instance_type ?outpost_arn ?tags ?tags_all

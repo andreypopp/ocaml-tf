@@ -3,105 +3,580 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_dms_s3_endpoint = {
   add_column_name : bool prop option; [@option]
-      (** add_column_name *)
   add_trailing_padding_character : bool prop option; [@option]
-      (** add_trailing_padding_character *)
-  bucket_folder : string prop option; [@option]  (** bucket_folder *)
-  bucket_name : string prop;  (** bucket_name *)
+  bucket_folder : string prop option; [@option]
+  bucket_name : string prop;
   canned_acl_for_objects : string prop option; [@option]
-      (** canned_acl_for_objects *)
   cdc_inserts_and_updates : bool prop option; [@option]
-      (** cdc_inserts_and_updates *)
   cdc_inserts_only : bool prop option; [@option]
-      (** cdc_inserts_only *)
   cdc_max_batch_interval : float prop option; [@option]
-      (** cdc_max_batch_interval *)
   cdc_min_file_size : float prop option; [@option]
-      (** cdc_min_file_size *)
-  cdc_path : string prop option; [@option]  (** cdc_path *)
+  cdc_path : string prop option; [@option]
   certificate_arn : string prop option; [@option]
-      (** certificate_arn *)
   compression_type : string prop option; [@option]
-      (** compression_type *)
-  csv_delimiter : string prop option; [@option]  (** csv_delimiter *)
+  csv_delimiter : string prop option; [@option]
   csv_no_sup_value : string prop option; [@option]
-      (** csv_no_sup_value *)
   csv_null_value : string prop option; [@option]
-      (** csv_null_value *)
   csv_row_delimiter : string prop option; [@option]
-      (** csv_row_delimiter *)
-  data_format : string prop option; [@option]  (** data_format *)
+  data_format : string prop option; [@option]
   data_page_size : float prop option; [@option]
-      (** data_page_size *)
   date_partition_delimiter : string prop option; [@option]
-      (** date_partition_delimiter *)
   date_partition_enabled : bool prop option; [@option]
-      (** date_partition_enabled *)
   date_partition_sequence : string prop option; [@option]
-      (** date_partition_sequence *)
   date_partition_timezone : string prop option; [@option]
-      (** date_partition_timezone *)
   detach_target_on_lob_lookup_failure_parquet : bool prop option;
       [@option]
-      (** detach_target_on_lob_lookup_failure_parquet *)
   dict_page_size_limit : float prop option; [@option]
-      (** dict_page_size_limit *)
   enable_statistics : bool prop option; [@option]
-      (** enable_statistics *)
-  encoding_type : string prop option; [@option]  (** encoding_type *)
+  encoding_type : string prop option; [@option]
   encryption_mode : string prop option; [@option]
-      (** encryption_mode *)
-  endpoint_id : string prop;  (** endpoint_id *)
-  endpoint_type : string prop;  (** endpoint_type *)
+  endpoint_id : string prop;
+  endpoint_type : string prop;
   expected_bucket_owner : string prop option; [@option]
-      (** expected_bucket_owner *)
   external_table_definition : string prop option; [@option]
-      (** external_table_definition *)
   glue_catalog_generation : bool prop option; [@option]
-      (** glue_catalog_generation *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ignore_header_rows : float prop option; [@option]
-      (** ignore_header_rows *)
   include_op_for_full_load : bool prop option; [@option]
-      (** include_op_for_full_load *)
-  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
-  max_file_size : float prop option; [@option]  (** max_file_size *)
+  kms_key_arn : string prop option; [@option]
+  max_file_size : float prop option; [@option]
   parquet_timestamp_in_millisecond : bool prop option; [@option]
-      (** parquet_timestamp_in_millisecond *)
   parquet_version : string prop option; [@option]
-      (** parquet_version *)
   preserve_transactions : bool prop option; [@option]
-      (** preserve_transactions *)
-  rfc_4180 : bool prop option; [@option]  (** rfc_4180 *)
+  rfc_4180 : bool prop option; [@option]
   row_group_length : float prop option; [@option]
-      (** row_group_length *)
   server_side_encryption_kms_key_id : string prop option; [@option]
-      (** server_side_encryption_kms_key_id *)
   service_access_role_arn : string prop;
-      (** service_access_role_arn *)
-  ssl_mode : string prop option; [@option]  (** ssl_mode *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  ssl_mode : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   timestamp_column_name : string prop option; [@option]
-      (** timestamp_column_name *)
   use_csv_no_sup_value : bool prop option; [@option]
-      (** use_csv_no_sup_value *)
   use_task_start_time_for_full_load_timestamp : bool prop option;
       [@option]
-      (** use_task_start_time_for_full_load_timestamp *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_dms_s3_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dms_s3_endpoint) -> ()
+
+let yojson_of_aws_dms_s3_endpoint =
+  (function
+   | {
+       add_column_name = v_add_column_name;
+       add_trailing_padding_character =
+         v_add_trailing_padding_character;
+       bucket_folder = v_bucket_folder;
+       bucket_name = v_bucket_name;
+       canned_acl_for_objects = v_canned_acl_for_objects;
+       cdc_inserts_and_updates = v_cdc_inserts_and_updates;
+       cdc_inserts_only = v_cdc_inserts_only;
+       cdc_max_batch_interval = v_cdc_max_batch_interval;
+       cdc_min_file_size = v_cdc_min_file_size;
+       cdc_path = v_cdc_path;
+       certificate_arn = v_certificate_arn;
+       compression_type = v_compression_type;
+       csv_delimiter = v_csv_delimiter;
+       csv_no_sup_value = v_csv_no_sup_value;
+       csv_null_value = v_csv_null_value;
+       csv_row_delimiter = v_csv_row_delimiter;
+       data_format = v_data_format;
+       data_page_size = v_data_page_size;
+       date_partition_delimiter = v_date_partition_delimiter;
+       date_partition_enabled = v_date_partition_enabled;
+       date_partition_sequence = v_date_partition_sequence;
+       date_partition_timezone = v_date_partition_timezone;
+       detach_target_on_lob_lookup_failure_parquet =
+         v_detach_target_on_lob_lookup_failure_parquet;
+       dict_page_size_limit = v_dict_page_size_limit;
+       enable_statistics = v_enable_statistics;
+       encoding_type = v_encoding_type;
+       encryption_mode = v_encryption_mode;
+       endpoint_id = v_endpoint_id;
+       endpoint_type = v_endpoint_type;
+       expected_bucket_owner = v_expected_bucket_owner;
+       external_table_definition = v_external_table_definition;
+       glue_catalog_generation = v_glue_catalog_generation;
+       id = v_id;
+       ignore_header_rows = v_ignore_header_rows;
+       include_op_for_full_load = v_include_op_for_full_load;
+       kms_key_arn = v_kms_key_arn;
+       max_file_size = v_max_file_size;
+       parquet_timestamp_in_millisecond =
+         v_parquet_timestamp_in_millisecond;
+       parquet_version = v_parquet_version;
+       preserve_transactions = v_preserve_transactions;
+       rfc_4180 = v_rfc_4180;
+       row_group_length = v_row_group_length;
+       server_side_encryption_kms_key_id =
+         v_server_side_encryption_kms_key_id;
+       service_access_role_arn = v_service_access_role_arn;
+       ssl_mode = v_ssl_mode;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       timestamp_column_name = v_timestamp_column_name;
+       use_csv_no_sup_value = v_use_csv_no_sup_value;
+       use_task_start_time_for_full_load_timestamp =
+         v_use_task_start_time_for_full_load_timestamp;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_use_task_start_time_for_full_load_timestamp with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "use_task_start_time_for_full_load_timestamp", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_use_csv_no_sup_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_csv_no_sup_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_timestamp_column_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_column_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ssl_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_access_role_arn
+         in
+         ("service_access_role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_server_side_encryption_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "server_side_encryption_kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_row_group_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "row_group_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rfc_4180 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "rfc_4180", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preserve_transactions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "preserve_transactions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parquet_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parquet_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parquet_timestamp_in_millisecond with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "parquet_timestamp_in_millisecond", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_file_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_file_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_op_for_full_load with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_op_for_full_load", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_header_rows with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "ignore_header_rows", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_glue_catalog_generation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "glue_catalog_generation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_external_table_definition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "external_table_definition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expected_bucket_owner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expected_bucket_owner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_endpoint_type in
+         ("endpoint_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_endpoint_id in
+         ("endpoint_id", arg) :: bnds
+       in
+       let bnds =
+         match v_encryption_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encoding_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_statistics with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_statistics", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dict_page_size_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "dict_page_size_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_detach_target_on_lob_lookup_failure_parquet with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "detach_target_on_lob_lookup_failure_parquet", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_date_partition_timezone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "date_partition_timezone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_date_partition_sequence with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "date_partition_sequence", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_date_partition_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "date_partition_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_date_partition_delimiter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "date_partition_delimiter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_page_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "data_page_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_csv_row_delimiter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "csv_row_delimiter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_csv_null_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "csv_null_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_csv_no_sup_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "csv_no_sup_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_csv_delimiter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "csv_delimiter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compression_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compression_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cdc_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cdc_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cdc_min_file_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cdc_min_file_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cdc_max_batch_interval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cdc_max_batch_interval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cdc_inserts_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cdc_inserts_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cdc_inserts_and_updates with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cdc_inserts_and_updates", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_canned_acl_for_objects with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "canned_acl_for_objects", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       let bnds =
+         match v_bucket_folder with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket_folder", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_add_trailing_padding_character with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "add_trailing_padding_character", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_add_column_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "add_column_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_dms_s3_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dms_s3_endpoint
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

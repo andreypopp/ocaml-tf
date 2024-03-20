@@ -3,39 +3,229 @@
 open! Tf_core
 
 type attachments_source = {
-  key : string prop;  (** key *)
-  name : string prop option; [@option]  (** name *)
-  values : string prop list;  (** values *)
+  key : string prop;
+  name : string prop option; [@option]
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** attachments_source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attachments_source) -> ()
+
+let yojson_of_attachments_source =
+  (function
+   | { key = v_key; name = v_name; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : attachments_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attachments_source
+
+[@@@deriving.end]
 
 type parameter = {
-  default_value : string prop;  (** default_value *)
-  description : string prop;  (** description *)
-  name : string prop;  (** name *)
-  type_ : string prop; [@key "type"]  (** type *)
+  default_value : string prop;
+  description : string prop;
+  name : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : parameter) -> ()
+
+let yojson_of_parameter =
+  (function
+   | {
+       default_value = v_default_value;
+       description = v_description;
+       name = v_name;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_default_value in
+         ("default_value", arg) :: bnds
+       in
+       `Assoc bnds
+    : parameter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_parameter
+
+[@@@deriving.end]
 
 type aws_ssm_document = {
-  content : string prop;  (** content *)
+  content : string prop;
   document_format : string prop option; [@option]
-      (** document_format *)
-  document_type : string prop;  (** document_type *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  document_type : string prop;
+  id : string prop option; [@option]
+  name : string prop;
   permissions : (string * string prop) list option; [@option]
-      (** permissions *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  target_type : string prop option; [@option]  (** target_type *)
-  version_name : string prop option; [@option]  (** version_name *)
+  target_type : string prop option; [@option]
+  version_name : string prop option; [@option]
   attachments_source : attachments_source list;
 }
-[@@deriving yojson_of]
-(** aws_ssm_document *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssm_document) -> ()
+
+let yojson_of_aws_ssm_document =
+  (function
+   | {
+       content = v_content;
+       document_format = v_document_format;
+       document_type = v_document_type;
+       id = v_id;
+       name = v_name;
+       permissions = v_permissions;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       target_type = v_target_type;
+       version_name = v_version_name;
+       attachments_source = v_attachments_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_attachments_source
+             v_attachments_source
+         in
+         ("attachments_source", arg) :: bnds
+       in
+       let bnds =
+         match v_version_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "permissions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_document_type in
+         ("document_type", arg) :: bnds
+       in
+       let bnds =
+         match v_document_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "document_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ssm_document -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssm_document
+
+[@@@deriving.end]
 
 let attachments_source ?name ~key ~values () : attachments_source =
   { key; name; values }

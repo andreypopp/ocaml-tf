@@ -4,74 +4,279 @@ open! Tf_core
 
 type android_settings = {
   allow_all_package_names : bool prop option; [@option]
-      (** If set to true, it means allowed_package_names will not be enforced. *)
   allowed_package_names : string prop list option; [@option]
-      (** Android package names of apps allowed to use the key. Example: 'com.companyname.appname' *)
 }
-[@@deriving yojson_of]
-(** Settings for keys that can be used by Android apps. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : android_settings) -> ()
+
+let yojson_of_android_settings =
+  (function
+   | {
+       allow_all_package_names = v_allow_all_package_names;
+       allowed_package_names = v_allowed_package_names;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_allowed_package_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_package_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_all_package_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_all_package_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : android_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_android_settings
+
+[@@@deriving.end]
 
 type ios_settings = {
   allow_all_bundle_ids : bool prop option; [@option]
-      (** If set to true, it means allowed_bundle_ids will not be enforced. *)
   allowed_bundle_ids : string prop list option; [@option]
-      (** iOS bundle ids of apps allowed to use the key. Example: 'com.companyname.productname.appname' *)
 }
-[@@deriving yojson_of]
-(** Settings for keys that can be used by iOS apps. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ios_settings) -> ()
+
+let yojson_of_ios_settings =
+  (function
+   | {
+       allow_all_bundle_ids = v_allow_all_bundle_ids;
+       allowed_bundle_ids = v_allowed_bundle_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_allowed_bundle_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_bundle_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_all_bundle_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_all_bundle_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ios_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ios_settings
+
+[@@@deriving.end]
 
 type testing_options = {
   testing_challenge : string prop option; [@option]
-      (** For challenge-based keys only (CHECKBOX, INVISIBLE), all challenge requests for this site will return nocaptcha if NOCAPTCHA, or an unsolvable challenge if UNSOLVABLE_CHALLENGE. Possible values: TESTING_CHALLENGE_UNSPECIFIED, NOCAPTCHA, UNSOLVABLE_CHALLENGE *)
   testing_score : float prop option; [@option]
-      (** All assessments for this Key will return this score. Must be between 0 (likely not legitimate) and 1 (likely legitimate) inclusive. *)
 }
-[@@deriving yojson_of]
-(** Options for user acceptance testing. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : testing_options) -> ()
+
+let yojson_of_testing_options =
+  (function
+   | {
+       testing_challenge = v_testing_challenge;
+       testing_score = v_testing_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_testing_score with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "testing_score", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_testing_challenge with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "testing_challenge", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : testing_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_testing_options
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type waf_settings = {
   waf_feature : string prop;
-      (** Supported WAF features. For more information, see https://cloud.google.com/recaptcha-enterprise/docs/usecase#comparison_of_features. Possible values: CHALLENGE_PAGE, SESSION_TOKEN, ACTION_TOKEN, EXPRESS *)
   waf_service : string prop;
-      (** The WAF service that uses this key. Possible values: CA, FASTLY *)
 }
-[@@deriving yojson_of]
-(** Settings specific to keys that can be used for WAF (Web Application Firewall). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : waf_settings) -> ()
+
+let yojson_of_waf_settings =
+  (function
+   | { waf_feature = v_waf_feature; waf_service = v_waf_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_waf_service in
+         ("waf_service", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_waf_feature in
+         ("waf_feature", arg) :: bnds
+       in
+       `Assoc bnds
+    : waf_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_waf_settings
+
+[@@@deriving.end]
 
 type web_settings = {
   allow_all_domains : bool prop option; [@option]
-      (** If set to true, it means allowed_domains will not be enforced. *)
   allow_amp_traffic : bool prop option; [@option]
-      (** If set to true, the key can be used on AMP (Accelerated Mobile Pages) websites. This is supported only for the SCORE integration type. *)
   allowed_domains : string prop list option; [@option]
-      (** Domains or subdomains of websites allowed to use the key. All subdomains of an allowed domain are automatically allowed. A valid domain requires a host and must not include any path, port, query or fragment. Examples: 'example.com' or 'subdomain.example.com' *)
   challenge_security_preference : string prop option; [@option]
-      (** Settings for the frequency and difficulty at which this key triggers captcha challenges. This should only be specified for IntegrationTypes CHECKBOX and INVISIBLE. Possible values: CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED, USABILITY, BALANCE, SECURITY *)
   integration_type : string prop;
-      (** Required. Describes how this key is integrated with the website. Possible values: SCORE, CHECKBOX, INVISIBLE *)
 }
-[@@deriving yojson_of]
-(** Settings for keys that can be used by websites. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : web_settings) -> ()
+
+let yojson_of_web_settings =
+  (function
+   | {
+       allow_all_domains = v_allow_all_domains;
+       allow_amp_traffic = v_allow_amp_traffic;
+       allowed_domains = v_allowed_domains;
+       challenge_security_preference =
+         v_challenge_security_preference;
+       integration_type = v_integration_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_integration_type
+         in
+         ("integration_type", arg) :: bnds
+       in
+       let bnds =
+         match v_challenge_security_preference with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "challenge_security_preference", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_domains with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_domains", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_amp_traffic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_amp_traffic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_all_domains with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_all_domains", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : web_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_web_settings
+
+[@@@deriving.end]
 
 type google_recaptcha_enterprise_key = {
   display_name : string prop;
-      (** Human-readable display name of this key. Modifiable by user. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** See [Creating and managing labels](https://cloud.google.com/recaptcha-enterprise/docs/labels).
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field `effective_labels` for all of the labels present on the resource. *)
   project : string prop option; [@option]
-      (** The project for the resource *)
   android_settings : android_settings list;
   ios_settings : ios_settings list;
   testing_options : testing_options list;
@@ -79,8 +284,105 @@ Please refer to the field `effective_labels` for all of the labels present on th
   waf_settings : waf_settings list;
   web_settings : web_settings list;
 }
-[@@deriving yojson_of]
-(** google_recaptcha_enterprise_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_recaptcha_enterprise_key) -> ()
+
+let yojson_of_google_recaptcha_enterprise_key =
+  (function
+   | {
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       project = v_project;
+       android_settings = v_android_settings;
+       ios_settings = v_ios_settings;
+       testing_options = v_testing_options;
+       timeouts = v_timeouts;
+       waf_settings = v_waf_settings;
+       web_settings = v_web_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_web_settings v_web_settings
+         in
+         ("web_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_waf_settings v_waf_settings
+         in
+         ("waf_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_testing_options v_testing_options
+         in
+         ("testing_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ios_settings v_ios_settings
+         in
+         ("ios_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_android_settings
+             v_android_settings
+         in
+         ("android_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_recaptcha_enterprise_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_recaptcha_enterprise_key
+
+[@@@deriving.end]
 
 let android_settings ?allow_all_package_names ?allowed_package_names
     () : android_settings =

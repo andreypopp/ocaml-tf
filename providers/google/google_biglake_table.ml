@@ -4,49 +4,227 @@ open! Tf_core
 
 type hive_options__storage_descriptor = {
   input_format : string prop option; [@option]
-      (** The fully qualified Java class name of the input format. *)
   location_uri : string prop option; [@option]
-      (** Cloud Storage folder URI where the table data is stored, starting with gs://. *)
   output_format : string prop option; [@option]
-      (** The fully qualified Java class name of the output format. *)
 }
-[@@deriving yojson_of]
-(** Stores physical storage information on the data. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hive_options__storage_descriptor) -> ()
+
+let yojson_of_hive_options__storage_descriptor =
+  (function
+   | {
+       input_format = v_input_format;
+       location_uri = v_location_uri;
+       output_format = v_output_format;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_output_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_input_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "input_format", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hive_options__storage_descriptor ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hive_options__storage_descriptor
+
+[@@@deriving.end]
 
 type hive_options = {
   parameters : (string * string prop) list option; [@option]
-      (** Stores user supplied Hive table parameters. An object containing a
-list of key: value pairs.
-Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   table_type : string prop option; [@option]
-      (** Hive table type. For example, MANAGED_TABLE, EXTERNAL_TABLE. *)
   storage_descriptor : hive_options__storage_descriptor list;
 }
-[@@deriving yojson_of]
-(** Options of a Hive table. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hive_options) -> ()
+
+let yojson_of_hive_options =
+  (function
+   | {
+       parameters = v_parameters;
+       table_type = v_table_type;
+       storage_descriptor = v_storage_descriptor;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_hive_options__storage_descriptor
+             v_storage_descriptor
+         in
+         ("storage_descriptor", arg) :: bnds
+       in
+       let bnds =
+         match v_table_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "table_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hive_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hive_options
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_biglake_table = {
   database : string prop option; [@option]
-      (** The id of the parent database. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Output only. The name of the Table. Format:
-projects/{project_id_or_number}/locations/{locationId}/catalogs/{catalogId}/databases/{databaseId}/tables/{tableId} *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The database type. Possible values: [HIVE] *)
   hive_options : hive_options list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_biglake_table *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_biglake_table) -> ()
+
+let yojson_of_google_biglake_table =
+  (function
+   | {
+       database = v_database;
+       id = v_id;
+       name = v_name;
+       type_ = v_type_;
+       hive_options = v_hive_options;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_hive_options v_hive_options
+         in
+         ("hive_options", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_database with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "database", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_biglake_table -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_biglake_table
+
+[@@@deriving.end]
 
 let hive_options__storage_descriptor ?input_format ?location_uri
     ?output_format () : hive_options__storage_descriptor =

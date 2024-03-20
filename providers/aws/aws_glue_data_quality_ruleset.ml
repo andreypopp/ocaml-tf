@@ -3,25 +3,143 @@
 open! Tf_core
 
 type target_table = {
-  catalog_id : string prop option; [@option]  (** catalog_id *)
-  database_name : string prop;  (** database_name *)
-  table_name : string prop;  (** table_name *)
+  catalog_id : string prop option; [@option]
+  database_name : string prop;
+  table_name : string prop;
 }
-[@@deriving yojson_of]
-(** target_table *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target_table) -> ()
+
+let yojson_of_target_table =
+  (function
+   | {
+       catalog_id = v_catalog_id;
+       database_name = v_database_name;
+       table_name = v_table_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_name in
+         ("table_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_name in
+         ("database_name", arg) :: bnds
+       in
+       let bnds =
+         match v_catalog_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "catalog_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target_table -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target_table
+
+[@@@deriving.end]
 
 type aws_glue_data_quality_ruleset = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  ruleset : string prop;  (** ruleset *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  ruleset : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   target_table : target_table list;
 }
-[@@deriving yojson_of]
-(** aws_glue_data_quality_ruleset *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_glue_data_quality_ruleset) -> ()
+
+let yojson_of_aws_glue_data_quality_ruleset =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       ruleset = v_ruleset;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       target_table = v_target_table;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_target_table v_target_table
+         in
+         ("target_table", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ruleset in
+         ("ruleset", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_glue_data_quality_ruleset ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_glue_data_quality_ruleset
+
+[@@@deriving.end]
 
 let target_table ?catalog_id ~database_name ~table_name () :
     target_table =

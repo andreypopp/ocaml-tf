@@ -3,17 +3,73 @@
 open! Tf_core
 
 type configuration__lifecycle_configuration__expiration = {
-  days : float prop option; [@option]  (** days *)
+  days : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** configuration__lifecycle_configuration__expiration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : configuration__lifecycle_configuration__expiration) -> ()
+
+let yojson_of_configuration__lifecycle_configuration__expiration =
+  (function
+   | { days = v_days } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "days", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configuration__lifecycle_configuration__expiration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__lifecycle_configuration__expiration
+
+[@@@deriving.end]
 
 type configuration__lifecycle_configuration__transition = {
-  days : float prop option; [@option]  (** days *)
-  storage_class : string prop option; [@option]  (** storage_class *)
+  days : float prop option; [@option]
+  storage_class : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** configuration__lifecycle_configuration__transition *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : configuration__lifecycle_configuration__transition) -> ()
+
+let yojson_of_configuration__lifecycle_configuration__transition =
+  (function
+   | { days = v_days; storage_class = v_storage_class } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_storage_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "days", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configuration__lifecycle_configuration__transition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__lifecycle_configuration__transition
+
+[@@@deriving.end]
 
 type configuration__lifecycle_configuration = {
   expiration :
@@ -21,55 +77,274 @@ type configuration__lifecycle_configuration = {
   transition :
     configuration__lifecycle_configuration__transition list;
 }
-[@@deriving yojson_of]
-(** configuration__lifecycle_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration__lifecycle_configuration) -> ()
+
+let yojson_of_configuration__lifecycle_configuration =
+  (function
+   | { expiration = v_expiration; transition = v_transition } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_configuration__lifecycle_configuration__transition
+             v_transition
+         in
+         ("transition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_configuration__lifecycle_configuration__expiration
+             v_expiration
+         in
+         ("expiration", arg) :: bnds
+       in
+       `Assoc bnds
+    : configuration__lifecycle_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__lifecycle_configuration
+
+[@@@deriving.end]
 
 type configuration__replication_configuration = {
-  regions : string prop list option; [@option]  (** regions *)
-  role_arn : string prop option; [@option]  (** role_arn *)
+  regions : string prop list option; [@option]
+  role_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** configuration__replication_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration__replication_configuration) -> ()
+
+let yojson_of_configuration__replication_configuration =
+  (function
+   | { regions = v_regions; role_arn = v_role_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_regions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "regions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configuration__replication_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__replication_configuration
+
+[@@@deriving.end]
 
 type configuration__encryption_configuration = {
-  kms_key_id : string prop;  (** kms_key_id *)
+  kms_key_id : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration__encryption_configuration) -> ()
+
+let yojson_of_configuration__encryption_configuration =
+  (function
+   | { kms_key_id = v_kms_key_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_id in
+         ("kms_key_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : configuration__encryption_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__encryption_configuration
+
+[@@@deriving.end]
 
 type configuration = {
   encryption_configuration :
     configuration__encryption_configuration list option;
       [@option]
-      (** encryption_configuration *)
-  region : string prop;  (** region *)
+  region : string prop;
   lifecycle_configuration :
     configuration__lifecycle_configuration list;
   replication_configuration :
     configuration__replication_configuration list;
 }
-[@@deriving yojson_of]
-(** configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration) -> ()
+
+let yojson_of_configuration =
+  (function
+   | {
+       encryption_configuration = v_encryption_configuration;
+       region = v_region;
+       lifecycle_configuration = v_lifecycle_configuration;
+       replication_configuration = v_replication_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_configuration__replication_configuration
+             v_replication_configuration
+         in
+         ("replication_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_configuration__lifecycle_configuration
+             v_lifecycle_configuration
+         in
+         ("lifecycle_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       let bnds =
+         match v_encryption_configuration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 yojson_of_configuration__encryption_configuration v
+             in
+             let bnd = "encryption_configuration", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
   create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
   update : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_securitylake_data_lake = {
   meta_store_manager_role_arn : string prop;
-      (** meta_store_manager_role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   configuration : configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_securitylake_data_lake *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securitylake_data_lake) -> ()
+
+let yojson_of_aws_securitylake_data_lake =
+  (function
+   | {
+       meta_store_manager_role_arn = v_meta_store_manager_role_arn;
+       tags = v_tags;
+       configuration = v_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configuration v_configuration
+         in
+         ("configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_meta_store_manager_role_arn
+         in
+         ("meta_store_manager_role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_securitylake_data_lake -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securitylake_data_lake
+
+[@@@deriving.end]
 
 let configuration__lifecycle_configuration__expiration ?days () :
     configuration__lifecycle_configuration__expiration =

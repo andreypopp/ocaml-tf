@@ -4,66 +4,232 @@ open! Tf_core
 
 type node_type_flexibility = {
   cpus : string prop option; [@option]
-      (** Number of virtual CPUs to use. *)
   memory : string prop option; [@option]
-      (** Physical memory available to the node, defined in MB. *)
 }
-[@@deriving yojson_of]
-(** Flexible properties for the desired node type. Node groups that
-use this node template will create nodes of a type that matches
-these properties. Only one of nodeTypeFlexibility and nodeType can
-be specified. *)
+[@@deriving_inline yojson_of]
 
-type server_binding = {
-  type_ : string prop; [@key "type"]
-      (** Type of server binding policy. If 'RESTART_NODE_ON_ANY_SERVER',
-nodes using this template will restart on any physical server
-following a maintenance event.
+let _ = fun (_ : node_type_flexibility) -> ()
 
-If 'RESTART_NODE_ON_MINIMAL_SERVER', nodes using this template
-will restart on the same physical server following a maintenance
-event, instead of being live migrated to or restarted on a new
-physical server. This option may be useful if you are using
-software licenses tied to the underlying server characteristics
-such as physical sockets or cores, to avoid the need for
-additional licenses when maintenance occurs. However, VMs on such
-nodes will experience outages while maintenance is applied. Possible values: [RESTART_NODE_ON_ANY_SERVER, RESTART_NODE_ON_MINIMAL_SERVERS] *)
-}
-[@@deriving yojson_of]
-(** The server binding policy for nodes using this template. Determines
-where the nodes should restart following a maintenance event. *)
+let yojson_of_node_type_flexibility =
+  (function
+   | { cpus = v_cpus; memory = v_memory } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_memory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "memory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cpus with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cpus", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_type_flexibility -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_type_flexibility
+
+[@@@deriving.end]
+
+type server_binding = { type_ : string prop [@key "type"] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : server_binding) -> ()
+
+let yojson_of_server_binding =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : server_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_server_binding
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_node_template = {
   cpu_overcommit_type : string prop option; [@option]
-      (** CPU overcommit. Default value: NONE Possible values: [ENABLED, NONE] *)
   description : string prop option; [@option]
-      (** An optional textual description of the resource. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** Name of the resource. *)
+  id : string prop option; [@option]
+  name : string prop option; [@option]
   node_affinity_labels : (string * string prop) list option;
       [@option]
-      (** Labels to use for node affinity, which will be used in
-instance scheduling. *)
   node_type : string prop option; [@option]
-      (** Node type to use for nodes group that are created from this template.
-Only one of nodeTypeFlexibility and nodeType can be specified. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** Region where nodes using the node template will be created.
-If it is not provided, the provider region is used. *)
   node_type_flexibility : node_type_flexibility list;
   server_binding : server_binding list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_node_template *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_node_template) -> ()
+
+let yojson_of_google_compute_node_template =
+  (function
+   | {
+       cpu_overcommit_type = v_cpu_overcommit_type;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       node_affinity_labels = v_node_affinity_labels;
+       node_type = v_node_type;
+       project = v_project;
+       region = v_region;
+       node_type_flexibility = v_node_type_flexibility;
+       server_binding = v_server_binding;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_server_binding v_server_binding
+         in
+         ("server_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_type_flexibility
+             v_node_type_flexibility
+         in
+         ("node_type_flexibility", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_affinity_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "node_affinity_labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cpu_overcommit_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cpu_overcommit_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_node_template ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_node_template
+
+[@@@deriving.end]
 
 let node_type_flexibility ?cpus ?memory () : node_type_flexibility =
   { cpus; memory }

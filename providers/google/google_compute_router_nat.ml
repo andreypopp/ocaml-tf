@@ -2,145 +2,445 @@
 
 open! Tf_core
 
-type log_config = {
-  enable : bool prop;
-      (** Indicates whether or not to export logs. *)
-  filter : string prop;
-      (** Specifies the desired filtering of logs on this NAT. Possible values: [ERRORS_ONLY, TRANSLATIONS_ONLY, ALL] *)
-}
-[@@deriving yojson_of]
-(** Configuration for logging on NAT *)
+type log_config = { enable : bool prop; filter : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log_config) -> ()
+
+let yojson_of_log_config =
+  (function
+   | { enable = v_enable; filter = v_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enable in
+         ("enable", arg) :: bnds
+       in
+       `Assoc bnds
+    : log_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log_config
+
+[@@@deriving.end]
 
 type rules__action = {
   source_nat_active_ips : string prop list option; [@option]
-      (** A list of URLs of the IP resources used for this NAT rule.
-These IP addresses must be valid static external IP addresses assigned to the project.
-This field is used for public NAT. *)
   source_nat_drain_ips : string prop list option; [@option]
-      (** A list of URLs of the IP resources to be drained.
-These IPs must be valid static external IPs that have been assigned to the NAT.
-These IPs should be used for updating/patching a NAT rule only.
-This field is used for public NAT. *)
 }
-[@@deriving yojson_of]
-(** The action to be enforced for traffic that matches this rule. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules__action) -> ()
+
+let yojson_of_rules__action =
+  (function
+   | {
+       source_nat_active_ips = v_source_nat_active_ips;
+       source_nat_drain_ips = v_source_nat_drain_ips;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source_nat_drain_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_nat_drain_ips", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_nat_active_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_nat_active_ips", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rules__action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules__action
+
+[@@@deriving.end]
 
 type rules = {
   description : string prop option; [@option]
-      (** An optional description of this rule. *)
   match_ : string prop; [@key "match"]
-      (** CEL expression that specifies the match condition that egress traffic from a VM is evaluated against.
-If it evaluates to true, the corresponding action is enforced.
-
-The following examples are valid match expressions for public NAT:
-
-inIpRange(destination.ip, '1.1.0.0/16') || inIpRange(destination.ip, '2.2.0.0/16')
-
-destination.ip == '1.1.0.1' || destination.ip == '8.8.8.8'
-
-The following example is a valid match expression for private NAT:
-
-nexthop.hub == 'https://networkconnectivity.googleapis.com/v1alpha1/projects/my-project/global/hub/hub-1' *)
   rule_number : float prop;
-      (** An integer uniquely identifying a rule in the list.
-The rule number must be a positive value between 0 and 65000, and must be unique among rules within a NAT. *)
   action : rules__action list;
 }
-[@@deriving yojson_of]
-(** A list of rules associated with this NAT. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules) -> ()
+
+let yojson_of_rules =
+  (function
+   | {
+       description = v_description;
+       match_ = v_match_;
+       rule_number = v_rule_number;
+       action = v_action;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rules__action v_action in
+         ("action", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_rule_number in
+         ("rule_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_match_ in
+         ("match", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules
+
+[@@@deriving.end]
 
 type subnetwork = {
-  name : string prop;  (** Self-link of subnetwork to NAT *)
+  name : string prop;
   secondary_ip_range_names : string prop list option; [@option]
-      (** List of the secondary ranges of the subnetwork that are allowed
-to use NAT. This can be populated only if
-'LIST_OF_SECONDARY_IP_RANGES' is one of the values in
-sourceIpRangesToNat *)
   source_ip_ranges_to_nat : string prop list;
-      (** List of options for which source IPs in the subnetwork
-should have NAT enabled. Supported values include:
-'ALL_IP_RANGES', 'LIST_OF_SECONDARY_IP_RANGES',
-'PRIMARY_IP_RANGE'. *)
 }
-[@@deriving yojson_of]
-(** One or more subnetwork NAT configurations. Only used if
-'source_subnetwork_ip_ranges_to_nat' is set to 'LIST_OF_SUBNETWORKS' *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subnetwork) -> ()
+
+let yojson_of_subnetwork =
+  (function
+   | {
+       name = v_name;
+       secondary_ip_range_names = v_secondary_ip_range_names;
+       source_ip_ranges_to_nat = v_source_ip_ranges_to_nat;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_source_ip_ranges_to_nat
+         in
+         ("source_ip_ranges_to_nat", arg) :: bnds
+       in
+       let bnds =
+         match v_secondary_ip_range_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "secondary_ip_range_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : subnetwork -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subnetwork
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_router_nat = {
   drain_nat_ips : string prop list option; [@option]
-      (** A list of URLs of the IP resources to be drained. These IPs must be
-valid static external IPs that have been assigned to the NAT. *)
   enable_dynamic_port_allocation : bool prop option; [@option]
-      (** Enable Dynamic Port Allocation.
-If minPortsPerVm is set, minPortsPerVm must be set to a power of two greater than or equal to 32.
-If minPortsPerVm is not set, a minimum of 32 ports will be allocated to a VM from this NAT config.
-If maxPortsPerVm is set, maxPortsPerVm must be set to a power of two greater than minPortsPerVm.
-If maxPortsPerVm is not set, a maximum of 65536 ports will be allocated to a VM from this NAT config.
-
-Mutually exclusive with enableEndpointIndependentMapping. *)
   enable_endpoint_independent_mapping : bool prop option; [@option]
-      (** Enable endpoint independent mapping.
-For more information see the [official documentation](https://cloud.google.com/nat/docs/overview#specs-rfcs). *)
   icmp_idle_timeout_sec : float prop option; [@option]
-      (** Timeout (in seconds) for ICMP connections. Defaults to 30s if not set. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   max_ports_per_vm : float prop option; [@option]
-      (** Maximum number of ports allocated to a VM from this NAT.
-This field can only be set when enableDynamicPortAllocation is enabled. *)
   min_ports_per_vm : float prop option; [@option]
-      (** Minimum number of ports allocated to a VM from this NAT. Defaults to 64 for static port allocation and 32 dynamic port allocation if not set. *)
   name : string prop;
-      (** Name of the NAT service. The name must be 1-63 characters long and
-comply with RFC1035. *)
   nat_ip_allocate_option : string prop option; [@option]
-      (** How external IPs should be allocated for this NAT. Valid values are
-'AUTO_ONLY' for only allowing NAT IPs allocated by Google Cloud
-Platform, or 'MANUAL_ONLY' for only user-allocated NAT IP addresses. Possible values: [MANUAL_ONLY, AUTO_ONLY] *)
   nat_ips : string prop list option; [@option]
-      (** Self-links of NAT IPs. Only valid if natIpAllocateOption
-is set to MANUAL_ONLY. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** Region where the router and NAT reside. *)
   router : string prop;
-      (** The name of the Cloud Router in which this NAT will be configured. *)
   source_subnetwork_ip_ranges_to_nat : string prop;
-      (** How NAT should be configured per Subnetwork.
-If 'ALL_SUBNETWORKS_ALL_IP_RANGES', all of the
-IP ranges in every Subnetwork are allowed to Nat.
-If 'ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES', all of the primary IP
-ranges in every Subnetwork are allowed to Nat.
-'LIST_OF_SUBNETWORKS': A list of Subnetworks are allowed to Nat
-(specified in the field subnetwork below). Note that if this field
-contains ALL_SUBNETWORKS_ALL_IP_RANGES or
-ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, then there should not be any
-other RouterNat section in any Router for this network in this region. Possible values: [ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS] *)
   tcp_established_idle_timeout_sec : float prop option; [@option]
-      (** Timeout (in seconds) for TCP established connections.
-Defaults to 1200s if not set. *)
   tcp_time_wait_timeout_sec : float prop option; [@option]
-      (** Timeout (in seconds) for TCP connections that are in TIME_WAIT state.
-Defaults to 120s if not set. *)
   tcp_transitory_idle_timeout_sec : float prop option; [@option]
-      (** Timeout (in seconds) for TCP transitory connections.
-Defaults to 30s if not set. *)
   udp_idle_timeout_sec : float prop option; [@option]
-      (** Timeout (in seconds) for UDP connections. Defaults to 30s if not set. *)
   log_config : log_config list;
   rules : rules list;
   subnetwork : subnetwork list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_router_nat *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_router_nat) -> ()
+
+let yojson_of_google_compute_router_nat =
+  (function
+   | {
+       drain_nat_ips = v_drain_nat_ips;
+       enable_dynamic_port_allocation =
+         v_enable_dynamic_port_allocation;
+       enable_endpoint_independent_mapping =
+         v_enable_endpoint_independent_mapping;
+       icmp_idle_timeout_sec = v_icmp_idle_timeout_sec;
+       id = v_id;
+       max_ports_per_vm = v_max_ports_per_vm;
+       min_ports_per_vm = v_min_ports_per_vm;
+       name = v_name;
+       nat_ip_allocate_option = v_nat_ip_allocate_option;
+       nat_ips = v_nat_ips;
+       project = v_project;
+       region = v_region;
+       router = v_router;
+       source_subnetwork_ip_ranges_to_nat =
+         v_source_subnetwork_ip_ranges_to_nat;
+       tcp_established_idle_timeout_sec =
+         v_tcp_established_idle_timeout_sec;
+       tcp_time_wait_timeout_sec = v_tcp_time_wait_timeout_sec;
+       tcp_transitory_idle_timeout_sec =
+         v_tcp_transitory_idle_timeout_sec;
+       udp_idle_timeout_sec = v_udp_idle_timeout_sec;
+       log_config = v_log_config;
+       rules = v_rules;
+       subnetwork = v_subnetwork;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_subnetwork v_subnetwork
+         in
+         ("subnetwork", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rules v_rules in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_log_config v_log_config
+         in
+         ("log_config", arg) :: bnds
+       in
+       let bnds =
+         match v_udp_idle_timeout_sec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "udp_idle_timeout_sec", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tcp_transitory_idle_timeout_sec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "tcp_transitory_idle_timeout_sec", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tcp_time_wait_timeout_sec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "tcp_time_wait_timeout_sec", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tcp_established_idle_timeout_sec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "tcp_established_idle_timeout_sec", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_source_subnetwork_ip_ranges_to_nat
+         in
+         ("source_subnetwork_ip_ranges_to_nat", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_router in
+         ("router", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nat_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "nat_ips", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nat_ip_allocate_option with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "nat_ip_allocate_option", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_min_ports_per_vm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_ports_per_vm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_ports_per_vm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_ports_per_vm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_icmp_idle_timeout_sec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "icmp_idle_timeout_sec", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_endpoint_independent_mapping with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_endpoint_independent_mapping", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_dynamic_port_allocation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_dynamic_port_allocation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_drain_nat_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "drain_nat_ips", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_router_nat -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_router_nat
+
+[@@@deriving.end]
 
 let log_config ~enable ~filter () : log_config = { enable; filter }
 

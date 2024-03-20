@@ -3,13 +3,60 @@
 open! Tf_core
 
 type aws_iam_access_key = {
-  id : string prop option; [@option]  (** id *)
-  pgp_key : string prop option; [@option]  (** pgp_key *)
-  status : string prop option; [@option]  (** status *)
-  user : string prop;  (** user *)
+  id : string prop option; [@option]
+  pgp_key : string prop option; [@option]
+  status : string prop option; [@option]
+  user : string prop;
 }
-[@@deriving yojson_of]
-(** aws_iam_access_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_access_key) -> ()
+
+let yojson_of_aws_iam_access_key =
+  (function
+   | {
+       id = v_id;
+       pgp_key = v_pgp_key;
+       status = v_status;
+       user = v_user;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user in
+         ("user", arg) :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pgp_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pgp_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_access_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_access_key
+
+[@@@deriving.end]
 
 let aws_iam_access_key ?id ?pgp_key ?status ~user () :
     aws_iam_access_key =

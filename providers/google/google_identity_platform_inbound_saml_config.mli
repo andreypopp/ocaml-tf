@@ -25,6 +25,8 @@ type sp_config__sp_certificates = {
   x509_certificate : string prop;  (** x509_certificate *)
 }
 
+[@@@deriving.end]
+
 type sp_config
 
 val sp_config :

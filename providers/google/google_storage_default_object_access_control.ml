@@ -3,40 +3,146 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type project_team = {
-  project_number : string prop;  (** project_number *)
-  team : string prop;  (** team *)
+  project_number : string prop;
+  team : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : project_team) -> ()
+
+let yojson_of_project_team =
+  (function
+   | { project_number = v_project_number; team = v_team } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_team in
+         ("team", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_project_number
+         in
+         ("project_number", arg) :: bnds
+       in
+       `Assoc bnds
+    : project_team -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_project_team
+
+[@@@deriving.end]
 
 type google_storage_default_object_access_control = {
-  bucket : string prop;  (** The name of the bucket. *)
+  bucket : string prop;
   entity : string prop;
-      (** The entity holding the permission, in one of the following forms:
-  * user-{{userId}}
-  * user-{{email}} (such as user-liz@example.com)
-  * group-{{groupId}}
-  * group-{{email}} (such as group-example@googlegroups.com)
-  * domain-{{domain}} (such as domain-example.com)
-  * project-team-{{projectId}}
-  * allUsers
-  * allAuthenticatedUsers *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   object_ : string prop option; [@option] [@key "object"]
-      (** The name of the object, if applied to an object. *)
   role : string prop;
-      (** The access permission for the entity. Possible values: [OWNER, READER] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_storage_default_object_access_control *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_storage_default_object_access_control) -> ()
+
+let yojson_of_google_storage_default_object_access_control =
+  (function
+   | {
+       bucket = v_bucket;
+       entity = v_entity;
+       id = v_id;
+       object_ = v_object_;
+       role = v_role;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role in
+         ("role", arg) :: bnds
+       in
+       let bnds =
+         match v_object_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_entity in
+         ("entity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_storage_default_object_access_control ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_storage_default_object_access_control
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

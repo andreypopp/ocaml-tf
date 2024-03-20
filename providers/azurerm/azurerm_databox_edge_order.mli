@@ -11,12 +11,16 @@ type return_tracking = {
   tracking_url : string prop;  (** tracking_url *)
 }
 
+[@@@deriving.end]
+
 type shipment_history = {
   additional_details : (string * string prop) list;
       (** additional_details *)
   comments : string prop;  (** comments *)
   last_update : string prop;  (** last_update *)
 }
+
+[@@@deriving.end]
 
 type shipment_tracking = {
   carrier_name : string prop;  (** carrier_name *)
@@ -25,6 +29,8 @@ type shipment_tracking = {
   tracking_url : string prop;  (** tracking_url *)
 }
 
+[@@@deriving.end]
+
 type status = {
   additional_details : (string * string prop) list;
       (** additional_details *)
@@ -32,6 +38,8 @@ type status = {
   info : string prop;  (** info *)
   last_update : string prop;  (** last_update *)
 }
+
+[@@@deriving.end]
 
 type contact
 

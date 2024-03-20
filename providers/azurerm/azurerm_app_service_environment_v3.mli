@@ -10,6 +10,8 @@ type inbound_network_dependencies = {
   ports : string prop list;  (** ports *)
 }
 
+[@@@deriving.end]
+
 type cluster_setting
 
 val cluster_setting :

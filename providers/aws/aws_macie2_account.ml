@@ -3,11 +3,11 @@
 open! Tf_core
 
 type aws_macie2_account = {
-  finding_publishing_frequency: string  prop option; [@option] (** finding_publishing_frequency *)
-  id: string  prop option; [@option] (** id *)
-  status: string  prop option; [@option] (** status *)
-} [@@deriving yojson_of]
-(** aws_macie2_account *)
+  finding_publishing_frequency: string  prop option; [@option]
+  id: string  prop option; [@option]
+  status: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let aws_macie2_account ?finding_publishing_frequency ?id ?status () =
   ({

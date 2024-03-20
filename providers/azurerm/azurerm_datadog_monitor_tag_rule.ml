@@ -3,55 +3,279 @@
 open! Tf_core
 
 type log__filter = {
-  action : string prop;  (** action *)
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  action : string prop;
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** log__filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log__filter) -> ()
+
+let yojson_of_log__filter =
+  (function
+   | { action = v_action; name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : log__filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log__filter
+
+[@@@deriving.end]
 
 type log = {
   aad_log_enabled : bool prop option; [@option]
-      (** aad_log_enabled *)
   resource_log_enabled : bool prop option; [@option]
-      (** resource_log_enabled *)
   subscription_log_enabled : bool prop option; [@option]
-      (** subscription_log_enabled *)
   filter : log__filter list;
 }
-[@@deriving yojson_of]
-(** log *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log) -> ()
+
+let yojson_of_log =
+  (function
+   | {
+       aad_log_enabled = v_aad_log_enabled;
+       resource_log_enabled = v_resource_log_enabled;
+       subscription_log_enabled = v_subscription_log_enabled;
+       filter = v_filter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_log__filter v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         match v_subscription_log_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "subscription_log_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_log_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "resource_log_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_aad_log_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "aad_log_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : log -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log
+
+[@@@deriving.end]
 
 type metric__filter = {
-  action : string prop;  (** action *)
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  action : string prop;
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** metric__filter *)
+[@@deriving_inline yojson_of]
 
-type metric = { filter : metric__filter list } [@@deriving yojson_of]
-(** metric *)
+let _ = fun (_ : metric__filter) -> ()
+
+let yojson_of_metric__filter =
+  (function
+   | { action = v_action; name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : metric__filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metric__filter
+
+[@@@deriving.end]
+
+type metric = { filter : metric__filter list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metric) -> ()
+
+let yojson_of_metric =
+  (function
+   | { filter = v_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_metric__filter v_filter
+         in
+         ("filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : metric -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metric
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_datadog_monitor_tag_rule = {
-  datadog_monitor_id : string prop;  (** datadog_monitor_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
+  datadog_monitor_id : string prop;
+  id : string prop option; [@option]
+  name : string prop option; [@option]
   log : log list;
   metric : metric list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_datadog_monitor_tag_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_datadog_monitor_tag_rule) -> ()
+
+let yojson_of_azurerm_datadog_monitor_tag_rule =
+  (function
+   | {
+       datadog_monitor_id = v_datadog_monitor_id;
+       id = v_id;
+       name = v_name;
+       log = v_log;
+       metric = v_metric;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metric v_metric in
+         ("metric", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_log v_log in
+         ("log", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_datadog_monitor_id
+         in
+         ("datadog_monitor_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_datadog_monitor_tag_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_datadog_monitor_tag_rule
+
+[@@@deriving.end]
 
 let log__filter ~action ~name ~value () : log__filter =
   { action; name; value }

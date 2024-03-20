@@ -3,14 +3,64 @@
 open! Tf_core
 
 type hcloud_ssh_key = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** labels *)
-  name : string prop;  (** name *)
-  public_key : string prop;  (** public_key *)
+  name : string prop;
+  public_key : string prop;
 }
-[@@deriving yojson_of]
-(** hcloud_ssh_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_ssh_key) -> ()
+
+let yojson_of_hcloud_ssh_key =
+  (function
+   | {
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       public_key = v_public_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_public_key in
+         ("public_key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hcloud_ssh_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_ssh_key
+
+[@@@deriving.end]
 
 let hcloud_ssh_key ?id ?labels ~name ~public_key () : hcloud_ssh_key
     =

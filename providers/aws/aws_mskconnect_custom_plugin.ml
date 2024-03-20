@@ -3,34 +3,170 @@
 open! Tf_core
 
 type location__s3 = {
-  bucket_arn : string prop;  (** bucket_arn *)
-  file_key : string prop;  (** file_key *)
+  bucket_arn : string prop;
+  file_key : string prop;
   object_version : string prop option; [@option]
-      (** object_version *)
 }
-[@@deriving yojson_of]
-(** location__s3 *)
+[@@deriving_inline yojson_of]
 
-type location = { s3 : location__s3 list } [@@deriving yojson_of]
-(** location *)
+let _ = fun (_ : location__s3) -> ()
+
+let yojson_of_location__s3 =
+  (function
+   | {
+       bucket_arn = v_bucket_arn;
+       file_key = v_file_key;
+       object_version = v_object_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_object_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_file_key in
+         ("file_key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_arn in
+         ("bucket_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : location__s3 -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_location__s3
+
+[@@@deriving.end]
+
+type location = { s3 : location__s3 list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : location) -> ()
+
+let yojson_of_location =
+  (function
+   | { s3 = v_s3 } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_location__s3 v_s3 in
+         ("s3", arg) :: bnds
+       in
+       `Assoc bnds
+    : location -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_location
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_mskconnect_custom_plugin = {
-  content_type : string prop;  (** content_type *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  content_type : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   location : location list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_mskconnect_custom_plugin *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_mskconnect_custom_plugin) -> ()
+
+let yojson_of_aws_mskconnect_custom_plugin =
+  (function
+   | {
+       content_type = v_content_type;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       location = v_location;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_location v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content_type in
+         ("content_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_mskconnect_custom_plugin ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_mskconnect_custom_plugin
+
+[@@@deriving.end]
 
 let location__s3 ?object_version ~bucket_arn ~file_key () :
     location__s3 =

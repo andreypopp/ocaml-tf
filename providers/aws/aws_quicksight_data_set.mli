@@ -9,6 +9,7 @@ type output_columns = {
   name: string prop;  (** name *)
   type_: string prop; [@key "type"] (** type *)
 }
+[@@@deriving.end]
 type column_groups__geo_spatial_column_group
 
 val column_groups__geo_spatial_column_group :

@@ -4,58 +4,331 @@ open! Tf_core
 
 type action = {
   connection_string : string prop option; [@option]
-      (** connection_string *)
-  resource_id : string prop;  (** resource_id *)
-  trigger_url : string prop option; [@option]  (** trigger_url *)
-  type_ : string prop; [@key "type"]  (** type *)
+  resource_id : string prop;
+  trigger_url : string prop option; [@option]
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : action) -> ()
+
+let yojson_of_action =
+  (function
+   | {
+       connection_string = v_connection_string;
+       resource_id = v_resource_id;
+       trigger_url = v_trigger_url;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_trigger_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "trigger_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_id in
+         ("resource_id", arg) :: bnds
+       in
+       let bnds =
+         match v_connection_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection_string", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_action
+
+[@@@deriving.end]
 
 type source__rule_set__rule = {
-  expected_value : string prop;  (** expected_value *)
-  operator : string prop;  (** operator *)
-  property_path : string prop;  (** property_path *)
-  property_type : string prop;  (** property_type *)
+  expected_value : string prop;
+  operator : string prop;
+  property_path : string prop;
+  property_type : string prop;
 }
-[@@deriving yojson_of]
-(** source__rule_set__rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source__rule_set__rule) -> ()
+
+let yojson_of_source__rule_set__rule =
+  (function
+   | {
+       expected_value = v_expected_value;
+       operator = v_operator;
+       property_path = v_property_path;
+       property_type = v_property_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_property_type in
+         ("property_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_property_path in
+         ("property_path", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_expected_value
+         in
+         ("expected_value", arg) :: bnds
+       in
+       `Assoc bnds
+    : source__rule_set__rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__rule_set__rule
+
+[@@@deriving.end]
 
 type source__rule_set = { rule : source__rule_set__rule list }
-[@@deriving yojson_of]
-(** source__rule_set *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source__rule_set) -> ()
+
+let yojson_of_source__rule_set =
+  (function
+   | { rule = v_rule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_source__rule_set__rule v_rule
+         in
+         ("rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : source__rule_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__rule_set
+
+[@@@deriving.end]
 
 type source = {
-  event_source : string prop;  (** event_source *)
+  event_source : string prop;
   rule_set : source__rule_set list;
 }
-[@@deriving yojson_of]
-(** source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source) -> ()
+
+let yojson_of_source =
+  (function
+   | { event_source = v_event_source; rule_set = v_rule_set } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_source__rule_set v_rule_set
+         in
+         ("rule_set", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_event_source in
+         ("event_source", arg) :: bnds
+       in
+       `Assoc bnds
+    : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_security_center_automation = {
-  description : string prop option; [@option]  (** description *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  scopes : string prop list;  (** scopes *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scopes : string prop list;
+  tags : (string * string prop) list option; [@option]
   action : action list;
   source : source list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_security_center_automation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_security_center_automation) -> ()
+
+let yojson_of_azurerm_security_center_automation =
+  (function
+   | {
+       description = v_description;
+       enabled = v_enabled;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       scopes = v_scopes;
+       tags = v_tags;
+       action = v_action;
+       source = v_source;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_source v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_action v_action in
+         ("action", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
+         in
+         ("scopes", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_security_center_automation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_security_center_automation
+
+[@@@deriving.end]
 
 let action ?connection_string ?trigger_url ~resource_id ~type_ () :
     action =

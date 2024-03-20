@@ -4,42 +4,178 @@ open! Tf_core
 
 type config = {
   access_client_id : string prop option; [@option]
-      (** The Access client ID to be used as the `Cf-Access-Client-ID` header when making a request to the `api_url`. *)
   access_client_secret : string prop option; [@option]
-      (** The Access client secret to be used as the `Cf-Access-Client-Secret` header when making a request to the `api_url`. *)
   api_url : string prop option; [@option]
-      (** The third-party API's URL. *)
   auth_url : string prop option; [@option]
-      (** The third-party authorization API URL. *)
   client_id : string prop option; [@option]
-      (** The client identifier for authenticating API calls. *)
   client_key : string prop option; [@option]
-      (** The client key for authenticating API calls. *)
   client_secret : string prop option; [@option]
-      (** The client secret for authenticating API calls. *)
   customer_id : string prop option; [@option]
-      (** The customer identifier for authenticating API calls. *)
 }
-[@@deriving yojson_of]
-(** The device posture integration's connection authorization parameters. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config) -> ()
+
+let yojson_of_config =
+  (function
+   | {
+       access_client_id = v_access_client_id;
+       access_client_secret = v_access_client_secret;
+       api_url = v_api_url;
+       auth_url = v_auth_url;
+       client_id = v_client_id;
+       client_key = v_client_key;
+       client_secret = v_client_secret;
+       customer_id = v_customer_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_customer_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "customer_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auth_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auth_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_client_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_client_secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_client_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config
+
+[@@@deriving.end]
 
 type cloudflare_device_posture_integration = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  id : string prop option; [@option]  (** id *)
-  identifier : string prop option; [@option]  (** identifier *)
+  id : string prop option; [@option]
+  identifier : string prop option; [@option]
   interval : string prop option; [@option]
-      (** Indicates the frequency with which to poll the third-party API. Must be in the format `1h` or `30m`. *)
-  name : string prop;  (** Name of the device posture integration. *)
+  name : string prop;
   type_ : string prop; [@key "type"]
-      (** The device posture integration type. Available values: `workspace_one`, `uptycs`, `crowdstrike_s2s`, `intune`, `kolide`, `sentinelone_s2s`, `tanium_s2s`. *)
   config : config list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Device Posture Integration resource. Device
-posture integrations configure third-party data providers for device
-posture rules.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_device_posture_integration) -> ()
+
+let yojson_of_cloudflare_device_posture_integration =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       identifier = v_identifier;
+       interval = v_interval;
+       name = v_name;
+       type_ = v_type_;
+       config = v_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_config v_config in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_interval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "interval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_device_posture_integration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_device_posture_integration
+
+[@@@deriving.end]
 
 let config ?access_client_id ?access_client_secret ?api_url ?auth_url
     ?client_id ?client_key ?client_secret ?customer_id () : config =

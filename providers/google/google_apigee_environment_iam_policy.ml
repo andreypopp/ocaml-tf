@@ -3,13 +3,53 @@
 open! Tf_core
 
 type google_apigee_environment_iam_policy = {
-  env_id : string prop;  (** env_id *)
-  id : string prop option; [@option]  (** id *)
-  org_id : string prop;  (** org_id *)
-  policy_data : string prop;  (** policy_data *)
+  env_id : string prop;
+  id : string prop option; [@option]
+  org_id : string prop;
+  policy_data : string prop;
 }
-[@@deriving yojson_of]
-(** google_apigee_environment_iam_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_apigee_environment_iam_policy) -> ()
+
+let yojson_of_google_apigee_environment_iam_policy =
+  (function
+   | {
+       env_id = v_env_id;
+       id = v_id;
+       org_id = v_org_id;
+       policy_data = v_policy_data;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_data in
+         ("policy_data", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_org_id in
+         ("org_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_env_id in
+         ("env_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_apigee_environment_iam_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_apigee_environment_iam_policy
+
+[@@@deriving.end]
 
 let google_apigee_environment_iam_policy ?id ~env_id ~org_id
     ~policy_data () : google_apigee_environment_iam_policy =

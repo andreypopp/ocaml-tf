@@ -3,87 +3,230 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_address = {
   address : string prop option; [@option]
-      (** The static external IP address represented by this resource.
-The IP address must be inside the specified subnetwork,
-if any. Set by the API if undefined. *)
   address_type : string prop option; [@option]
-      (** The type of address to reserve.
-Note: if you set this argument's value as 'INTERNAL' you need to leave the 'network_tier' argument unset in that resource block. Default value: EXTERNAL Possible values: [INTERNAL, EXTERNAL] *)
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_version : string prop option; [@option]
-      (** The IP Version that will be used by this address. The default value is 'IPV4'. Possible values: [IPV4, IPV6] *)
   ipv6_endpoint_type : string prop option; [@option]
-      (** The endpoint type of this address, which should be VM or NETLB. This is
-used for deciding which type of endpoint this address can be used after
-the external IPv6 address reservation. Possible values: [VM, NETLB] *)
   labels : (string * string prop) list option; [@option]
-      (** Labels to apply to this address.  A list of key->value pairs.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** Name of the resource. The name must be 1-63 characters long, and
-comply with RFC1035. Specifically, the name must be 1-63 characters
-long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?'
-which means the first character must be a lowercase letter, and all
-following characters must be a dash, lowercase letter, or digit,
-except the last character, which cannot be a dash. *)
   network : string prop option; [@option]
-      (** The URL of the network in which to reserve the address. This field
-can only be used with INTERNAL type with the VPC_PEERING and
-IPSEC_INTERCONNECT purposes. *)
   network_tier : string prop option; [@option]
-      (** The networking tier used for configuring this address. If this field is not
-specified, it is assumed to be PREMIUM.
-This argument should not be used when configuring Internal addresses, because [network tier cannot be set for internal traffic; it's always Premium](https://cloud.google.com/network-tiers/docs/overview). Possible values: [PREMIUM, STANDARD] *)
   prefix_length : float prop option; [@option]
-      (** The prefix length if the resource represents an IP range. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   purpose : string prop option; [@option]
-      (** The purpose of this resource, which can be one of the following values.
-
-* GCE_ENDPOINT for addresses that are used by VM instances, alias IP
-ranges, load balancers, and similar resources.
-
-* SHARED_LOADBALANCER_VIP for an address that can be used by multiple
-internal load balancers.
-
-* VPC_PEERING for addresses that are reserved for VPC peer networks.
-
-* IPSEC_INTERCONNECT for addresses created from a private IP range that
-are reserved for a VLAN attachment in an HA VPN over Cloud Interconnect
-configuration. These addresses are regional resources.
-
-* PRIVATE_SERVICE_CONNECT for a private network address that is used to
-configure Private Service Connect. Only global internal addresses can use
-this purpose.
-
-
-This should only be set when using an Internal address. *)
   region : string prop option; [@option]
-      (** The Region in which the created address should reside.
-If it is not provided, the provider region is used. *)
   subnetwork : string prop option; [@option]
-      (** The URL of the subnetwork in which to reserve the address. If an IP
-address is specified, it must be within the subnetwork's IP range.
-This field can only be used with INTERNAL type with
-GCE_ENDPOINT/DNS_RESOLVER purposes. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_address *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_address) -> ()
+
+let yojson_of_google_compute_address =
+  (function
+   | {
+       address = v_address;
+       address_type = v_address_type;
+       description = v_description;
+       id = v_id;
+       ip_version = v_ip_version;
+       ipv6_endpoint_type = v_ipv6_endpoint_type;
+       labels = v_labels;
+       name = v_name;
+       network = v_network;
+       network_tier = v_network_tier;
+       prefix_length = v_prefix_length;
+       project = v_project;
+       purpose = v_purpose;
+       region = v_region;
+       subnetwork = v_subnetwork;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_subnetwork with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_purpose with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "purpose", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prefix_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "prefix_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_tier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_endpoint_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_endpoint_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_address -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_address
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

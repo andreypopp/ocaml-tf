@@ -3,15 +3,63 @@
 open! Tf_core
 
 type aws_apigatewayv2_api_mapping = {
-  api_id : string prop;  (** api_id *)
+  api_id : string prop;
   api_mapping_key : string prop option; [@option]
-      (** api_mapping_key *)
-  domain_name : string prop;  (** domain_name *)
-  id : string prop option; [@option]  (** id *)
-  stage : string prop;  (** stage *)
+  domain_name : string prop;
+  id : string prop option; [@option]
+  stage : string prop;
 }
-[@@deriving yojson_of]
-(** aws_apigatewayv2_api_mapping *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_apigatewayv2_api_mapping) -> ()
+
+let yojson_of_aws_apigatewayv2_api_mapping =
+  (function
+   | {
+       api_id = v_api_id;
+       api_mapping_key = v_api_mapping_key;
+       domain_name = v_domain_name;
+       id = v_id;
+       stage = v_stage;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stage in
+         ("stage", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       let bnds =
+         match v_api_mapping_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_mapping_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_id in
+         ("api_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_apigatewayv2_api_mapping ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_apigatewayv2_api_mapping
+
+[@@@deriving.end]
 
 let aws_apigatewayv2_api_mapping ?api_mapping_key ?id ~api_id
     ~domain_name ~stage () : aws_apigatewayv2_api_mapping =

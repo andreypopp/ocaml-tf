@@ -4,128 +4,470 @@ open! Tf_core
 
 type arguments = {
   argument_kind : string prop option; [@option]
-      (** Defaults to FIXED_TYPE. Default value: FIXED_TYPE Possible values: [FIXED_TYPE, ANY_TYPE] *)
   data_type : string prop option; [@option]
-      (** A JSON schema for the data type. Required unless argumentKind = ANY_TYPE.
-~>**NOTE**: Because this field expects a JSON string, any changes to the string
-will create a diff, even if the JSON itself hasn't changed. If the API returns
-a different value for the same schema, e.g. it switched the order of values
-or replaced STRUCT field type with RECORD field type, we currently cannot
-suppress the recurring diff this causes. As a workaround, we recommend using
-the schema as returned by the API. *)
   mode : string prop option; [@option]
-      (** Specifies whether the argument is input or output. Can be set for procedures only. Possible values: [IN, OUT, INOUT] *)
   name : string prop option; [@option]
-      (** The name of this argument. Can be absent for function return argument. *)
 }
-[@@deriving yojson_of]
-(** Input/output argument of a function or a stored procedure. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : arguments) -> ()
+
+let yojson_of_arguments =
+  (function
+   | {
+       argument_kind = v_argument_kind;
+       data_type = v_data_type;
+       mode = v_mode;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_argument_kind with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "argument_kind", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : arguments -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_arguments
+
+[@@@deriving.end]
 
 type remote_function_options = {
   connection : string prop option; [@option]
-      (** Fully qualified name of the user-provided connection object which holds
-the authentication information to send requests to the remote service.
-Format: projects/{projectId}/locations/{locationId}/connections/{connectionId} *)
   endpoint : string prop option; [@option]
-      (** Endpoint of the user-provided remote service, e.g.
-'https://us-east1-my_gcf_project.cloudfunctions.net/remote_add' *)
   max_batching_rows : string prop option; [@option]
-      (** Max number of rows in each batch sent to the remote service. If absent or if 0,
-BigQuery dynamically decides the number of rows in a batch. *)
   user_defined_context : (string * string prop) list option; [@option]
-      (** User-defined context as a set of key/value pairs, which will be sent as function
-invocation context together with batched arguments in the requests to the remote
-service. The total number of bytes of keys and values must be less than 8KB.
-
-An object containing a list of key: value pairs. Example:
-'{ name: wrench, mass: 1.3kg, count: 3 }'. *)
 }
-[@@deriving yojson_of]
-(** Remote function specific options. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : remote_function_options) -> ()
+
+let yojson_of_remote_function_options =
+  (function
+   | {
+       connection = v_connection;
+       endpoint = v_endpoint;
+       max_batching_rows = v_max_batching_rows;
+       user_defined_context = v_user_defined_context;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user_defined_context with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "user_defined_context", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_batching_rows with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_batching_rows", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "endpoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : remote_function_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_remote_function_options
+
+[@@@deriving.end]
 
 type spark_options = {
   archive_uris : string prop list option; [@option]
-      (** Archive files to be extracted into the working directory of each executor. For more information about Apache Spark, see Apache Spark. *)
   connection : string prop option; [@option]
-      (** Fully qualified name of the user-provided Spark connection object.
-Format: projects/{projectId}/locations/{locationId}/connections/{connectionId} *)
   container_image : string prop option; [@option]
-      (** Custom container image for the runtime environment. *)
   file_uris : string prop list option; [@option]
-      (** Files to be placed in the working directory of each executor. For more information about Apache Spark, see Apache Spark. *)
   jar_uris : string prop list option; [@option]
-      (** JARs to include on the driver and executor CLASSPATH. For more information about Apache Spark, see Apache Spark. *)
   main_class : string prop option; [@option]
-      (** The fully qualified name of a class in jarUris, for example, com.example.wordcount.
-Exactly one of mainClass and main_jar_uri field should be set for Java/Scala language type. *)
   main_file_uri : string prop option; [@option]
-      (** The main file/jar URI of the Spark application.
-Exactly one of the definitionBody field and the mainFileUri field must be set for Python.
-Exactly one of mainClass and mainFileUri field should be set for Java/Scala language type. *)
   properties : (string * string prop) list option; [@option]
-      (** Configuration properties as a set of key/value pairs, which will be passed on to the Spark application.
-For more information, see Apache Spark and the procedure option list.
-An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   py_file_uris : string prop list option; [@option]
-      (** Python files to be placed on the PYTHONPATH for PySpark application. Supported file types: .py, .egg, and .zip. For more information about Apache Spark, see Apache Spark. *)
   runtime_version : string prop option; [@option]
-      (** Runtime version. If not specified, the default runtime version is used. *)
 }
-[@@deriving yojson_of]
-(** Optional. If language is one of PYTHON, JAVA, SCALA, this field stores the options for spark stored procedure. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spark_options) -> ()
+
+let yojson_of_spark_options =
+  (function
+   | {
+       archive_uris = v_archive_uris;
+       connection = v_connection;
+       container_image = v_container_image;
+       file_uris = v_file_uris;
+       jar_uris = v_jar_uris;
+       main_class = v_main_class;
+       main_file_uri = v_main_file_uri;
+       properties = v_properties;
+       py_file_uris = v_py_file_uris;
+       runtime_version = v_runtime_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_runtime_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "runtime_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_py_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "py_file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_main_file_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "main_file_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_main_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "main_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jar_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jar_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "container_image", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_archive_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "archive_uris", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spark_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spark_options
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigquery_routine = {
   dataset_id : string prop;
-      (** The ID of the dataset containing this routine *)
   definition_body : string prop;
-      (** The body of the routine. For functions, this is the expression in the AS clause.
-If language=SQL, it is the substring inside (but excluding) the parentheses. *)
   description : string prop option; [@option]
-      (** The description of the routine if defined. *)
   determinism_level : string prop option; [@option]
-      (** The determinism level of the JavaScript UDF if defined. Possible values: [DETERMINISM_LEVEL_UNSPECIFIED, DETERMINISTIC, NOT_DETERMINISTIC] *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   imported_libraries : string prop list option; [@option]
-      (** Optional. If language = JAVASCRIPT, this field stores the path of the
-imported JAVASCRIPT libraries. *)
   language : string prop option; [@option]
-      (** The language of the routine. Possible values: [SQL, JAVASCRIPT, PYTHON, JAVA, SCALA] *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   return_table_type : string prop option; [@option]
-      (** Optional. Can be set only if routineType = TABLE_VALUED_FUNCTION.
-
-If absent, the return table type is inferred from definitionBody at query time in each query
-that references this routine. If present, then the columns in the evaluated table result will
-be cast to match the column types specificed in return table type, at query time. *)
   return_type : string prop option; [@option]
-      (** A JSON schema for the return type. Optional if language = SQL; required otherwise.
-If absent, the return type is inferred from definitionBody at query time in each query
-that references this routine. If present, then the evaluated result will be cast to
-the specified returned type at query time. ~>**NOTE**: Because this field expects a JSON
-string, any changes to the string will create a diff, even if the JSON itself hasn't
-changed. If the API returns a different value for the same schema, e.g. it switche
-d the order of values or replaced STRUCT field type with RECORD field type, we currently
-cannot suppress the recurring diff this causes. As a workaround, we recommend using
-the schema as returned by the API. *)
   routine_id : string prop;
-      (** The ID of the the routine. The ID must contain only letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum length is 256 characters. *)
   routine_type : string prop;
-      (** The type of routine. Possible values: [SCALAR_FUNCTION, PROCEDURE, TABLE_VALUED_FUNCTION] *)
   arguments : arguments list;
   remote_function_options : remote_function_options list;
   spark_options : spark_options list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigquery_routine *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigquery_routine) -> ()
+
+let yojson_of_google_bigquery_routine =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       definition_body = v_definition_body;
+       description = v_description;
+       determinism_level = v_determinism_level;
+       id = v_id;
+       imported_libraries = v_imported_libraries;
+       language = v_language;
+       project = v_project;
+       return_table_type = v_return_table_type;
+       return_type = v_return_type;
+       routine_id = v_routine_id;
+       routine_type = v_routine_type;
+       arguments = v_arguments;
+       remote_function_options = v_remote_function_options;
+       spark_options = v_spark_options;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spark_options v_spark_options
+         in
+         ("spark_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_remote_function_options
+             v_remote_function_options
+         in
+         ("remote_function_options", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_arguments v_arguments in
+         ("arguments", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_routine_type in
+         ("routine_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_routine_id in
+         ("routine_id", arg) :: bnds
+       in
+       let bnds =
+         match v_return_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "return_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_return_table_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "return_table_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_language with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "language", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_imported_libraries with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "imported_libraries", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_determinism_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "determinism_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_definition_body
+         in
+         ("definition_body", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_bigquery_routine -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigquery_routine
+
+[@@@deriving.end]
 
 let arguments ?argument_kind ?data_type ?mode ?name () : arguments =
   { argument_kind; data_type; mode; name }

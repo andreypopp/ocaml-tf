@@ -4,68 +4,448 @@ open! Tf_core
 
 type metric_query__metric = {
   dimensions : (string * string prop) list option; [@option]
-      (** dimensions *)
-  metric_name : string prop;  (** metric_name *)
-  namespace : string prop option; [@option]  (** namespace *)
-  period : float prop;  (** period *)
-  stat : string prop;  (** stat *)
-  unit : string prop option; [@option]  (** unit *)
+  metric_name : string prop;
+  namespace : string prop option; [@option]
+  period : float prop;
+  stat : string prop;
+  unit : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** metric_query__metric *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metric_query__metric) -> ()
+
+let yojson_of_metric_query__metric =
+  (function
+   | {
+       dimensions = v_dimensions;
+       metric_name = v_metric_name;
+       namespace = v_namespace;
+       period = v_period;
+       stat = v_stat;
+       unit = v_unit;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stat in
+         ("stat", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_period in
+         ("period", arg) :: bnds
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_metric_name in
+         ("metric_name", arg) :: bnds
+       in
+       let bnds =
+         match v_dimensions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "dimensions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metric_query__metric -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metric_query__metric
+
+[@@@deriving.end]
 
 type metric_query = {
-  account_id : string prop option; [@option]  (** account_id *)
-  expression : string prop option; [@option]  (** expression *)
-  id : string prop;  (** id *)
-  label : string prop option; [@option]  (** label *)
-  period : float prop option; [@option]  (** period *)
-  return_data : bool prop option; [@option]  (** return_data *)
+  account_id : string prop option; [@option]
+  expression : string prop option; [@option]
+  id : string prop;
+  label : string prop option; [@option]
+  period : float prop option; [@option]
+  return_data : bool prop option; [@option]
   metric : metric_query__metric list;
 }
-[@@deriving yojson_of]
-(** metric_query *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metric_query) -> ()
+
+let yojson_of_metric_query =
+  (function
+   | {
+       account_id = v_account_id;
+       expression = v_expression;
+       id = v_id;
+       label = v_label;
+       period = v_period;
+       return_data = v_return_data;
+       metric = v_metric;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_metric_query__metric v_metric
+         in
+         ("metric", arg) :: bnds
+       in
+       let bnds =
+         match v_return_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "return_data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_label with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "label", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         match v_expression with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expression", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metric_query -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metric_query
+
+[@@@deriving.end]
 
 type aws_cloudwatch_metric_alarm = {
   actions_enabled : bool prop option; [@option]
-      (** actions_enabled *)
   alarm_actions : string prop list option; [@option]
-      (** alarm_actions *)
   alarm_description : string prop option; [@option]
-      (** alarm_description *)
-  alarm_name : string prop;  (** alarm_name *)
-  comparison_operator : string prop;  (** comparison_operator *)
+  alarm_name : string prop;
+  comparison_operator : string prop;
   datapoints_to_alarm : float prop option; [@option]
-      (** datapoints_to_alarm *)
   dimensions : (string * string prop) list option; [@option]
-      (** dimensions *)
   evaluate_low_sample_count_percentiles : string prop option;
       [@option]
-      (** evaluate_low_sample_count_percentiles *)
-  evaluation_periods : float prop;  (** evaluation_periods *)
+  evaluation_periods : float prop;
   extended_statistic : string prop option; [@option]
-      (** extended_statistic *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   insufficient_data_actions : string prop list option; [@option]
-      (** insufficient_data_actions *)
-  metric_name : string prop option; [@option]  (** metric_name *)
-  namespace : string prop option; [@option]  (** namespace *)
-  ok_actions : string prop list option; [@option]  (** ok_actions *)
-  period : float prop option; [@option]  (** period *)
-  statistic : string prop option; [@option]  (** statistic *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  metric_name : string prop option; [@option]
+  namespace : string prop option; [@option]
+  ok_actions : string prop list option; [@option]
+  period : float prop option; [@option]
+  statistic : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  threshold : float prop option; [@option]  (** threshold *)
+  threshold : float prop option; [@option]
   threshold_metric_id : string prop option; [@option]
-      (** threshold_metric_id *)
   treat_missing_data : string prop option; [@option]
-      (** treat_missing_data *)
-  unit : string prop option; [@option]  (** unit *)
+  unit : string prop option; [@option]
   metric_query : metric_query list;
 }
-[@@deriving yojson_of]
-(** aws_cloudwatch_metric_alarm *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudwatch_metric_alarm) -> ()
+
+let yojson_of_aws_cloudwatch_metric_alarm =
+  (function
+   | {
+       actions_enabled = v_actions_enabled;
+       alarm_actions = v_alarm_actions;
+       alarm_description = v_alarm_description;
+       alarm_name = v_alarm_name;
+       comparison_operator = v_comparison_operator;
+       datapoints_to_alarm = v_datapoints_to_alarm;
+       dimensions = v_dimensions;
+       evaluate_low_sample_count_percentiles =
+         v_evaluate_low_sample_count_percentiles;
+       evaluation_periods = v_evaluation_periods;
+       extended_statistic = v_extended_statistic;
+       id = v_id;
+       insufficient_data_actions = v_insufficient_data_actions;
+       metric_name = v_metric_name;
+       namespace = v_namespace;
+       ok_actions = v_ok_actions;
+       period = v_period;
+       statistic = v_statistic;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       threshold = v_threshold;
+       threshold_metric_id = v_threshold_metric_id;
+       treat_missing_data = v_treat_missing_data;
+       unit = v_unit;
+       metric_query = v_metric_query;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_metric_query v_metric_query
+         in
+         ("metric_query", arg) :: bnds
+       in
+       let bnds =
+         match v_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_treat_missing_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "treat_missing_data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_threshold_metric_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "threshold_metric_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_statistic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "statistic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ok_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ok_actions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metric_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metric_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_insufficient_data_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "insufficient_data_actions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_extended_statistic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "extended_statistic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_evaluation_periods
+         in
+         ("evaluation_periods", arg) :: bnds
+       in
+       let bnds =
+         match v_evaluate_low_sample_count_percentiles with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "evaluate_low_sample_count_percentiles", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dimensions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "dimensions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_datapoints_to_alarm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "datapoints_to_alarm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_comparison_operator
+         in
+         ("comparison_operator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alarm_name in
+         ("alarm_name", arg) :: bnds
+       in
+       let bnds =
+         match v_alarm_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "alarm_description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_alarm_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "alarm_actions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_actions_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "actions_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudwatch_metric_alarm ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudwatch_metric_alarm
+
+[@@@deriving.end]
 
 let metric_query__metric ?dimensions ?namespace ?unit ~metric_name
     ~period ~stat () : metric_query__metric =

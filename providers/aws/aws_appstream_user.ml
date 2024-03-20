@@ -3,17 +3,88 @@
 open! Tf_core
 
 type aws_appstream_user = {
-  authentication_type : string prop;  (** authentication_type *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  first_name : string prop option; [@option]  (** first_name *)
-  id : string prop option; [@option]  (** id *)
-  last_name : string prop option; [@option]  (** last_name *)
+  authentication_type : string prop;
+  enabled : bool prop option; [@option]
+  first_name : string prop option; [@option]
+  id : string prop option; [@option]
+  last_name : string prop option; [@option]
   send_email_notification : bool prop option; [@option]
-      (** send_email_notification *)
-  user_name : string prop;  (** user_name *)
+  user_name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_appstream_user *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appstream_user) -> ()
+
+let yojson_of_aws_appstream_user =
+  (function
+   | {
+       authentication_type = v_authentication_type;
+       enabled = v_enabled;
+       first_name = v_first_name;
+       id = v_id;
+       last_name = v_last_name;
+       send_email_notification = v_send_email_notification;
+       user_name = v_user_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_name in
+         ("user_name", arg) :: bnds
+       in
+       let bnds =
+         match v_send_email_notification with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "send_email_notification", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_last_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "last_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_first_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "first_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_authentication_type
+         in
+         ("authentication_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_appstream_user -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appstream_user
+
+[@@@deriving.end]
 
 let aws_appstream_user ?enabled ?first_name ?id ?last_name
     ?send_email_notification ~authentication_type ~user_name () :

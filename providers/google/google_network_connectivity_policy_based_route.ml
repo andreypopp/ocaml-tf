@@ -4,73 +4,342 @@ open! Tf_core
 
 type filter = {
   dest_range : string prop option; [@option]
-      (** The destination IP range of outgoing packets that this policy-based route applies to. Default is 0.0.0.0/0 if protocol version is IPv4. *)
   ip_protocol : string prop option; [@option]
-      (** The IP protocol that this policy-based route applies to. Valid values are 'TCP', 'UDP', and 'ALL'. Default is 'ALL'. *)
   protocol_version : string prop;
-      (** Internet protocol versions this policy-based route applies to. Possible values: [IPV4] *)
   src_range : string prop option; [@option]
-      (** The source IP range of outgoing packets that this policy-based route applies to. Default is 0.0.0.0/0 if protocol version is IPv4. *)
 }
-[@@deriving yojson_of]
-(** The filter to match L4 traffic. *)
+[@@deriving_inline yojson_of]
 
-type interconnect_attachment = {
-  region : string prop;
-      (** Cloud region to install this policy-based route on for Interconnect attachments. Use 'all' to install it on all Interconnect attachments. *)
-}
-[@@deriving yojson_of]
-(** The interconnect attachments that this policy-based route applies to. *)
+let _ = fun (_ : filter) -> ()
+
+let yojson_of_filter =
+  (function
+   | {
+       dest_range = v_dest_range;
+       ip_protocol = v_ip_protocol;
+       protocol_version = v_protocol_version;
+       src_range = v_src_range;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_src_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "src_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_protocol_version
+         in
+         ("protocol_version", arg) :: bnds
+       in
+       let bnds =
+         match v_ip_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dest_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dest_range", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filter
+
+[@@@deriving.end]
+
+type interconnect_attachment = { region : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : interconnect_attachment) -> ()
+
+let yojson_of_interconnect_attachment =
+  (function
+   | { region = v_region } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       `Assoc bnds
+    : interconnect_attachment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_interconnect_attachment
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type virtual_machine = {
-  tags : string prop list;
-      (** A list of VM instance tags that this policy-based route applies to. VM instances that have ANY of tags specified here will install this PBR. *)
-}
-[@@deriving yojson_of]
-(** VM instances to which this policy-based route applies to. *)
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type virtual_machine = { tags : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : virtual_machine) -> ()
+
+let yojson_of_virtual_machine =
+  (function
+   | { tags = v_tags } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_tags
+         in
+         ("tags", arg) :: bnds
+       in
+       `Assoc bnds
+    : virtual_machine -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_virtual_machine
+
+[@@@deriving.end]
 
 type warnings = {
-  code : string prop;  (** code *)
-  data : (string * string prop) list;  (** data *)
-  warning_message : string prop;  (** warning_message *)
+  code : string prop;
+  data : (string * string prop) list;
+  warning_message : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : warnings) -> ()
+
+let yojson_of_warnings =
+  (function
+   | {
+       code = v_code;
+       data = v_data;
+       warning_message = v_warning_message;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_warning_message
+         in
+         ("warning_message", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_data
+         in
+         ("data", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_code in
+         ("code", arg) :: bnds
+       in
+       `Assoc bnds
+    : warnings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_warnings
+
+[@@@deriving.end]
 
 type google_network_connectivity_policy_based_route = {
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** User-defined labels.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string prop;  (** The name of the policy based route. *)
+  name : string prop;
   network : string prop;
-      (** Fully-qualified URL of the network that this route applies to, for example: projects/my-project/global/networks/my-network. *)
   next_hop_ilb_ip : string prop option; [@option]
-      (** The IP address of a global-access-enabled L4 ILB that is the next hop for matching packets. *)
   next_hop_other_routes : string prop option; [@option]
-      (** Other routes that will be referenced to determine the next hop of the packet. Possible values: [DEFAULT_ROUTING] *)
   priority : float prop option; [@option]
-      (** The priority of this policy-based route. Priority is used to break ties in cases where there are more than one matching policy-based routes found. In cases where multiple policy-based routes are matched, the one with the lowest-numbered priority value wins. The default value is 1000. The priority value must be from 1 to 65535, inclusive. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   filter : filter list;
   interconnect_attachment : interconnect_attachment list;
   timeouts : timeouts option;
   virtual_machine : virtual_machine list;
 }
-[@@deriving yojson_of]
-(** google_network_connectivity_policy_based_route *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_network_connectivity_policy_based_route) -> ()
+
+let yojson_of_google_network_connectivity_policy_based_route =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       network = v_network;
+       next_hop_ilb_ip = v_next_hop_ilb_ip;
+       next_hop_other_routes = v_next_hop_other_routes;
+       priority = v_priority;
+       project = v_project;
+       filter = v_filter;
+       interconnect_attachment = v_interconnect_attachment;
+       timeouts = v_timeouts;
+       virtual_machine = v_virtual_machine;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_virtual_machine v_virtual_machine
+         in
+         ("virtual_machine", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_interconnect_attachment
+             v_interconnect_attachment
+         in
+         ("interconnect_attachment", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_filter v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_hop_other_routes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_hop_other_routes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_hop_ilb_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_hop_ilb_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_network_connectivity_policy_based_route ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_network_connectivity_policy_based_route
+
+[@@@deriving.end]
 
 let filter ?dest_range ?ip_protocol ?src_range ~protocol_version () :
     filter =

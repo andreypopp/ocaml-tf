@@ -332,6 +332,8 @@ type placement__managed_cluster__config__master_config__managed_group_config = {
   instance_template_name : string prop;  (** instance_template_name *)
 }
 
+[@@@deriving.end]
+
 type placement__managed_cluster__config__master_config__accelerators
 
 val placement__managed_cluster__config__master_config__accelerators :
@@ -371,6 +373,8 @@ type placement__managed_cluster__config__secondary_worker_config__managed_group_
       (** instance_group_manager_name *)
   instance_template_name : string prop;  (** instance_template_name *)
 }
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__secondary_worker_config__accelerators
 
@@ -450,6 +454,8 @@ type placement__managed_cluster__config__worker_config__managed_group_config = {
       (** instance_group_manager_name *)
   instance_template_name : string prop;  (** instance_template_name *)
 }
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__worker_config__accelerators
 

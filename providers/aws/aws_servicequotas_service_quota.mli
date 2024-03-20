@@ -11,6 +11,8 @@ type usage_metric__metric_dimensions = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+[@@@deriving.end]
+
 type usage_metric = {
   metric_dimensions : usage_metric__metric_dimensions list;
       (** metric_dimensions *)
@@ -19,6 +21,8 @@ type usage_metric = {
   metric_statistic_recommendation : string prop;
       (** metric_statistic_recommendation *)
 }
+
+[@@@deriving.end]
 
 type aws_servicequotas_service_quota
 

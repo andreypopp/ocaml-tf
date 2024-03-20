@@ -4,13 +4,60 @@ open! Tf_core
 
 type aws_ecr_pull_through_cache_rule = {
   credential_arn : string prop option; [@option]
-      (** credential_arn *)
-  ecr_repository_prefix : string prop;  (** ecr_repository_prefix *)
-  id : string prop option; [@option]  (** id *)
-  upstream_registry_url : string prop;  (** upstream_registry_url *)
+  ecr_repository_prefix : string prop;
+  id : string prop option; [@option]
+  upstream_registry_url : string prop;
 }
-[@@deriving yojson_of]
-(** aws_ecr_pull_through_cache_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ecr_pull_through_cache_rule) -> ()
+
+let yojson_of_aws_ecr_pull_through_cache_rule =
+  (function
+   | {
+       credential_arn = v_credential_arn;
+       ecr_repository_prefix = v_ecr_repository_prefix;
+       id = v_id;
+       upstream_registry_url = v_upstream_registry_url;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_upstream_registry_url
+         in
+         ("upstream_registry_url", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ecr_repository_prefix
+         in
+         ("ecr_repository_prefix", arg) :: bnds
+       in
+       let bnds =
+         match v_credential_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "credential_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ecr_pull_through_cache_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ecr_pull_through_cache_rule
+
+[@@@deriving.end]
 
 let aws_ecr_pull_through_cache_rule ?credential_arn ?id
     ~ecr_repository_prefix ~upstream_registry_url () :

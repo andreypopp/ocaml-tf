@@ -11,6 +11,8 @@ type certificate_validation_records = {
   value : string prop;  (** value *)
 }
 
+[@@@deriving.end]
+
 type aws_apprunner_custom_domain_association
 
 val aws_apprunner_custom_domain_association :

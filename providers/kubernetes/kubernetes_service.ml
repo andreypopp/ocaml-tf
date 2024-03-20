@@ -4,122 +4,611 @@ open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the service that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the service. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the service, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Namespace defines the space within which name of the service must be unique. *)
 }
-[@@deriving yojson_of]
-(** Standard service's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+       namespace = v_namespace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type spec__port = {
   app_protocol : string prop option; [@option]
-      (** The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. *)
   name : string prop option; [@option]
-      (** The name of this port within the service. All ports within the service must have unique names. Optional if only one ServicePort is defined on this service. *)
   node_port : float prop option; [@option]
-      (** The port on each node on which this service is exposed when `type` is `NodePort` or `LoadBalancer`. Usually assigned by the system. If specified, it will be allocated to the service if unused or else creation of the service will fail. Default is to auto-allocate a port if the `type` of this service requires one. More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport *)
   port : float prop;
-      (** The port that will be exposed by this service. *)
   protocol : string prop option; [@option]
-      (** The IP protocol for this port. Supports `TCP` and `UDP`. Default is `TCP`. *)
   target_port : string prop option; [@option]
-      (** Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. This field is ignored for services with `cluster_ip = None`. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service *)
 }
-[@@deriving yojson_of]
-(** The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__port) -> ()
+
+let yojson_of_spec__port =
+  (function
+   | {
+       app_protocol = v_app_protocol;
+       name = v_name;
+       node_port = v_node_port;
+       port = v_port;
+       protocol = v_protocol;
+       target_port = v_target_port;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_target_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         match v_node_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "node_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_app_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "app_protocol", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__port -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__port
+
+[@@@deriving.end]
 
 type spec__session_affinity_config__client_ip = {
   timeout_seconds : float prop option; [@option]
-      (** Specifies the seconds of `ClientIP` type session sticky time. The value must be > 0 and <= 86400(for 1 day) if `ServiceAffinity` == `ClientIP`. *)
 }
-[@@deriving yojson_of]
-(** Contains the configurations of Client IP based session affinity. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__session_affinity_config__client_ip) -> ()
+
+let yojson_of_spec__session_affinity_config__client_ip =
+  (function
+   | { timeout_seconds = v_timeout_seconds } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__session_affinity_config__client_ip ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__session_affinity_config__client_ip
+
+[@@@deriving.end]
 
 type spec__session_affinity_config = {
   client_ip : spec__session_affinity_config__client_ip list;
 }
-[@@deriving yojson_of]
-(** Contains the configurations of session affinity. More info: https://kubernetes.io/docs/concepts/services-networking/service/#proxy-mode-ipvs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__session_affinity_config) -> ()
+
+let yojson_of_spec__session_affinity_config =
+  (function
+   | { client_ip = v_client_ip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__session_affinity_config__client_ip
+             v_client_ip
+         in
+         ("client_ip", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__session_affinity_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__session_affinity_config
+
+[@@@deriving.end]
 
 type spec = {
   allocate_load_balancer_node_ports : bool prop option; [@option]
-      (** Defines if `NodePorts` will be automatically allocated for services with type `LoadBalancer`. It may be set to `false` if the cluster load-balancer does not rely on `NodePorts`.  If the caller requests specific `NodePorts` (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type `LoadBalancer`. Default is `true`. More info: https://kubernetes.io/docs/concepts/services-networking/service/#load-balancer-nodeport-allocation *)
   cluster_ip : string prop option; [@option]
-      (** The IP address of the service. It is usually assigned randomly by the master. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise, creation of the service will fail. `None` can be specified for headless services when proxying is not required. Ignored if type is `ExternalName`. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies *)
   cluster_ips : string prop list option; [@option]
-      (** List of IP addresses assigned to this service, and are usually assigned randomly. If an address is specified manually and is not in use by others, it will be allocated to the service; otherwise creation of the service will fail. If this field is not specified, it will be initialized from the `clusterIP` field. If this field is specified, clients must ensure that `clusterIPs[0]` and `clusterIP` have the same value. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies *)
   external_ips : string prop list option; [@option]
-      (** A list of IP addresses for which nodes in the cluster will also accept traffic for this service. These IPs are not managed by Kubernetes. The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system. *)
   external_name : string prop option; [@option]
-      (** The external reference that kubedns or equivalent will return as a CNAME record for this service. No proxying will be involved. Must be a valid DNS name and requires `type` to be `ExternalName`. *)
   external_traffic_policy : string prop option; [@option]
-      (** Denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. `Local` preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. `Cluster` obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading. More info: https://kubernetes.io/docs/tutorials/services/source-ip/ *)
   health_check_node_port : float prop option; [@option]
-      (** Specifies the Healthcheck NodePort for the service. Only effects when type is set to `LoadBalancer` and external_traffic_policy is set to `Local`. *)
   internal_traffic_policy : string prop option; [@option]
-      (** Specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. `Cluster` routes internal traffic to a Service to all endpoints. `Local` routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is `Cluster`. *)
   ip_families : string prop list option; [@option]
-      (** IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. *)
   ip_family_policy : string prop option; [@option]
-      (** IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be 'SingleStack' (a single IP family), 'PreferDualStack' (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or 'RequireDualStack' (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. *)
   load_balancer_class : string prop option; [@option]
-      (** The class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix. This field can only be set when the Service type is `LoadBalancer`. If not set, the default load balancer implementation is used. This field can only be set when creating or updating a Service to type `LoadBalancer`. More info: https://kubernetes.io/docs/concepts/services-networking/service/#load-balancer-class *)
   load_balancer_ip : string prop option; [@option]
-      (** Only applies to `type = LoadBalancer`. LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying this field when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. *)
   load_balancer_source_ranges : string prop list option; [@option]
-      (** If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature. More info: http://kubernetes.io/docs/user-guide/services-firewalls *)
   publish_not_ready_addresses : bool prop option; [@option]
-      (** When set to true, indicates that DNS implementations must publish the `notReadyAddresses` of subsets for the Endpoints associated with the Service. The default value is `false`. The primary use case for setting this field is to use a StatefulSet's Headless Service to propagate `SRV` records for its Pods without respect to their readiness for purpose of peer discovery. *)
   selector : (string * string prop) list option; [@option]
-      (** Route service traffic to pods with label keys and values matching this selector. Only applies to types `ClusterIP`, `NodePort`, and `LoadBalancer`. More info: https://kubernetes.io/docs/concepts/services-networking/service/ *)
   session_affinity : string prop option; [@option]
-      (** Used to maintain session affinity. Supports `ClientIP` and `None`. Defaults to `None`. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Determines how the service is exposed. Defaults to `ClusterIP`. Valid options are `ExternalName`, `ClusterIP`, `NodePort`, and `LoadBalancer`. `ExternalName` maps to the specified `external_name`. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types *)
   port : spec__port list;
   session_affinity_config : spec__session_affinity_config list;
 }
-[@@deriving yojson_of]
-(** Spec defines the behavior of a service. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
+[@@deriving_inline yojson_of]
 
-type timeouts = {
-  create : string prop option; [@option]  (** create *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       allocate_load_balancer_node_ports =
+         v_allocate_load_balancer_node_ports;
+       cluster_ip = v_cluster_ip;
+       cluster_ips = v_cluster_ips;
+       external_ips = v_external_ips;
+       external_name = v_external_name;
+       external_traffic_policy = v_external_traffic_policy;
+       health_check_node_port = v_health_check_node_port;
+       internal_traffic_policy = v_internal_traffic_policy;
+       ip_families = v_ip_families;
+       ip_family_policy = v_ip_family_policy;
+       load_balancer_class = v_load_balancer_class;
+       load_balancer_ip = v_load_balancer_ip;
+       load_balancer_source_ranges = v_load_balancer_source_ranges;
+       publish_not_ready_addresses = v_publish_not_ready_addresses;
+       selector = v_selector;
+       session_affinity = v_session_affinity;
+       type_ = v_type_;
+       port = v_port;
+       session_affinity_config = v_session_affinity_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__session_affinity_config
+             v_session_affinity_config
+         in
+         ("session_affinity_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec__port v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_affinity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "session_affinity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_selector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "selector", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_publish_not_ready_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "publish_not_ready_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_load_balancer_source_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "load_balancer_source_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_load_balancer_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "load_balancer_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_load_balancer_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "load_balancer_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_family_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_family_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_families with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip_families", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_internal_traffic_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "internal_traffic_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_health_check_node_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "health_check_node_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_external_traffic_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "external_traffic_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_external_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "external_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_external_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "external_ips", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cluster_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "cluster_ips", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cluster_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cluster_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allocate_load_balancer_node_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allocate_load_balancer_node_ports", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
+
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type status__load_balancer__ingress = {
-  hostname : string prop;  (** hostname *)
-  ip : string prop;  (** ip *)
+  hostname : string prop;
+  ip : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : status__load_balancer__ingress) -> ()
+
+let yojson_of_status__load_balancer__ingress =
+  (function
+   | { hostname = v_hostname; ip = v_ip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip in
+         ("ip", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_hostname in
+         ("hostname", arg) :: bnds
+       in
+       `Assoc bnds
+    : status__load_balancer__ingress ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_status__load_balancer__ingress
+
+[@@@deriving.end]
 
 type status__load_balancer = {
-  ingress : status__load_balancer__ingress list;  (** ingress *)
+  ingress : status__load_balancer__ingress list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
 
-type status = {
-  load_balancer : status__load_balancer list;  (** load_balancer *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : status__load_balancer) -> ()
+
+let yojson_of_status__load_balancer =
+  (function
+   | { ingress = v_ingress } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_status__load_balancer__ingress
+             v_ingress
+         in
+         ("ingress", arg) :: bnds
+       in
+       `Assoc bnds
+    : status__load_balancer -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_status__load_balancer
+
+[@@@deriving.end]
+
+type status = { load_balancer : status__load_balancer list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : status) -> ()
+
+let yojson_of_status =
+  (function
+   | { load_balancer = v_load_balancer } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_status__load_balancer
+             v_load_balancer
+         in
+         ("load_balancer", arg) :: bnds
+       in
+       `Assoc bnds
+    : status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_status
+
+[@@@deriving.end]
 
 type kubernetes_service = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   wait_for_load_balancer : bool prop option; [@option]
-      (** Terraform will wait for the load balancer to have at least 1 endpoint before considering the resource created. *)
   metadata : metadata list;
   spec : spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** kubernetes_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_service) -> ()
+
+let yojson_of_kubernetes_service =
+  (function
+   | {
+       id = v_id;
+       wait_for_load_balancer = v_wait_for_load_balancer;
+       metadata = v_metadata;
+       spec = v_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_wait_for_load_balancer with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "wait_for_load_balancer", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_service
+
+[@@@deriving.end]
 
 let metadata ?annotations ?generate_name ?labels ?name ?namespace ()
     : metadata =

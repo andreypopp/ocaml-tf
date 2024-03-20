@@ -2,44 +2,143 @@
 
 open! Tf_core
 
-type cmek_settings = {
-  kms_key_name : string prop;
-      (** The resource name for the configured Cloud KMS key.
-KMS key name format:
-projects/[PROJECT_ID]/locations/[LOCATION]/keyRings/[KEYRING]/cryptoKeys/[KEY]
-To enable CMEK for the bucket, set this field to a valid kmsKeyName for which the associated service account has the required cloudkms.cryptoKeyEncrypterDecrypter roles assigned for the key.
-The Cloud KMS key used by the bucket can be updated by changing the kmsKeyName to a new valid key name. Encryption operations that are in progress will be completed with the key that was in use when they started. Decryption operations will be completed using the key that was used at the time of encryption unless access to that key has been revoked.
-See [Enabling CMEK for Logging Buckets](https://cloud.google.com/logging/docs/routing/managed-encryption-storage) for more information. *)
-}
-[@@deriving yojson_of]
-(** The CMEK settings of the log bucket. If present, new log entries written to this log bucket are encrypted using the CMEK key provided in this configuration. If a log bucket has CMEK settings, the CMEK settings cannot be disabled later by updating the log bucket. Changing the KMS key is allowed. *)
+type cmek_settings = { kms_key_name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cmek_settings) -> ()
+
+let yojson_of_cmek_settings =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_name in
+         ("kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : cmek_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cmek_settings
+
+[@@@deriving.end]
 
 type index_configs = {
-  field_path : string prop;  (** The LogEntry field path to index. *)
+  field_path : string prop;
   type_ : string prop; [@key "type"]
-      (** The type of data in this index
-Note that some paths are automatically indexed, and other paths are not eligible for indexing. See [indexing documentation]( https://cloud.google.com/logging/docs/view/advanced-queries#indexed-fields) for details.
-For example: jsonPayload.request.status *)
 }
-[@@deriving yojson_of]
-(** A list of indexed fields and related configuration data. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : index_configs) -> ()
+
+let yojson_of_index_configs =
+  (function
+   | { field_path = v_field_path; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_field_path in
+         ("field_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : index_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_index_configs
+
+[@@@deriving.end]
 
 type google_logging_billing_account_bucket_config = {
   billing_account : string prop;
-      (** The parent resource that contains the logging bucket. *)
   bucket_id : string prop;
-      (** The name of the logging bucket. Logging automatically creates two log buckets: _Required and _Default. *)
   description : string prop option; [@option]
-      (** An optional description for this bucket. *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location of the bucket. *)
+  id : string prop option; [@option]
+  location : string prop;
   retention_days : float prop option; [@option]
-      (** Logs will be retained by default for this amount of time, after which they will automatically be deleted. The minimum retention period is 1 day. If this value is set to zero at bucket creation time, the default time of 30 days will be used. *)
   cmek_settings : cmek_settings list;
   index_configs : index_configs list;
 }
-[@@deriving yojson_of]
-(** google_logging_billing_account_bucket_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_logging_billing_account_bucket_config) -> ()
+
+let yojson_of_google_logging_billing_account_bucket_config =
+  (function
+   | {
+       billing_account = v_billing_account;
+       bucket_id = v_bucket_id;
+       description = v_description;
+       id = v_id;
+       location = v_location;
+       retention_days = v_retention_days;
+       cmek_settings = v_cmek_settings;
+       index_configs = v_index_configs;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_index_configs v_index_configs
+         in
+         ("index_configs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cmek_settings v_cmek_settings
+         in
+         ("cmek_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_retention_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "retention_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_id in
+         ("bucket_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_billing_account
+         in
+         ("billing_account", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_logging_billing_account_bucket_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_logging_billing_account_bucket_config
+
+[@@@deriving.end]
 
 let cmek_settings ~kms_key_name () : cmek_settings = { kms_key_name }
 

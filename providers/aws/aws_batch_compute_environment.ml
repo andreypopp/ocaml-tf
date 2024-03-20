@@ -4,84 +4,501 @@ open! Tf_core
 
 type compute_resources__ec2_configuration = {
   image_id_override : string prop option; [@option]
-      (** image_id_override *)
-  image_type : string prop option; [@option]  (** image_type *)
+  image_type : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** compute_resources__ec2_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : compute_resources__ec2_configuration) -> ()
+
+let yojson_of_compute_resources__ec2_configuration =
+  (function
+   | {
+       image_id_override = v_image_id_override;
+       image_type = v_image_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_image_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_id_override with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_id_override", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : compute_resources__ec2_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_compute_resources__ec2_configuration
+
+[@@@deriving.end]
 
 type compute_resources__launch_template = {
   launch_template_id : string prop option; [@option]
-      (** launch_template_id *)
   launch_template_name : string prop option; [@option]
-      (** launch_template_name *)
-  version : string prop option; [@option]  (** version *)
+  version : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** compute_resources__launch_template *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : compute_resources__launch_template) -> ()
+
+let yojson_of_compute_resources__launch_template =
+  (function
+   | {
+       launch_template_id = v_launch_template_id;
+       launch_template_name = v_launch_template_name;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_launch_template_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "launch_template_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_launch_template_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "launch_template_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : compute_resources__launch_template ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_compute_resources__launch_template
+
+[@@@deriving.end]
 
 type compute_resources = {
   allocation_strategy : string prop option; [@option]
-      (** allocation_strategy *)
   bid_percentage : float prop option; [@option]
-      (** bid_percentage *)
-  desired_vcpus : float prop option; [@option]  (** desired_vcpus *)
-  ec2_key_pair : string prop option; [@option]  (** ec2_key_pair *)
-  image_id : string prop option; [@option]  (** image_id *)
-  instance_role : string prop option; [@option]  (** instance_role *)
+  desired_vcpus : float prop option; [@option]
+  ec2_key_pair : string prop option; [@option]
+  image_id : string prop option; [@option]
+  instance_role : string prop option; [@option]
   instance_type : string prop list option; [@option]
-      (** instance_type *)
-  max_vcpus : float prop;  (** max_vcpus *)
-  min_vcpus : float prop option; [@option]  (** min_vcpus *)
+  max_vcpus : float prop;
+  min_vcpus : float prop option; [@option]
   placement_group : string prop option; [@option]
-      (** placement_group *)
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
   spot_iam_fleet_role : string prop option; [@option]
-      (** spot_iam_fleet_role *)
-  subnets : string prop list;  (** subnets *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
-  type_ : string prop; [@key "type"]  (** type *)
+  subnets : string prop list;
+  tags : (string * string prop) list option; [@option]
+  type_ : string prop; [@key "type"]
   ec2_configuration : compute_resources__ec2_configuration list;
   launch_template : compute_resources__launch_template list;
 }
-[@@deriving yojson_of]
-(** compute_resources *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : compute_resources) -> ()
+
+let yojson_of_compute_resources =
+  (function
+   | {
+       allocation_strategy = v_allocation_strategy;
+       bid_percentage = v_bid_percentage;
+       desired_vcpus = v_desired_vcpus;
+       ec2_key_pair = v_ec2_key_pair;
+       image_id = v_image_id;
+       instance_role = v_instance_role;
+       instance_type = v_instance_type;
+       max_vcpus = v_max_vcpus;
+       min_vcpus = v_min_vcpus;
+       placement_group = v_placement_group;
+       security_group_ids = v_security_group_ids;
+       spot_iam_fleet_role = v_spot_iam_fleet_role;
+       subnets = v_subnets;
+       tags = v_tags;
+       type_ = v_type_;
+       ec2_configuration = v_ec2_configuration;
+       launch_template = v_launch_template;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_compute_resources__launch_template
+             v_launch_template
+         in
+         ("launch_template", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_compute_resources__ec2_configuration
+             v_ec2_configuration
+         in
+         ("ec2_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
+         in
+         ("subnets", arg) :: bnds
+       in
+       let bnds =
+         match v_spot_iam_fleet_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "spot_iam_fleet_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_placement_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "placement_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_vcpus with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_vcpus", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_vcpus in
+         ("max_vcpus", arg) :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ec2_key_pair with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ec2_key_pair", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_desired_vcpus with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "desired_vcpus", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bid_percentage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "bid_percentage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allocation_strategy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "allocation_strategy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : compute_resources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_compute_resources
+
+[@@@deriving.end]
 
 type eks_configuration = {
-  eks_cluster_arn : string prop;  (** eks_cluster_arn *)
-  kubernetes_namespace : string prop;  (** kubernetes_namespace *)
+  eks_cluster_arn : string prop;
+  kubernetes_namespace : string prop;
 }
-[@@deriving yojson_of]
-(** eks_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : eks_configuration) -> ()
+
+let yojson_of_eks_configuration =
+  (function
+   | {
+       eks_cluster_arn = v_eks_cluster_arn;
+       kubernetes_namespace = v_kubernetes_namespace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_kubernetes_namespace
+         in
+         ("kubernetes_namespace", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_eks_cluster_arn
+         in
+         ("eks_cluster_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : eks_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_eks_configuration
+
+[@@@deriving.end]
 
 type update_policy = {
   job_execution_timeout_minutes : float prop;
-      (** job_execution_timeout_minutes *)
   terminate_jobs_on_update : bool prop;
-      (** terminate_jobs_on_update *)
 }
-[@@deriving yojson_of]
-(** update_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : update_policy) -> ()
+
+let yojson_of_update_policy =
+  (function
+   | {
+       job_execution_timeout_minutes =
+         v_job_execution_timeout_minutes;
+       terminate_jobs_on_update = v_terminate_jobs_on_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_terminate_jobs_on_update
+         in
+         ("terminate_jobs_on_update", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_job_execution_timeout_minutes
+         in
+         ("job_execution_timeout_minutes", arg) :: bnds
+       in
+       `Assoc bnds
+    : update_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_update_policy
+
+[@@@deriving.end]
 
 type aws_batch_compute_environment = {
   compute_environment_name : string prop option; [@option]
-      (** compute_environment_name *)
   compute_environment_name_prefix : string prop option; [@option]
-      (** compute_environment_name_prefix *)
-  id : string prop option; [@option]  (** id *)
-  service_role : string prop option; [@option]  (** service_role *)
-  state : string prop option; [@option]  (** state *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  service_role : string prop option; [@option]
+  state : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
   compute_resources : compute_resources list;
   eks_configuration : eks_configuration list;
   update_policy : update_policy list;
 }
-[@@deriving yojson_of]
-(** aws_batch_compute_environment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_batch_compute_environment) -> ()
+
+let yojson_of_aws_batch_compute_environment =
+  (function
+   | {
+       compute_environment_name = v_compute_environment_name;
+       compute_environment_name_prefix =
+         v_compute_environment_name_prefix;
+       id = v_id;
+       service_role = v_service_role;
+       state = v_state;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       type_ = v_type_;
+       compute_resources = v_compute_resources;
+       eks_configuration = v_eks_configuration;
+       update_policy = v_update_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_update_policy v_update_policy
+         in
+         ("update_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_eks_configuration
+             v_eks_configuration
+         in
+         ("eks_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_compute_resources
+             v_compute_resources
+         in
+         ("compute_resources", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compute_environment_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compute_environment_name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compute_environment_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compute_environment_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_batch_compute_environment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_batch_compute_environment
+
+[@@@deriving.end]
 
 let compute_resources__ec2_configuration ?image_id_override
     ?image_type () : compute_resources__ec2_configuration =

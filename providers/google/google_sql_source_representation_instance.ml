@@ -3,43 +3,188 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_sql_source_representation_instance = {
   ca_certificate : string prop option; [@option]
-      (** The CA certificate on the external server. Include only if SSL/TLS is used on the external server. *)
   client_certificate : string prop option; [@option]
-      (** The client certificate on the external server. Required only for server-client authentication. Include only if SSL/TLS is used on the external server. *)
   client_key : string prop option; [@option]
-      (** The private key file for the client certificate on the external server. Required only for server-client authentication. Include only if SSL/TLS is used on the external server. *)
   database_version : string prop;
-      (** The MySQL version running on your source database server. Possible values: [MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, POSTGRES_9_6, POSTGRES_10, POSTGRES_11, POSTGRES_12, POSTGRES_13, POSTGRES_14] *)
   dump_file_path : string prop option; [@option]
-      (** A file in the bucket that contains the data from the external server. *)
   host : string prop;
-      (** The IPv4 address and port for the external server, or the the DNS address for the external server. If the external server is hosted on Cloud SQL, the port is 5432. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The name of the source representation instance. Use any valid Cloud SQL instance name. *)
   password : string prop option; [@option]
-      (** The password for the replication user account. *)
   port : float prop option; [@option]
-      (** The externally accessible port for the source database server.
-Defaults to 3306. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The Region in which the created instance should reside.
-If it is not provided, the provider region is used. *)
   username : string prop option; [@option]
-      (** The replication user account on the external server. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_sql_source_representation_instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_sql_source_representation_instance) -> ()
+
+let yojson_of_google_sql_source_representation_instance =
+  (function
+   | {
+       ca_certificate = v_ca_certificate;
+       client_certificate = v_client_certificate;
+       client_key = v_client_key;
+       database_version = v_database_version;
+       dump_file_path = v_dump_file_path;
+       host = v_host;
+       id = v_id;
+       name = v_name;
+       password = v_password;
+       port = v_port;
+       project = v_project;
+       region = v_region;
+       username = v_username;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_username with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "username", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       let bnds =
+         match v_dump_file_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dump_file_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_database_version
+         in
+         ("database_version", arg) :: bnds
+       in
+       let bnds =
+         match v_client_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ca_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ca_certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_sql_source_representation_instance ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_sql_source_representation_instance
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

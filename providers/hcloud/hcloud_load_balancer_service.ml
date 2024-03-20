@@ -3,53 +3,299 @@
 open! Tf_core
 
 type health_check__http = {
-  domain : string prop option; [@option]  (** domain *)
-  path : string prop option; [@option]  (** path *)
-  response : string prop option; [@option]  (** response *)
+  domain : string prop option; [@option]
+  path : string prop option; [@option]
+  response : string prop option; [@option]
   status_codes : string prop list option; [@option]
-      (** status_codes *)
-  tls : bool prop option; [@option]  (** tls *)
+  tls : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** health_check__http *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : health_check__http) -> ()
+
+let yojson_of_health_check__http =
+  (function
+   | {
+       domain = v_domain;
+       path = v_path;
+       response = v_response;
+       status_codes = v_status_codes;
+       tls = v_tls;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "tls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status_codes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "status_codes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_response with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "response", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : health_check__http -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_health_check__http
+
+[@@@deriving.end]
 
 type health_check = {
-  interval : float prop;  (** interval *)
-  port : float prop;  (** port *)
-  protocol : string prop;  (** protocol *)
-  retries : float prop option; [@option]  (** retries *)
-  timeout : float prop;  (** timeout *)
+  interval : float prop;
+  port : float prop;
+  protocol : string prop;
+  retries : float prop option; [@option]
+  timeout : float prop;
   http : health_check__http list;
 }
-[@@deriving yojson_of]
-(** health_check *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : health_check) -> ()
+
+let yojson_of_health_check =
+  (function
+   | {
+       interval = v_interval;
+       port = v_port;
+       protocol = v_protocol;
+       retries = v_retries;
+       timeout = v_timeout;
+       http = v_http;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_health_check__http v_http
+         in
+         ("http", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_timeout in
+         ("timeout", arg) :: bnds
+       in
+       let bnds =
+         match v_retries with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "retries", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_interval in
+         ("interval", arg) :: bnds
+       in
+       `Assoc bnds
+    : health_check -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_health_check
+
+[@@@deriving.end]
 
 type http = {
   certificates : float prop list option; [@option]
-      (** certificates *)
   cookie_lifetime : float prop option; [@option]
-      (** cookie_lifetime *)
-  cookie_name : string prop option; [@option]  (** cookie_name *)
-  redirect_http : bool prop option; [@option]  (** redirect_http *)
+  cookie_name : string prop option; [@option]
+  redirect_http : bool prop option; [@option]
   sticky_sessions : bool prop option; [@option]
-      (** sticky_sessions *)
 }
-[@@deriving yojson_of]
-(** http *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : http) -> ()
+
+let yojson_of_http =
+  (function
+   | {
+       certificates = v_certificates;
+       cookie_lifetime = v_cookie_lifetime;
+       cookie_name = v_cookie_name;
+       redirect_http = v_redirect_http;
+       sticky_sessions = v_sticky_sessions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sticky_sessions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "sticky_sessions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_redirect_http with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "redirect_http", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cookie_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cookie_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cookie_lifetime with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cookie_lifetime", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificates with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "certificates", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : http -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_http
+
+[@@@deriving.end]
 
 type hcloud_load_balancer_service = {
   destination_port : float prop option; [@option]
-      (** destination_port *)
-  id : string prop option; [@option]  (** id *)
-  listen_port : float prop option; [@option]  (** listen_port *)
-  load_balancer_id : string prop;  (** load_balancer_id *)
-  protocol : string prop;  (** protocol *)
-  proxyprotocol : bool prop option; [@option]  (** proxyprotocol *)
+  id : string prop option; [@option]
+  listen_port : float prop option; [@option]
+  load_balancer_id : string prop;
+  protocol : string prop;
+  proxyprotocol : bool prop option; [@option]
   health_check : health_check list;
   http : http list;
 }
-[@@deriving yojson_of]
-(** hcloud_load_balancer_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_load_balancer_service) -> ()
+
+let yojson_of_hcloud_load_balancer_service =
+  (function
+   | {
+       destination_port = v_destination_port;
+       id = v_id;
+       listen_port = v_listen_port;
+       load_balancer_id = v_load_balancer_id;
+       protocol = v_protocol;
+       proxyprotocol = v_proxyprotocol;
+       health_check = v_health_check;
+       http = v_http;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_http v_http in
+         ("http", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_health_check v_health_check
+         in
+         ("health_check", arg) :: bnds
+       in
+       let bnds =
+         match v_proxyprotocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "proxyprotocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_load_balancer_id
+         in
+         ("load_balancer_id", arg) :: bnds
+       in
+       let bnds =
+         match v_listen_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "listen_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "destination_port", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hcloud_load_balancer_service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_load_balancer_service
+
+[@@@deriving.end]
 
 let health_check__http ?domain ?path ?response ?status_codes ?tls ()
     : health_check__http =

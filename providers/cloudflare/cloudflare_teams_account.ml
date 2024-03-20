@@ -4,144 +4,534 @@ open! Tf_core
 
 type antivirus__notification_settings = {
   enabled : bool prop option; [@option]
-      (** Enable notification settings. *)
   message : string prop option; [@option]
-      (** Notification content. *)
   support_url : string prop option; [@option]
-      (** Support URL to show in the notification. *)
 }
-[@@deriving yojson_of]
-(** Set notifications for antivirus. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : antivirus__notification_settings) -> ()
+
+let yojson_of_antivirus__notification_settings =
+  (function
+   | {
+       enabled = v_enabled;
+       message = v_message;
+       support_url = v_support_url;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_support_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "support_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_message with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "message", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : antivirus__notification_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_antivirus__notification_settings
+
+[@@@deriving.end]
 
 type antivirus = {
-  enabled_download_phase : bool prop;  (** Scan on file download. *)
-  enabled_upload_phase : bool prop;  (** Scan on file upload. *)
+  enabled_download_phase : bool prop;
+  enabled_upload_phase : bool prop;
   fail_closed : bool prop;
-      (** Block requests for files that cannot be scanned. *)
   notification_settings : antivirus__notification_settings list;
 }
-[@@deriving yojson_of]
-(** Configuration block for antivirus traffic scanning. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : antivirus) -> ()
+
+let yojson_of_antivirus =
+  (function
+   | {
+       enabled_download_phase = v_enabled_download_phase;
+       enabled_upload_phase = v_enabled_upload_phase;
+       fail_closed = v_fail_closed;
+       notification_settings = v_notification_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_antivirus__notification_settings
+             v_notification_settings
+         in
+         ("notification_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_fail_closed in
+         ("fail_closed", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_enabled_upload_phase
+         in
+         ("enabled_upload_phase", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_enabled_download_phase
+         in
+         ("enabled_download_phase", arg) :: bnds
+       in
+       `Assoc bnds
+    : antivirus -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_antivirus
+
+[@@@deriving.end]
 
 type block_page = {
   background_color : string prop option; [@option]
-      (** Hex code of block page background color. *)
   enabled : bool prop option; [@option]
-      (** Indicator of enablement. *)
   footer_text : string prop option; [@option]
-      (** Block page footer text. *)
   header_text : string prop option; [@option]
-      (** Block page header text. *)
   logo_path : string prop option; [@option]
-      (** URL of block page logo. *)
   mailto_address : string prop option; [@option]
-      (** Admin email for users to contact. *)
   mailto_subject : string prop option; [@option]
-      (** Subject line for emails created from block page. *)
   name : string prop option; [@option]
-      (** Name of block page configuration. *)
 }
-[@@deriving yojson_of]
-(** Configuration for a custom block page. *)
+[@@deriving_inline yojson_of]
 
-type body_scanning = {
-  inspection_mode : string prop;
-      (** Body scanning inspection mode. Available values: `deep`, `shallow`. *)
-}
-[@@deriving yojson_of]
-(** Configuration for body scanning. *)
+let _ = fun (_ : block_page) -> ()
 
-type extended_email_matching = {
-  enabled : bool prop;
-      (** Whether e-mails should be matched on all variants of user emails (with + or . modifiers) in Firewall policies. *)
-}
-[@@deriving yojson_of]
-(** Configuration for extended e-mail matching. *)
+let yojson_of_block_page =
+  (function
+   | {
+       background_color = v_background_color;
+       enabled = v_enabled;
+       footer_text = v_footer_text;
+       header_text = v_header_text;
+       logo_path = v_logo_path;
+       mailto_address = v_mailto_address;
+       mailto_subject = v_mailto_subject;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mailto_subject with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mailto_subject", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mailto_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mailto_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_logo_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "logo_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_header_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "header_text", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_footer_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "footer_text", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_background_color with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "background_color", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : block_page -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-type fips = {
-  tls : bool prop option; [@option]
-      (** Only allow FIPS-compliant TLS configuration. *)
-}
-[@@deriving yojson_of]
-(** Configure compliance with Federal Information Processing Standards. *)
+let _ = yojson_of_block_page
+
+[@@@deriving.end]
+
+type body_scanning = { inspection_mode : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : body_scanning) -> ()
+
+let yojson_of_body_scanning =
+  (function
+   | { inspection_mode = v_inspection_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_inspection_mode
+         in
+         ("inspection_mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : body_scanning -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_body_scanning
+
+[@@@deriving.end]
+
+type extended_email_matching = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : extended_email_matching) -> ()
+
+let yojson_of_extended_email_matching =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : extended_email_matching -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_extended_email_matching
+
+[@@@deriving.end]
+
+type fips = { tls : bool prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fips) -> ()
+
+let yojson_of_fips =
+  (function
+   | { tls = v_tls } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "tls", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : fips -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fips
+
+[@@@deriving.end]
 
 type logging__settings_by_rule_type__dns = {
-  log_all : bool prop;  (** Whether to log all activity. *)
-  log_blocks : bool prop;  (** log_blocks *)
+  log_all : bool prop;
+  log_blocks : bool prop;
 }
-[@@deriving yojson_of]
-(** Logging configuration for DNS requests. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging__settings_by_rule_type__dns) -> ()
+
+let yojson_of_logging__settings_by_rule_type__dns =
+  (function
+   | { log_all = v_log_all; log_blocks = v_log_blocks } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_log_blocks in
+         ("log_blocks", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_log_all in
+         ("log_all", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging__settings_by_rule_type__dns ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging__settings_by_rule_type__dns
+
+[@@@deriving.end]
 
 type logging__settings_by_rule_type__http = {
-  log_all : bool prop;  (** Whether to log all activity. *)
-  log_blocks : bool prop;  (** log_blocks *)
+  log_all : bool prop;
+  log_blocks : bool prop;
 }
-[@@deriving yojson_of]
-(** Logging configuration for HTTP requests. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging__settings_by_rule_type__http) -> ()
+
+let yojson_of_logging__settings_by_rule_type__http =
+  (function
+   | { log_all = v_log_all; log_blocks = v_log_blocks } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_log_blocks in
+         ("log_blocks", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_log_all in
+         ("log_all", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging__settings_by_rule_type__http ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging__settings_by_rule_type__http
+
+[@@@deriving.end]
 
 type logging__settings_by_rule_type__l4 = {
-  log_all : bool prop;  (** Whether to log all activity. *)
-  log_blocks : bool prop;  (** log_blocks *)
+  log_all : bool prop;
+  log_blocks : bool prop;
 }
-[@@deriving yojson_of]
-(** Logging configuration for layer 4 requests. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging__settings_by_rule_type__l4) -> ()
+
+let yojson_of_logging__settings_by_rule_type__l4 =
+  (function
+   | { log_all = v_log_all; log_blocks = v_log_blocks } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_log_blocks in
+         ("log_blocks", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_log_all in
+         ("log_all", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging__settings_by_rule_type__l4 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging__settings_by_rule_type__l4
+
+[@@@deriving.end]
 
 type logging__settings_by_rule_type = {
   dns : logging__settings_by_rule_type__dns list;
   http : logging__settings_by_rule_type__http list;
   l4 : logging__settings_by_rule_type__l4 list;
 }
-[@@deriving yojson_of]
-(** Represents whether all requests are logged or only the blocked requests are slogged in DNS, HTTP and L4 filters. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging__settings_by_rule_type) -> ()
+
+let yojson_of_logging__settings_by_rule_type =
+  (function
+   | { dns = v_dns; http = v_http; l4 = v_l4 } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_logging__settings_by_rule_type__l4 v_l4
+         in
+         ("l4", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_logging__settings_by_rule_type__http v_http
+         in
+         ("http", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_logging__settings_by_rule_type__dns v_dns
+         in
+         ("dns", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging__settings_by_rule_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging__settings_by_rule_type
+
+[@@@deriving.end]
 
 type logging = {
   redact_pii : bool prop;
-      (** Redact personally identifiable information from activity logging (PII fields are: source IP, user email, user ID, device ID, URL, referrer, user agent). *)
   settings_by_rule_type : logging__settings_by_rule_type list;
 }
-[@@deriving yojson_of]
-(** logging *)
+[@@deriving_inline yojson_of]
 
-type payload_log = {
-  public_key : string prop;
-      (** Public key used to encrypt matched payloads. *)
-}
-[@@deriving yojson_of]
-(** Configuration for DLP Payload Logging. *)
+let _ = fun (_ : logging) -> ()
+
+let yojson_of_logging =
+  (function
+   | {
+       redact_pii = v_redact_pii;
+       settings_by_rule_type = v_settings_by_rule_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logging__settings_by_rule_type
+             v_settings_by_rule_type
+         in
+         ("settings_by_rule_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_redact_pii in
+         ("redact_pii", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging
+
+[@@@deriving.end]
+
+type payload_log = { public_key : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : payload_log) -> ()
+
+let yojson_of_payload_log =
+  (function
+   | { public_key = v_public_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_public_key in
+         ("public_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : payload_log -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_payload_log
+
+[@@@deriving.end]
 
 type proxy = {
   root_ca : bool prop;
-      (** Whether root ca is enabled account wide for ZT clients. *)
   tcp : bool prop;
-      (** Whether gateway proxy is enabled on gateway devices for TCP traffic. *)
   udp : bool prop;
-      (** Whether gateway proxy is enabled on gateway devices for UDP traffic. *)
 }
-[@@deriving yojson_of]
-(** Configuration block for specifying which protocols are proxied. *)
+[@@deriving_inline yojson_of]
 
-type ssh_session_log = {
-  public_key : string prop;
-      (** Public key used to encrypt ssh session. *)
-}
-[@@deriving yojson_of]
-(** Configuration for SSH Session Logging. *)
+let _ = fun (_ : proxy) -> ()
+
+let yojson_of_proxy =
+  (function
+   | { root_ca = v_root_ca; tcp = v_tcp; udp = v_udp } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_udp in
+         ("udp", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_tcp in
+         ("tcp", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_root_ca in
+         ("root_ca", arg) :: bnds
+       in
+       `Assoc bnds
+    : proxy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_proxy
+
+[@@@deriving.end]
+
+type ssh_session_log = { public_key : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ssh_session_log) -> ()
+
+let yojson_of_ssh_session_log =
+  (function
+   | { public_key = v_public_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_public_key in
+         ("public_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : ssh_session_log -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ssh_session_log
+
+[@@@deriving.end]
 
 type cloudflare_teams_account = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   activity_log_enabled : bool prop option; [@option]
-      (** Whether to enable the activity log. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   non_identity_browser_isolation_enabled : bool prop option;
       [@option]
-      (** Enable non-identity onramp for Browser Isolation. Defaults to `false`. *)
   protocol_detection_enabled : bool prop option; [@option]
-      (** Indicator that protocol detection is enabled. *)
   tls_decrypt_enabled : bool prop option; [@option]
-      (** Indicator that decryption of TLS traffic is enabled. *)
   url_browser_isolation_enabled : bool prop option; [@option]
-      (** Safely browse websites in Browser Isolation through a URL. Defaults to `false`. *)
   antivirus : antivirus list;
   block_page : block_page list;
   body_scanning : body_scanning list;
@@ -152,10 +542,142 @@ type cloudflare_teams_account = {
   proxy : proxy list;
   ssh_session_log : ssh_session_log list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Teams Account resource. The Teams Account
-resource defines configuration for secure web gateway.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_teams_account) -> ()
+
+let yojson_of_cloudflare_teams_account =
+  (function
+   | {
+       account_id = v_account_id;
+       activity_log_enabled = v_activity_log_enabled;
+       id = v_id;
+       non_identity_browser_isolation_enabled =
+         v_non_identity_browser_isolation_enabled;
+       protocol_detection_enabled = v_protocol_detection_enabled;
+       tls_decrypt_enabled = v_tls_decrypt_enabled;
+       url_browser_isolation_enabled =
+         v_url_browser_isolation_enabled;
+       antivirus = v_antivirus;
+       block_page = v_block_page;
+       body_scanning = v_body_scanning;
+       extended_email_matching = v_extended_email_matching;
+       fips = v_fips;
+       logging = v_logging;
+       payload_log = v_payload_log;
+       proxy = v_proxy;
+       ssh_session_log = v_ssh_session_log;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ssh_session_log v_ssh_session_log
+         in
+         ("ssh_session_log", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_proxy v_proxy in
+         ("proxy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_payload_log v_payload_log
+         in
+         ("payload_log", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_logging v_logging in
+         ("logging", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_fips v_fips in
+         ("fips", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_extended_email_matching
+             v_extended_email_matching
+         in
+         ("extended_email_matching", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_body_scanning v_body_scanning
+         in
+         ("body_scanning", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_block_page v_block_page
+         in
+         ("block_page", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_antivirus v_antivirus in
+         ("antivirus", arg) :: bnds
+       in
+       let bnds =
+         match v_url_browser_isolation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "url_browser_isolation_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tls_decrypt_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "tls_decrypt_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_protocol_detection_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "protocol_detection_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_non_identity_browser_isolation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "non_identity_browser_isolation_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_activity_log_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "activity_log_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_teams_account -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_teams_account
+
+[@@@deriving.end]
 
 let antivirus__notification_settings ?enabled ?message ?support_url
     () : antivirus__notification_settings =

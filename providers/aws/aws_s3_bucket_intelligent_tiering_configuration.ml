@@ -3,29 +3,141 @@
 open! Tf_core
 
 type filter = {
-  prefix : string prop option; [@option]  (** prefix *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  prefix : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
 }
-[@@deriving yojson_of]
-(** filter *)
+[@@deriving_inline yojson_of]
 
-type tiering = {
-  access_tier : string prop;  (** access_tier *)
-  days : float prop;  (** days *)
-}
-[@@deriving yojson_of]
-(** tiering *)
+let _ = fun (_ : filter) -> ()
+
+let yojson_of_filter =
+  (function
+   | { prefix = v_prefix; tags = v_tags } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filter
+
+[@@@deriving.end]
+
+type tiering = { access_tier : string prop; days : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tiering) -> ()
+
+let yojson_of_tiering =
+  (function
+   | { access_tier = v_access_tier; days = v_days } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_days in
+         ("days", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_access_tier in
+         ("access_tier", arg) :: bnds
+       in
+       `Assoc bnds
+    : tiering -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tiering
+
+[@@@deriving.end]
 
 type aws_s3_bucket_intelligent_tiering_configuration = {
-  bucket : string prop;  (** bucket *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  status : string prop option; [@option]  (** status *)
+  bucket : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  status : string prop option; [@option]
   filter : filter list;
   tiering : tiering list;
 }
-[@@deriving yojson_of]
-(** aws_s3_bucket_intelligent_tiering_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_s3_bucket_intelligent_tiering_configuration) -> ()
+
+let yojson_of_aws_s3_bucket_intelligent_tiering_configuration =
+  (function
+   | {
+       bucket = v_bucket;
+       id = v_id;
+       name = v_name;
+       status = v_status;
+       filter = v_filter;
+       tiering = v_tiering;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_tiering v_tiering in
+         ("tiering", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_filter v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_s3_bucket_intelligent_tiering_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3_bucket_intelligent_tiering_configuration
+
+[@@@deriving.end]
 
 let filter ?prefix ?tags () : filter = { prefix; tags }
 let tiering ~access_tier ~days () : tiering = { access_tier; days }

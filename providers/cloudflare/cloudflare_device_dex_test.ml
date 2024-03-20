@@ -4,30 +4,107 @@ open! Tf_core
 
 type data = {
   host : string prop;
-      (** The host URL for `http` test `kind`. For `traceroute`, it must be a valid hostname or IP address. *)
   kind : string prop;
-      (** The type of Device Dex Test. Available values: `http`, `traceroute`. *)
   method_ : string prop option; [@option] [@key "method"]
-      (** The http request method. Available values: `GET`. *)
 }
-[@@deriving yojson_of]
-(** The configuration object which contains the details for the WARP client to conduct the test. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data) -> ()
+
+let yojson_of_data =
+  (function
+   | { host = v_host; kind = v_kind; method_ = v_method_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_method_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       `Assoc bnds
+    : data -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data
+
+[@@@deriving.end]
 
 type cloudflare_device_dex_test = {
   account_id : string prop;
-      (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   description : string prop;
-      (** Additional details about the test. *)
   enabled : bool prop;
-      (** Determines whether or not the test is active. *)
-  id : string prop option; [@option]  (** id *)
-  interval : string prop;  (** How often the test will run. *)
+  id : string prop option; [@option]
+  interval : string prop;
   name : string prop;
-      (** The name of the Device Dex Test. Must be unique. *)
   data : data list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Device Dex Test resource. Device Dex Tests allow for building location-aware device settings policies. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_device_dex_test) -> ()
+
+let yojson_of_cloudflare_device_dex_test =
+  (function
+   | {
+       account_id = v_account_id;
+       description = v_description;
+       enabled = v_enabled;
+       id = v_id;
+       interval = v_interval;
+       name = v_name;
+       data = v_data;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_data v_data in
+         ("data", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_interval in
+         ("interval", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_device_dex_test -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_device_dex_test
+
+[@@@deriving.end]
 
 let data ?method_ ~host ~kind () : data = { host; kind; method_ }
 

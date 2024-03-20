@@ -4,35 +4,193 @@ open! Tf_core
 
 type ip_configurations = {
   private_ip_address : string prop option; [@option]
-      (** private_ip_address *)
   private_ip_allocation_method : string prop option; [@option]
-      (** private_ip_allocation_method *)
-  subnet_id : string prop;  (** subnet_id *)
+  subnet_id : string prop;
 }
-[@@deriving yojson_of]
-(** ip_configurations *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ip_configurations) -> ()
+
+let yojson_of_ip_configurations =
+  (function
+   | {
+       private_ip_address = v_private_ip_address;
+       private_ip_allocation_method = v_private_ip_allocation_method;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         match v_private_ip_allocation_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ip_allocation_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ip_address", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ip_configurations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ip_configurations
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_private_dns_resolver_inbound_endpoint = {
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
   private_dns_resolver_id : string prop;
-      (** private_dns_resolver_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   ip_configurations : ip_configurations list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_private_dns_resolver_inbound_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_private_dns_resolver_inbound_endpoint) -> ()
+
+let yojson_of_azurerm_private_dns_resolver_inbound_endpoint =
+  (function
+   | {
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       private_dns_resolver_id = v_private_dns_resolver_id;
+       tags = v_tags;
+       ip_configurations = v_ip_configurations;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ip_configurations
+             v_ip_configurations
+         in
+         ("ip_configurations", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_private_dns_resolver_id
+         in
+         ("private_dns_resolver_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_private_dns_resolver_inbound_endpoint ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_private_dns_resolver_inbound_endpoint
+
+[@@@deriving.end]
 
 let ip_configurations ?private_ip_address
     ?private_ip_allocation_method ~subnet_id () : ip_configurations =

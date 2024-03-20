@@ -4,167 +4,589 @@ open! Tf_core
 
 type access_levels__basic__conditions__device_policy__os_constraints = {
   minimum_version : string prop option; [@option]
-      (** The minimum allowed OS version. If not set, any version
-of this OS satisfies the constraint.
-Format: major.minor.patch such as 10.5.301, 9.2.1. *)
   os_type : string prop;
-      (** The operating system type of the device. Possible values: [OS_UNSPECIFIED, DESKTOP_MAC, DESKTOP_WINDOWS, DESKTOP_LINUX, DESKTOP_CHROME_OS, ANDROID, IOS] *)
 }
-[@@deriving yojson_of]
-(** A list of allowed OS versions.
-An empty list allows all types and all versions. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       access_levels__basic__conditions__device_policy__os_constraints) ->
+  ()
+
+let yojson_of_access_levels__basic__conditions__device_policy__os_constraints
+    =
+  (function
+   | { minimum_version = v_minimum_version; os_type = v_os_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_os_type in
+         ("os_type", arg) :: bnds
+       in
+       let bnds =
+         match v_minimum_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "minimum_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_levels__basic__conditions__device_policy__os_constraints ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_access_levels__basic__conditions__device_policy__os_constraints
+
+[@@@deriving.end]
 
 type access_levels__basic__conditions__device_policy = {
   allowed_device_management_levels : string prop list option;
       [@option]
-      (** A list of allowed device management levels.
-An empty list allows all management levels. Possible values: [MANAGEMENT_UNSPECIFIED, NONE, BASIC, COMPLETE] *)
   allowed_encryption_statuses : string prop list option; [@option]
-      (** A list of allowed encryptions statuses.
-An empty list allows all statuses. Possible values: [ENCRYPTION_UNSPECIFIED, ENCRYPTION_UNSUPPORTED, UNENCRYPTED, ENCRYPTED] *)
   require_admin_approval : bool prop option; [@option]
-      (** Whether the device needs to be approved by the customer admin. *)
   require_corp_owned : bool prop option; [@option]
-      (** Whether the device needs to be corp owned. *)
   require_screen_lock : bool prop option; [@option]
-      (** Whether or not screenlock is required for the DevicePolicy
-to be true. Defaults to false. *)
   os_constraints :
     access_levels__basic__conditions__device_policy__os_constraints
     list;
 }
-[@@deriving yojson_of]
-(** Device specific restrictions, all restrictions must hold for
-the Condition to be true. If not specified, all devices are
-allowed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : access_levels__basic__conditions__device_policy) -> ()
+
+let yojson_of_access_levels__basic__conditions__device_policy =
+  (function
+   | {
+       allowed_device_management_levels =
+         v_allowed_device_management_levels;
+       allowed_encryption_statuses = v_allowed_encryption_statuses;
+       require_admin_approval = v_require_admin_approval;
+       require_corp_owned = v_require_corp_owned;
+       require_screen_lock = v_require_screen_lock;
+       os_constraints = v_os_constraints;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_access_levels__basic__conditions__device_policy__os_constraints
+             v_os_constraints
+         in
+         ("os_constraints", arg) :: bnds
+       in
+       let bnds =
+         match v_require_screen_lock with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_screen_lock", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_require_corp_owned with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_corp_owned", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_require_admin_approval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_admin_approval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_encryption_statuses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_encryption_statuses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_device_management_levels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_device_management_levels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_levels__basic__conditions__device_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_levels__basic__conditions__device_policy
+
+[@@@deriving.end]
 
 type access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork = {
   network : string prop;
-      (** Required. Network name to be allowed by this Access Level. Networks of foreign organizations requires 'compute.network.get' permission to be granted to caller. *)
   vpc_ip_subnetworks : string prop list option; [@option]
-      (** CIDR block IP subnetwork specification. Must be IPv4. *)
 }
-[@@deriving yojson_of]
-(** Sub networks within a VPC network. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork) ->
+  ()
+
+let yojson_of_access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork
+    =
+  (function
+   | {
+       network = v_network;
+       vpc_ip_subnetworks = v_vpc_ip_subnetworks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vpc_ip_subnetworks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "vpc_ip_subnetworks", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork
+
+[@@@deriving.end]
 
 type access_levels__basic__conditions__vpc_network_sources = {
   vpc_subnetwork :
     access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork
     list;
 }
-[@@deriving yojson_of]
-(** The request must originate from one of the provided VPC networks in Google Cloud. Cannot specify this field together with 'ip_subnetworks'. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : access_levels__basic__conditions__vpc_network_sources) ->
+  ()
+
+let yojson_of_access_levels__basic__conditions__vpc_network_sources =
+  (function
+   | { vpc_subnetwork = v_vpc_subnetwork } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_access_levels__basic__conditions__vpc_network_sources__vpc_subnetwork
+             v_vpc_subnetwork
+         in
+         ("vpc_subnetwork", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_levels__basic__conditions__vpc_network_sources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_access_levels__basic__conditions__vpc_network_sources
+
+[@@@deriving.end]
 
 type access_levels__basic__conditions = {
   ip_subnetworks : string prop list option; [@option]
-      (** A list of CIDR block IP subnetwork specification. May be IPv4
-or IPv6.
-Note that for a CIDR IP address block, the specified IP address
-portion must be properly truncated (i.e. all the host bits must
-be zero) or the input is considered malformed. For example,
-192.0.2.0/24 is accepted but 192.0.2.1/24 is not. Similarly,
-for IPv6, 2001:db8::/32 is accepted whereas 2001:db8::1/32
-is not. The originating IP of a request must be in one of the
-listed subnets in order for this Condition to be true.
-If empty, all IP addresses are allowed. *)
   members : string prop list option; [@option]
-      (** An allowed list of members (users, service accounts).
-Using groups is not supported yet.
-
-The signed-in user originating the request must be a part of one
-of the provided members. If not specified, a request may come
-from any user (logged in/not logged in, not present in any
-groups, etc.).
-Formats: 'user:{emailid}', 'serviceAccount:{emailid}' *)
   negate : bool prop option; [@option]
-      (** Whether to negate the Condition. If true, the Condition becomes
-a NAND over its non-empty fields, each field must be false for
-the Condition overall to be satisfied. Defaults to false. *)
   regions : string prop list option; [@option]
-      (** The request must originate from one of the provided
-countries/regions.
-Format: A valid ISO 3166-1 alpha-2 code. *)
   required_access_levels : string prop list option; [@option]
-      (** A list of other access levels defined in the same Policy,
-referenced by resource name. Referencing an AccessLevel which
-does not exist is an error. All access levels listed must be
-granted for the Condition to be true.
-Format: accessPolicies/{policy_id}/accessLevels/{short_name} *)
   device_policy :
     access_levels__basic__conditions__device_policy list;
   vpc_network_sources :
     access_levels__basic__conditions__vpc_network_sources list;
 }
-[@@deriving yojson_of]
-(** A set of requirements for the AccessLevel to be granted. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_levels__basic__conditions) -> ()
+
+let yojson_of_access_levels__basic__conditions =
+  (function
+   | {
+       ip_subnetworks = v_ip_subnetworks;
+       members = v_members;
+       negate = v_negate;
+       regions = v_regions;
+       required_access_levels = v_required_access_levels;
+       device_policy = v_device_policy;
+       vpc_network_sources = v_vpc_network_sources;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_access_levels__basic__conditions__vpc_network_sources
+             v_vpc_network_sources
+         in
+         ("vpc_network_sources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_access_levels__basic__conditions__device_policy
+             v_device_policy
+         in
+         ("device_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_required_access_levels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "required_access_levels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_regions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "regions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_negate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "negate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_members with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "members", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_subnetworks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip_subnetworks", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_levels__basic__conditions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_levels__basic__conditions
+
+[@@@deriving.end]
 
 type access_levels__basic = {
   combining_function : string prop option; [@option]
-      (** How the conditions list should be combined to determine if a request
-is granted this AccessLevel. If AND is used, each Condition in
-conditions must be satisfied for the AccessLevel to be applied. If
-OR is used, at least one Condition in conditions must be satisfied
-for the AccessLevel to be applied. Default value: AND Possible values: [AND, OR] *)
   conditions : access_levels__basic__conditions list;
 }
-[@@deriving yojson_of]
-(** A set of predefined conditions for the access level and a combining function. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_levels__basic) -> ()
+
+let yojson_of_access_levels__basic =
+  (function
+   | {
+       combining_function = v_combining_function;
+       conditions = v_conditions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_levels__basic__conditions
+             v_conditions
+         in
+         ("conditions", arg) :: bnds
+       in
+       let bnds =
+         match v_combining_function with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "combining_function", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_levels__basic -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_levels__basic
+
+[@@@deriving.end]
 
 type access_levels__custom__expr = {
   description : string prop option; [@option]
-      (** Description of the expression *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting, e.g. a file name and a position in the file *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose. *)
 }
-[@@deriving yojson_of]
-(** Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language.
-This page details the objects and attributes that are used to the build the CEL expressions for
-custom access levels - https://cloud.google.com/access-context-manager/docs/custom-access-level-spec. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_levels__custom__expr) -> ()
+
+let yojson_of_access_levels__custom__expr =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_levels__custom__expr ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_levels__custom__expr
+
+[@@@deriving.end]
 
 type access_levels__custom = {
   expr : access_levels__custom__expr list;
 }
-[@@deriving yojson_of]
-(** Custom access level conditions are set using the Cloud Common Expression Language to represent the necessary conditions for the level to apply to a request.
-See CEL spec at: https://github.com/google/cel-spec. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_levels__custom) -> ()
+
+let yojson_of_access_levels__custom =
+  (function
+   | { expr = v_expr } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_levels__custom__expr
+             v_expr
+         in
+         ("expr", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_levels__custom -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_levels__custom
+
+[@@@deriving.end]
 
 type access_levels = {
   description : string prop option; [@option]
-      (** Description of the AccessLevel and its use. Does not affect behavior. *)
   name : string prop;
-      (** Resource name for the Access Level. The short_name component must begin
-with a letter and only include alphanumeric and '_'.
-Format: accessPolicies/{policy_id}/accessLevels/{short_name} *)
   title : string prop;
-      (** Human readable title. Must be unique within the Policy. *)
   basic : access_levels__basic list;
   custom : access_levels__custom list;
 }
-[@@deriving yojson_of]
-(** The desired Access Levels that should replace all existing Access Levels in the Access Policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_levels) -> ()
+
+let yojson_of_access_levels =
+  (function
+   | {
+       description = v_description;
+       name = v_name;
+       title = v_title;
+       basic = v_basic;
+       custom = v_custom;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_levels__custom v_custom
+         in
+         ("custom", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_levels__basic v_basic
+         in
+         ("basic", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_title in
+         ("title", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_levels -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_levels
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_access_context_manager_access_levels = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   parent : string prop;
-      (** The AccessPolicy this AccessLevel lives in.
-Format: accessPolicies/{policy_id} *)
   access_levels : access_levels list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_access_context_manager_access_levels *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_access_context_manager_access_levels) -> ()
+
+let yojson_of_google_access_context_manager_access_levels =
+  (function
+   | {
+       id = v_id;
+       parent = v_parent;
+       access_levels = v_access_levels;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_levels v_access_levels
+         in
+         ("access_levels", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_access_context_manager_access_levels ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_access_context_manager_access_levels
+
+[@@@deriving.end]
 
 let access_levels__basic__conditions__device_policy__os_constraints
     ?minimum_version ~os_type () :

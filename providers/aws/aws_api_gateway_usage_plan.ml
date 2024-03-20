@@ -3,50 +3,278 @@
 open! Tf_core
 
 type api_stages__throttle = {
-  burst_limit : float prop option; [@option]  (** burst_limit *)
-  path : string prop;  (** path *)
-  rate_limit : float prop option; [@option]  (** rate_limit *)
+  burst_limit : float prop option; [@option]
+  path : string prop;
+  rate_limit : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** api_stages__throttle *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : api_stages__throttle) -> ()
+
+let yojson_of_api_stages__throttle =
+  (function
+   | {
+       burst_limit = v_burst_limit;
+       path = v_path;
+       rate_limit = v_rate_limit;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_rate_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "rate_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_burst_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "burst_limit", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : api_stages__throttle -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_api_stages__throttle
+
+[@@@deriving.end]
 
 type api_stages = {
-  api_id : string prop;  (** api_id *)
-  stage : string prop;  (** stage *)
+  api_id : string prop;
+  stage : string prop;
   throttle : api_stages__throttle list;
 }
-[@@deriving yojson_of]
-(** api_stages *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : api_stages) -> ()
+
+let yojson_of_api_stages =
+  (function
+   | { api_id = v_api_id; stage = v_stage; throttle = v_throttle } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_api_stages__throttle v_throttle
+         in
+         ("throttle", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stage in
+         ("stage", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_id in
+         ("api_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : api_stages -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_api_stages
+
+[@@@deriving.end]
 
 type quota_settings = {
-  limit : float prop;  (** limit *)
-  offset : float prop option; [@option]  (** offset *)
-  period : string prop;  (** period *)
+  limit : float prop;
+  offset : float prop option; [@option]
+  period : string prop;
 }
-[@@deriving yojson_of]
-(** quota_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : quota_settings) -> ()
+
+let yojson_of_quota_settings =
+  (function
+   | { limit = v_limit; offset = v_offset; period = v_period } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_period in
+         ("period", arg) :: bnds
+       in
+       let bnds =
+         match v_offset with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "offset", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_limit in
+         ("limit", arg) :: bnds
+       in
+       `Assoc bnds
+    : quota_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_quota_settings
+
+[@@@deriving.end]
 
 type throttle_settings = {
-  burst_limit : float prop option; [@option]  (** burst_limit *)
-  rate_limit : float prop option; [@option]  (** rate_limit *)
+  burst_limit : float prop option; [@option]
+  rate_limit : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** throttle_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : throttle_settings) -> ()
+
+let yojson_of_throttle_settings =
+  (function
+   | { burst_limit = v_burst_limit; rate_limit = v_rate_limit } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_rate_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "rate_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_burst_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "burst_limit", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : throttle_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_throttle_settings
+
+[@@@deriving.end]
 
 type aws_api_gateway_usage_plan = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  product_code : string prop option; [@option]  (** product_code *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  product_code : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   api_stages : api_stages list;
   quota_settings : quota_settings list;
   throttle_settings : throttle_settings list;
 }
-[@@deriving yojson_of]
-(** aws_api_gateway_usage_plan *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_api_gateway_usage_plan) -> ()
+
+let yojson_of_aws_api_gateway_usage_plan =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       product_code = v_product_code;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       api_stages = v_api_stages;
+       quota_settings = v_quota_settings;
+       throttle_settings = v_throttle_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_throttle_settings
+             v_throttle_settings
+         in
+         ("throttle_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_quota_settings v_quota_settings
+         in
+         ("quota_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_api_stages v_api_stages
+         in
+         ("api_stages", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_product_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "product_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_api_gateway_usage_plan -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_api_gateway_usage_plan
+
+[@@@deriving.end]
 
 let api_stages__throttle ?burst_limit ?rate_limit ~path () :
     api_stages__throttle =

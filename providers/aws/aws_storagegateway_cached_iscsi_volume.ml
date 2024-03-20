@@ -3,22 +3,139 @@
 open! Tf_core
 
 type aws_storagegateway_cached_iscsi_volume = {
-  gateway_arn : string prop;  (** gateway_arn *)
-  id : string prop option; [@option]  (** id *)
-  kms_encrypted : bool prop option; [@option]  (** kms_encrypted *)
-  kms_key : string prop option; [@option]  (** kms_key *)
-  network_interface_id : string prop;  (** network_interface_id *)
-  snapshot_id : string prop option; [@option]  (** snapshot_id *)
+  gateway_arn : string prop;
+  id : string prop option; [@option]
+  kms_encrypted : bool prop option; [@option]
+  kms_key : string prop option; [@option]
+  network_interface_id : string prop;
+  snapshot_id : string prop option; [@option]
   source_volume_arn : string prop option; [@option]
-      (** source_volume_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  target_name : string prop;  (** target_name *)
-  volume_size_in_bytes : float prop;  (** volume_size_in_bytes *)
+  target_name : string prop;
+  volume_size_in_bytes : float prop;
 }
-[@@deriving yojson_of]
-(** aws_storagegateway_cached_iscsi_volume *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_storagegateway_cached_iscsi_volume) -> ()
+
+let yojson_of_aws_storagegateway_cached_iscsi_volume =
+  (function
+   | {
+       gateway_arn = v_gateway_arn;
+       id = v_id;
+       kms_encrypted = v_kms_encrypted;
+       kms_key = v_kms_key;
+       network_interface_id = v_network_interface_id;
+       snapshot_id = v_snapshot_id;
+       source_volume_arn = v_source_volume_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       target_name = v_target_name;
+       volume_size_in_bytes = v_volume_size_in_bytes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_volume_size_in_bytes
+         in
+         ("volume_size_in_bytes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target_name in
+         ("target_name", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_volume_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_volume_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "snapshot_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_network_interface_id
+         in
+         ("network_interface_id", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_encrypted with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kms_encrypted", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_gateway_arn in
+         ("gateway_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_storagegateway_cached_iscsi_volume ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_storagegateway_cached_iscsi_volume
+
+[@@@deriving.end]
 
 let aws_storagegateway_cached_iscsi_volume ?id ?kms_encrypted
     ?kms_key ?snapshot_id ?source_volume_arn ?tags ?tags_all

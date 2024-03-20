@@ -3,13 +3,58 @@
 open! Tf_core
 
 type aws_cloudfront_key_group = {
-  comment : string prop option; [@option]  (** comment *)
-  id : string prop option; [@option]  (** id *)
-  items : string prop list;  (** items *)
-  name : string prop;  (** name *)
+  comment : string prop option; [@option]
+  id : string prop option; [@option]
+  items : string prop list;
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_cloudfront_key_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudfront_key_group) -> ()
+
+let yojson_of_aws_cloudfront_key_group =
+  (function
+   | {
+       comment = v_comment;
+       id = v_id;
+       items = v_items;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_items
+         in
+         ("items", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudfront_key_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudfront_key_group
+
+[@@@deriving.end]
 
 let aws_cloudfront_key_group ?comment ?id ~items ~name () :
     aws_cloudfront_key_group =

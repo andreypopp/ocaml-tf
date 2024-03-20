@@ -3,26 +3,124 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_ec2_client_vpn_authorization_rule = {
   access_group_id : string prop option; [@option]
-      (** access_group_id *)
   authorize_all_groups : bool prop option; [@option]
-      (** authorize_all_groups *)
   client_vpn_endpoint_id : string prop;
-      (** client_vpn_endpoint_id *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  target_network_cidr : string prop;  (** target_network_cidr *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  target_network_cidr : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_ec2_client_vpn_authorization_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_client_vpn_authorization_rule) -> ()
+
+let yojson_of_aws_ec2_client_vpn_authorization_rule =
+  (function
+   | {
+       access_group_id = v_access_group_id;
+       authorize_all_groups = v_authorize_all_groups;
+       client_vpn_endpoint_id = v_client_vpn_endpoint_id;
+       description = v_description;
+       id = v_id;
+       target_network_cidr = v_target_network_cidr;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_network_cidr
+         in
+         ("target_network_cidr", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_client_vpn_endpoint_id
+         in
+         ("client_vpn_endpoint_id", arg) :: bnds
+       in
+       let bnds =
+         match v_authorize_all_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "authorize_all_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_group_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_client_vpn_authorization_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_client_vpn_authorization_rule
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

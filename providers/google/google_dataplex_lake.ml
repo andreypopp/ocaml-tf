@@ -2,57 +2,265 @@
 
 open! Tf_core
 
-type metastore = {
-  service : string prop option; [@option]
-      (** Optional. A relative reference to the Dataproc Metastore (https://cloud.google.com/dataproc-metastore/docs) service associated with the lake: `projects/{project_id}/locations/{location_id}/services/{service_id}` *)
-}
-[@@deriving yojson_of]
-(** Optional. Settings to manage lake and Dataproc Metastore service instance association. *)
+type metastore = { service : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metastore) -> ()
+
+let yojson_of_metastore =
+  (function
+   | { service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metastore -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metastore
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type asset_status = {
-  active_assets : float prop;  (** active_assets *)
+  active_assets : float prop;
   security_policy_applying_assets : float prop;
-      (** security_policy_applying_assets *)
-  update_time : string prop;  (** update_time *)
+  update_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : asset_status) -> ()
+
+let yojson_of_asset_status =
+  (function
+   | {
+       active_assets = v_active_assets;
+       security_policy_applying_assets =
+         v_security_policy_applying_assets;
+       update_time = v_update_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_security_policy_applying_assets
+         in
+         ("security_policy_applying_assets", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_active_assets in
+         ("active_assets", arg) :: bnds
+       in
+       `Assoc bnds
+    : asset_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_asset_status
+
+[@@@deriving.end]
 
 type metastore_status = {
-  endpoint : string prop;  (** endpoint *)
-  message : string prop;  (** message *)
-  state : string prop;  (** state *)
-  update_time : string prop;  (** update_time *)
+  endpoint : string prop;
+  message : string prop;
+  state : string prop;
+  update_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metastore_status) -> ()
+
+let yojson_of_metastore_status =
+  (function
+   | {
+       endpoint = v_endpoint;
+       message = v_message;
+       state = v_state;
+       update_time = v_update_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_endpoint in
+         ("endpoint", arg) :: bnds
+       in
+       `Assoc bnds
+    : metastore_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metastore_status
+
+[@@@deriving.end]
 
 type google_dataplex_lake = {
   description : string prop option; [@option]
-      (** Optional. Description of the lake. *)
   display_name : string prop option; [@option]
-      (** Optional. User friendly display name. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Optional. User-defined labels for the lake.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field `effective_labels` for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
-  name : string prop;  (** The name of the lake. *)
+  location : string prop;
+  name : string prop;
   project : string prop option; [@option]
-      (** The project for the resource *)
   metastore : metastore list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dataplex_lake *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dataplex_lake) -> ()
+
+let yojson_of_google_dataplex_lake =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       metastore = v_metastore;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metastore v_metastore in
+         ("metastore", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dataplex_lake -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dataplex_lake
+
+[@@@deriving.end]
 
 let metastore ?service () : metastore = { service }
 

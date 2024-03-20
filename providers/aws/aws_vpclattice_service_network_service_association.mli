@@ -9,6 +9,8 @@ type dns_entry = {
   hosted_zone_id : string prop;  (** hosted_zone_id *)
 }
 
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

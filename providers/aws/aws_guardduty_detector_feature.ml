@@ -3,21 +3,91 @@
 open! Tf_core
 
 type additional_configuration = {
-  name : string prop;  (** name *)
-  status : string prop;  (** status *)
+  name : string prop;
+  status : string prop;
 }
-[@@deriving yojson_of]
-(** additional_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : additional_configuration) -> ()
+
+let yojson_of_additional_configuration =
+  (function
+   | { name = v_name; status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : additional_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_additional_configuration
+
+[@@@deriving.end]
 
 type aws_guardduty_detector_feature = {
-  detector_id : string prop;  (** detector_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  status : string prop;  (** status *)
+  detector_id : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  status : string prop;
   additional_configuration : additional_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_guardduty_detector_feature *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_guardduty_detector_feature) -> ()
+
+let yojson_of_aws_guardduty_detector_feature =
+  (function
+   | {
+       detector_id = v_detector_id;
+       id = v_id;
+       name = v_name;
+       status = v_status;
+       additional_configuration = v_additional_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_additional_configuration
+             v_additional_configuration
+         in
+         ("additional_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_detector_id in
+         ("detector_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_guardduty_detector_feature ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_guardduty_detector_feature
+
+[@@@deriving.end]
 
 let additional_configuration ~name ~status () :
     additional_configuration =

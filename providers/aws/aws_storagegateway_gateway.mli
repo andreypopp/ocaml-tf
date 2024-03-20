@@ -8,6 +8,8 @@ type gateway_network_interface = {
   ipv4_address : string prop;  (** ipv4_address *)
 }
 
+[@@@deriving.end]
+
 type maintenance_start_time
 
 val maintenance_start_time :

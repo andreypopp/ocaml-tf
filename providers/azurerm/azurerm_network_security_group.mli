@@ -30,6 +30,8 @@ type security_rule = {
   source_port_ranges : string prop list;  (** source_port_ranges *)
 }
 
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

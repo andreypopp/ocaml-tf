@@ -4,78 +4,399 @@ open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the persistent volume claim that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the persistent volume claim. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the persistent volume claim, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Namespace defines the space within which name of the persistent volume claim must be unique. *)
 }
-[@@deriving yojson_of]
-(** Standard persistent volume claim's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+       namespace = v_namespace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type spec__resources = {
   limits : (string * string prop) list option; [@option]
-      (** Map describing the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ *)
   requests : (string * string prop) list option; [@option]
-      (** Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ *)
 }
-[@@deriving yojson_of]
-(** A list of the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__resources) -> ()
+
+let yojson_of_spec__resources =
+  (function
+   | { limits = v_limits; requests = v_requests } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_requests with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "requests", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_limits with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "limits", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__resources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__resources
+
+[@@@deriving.end]
 
 type spec__selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__selector__match_expressions) -> ()
+
+let yojson_of_spec__selector__match_expressions =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions : spec__selector__match_expressions list;
 }
-[@@deriving yojson_of]
-(** A label query over volumes to consider for binding. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__selector) -> ()
+
+let yojson_of_spec__selector =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__selector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__selector
+
+[@@@deriving.end]
 
 type spec = {
   access_modes : string prop list;
-      (** A set of the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes *)
   storage_class_name : string prop option; [@option]
-      (** Name of the storage class requested by the claim *)
   volume_mode : string prop option; [@option]
-      (** Defines what type of volume is required by the claim. *)
   volume_name : string prop option; [@option]
-      (** The binding reference to the PersistentVolume backing this claim. *)
   resources : spec__resources list;
   selector : spec__selector list;
 }
-[@@deriving yojson_of]
-(** Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims *)
+[@@deriving_inline yojson_of]
 
-type timeouts = {
-  create : string prop option; [@option]  (** create *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       access_modes = v_access_modes;
+       storage_class_name = v_storage_class_name;
+       volume_mode = v_volume_mode;
+       volume_name = v_volume_name;
+       resources = v_resources;
+       selector = v_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__selector v_selector
+         in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__resources v_resources
+         in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_volume_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_class_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_class_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_access_modes
+         in
+         ("access_modes", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
+
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type kubernetes_persistent_volume_claim_v1 = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   wait_until_bound : bool prop option; [@option]
-      (** Whether to wait for the claim to reach `Bound` state (to find volume in which to claim the space) *)
   metadata : metadata list;
   spec : spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** kubernetes_persistent_volume_claim_v1 *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_persistent_volume_claim_v1) -> ()
+
+let yojson_of_kubernetes_persistent_volume_claim_v1 =
+  (function
+   | {
+       id = v_id;
+       wait_until_bound = v_wait_until_bound;
+       metadata = v_metadata;
+       spec = v_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_wait_until_bound with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "wait_until_bound", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_persistent_volume_claim_v1 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_persistent_volume_claim_v1
+
+[@@@deriving.end]
 
 let metadata ?annotations ?generate_name ?labels ?name ?namespace ()
     : metadata =

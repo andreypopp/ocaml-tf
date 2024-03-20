@@ -2,25 +2,102 @@
 
 open! Tf_core
 
-type sub_domain = {
-  branch_name : string prop;  (** branch_name *)
-  prefix : string prop;  (** prefix *)
-}
-[@@deriving yojson_of]
-(** sub_domain *)
+type sub_domain = { branch_name : string prop; prefix : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sub_domain) -> ()
+
+let yojson_of_sub_domain =
+  (function
+   | { branch_name = v_branch_name; prefix = v_prefix } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_prefix in
+         ("prefix", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_branch_name in
+         ("branch_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : sub_domain -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sub_domain
+
+[@@@deriving.end]
 
 type aws_amplify_domain_association = {
-  app_id : string prop;  (** app_id *)
-  domain_name : string prop;  (** domain_name *)
+  app_id : string prop;
+  domain_name : string prop;
   enable_auto_sub_domain : bool prop option; [@option]
-      (** enable_auto_sub_domain *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   wait_for_verification : bool prop option; [@option]
-      (** wait_for_verification *)
   sub_domain : sub_domain list;
 }
-[@@deriving yojson_of]
-(** aws_amplify_domain_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_amplify_domain_association) -> ()
+
+let yojson_of_aws_amplify_domain_association =
+  (function
+   | {
+       app_id = v_app_id;
+       domain_name = v_domain_name;
+       enable_auto_sub_domain = v_enable_auto_sub_domain;
+       id = v_id;
+       wait_for_verification = v_wait_for_verification;
+       sub_domain = v_sub_domain;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sub_domain v_sub_domain
+         in
+         ("sub_domain", arg) :: bnds
+       in
+       let bnds =
+         match v_wait_for_verification with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "wait_for_verification", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_auto_sub_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_auto_sub_domain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_app_id in
+         ("app_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_amplify_domain_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_amplify_domain_association
+
+[@@@deriving.end]
 
 let sub_domain ~branch_name ~prefix () : sub_domain =
   { branch_name; prefix }

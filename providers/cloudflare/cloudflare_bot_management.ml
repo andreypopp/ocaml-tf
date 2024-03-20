@@ -4,36 +4,130 @@ open! Tf_core
 
 type cloudflare_bot_management = {
   auto_update_model : bool prop option; [@option]
-      (** Automatically update to the newest bot detection models created by Cloudflare as they are released. [Learn more.](https://developers.cloudflare.com/bots/reference/machine-learning-models#model-versions-and-release-notes). *)
   enable_js : bool prop option; [@option]
-      (** Use lightweight, invisible JavaScript detections to improve Bot Management. [Learn more about JavaScript Detections](https://developers.cloudflare.com/bots/reference/javascript-detections/). *)
   fight_mode : bool prop option; [@option]
-      (** Whether to enable Bot Fight Mode. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   optimize_wordpress : bool prop option; [@option]
-      (** Whether to optimize Super Bot Fight Mode protections for Wordpress. *)
   sbfm_definitely_automated : string prop option; [@option]
-      (** Super Bot Fight Mode (SBFM) action to take on definitely automated requests. *)
   sbfm_likely_automated : string prop option; [@option]
-      (** Super Bot Fight Mode (SBFM) action to take on likely automated requests. *)
   sbfm_static_resource_protection : bool prop option; [@option]
-      (** Super Bot Fight Mode (SBFM) to enable static resource protection. Enable if static resources on your application need bot protection. Note: Static resource protection can also result in legitimate traffic being blocked. *)
   sbfm_verified_bots : string prop option; [@option]
-      (** Super Bot Fight Mode (SBFM) action to take on verified bots requests. *)
   suppress_session_score : bool prop option; [@option]
-      (** Whether to disable tracking the highest bot score for a session in the Bot Management cookie. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a resource to configure Bot Management.
+[@@deriving_inline yojson_of]
 
-Specifically, this resource can be used to manage:
+let _ = fun (_ : cloudflare_bot_management) -> ()
 
-- **Bot Fight Mode**
-- **Super Bot Fight Mode**
-- **Bot Management for Enterprise**
- *)
+let yojson_of_cloudflare_bot_management =
+  (function
+   | {
+       auto_update_model = v_auto_update_model;
+       enable_js = v_enable_js;
+       fight_mode = v_fight_mode;
+       id = v_id;
+       optimize_wordpress = v_optimize_wordpress;
+       sbfm_definitely_automated = v_sbfm_definitely_automated;
+       sbfm_likely_automated = v_sbfm_likely_automated;
+       sbfm_static_resource_protection =
+         v_sbfm_static_resource_protection;
+       sbfm_verified_bots = v_sbfm_verified_bots;
+       suppress_session_score = v_suppress_session_score;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_suppress_session_score with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "suppress_session_score", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sbfm_verified_bots with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sbfm_verified_bots", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sbfm_static_resource_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "sbfm_static_resource_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sbfm_likely_automated with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sbfm_likely_automated", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sbfm_definitely_automated with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sbfm_definitely_automated", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_optimize_wordpress with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optimize_wordpress", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fight_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "fight_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_js with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_js", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_update_model with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_update_model", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_bot_management -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_bot_management
+
+[@@@deriving.end]
 
 let cloudflare_bot_management ?auto_update_model ?enable_js
     ?fight_mode ?id ?optimize_wordpress ?sbfm_definitely_automated

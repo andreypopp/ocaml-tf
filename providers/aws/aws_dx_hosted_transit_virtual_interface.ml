@@ -3,30 +3,158 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_dx_hosted_transit_virtual_interface = {
-  address_family : string prop;  (** address_family *)
+  address_family : string prop;
   amazon_address : string prop option; [@option]
-      (** amazon_address *)
-  bgp_asn : float prop;  (** bgp_asn *)
-  bgp_auth_key : string prop option; [@option]  (** bgp_auth_key *)
-  connection_id : string prop;  (** connection_id *)
+  bgp_asn : float prop;
+  bgp_auth_key : string prop option; [@option]
+  connection_id : string prop;
   customer_address : string prop option; [@option]
-      (** customer_address *)
-  id : string prop option; [@option]  (** id *)
-  mtu : float prop option; [@option]  (** mtu *)
-  name : string prop;  (** name *)
-  owner_account_id : string prop;  (** owner_account_id *)
-  vlan : float prop;  (** vlan *)
+  id : string prop option; [@option]
+  mtu : float prop option; [@option]
+  name : string prop;
+  owner_account_id : string prop;
+  vlan : float prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_dx_hosted_transit_virtual_interface *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dx_hosted_transit_virtual_interface) -> ()
+
+let yojson_of_aws_dx_hosted_transit_virtual_interface =
+  (function
+   | {
+       address_family = v_address_family;
+       amazon_address = v_amazon_address;
+       bgp_asn = v_bgp_asn;
+       bgp_auth_key = v_bgp_auth_key;
+       connection_id = v_connection_id;
+       customer_address = v_customer_address;
+       id = v_id;
+       mtu = v_mtu;
+       name = v_name;
+       owner_account_id = v_owner_account_id;
+       vlan = v_vlan;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_vlan in
+         ("vlan", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_owner_account_id
+         in
+         ("owner_account_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mtu with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "mtu", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_customer_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "customer_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_connection_id in
+         ("connection_id", arg) :: bnds
+       in
+       let bnds =
+         match v_bgp_auth_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bgp_auth_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_bgp_asn in
+         ("bgp_asn", arg) :: bnds
+       in
+       let bnds =
+         match v_amazon_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "amazon_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_address_family
+         in
+         ("address_family", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_dx_hosted_transit_virtual_interface ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dx_hosted_transit_virtual_interface
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

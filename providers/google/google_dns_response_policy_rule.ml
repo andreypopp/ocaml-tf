@@ -3,45 +3,204 @@
 open! Tf_core
 
 type local_data__local_datas = {
-  name : string prop;  (** For example, www.example.com. *)
+  name : string prop;
   rrdatas : string prop list option; [@option]
-      (** As defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1) *)
   ttl : float prop option; [@option]
-      (** Number of seconds that this ResourceRecordSet can be cached by
-resolvers. *)
   type_ : string prop; [@key "type"]
-      (** One of valid DNS resource types. Possible values: [A, AAAA, CAA, CNAME, DNSKEY, DS, HTTPS, IPSECVPNKEY, MX, NAPTR, NS, PTR, SOA, SPF, SRV, SSHFP, SVCB, TLSA, TXT] *)
 }
-[@@deriving yojson_of]
-(** All resource record sets for this selector, one per resource record type. The name must match the dns_name. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : local_data__local_datas) -> ()
+
+let yojson_of_local_data__local_datas =
+  (function
+   | {
+       name = v_name;
+       rrdatas = v_rrdatas;
+       ttl = v_ttl;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rrdatas with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "rrdatas", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : local_data__local_datas -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_local_data__local_datas
+
+[@@@deriving.end]
 
 type local_data = { local_datas : local_data__local_datas list }
-[@@deriving yojson_of]
-(** Answer this query directly with DNS data. These ResourceRecordSets override any other DNS behavior for the matched name;
-in particular they override private zones, the public internet, and GCP internal DNS. No SOA nor NS types are allowed. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : local_data) -> ()
+
+let yojson_of_local_data =
+  (function
+   | { local_datas = v_local_datas } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_local_data__local_datas
+             v_local_datas
+         in
+         ("local_datas", arg) :: bnds
+       in
+       `Assoc bnds
+    : local_data -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_local_data
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_dns_response_policy_rule = {
   dns_name : string prop;
-      (** The DNS name (wildcard or exact) to apply this rule to. Must be unique within the Response Policy Rule. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   response_policy : string prop;
-      (** Identifies the response policy addressed by this request. *)
   rule_name : string prop;
-      (** An identifier for this rule. Must be unique with the ResponsePolicy. *)
   local_data : local_data list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dns_response_policy_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dns_response_policy_rule) -> ()
+
+let yojson_of_google_dns_response_policy_rule =
+  (function
+   | {
+       dns_name = v_dns_name;
+       id = v_id;
+       project = v_project;
+       response_policy = v_response_policy;
+       rule_name = v_rule_name;
+       local_data = v_local_data;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_local_data v_local_data
+         in
+         ("local_data", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule_name in
+         ("rule_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_response_policy
+         in
+         ("response_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dns_name in
+         ("dns_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_dns_response_policy_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dns_response_policy_rule
+
+[@@@deriving.end]
 
 let local_data__local_datas ?rrdatas ?ttl ~name ~type_ () :
     local_data__local_datas =

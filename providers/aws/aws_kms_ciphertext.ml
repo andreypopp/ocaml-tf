@@ -4,13 +4,63 @@ open! Tf_core
 
 type aws_kms_ciphertext = {
   context : (string * string prop) list option; [@option]
-      (** context *)
-  id : string prop option; [@option]  (** id *)
-  key_id : string prop;  (** key_id *)
-  plaintext : string prop;  (** plaintext *)
+  id : string prop option; [@option]
+  key_id : string prop;
+  plaintext : string prop;
 }
-[@@deriving yojson_of]
-(** aws_kms_ciphertext *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_kms_ciphertext) -> ()
+
+let yojson_of_aws_kms_ciphertext =
+  (function
+   | {
+       context = v_context;
+       id = v_id;
+       key_id = v_key_id;
+       plaintext = v_plaintext;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_plaintext in
+         ("plaintext", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_id in
+         ("key_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_context with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "context", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_kms_ciphertext -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_kms_ciphertext
+
+[@@@deriving.end]
 
 let aws_kms_ciphertext ?context ?id ~key_id ~plaintext () :
     aws_kms_ciphertext =

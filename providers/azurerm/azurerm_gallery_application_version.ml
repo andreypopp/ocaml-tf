@@ -3,63 +3,339 @@
 open! Tf_core
 
 type manage_action = {
-  install : string prop;  (** install *)
-  remove : string prop;  (** remove *)
-  update : string prop option; [@option]  (** update *)
+  install : string prop;
+  remove : string prop;
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** manage_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : manage_action) -> ()
+
+let yojson_of_manage_action =
+  (function
+   | { install = v_install; remove = v_remove; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_remove in
+         ("remove", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_install in
+         ("install", arg) :: bnds
+       in
+       `Assoc bnds
+    : manage_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_manage_action
+
+[@@@deriving.end]
 
 type source = {
   default_configuration_link : string prop option; [@option]
-      (** default_configuration_link *)
-  media_link : string prop;  (** media_link *)
+  media_link : string prop;
 }
-[@@deriving yojson_of]
-(** source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source) -> ()
+
+let yojson_of_source =
+  (function
+   | {
+       default_configuration_link = v_default_configuration_link;
+       media_link = v_media_link;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_media_link in
+         ("media_link", arg) :: bnds
+       in
+       let bnds =
+         match v_default_configuration_link with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_configuration_link", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source
+
+[@@@deriving.end]
 
 type target_region = {
   exclude_from_latest : bool prop option; [@option]
-      (** exclude_from_latest *)
-  name : string prop;  (** name *)
-  regional_replica_count : float prop;  (** regional_replica_count *)
+  name : string prop;
+  regional_replica_count : float prop;
   storage_account_type : string prop option; [@option]
-      (** storage_account_type *)
 }
-[@@deriving yojson_of]
-(** target_region *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target_region) -> ()
+
+let yojson_of_target_region =
+  (function
+   | {
+       exclude_from_latest = v_exclude_from_latest;
+       name = v_name;
+       regional_replica_count = v_regional_replica_count;
+       storage_account_type = v_storage_account_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_storage_account_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_account_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_regional_replica_count
+         in
+         ("regional_replica_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_exclude_from_latest with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "exclude_from_latest", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target_region -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target_region
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_gallery_application_version = {
-  config_file : string prop option; [@option]  (** config_file *)
+  config_file : string prop option; [@option]
   enable_health_check : bool prop option; [@option]
-      (** enable_health_check *)
   end_of_life_date : string prop option; [@option]
-      (** end_of_life_date *)
   exclude_from_latest : bool prop option; [@option]
-      (** exclude_from_latest *)
   gallery_application_id : string prop;
-      (** gallery_application_id *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  package_file : string prop option; [@option]  (** package_file *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
+  package_file : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   manage_action : manage_action list;
   source : source list;
   target_region : target_region list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_gallery_application_version *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_gallery_application_version) -> ()
+
+let yojson_of_azurerm_gallery_application_version =
+  (function
+   | {
+       config_file = v_config_file;
+       enable_health_check = v_enable_health_check;
+       end_of_life_date = v_end_of_life_date;
+       exclude_from_latest = v_exclude_from_latest;
+       gallery_application_id = v_gallery_application_id;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       package_file = v_package_file;
+       tags = v_tags;
+       manage_action = v_manage_action;
+       source = v_source;
+       target_region = v_target_region;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_target_region v_target_region
+         in
+         ("target_region", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_source v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_manage_action v_manage_action
+         in
+         ("manage_action", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_package_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "package_file", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gallery_application_id
+         in
+         ("gallery_application_id", arg) :: bnds
+       in
+       let bnds =
+         match v_exclude_from_latest with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "exclude_from_latest", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_end_of_life_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "end_of_life_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_health_check with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_health_check", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_config_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "config_file", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_gallery_application_version ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_gallery_application_version
+
+[@@@deriving.end]
 
 let manage_action ?update ~install ~remove () : manage_action =
   { install; remove; update }

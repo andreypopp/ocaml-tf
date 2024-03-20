@@ -4,20 +4,61 @@ open! Tf_core
 
 type cloudflare_tunnel = {
   account_id : string prop;
-      (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   config_src : string prop option; [@option]
-      (** Indicates if this is a locally or remotely configured tunnel. If `local`, manage the tunnel using a YAML file on the origin machine. If `cloudflare`, manage the tunnel on the Zero Trust dashboard or using tunnel_config, tunnel_route or tunnel_virtual_network resources. Available values: `local`, `cloudflare`. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** A user-friendly name chosen when the tunnel is created. **Modifying this attribute will force creation of a new resource.** *)
   secret : string prop;
-      (** 32 or more bytes, encoded as a base64 string. The Create Argo Tunnel endpoint sets this as the tunnel's password. Anyone wishing to run the tunnel needs this password. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Tunnel exposes applications running on your local web server on any
-network with an internet connection without manually adding DNS
-records or configuring a firewall or router.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_tunnel) -> ()
+
+let yojson_of_cloudflare_tunnel =
+  (function
+   | {
+       account_id = v_account_id;
+       config_src = v_config_src;
+       id = v_id;
+       name = v_name;
+       secret = v_secret;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_config_src with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "config_src", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_tunnel -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_tunnel
+
+[@@@deriving.end]
 
 let cloudflare_tunnel ?config_src ?id ~account_id ~name ~secret () :
     cloudflare_tunnel =

@@ -4,46 +4,217 @@ open! Tf_core
 
 type private_config = {
   ca_pool : string prop;
-      (** CA pool resource, resource must in the format of 'projects/{project}/locations/{location}/caPools/{ca_pool}'. *)
-  is_private : bool prop;  (** 'Indicate if it's private instance.' *)
+  is_private : bool prop;
 }
-[@@deriving yojson_of]
-(** Private settings for private instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : private_config) -> ()
+
+let yojson_of_private_config =
+  (function
+   | { ca_pool = v_ca_pool; is_private = v_is_private } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_is_private in
+         ("is_private", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ca_pool in
+         ("ca_pool", arg) :: bnds
+       in
+       `Assoc bnds
+    : private_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_private_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type host_config = {
-  api : string prop;  (** api *)
-  git_http : string prop;  (** git_http *)
-  git_ssh : string prop;  (** git_ssh *)
-  html : string prop;  (** html *)
+  api : string prop;
+  git_http : string prop;
+  git_ssh : string prop;
+  html : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : host_config) -> ()
+
+let yojson_of_host_config =
+  (function
+   | {
+       api = v_api;
+       git_http = v_git_http;
+       git_ssh = v_git_ssh;
+       html = v_html;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_html in
+         ("html", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_git_ssh in
+         ("git_ssh", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_git_http in
+         ("git_http", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api in
+         ("api", arg) :: bnds
+       in
+       `Assoc bnds
+    : host_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_host_config
+
+[@@@deriving.end]
 
 type google_secure_source_manager_instance = {
-  id : string prop option; [@option]  (** id *)
-  instance_id : string prop;  (** The name for the Instance. *)
+  id : string prop option; [@option]
+  instance_id : string prop;
   kms_key : string prop option; [@option]
-      (** Customer-managed encryption key name, in the format projects/*/locations/*/keyRings/*/cryptoKeys/*. *)
   labels : (string * string prop) list option; [@option]
-      (** Labels as key value pairs.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the Instance. *)
-  project : string prop option; [@option]  (** project *)
+  location : string prop;
+  project : string prop option; [@option]
   private_config : private_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_secure_source_manager_instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_secure_source_manager_instance) -> ()
+
+let yojson_of_google_secure_source_manager_instance =
+  (function
+   | {
+       id = v_id;
+       instance_id = v_instance_id;
+       kms_key = v_kms_key;
+       labels = v_labels;
+       location = v_location;
+       project = v_project;
+       private_config = v_private_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_private_config v_private_config
+         in
+         ("private_config", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance_id in
+         ("instance_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_secure_source_manager_instance ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_secure_source_manager_instance
+
+[@@@deriving.end]
 
 let private_config ~ca_pool ~is_private () : private_config =
   { ca_pool; is_private }

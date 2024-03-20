@@ -2,109 +2,365 @@
 
 open! Tf_core
 
-type disk_consistency_group_policy = {
-  enabled : bool prop;
-      (** Enable disk consistency on the resource policy. *)
-}
-[@@deriving yojson_of]
-(** Replication consistency group for asynchronous disk replication. *)
+type disk_consistency_group_policy = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : disk_consistency_group_policy) -> ()
+
+let yojson_of_disk_consistency_group_policy =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : disk_consistency_group_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_disk_consistency_group_policy
+
+[@@@deriving.end]
 
 type group_placement_policy = {
   availability_domain_count : float prop option; [@option]
-      (** The number of availability domains instances will be spread across. If two instances are in different
-availability domain, they will not be put in the same low latency network *)
   collocation : string prop option; [@option]
-      (** Collocation specifies whether to place VMs inside the same availability domain on the same low-latency network.
-Specify 'COLLOCATED' to enable collocation. Can only be specified with 'vm_count'. If compute instances are created
-with a COLLOCATED policy, then exactly 'vm_count' instances must be created at the same time with the resource policy
-attached. Possible values: [COLLOCATED] *)
   vm_count : float prop option; [@option]
-      (** Number of VMs in this placement group. Google does not recommend that you use this field
-unless you use a compact policy and you want your policy to work only if it contains this
-exact number of VMs. *)
 }
-[@@deriving yojson_of]
-(** Resource policy for instances used for placement configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : group_placement_policy) -> ()
+
+let yojson_of_group_placement_policy =
+  (function
+   | {
+       availability_domain_count = v_availability_domain_count;
+       collocation = v_collocation;
+       vm_count = v_vm_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vm_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "vm_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_collocation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "collocation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_availability_domain_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "availability_domain_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : group_placement_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_group_placement_policy
+
+[@@@deriving.end]
 
 type instance_schedule_policy__vm_start_schedule = {
   schedule : string prop;
-      (** Specifies the frequency for the operation, using the unix-cron format. *)
 }
-[@@deriving yojson_of]
-(** Specifies the schedule for starting instances. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_schedule_policy__vm_start_schedule) -> ()
+
+let yojson_of_instance_schedule_policy__vm_start_schedule =
+  (function
+   | { schedule = v_schedule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schedule in
+         ("schedule", arg) :: bnds
+       in
+       `Assoc bnds
+    : instance_schedule_policy__vm_start_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_schedule_policy__vm_start_schedule
+
+[@@@deriving.end]
 
 type instance_schedule_policy__vm_stop_schedule = {
   schedule : string prop;
-      (** Specifies the frequency for the operation, using the unix-cron format. *)
 }
-[@@deriving yojson_of]
-(** Specifies the schedule for stopping instances. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_schedule_policy__vm_stop_schedule) -> ()
+
+let yojson_of_instance_schedule_policy__vm_stop_schedule =
+  (function
+   | { schedule = v_schedule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schedule in
+         ("schedule", arg) :: bnds
+       in
+       `Assoc bnds
+    : instance_schedule_policy__vm_stop_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_schedule_policy__vm_stop_schedule
+
+[@@@deriving.end]
 
 type instance_schedule_policy = {
   expiration_time : string prop option; [@option]
-      (** The expiration time of the schedule. The timestamp is an RFC3339 string. *)
   start_time : string prop option; [@option]
-      (** The start time of the schedule. The timestamp is an RFC3339 string. *)
   time_zone : string prop;
-      (** Specifies the time zone to be used in interpreting the schedule. The value of this field must be a time zone name
-from the tz database: http://en.wikipedia.org/wiki/Tz_database. *)
   vm_start_schedule :
     instance_schedule_policy__vm_start_schedule list;
   vm_stop_schedule : instance_schedule_policy__vm_stop_schedule list;
 }
-[@@deriving yojson_of]
-(** Resource policy for scheduling instance operations. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_schedule_policy) -> ()
+
+let yojson_of_instance_schedule_policy =
+  (function
+   | {
+       expiration_time = v_expiration_time;
+       start_time = v_start_time;
+       time_zone = v_time_zone;
+       vm_start_schedule = v_vm_start_schedule;
+       vm_stop_schedule = v_vm_stop_schedule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_instance_schedule_policy__vm_stop_schedule
+             v_vm_stop_schedule
+         in
+         ("vm_stop_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_instance_schedule_policy__vm_start_schedule
+             v_vm_start_schedule
+         in
+         ("vm_start_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_zone in
+         ("time_zone", arg) :: bnds
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expiration_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expiration_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : instance_schedule_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_schedule_policy
+
+[@@@deriving.end]
 
 type snapshot_schedule_policy__retention_policy = {
   max_retention_days : float prop;
-      (** Maximum age of the snapshot that is allowed to be kept. *)
   on_source_disk_delete : string prop option; [@option]
-      (** Specifies the behavior to apply to scheduled snapshots when
-the source disk is deleted. Default value: KEEP_AUTO_SNAPSHOTS Possible values: [KEEP_AUTO_SNAPSHOTS, APPLY_RETENTION_POLICY] *)
 }
-[@@deriving yojson_of]
-(** Retention policy applied to snapshots created by this resource policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_schedule_policy__retention_policy) -> ()
+
+let yojson_of_snapshot_schedule_policy__retention_policy =
+  (function
+   | {
+       max_retention_days = v_max_retention_days;
+       on_source_disk_delete = v_on_source_disk_delete;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_on_source_disk_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "on_source_disk_delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_retention_days
+         in
+         ("max_retention_days", arg) :: bnds
+       in
+       `Assoc bnds
+    : snapshot_schedule_policy__retention_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_schedule_policy__retention_policy
+
+[@@@deriving.end]
 
 type snapshot_schedule_policy__schedule__daily_schedule = {
   days_in_cycle : float prop;
-      (** Defines a schedule with units measured in days. The value determines how many days pass between the start of each cycle. Days in cycle for snapshot schedule policy must be 1. *)
   start_time : string prop;
-      (** This must be in UTC format that resolves to one of
-00:00, 04:00, 08:00, 12:00, 16:00, or 20:00. For example,
-both 13:00-5 and 08:00 are valid. *)
 }
-[@@deriving yojson_of]
-(** The policy will execute every nth day at the specified time. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : snapshot_schedule_policy__schedule__daily_schedule) -> ()
+
+let yojson_of_snapshot_schedule_policy__schedule__daily_schedule =
+  (function
+   | { days_in_cycle = v_days_in_cycle; start_time = v_start_time }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_start_time in
+         ("start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_days_in_cycle in
+         ("days_in_cycle", arg) :: bnds
+       in
+       `Assoc bnds
+    : snapshot_schedule_policy__schedule__daily_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_schedule_policy__schedule__daily_schedule
+
+[@@@deriving.end]
 
 type snapshot_schedule_policy__schedule__hourly_schedule = {
   hours_in_cycle : float prop;
-      (** The number of hours between snapshots. *)
   start_time : string prop;
-      (** Time within the window to start the operations.
-It must be in an hourly format HH:MM,
-where HH : [00-23] and MM : [00] GMT.
-eg: 21:00 *)
 }
-[@@deriving yojson_of]
-(** The policy will execute every nth hour starting at the specified time. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : snapshot_schedule_policy__schedule__hourly_schedule) -> ()
+
+let yojson_of_snapshot_schedule_policy__schedule__hourly_schedule =
+  (function
+   | { hours_in_cycle = v_hours_in_cycle; start_time = v_start_time }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_start_time in
+         ("start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hours_in_cycle in
+         ("hours_in_cycle", arg) :: bnds
+       in
+       `Assoc bnds
+    : snapshot_schedule_policy__schedule__hourly_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_schedule_policy__schedule__hourly_schedule
+
+[@@@deriving.end]
 
 type snapshot_schedule_policy__schedule__weekly_schedule__day_of_weeks = {
   day : string prop;
-      (** The day of the week to create the snapshot. e.g. MONDAY Possible values: [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY] *)
   start_time : string prop;
-      (** Time within the window to start the operations.
-It must be in format HH:MM, where HH : [00-23] and MM : [00-00] GMT. *)
 }
-[@@deriving yojson_of]
-(** May contain up to seven (one for each day of the week) snapshot times. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       snapshot_schedule_policy__schedule__weekly_schedule__day_of_weeks) ->
+  ()
+
+let yojson_of_snapshot_schedule_policy__schedule__weekly_schedule__day_of_weeks
+    =
+  (function
+   | { day = v_day; start_time = v_start_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_start_time in
+         ("start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_day in
+         ("day", arg) :: bnds
+       in
+       `Assoc bnds
+    : snapshot_schedule_policy__schedule__weekly_schedule__day_of_weeks ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snapshot_schedule_policy__schedule__weekly_schedule__day_of_weeks
+
+[@@@deriving.end]
 
 type snapshot_schedule_policy__schedule__weekly_schedule = {
   day_of_weeks :
     snapshot_schedule_policy__schedule__weekly_schedule__day_of_weeks
     list;
 }
-[@@deriving yojson_of]
-(** Allows specifying a snapshot time for each day of the week. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : snapshot_schedule_policy__schedule__weekly_schedule) -> ()
+
+let yojson_of_snapshot_schedule_policy__schedule__weekly_schedule =
+  (function
+   | { day_of_weeks = v_day_of_weeks } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snapshot_schedule_policy__schedule__weekly_schedule__day_of_weeks
+             v_day_of_weeks
+         in
+         ("day_of_weeks", arg) :: bnds
+       in
+       `Assoc bnds
+    : snapshot_schedule_policy__schedule__weekly_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_schedule_policy__schedule__weekly_schedule
+
+[@@@deriving.end]
 
 type snapshot_schedule_policy__schedule = {
   daily_schedule :
@@ -114,24 +370,122 @@ type snapshot_schedule_policy__schedule = {
   weekly_schedule :
     snapshot_schedule_policy__schedule__weekly_schedule list;
 }
-[@@deriving yojson_of]
-(** Contains one of an 'hourlySchedule', 'dailySchedule', or 'weeklySchedule'. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_schedule_policy__schedule) -> ()
+
+let yojson_of_snapshot_schedule_policy__schedule =
+  (function
+   | {
+       daily_schedule = v_daily_schedule;
+       hourly_schedule = v_hourly_schedule;
+       weekly_schedule = v_weekly_schedule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snapshot_schedule_policy__schedule__weekly_schedule
+             v_weekly_schedule
+         in
+         ("weekly_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snapshot_schedule_policy__schedule__hourly_schedule
+             v_hourly_schedule
+         in
+         ("hourly_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snapshot_schedule_policy__schedule__daily_schedule
+             v_daily_schedule
+         in
+         ("daily_schedule", arg) :: bnds
+       in
+       `Assoc bnds
+    : snapshot_schedule_policy__schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_schedule_policy__schedule
+
+[@@@deriving.end]
 
 type snapshot_schedule_policy__snapshot_properties = {
   chain_name : string prop option; [@option]
-      (** Creates the new snapshot in the snapshot chain labeled with the
-specified name. The chain name must be 1-63 characters long and comply
-with RFC1035. *)
   guest_flush : bool prop option; [@option]
-      (** Whether to perform a 'guest aware' snapshot. *)
   labels : (string * string prop) list option; [@option]
-      (** A set of key-value pairs. *)
   storage_locations : string prop list option; [@option]
-      (** Cloud Storage bucket location to store the auto snapshot
-(regional or multi-regional) *)
 }
-[@@deriving yojson_of]
-(** Properties with which the snapshots are created, such as labels. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_schedule_policy__snapshot_properties) -> ()
+
+let yojson_of_snapshot_schedule_policy__snapshot_properties =
+  (function
+   | {
+       chain_name = v_chain_name;
+       guest_flush = v_guest_flush;
+       labels = v_labels;
+       storage_locations = v_storage_locations;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_storage_locations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "storage_locations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_guest_flush with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "guest_flush", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_chain_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "chain_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snapshot_schedule_policy__snapshot_properties ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_schedule_policy__snapshot_properties
+
+[@@@deriving.end]
 
 type snapshot_schedule_policy = {
   retention_policy : snapshot_schedule_policy__retention_policy list;
@@ -139,39 +493,196 @@ type snapshot_schedule_policy = {
   snapshot_properties :
     snapshot_schedule_policy__snapshot_properties list;
 }
-[@@deriving yojson_of]
-(** Policy for creating snapshots of persistent disks. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_schedule_policy) -> ()
+
+let yojson_of_snapshot_schedule_policy =
+  (function
+   | {
+       retention_policy = v_retention_policy;
+       schedule = v_schedule;
+       snapshot_properties = v_snapshot_properties;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snapshot_schedule_policy__snapshot_properties
+             v_snapshot_properties
+         in
+         ("snapshot_properties", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snapshot_schedule_policy__schedule v_schedule
+         in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snapshot_schedule_policy__retention_policy
+             v_retention_policy
+         in
+         ("retention_policy", arg) :: bnds
+       in
+       `Assoc bnds
+    : snapshot_schedule_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_schedule_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_resource_policy = {
   description : string prop option; [@option]
-      (** An optional description of this resource. Provide this property when you create the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The name of the resource, provided by the client when initially creating
-the resource. The resource name must be 1-63 characters long, and comply
-with RFC1035. Specifically, the name must be 1-63 characters long and
-match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])'? which means the
-first character must be a lowercase letter, and all following characters
-must be a dash, lowercase letter, or digit, except the last character,
-which cannot be a dash. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** Region where resource policy resides. *)
   disk_consistency_group_policy : disk_consistency_group_policy list;
   group_placement_policy : group_placement_policy list;
   instance_schedule_policy : instance_schedule_policy list;
   snapshot_schedule_policy : snapshot_schedule_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_resource_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_resource_policy) -> ()
+
+let yojson_of_google_compute_resource_policy =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       disk_consistency_group_policy =
+         v_disk_consistency_group_policy;
+       group_placement_policy = v_group_placement_policy;
+       instance_schedule_policy = v_instance_schedule_policy;
+       snapshot_schedule_policy = v_snapshot_schedule_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_snapshot_schedule_policy
+             v_snapshot_schedule_policy
+         in
+         ("snapshot_schedule_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_instance_schedule_policy
+             v_instance_schedule_policy
+         in
+         ("instance_schedule_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_group_placement_policy
+             v_group_placement_policy
+         in
+         ("group_placement_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_disk_consistency_group_policy
+             v_disk_consistency_group_policy
+         in
+         ("disk_consistency_group_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_resource_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_resource_policy
+
+[@@@deriving.end]
 
 let disk_consistency_group_policy ~enabled () :
     disk_consistency_group_policy =

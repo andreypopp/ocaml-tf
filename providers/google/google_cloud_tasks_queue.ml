@@ -4,112 +4,328 @@ open! Tf_core
 
 type app_engine_routing_override = {
   instance : string prop option; [@option]
-      (** App instance.
-
-By default, the task is sent to an instance which is available when the task is attempted. *)
   service : string prop option; [@option]
-      (** App service.
-
-By default, the task is sent to the service which is the default service when the task is attempted. *)
   version : string prop option; [@option]
-      (** App version.
-
-By default, the task is sent to the version which is the default version when the task is attempted. *)
 }
-[@@deriving yojson_of]
-(** Overrides for task-level appEngineRouting. These settings apply only
-to App Engine tasks in this queue *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : app_engine_routing_override) -> ()
+
+let yojson_of_app_engine_routing_override =
+  (function
+   | {
+       instance = v_instance;
+       service = v_service;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : app_engine_routing_override ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_app_engine_routing_override
+
+[@@@deriving.end]
 
 type rate_limits = {
   max_concurrent_dispatches : float prop option; [@option]
-      (** The maximum number of concurrent tasks that Cloud Tasks allows to
-be dispatched for this queue. After this threshold has been
-reached, Cloud Tasks stops dispatching tasks until the number of
-concurrent requests decreases. *)
   max_dispatches_per_second : float prop option; [@option]
-      (** The maximum rate at which tasks are dispatched from this queue.
-
-If unspecified when the queue is created, Cloud Tasks will pick the default. *)
 }
-[@@deriving yojson_of]
-(** Rate limits for task dispatches.
+[@@deriving_inline yojson_of]
 
-The queue's actual dispatch rate is the result of:
+let _ = fun (_ : rate_limits) -> ()
 
-* Number of tasks in the queue
-* User-specified throttling: rateLimits, retryConfig, and the queue's state.
-* System throttling due to 429 (Too Many Requests) or 503 (Service
-  Unavailable) responses from the worker, high error rates, or to
-  smooth sudden large traffic spikes. *)
+let yojson_of_rate_limits =
+  (function
+   | {
+       max_concurrent_dispatches = v_max_concurrent_dispatches;
+       max_dispatches_per_second = v_max_dispatches_per_second;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_dispatches_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_dispatches_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_concurrent_dispatches with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_concurrent_dispatches", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rate_limits -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rate_limits
+
+[@@@deriving.end]
 
 type retry_config = {
   max_attempts : float prop option; [@option]
-      (** Number of attempts per task.
-
-Cloud Tasks will attempt the task maxAttempts times (that is, if
-the first attempt fails, then there will be maxAttempts - 1
-retries). Must be >= -1.
-
-If unspecified when the queue is created, Cloud Tasks will pick
-the default.
-
--1 indicates unlimited attempts. *)
   max_backoff : string prop option; [@option]
-      (** A task will be scheduled for retry between minBackoff and
-maxBackoff duration after it fails, if the queue's RetryConfig
-specifies that the task should be retried. *)
   max_doublings : float prop option; [@option]
-      (** The time between retries will double maxDoublings times.
-
-A task's retry interval starts at minBackoff, then doubles maxDoublings times,
-then increases linearly, and finally retries retries at intervals of maxBackoff
-up to maxAttempts times. *)
   max_retry_duration : string prop option; [@option]
-      (** If positive, maxRetryDuration specifies the time limit for
-retrying a failed task, measured from when the task was first
-attempted. Once maxRetryDuration time has passed and the task has
-been attempted maxAttempts times, no further attempts will be
-made and the task will be deleted.
-
-If zero, then the task age is unlimited. *)
   min_backoff : string prop option; [@option]
-      (** A task will be scheduled for retry between minBackoff and
-maxBackoff duration after it fails, if the queue's RetryConfig
-specifies that the task should be retried. *)
 }
-[@@deriving yojson_of]
-(** Settings that determine the retry behavior. *)
+[@@deriving_inline yojson_of]
 
-type stackdriver_logging_config = {
-  sampling_ratio : float prop;
-      (** Specifies the fraction of operations to write to Stackdriver Logging.
-This field may contain any value between 0.0 and 1.0, inclusive. 0.0 is the
-default and means that no operations are logged. *)
-}
-[@@deriving yojson_of]
-(** Configuration options for writing logs to Stackdriver Logging. *)
+let _ = fun (_ : retry_config) -> ()
+
+let yojson_of_retry_config =
+  (function
+   | {
+       max_attempts = v_max_attempts;
+       max_backoff = v_max_backoff;
+       max_doublings = v_max_doublings;
+       max_retry_duration = v_max_retry_duration;
+       min_backoff = v_min_backoff;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_min_backoff with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_backoff", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_retry_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_retry_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_doublings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_doublings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_backoff with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_backoff", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_attempts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_attempts", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : retry_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retry_config
+
+[@@@deriving.end]
+
+type stackdriver_logging_config = { sampling_ratio : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : stackdriver_logging_config) -> ()
+
+let yojson_of_stackdriver_logging_config =
+  (function
+   | { sampling_ratio = v_sampling_ratio } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_sampling_ratio in
+         ("sampling_ratio", arg) :: bnds
+       in
+       `Assoc bnds
+    : stackdriver_logging_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_stackdriver_logging_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_cloud_tasks_queue = {
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location of the queue *)
-  name : string prop option; [@option]  (** The queue name. *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop option; [@option]
+  project : string prop option; [@option]
   app_engine_routing_override : app_engine_routing_override list;
   rate_limits : rate_limits list;
   retry_config : retry_config list;
   stackdriver_logging_config : stackdriver_logging_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_cloud_tasks_queue *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_cloud_tasks_queue) -> ()
+
+let yojson_of_google_cloud_tasks_queue =
+  (function
+   | {
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       app_engine_routing_override = v_app_engine_routing_override;
+       rate_limits = v_rate_limits;
+       retry_config = v_retry_config;
+       stackdriver_logging_config = v_stackdriver_logging_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_stackdriver_logging_config
+             v_stackdriver_logging_config
+         in
+         ("stackdriver_logging_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retry_config v_retry_config
+         in
+         ("retry_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rate_limits v_rate_limits
+         in
+         ("rate_limits", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_app_engine_routing_override
+             v_app_engine_routing_override
+         in
+         ("app_engine_routing_override", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_cloud_tasks_queue -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_cloud_tasks_queue
+
+[@@@deriving.end]
 
 let app_engine_routing_override ?instance ?service ?version () :
     app_engine_routing_override =

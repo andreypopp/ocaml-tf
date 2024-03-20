@@ -4,23 +4,137 @@ open! Tf_core
 
 type aws_rolesanywhere_profile = {
   duration_seconds : float prop option; [@option]
-      (** duration_seconds *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
   managed_policy_arns : string prop list option; [@option]
-      (** managed_policy_arns *)
-  name : string prop;  (** name *)
+  name : string prop;
   require_instance_properties : bool prop option; [@option]
-      (** require_instance_properties *)
-  role_arns : string prop list;  (** role_arns *)
+  role_arns : string prop list;
   session_policy : string prop option; [@option]
-      (** session_policy *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_rolesanywhere_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_rolesanywhere_profile) -> ()
+
+let yojson_of_aws_rolesanywhere_profile =
+  (function
+   | {
+       duration_seconds = v_duration_seconds;
+       enabled = v_enabled;
+       id = v_id;
+       managed_policy_arns = v_managed_policy_arns;
+       name = v_name;
+       require_instance_properties = v_require_instance_properties;
+       role_arns = v_role_arns;
+       session_policy = v_session_policy;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "session_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_role_arns
+         in
+         ("role_arns", arg) :: bnds
+       in
+       let bnds =
+         match v_require_instance_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_instance_properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_managed_policy_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "managed_policy_arns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_duration_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "duration_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_rolesanywhere_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_rolesanywhere_profile
+
+[@@@deriving.end]
 
 let aws_rolesanywhere_profile ?duration_seconds ?enabled ?id
     ?managed_policy_arns ?require_instance_properties ?session_policy

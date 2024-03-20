@@ -4,22 +4,106 @@ open! Tf_core
 
 type aws_autoscaling_lifecycle_hook = {
   autoscaling_group_name : string prop;
-      (** autoscaling_group_name *)
   default_result : string prop option; [@option]
-      (** default_result *)
   heartbeat_timeout : float prop option; [@option]
-      (** heartbeat_timeout *)
-  id : string prop option; [@option]  (** id *)
-  lifecycle_transition : string prop;  (** lifecycle_transition *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  lifecycle_transition : string prop;
+  name : string prop;
   notification_metadata : string prop option; [@option]
-      (** notification_metadata *)
   notification_target_arn : string prop option; [@option]
-      (** notification_target_arn *)
-  role_arn : string prop option; [@option]  (** role_arn *)
+  role_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_autoscaling_lifecycle_hook *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_autoscaling_lifecycle_hook) -> ()
+
+let yojson_of_aws_autoscaling_lifecycle_hook =
+  (function
+   | {
+       autoscaling_group_name = v_autoscaling_group_name;
+       default_result = v_default_result;
+       heartbeat_timeout = v_heartbeat_timeout;
+       id = v_id;
+       lifecycle_transition = v_lifecycle_transition;
+       name = v_name;
+       notification_metadata = v_notification_metadata;
+       notification_target_arn = v_notification_target_arn;
+       role_arn = v_role_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notification_target_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_target_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notification_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_lifecycle_transition
+         in
+         ("lifecycle_transition", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_heartbeat_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "heartbeat_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_result with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_result", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_autoscaling_group_name
+         in
+         ("autoscaling_group_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_autoscaling_lifecycle_hook ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_autoscaling_lifecycle_hook
+
+[@@@deriving.end]
 
 let aws_autoscaling_lifecycle_hook ?default_result ?heartbeat_timeout
     ?id ?notification_metadata ?notification_target_arn ?role_arn

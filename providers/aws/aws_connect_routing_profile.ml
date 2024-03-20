@@ -3,36 +3,188 @@
 open! Tf_core
 
 type media_concurrencies = {
-  channel : string prop;  (** channel *)
-  concurrency : float prop;  (** concurrency *)
+  channel : string prop;
+  concurrency : float prop;
 }
-[@@deriving yojson_of]
-(** media_concurrencies *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : media_concurrencies) -> ()
+
+let yojson_of_media_concurrencies =
+  (function
+   | { channel = v_channel; concurrency = v_concurrency } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_concurrency in
+         ("concurrency", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_channel in
+         ("channel", arg) :: bnds
+       in
+       `Assoc bnds
+    : media_concurrencies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_media_concurrencies
+
+[@@@deriving.end]
 
 type queue_configs = {
-  channel : string prop;  (** channel *)
-  delay : float prop;  (** delay *)
-  priority : float prop;  (** priority *)
-  queue_id : string prop;  (** queue_id *)
+  channel : string prop;
+  delay : float prop;
+  priority : float prop;
+  queue_id : string prop;
 }
-[@@deriving yojson_of]
-(** queue_configs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : queue_configs) -> ()
+
+let yojson_of_queue_configs =
+  (function
+   | {
+       channel = v_channel;
+       delay = v_delay;
+       priority = v_priority;
+       queue_id = v_queue_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_queue_id in
+         ("queue_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_priority in
+         ("priority", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_delay in
+         ("delay", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_channel in
+         ("channel", arg) :: bnds
+       in
+       `Assoc bnds
+    : queue_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_queue_configs
+
+[@@@deriving.end]
 
 type aws_connect_routing_profile = {
   default_outbound_queue_id : string prop;
-      (** default_outbound_queue_id *)
-  description : string prop;  (** description *)
-  id : string prop option; [@option]  (** id *)
-  instance_id : string prop;  (** instance_id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop;
+  id : string prop option; [@option]
+  instance_id : string prop;
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   media_concurrencies : media_concurrencies list;
   queue_configs : queue_configs list;
 }
-[@@deriving yojson_of]
-(** aws_connect_routing_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_connect_routing_profile) -> ()
+
+let yojson_of_aws_connect_routing_profile =
+  (function
+   | {
+       default_outbound_queue_id = v_default_outbound_queue_id;
+       description = v_description;
+       id = v_id;
+       instance_id = v_instance_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       media_concurrencies = v_media_concurrencies;
+       queue_configs = v_queue_configs;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_queue_configs v_queue_configs
+         in
+         ("queue_configs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_media_concurrencies
+             v_media_concurrencies
+         in
+         ("media_concurrencies", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance_id in
+         ("instance_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_default_outbound_queue_id
+         in
+         ("default_outbound_queue_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_connect_routing_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_connect_routing_profile
+
+[@@@deriving.end]
 
 let media_concurrencies ~channel ~concurrency () :
     media_concurrencies =

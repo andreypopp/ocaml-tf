@@ -3,29 +3,159 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_stream_analytics_output_cosmosdb = {
-  container_name : string prop;  (** container_name *)
-  cosmosdb_account_key : string prop;  (** cosmosdb_account_key *)
+  container_name : string prop;
+  cosmosdb_account_key : string prop;
   cosmosdb_sql_database_id : string prop;
-      (** cosmosdb_sql_database_id *)
-  document_id : string prop option; [@option]  (** document_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  partition_key : string prop option; [@option]  (** partition_key *)
+  document_id : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  partition_key : string prop option; [@option]
   stream_analytics_job_id : string prop;
-      (** stream_analytics_job_id *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_stream_analytics_output_cosmosdb *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_stream_analytics_output_cosmosdb) -> ()
+
+let yojson_of_azurerm_stream_analytics_output_cosmosdb =
+  (function
+   | {
+       container_name = v_container_name;
+       cosmosdb_account_key = v_cosmosdb_account_key;
+       cosmosdb_sql_database_id = v_cosmosdb_sql_database_id;
+       document_id = v_document_id;
+       id = v_id;
+       name = v_name;
+       partition_key = v_partition_key;
+       stream_analytics_job_id = v_stream_analytics_job_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_stream_analytics_job_id
+         in
+         ("stream_analytics_job_id", arg) :: bnds
+       in
+       let bnds =
+         match v_partition_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "partition_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_document_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "document_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cosmosdb_sql_database_id
+         in
+         ("cosmosdb_sql_database_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cosmosdb_account_key
+         in
+         ("cosmosdb_account_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_name
+         in
+         ("container_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_stream_analytics_output_cosmosdb ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_stream_analytics_output_cosmosdb
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

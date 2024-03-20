@@ -4,103 +4,363 @@ open! Tf_core
 
 type advanced_settings__audio_export_gcs_destination = {
   uri : string prop option; [@option]
-      (** The Google Cloud Storage URI for the exported objects. Whether a full object name, or just a prefix, its usage depends on the Dialogflow operation.
-Format: gs://bucket/object-name-or-prefix *)
 }
-[@@deriving yojson_of]
-(** If present, incoming audio is exported by Dialogflow to the configured Google Cloud Storage destination. Exposed at the following levels:
-* Agent level
-* Flow level *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : advanced_settings__audio_export_gcs_destination) -> ()
+
+let yojson_of_advanced_settings__audio_export_gcs_destination =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : advanced_settings__audio_export_gcs_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_advanced_settings__audio_export_gcs_destination
+
+[@@@deriving.end]
 
 type advanced_settings__dtmf_settings = {
   enabled : bool prop option; [@option]
-      (** If true, incoming audio is processed for DTMF (dual tone multi frequency) events. For example, if the caller presses a button on their telephone keypad and DTMF processing is enabled, Dialogflow will detect the event (e.g. a 3 was pressed) in the incoming audio and pass the event to the bot to drive business logic (e.g. when 3 is pressed, return the account balance). *)
   finish_digit : string prop option; [@option]
-      (** The digit that terminates a DTMF digit sequence. *)
   max_digits : float prop option; [@option]
-      (** Max length of DTMF digits. *)
 }
-[@@deriving yojson_of]
-(** Define behaviors for DTMF (dual tone multi frequency). DTMF settings does not override each other. DTMF settings set at different levels define DTMF detections running in parallel. Exposed at the following levels:
-* Agent level
-* Flow level
-* Page level
-* Parameter level *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : advanced_settings__dtmf_settings) -> ()
+
+let yojson_of_advanced_settings__dtmf_settings =
+  (function
+   | {
+       enabled = v_enabled;
+       finish_digit = v_finish_digit;
+       max_digits = v_max_digits;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_digits with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_digits", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_finish_digit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "finish_digit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : advanced_settings__dtmf_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_advanced_settings__dtmf_settings
+
+[@@@deriving.end]
 
 type advanced_settings = {
   audio_export_gcs_destination :
     advanced_settings__audio_export_gcs_destination list;
   dtmf_settings : advanced_settings__dtmf_settings list;
 }
-[@@deriving yojson_of]
-(** Hierarchical advanced settings for this flow. The settings exposed at the lower level overrides the settings exposed at the higher level.
-Hierarchy: Agent->Flow->Page->Fulfillment/Parameter. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : advanced_settings) -> ()
+
+let yojson_of_advanced_settings =
+  (function
+   | {
+       audio_export_gcs_destination = v_audio_export_gcs_destination;
+       dtmf_settings = v_dtmf_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_advanced_settings__dtmf_settings
+             v_dtmf_settings
+         in
+         ("dtmf_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_advanced_settings__audio_export_gcs_destination
+             v_audio_export_gcs_destination
+         in
+         ("audio_export_gcs_destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : advanced_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_advanced_settings
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment__conditional_cases = {
   cases : string prop option; [@option]
-      (** A JSON encoded list of cascading if-else conditions. Cases are mutually exclusive. The first one with a matching condition is selected, all the rest ignored.
-See [Case](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/Fulfillment#case) for the schema. *)
 }
-[@@deriving yojson_of]
-(** Conditional cases for this fulfillment. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : event_handlers__trigger_fulfillment__conditional_cases) ->
+  ()
+
+let yojson_of_event_handlers__trigger_fulfillment__conditional_cases
+    =
+  (function
+   | { cases = v_cases } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_cases with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cases", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment__conditional_cases ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_event_handlers__trigger_fulfillment__conditional_cases
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment__messages__conversation_success = {
   metadata : string prop option; [@option]
-      (** Custom metadata. Dialogflow doesn't impose any structure on this. *)
 }
-[@@deriving yojson_of]
-(** Indicates that the conversation succeeded, i.e., the bot handled the issue that the customer talked to it about.
-Dialogflow only uses this to determine which conversations should be counted as successful and doesn't process the metadata in this message in any way. Note that Dialogflow also considers conversations that get to the conversation end page as successful even if they don't return ConversationSuccess.
-You may set this, for example:
-* In the entryFulfillment of a Page if entering the page indicates that the conversation succeeded.
-* In a webhook response when you determine that you handled the customer issue. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       event_handlers__trigger_fulfillment__messages__conversation_success) ->
+  ()
+
+let yojson_of_event_handlers__trigger_fulfillment__messages__conversation_success
+    =
+  (function
+   | { metadata = v_metadata } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment__messages__conversation_success ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_event_handlers__trigger_fulfillment__messages__conversation_success
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment__messages__live_agent_handoff = {
   metadata : string prop option; [@option]
-      (** Custom metadata. Dialogflow doesn't impose any structure on this. *)
 }
-[@@deriving yojson_of]
-(** Indicates that the conversation should be handed off to a live agent.
-Dialogflow only uses this to determine which conversations were handed off to a human agent for measurement purposes. What else to do with this signal is up to you and your handoff procedures.
-You may set this, for example:
-* In the entryFulfillment of a Page if entering the page indicates something went extremely wrong in the conversation.
-* In a webhook response when you determine that the customer issue can only be handled by a human. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       event_handlers__trigger_fulfillment__messages__live_agent_handoff) ->
+  ()
+
+let yojson_of_event_handlers__trigger_fulfillment__messages__live_agent_handoff
+    =
+  (function
+   | { metadata = v_metadata } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment__messages__live_agent_handoff ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_event_handlers__trigger_fulfillment__messages__live_agent_handoff
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment__messages__output_audio_text = {
   ssml : string prop option; [@option]
-      (** The SSML text to be synthesized. For more information, see SSML. *)
   text : string prop option; [@option]
-      (** The raw text to be synthesized. *)
 }
-[@@deriving yojson_of]
-(** A text or ssml response that is preferentially used for TTS output audio synthesis, as described in the comment on the ResponseMessage message. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       event_handlers__trigger_fulfillment__messages__output_audio_text) ->
+  ()
+
+let yojson_of_event_handlers__trigger_fulfillment__messages__output_audio_text
+    =
+  (function
+   | { ssml = v_ssml; text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "text", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ssml with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssml", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment__messages__output_audio_text ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_event_handlers__trigger_fulfillment__messages__output_audio_text
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment__messages__play_audio = {
   audio_uri : string prop;
-      (** URI of the audio clip. Dialogflow does not impose any validation on this value. It is specific to the client that reads it. *)
 }
-[@@deriving yojson_of]
-(** Specifies an audio clip to be played by the client as part of the response. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : event_handlers__trigger_fulfillment__messages__play_audio) ->
+  ()
+
+let yojson_of_event_handlers__trigger_fulfillment__messages__play_audio
+    =
+  (function
+   | { audio_uri = v_audio_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_audio_uri in
+         ("audio_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment__messages__play_audio ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_event_handlers__trigger_fulfillment__messages__play_audio
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment__messages__telephony_transfer_call = {
   phone_number : string prop;
-      (** Transfer the call to a phone number in E.164 format. *)
 }
-[@@deriving yojson_of]
-(** Represents the signal that telles the client to transfer the phone call connected to the agent to a third-party endpoint. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       event_handlers__trigger_fulfillment__messages__telephony_transfer_call) ->
+  ()
+
+let yojson_of_event_handlers__trigger_fulfillment__messages__telephony_transfer_call
+    =
+  (function
+   | { phone_number = v_phone_number } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_phone_number in
+         ("phone_number", arg) :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment__messages__telephony_transfer_call ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_event_handlers__trigger_fulfillment__messages__telephony_transfer_call
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment__messages__text = {
   text : string prop list option; [@option]
-      (** A collection of text responses. *)
 }
-[@@deriving yojson_of]
-(** The text response message. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : event_handlers__trigger_fulfillment__messages__text) -> ()
+
+let yojson_of_event_handlers__trigger_fulfillment__messages__text =
+  (function
+   | { text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "text", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment__messages__text ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_event_handlers__trigger_fulfillment__messages__text
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment__messages = {
   channel : string prop option; [@option]
-      (** The channel which the response is associated with. Clients can specify the channel via QueryParameters.channel, and only associated channel response will be returned. *)
   payload : string prop option; [@option]
-      (** A custom, platform-specific payload. *)
   conversation_success :
     event_handlers__trigger_fulfillment__messages__conversation_success
     list;
@@ -117,140 +377,620 @@ type event_handlers__trigger_fulfillment__messages = {
     list;
   text : event_handlers__trigger_fulfillment__messages__text list;
 }
-[@@deriving yojson_of]
-(** The list of rich message responses to present to the user. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : event_handlers__trigger_fulfillment__messages) -> ()
+
+let yojson_of_event_handlers__trigger_fulfillment__messages =
+  (function
+   | {
+       channel = v_channel;
+       payload = v_payload;
+       conversation_success = v_conversation_success;
+       live_agent_handoff = v_live_agent_handoff;
+       output_audio_text = v_output_audio_text;
+       play_audio = v_play_audio;
+       telephony_transfer_call = v_telephony_transfer_call;
+       text = v_text;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment__messages__text
+             v_text
+         in
+         ("text", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment__messages__telephony_transfer_call
+             v_telephony_transfer_call
+         in
+         ("telephony_transfer_call", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment__messages__play_audio
+             v_play_audio
+         in
+         ("play_audio", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment__messages__output_audio_text
+             v_output_audio_text
+         in
+         ("output_audio_text", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment__messages__live_agent_handoff
+             v_live_agent_handoff
+         in
+         ("live_agent_handoff", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment__messages__conversation_success
+             v_conversation_success
+         in
+         ("conversation_success", arg) :: bnds
+       in
+       let bnds =
+         match v_payload with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "payload", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_channel with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "channel", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment__messages ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_event_handlers__trigger_fulfillment__messages
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment__set_parameter_actions = {
   parameter : string prop option; [@option]
-      (** Display name of the parameter. *)
   value : string prop option; [@option]
-      (** The new JSON-encoded value of the parameter. A null value clears the parameter. *)
 }
-[@@deriving yojson_of]
-(** Set parameter values before executing the webhook. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : event_handlers__trigger_fulfillment__set_parameter_actions) ->
+  ()
+
+let yojson_of_event_handlers__trigger_fulfillment__set_parameter_actions
+    =
+  (function
+   | { parameter = v_parameter; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parameter", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment__set_parameter_actions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_event_handlers__trigger_fulfillment__set_parameter_actions
+
+[@@@deriving.end]
 
 type event_handlers__trigger_fulfillment = {
   return_partial_responses : bool prop option; [@option]
-      (** Whether Dialogflow should return currently queued fulfillment response messages in streaming APIs. If a webhook is specified, it happens before Dialogflow invokes webhook. Warning: 1) This flag only affects streaming API. Responses are still queued and returned once in non-streaming API. 2) The flag can be enabled in any fulfillment but only the first 3 partial responses will be returned. You may only want to apply it to fulfillments that have slow webhooks. *)
   tag : string prop option; [@option]
-      (** The tag used by the webhook to identify which fulfillment is being called. This field is required if webhook is specified. *)
   webhook : string prop option; [@option]
-      (** The webhook to call. Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/webhooks/<Webhook ID>. *)
   conditional_cases :
     event_handlers__trigger_fulfillment__conditional_cases list;
   messages : event_handlers__trigger_fulfillment__messages list;
   set_parameter_actions :
     event_handlers__trigger_fulfillment__set_parameter_actions list;
 }
-[@@deriving yojson_of]
-(** The fulfillment to call when the event occurs. Handling webhook errors with a fulfillment enabled with webhook could cause infinite loop. It is invalid to specify such fulfillment for a handler handling webhooks. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : event_handlers__trigger_fulfillment) -> ()
+
+let yojson_of_event_handlers__trigger_fulfillment =
+  (function
+   | {
+       return_partial_responses = v_return_partial_responses;
+       tag = v_tag;
+       webhook = v_webhook;
+       conditional_cases = v_conditional_cases;
+       messages = v_messages;
+       set_parameter_actions = v_set_parameter_actions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment__set_parameter_actions
+             v_set_parameter_actions
+         in
+         ("set_parameter_actions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment__messages
+             v_messages
+         in
+         ("messages", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment__conditional_cases
+             v_conditional_cases
+         in
+         ("conditional_cases", arg) :: bnds
+       in
+       let bnds =
+         match v_webhook with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "webhook", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_return_partial_responses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "return_partial_responses", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_handlers__trigger_fulfillment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_event_handlers__trigger_fulfillment
+
+[@@@deriving.end]
 
 type event_handlers = {
   event : string prop option; [@option]
-      (** The name of the event to handle. *)
   target_flow : string prop option; [@option]
-      (** The target flow to transition to.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>. *)
   target_page : string prop option; [@option]
-      (** The target page to transition to.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>/pages/<Page ID>. *)
   trigger_fulfillment : event_handlers__trigger_fulfillment list;
 }
-[@@deriving yojson_of]
-(** A flow's event handlers serve two purposes:
-They are responsible for handling events (e.g. no match, webhook errors) in the flow.
-They are inherited by every page's [event handlers][Page.event_handlers], which can be used to handle common events regardless of the current page. Event handlers defined in the page have higher priority than those defined in the flow.
-Unlike transitionRoutes, these handlers are evaluated on a first-match basis. The first one that matches the event get executed, with the rest being ignored. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : event_handlers) -> ()
+
+let yojson_of_event_handlers =
+  (function
+   | {
+       event = v_event;
+       target_flow = v_target_flow;
+       target_page = v_target_page;
+       trigger_fulfillment = v_trigger_fulfillment;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_event_handlers__trigger_fulfillment
+             v_trigger_fulfillment
+         in
+         ("trigger_fulfillment", arg) :: bnds
+       in
+       let bnds =
+         match v_target_page with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_page", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_flow with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_flow", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "event", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_handlers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_event_handlers
+
+[@@@deriving.end]
 
 type nlu_settings = {
   classification_threshold : float prop option; [@option]
-      (** To filter out false positive results and still get variety in matched natural language inputs for your agent, you can tune the machine learning classification threshold.
-If the returned score value is less than the threshold value, then a no-match event will be triggered. The score values range from 0.0 (completely uncertain) to 1.0 (completely certain). If set to 0.0, the default of 0.3 is used. *)
   model_training_mode : string prop option; [@option]
-      (** Indicates NLU model training mode.
-* MODEL_TRAINING_MODE_AUTOMATIC: NLU model training is automatically triggered when a flow gets modified. User can also manually trigger model training in this mode.
-* MODEL_TRAINING_MODE_MANUAL: User needs to manually trigger NLU model training. Best for large flows whose models take long time to train. Possible values: [MODEL_TRAINING_MODE_AUTOMATIC, MODEL_TRAINING_MODE_MANUAL] *)
   model_type : string prop option; [@option]
-      (** Indicates the type of NLU model.
-* MODEL_TYPE_STANDARD: Use standard NLU model.
-* MODEL_TYPE_ADVANCED: Use advanced NLU model. Possible values: [MODEL_TYPE_STANDARD, MODEL_TYPE_ADVANCED] *)
 }
-[@@deriving yojson_of]
-(** NLU related settings of the flow. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : nlu_settings) -> ()
+
+let yojson_of_nlu_settings =
+  (function
+   | {
+       classification_threshold = v_classification_threshold;
+       model_training_mode = v_model_training_mode;
+       model_type = v_model_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_model_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "model_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_model_training_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "model_training_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_classification_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "classification_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : nlu_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_nlu_settings
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment__conditional_cases = {
   cases : string prop option; [@option]
-      (** A JSON encoded list of cascading if-else conditions. Cases are mutually exclusive. The first one with a matching condition is selected, all the rest ignored.
-See [Case](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/Fulfillment#case) for the schema. *)
 }
-[@@deriving yojson_of]
-(** Conditional cases for this fulfillment. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : transition_routes__trigger_fulfillment__conditional_cases) ->
+  ()
+
+let yojson_of_transition_routes__trigger_fulfillment__conditional_cases
+    =
+  (function
+   | { cases = v_cases } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_cases with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cases", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment__conditional_cases ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transition_routes__trigger_fulfillment__conditional_cases
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment__messages__conversation_success = {
   metadata : string prop option; [@option]
-      (** Custom metadata. Dialogflow doesn't impose any structure on this. *)
 }
-[@@deriving yojson_of]
-(** Indicates that the conversation succeeded, i.e., the bot handled the issue that the customer talked to it about.
-Dialogflow only uses this to determine which conversations should be counted as successful and doesn't process the metadata in this message in any way. Note that Dialogflow also considers conversations that get to the conversation end page as successful even if they don't return ConversationSuccess.
-You may set this, for example:
-* In the entryFulfillment of a Page if entering the page indicates that the conversation succeeded.
-* In a webhook response when you determine that you handled the customer issue. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       transition_routes__trigger_fulfillment__messages__conversation_success) ->
+  ()
+
+let yojson_of_transition_routes__trigger_fulfillment__messages__conversation_success
+    =
+  (function
+   | { metadata = v_metadata } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment__messages__conversation_success ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transition_routes__trigger_fulfillment__messages__conversation_success
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment__messages__live_agent_handoff = {
   metadata : string prop option; [@option]
-      (** Custom metadata. Dialogflow doesn't impose any structure on this. *)
 }
-[@@deriving yojson_of]
-(** Indicates that the conversation should be handed off to a live agent.
-Dialogflow only uses this to determine which conversations were handed off to a human agent for measurement purposes. What else to do with this signal is up to you and your handoff procedures.
-You may set this, for example:
-* In the entryFulfillment of a Page if entering the page indicates something went extremely wrong in the conversation.
-* In a webhook response when you determine that the customer issue can only be handled by a human. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       transition_routes__trigger_fulfillment__messages__live_agent_handoff) ->
+  ()
+
+let yojson_of_transition_routes__trigger_fulfillment__messages__live_agent_handoff
+    =
+  (function
+   | { metadata = v_metadata } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment__messages__live_agent_handoff ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transition_routes__trigger_fulfillment__messages__live_agent_handoff
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment__messages__output_audio_text = {
   ssml : string prop option; [@option]
-      (** The SSML text to be synthesized. For more information, see SSML. *)
   text : string prop option; [@option]
-      (** The raw text to be synthesized. *)
 }
-[@@deriving yojson_of]
-(** A text or ssml response that is preferentially used for TTS output audio synthesis, as described in the comment on the ResponseMessage message. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       transition_routes__trigger_fulfillment__messages__output_audio_text) ->
+  ()
+
+let yojson_of_transition_routes__trigger_fulfillment__messages__output_audio_text
+    =
+  (function
+   | { ssml = v_ssml; text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "text", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ssml with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssml", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment__messages__output_audio_text ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transition_routes__trigger_fulfillment__messages__output_audio_text
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment__messages__play_audio = {
   audio_uri : string prop;
-      (** URI of the audio clip. Dialogflow does not impose any validation on this value. It is specific to the client that reads it. *)
 }
-[@@deriving yojson_of]
-(** Specifies an audio clip to be played by the client as part of the response. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       transition_routes__trigger_fulfillment__messages__play_audio) ->
+  ()
+
+let yojson_of_transition_routes__trigger_fulfillment__messages__play_audio
+    =
+  (function
+   | { audio_uri = v_audio_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_audio_uri in
+         ("audio_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment__messages__play_audio ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transition_routes__trigger_fulfillment__messages__play_audio
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment__messages__telephony_transfer_call = {
   phone_number : string prop;
-      (** Transfer the call to a phone number in E.164 format. *)
 }
-[@@deriving yojson_of]
-(** Represents the signal that telles the client to transfer the phone call connected to the agent to a third-party endpoint. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       transition_routes__trigger_fulfillment__messages__telephony_transfer_call) ->
+  ()
+
+let yojson_of_transition_routes__trigger_fulfillment__messages__telephony_transfer_call
+    =
+  (function
+   | { phone_number = v_phone_number } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_phone_number in
+         ("phone_number", arg) :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment__messages__telephony_transfer_call ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transition_routes__trigger_fulfillment__messages__telephony_transfer_call
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment__messages__text = {
   text : string prop list option; [@option]
-      (** A collection of text responses. *)
 }
-[@@deriving yojson_of]
-(** The text response message. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : transition_routes__trigger_fulfillment__messages__text) ->
+  ()
+
+let yojson_of_transition_routes__trigger_fulfillment__messages__text
+    =
+  (function
+   | { text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "text", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment__messages__text ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transition_routes__trigger_fulfillment__messages__text
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment__messages = {
   channel : string prop option; [@option]
-      (** The channel which the response is associated with. Clients can specify the channel via QueryParameters.channel, and only associated channel response will be returned. *)
   payload : string prop option; [@option]
-      (** A custom, platform-specific payload. *)
   conversation_success :
     transition_routes__trigger_fulfillment__messages__conversation_success
     list;
@@ -267,25 +1007,145 @@ type transition_routes__trigger_fulfillment__messages = {
     list;
   text : transition_routes__trigger_fulfillment__messages__text list;
 }
-[@@deriving yojson_of]
-(** The list of rich message responses to present to the user. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : transition_routes__trigger_fulfillment__messages) -> ()
+
+let yojson_of_transition_routes__trigger_fulfillment__messages =
+  (function
+   | {
+       channel = v_channel;
+       payload = v_payload;
+       conversation_success = v_conversation_success;
+       live_agent_handoff = v_live_agent_handoff;
+       output_audio_text = v_output_audio_text;
+       play_audio = v_play_audio;
+       telephony_transfer_call = v_telephony_transfer_call;
+       text = v_text;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment__messages__text
+             v_text
+         in
+         ("text", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment__messages__telephony_transfer_call
+             v_telephony_transfer_call
+         in
+         ("telephony_transfer_call", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment__messages__play_audio
+             v_play_audio
+         in
+         ("play_audio", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment__messages__output_audio_text
+             v_output_audio_text
+         in
+         ("output_audio_text", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment__messages__live_agent_handoff
+             v_live_agent_handoff
+         in
+         ("live_agent_handoff", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment__messages__conversation_success
+             v_conversation_success
+         in
+         ("conversation_success", arg) :: bnds
+       in
+       let bnds =
+         match v_payload with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "payload", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_channel with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "channel", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment__messages ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_transition_routes__trigger_fulfillment__messages
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment__set_parameter_actions = {
   parameter : string prop option; [@option]
-      (** Display name of the parameter. *)
   value : string prop option; [@option]
-      (** The new JSON-encoded value of the parameter. A null value clears the parameter. *)
 }
-[@@deriving yojson_of]
-(** Set parameter values before executing the webhook. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       transition_routes__trigger_fulfillment__set_parameter_actions) ->
+  ()
+
+let yojson_of_transition_routes__trigger_fulfillment__set_parameter_actions
+    =
+  (function
+   | { parameter = v_parameter; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parameter", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment__set_parameter_actions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transition_routes__trigger_fulfillment__set_parameter_actions
+
+[@@@deriving.end]
 
 type transition_routes__trigger_fulfillment = {
   return_partial_responses : bool prop option; [@option]
-      (** Whether Dialogflow should return currently queued fulfillment response messages in streaming APIs. If a webhook is specified, it happens before Dialogflow invokes webhook. Warning: 1) This flag only affects streaming API. Responses are still queued and returned once in non-streaming API. 2) The flag can be enabled in any fulfillment but only the first 3 partial responses will be returned. You may only want to apply it to fulfillments that have slow webhooks. *)
   tag : string prop option; [@option]
-      (** The tag used by the webhook to identify which fulfillment is being called. This field is required if webhook is specified. *)
   webhook : string prop option; [@option]
-      (** The webhook to call. Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/webhooks/<Webhook ID>. *)
   conditional_cases :
     transition_routes__trigger_fulfillment__conditional_cases list;
   messages : transition_routes__trigger_fulfillment__messages list;
@@ -293,68 +1153,276 @@ type transition_routes__trigger_fulfillment = {
     transition_routes__trigger_fulfillment__set_parameter_actions
     list;
 }
-[@@deriving yojson_of]
-(** The fulfillment to call when the condition is satisfied. At least one of triggerFulfillment and target must be specified. When both are defined, triggerFulfillment is executed first. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : transition_routes__trigger_fulfillment) -> ()
+
+let yojson_of_transition_routes__trigger_fulfillment =
+  (function
+   | {
+       return_partial_responses = v_return_partial_responses;
+       tag = v_tag;
+       webhook = v_webhook;
+       conditional_cases = v_conditional_cases;
+       messages = v_messages;
+       set_parameter_actions = v_set_parameter_actions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment__set_parameter_actions
+             v_set_parameter_actions
+         in
+         ("set_parameter_actions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment__messages
+             v_messages
+         in
+         ("messages", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment__conditional_cases
+             v_conditional_cases
+         in
+         ("conditional_cases", arg) :: bnds
+       in
+       let bnds =
+         match v_webhook with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "webhook", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_return_partial_responses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "return_partial_responses", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transition_routes__trigger_fulfillment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_transition_routes__trigger_fulfillment
+
+[@@@deriving.end]
 
 type transition_routes = {
   condition : string prop option; [@option]
-      (** The condition to evaluate against form parameters or session parameters.
-At least one of intent or condition must be specified. When both intent and condition are specified, the transition can only happen when both are fulfilled. *)
   intent : string prop option; [@option]
-      (** The unique identifier of an Intent.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/intents/<Intent ID>. Indicates that the transition can only happen when the given intent is matched. At least one of intent or condition must be specified. When both intent and condition are specified, the transition can only happen when both are fulfilled. *)
   target_flow : string prop option; [@option]
-      (** The target flow to transition to.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>. *)
   target_page : string prop option; [@option]
-      (** The target page to transition to.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>/pages/<Page ID>. *)
   trigger_fulfillment : transition_routes__trigger_fulfillment list;
 }
-[@@deriving yojson_of]
-(** A flow's transition routes serve two purposes:
-They are responsible for matching the user's first utterances in the flow.
-They are inherited by every page's [transition routes][Page.transition_routes] and can support use cases such as the user saying help or can I talk to a human?, which can be handled in a common way regardless of the current page. Transition routes defined in the page have higher priority than those defined in the flow.
+[@@deriving_inline yojson_of]
 
-TransitionRoutes are evalauted in the following order:
-  TransitionRoutes with intent specified.
-  TransitionRoutes with only condition specified.
-  TransitionRoutes with intent specified are inherited by pages in the flow. *)
+let _ = fun (_ : transition_routes) -> ()
+
+let yojson_of_transition_routes =
+  (function
+   | {
+       condition = v_condition;
+       intent = v_intent;
+       target_flow = v_target_flow;
+       target_page = v_target_page;
+       trigger_fulfillment = v_trigger_fulfillment;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transition_routes__trigger_fulfillment
+             v_trigger_fulfillment
+         in
+         ("trigger_fulfillment", arg) :: bnds
+       in
+       let bnds =
+         match v_target_page with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_page", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_flow with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_flow", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_intent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "intent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_condition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "condition", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transition_routes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_transition_routes
+
+[@@@deriving.end]
 
 type google_dialogflow_cx_flow = {
   description : string prop option; [@option]
-      (** The description of the flow. The maximum length is 500 characters. If exceeded, the request is rejected. *)
   display_name : string prop;
-      (** The human-readable name of the flow. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   is_default_start_flow : bool prop option; [@option]
-      (** Marks this as the [Default Start Flow](https://cloud.google.com/dialogflow/cx/docs/concept/flow#start) for an agent. When you create an agent, the Default Start Flow is created automatically.
-The Default Start Flow cannot be deleted; deleting the 'google_dialogflow_cx_flow' resource does nothing to the underlying GCP resources.
-
-~> Avoid having multiple 'google_dialogflow_cx_flow' resources linked to the same agent with 'is_default_start_flow = true' because they will compete to control a single Default Start Flow resource in GCP. *)
   language_code : string prop option; [@option]
-      (** The language of the following fields in flow:
-Flow.event_handlers.trigger_fulfillment.messages
-Flow.event_handlers.trigger_fulfillment.conditional_cases
-Flow.transition_routes.trigger_fulfillment.messages
-Flow.transition_routes.trigger_fulfillment.conditional_cases
-If not specified, the agent's default language is used. Many languages are supported. Note: languages must be enabled in the agent before they can be used. *)
   parent : string prop option; [@option]
-      (** The agent to create a flow for.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
   transition_route_groups : string prop list option; [@option]
-      (** A flow's transition route group serve two purposes:
-They are responsible for matching the user's first utterances in the flow.
-They are inherited by every page's [transition route groups][Page.transition_route_groups]. Transition route groups defined in the page have higher priority than those defined in the flow.
-Format:projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>/transitionRouteGroups/<TransitionRouteGroup ID>. *)
   advanced_settings : advanced_settings list;
   event_handlers : event_handlers list;
   nlu_settings : nlu_settings list;
   timeouts : timeouts option;
   transition_routes : transition_routes list;
 }
-[@@deriving yojson_of]
-(** google_dialogflow_cx_flow *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dialogflow_cx_flow) -> ()
+
+let yojson_of_google_dialogflow_cx_flow =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       is_default_start_flow = v_is_default_start_flow;
+       language_code = v_language_code;
+       parent = v_parent;
+       transition_route_groups = v_transition_route_groups;
+       advanced_settings = v_advanced_settings;
+       event_handlers = v_event_handlers;
+       nlu_settings = v_nlu_settings;
+       timeouts = v_timeouts;
+       transition_routes = v_transition_routes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_transition_routes
+             v_transition_routes
+         in
+         ("transition_routes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_nlu_settings v_nlu_settings
+         in
+         ("nlu_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_event_handlers v_event_handlers
+         in
+         ("event_handlers", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_advanced_settings
+             v_advanced_settings
+         in
+         ("advanced_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_transition_route_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "transition_route_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_language_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "language_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_default_start_flow with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_default_start_flow", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dialogflow_cx_flow -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dialogflow_cx_flow
+
+[@@@deriving.end]
 
 let advanced_settings__audio_export_gcs_destination ?uri () :
     advanced_settings__audio_export_gcs_destination =

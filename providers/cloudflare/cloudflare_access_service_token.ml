@@ -4,20 +4,80 @@ open! Tf_core
 
 type cloudflare_access_service_token = {
   account_id : string prop option; [@option]
-      (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
   duration : string prop option; [@option]
-      (** Length of time the service token is valid for. Available values: `8760h`, `17520h`, `43800h`, `87600h`, `forever`. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   min_days_for_renewal : float prop option; [@option]
-      (** Refresh the token if terraform is run within the specified amount of days before expiration. Defaults to `0`. *)
-  name : string prop;  (** Friendly name of the token's intent. *)
+  name : string prop;
   zone_id : string prop option; [@option]
-      (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
 }
-[@@deriving yojson_of]
-(** Access Service Tokens are used for service-to-service communication
-when an application is behind Cloudflare Access.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_access_service_token) -> ()
+
+let yojson_of_cloudflare_access_service_token =
+  (function
+   | {
+       account_id = v_account_id;
+       duration = v_duration;
+       id = v_id;
+       min_days_for_renewal = v_min_days_for_renewal;
+       name = v_name;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_min_days_for_renewal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_days_for_renewal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_access_service_token ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_access_service_token
+
+[@@@deriving.end]
 
 let cloudflare_access_service_token ?account_id ?duration ?id
     ?min_days_for_renewal ?zone_id ~name () :

@@ -3,12 +3,46 @@
 open! Tf_core
 
 type aws_ssm_service_setting = {
-  id : string prop option; [@option]  (** id *)
-  setting_id : string prop;  (** setting_id *)
-  setting_value : string prop;  (** setting_value *)
+  id : string prop option; [@option]
+  setting_id : string prop;
+  setting_value : string prop;
 }
-[@@deriving yojson_of]
-(** aws_ssm_service_setting *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssm_service_setting) -> ()
+
+let yojson_of_aws_ssm_service_setting =
+  (function
+   | {
+       id = v_id;
+       setting_id = v_setting_id;
+       setting_value = v_setting_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_setting_value in
+         ("setting_value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_setting_id in
+         ("setting_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ssm_service_setting -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssm_service_setting
+
+[@@@deriving.end]
 
 let aws_ssm_service_setting ?id ~setting_id ~setting_value () :
     aws_ssm_service_setting =

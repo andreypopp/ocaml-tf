@@ -10,6 +10,8 @@ type url_dispatch_rule = {
   service : string prop;  (** service *)
 }
 
+[@@@deriving.end]
+
 type feature_settings
 
 val feature_settings :

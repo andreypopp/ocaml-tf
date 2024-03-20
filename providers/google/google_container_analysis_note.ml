@@ -4,68 +4,248 @@ open! Tf_core
 
 type attestation_authority__hint = {
   human_readable_name : string prop;
-      (** The human readable name of this Attestation Authority, for
-example qa. *)
 }
-[@@deriving yojson_of]
-(** This submessage provides human-readable hints about the purpose of
-the AttestationAuthority. Because the name of a Note acts as its
-resource reference, it is important to disambiguate the canonical
-name of the Note (which might be a UUID for security purposes)
-from readable names more suitable for debug output. Note that
-these hints should NOT be used to look up AttestationAuthorities
-in security sensitive contexts, such as when looking up
-Attestations to verify. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attestation_authority__hint) -> ()
+
+let yojson_of_attestation_authority__hint =
+  (function
+   | { human_readable_name = v_human_readable_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_human_readable_name
+         in
+         ("human_readable_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : attestation_authority__hint ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attestation_authority__hint
+
+[@@@deriving.end]
 
 type attestation_authority = {
   hint : attestation_authority__hint list;
 }
-[@@deriving yojson_of]
-(** Note kind that represents a logical attestation role or authority.
-For example, an organization might have one AttestationAuthority for
-QA and one for build. This Note is intended to act strictly as a
-grouping mechanism for the attached Occurrences (Attestations). This
-grouping mechanism also provides a security boundary, since IAM ACLs
-gate the ability for a principle to attach an Occurrence to a given
-Note. It also provides a single point of lookup to find all attached
-Attestation Occurrences, even if they don't all live in the same
-project. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attestation_authority) -> ()
+
+let yojson_of_attestation_authority =
+  (function
+   | { hint = v_hint } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_attestation_authority__hint
+             v_hint
+         in
+         ("hint", arg) :: bnds
+       in
+       `Assoc bnds
+    : attestation_authority -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attestation_authority
+
+[@@@deriving.end]
 
 type related_url = {
   label : string prop option; [@option]
-      (** Label to describe usage of the URL *)
   url : string prop;
-      (** Specific URL associated with the resource. *)
 }
-[@@deriving yojson_of]
-(** URLs associated with this note and related metadata. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : related_url) -> ()
+
+let yojson_of_related_url =
+  (function
+   | { label = v_label; url = v_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       let bnds =
+         match v_label with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "label", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : related_url -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_related_url
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_container_analysis_note = {
   expiration_time : string prop option; [@option]
-      (** Time of expiration for this note. Leave empty if note does not expire. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   long_description : string prop option; [@option]
-      (** A detailed description of the note *)
-  name : string prop;  (** The name of the note. *)
-  project : string prop option; [@option]  (** project *)
+  name : string prop;
+  project : string prop option; [@option]
   related_note_names : string prop list option; [@option]
-      (** Names of other notes related to this note. *)
   short_description : string prop option; [@option]
-      (** A one sentence description of the note. *)
   attestation_authority : attestation_authority list;
   related_url : related_url list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_container_analysis_note *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_container_analysis_note) -> ()
+
+let yojson_of_google_container_analysis_note =
+  (function
+   | {
+       expiration_time = v_expiration_time;
+       id = v_id;
+       long_description = v_long_description;
+       name = v_name;
+       project = v_project;
+       related_note_names = v_related_note_names;
+       short_description = v_short_description;
+       attestation_authority = v_attestation_authority;
+       related_url = v_related_url;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_related_url v_related_url
+         in
+         ("related_url", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_attestation_authority
+             v_attestation_authority
+         in
+         ("attestation_authority", arg) :: bnds
+       in
+       let bnds =
+         match v_short_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "short_description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_related_note_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "related_note_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_long_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "long_description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expiration_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expiration_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_container_analysis_note ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_container_analysis_note
+
+[@@@deriving.end]
 
 let attestation_authority__hint ~human_readable_name () :
     attestation_authority__hint =

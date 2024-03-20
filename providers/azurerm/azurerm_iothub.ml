@@ -3,153 +3,748 @@
 open! Tf_core
 
 type cloud_to_device__feedback = {
-  lock_duration : string prop option; [@option]  (** lock_duration *)
+  lock_duration : string prop option; [@option]
   max_delivery_count : float prop option; [@option]
-      (** max_delivery_count *)
-  time_to_live : string prop option; [@option]  (** time_to_live *)
+  time_to_live : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** cloud_to_device__feedback *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloud_to_device__feedback) -> ()
+
+let yojson_of_cloud_to_device__feedback =
+  (function
+   | {
+       lock_duration = v_lock_duration;
+       max_delivery_count = v_max_delivery_count;
+       time_to_live = v_time_to_live;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_time_to_live with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "time_to_live", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_delivery_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_delivery_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lock_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lock_duration", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloud_to_device__feedback -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloud_to_device__feedback
+
+[@@@deriving.end]
 
 type cloud_to_device = {
-  default_ttl : string prop option; [@option]  (** default_ttl *)
+  default_ttl : string prop option; [@option]
   max_delivery_count : float prop option; [@option]
-      (** max_delivery_count *)
   feedback : cloud_to_device__feedback list;
 }
-[@@deriving yojson_of]
-(** cloud_to_device *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloud_to_device) -> ()
+
+let yojson_of_cloud_to_device =
+  (function
+   | {
+       default_ttl = v_default_ttl;
+       max_delivery_count = v_max_delivery_count;
+       feedback = v_feedback;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cloud_to_device__feedback
+             v_feedback
+         in
+         ("feedback", arg) :: bnds
+       in
+       let bnds =
+         match v_max_delivery_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_delivery_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_ttl", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloud_to_device -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloud_to_device
+
+[@@@deriving.end]
 
 type fallback_route = {
-  condition : string prop option; [@option]  (** condition *)
-  enabled : bool prop option; [@option]  (** enabled *)
+  condition : string prop option; [@option]
+  enabled : bool prop option; [@option]
   endpoint_names : string prop list option; [@option]
-      (** endpoint_names *)
-  source : string prop option; [@option]  (** source *)
+  source : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** fallback_route *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fallback_route) -> ()
+
+let yojson_of_fallback_route =
+  (function
+   | {
+       condition = v_condition;
+       enabled = v_enabled;
+       endpoint_names = v_endpoint_names;
+       source = v_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_endpoint_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "endpoint_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_condition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "condition", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : fallback_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fallback_route
+
+[@@@deriving.end]
 
 type file_upload = {
   authentication_type : string prop option; [@option]
-      (** authentication_type *)
-  connection_string : string prop;  (** connection_string *)
-  container_name : string prop;  (** container_name *)
-  default_ttl : string prop option; [@option]  (** default_ttl *)
-  identity_id : string prop option; [@option]  (** identity_id *)
-  lock_duration : string prop option; [@option]  (** lock_duration *)
+  connection_string : string prop;
+  container_name : string prop;
+  default_ttl : string prop option; [@option]
+  identity_id : string prop option; [@option]
+  lock_duration : string prop option; [@option]
   max_delivery_count : float prop option; [@option]
-      (** max_delivery_count *)
-  notifications : bool prop option; [@option]  (** notifications *)
-  sas_ttl : string prop option; [@option]  (** sas_ttl *)
+  notifications : bool prop option; [@option]
+  sas_ttl : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** file_upload *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : file_upload) -> ()
+
+let yojson_of_file_upload =
+  (function
+   | {
+       authentication_type = v_authentication_type;
+       connection_string = v_connection_string;
+       container_name = v_container_name;
+       default_ttl = v_default_ttl;
+       identity_id = v_identity_id;
+       lock_duration = v_lock_duration;
+       max_delivery_count = v_max_delivery_count;
+       notifications = v_notifications;
+       sas_ttl = v_sas_ttl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sas_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sas_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notifications with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "notifications", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_delivery_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_delivery_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lock_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lock_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_name
+         in
+         ("container_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_connection_string
+         in
+         ("connection_string", arg) :: bnds
+       in
+       let bnds =
+         match v_authentication_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "authentication_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : file_upload -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_file_upload
+
+[@@@deriving.end]
 
 type identity = {
   identity_ids : string prop list option; [@option]
-      (** identity_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
 
 type network_rule_set__ip_rule = {
-  action : string prop option; [@option]  (** action *)
-  ip_mask : string prop;  (** ip_mask *)
-  name : string prop;  (** name *)
+  action : string prop option; [@option]
+  ip_mask : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** network_rule_set__ip_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_rule_set__ip_rule) -> ()
+
+let yojson_of_network_rule_set__ip_rule =
+  (function
+   | { action = v_action; ip_mask = v_ip_mask; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_mask in
+         ("ip_mask", arg) :: bnds
+       in
+       let bnds =
+         match v_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "action", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_rule_set__ip_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_rule_set__ip_rule
+
+[@@@deriving.end]
 
 type network_rule_set = {
   apply_to_builtin_eventhub_endpoint : bool prop option; [@option]
-      (** apply_to_builtin_eventhub_endpoint *)
   default_action : string prop option; [@option]
-      (** default_action *)
   ip_rule : network_rule_set__ip_rule list;
 }
-[@@deriving yojson_of]
-(** network_rule_set *)
+[@@deriving_inline yojson_of]
 
-type sku = {
-  capacity : float prop;  (** capacity *)
-  name : string prop;  (** name *)
-}
-[@@deriving yojson_of]
-(** sku *)
+let _ = fun (_ : network_rule_set) -> ()
+
+let yojson_of_network_rule_set =
+  (function
+   | {
+       apply_to_builtin_eventhub_endpoint =
+         v_apply_to_builtin_eventhub_endpoint;
+       default_action = v_default_action;
+       ip_rule = v_ip_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_rule_set__ip_rule
+             v_ip_rule
+         in
+         ("ip_rule", arg) :: bnds
+       in
+       let bnds =
+         match v_default_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_action", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_apply_to_builtin_eventhub_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "apply_to_builtin_eventhub_endpoint", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_rule_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_rule_set
+
+[@@@deriving.end]
+
+type sku = { capacity : float prop; name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sku) -> ()
+
+let yojson_of_sku =
+  (function
+   | { capacity = v_capacity; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_capacity in
+         ("capacity", arg) :: bnds
+       in
+       `Assoc bnds
+    : sku -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sku
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type endpoint = {
-  authentication_type : string prop;  (** authentication_type *)
+  authentication_type : string prop;
   batch_frequency_in_seconds : float prop;
-      (** batch_frequency_in_seconds *)
-  connection_string : string prop;  (** connection_string *)
-  container_name : string prop;  (** container_name *)
-  encoding : string prop;  (** encoding *)
-  endpoint_uri : string prop;  (** endpoint_uri *)
-  entity_path : string prop;  (** entity_path *)
-  file_name_format : string prop;  (** file_name_format *)
-  identity_id : string prop;  (** identity_id *)
+  connection_string : string prop;
+  container_name : string prop;
+  encoding : string prop;
+  endpoint_uri : string prop;
+  entity_path : string prop;
+  file_name_format : string prop;
+  identity_id : string prop;
   max_chunk_size_in_bytes : float prop;
-      (** max_chunk_size_in_bytes *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  type_ : string prop; [@key "type"]  (** type *)
+  name : string prop;
+  resource_group_name : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoint) -> ()
+
+let yojson_of_endpoint =
+  (function
+   | {
+       authentication_type = v_authentication_type;
+       batch_frequency_in_seconds = v_batch_frequency_in_seconds;
+       connection_string = v_connection_string;
+       container_name = v_container_name;
+       encoding = v_encoding;
+       endpoint_uri = v_endpoint_uri;
+       entity_path = v_entity_path;
+       file_name_format = v_file_name_format;
+       identity_id = v_identity_id;
+       max_chunk_size_in_bytes = v_max_chunk_size_in_bytes;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_chunk_size_in_bytes
+         in
+         ("max_chunk_size_in_bytes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_identity_id in
+         ("identity_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_file_name_format
+         in
+         ("file_name_format", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_entity_path in
+         ("entity_path", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_endpoint_uri in
+         ("endpoint_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_encoding in
+         ("encoding", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_name
+         in
+         ("container_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_connection_string
+         in
+         ("connection_string", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_batch_frequency_in_seconds
+         in
+         ("batch_frequency_in_seconds", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_authentication_type
+         in
+         ("authentication_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoint
+
+[@@@deriving.end]
 
 type enrichment = {
-  endpoint_names : string prop list;  (** endpoint_names *)
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
+  endpoint_names : string prop list;
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : enrichment) -> ()
+
+let yojson_of_enrichment =
+  (function
+   | {
+       endpoint_names = v_endpoint_names;
+       key = v_key;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_endpoint_names
+         in
+         ("endpoint_names", arg) :: bnds
+       in
+       `Assoc bnds
+    : enrichment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_enrichment
+
+[@@@deriving.end]
 
 type route = {
-  condition : string prop;  (** condition *)
-  enabled : bool prop;  (** enabled *)
-  endpoint_names : string prop list;  (** endpoint_names *)
-  name : string prop;  (** name *)
-  source : string prop;  (** source *)
+  condition : string prop;
+  enabled : bool prop;
+  endpoint_names : string prop list;
+  name : string prop;
+  source : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : route) -> ()
+
+let yojson_of_route =
+  (function
+   | {
+       condition = v_condition;
+       enabled = v_enabled;
+       endpoint_names = v_endpoint_names;
+       name = v_name;
+       source = v_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_endpoint_names
+         in
+         ("endpoint_names", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_condition in
+         ("condition", arg) :: bnds
+       in
+       `Assoc bnds
+    : route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_route
+
+[@@@deriving.end]
 
 type shared_access_policy = {
-  key_name : string prop;  (** key_name *)
-  permissions : string prop;  (** permissions *)
-  primary_key : string prop;  (** primary_key *)
-  secondary_key : string prop;  (** secondary_key *)
+  key_name : string prop;
+  permissions : string prop;
+  primary_key : string prop;
+  secondary_key : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shared_access_policy) -> ()
+
+let yojson_of_shared_access_policy =
+  (function
+   | {
+       key_name = v_key_name;
+       permissions = v_permissions;
+       primary_key = v_primary_key;
+       secondary_key = v_secondary_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secondary_key in
+         ("secondary_key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_primary_key in
+         ("primary_key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_permissions in
+         ("permissions", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_name in
+         ("key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : shared_access_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shared_access_policy
+
+[@@@deriving.end]
 
 type azurerm_iothub = {
-  endpoint : endpoint list option; [@option]  (** endpoint *)
-  enrichment : enrichment list option; [@option]  (** enrichment *)
+  endpoint : endpoint list option; [@option]
+  enrichment : enrichment list option; [@option]
   event_hub_partition_count : float prop option; [@option]
-      (** event_hub_partition_count *)
   event_hub_retention_in_days : float prop option; [@option]
-      (** event_hub_retention_in_days *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   local_authentication_enabled : bool prop option; [@option]
-      (** local_authentication_enabled *)
-  location : string prop;  (** location *)
+  location : string prop;
   min_tls_version : string prop option; [@option]
-      (** min_tls_version *)
-  name : string prop;  (** name *)
+  name : string prop;
   public_network_access_enabled : bool prop option; [@option]
-      (** public_network_access_enabled *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  route : route list option; [@option]  (** route *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  resource_group_name : string prop;
+  route : route list option; [@option]
+  tags : (string * string prop) list option; [@option]
   cloud_to_device : cloud_to_device list;
   fallback_route : fallback_route list;
   file_upload : file_upload list;
@@ -158,8 +753,183 @@ type azurerm_iothub = {
   sku : sku list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_iothub *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_iothub) -> ()
+
+let yojson_of_azurerm_iothub =
+  (function
+   | {
+       endpoint = v_endpoint;
+       enrichment = v_enrichment;
+       event_hub_partition_count = v_event_hub_partition_count;
+       event_hub_retention_in_days = v_event_hub_retention_in_days;
+       id = v_id;
+       local_authentication_enabled = v_local_authentication_enabled;
+       location = v_location;
+       min_tls_version = v_min_tls_version;
+       name = v_name;
+       public_network_access_enabled =
+         v_public_network_access_enabled;
+       resource_group_name = v_resource_group_name;
+       route = v_route;
+       tags = v_tags;
+       cloud_to_device = v_cloud_to_device;
+       fallback_route = v_fallback_route;
+       file_upload = v_file_upload;
+       identity = v_identity;
+       network_rule_set = v_network_rule_set;
+       sku = v_sku;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sku v_sku in
+         ("sku", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_rule_set
+             v_network_rule_set
+         in
+         ("network_rule_set", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity v_identity in
+         ("identity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_file_upload v_file_upload
+         in
+         ("file_upload", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_fallback_route v_fallback_route
+         in
+         ("fallback_route", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cloud_to_device v_cloud_to_device
+         in
+         ("cloud_to_device", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_route with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_list yojson_of_route v in
+             let bnd = "route", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_public_network_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "public_network_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_min_tls_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_tls_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_local_authentication_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "local_authentication_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event_hub_retention_in_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "event_hub_retention_in_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event_hub_partition_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "event_hub_partition_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enrichment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_list yojson_of_enrichment v in
+             let bnd = "enrichment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_list yojson_of_endpoint v in
+             let bnd = "endpoint", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_iothub -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_iothub
+
+[@@@deriving.end]
 
 let cloud_to_device__feedback ?lock_duration ?max_delivery_count
     ?time_to_live () : cloud_to_device__feedback =

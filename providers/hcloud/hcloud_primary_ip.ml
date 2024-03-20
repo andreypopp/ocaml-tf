@@ -3,20 +3,110 @@
 open! Tf_core
 
 type hcloud_primary_ip = {
-  assignee_id : float prop option; [@option]  (** assignee_id *)
-  assignee_type : string prop;  (** assignee_type *)
-  auto_delete : bool prop;  (** auto_delete *)
-  datacenter : string prop option; [@option]  (** datacenter *)
+  assignee_id : float prop option; [@option]
+  assignee_type : string prop;
+  auto_delete : bool prop;
+  datacenter : string prop option; [@option]
   delete_protection : bool prop option; [@option]
-      (** delete_protection *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** labels *)
-  name : string prop option; [@option]  (** name *)
-  type_ : string prop; [@key "type"]  (** type *)
+  name : string prop option; [@option]
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** hcloud_primary_ip *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_primary_ip) -> ()
+
+let yojson_of_hcloud_primary_ip =
+  (function
+   | {
+       assignee_id = v_assignee_id;
+       assignee_type = v_assignee_type;
+       auto_delete = v_auto_delete;
+       datacenter = v_datacenter;
+       delete_protection = v_delete_protection;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_datacenter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "datacenter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_auto_delete in
+         ("auto_delete", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_assignee_type in
+         ("assignee_type", arg) :: bnds
+       in
+       let bnds =
+         match v_assignee_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "assignee_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hcloud_primary_ip -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_primary_ip
+
+[@@@deriving.end]
 
 let hcloud_primary_ip ?assignee_id ?datacenter ?delete_protection ?id
     ?labels ?name ~assignee_type ~auto_delete ~type_ () :

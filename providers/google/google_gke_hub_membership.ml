@@ -2,59 +2,212 @@
 
 open! Tf_core
 
-type authority = {
-  issuer : string prop;
-      (** A JSON Web Token (JWT) issuer URI. 'issuer' must start with 'https://' and // be a valid
-with length <2000 characters. For example: 'https://container.googleapis.com/v1/projects/my-project/locations/us-west1/clusters/my-cluster' (must be 'locations' rather than 'zones'). If the cluster is provisioned with Terraform, this is 'https://container.googleapis.com/v1/${google_container_cluster.my-cluster.id}'. *)
-}
-[@@deriving yojson_of]
-(** Authority encodes how Google will recognize identities from this Membership.
-See the workload identity documentation for more details:
-https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity *)
+type authority = { issuer : string prop }
+[@@deriving_inline yojson_of]
 
-type endpoint__gke_cluster = {
-  resource_link : string prop;
-      (** Self-link of the GCP resource for the GKE cluster.
-For example: '//container.googleapis.com/projects/my-project/zones/us-west1-a/clusters/my-cluster'.
-It can be at the most 1000 characters in length. If the cluster is provisioned with Terraform,
-this can be '//container.googleapis.com/${google_container_cluster.my-cluster.id}' or
-'google_container_cluster.my-cluster.id'. *)
-}
-[@@deriving yojson_of]
-(** If this Membership is a Kubernetes API server hosted on GKE, this is a self link to its GCP resource. *)
+let _ = fun (_ : authority) -> ()
+
+let yojson_of_authority =
+  (function
+   | { issuer = v_issuer } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_issuer in
+         ("issuer", arg) :: bnds
+       in
+       `Assoc bnds
+    : authority -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authority
+
+[@@@deriving.end]
+
+type endpoint__gke_cluster = { resource_link : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoint__gke_cluster) -> ()
+
+let yojson_of_endpoint__gke_cluster =
+  (function
+   | { resource_link = v_resource_link } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_link in
+         ("resource_link", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoint__gke_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoint__gke_cluster
+
+[@@@deriving.end]
 
 type endpoint = { gke_cluster : endpoint__gke_cluster list }
-[@@deriving yojson_of]
-(** If this Membership is a Kubernetes API server hosted on GKE, this is a self link to its GCP resource. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoint) -> ()
+
+let yojson_of_endpoint =
+  (function
+   | { gke_cluster = v_gke_cluster } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_endpoint__gke_cluster
+             v_gke_cluster
+         in
+         ("gke_cluster", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoint
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_gke_hub_membership = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels to apply to this membership.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop option; [@option]
-      (** Location of the membership.
-The default value is 'global'. *)
   membership_id : string prop;
-      (** The client-provided identifier of the membership. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   authority : authority list;
   endpoint : endpoint list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_gke_hub_membership *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_gke_hub_membership) -> ()
+
+let yojson_of_google_gke_hub_membership =
+  (function
+   | {
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       membership_id = v_membership_id;
+       project = v_project;
+       authority = v_authority;
+       endpoint = v_endpoint;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_endpoint v_endpoint in
+         ("endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_authority v_authority in
+         ("authority", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_membership_id in
+         ("membership_id", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_gke_hub_membership -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_gke_hub_membership
+
+[@@@deriving.end]
 
 let authority ~issuer () : authority = { issuer }
 

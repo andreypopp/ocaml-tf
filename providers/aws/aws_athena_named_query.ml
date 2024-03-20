@@ -3,15 +3,72 @@
 open! Tf_core
 
 type aws_athena_named_query = {
-  database : string prop;  (** database *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  query : string prop;  (** query *)
-  workgroup : string prop option; [@option]  (** workgroup *)
+  database : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  query : string prop;
+  workgroup : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_athena_named_query *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_athena_named_query) -> ()
+
+let yojson_of_aws_athena_named_query =
+  (function
+   | {
+       database = v_database;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       query = v_query;
+       workgroup = v_workgroup;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_workgroup with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "workgroup", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_query in
+         ("query", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database in
+         ("database", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_athena_named_query -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_athena_named_query
+
+[@@@deriving.end]
 
 let aws_athena_named_query ?description ?id ?workgroup ~database
     ~name ~query () : aws_athena_named_query =

@@ -3,36 +3,195 @@
 open! Tf_core
 
 type service_catalog_provisioning_details__provisioning_parameter = {
-  key : string prop;  (** key *)
-  value : string prop option; [@option]  (** value *)
+  key : string prop;
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** service_catalog_provisioning_details__provisioning_parameter *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       service_catalog_provisioning_details__provisioning_parameter) ->
+  ()
+
+let yojson_of_service_catalog_provisioning_details__provisioning_parameter
+    =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : service_catalog_provisioning_details__provisioning_parameter ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_service_catalog_provisioning_details__provisioning_parameter
+
+[@@@deriving.end]
 
 type service_catalog_provisioning_details = {
-  path_id : string prop option; [@option]  (** path_id *)
-  product_id : string prop;  (** product_id *)
+  path_id : string prop option; [@option]
+  product_id : string prop;
   provisioning_artifact_id : string prop option; [@option]
-      (** provisioning_artifact_id *)
   provisioning_parameter :
     service_catalog_provisioning_details__provisioning_parameter list;
 }
-[@@deriving yojson_of]
-(** service_catalog_provisioning_details *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_catalog_provisioning_details) -> ()
+
+let yojson_of_service_catalog_provisioning_details =
+  (function
+   | {
+       path_id = v_path_id;
+       product_id = v_product_id;
+       provisioning_artifact_id = v_provisioning_artifact_id;
+       provisioning_parameter = v_provisioning_parameter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_service_catalog_provisioning_details__provisioning_parameter
+             v_provisioning_parameter
+         in
+         ("provisioning_parameter", arg) :: bnds
+       in
+       let bnds =
+         match v_provisioning_artifact_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "provisioning_artifact_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_product_id in
+         ("product_id", arg) :: bnds
+       in
+       let bnds =
+         match v_path_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : service_catalog_provisioning_details ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_catalog_provisioning_details
+
+[@@@deriving.end]
 
 type aws_sagemaker_project = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   project_description : string prop option; [@option]
-      (** project_description *)
-  project_name : string prop;  (** project_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  project_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   service_catalog_provisioning_details :
     service_catalog_provisioning_details list;
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_project *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sagemaker_project) -> ()
+
+let yojson_of_aws_sagemaker_project =
+  (function
+   | {
+       id = v_id;
+       project_description = v_project_description;
+       project_name = v_project_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       service_catalog_provisioning_details =
+         v_service_catalog_provisioning_details;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_service_catalog_provisioning_details
+             v_service_catalog_provisioning_details
+         in
+         ("service_catalog_provisioning_details", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_name in
+         ("project_name", arg) :: bnds
+       in
+       let bnds =
+         match v_project_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_project -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sagemaker_project
+
+[@@@deriving.end]
 
 let service_catalog_provisioning_details__provisioning_parameter
     ?value ~key () :

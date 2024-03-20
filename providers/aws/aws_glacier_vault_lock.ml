@@ -3,15 +3,62 @@
 open! Tf_core
 
 type aws_glacier_vault_lock = {
-  complete_lock : bool prop;  (** complete_lock *)
-  id : string prop option; [@option]  (** id *)
+  complete_lock : bool prop;
+  id : string prop option; [@option]
   ignore_deletion_error : bool prop option; [@option]
-      (** ignore_deletion_error *)
-  policy : string prop;  (** policy *)
-  vault_name : string prop;  (** vault_name *)
+  policy : string prop;
+  vault_name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_glacier_vault_lock *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_glacier_vault_lock) -> ()
+
+let yojson_of_aws_glacier_vault_lock =
+  (function
+   | {
+       complete_lock = v_complete_lock;
+       id = v_id;
+       ignore_deletion_error = v_ignore_deletion_error;
+       policy = v_policy;
+       vault_name = v_vault_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vault_name in
+         ("vault_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         match v_ignore_deletion_error with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_deletion_error", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_complete_lock in
+         ("complete_lock", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_glacier_vault_lock -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_glacier_vault_lock
+
+[@@@deriving.end]
 
 let aws_glacier_vault_lock ?id ?ignore_deletion_error ~complete_lock
     ~policy ~vault_name () : aws_glacier_vault_lock =

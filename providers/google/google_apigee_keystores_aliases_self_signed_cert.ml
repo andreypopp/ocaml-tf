@@ -4,81 +4,379 @@ open! Tf_core
 
 type subject = {
   common_name : string prop option; [@option]
-      (** Common name of the organization. Maximum length is 64 characters. *)
   country_code : string prop option; [@option]
-      (** Two-letter country code. Example, IN for India, US for United States of America. *)
   email : string prop option; [@option]
-      (** Email address. Max 255 characters. *)
   locality : string prop option; [@option]
-      (** City or town name. Maximum length is 128 characters. *)
   org : string prop option; [@option]
-      (** Organization name. Maximum length is 64 characters. *)
   org_unit : string prop option; [@option]
-      (** Organization team name. Maximum length is 64 characters. *)
   state : string prop option; [@option]
-      (** State or district name. Maximum length is 128 characters. *)
 }
-[@@deriving yojson_of]
-(** Subject details. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subject) -> ()
+
+let yojson_of_subject =
+  (function
+   | {
+       common_name = v_common_name;
+       country_code = v_country_code;
+       email = v_email;
+       locality = v_locality;
+       org = v_org;
+       org_unit = v_org_unit;
+       state = v_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_org_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "org_unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_org with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "org", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_locality with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "locality", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_country_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "country_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_common_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "common_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : subject -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subject
+
+[@@@deriving.end]
 
 type subject_alternative_dns_names = {
   subject_alternative_name : string prop option; [@option]
-      (** Subject Alternative Name *)
 }
-[@@deriving yojson_of]
-(** List of alternative host names. Maximum length is 255 characters for each value. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subject_alternative_dns_names) -> ()
+
+let yojson_of_subject_alternative_dns_names =
+  (function
+   | { subject_alternative_name = v_subject_alternative_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subject_alternative_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subject_alternative_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : subject_alternative_dns_names ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subject_alternative_dns_names
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type certs_info__cert_info = {
-  basic_constraints : string prop;  (** basic_constraints *)
-  expiry_date : string prop;  (** expiry_date *)
-  is_valid : string prop;  (** is_valid *)
-  issuer : string prop;  (** issuer *)
-  public_key : string prop;  (** public_key *)
-  serial_number : string prop;  (** serial_number *)
-  sig_alg_name : string prop;  (** sig_alg_name *)
-  subject : string prop;  (** subject *)
+  basic_constraints : string prop;
+  expiry_date : string prop;
+  is_valid : string prop;
+  issuer : string prop;
+  public_key : string prop;
+  serial_number : string prop;
+  sig_alg_name : string prop;
+  subject : string prop;
   subject_alternative_names : string prop list;
-      (** subject_alternative_names *)
-  valid_from : string prop;  (** valid_from *)
-  version : float prop;  (** version *)
+  valid_from : string prop;
+  version : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
 
-type certs_info = {
-  cert_info : certs_info__cert_info list;  (** cert_info *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : certs_info__cert_info) -> ()
+
+let yojson_of_certs_info__cert_info =
+  (function
+   | {
+       basic_constraints = v_basic_constraints;
+       expiry_date = v_expiry_date;
+       is_valid = v_is_valid;
+       issuer = v_issuer;
+       public_key = v_public_key;
+       serial_number = v_serial_number;
+       sig_alg_name = v_sig_alg_name;
+       subject = v_subject;
+       subject_alternative_names = v_subject_alternative_names;
+       valid_from = v_valid_from;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_valid_from in
+         ("valid_from", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subject_alternative_names
+         in
+         ("subject_alternative_names", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subject in
+         ("subject", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sig_alg_name in
+         ("sig_alg_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_serial_number in
+         ("serial_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_public_key in
+         ("public_key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_issuer in
+         ("issuer", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_is_valid in
+         ("is_valid", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expiry_date in
+         ("expiry_date", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_basic_constraints
+         in
+         ("basic_constraints", arg) :: bnds
+       in
+       `Assoc bnds
+    : certs_info__cert_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certs_info__cert_info
+
+[@@@deriving.end]
+
+type certs_info = { cert_info : certs_info__cert_info list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certs_info) -> ()
+
+let yojson_of_certs_info =
+  (function
+   | { cert_info = v_cert_info } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_certs_info__cert_info v_cert_info
+         in
+         ("cert_info", arg) :: bnds
+       in
+       `Assoc bnds
+    : certs_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certs_info
+
+[@@@deriving.end]
 
 type google_apigee_keystores_aliases_self_signed_cert = {
   alias : string prop;
-      (** Alias for the key/certificate pair. Values must match the regular expression [\w\s-.]{1,255}.
-This must be provided for all formats except selfsignedcert; self-signed certs may specify the alias in either
-this parameter or the JSON body. *)
   cert_validity_in_days : float prop option; [@option]
-      (** Validity duration of certificate, in days. Accepts positive non-zero value. Defaults to 365. *)
-  environment : string prop;  (** The Apigee environment name *)
-  id : string prop option; [@option]  (** id *)
+  environment : string prop;
+  id : string prop option; [@option]
   key_size : string prop option; [@option]
-      (** Key size. Default and maximum value is 2048 bits. *)
   keystore : string prop;
-      (** The Apigee keystore name associated in an Apigee environment *)
   org_id : string prop;
-      (** The Apigee Organization name associated with the Apigee environment *)
   sig_alg : string prop;
-      (** Signature algorithm to generate private key. Valid values are SHA512withRSA, SHA384withRSA, and SHA256withRSA *)
   subject : subject list;
   subject_alternative_dns_names : subject_alternative_dns_names list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_apigee_keystores_aliases_self_signed_cert *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_apigee_keystores_aliases_self_signed_cert) -> ()
+
+let yojson_of_google_apigee_keystores_aliases_self_signed_cert =
+  (function
+   | {
+       alias = v_alias;
+       cert_validity_in_days = v_cert_validity_in_days;
+       environment = v_environment;
+       id = v_id;
+       key_size = v_key_size;
+       keystore = v_keystore;
+       org_id = v_org_id;
+       sig_alg = v_sig_alg;
+       subject = v_subject;
+       subject_alternative_dns_names =
+         v_subject_alternative_dns_names;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_subject_alternative_dns_names
+             v_subject_alternative_dns_names
+         in
+         ("subject_alternative_dns_names", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_subject v_subject in
+         ("subject", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sig_alg in
+         ("sig_alg", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_org_id in
+         ("org_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_keystore in
+         ("keystore", arg) :: bnds
+       in
+       let bnds =
+         match v_key_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_environment in
+         ("environment", arg) :: bnds
+       in
+       let bnds =
+         match v_cert_validity_in_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cert_validity_in_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alias in
+         ("alias", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_apigee_keystores_aliases_self_signed_cert ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_apigee_keystores_aliases_self_signed_cert
+
+[@@@deriving.end]
 
 let subject ?common_name ?country_code ?email ?locality ?org
     ?org_unit ?state () : subject =

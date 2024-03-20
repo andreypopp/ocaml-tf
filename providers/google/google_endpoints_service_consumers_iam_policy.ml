@@ -3,13 +3,55 @@
 open! Tf_core
 
 type google_endpoints_service_consumers_iam_policy = {
-  consumer_project : string prop;  (** consumer_project *)
-  id : string prop option; [@option]  (** id *)
-  policy_data : string prop;  (** policy_data *)
-  service_name : string prop;  (** service_name *)
+  consumer_project : string prop;
+  id : string prop option; [@option]
+  policy_data : string prop;
+  service_name : string prop;
 }
-[@@deriving yojson_of]
-(** google_endpoints_service_consumers_iam_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_endpoints_service_consumers_iam_policy) -> ()
+
+let yojson_of_google_endpoints_service_consumers_iam_policy =
+  (function
+   | {
+       consumer_project = v_consumer_project;
+       id = v_id;
+       policy_data = v_policy_data;
+       service_name = v_service_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_name in
+         ("service_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_data in
+         ("policy_data", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_consumer_project
+         in
+         ("consumer_project", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_endpoints_service_consumers_iam_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_endpoints_service_consumers_iam_policy
+
+[@@@deriving.end]
 
 let google_endpoints_service_consumers_iam_policy ?id
     ~consumer_project ~policy_data ~service_name () :

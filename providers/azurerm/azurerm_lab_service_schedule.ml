@@ -3,36 +3,209 @@
 open! Tf_core
 
 type recurrence = {
-  expiration_date : string prop;  (** expiration_date *)
-  frequency : string prop;  (** frequency *)
-  interval : float prop option; [@option]  (** interval *)
-  week_days : string prop list option; [@option]  (** week_days *)
+  expiration_date : string prop;
+  frequency : string prop;
+  interval : float prop option; [@option]
+  week_days : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** recurrence *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : recurrence) -> ()
+
+let yojson_of_recurrence =
+  (function
+   | {
+       expiration_date = v_expiration_date;
+       frequency = v_frequency;
+       interval = v_interval;
+       week_days = v_week_days;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_week_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "week_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_interval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "interval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_frequency in
+         ("frequency", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_expiration_date
+         in
+         ("expiration_date", arg) :: bnds
+       in
+       `Assoc bnds
+    : recurrence -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_recurrence
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_lab_service_schedule = {
-  id : string prop option; [@option]  (** id *)
-  lab_id : string prop;  (** lab_id *)
-  name : string prop;  (** name *)
-  notes : string prop option; [@option]  (** notes *)
-  start_time : string prop option; [@option]  (** start_time *)
-  stop_time : string prop;  (** stop_time *)
-  time_zone : string prop;  (** time_zone *)
+  id : string prop option; [@option]
+  lab_id : string prop;
+  name : string prop;
+  notes : string prop option; [@option]
+  start_time : string prop option; [@option]
+  stop_time : string prop;
+  time_zone : string prop;
   recurrence : recurrence list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_lab_service_schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_lab_service_schedule) -> ()
+
+let yojson_of_azurerm_lab_service_schedule =
+  (function
+   | {
+       id = v_id;
+       lab_id = v_lab_id;
+       name = v_name;
+       notes = v_notes;
+       start_time = v_start_time;
+       stop_time = v_stop_time;
+       time_zone = v_time_zone;
+       recurrence = v_recurrence;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_recurrence v_recurrence
+         in
+         ("recurrence", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_zone in
+         ("time_zone", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stop_time in
+         ("stop_time", arg) :: bnds
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_lab_id in
+         ("lab_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_lab_service_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_lab_service_schedule
+
+[@@@deriving.end]
 
 let recurrence ?interval ?week_days ~expiration_date ~frequency () :
     recurrence =

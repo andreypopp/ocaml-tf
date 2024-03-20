@@ -3,51 +3,298 @@
 open! Tf_core
 
 type per_database_settings = {
-  max_capacity : float prop;  (** max_capacity *)
-  min_capacity : float prop;  (** min_capacity *)
+  max_capacity : float prop;
+  min_capacity : float prop;
 }
-[@@deriving yojson_of]
-(** per_database_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : per_database_settings) -> ()
+
+let yojson_of_per_database_settings =
+  (function
+   | { max_capacity = v_max_capacity; min_capacity = v_min_capacity }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_capacity in
+         ("min_capacity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_capacity in
+         ("max_capacity", arg) :: bnds
+       in
+       `Assoc bnds
+    : per_database_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_per_database_settings
+
+[@@@deriving.end]
 
 type sku = {
-  capacity : float prop;  (** capacity *)
-  family : string prop option; [@option]  (** family *)
-  name : string prop;  (** name *)
-  tier : string prop;  (** tier *)
+  capacity : float prop;
+  family : string prop option; [@option]
+  name : string prop;
+  tier : string prop;
 }
-[@@deriving yojson_of]
-(** sku *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sku) -> ()
+
+let yojson_of_sku =
+  (function
+   | {
+       capacity = v_capacity;
+       family = v_family;
+       name = v_name;
+       tier = v_tier;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tier in
+         ("tier", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_family with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "family", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_capacity in
+         ("capacity", arg) :: bnds
+       in
+       `Assoc bnds
+    : sku -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sku
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_mssql_elasticpool = {
-  enclave_type : string prop option; [@option]  (** enclave_type *)
-  id : string prop option; [@option]  (** id *)
-  license_type : string prop option; [@option]  (** license_type *)
-  location : string prop;  (** location *)
+  enclave_type : string prop option; [@option]
+  id : string prop option; [@option]
+  license_type : string prop option; [@option]
+  location : string prop;
   maintenance_configuration_name : string prop option; [@option]
-      (** maintenance_configuration_name *)
   max_size_bytes : float prop option; [@option]
-      (** max_size_bytes *)
-  max_size_gb : float prop option; [@option]  (** max_size_gb *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  server_name : string prop;  (** server_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
-  zone_redundant : bool prop option; [@option]  (** zone_redundant *)
+  max_size_gb : float prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
+  server_name : string prop;
+  tags : (string * string prop) list option; [@option]
+  zone_redundant : bool prop option; [@option]
   per_database_settings : per_database_settings list;
   sku : sku list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_mssql_elasticpool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_mssql_elasticpool) -> ()
+
+let yojson_of_azurerm_mssql_elasticpool =
+  (function
+   | {
+       enclave_type = v_enclave_type;
+       id = v_id;
+       license_type = v_license_type;
+       location = v_location;
+       maintenance_configuration_name =
+         v_maintenance_configuration_name;
+       max_size_bytes = v_max_size_bytes;
+       max_size_gb = v_max_size_gb;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       server_name = v_server_name;
+       tags = v_tags;
+       zone_redundant = v_zone_redundant;
+       per_database_settings = v_per_database_settings;
+       sku = v_sku;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sku v_sku in
+         ("sku", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_per_database_settings
+             v_per_database_settings
+         in
+         ("per_database_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_zone_redundant with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "zone_redundant", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_server_name in
+         ("server_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_max_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_size_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_size_bytes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_size_bytes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maintenance_configuration_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "maintenance_configuration_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_license_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "license_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enclave_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "enclave_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_mssql_elasticpool -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_mssql_elasticpool
+
+[@@@deriving.end]
 
 let per_database_settings ~max_capacity ~min_capacity () :
     per_database_settings =

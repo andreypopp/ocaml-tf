@@ -3,12 +3,49 @@
 open! Tf_core
 
 type google_storage_default_object_acl = {
-  bucket : string prop;  (** bucket *)
-  id : string prop option; [@option]  (** id *)
-  role_entity : string prop list option; [@option]  (** role_entity *)
+  bucket : string prop;
+  id : string prop option; [@option]
+  role_entity : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** google_storage_default_object_acl *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_storage_default_object_acl) -> ()
+
+let yojson_of_google_storage_default_object_acl =
+  (function
+   | { bucket = v_bucket; id = v_id; role_entity = v_role_entity } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_role_entity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "role_entity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_storage_default_object_acl ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_storage_default_object_acl
+
+[@@@deriving.end]
 
 let google_storage_default_object_acl ?id ?role_entity ~bucket () :
     google_storage_default_object_acl =

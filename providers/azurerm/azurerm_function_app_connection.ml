@@ -3,46 +3,267 @@
 open! Tf_core
 
 type authentication = {
-  certificate : string prop option; [@option]  (** certificate *)
-  client_id : string prop option; [@option]  (** client_id *)
-  name : string prop option; [@option]  (** name *)
-  principal_id : string prop option; [@option]  (** principal_id *)
-  secret : string prop option; [@option]  (** secret *)
+  certificate : string prop option; [@option]
+  client_id : string prop option; [@option]
+  name : string prop option; [@option]
+  principal_id : string prop option; [@option]
+  secret : string prop option; [@option]
   subscription_id : string prop option; [@option]
-      (** subscription_id *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** authentication *)
+[@@deriving_inline yojson_of]
 
-type secret_store = {
-  key_vault_id : string prop;  (** key_vault_id *)
-}
-[@@deriving yojson_of]
-(** secret_store *)
+let _ = fun (_ : authentication) -> ()
+
+let yojson_of_authentication =
+  (function
+   | {
+       certificate = v_certificate;
+       client_id = v_client_id;
+       name = v_name;
+       principal_id = v_principal_id;
+       secret = v_secret;
+       subscription_id = v_subscription_id;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_subscription_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subscription_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_principal_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "principal_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : authentication -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authentication
+
+[@@@deriving.end]
+
+type secret_store = { key_vault_id : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secret_store) -> ()
+
+let yojson_of_secret_store =
+  (function
+   | { key_vault_id = v_key_vault_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_vault_id in
+         ("key_vault_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : secret_store -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secret_store
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_function_app_connection = {
-  client_type : string prop option; [@option]  (** client_type *)
-  function_app_id : string prop;  (** function_app_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  target_resource_id : string prop;  (** target_resource_id *)
-  vnet_solution : string prop option; [@option]  (** vnet_solution *)
+  client_type : string prop option; [@option]
+  function_app_id : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  target_resource_id : string prop;
+  vnet_solution : string prop option; [@option]
   authentication : authentication list;
   secret_store : secret_store list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_function_app_connection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_function_app_connection) -> ()
+
+let yojson_of_azurerm_function_app_connection =
+  (function
+   | {
+       client_type = v_client_type;
+       function_app_id = v_function_app_id;
+       id = v_id;
+       name = v_name;
+       target_resource_id = v_target_resource_id;
+       vnet_solution = v_vnet_solution;
+       authentication = v_authentication;
+       secret_store = v_secret_store;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_secret_store v_secret_store
+         in
+         ("secret_store", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authentication v_authentication
+         in
+         ("authentication", arg) :: bnds
+       in
+       let bnds =
+         match v_vnet_solution with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vnet_solution", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_resource_id
+         in
+         ("target_resource_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_function_app_id
+         in
+         ("function_app_id", arg) :: bnds
+       in
+       let bnds =
+         match v_client_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_function_app_connection ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_function_app_connection
+
+[@@@deriving.end]
 
 let authentication ?certificate ?client_id ?name ?principal_id
     ?secret ?subscription_id ~type_ () : authentication =

@@ -4,42 +4,232 @@ open! Tf_core
 
 type tls_config = {
   insecure_skip_verification : bool prop option; [@option]
-      (** insecure_skip_verification *)
 }
-[@@deriving yojson_of]
-(** tls_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tls_config) -> ()
+
+let yojson_of_tls_config =
+  (function
+   | { insecure_skip_verification = v_insecure_skip_verification } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_insecure_skip_verification with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "insecure_skip_verification", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : tls_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tls_config
+
+[@@@deriving.end]
 
 type aws_api_gateway_integration = {
   cache_key_parameters : string prop list option; [@option]
-      (** cache_key_parameters *)
   cache_namespace : string prop option; [@option]
-      (** cache_namespace *)
-  connection_id : string prop option; [@option]  (** connection_id *)
+  connection_id : string prop option; [@option]
   connection_type : string prop option; [@option]
-      (** connection_type *)
   content_handling : string prop option; [@option]
-      (** content_handling *)
-  credentials : string prop option; [@option]  (** credentials *)
-  http_method : string prop;  (** http_method *)
-  id : string prop option; [@option]  (** id *)
+  credentials : string prop option; [@option]
+  http_method : string prop;
+  id : string prop option; [@option]
   integration_http_method : string prop option; [@option]
-      (** integration_http_method *)
   passthrough_behavior : string prop option; [@option]
-      (** passthrough_behavior *)
   request_parameters : (string * string prop) list option; [@option]
-      (** request_parameters *)
   request_templates : (string * string prop) list option; [@option]
-      (** request_templates *)
-  resource_id : string prop;  (** resource_id *)
-  rest_api_id : string prop;  (** rest_api_id *)
+  resource_id : string prop;
+  rest_api_id : string prop;
   timeout_milliseconds : float prop option; [@option]
-      (** timeout_milliseconds *)
-  type_ : string prop; [@key "type"]  (** type *)
-  uri : string prop option; [@option]  (** uri *)
+  type_ : string prop; [@key "type"]
+  uri : string prop option; [@option]
   tls_config : tls_config list;
 }
-[@@deriving yojson_of]
-(** aws_api_gateway_integration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_api_gateway_integration) -> ()
+
+let yojson_of_aws_api_gateway_integration =
+  (function
+   | {
+       cache_key_parameters = v_cache_key_parameters;
+       cache_namespace = v_cache_namespace;
+       connection_id = v_connection_id;
+       connection_type = v_connection_type;
+       content_handling = v_content_handling;
+       credentials = v_credentials;
+       http_method = v_http_method;
+       id = v_id;
+       integration_http_method = v_integration_http_method;
+       passthrough_behavior = v_passthrough_behavior;
+       request_parameters = v_request_parameters;
+       request_templates = v_request_templates;
+       resource_id = v_resource_id;
+       rest_api_id = v_rest_api_id;
+       timeout_milliseconds = v_timeout_milliseconds;
+       type_ = v_type_;
+       uri = v_uri;
+       tls_config = v_tls_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_tls_config v_tls_config
+         in
+         ("tls_config", arg) :: bnds
+       in
+       let bnds =
+         match v_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_milliseconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_milliseconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rest_api_id in
+         ("rest_api_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_id in
+         ("resource_id", arg) :: bnds
+       in
+       let bnds =
+         match v_request_templates with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "request_templates", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_request_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "request_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_passthrough_behavior with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "passthrough_behavior", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_integration_http_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integration_http_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_http_method in
+         ("http_method", arg) :: bnds
+       in
+       let bnds =
+         match v_credentials with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "credentials", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_handling with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_handling", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connection_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connection_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cache_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cache_namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cache_key_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "cache_key_parameters", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_api_gateway_integration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_api_gateway_integration
+
+[@@@deriving.end]
 
 let tls_config ?insecure_skip_verification () : tls_config =
   { insecure_skip_verification }

@@ -4,21 +4,75 @@ open! Tf_core
 
 type cloudflare_filter = {
   description : string prop option; [@option]
-      (** A note that you can use to describe the purpose of the filter. *)
-  expression : string prop;  (** The filter expression to be used. *)
-  id : string prop option; [@option]  (** id *)
+  expression : string prop;
+  id : string prop option; [@option]
   paused : bool prop option; [@option]
-      (** Whether this filter is currently paused. *)
   ref : string prop option; [@option]
-      (** Short reference tag to quickly select related rules. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Filter expressions that can be referenced across multiple features,
-e.g. Firewall Rules. See [what is a filter](https://developers.cloudflare.com/firewall/api/cf-filters/what-is-a-filter/)
-for more details and available fields and operators.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_filter) -> ()
+
+let yojson_of_cloudflare_filter =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       id = v_id;
+       paused = v_paused;
+       ref = v_ref;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_ref with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ref", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_paused with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "paused", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_filter
+
+[@@@deriving.end]
 
 let cloudflare_filter ?description ?id ?paused ?ref ~expression
     ~zone_id () : cloudflare_filter =

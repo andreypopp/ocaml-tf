@@ -4,49 +4,195 @@ open! Tf_core
 
 type restrictions__android_key_restrictions__allowed_applications = {
   package_name : string prop;
-      (** The package name of the application. *)
   sha1_fingerprint : string prop;
-      (** The SHA1 fingerprint of the application. For example, both sha1 formats are acceptable : DA:39:A3:EE:5E:6B:4B:0D:32:55:BF:EF:95:60:18:90:AF:D8:07:09 or DA39A3EE5E6B4B0D3255BFEF95601890AFD80709. Output format is the latter. *)
 }
-[@@deriving yojson_of]
-(** A list of Android applications that are allowed to make API calls with this key. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       restrictions__android_key_restrictions__allowed_applications) ->
+  ()
+
+let yojson_of_restrictions__android_key_restrictions__allowed_applications
+    =
+  (function
+   | {
+       package_name = v_package_name;
+       sha1_fingerprint = v_sha1_fingerprint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_sha1_fingerprint
+         in
+         ("sha1_fingerprint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_package_name in
+         ("package_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : restrictions__android_key_restrictions__allowed_applications ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_restrictions__android_key_restrictions__allowed_applications
+
+[@@@deriving.end]
 
 type restrictions__android_key_restrictions = {
   allowed_applications :
     restrictions__android_key_restrictions__allowed_applications list;
 }
-[@@deriving yojson_of]
-(** The Android apps that are allowed to use the key. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restrictions__android_key_restrictions) -> ()
+
+let yojson_of_restrictions__android_key_restrictions =
+  (function
+   | { allowed_applications = v_allowed_applications } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_restrictions__android_key_restrictions__allowed_applications
+             v_allowed_applications
+         in
+         ("allowed_applications", arg) :: bnds
+       in
+       `Assoc bnds
+    : restrictions__android_key_restrictions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restrictions__android_key_restrictions
+
+[@@@deriving.end]
 
 type restrictions__api_targets = {
   methods : string prop list option; [@option]
-      (** Optional. List of one or more methods that can be called. If empty, all methods for the service are allowed. A wildcard (\*\) can be used as the last symbol. Valid examples: `google.cloud.translate.v2.TranslateService.GetSupportedLanguage` `TranslateText` `Get*` `translate.googleapis.com.Get*` *)
   service : string prop;
-      (** The service for this restriction. It should be the canonical service name, for example: `translate.googleapis.com`. You can use `gcloud services list` to get a list of services that are enabled in the project. *)
 }
-[@@deriving yojson_of]
-(** A restriction for a specific service and optionally one or more specific methods. Requests are allowed if they match any of these restrictions. If no restrictions are specified, all targets are allowed. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restrictions__api_targets) -> ()
+
+let yojson_of_restrictions__api_targets =
+  (function
+   | { methods = v_methods; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         match v_methods with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "methods", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : restrictions__api_targets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restrictions__api_targets
+
+[@@@deriving.end]
 
 type restrictions__browser_key_restrictions = {
   allowed_referrers : string prop list;
-      (** A list of regular expressions for the referrer URLs that are allowed to make API calls with this key. *)
 }
-[@@deriving yojson_of]
-(** The HTTP referrers (websites) that are allowed to use the key. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restrictions__browser_key_restrictions) -> ()
+
+let yojson_of_restrictions__browser_key_restrictions =
+  (function
+   | { allowed_referrers = v_allowed_referrers } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_referrers
+         in
+         ("allowed_referrers", arg) :: bnds
+       in
+       `Assoc bnds
+    : restrictions__browser_key_restrictions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restrictions__browser_key_restrictions
+
+[@@@deriving.end]
 
 type restrictions__ios_key_restrictions = {
   allowed_bundle_ids : string prop list;
-      (** A list of bundle IDs that are allowed when making API calls with this key. *)
 }
-[@@deriving yojson_of]
-(** The iOS apps that are allowed to use the key. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restrictions__ios_key_restrictions) -> ()
+
+let yojson_of_restrictions__ios_key_restrictions =
+  (function
+   | { allowed_bundle_ids = v_allowed_bundle_ids } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_bundle_ids
+         in
+         ("allowed_bundle_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : restrictions__ios_key_restrictions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restrictions__ios_key_restrictions
+
+[@@@deriving.end]
 
 type restrictions__server_key_restrictions = {
   allowed_ips : string prop list;
-      (** A list of the caller IP addresses that are allowed to make API calls with this key. *)
 }
-[@@deriving yojson_of]
-(** The IP addresses of callers that are allowed to use the key. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restrictions__server_key_restrictions) -> ()
+
+let yojson_of_restrictions__server_key_restrictions =
+  (function
+   | { allowed_ips = v_allowed_ips } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_ips
+         in
+         ("allowed_ips", arg) :: bnds
+       in
+       `Assoc bnds
+    : restrictions__server_key_restrictions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restrictions__server_key_restrictions
+
+[@@@deriving.end]
 
 type restrictions = {
   android_key_restrictions :
@@ -58,30 +204,183 @@ type restrictions = {
   server_key_restrictions :
     restrictions__server_key_restrictions list;
 }
-[@@deriving yojson_of]
-(** Key restrictions. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restrictions) -> ()
+
+let yojson_of_restrictions =
+  (function
+   | {
+       android_key_restrictions = v_android_key_restrictions;
+       api_targets = v_api_targets;
+       browser_key_restrictions = v_browser_key_restrictions;
+       ios_key_restrictions = v_ios_key_restrictions;
+       server_key_restrictions = v_server_key_restrictions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_restrictions__server_key_restrictions
+             v_server_key_restrictions
+         in
+         ("server_key_restrictions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_restrictions__ios_key_restrictions
+             v_ios_key_restrictions
+         in
+         ("ios_key_restrictions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_restrictions__browser_key_restrictions
+             v_browser_key_restrictions
+         in
+         ("browser_key_restrictions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_restrictions__api_targets
+             v_api_targets
+         in
+         ("api_targets", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_restrictions__android_key_restrictions
+             v_android_key_restrictions
+         in
+         ("android_key_restrictions", arg) :: bnds
+       in
+       `Assoc bnds
+    : restrictions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restrictions
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_apikeys_key = {
   display_name : string prop option; [@option]
-      (** Human-readable display name of this API key. Modifiable by user. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The resource name of the key. The name must be unique within the project, must conform with RFC-1034, is restricted to lower-cased letters, and has a maximum length of 63 characters. In another word, the name must match the regular expression: `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`. *)
   project : string prop option; [@option]
-      (** The project for the resource *)
   restrictions : restrictions list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_apikeys_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_apikeys_key) -> ()
+
+let yojson_of_google_apikeys_key =
+  (function
+   | {
+       display_name = v_display_name;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       restrictions = v_restrictions;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_restrictions v_restrictions
+         in
+         ("restrictions", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_apikeys_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_apikeys_key
+
+[@@@deriving.end]
 
 let restrictions__android_key_restrictions__allowed_applications
     ~package_name ~sha1_fingerprint () :

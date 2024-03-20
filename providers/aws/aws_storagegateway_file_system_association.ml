@@ -4,26 +4,144 @@ open! Tf_core
 
 type cache_attributes = {
   cache_stale_timeout_in_seconds : float prop option; [@option]
-      (** cache_stale_timeout_in_seconds *)
 }
-[@@deriving yojson_of]
-(** cache_attributes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cache_attributes) -> ()
+
+let yojson_of_cache_attributes =
+  (function
+   | {
+       cache_stale_timeout_in_seconds =
+         v_cache_stale_timeout_in_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_cache_stale_timeout_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cache_stale_timeout_in_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cache_attributes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cache_attributes
+
+[@@@deriving.end]
 
 type aws_storagegateway_file_system_association = {
   audit_destination_arn : string prop option; [@option]
-      (** audit_destination_arn *)
-  gateway_arn : string prop;  (** gateway_arn *)
-  id : string prop option; [@option]  (** id *)
-  location_arn : string prop;  (** location_arn *)
-  password : string prop;  (** password *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  gateway_arn : string prop;
+  id : string prop option; [@option]
+  location_arn : string prop;
+  password : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  username : string prop;  (** username *)
+  username : string prop;
   cache_attributes : cache_attributes list;
 }
-[@@deriving yojson_of]
-(** aws_storagegateway_file_system_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_storagegateway_file_system_association) -> ()
+
+let yojson_of_aws_storagegateway_file_system_association =
+  (function
+   | {
+       audit_destination_arn = v_audit_destination_arn;
+       gateway_arn = v_gateway_arn;
+       id = v_id;
+       location_arn = v_location_arn;
+       password = v_password;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       username = v_username;
+       cache_attributes = v_cache_attributes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cache_attributes
+             v_cache_attributes
+         in
+         ("cache_attributes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location_arn in
+         ("location_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_gateway_arn in
+         ("gateway_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_audit_destination_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "audit_destination_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_storagegateway_file_system_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_storagegateway_file_system_association
+
+[@@@deriving.end]
 
 let cache_attributes ?cache_stale_timeout_in_seconds () :
     cache_attributes =

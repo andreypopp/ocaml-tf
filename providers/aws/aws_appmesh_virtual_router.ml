@@ -3,33 +3,179 @@
 open! Tf_core
 
 type spec__listener__port_mapping = {
-  port : float prop;  (** port *)
-  protocol : string prop;  (** protocol *)
+  port : float prop;
+  protocol : string prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__port_mapping *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__port_mapping) -> ()
+
+let yojson_of_spec__listener__port_mapping =
+  (function
+   | { port = v_port; protocol = v_protocol } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__port_mapping ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__port_mapping
+
+[@@@deriving.end]
 
 type spec__listener = {
   port_mapping : spec__listener__port_mapping list;
 }
-[@@deriving yojson_of]
-(** spec__listener *)
+[@@deriving_inline yojson_of]
 
-type spec = { listener : spec__listener list } [@@deriving yojson_of]
-(** spec *)
+let _ = fun (_ : spec__listener) -> ()
+
+let yojson_of_spec__listener =
+  (function
+   | { port_mapping = v_port_mapping } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__listener__port_mapping
+             v_port_mapping
+         in
+         ("port_mapping", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener
+
+[@@@deriving.end]
+
+type spec = { listener : spec__listener list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | { listener = v_listener } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__listener v_listener
+         in
+         ("listener", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type aws_appmesh_virtual_router = {
-  id : string prop option; [@option]  (** id *)
-  mesh_name : string prop;  (** mesh_name *)
-  mesh_owner : string prop option; [@option]  (** mesh_owner *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  mesh_name : string prop;
+  mesh_owner : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   spec : spec list;
 }
-[@@deriving yojson_of]
-(** aws_appmesh_virtual_router *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appmesh_virtual_router) -> ()
+
+let yojson_of_aws_appmesh_virtual_router =
+  (function
+   | {
+       id = v_id;
+       mesh_name = v_mesh_name;
+       mesh_owner = v_mesh_owner;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       spec = v_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mesh_owner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mesh_owner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mesh_name in
+         ("mesh_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_appmesh_virtual_router -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appmesh_virtual_router
+
+[@@@deriving.end]
 
 let spec__listener__port_mapping ~port ~protocol () :
     spec__listener__port_mapping =

@@ -4,26 +4,145 @@ open! Tf_core
 
 type aws_api_gateway_method = {
   api_key_required : bool prop option; [@option]
-      (** api_key_required *)
-  authorization : string prop;  (** authorization *)
+  authorization : string prop;
   authorization_scopes : string prop list option; [@option]
-      (** authorization_scopes *)
-  authorizer_id : string prop option; [@option]  (** authorizer_id *)
-  http_method : string prop;  (** http_method *)
-  id : string prop option; [@option]  (** id *)
+  authorizer_id : string prop option; [@option]
+  http_method : string prop;
+  id : string prop option; [@option]
   operation_name : string prop option; [@option]
-      (** operation_name *)
   request_models : (string * string prop) list option; [@option]
-      (** request_models *)
   request_parameters : (string * bool prop) list option; [@option]
-      (** request_parameters *)
   request_validator_id : string prop option; [@option]
-      (** request_validator_id *)
-  resource_id : string prop;  (** resource_id *)
-  rest_api_id : string prop;  (** rest_api_id *)
+  resource_id : string prop;
+  rest_api_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_api_gateway_method *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_api_gateway_method) -> ()
+
+let yojson_of_aws_api_gateway_method =
+  (function
+   | {
+       api_key_required = v_api_key_required;
+       authorization = v_authorization;
+       authorization_scopes = v_authorization_scopes;
+       authorizer_id = v_authorizer_id;
+       http_method = v_http_method;
+       id = v_id;
+       operation_name = v_operation_name;
+       request_models = v_request_models;
+       request_parameters = v_request_parameters;
+       request_validator_id = v_request_validator_id;
+       resource_id = v_resource_id;
+       rest_api_id = v_rest_api_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rest_api_id in
+         ("rest_api_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_id in
+         ("resource_id", arg) :: bnds
+       in
+       let bnds =
+         match v_request_validator_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "request_validator_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_request_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_bool v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "request_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_request_models with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "request_models", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operation_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operation_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_http_method in
+         ("http_method", arg) :: bnds
+       in
+       let bnds =
+         match v_authorizer_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "authorizer_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authorization_scopes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "authorization_scopes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_authorization in
+         ("authorization", arg) :: bnds
+       in
+       let bnds =
+         match v_api_key_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "api_key_required", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_api_gateway_method -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_api_gateway_method
+
+[@@@deriving.end]
 
 let aws_api_gateway_method ?api_key_required ?authorization_scopes
     ?authorizer_id ?id ?operation_name ?request_models

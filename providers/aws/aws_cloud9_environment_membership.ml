@@ -3,13 +3,55 @@
 open! Tf_core
 
 type aws_cloud9_environment_membership = {
-  environment_id : string prop;  (** environment_id *)
-  id : string prop option; [@option]  (** id *)
-  permissions : string prop;  (** permissions *)
-  user_arn : string prop;  (** user_arn *)
+  environment_id : string prop;
+  id : string prop option; [@option]
+  permissions : string prop;
+  user_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_cloud9_environment_membership *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloud9_environment_membership) -> ()
+
+let yojson_of_aws_cloud9_environment_membership =
+  (function
+   | {
+       environment_id = v_environment_id;
+       id = v_id;
+       permissions = v_permissions;
+       user_arn = v_user_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_arn in
+         ("user_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_permissions in
+         ("permissions", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_environment_id
+         in
+         ("environment_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloud9_environment_membership ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloud9_environment_membership
+
+[@@@deriving.end]
 
 let aws_cloud9_environment_membership ?id ~environment_id
     ~permissions ~user_arn () : aws_cloud9_environment_membership =

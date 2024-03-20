@@ -3,32 +3,154 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type meta_data = {
-  created_at : string prop;  (** created_at *)
-  last_modified_at : string prop;  (** last_modified_at *)
-  sub_type : string prop;  (** sub_type *)
+  created_at : string prop;
+  last_modified_at : string prop;
+  sub_type : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : meta_data) -> ()
+
+let yojson_of_meta_data =
+  (function
+   | {
+       created_at = v_created_at;
+       last_modified_at = v_last_modified_at;
+       sub_type = v_sub_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sub_type in
+         ("sub_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_last_modified_at
+         in
+         ("last_modified_at", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_created_at in
+         ("created_at", arg) :: bnds
+       in
+       `Assoc bnds
+    : meta_data -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_meta_data
+
+[@@@deriving.end]
 
 type google_apigee_sharedflow = {
-  config_bundle : string prop;  (** Path to the config zip bundle *)
+  config_bundle : string prop;
   detect_md5hash : string prop option; [@option]
-      (** A hash of local config bundle in string, user needs to use a Terraform Hash function of their choice. A change in hash will trigger an update. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The ID of the shared flow. *)
+  id : string prop option; [@option]
+  name : string prop;
   org_id : string prop;
-      (** The Apigee Organization name associated with the Apigee instance. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_apigee_sharedflow *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_apigee_sharedflow) -> ()
+
+let yojson_of_google_apigee_sharedflow =
+  (function
+   | {
+       config_bundle = v_config_bundle;
+       detect_md5hash = v_detect_md5hash;
+       id = v_id;
+       name = v_name;
+       org_id = v_org_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_org_id in
+         ("org_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_detect_md5hash with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "detect_md5hash", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_config_bundle in
+         ("config_bundle", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_apigee_sharedflow -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_apigee_sharedflow
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

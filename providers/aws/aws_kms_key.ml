@@ -2,37 +2,214 @@
 
 open! Tf_core
 
-type timeouts = {
-  create : string prop option; [@option]  (** create *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_kms_key = {
   bypass_policy_lockout_safety_check : bool prop option; [@option]
-      (** bypass_policy_lockout_safety_check *)
   custom_key_store_id : string prop option; [@option]
-      (** custom_key_store_id *)
   customer_master_key_spec : string prop option; [@option]
-      (** customer_master_key_spec *)
   deletion_window_in_days : float prop option; [@option]
-      (** deletion_window_in_days *)
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   enable_key_rotation : bool prop option; [@option]
-      (** enable_key_rotation *)
-  id : string prop option; [@option]  (** id *)
-  is_enabled : bool prop option; [@option]  (** is_enabled *)
-  key_usage : string prop option; [@option]  (** key_usage *)
-  multi_region : bool prop option; [@option]  (** multi_region *)
-  policy : string prop option; [@option]  (** policy *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  is_enabled : bool prop option; [@option]
+  key_usage : string prop option; [@option]
+  multi_region : bool prop option; [@option]
+  policy : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  xks_key_id : string prop option; [@option]  (** xks_key_id *)
+  xks_key_id : string prop option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_kms_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_kms_key) -> ()
+
+let yojson_of_aws_kms_key =
+  (function
+   | {
+       bypass_policy_lockout_safety_check =
+         v_bypass_policy_lockout_safety_check;
+       custom_key_store_id = v_custom_key_store_id;
+       customer_master_key_spec = v_customer_master_key_spec;
+       deletion_window_in_days = v_deletion_window_in_days;
+       description = v_description;
+       enable_key_rotation = v_enable_key_rotation;
+       id = v_id;
+       is_enabled = v_is_enabled;
+       key_usage = v_key_usage;
+       multi_region = v_multi_region;
+       policy = v_policy;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       xks_key_id = v_xks_key_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_xks_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "xks_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_multi_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "multi_region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_usage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_usage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_key_rotation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_key_rotation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_window_in_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "deletion_window_in_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_customer_master_key_spec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "customer_master_key_spec", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_key_store_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_key_store_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bypass_policy_lockout_safety_check with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bypass_policy_lockout_safety_check", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_kms_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_kms_key
+
+[@@@deriving.end]
 
 let timeouts ?create () : timeouts = { create }
 

@@ -3,40 +3,177 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_vmwareengine_network_peering = {
   description : string prop option; [@option]
-      (** User-provided description for this network peering. *)
   export_custom_routes : bool prop option; [@option]
-      (** True if custom routes are exported to the peered network; false otherwise. *)
   export_custom_routes_with_public_ip : bool prop option; [@option]
-      (** True if all subnet routes with a public IP address range are exported; false otherwise. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   import_custom_routes : bool prop option; [@option]
-      (** True if custom routes are imported from the peered network; false otherwise. *)
   import_custom_routes_with_public_ip : bool prop option; [@option]
-      (** True if custom routes are imported from the peered network; false otherwise. *)
-  name : string prop;  (** The ID of the Network Peering. *)
+  name : string prop;
   peer_network : string prop;
-      (** The relative resource name of the network to peer with a standard VMware Engine network.
-The provided network can be a consumer VPC network or another standard VMware Engine network. *)
   peer_network_type : string prop;
-      (** The type of the network to peer with the VMware Engine network. Possible values: [STANDARD, VMWARE_ENGINE_NETWORK, PRIVATE_SERVICES_ACCESS, NETAPP_CLOUD_VOLUMES, THIRD_PARTY_SERVICE, DELL_POWERSCALE] *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   vmware_engine_network : string prop;
-      (** The relative resource name of the VMware Engine network. Specify the name in the following form:
-projects/{project}/locations/{location}/vmwareEngineNetworks/{vmwareEngineNetworkId} where {project}
-can either be a project number or a project ID. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vmwareengine_network_peering *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_vmwareengine_network_peering) -> ()
+
+let yojson_of_google_vmwareengine_network_peering =
+  (function
+   | {
+       description = v_description;
+       export_custom_routes = v_export_custom_routes;
+       export_custom_routes_with_public_ip =
+         v_export_custom_routes_with_public_ip;
+       id = v_id;
+       import_custom_routes = v_import_custom_routes;
+       import_custom_routes_with_public_ip =
+         v_import_custom_routes_with_public_ip;
+       name = v_name;
+       peer_network = v_peer_network;
+       peer_network_type = v_peer_network_type;
+       project = v_project;
+       vmware_engine_network = v_vmware_engine_network;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_vmware_engine_network
+         in
+         ("vmware_engine_network", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_peer_network_type
+         in
+         ("peer_network_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_peer_network in
+         ("peer_network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_import_custom_routes_with_public_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "import_custom_routes_with_public_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_import_custom_routes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "import_custom_routes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_export_custom_routes_with_public_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "export_custom_routes_with_public_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_export_custom_routes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "export_custom_routes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_vmwareengine_network_peering ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vmwareengine_network_peering
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

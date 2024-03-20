@@ -4,19 +4,56 @@ open! Tf_core
 
 type cloudflare_worker_cron_trigger = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   schedules : string prop list;
-      (** Cron expressions to execute the Worker script. *)
   script_name : string prop;
-      (** Worker script to target for the schedules. *)
 }
-[@@deriving yojson_of]
-(** Worker Cron Triggers allow users to map a cron expression to a Worker script
-using a `ScheduledEvent` listener that enables Workers to be executed on a
-schedule. Worker Cron Triggers are ideal for running periodic jobs for
-maintenance or calling third-party APIs to collect up-to-date data.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_worker_cron_trigger) -> ()
+
+let yojson_of_cloudflare_worker_cron_trigger =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       schedules = v_schedules;
+       script_name = v_script_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_script_name in
+         ("script_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_schedules
+         in
+         ("schedules", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_worker_cron_trigger ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_worker_cron_trigger
+
+[@@@deriving.end]
 
 let cloudflare_worker_cron_trigger ?id ~account_id ~schedules
     ~script_name () : cloudflare_worker_cron_trigger =

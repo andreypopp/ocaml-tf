@@ -3,15 +3,69 @@
 open! Tf_core
 
 type aws_amplify_backend_environment = {
-  app_id : string prop;  (** app_id *)
+  app_id : string prop;
   deployment_artifacts : string prop option; [@option]
-      (** deployment_artifacts *)
-  environment_name : string prop;  (** environment_name *)
-  id : string prop option; [@option]  (** id *)
-  stack_name : string prop option; [@option]  (** stack_name *)
+  environment_name : string prop;
+  id : string prop option; [@option]
+  stack_name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_amplify_backend_environment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_amplify_backend_environment) -> ()
+
+let yojson_of_aws_amplify_backend_environment =
+  (function
+   | {
+       app_id = v_app_id;
+       deployment_artifacts = v_deployment_artifacts;
+       environment_name = v_environment_name;
+       id = v_id;
+       stack_name = v_stack_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_stack_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stack_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_environment_name
+         in
+         ("environment_name", arg) :: bnds
+       in
+       let bnds =
+         match v_deployment_artifacts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deployment_artifacts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_app_id in
+         ("app_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_amplify_backend_environment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_amplify_backend_environment
+
+[@@@deriving.end]
 
 let aws_amplify_backend_environment ?deployment_artifacts ?id
     ?stack_name ~app_id ~environment_name () :

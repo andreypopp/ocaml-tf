@@ -3,43 +3,257 @@
 open! Tf_core
 
 type linked_service = {
-  name : string prop;  (** name *)
+  name : string prop;
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
 }
-[@@deriving yojson_of]
-(** linked_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : linked_service) -> ()
+
+let yojson_of_linked_service =
+  (function
+   | { name = v_name; parameters = v_parameters } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : linked_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_linked_service
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_data_factory_custom_dataset = {
   additional_properties : (string * string prop) list option;
       [@option]
-      (** additional_properties *)
   annotations : string prop list option; [@option]
-      (** annotations *)
-  data_factory_id : string prop;  (** data_factory_id *)
-  description : string prop option; [@option]  (** description *)
-  folder : string prop option; [@option]  (** folder *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  data_factory_id : string prop;
+  description : string prop option; [@option]
+  folder : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
-  schema_json : string prop option; [@option]  (** schema_json *)
-  type_ : string prop; [@key "type"]  (** type *)
-  type_properties_json : string prop;  (** type_properties_json *)
+  schema_json : string prop option; [@option]
+  type_ : string prop; [@key "type"]
+  type_properties_json : string prop;
   linked_service : linked_service list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_data_factory_custom_dataset *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_data_factory_custom_dataset) -> ()
+
+let yojson_of_azurerm_data_factory_custom_dataset =
+  (function
+   | {
+       additional_properties = v_additional_properties;
+       annotations = v_annotations;
+       data_factory_id = v_data_factory_id;
+       description = v_description;
+       folder = v_folder;
+       id = v_id;
+       name = v_name;
+       parameters = v_parameters;
+       schema_json = v_schema_json;
+       type_ = v_type_;
+       type_properties_json = v_type_properties_json;
+       linked_service = v_linked_service;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_linked_service v_linked_service
+         in
+         ("linked_service", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_type_properties_json
+         in
+         ("type_properties_json", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_schema_json with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schema_json", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_folder with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "folder", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_factory_id
+         in
+         ("data_factory_id", arg) :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_additional_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "additional_properties", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_data_factory_custom_dataset ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_data_factory_custom_dataset
+
+[@@@deriving.end]
 
 let linked_service ?parameters ~name () : linked_service =
   { name; parameters }

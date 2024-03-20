@@ -4,232 +4,1177 @@ open! Tf_core
 
 type artifacts = {
   artifact_identifier : string prop option; [@option]
-      (** artifact_identifier *)
   bucket_owner_access : string prop option; [@option]
-      (** bucket_owner_access *)
   encryption_disabled : bool prop option; [@option]
-      (** encryption_disabled *)
-  location : string prop option; [@option]  (** location *)
-  name : string prop option; [@option]  (** name *)
+  location : string prop option; [@option]
+  name : string prop option; [@option]
   namespace_type : string prop option; [@option]
-      (** namespace_type *)
   override_artifact_name : bool prop option; [@option]
-      (** override_artifact_name *)
-  packaging : string prop option; [@option]  (** packaging *)
-  path : string prop option; [@option]  (** path *)
-  type_ : string prop; [@key "type"]  (** type *)
+  packaging : string prop option; [@option]
+  path : string prop option; [@option]
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** artifacts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : artifacts) -> ()
+
+let yojson_of_artifacts =
+  (function
+   | {
+       artifact_identifier = v_artifact_identifier;
+       bucket_owner_access = v_bucket_owner_access;
+       encryption_disabled = v_encryption_disabled;
+       location = v_location;
+       name = v_name;
+       namespace_type = v_namespace_type;
+       override_artifact_name = v_override_artifact_name;
+       packaging = v_packaging;
+       path = v_path;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_packaging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "packaging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_override_artifact_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "override_artifact_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_namespace_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encryption_disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bucket_owner_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket_owner_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_artifact_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "artifact_identifier", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : artifacts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_artifacts
+
+[@@@deriving.end]
 
 type build_batch_config__restrictions = {
   compute_types_allowed : string prop list option; [@option]
-      (** compute_types_allowed *)
   maximum_builds_allowed : float prop option; [@option]
-      (** maximum_builds_allowed *)
 }
-[@@deriving yojson_of]
-(** build_batch_config__restrictions *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_batch_config__restrictions) -> ()
+
+let yojson_of_build_batch_config__restrictions =
+  (function
+   | {
+       compute_types_allowed = v_compute_types_allowed;
+       maximum_builds_allowed = v_maximum_builds_allowed;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_maximum_builds_allowed with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_builds_allowed", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compute_types_allowed with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "compute_types_allowed", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build_batch_config__restrictions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_batch_config__restrictions
+
+[@@@deriving.end]
 
 type build_batch_config = {
   combine_artifacts : bool prop option; [@option]
-      (** combine_artifacts *)
-  service_role : string prop;  (** service_role *)
+  service_role : string prop;
   timeout_in_mins : float prop option; [@option]
-      (** timeout_in_mins *)
   restrictions : build_batch_config__restrictions list;
 }
-[@@deriving yojson_of]
-(** build_batch_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build_batch_config) -> ()
+
+let yojson_of_build_batch_config =
+  (function
+   | {
+       combine_artifacts = v_combine_artifacts;
+       service_role = v_service_role;
+       timeout_in_mins = v_timeout_in_mins;
+       restrictions = v_restrictions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build_batch_config__restrictions
+             v_restrictions
+         in
+         ("restrictions", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_in_mins with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_in_mins", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_role in
+         ("service_role", arg) :: bnds
+       in
+       let bnds =
+         match v_combine_artifacts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "combine_artifacts", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build_batch_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_batch_config
+
+[@@@deriving.end]
 
 type cache = {
-  location : string prop option; [@option]  (** location *)
-  modes : string prop list option; [@option]  (** modes *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  location : string prop option; [@option]
+  modes : string prop list option; [@option]
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** cache *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cache) -> ()
+
+let yojson_of_cache =
+  (function
+   | { location = v_location; modes = v_modes; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_modes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "modes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cache -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cache
+
+[@@@deriving.end]
 
 type environment__environment_variable = {
-  name : string prop;  (** name *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
-  value : string prop;  (** value *)
+  name : string prop;
+  type_ : string prop option; [@option] [@key "type"]
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** environment__environment_variable *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : environment__environment_variable) -> ()
+
+let yojson_of_environment__environment_variable =
+  (function
+   | { name = v_name; type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : environment__environment_variable ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_environment__environment_variable
+
+[@@@deriving.end]
 
 type environment__registry_credential = {
-  credential : string prop;  (** credential *)
-  credential_provider : string prop;  (** credential_provider *)
+  credential : string prop;
+  credential_provider : string prop;
 }
-[@@deriving yojson_of]
-(** environment__registry_credential *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : environment__registry_credential) -> ()
+
+let yojson_of_environment__registry_credential =
+  (function
+   | {
+       credential = v_credential;
+       credential_provider = v_credential_provider;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_credential_provider
+         in
+         ("credential_provider", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_credential in
+         ("credential", arg) :: bnds
+       in
+       `Assoc bnds
+    : environment__registry_credential ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_environment__registry_credential
+
+[@@@deriving.end]
 
 type environment = {
-  certificate : string prop option; [@option]  (** certificate *)
-  compute_type : string prop;  (** compute_type *)
-  image : string prop;  (** image *)
+  certificate : string prop option; [@option]
+  compute_type : string prop;
+  image : string prop;
   image_pull_credentials_type : string prop option; [@option]
-      (** image_pull_credentials_type *)
   privileged_mode : bool prop option; [@option]
-      (** privileged_mode *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
   environment_variable : environment__environment_variable list;
   registry_credential : environment__registry_credential list;
 }
-[@@deriving yojson_of]
-(** environment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : environment) -> ()
+
+let yojson_of_environment =
+  (function
+   | {
+       certificate = v_certificate;
+       compute_type = v_compute_type;
+       image = v_image;
+       image_pull_credentials_type = v_image_pull_credentials_type;
+       privileged_mode = v_privileged_mode;
+       type_ = v_type_;
+       environment_variable = v_environment_variable;
+       registry_credential = v_registry_credential;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_environment__registry_credential
+             v_registry_credential
+         in
+         ("registry_credential", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_environment__environment_variable
+             v_environment_variable
+         in
+         ("environment_variable", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_privileged_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "privileged_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_pull_credentials_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_pull_credentials_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_image in
+         ("image", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_compute_type in
+         ("compute_type", arg) :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : environment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_environment
+
+[@@@deriving.end]
 
 type file_system_locations = {
-  identifier : string prop option; [@option]  (** identifier *)
-  location : string prop option; [@option]  (** location *)
-  mount_options : string prop option; [@option]  (** mount_options *)
-  mount_point : string prop option; [@option]  (** mount_point *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  identifier : string prop option; [@option]
+  location : string prop option; [@option]
+  mount_options : string prop option; [@option]
+  mount_point : string prop option; [@option]
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** file_system_locations *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : file_system_locations) -> ()
+
+let yojson_of_file_system_locations =
+  (function
+   | {
+       identifier = v_identifier;
+       location = v_location;
+       mount_options = v_mount_options;
+       mount_point = v_mount_point;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mount_point with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mount_point", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mount_options with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mount_options", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identifier", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : file_system_locations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_file_system_locations
+
+[@@@deriving.end]
 
 type logs_config__cloudwatch_logs = {
-  group_name : string prop option; [@option]  (** group_name *)
-  status : string prop option; [@option]  (** status *)
-  stream_name : string prop option; [@option]  (** stream_name *)
+  group_name : string prop option; [@option]
+  status : string prop option; [@option]
+  stream_name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logs_config__cloudwatch_logs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logs_config__cloudwatch_logs) -> ()
+
+let yojson_of_logs_config__cloudwatch_logs =
+  (function
+   | {
+       group_name = v_group_name;
+       status = v_status;
+       stream_name = v_stream_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_stream_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stream_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : logs_config__cloudwatch_logs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logs_config__cloudwatch_logs
+
+[@@@deriving.end]
 
 type logs_config__s3_logs = {
   bucket_owner_access : string prop option; [@option]
-      (** bucket_owner_access *)
   encryption_disabled : bool prop option; [@option]
-      (** encryption_disabled *)
-  location : string prop option; [@option]  (** location *)
-  status : string prop option; [@option]  (** status *)
+  location : string prop option; [@option]
+  status : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logs_config__s3_logs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logs_config__s3_logs) -> ()
+
+let yojson_of_logs_config__s3_logs =
+  (function
+   | {
+       bucket_owner_access = v_bucket_owner_access;
+       encryption_disabled = v_encryption_disabled;
+       location = v_location;
+       status = v_status;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encryption_disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bucket_owner_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket_owner_access", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : logs_config__s3_logs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logs_config__s3_logs
+
+[@@@deriving.end]
 
 type logs_config = {
   cloudwatch_logs : logs_config__cloudwatch_logs list;
   s3_logs : logs_config__s3_logs list;
 }
-[@@deriving yojson_of]
-(** logs_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logs_config) -> ()
+
+let yojson_of_logs_config =
+  (function
+   | { cloudwatch_logs = v_cloudwatch_logs; s3_logs = v_s3_logs } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logs_config__s3_logs v_s3_logs
+         in
+         ("s3_logs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logs_config__cloudwatch_logs
+             v_cloudwatch_logs
+         in
+         ("cloudwatch_logs", arg) :: bnds
+       in
+       `Assoc bnds
+    : logs_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logs_config
+
+[@@@deriving.end]
 
 type secondary_artifacts = {
-  artifact_identifier : string prop;  (** artifact_identifier *)
+  artifact_identifier : string prop;
   bucket_owner_access : string prop option; [@option]
-      (** bucket_owner_access *)
   encryption_disabled : bool prop option; [@option]
-      (** encryption_disabled *)
-  location : string prop option; [@option]  (** location *)
-  name : string prop option; [@option]  (** name *)
+  location : string prop option; [@option]
+  name : string prop option; [@option]
   namespace_type : string prop option; [@option]
-      (** namespace_type *)
   override_artifact_name : bool prop option; [@option]
-      (** override_artifact_name *)
-  packaging : string prop option; [@option]  (** packaging *)
-  path : string prop option; [@option]  (** path *)
-  type_ : string prop; [@key "type"]  (** type *)
+  packaging : string prop option; [@option]
+  path : string prop option; [@option]
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** secondary_artifacts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secondary_artifacts) -> ()
+
+let yojson_of_secondary_artifacts =
+  (function
+   | {
+       artifact_identifier = v_artifact_identifier;
+       bucket_owner_access = v_bucket_owner_access;
+       encryption_disabled = v_encryption_disabled;
+       location = v_location;
+       name = v_name;
+       namespace_type = v_namespace_type;
+       override_artifact_name = v_override_artifact_name;
+       packaging = v_packaging;
+       path = v_path;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_packaging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "packaging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_override_artifact_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "override_artifact_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_namespace_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encryption_disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bucket_owner_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket_owner_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_artifact_identifier
+         in
+         ("artifact_identifier", arg) :: bnds
+       in
+       `Assoc bnds
+    : secondary_artifacts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secondary_artifacts
+
+[@@@deriving.end]
 
 type secondary_source_version = {
-  source_identifier : string prop;  (** source_identifier *)
-  source_version : string prop;  (** source_version *)
+  source_identifier : string prop;
+  source_version : string prop;
 }
-[@@deriving yojson_of]
-(** secondary_source_version *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secondary_source_version) -> ()
+
+let yojson_of_secondary_source_version =
+  (function
+   | {
+       source_identifier = v_source_identifier;
+       source_version = v_source_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_version
+         in
+         ("source_version", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_identifier
+         in
+         ("source_identifier", arg) :: bnds
+       in
+       `Assoc bnds
+    : secondary_source_version -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secondary_source_version
+
+[@@@deriving.end]
 
 type secondary_sources__build_status_config = {
-  context : string prop option; [@option]  (** context *)
-  target_url : string prop option; [@option]  (** target_url *)
+  context : string prop option; [@option]
+  target_url : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** secondary_sources__build_status_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secondary_sources__build_status_config) -> ()
+
+let yojson_of_secondary_sources__build_status_config =
+  (function
+   | { context = v_context; target_url = v_target_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_target_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_context with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "context", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : secondary_sources__build_status_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secondary_sources__build_status_config
+
+[@@@deriving.end]
 
 type secondary_sources__git_submodules_config = {
-  fetch_submodules : bool prop;  (** fetch_submodules *)
+  fetch_submodules : bool prop;
 }
-[@@deriving yojson_of]
-(** secondary_sources__git_submodules_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secondary_sources__git_submodules_config) -> ()
+
+let yojson_of_secondary_sources__git_submodules_config =
+  (function
+   | { fetch_submodules = v_fetch_submodules } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_fetch_submodules
+         in
+         ("fetch_submodules", arg) :: bnds
+       in
+       `Assoc bnds
+    : secondary_sources__git_submodules_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secondary_sources__git_submodules_config
+
+[@@@deriving.end]
 
 type secondary_sources = {
-  buildspec : string prop option; [@option]  (** buildspec *)
+  buildspec : string prop option; [@option]
   git_clone_depth : float prop option; [@option]
-      (** git_clone_depth *)
-  insecure_ssl : bool prop option; [@option]  (** insecure_ssl *)
-  location : string prop option; [@option]  (** location *)
+  insecure_ssl : bool prop option; [@option]
+  location : string prop option; [@option]
   report_build_status : bool prop option; [@option]
-      (** report_build_status *)
-  source_identifier : string prop;  (** source_identifier *)
-  type_ : string prop; [@key "type"]  (** type *)
+  source_identifier : string prop;
+  type_ : string prop; [@key "type"]
   build_status_config : secondary_sources__build_status_config list;
   git_submodules_config :
     secondary_sources__git_submodules_config list;
 }
-[@@deriving yojson_of]
-(** secondary_sources *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secondary_sources) -> ()
+
+let yojson_of_secondary_sources =
+  (function
+   | {
+       buildspec = v_buildspec;
+       git_clone_depth = v_git_clone_depth;
+       insecure_ssl = v_insecure_ssl;
+       location = v_location;
+       report_build_status = v_report_build_status;
+       source_identifier = v_source_identifier;
+       type_ = v_type_;
+       build_status_config = v_build_status_config;
+       git_submodules_config = v_git_submodules_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_secondary_sources__git_submodules_config
+             v_git_submodules_config
+         in
+         ("git_submodules_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_secondary_sources__build_status_config
+             v_build_status_config
+         in
+         ("build_status_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_identifier
+         in
+         ("source_identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_report_build_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "report_build_status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_insecure_ssl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "insecure_ssl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_git_clone_depth with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "git_clone_depth", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_buildspec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "buildspec", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : secondary_sources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secondary_sources
+
+[@@@deriving.end]
 
 type source__build_status_config = {
-  context : string prop option; [@option]  (** context *)
-  target_url : string prop option; [@option]  (** target_url *)
+  context : string prop option; [@option]
+  target_url : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** source__build_status_config *)
+[@@deriving_inline yojson_of]
 
-type source__git_submodules_config = {
-  fetch_submodules : bool prop;  (** fetch_submodules *)
-}
-[@@deriving yojson_of]
-(** source__git_submodules_config *)
+let _ = fun (_ : source__build_status_config) -> ()
+
+let yojson_of_source__build_status_config =
+  (function
+   | { context = v_context; target_url = v_target_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_target_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_context with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "context", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : source__build_status_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__build_status_config
+
+[@@@deriving.end]
+
+type source__git_submodules_config = { fetch_submodules : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source__git_submodules_config) -> ()
+
+let yojson_of_source__git_submodules_config =
+  (function
+   | { fetch_submodules = v_fetch_submodules } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_fetch_submodules
+         in
+         ("fetch_submodules", arg) :: bnds
+       in
+       `Assoc bnds
+    : source__git_submodules_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__git_submodules_config
+
+[@@@deriving.end]
 
 type source = {
-  buildspec : string prop option; [@option]  (** buildspec *)
+  buildspec : string prop option; [@option]
   git_clone_depth : float prop option; [@option]
-      (** git_clone_depth *)
-  insecure_ssl : bool prop option; [@option]  (** insecure_ssl *)
-  location : string prop option; [@option]  (** location *)
+  insecure_ssl : bool prop option; [@option]
+  location : string prop option; [@option]
   report_build_status : bool prop option; [@option]
-      (** report_build_status *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
   build_status_config : source__build_status_config list;
   git_submodules_config : source__git_submodules_config list;
 }
-[@@deriving yojson_of]
-(** source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source) -> ()
+
+let yojson_of_source =
+  (function
+   | {
+       buildspec = v_buildspec;
+       git_clone_depth = v_git_clone_depth;
+       insecure_ssl = v_insecure_ssl;
+       location = v_location;
+       report_build_status = v_report_build_status;
+       type_ = v_type_;
+       build_status_config = v_build_status_config;
+       git_submodules_config = v_git_submodules_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_source__git_submodules_config
+             v_git_submodules_config
+         in
+         ("git_submodules_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_source__build_status_config
+             v_build_status_config
+         in
+         ("build_status_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_report_build_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "report_build_status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_insecure_ssl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "insecure_ssl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_git_clone_depth with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "git_clone_depth", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_buildspec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "buildspec", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source
+
+[@@@deriving.end]
 
 type vpc_config = {
-  security_group_ids : string prop list;  (** security_group_ids *)
-  subnets : string prop list;  (** subnets *)
-  vpc_id : string prop;  (** vpc_id *)
+  security_group_ids : string prop list;
+  subnets : string prop list;
+  vpc_id : string prop;
 }
-[@@deriving yojson_of]
-(** vpc_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vpc_config) -> ()
+
+let yojson_of_vpc_config =
+  (function
+   | {
+       security_group_ids = v_security_group_ids;
+       subnets = v_subnets;
+       vpc_id = v_vpc_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
+         in
+         ("subnets", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_security_group_ids
+         in
+         ("security_group_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : vpc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc_config
+
+[@@@deriving.end]
 
 type aws_codebuild_project = {
-  badge_enabled : bool prop option; [@option]  (** badge_enabled *)
-  build_timeout : float prop option; [@option]  (** build_timeout *)
+  badge_enabled : bool prop option; [@option]
+  build_timeout : float prop option; [@option]
   concurrent_build_limit : float prop option; [@option]
-      (** concurrent_build_limit *)
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   encryption_key : string prop option; [@option]
-      (** encryption_key *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   project_visibility : string prop option; [@option]
-      (** project_visibility *)
   queued_timeout : float prop option; [@option]
-      (** queued_timeout *)
   resource_access_role : string prop option; [@option]
-      (** resource_access_role *)
-  service_role : string prop;  (** service_role *)
+  service_role : string prop;
   source_version : string prop option; [@option]
-      (** source_version *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   artifacts : artifacts list;
   build_batch_config : build_batch_config list;
   cache : cache list;
@@ -242,8 +1187,233 @@ type aws_codebuild_project = {
   source : source list;
   vpc_config : vpc_config list;
 }
-[@@deriving yojson_of]
-(** aws_codebuild_project *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_codebuild_project) -> ()
+
+let yojson_of_aws_codebuild_project =
+  (function
+   | {
+       badge_enabled = v_badge_enabled;
+       build_timeout = v_build_timeout;
+       concurrent_build_limit = v_concurrent_build_limit;
+       description = v_description;
+       encryption_key = v_encryption_key;
+       id = v_id;
+       name = v_name;
+       project_visibility = v_project_visibility;
+       queued_timeout = v_queued_timeout;
+       resource_access_role = v_resource_access_role;
+       service_role = v_service_role;
+       source_version = v_source_version;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       artifacts = v_artifacts;
+       build_batch_config = v_build_batch_config;
+       cache = v_cache;
+       environment = v_environment;
+       file_system_locations = v_file_system_locations;
+       logs_config = v_logs_config;
+       secondary_artifacts = v_secondary_artifacts;
+       secondary_source_version = v_secondary_source_version;
+       secondary_sources = v_secondary_sources;
+       source = v_source;
+       vpc_config = v_vpc_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vpc_config v_vpc_config
+         in
+         ("vpc_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_source v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_secondary_sources
+             v_secondary_sources
+         in
+         ("secondary_sources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_secondary_source_version
+             v_secondary_source_version
+         in
+         ("secondary_source_version", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_secondary_artifacts
+             v_secondary_artifacts
+         in
+         ("secondary_artifacts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logs_config v_logs_config
+         in
+         ("logs_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_file_system_locations
+             v_file_system_locations
+         in
+         ("file_system_locations", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_environment v_environment
+         in
+         ("environment", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_cache v_cache in
+         ("cache", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build_batch_config
+             v_build_batch_config
+         in
+         ("build_batch_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_artifacts v_artifacts in
+         ("artifacts", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_role in
+         ("service_role", arg) :: bnds
+       in
+       let bnds =
+         match v_resource_access_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_access_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_queued_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "queued_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project_visibility with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_visibility", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_concurrent_build_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "concurrent_build_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_build_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "build_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_badge_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "badge_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_codebuild_project -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_codebuild_project
+
+[@@@deriving.end]
 
 let artifacts ?artifact_identifier ?bucket_owner_access
     ?encryption_disabled ?location ?name ?namespace_type

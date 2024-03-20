@@ -2,200 +2,658 @@
 
 open! Tf_core
 
-type authorization__admin_users = {
-  username : string prop;  (** An active Google username. *)
-}
-[@@deriving yojson_of]
-(** User that will be granted the cluster-admin role on the cluster, providing
-full access to the cluster. Currently, this is a singular field, but will
-be expanded to allow multiple admins in the future. *)
+type authorization__admin_users = { username : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : authorization__admin_users) -> ()
+
+let yojson_of_authorization__admin_users =
+  (function
+   | { username = v_username } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       `Assoc bnds
+    : authorization__admin_users -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authorization__admin_users
+
+[@@@deriving.end]
 
 type authorization = {
   admin_users : authorization__admin_users list;
 }
-[@@deriving yojson_of]
-(** RBAC policy that will be applied and managed by GEC. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : authorization) -> ()
+
+let yojson_of_authorization =
+  (function
+   | { admin_users = v_admin_users } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authorization__admin_users
+             v_admin_users
+         in
+         ("admin_users", arg) :: bnds
+       in
+       `Assoc bnds
+    : authorization -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authorization
+
+[@@@deriving.end]
 
 type control_plane__local = {
   machine_filter : string prop option; [@option]
-      (** Only machines matching this filter will be allowed to host control
-plane nodes. The filtering language accepts strings like name=<name>,
-and is documented here: [AIP-160](https://google.aip.dev/160). *)
   node_count : float prop option; [@option]
-      (** The number of nodes to serve as replicas of the Control Plane.
-Only 1 and 3 are supported. *)
   node_location : string prop option; [@option]
-      (** Name of the Google Distributed Cloud Edge zones where this node pool
-will be created. For example: 'us-central1-edge-customer-a'. *)
   shared_deployment_policy : string prop option; [@option]
-      (** Policy configuration about how user applications are deployed. Possible values: [SHARED_DEPLOYMENT_POLICY_UNSPECIFIED, ALLOWED, DISALLOWED] *)
 }
-[@@deriving yojson_of]
-(** Local control plane configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__local) -> ()
+
+let yojson_of_control_plane__local =
+  (function
+   | {
+       machine_filter = v_machine_filter;
+       node_count = v_node_count;
+       node_location = v_node_location;
+       shared_deployment_policy = v_shared_deployment_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_shared_deployment_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "shared_deployment_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_filter", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane__local -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__local
+
+[@@@deriving.end]
 
 type control_plane__remote = {
   node_location : string prop option; [@option]
-      (** Name of the Google Distributed Cloud Edge zones where this node pool
-will be created. For example: 'us-central1-edge-customer-a'. *)
 }
-[@@deriving yojson_of]
-(** Remote control plane configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__remote) -> ()
+
+let yojson_of_control_plane__remote =
+  (function
+   | { node_location = v_node_location } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_node_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_location", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane__remote -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__remote
+
+[@@@deriving.end]
 
 type control_plane = {
   local : control_plane__local list;
   remote : control_plane__remote list;
 }
-[@@deriving yojson_of]
-(** The configuration of the cluster control plane. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane) -> ()
+
+let yojson_of_control_plane =
+  (function
+   | { local = v_local; remote = v_remote } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__remote v_remote
+         in
+         ("remote", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__local v_local
+         in
+         ("local", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane
+
+[@@@deriving.end]
 
 type control_plane_encryption__kms_status = {
-  code : float prop;  (** code *)
-  message : string prop;  (** message *)
+  code : float prop;
+  message : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane_encryption__kms_status) -> ()
+
+let yojson_of_control_plane_encryption__kms_status =
+  (function
+   | { code = v_code; message = v_message } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_code in
+         ("code", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane_encryption__kms_status ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane_encryption__kms_status
+
+[@@@deriving.end]
 
 type control_plane_encryption = {
   kms_key : string prop option; [@option]
-      (** The Cloud KMS CryptoKey e.g.
-projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey}
-to use for protecting control plane disks. If not specified, a
-Google-managed key will be used instead. *)
 }
-[@@deriving yojson_of]
-(** Remote control plane disk encryption options. This field is only used when
-enabling CMEK support. *)
+[@@deriving_inline yojson_of]
 
-type fleet = {
-  project : string prop;
-      (** The name of the Fleet host project where this cluster will be registered.
-Project names are formatted as
-'projects/<project-number>'. *)
-}
-[@@deriving yojson_of]
-(** Fleet related configuration.
-Fleets are a Google Cloud concept for logically organizing clusters,
-letting you use and manage multi-cluster capabilities and apply
-consistent policies across your systems. *)
+let _ = fun (_ : control_plane_encryption) -> ()
+
+let yojson_of_control_plane_encryption =
+  (function
+   | { kms_key = v_kms_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane_encryption -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane_encryption
+
+[@@@deriving.end]
+
+type fleet = { project : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : fleet) -> ()
+
+let yojson_of_fleet =
+  (function
+   | { project = v_project } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project in
+         ("project", arg) :: bnds
+       in
+       `Assoc bnds
+    : fleet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fleet
+
+[@@@deriving.end]
 
 type maintenance_policy__window__recurring_window__window = {
   end_time : string prop option; [@option]
-      (** The time that the window ends. The end time must take place after the
-start time. *)
   start_time : string prop option; [@option]
-      (** The time that the window first starts. *)
 }
-[@@deriving yojson_of]
-(** Represents an arbitrary window of time. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : maintenance_policy__window__recurring_window__window) -> ()
+
+let yojson_of_maintenance_policy__window__recurring_window__window =
+  (function
+   | { end_time = v_end_time; start_time = v_start_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_end_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "end_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : maintenance_policy__window__recurring_window__window ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_maintenance_policy__window__recurring_window__window
+
+[@@@deriving.end]
 
 type maintenance_policy__window__recurring_window = {
   recurrence : string prop option; [@option]
-      (** An RRULE (https://tools.ietf.org/html/rfc5545#section-3.8.5.3) for how
-this window recurs. They go on for the span of time between the start and
-end time. *)
   window : maintenance_policy__window__recurring_window__window list;
 }
-[@@deriving yojson_of]
-(** Represents an arbitrary window of time that recurs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_policy__window__recurring_window) -> ()
+
+let yojson_of_maintenance_policy__window__recurring_window =
+  (function
+   | { recurrence = v_recurrence; window = v_window } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_maintenance_policy__window__recurring_window__window
+             v_window
+         in
+         ("window", arg) :: bnds
+       in
+       let bnds =
+         match v_recurrence with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "recurrence", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : maintenance_policy__window__recurring_window ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_policy__window__recurring_window
+
+[@@@deriving.end]
 
 type maintenance_policy__window = {
   recurring_window :
     maintenance_policy__window__recurring_window list;
 }
-[@@deriving yojson_of]
-(** Specifies the maintenance window in which maintenance may be performed. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_policy__window) -> ()
+
+let yojson_of_maintenance_policy__window =
+  (function
+   | { recurring_window = v_recurring_window } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_maintenance_policy__window__recurring_window
+             v_recurring_window
+         in
+         ("recurring_window", arg) :: bnds
+       in
+       `Assoc bnds
+    : maintenance_policy__window -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_policy__window
+
+[@@@deriving.end]
 
 type maintenance_policy = {
   window : maintenance_policy__window list;
 }
-[@@deriving yojson_of]
-(** Cluster-wide maintenance policy configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_policy) -> ()
+
+let yojson_of_maintenance_policy =
+  (function
+   | { window = v_window } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_policy__window
+             v_window
+         in
+         ("window", arg) :: bnds
+       in
+       `Assoc bnds
+    : maintenance_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_policy
+
+[@@@deriving.end]
 
 type networking = {
   cluster_ipv4_cidr_blocks : string prop list;
-      (** All pods in the cluster are assigned an RFC1918 IPv4 address from these
-blocks. Only a single block is supported. This field cannot be changed
-after creation. *)
   cluster_ipv6_cidr_blocks : string prop list option; [@option]
-      (** If specified, dual stack mode is enabled and all pods in the cluster are
-assigned an IPv6 address from these blocks alongside from an IPv4
-address. Only a single block is supported. This field cannot be changed
-after creation. *)
   services_ipv4_cidr_blocks : string prop list;
-      (** All services in the cluster are assigned an RFC1918 IPv4 address from these
-blocks. Only a single block is supported. This field cannot be changed
-after creation. *)
   services_ipv6_cidr_blocks : string prop list option; [@option]
-      (** If specified, dual stack mode is enabled and all services in the cluster are
-assigned an IPv6 address from these blocks alongside from an IPv4
-address. Only a single block is supported. This field cannot be changed
-after creation. *)
 }
-[@@deriving yojson_of]
-(** Fleet related configuration.
-Fleets are a Google Cloud concept for logically organizing clusters,
-letting you use and manage multi-cluster capabilities and apply
-consistent policies across your systems. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : networking) -> ()
+
+let yojson_of_networking =
+  (function
+   | {
+       cluster_ipv4_cidr_blocks = v_cluster_ipv4_cidr_blocks;
+       cluster_ipv6_cidr_blocks = v_cluster_ipv6_cidr_blocks;
+       services_ipv4_cidr_blocks = v_services_ipv4_cidr_blocks;
+       services_ipv6_cidr_blocks = v_services_ipv6_cidr_blocks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_services_ipv6_cidr_blocks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "services_ipv6_cidr_blocks", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_services_ipv4_cidr_blocks
+         in
+         ("services_ipv4_cidr_blocks", arg) :: bnds
+       in
+       let bnds =
+         match v_cluster_ipv6_cidr_blocks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "cluster_ipv6_cidr_blocks", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_cluster_ipv4_cidr_blocks
+         in
+         ("cluster_ipv4_cidr_blocks", arg) :: bnds
+       in
+       `Assoc bnds
+    : networking -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_networking
+
+[@@@deriving.end]
 
 type system_addons_config__ingress = {
   disabled : bool prop option; [@option]
-      (** Whether Ingress is disabled. *)
-  ipv4_vip : string prop option; [@option]  (** Ingress VIP. *)
+  ipv4_vip : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Config for the Ingress add-on which allows customers to create an Ingress
-object to manage external access to the servers in a cluster. The add-on
-consists of istiod and istio-ingress. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : system_addons_config__ingress) -> ()
+
+let yojson_of_system_addons_config__ingress =
+  (function
+   | { disabled = v_disabled; ipv4_vip = v_ipv4_vip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ipv4_vip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv4_vip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : system_addons_config__ingress ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_system_addons_config__ingress
+
+[@@@deriving.end]
 
 type system_addons_config = {
   ingress : system_addons_config__ingress list;
 }
-[@@deriving yojson_of]
-(** Config that customers are allowed to define for GDCE system add-ons. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : system_addons_config) -> ()
+
+let yojson_of_system_addons_config =
+  (function
+   | { ingress = v_ingress } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_system_addons_config__ingress
+             v_ingress
+         in
+         ("ingress", arg) :: bnds
+       in
+       `Assoc bnds
+    : system_addons_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_system_addons_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type maintenance_events = {
-  create_time : string prop;  (** create_time *)
-  end_time : string prop;  (** end_time *)
-  operation : string prop;  (** operation *)
-  schedule : string prop;  (** schedule *)
-  start_time : string prop;  (** start_time *)
-  state : string prop;  (** state *)
-  target_version : string prop;  (** target_version *)
-  type_ : string prop; [@key "type"]  (** type *)
-  update_time : string prop;  (** update_time *)
-  uuid : string prop;  (** uuid *)
+  create_time : string prop;
+  end_time : string prop;
+  operation : string prop;
+  schedule : string prop;
+  start_time : string prop;
+  state : string prop;
+  target_version : string prop;
+  type_ : string prop; [@key "type"]
+  update_time : string prop;
+  uuid : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_events) -> ()
+
+let yojson_of_maintenance_events =
+  (function
+   | {
+       create_time = v_create_time;
+       end_time = v_end_time;
+       operation = v_operation;
+       schedule = v_schedule;
+       start_time = v_start_time;
+       state = v_state;
+       target_version = v_target_version;
+       type_ = v_type_;
+       update_time = v_update_time;
+       uuid = v_uuid;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uuid in
+         ("uuid", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_version
+         in
+         ("target_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_start_time in
+         ("start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schedule in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operation in
+         ("operation", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_end_time in
+         ("end_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_create_time in
+         ("create_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : maintenance_events -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_events
+
+[@@@deriving.end]
 
 type google_edgecontainer_cluster = {
   default_max_pods_per_node : float prop option; [@option]
-      (** The default maximum number of pods per node used if a maximum value is not
-specified explicitly for a node pool in this cluster. If unspecified, the
-Kubernetes default value will be used. *)
   external_load_balancer_ipv4_address_pools :
     string prop list option;
       [@option]
-      (** Address pools for cluster data plane external load balancing. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** User-defined labels for the edgecloud cluster.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The location of the resource. *)
-  name : string prop;  (** The GDCE cluster name. *)
-  project : string prop option; [@option]  (** project *)
+  location : string prop;
+  name : string prop;
+  project : string prop option; [@option]
   release_channel : string prop option; [@option]
-      (** The release channel a cluster is subscribed to. Possible values: [RELEASE_CHANNEL_UNSPECIFIED, NONE, REGULAR] *)
   target_version : string prop option; [@option]
-      (** The target cluster version. For example: 1.5.0. *)
   authorization : authorization list;
   control_plane : control_plane list;
   control_plane_encryption : control_plane_encryption list;
@@ -205,8 +663,165 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   system_addons_config : system_addons_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_edgecontainer_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_edgecontainer_cluster) -> ()
+
+let yojson_of_google_edgecontainer_cluster =
+  (function
+   | {
+       default_max_pods_per_node = v_default_max_pods_per_node;
+       external_load_balancer_ipv4_address_pools =
+         v_external_load_balancer_ipv4_address_pools;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       release_channel = v_release_channel;
+       target_version = v_target_version;
+       authorization = v_authorization;
+       control_plane = v_control_plane;
+       control_plane_encryption = v_control_plane_encryption;
+       fleet = v_fleet;
+       maintenance_policy = v_maintenance_policy;
+       networking = v_networking;
+       system_addons_config = v_system_addons_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_system_addons_config
+             v_system_addons_config
+         in
+         ("system_addons_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_networking v_networking
+         in
+         ("networking", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_policy
+             v_maintenance_policy
+         in
+         ("maintenance_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_fleet v_fleet in
+         ("fleet", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane_encryption
+             v_control_plane_encryption
+         in
+         ("control_plane_encryption", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane v_control_plane
+         in
+         ("control_plane", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authorization v_authorization
+         in
+         ("authorization", arg) :: bnds
+       in
+       let bnds =
+         match v_target_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_release_channel with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "release_channel", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_external_load_balancer_ipv4_address_pools with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd =
+               "external_load_balancer_ipv4_address_pools", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_max_pods_per_node with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_max_pods_per_node", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_edgecontainer_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_edgecontainer_cluster
+
+[@@@deriving.end]
 
 let authorization__admin_users ~username () :
     authorization__admin_users =

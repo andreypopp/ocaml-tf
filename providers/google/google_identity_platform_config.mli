@@ -111,6 +111,8 @@ type sign_in__hash_config = {
   signer_key : string prop;  (** signer_key *)
 }
 
+[@@@deriving.end]
+
 type sign_in__anonymous
 
 val sign_in__anonymous :

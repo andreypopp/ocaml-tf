@@ -3,93 +3,93 @@
 open! Tf_core
 
 type column_groups__geo_spatial_column_group = {
-  columns: string  prop list;  (** columns *)
-  country_code: string prop;  (** country_code *)
-  name: string prop;  (** name *)
-} [@@deriving yojson_of]
-(** column_groups__geo_spatial_column_group *)
+  columns: string  prop list; 
+  country_code: string prop; 
+  name: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type column_groups = {
   geo_spatial_column_group: column_groups__geo_spatial_column_group list;
-} [@@deriving yojson_of]
-(** column_groups *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type column_level_permission_rules = {
-  column_names: string   prop list option; [@option] (** column_names *)
-  principals: string   prop list option; [@option] (** principals *)
-} [@@deriving yojson_of]
-(** column_level_permission_rules *)
+  column_names: string   prop list option; [@option]
+  principals: string   prop list option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type data_set_usage_configuration = {
-  disable_use_as_direct_query_source: bool  prop option; [@option] (** disable_use_as_direct_query_source *)
-  disable_use_as_imported_source: bool  prop option; [@option] (** disable_use_as_imported_source *)
-} [@@deriving yojson_of]
-(** data_set_usage_configuration *)
+  disable_use_as_direct_query_source: bool  prop option; [@option]
+  disable_use_as_imported_source: bool  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type field_folders = {
-  columns: string   prop list option; [@option] (** columns *)
-  description: string  prop option; [@option] (** description *)
-  field_folders_id: string prop;  (** field_folders_id *)
-} [@@deriving yojson_of]
-(** field_folders *)
+  columns: string   prop list option; [@option]
+  description: string  prop option; [@option]
+  field_folders_id: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__cast_column_type_operation = {
-  column_name: string prop;  (** column_name *)
-  format: string  prop option; [@option] (** format *)
-  new_column_type: string prop;  (** new_column_type *)
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__cast_column_type_operation *)
+  column_name: string prop; 
+  format: string  prop option; [@option]
+  new_column_type: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__create_columns_operation__columns = {
-  column_id: string prop;  (** column_id *)
-  column_name: string prop;  (** column_name *)
-  expression: string prop;  (** expression *)
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__create_columns_operation__columns *)
+  column_id: string prop; 
+  column_name: string prop; 
+  expression: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__create_columns_operation = {
   columns: logical_table_map__data_transforms__create_columns_operation__columns list;
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__create_columns_operation *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__filter_operation = {
-  condition_expression: string prop;  (** condition_expression *)
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__filter_operation *)
+  condition_expression: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__project_operation = {
-  projected_columns: string  prop list;  (** projected_columns *)
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__project_operation *)
+  projected_columns: string  prop list; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__rename_column_operation = {
-  column_name: string prop;  (** column_name *)
-  new_column_name: string prop;  (** new_column_name *)
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__rename_column_operation *)
+  column_name: string prop; 
+  new_column_name: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__tag_column_operation__tags__column_description = {
-  text: string  prop option; [@option] (** text *)
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__tag_column_operation__tags__column_description *)
+  text: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__tag_column_operation__tags = {
-  column_geographic_role: string  prop option; [@option] (** column_geographic_role *)
+  column_geographic_role: string  prop option; [@option]
   column_description: logical_table_map__data_transforms__tag_column_operation__tags__column_description list;
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__tag_column_operation__tags *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__tag_column_operation = {
-  column_name: string prop;  (** column_name *)
+  column_name: string prop; 
   tags: logical_table_map__data_transforms__tag_column_operation__tags list;
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__tag_column_operation *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms__untag_column_operation = {
-  column_name: string prop;  (** column_name *)
-  tag_names: string  prop list;  (** tag_names *)
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms__untag_column_operation *)
+  column_name: string prop; 
+  tag_names: string  prop list; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__data_transforms = {
   cast_column_type_operation: logical_table_map__data_transforms__cast_column_type_operation list;
@@ -99,167 +99,168 @@ type logical_table_map__data_transforms = {
   rename_column_operation: logical_table_map__data_transforms__rename_column_operation list;
   tag_column_operation: logical_table_map__data_transforms__tag_column_operation list;
   untag_column_operation: logical_table_map__data_transforms__untag_column_operation list;
-} [@@deriving yojson_of]
-(** logical_table_map__data_transforms *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__source__join_instruction__left_join_key_properties = {
-  unique_key: bool  prop option; [@option] (** unique_key *)
-} [@@deriving yojson_of]
-(** logical_table_map__source__join_instruction__left_join_key_properties *)
+  unique_key: bool  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__source__join_instruction__right_join_key_properties = {
-  unique_key: bool  prop option; [@option] (** unique_key *)
-} [@@deriving yojson_of]
-(** logical_table_map__source__join_instruction__right_join_key_properties *)
+  unique_key: bool  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__source__join_instruction = {
-  left_operand: string prop;  (** left_operand *)
-  on_clause: string prop;  (** on_clause *)
-  right_operand: string prop;  (** right_operand *)
-  type_: string prop; [@key "type"] (** type *)
+  left_operand: string prop; 
+  on_clause: string prop; 
+  right_operand: string prop; 
+  type_: string prop; [@key "type"]
   left_join_key_properties: logical_table_map__source__join_instruction__left_join_key_properties list;
   right_join_key_properties: logical_table_map__source__join_instruction__right_join_key_properties list;
-} [@@deriving yojson_of]
-(** logical_table_map__source__join_instruction *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map__source = {
-  data_set_arn: string  prop option; [@option] (** data_set_arn *)
-  physical_table_id: string  prop option; [@option] (** physical_table_id *)
+  data_set_arn: string  prop option; [@option]
+  physical_table_id: string  prop option; [@option]
   join_instruction: logical_table_map__source__join_instruction list;
-} [@@deriving yojson_of]
-(** logical_table_map__source *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type logical_table_map = {
-  alias: string prop;  (** alias *)
-  logical_table_map_id: string prop;  (** logical_table_map_id *)
+  alias: string prop; 
+  logical_table_map_id: string prop; 
   data_transforms: logical_table_map__data_transforms list;
   source: logical_table_map__source list;
-} [@@deriving yojson_of]
-(** logical_table_map *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type permissions = {
-  actions: string  prop list;  (** actions *)
-  principal: string prop;  (** principal *)
-} [@@deriving yojson_of]
-(** permissions *)
+  actions: string  prop list; 
+  principal: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type physical_table_map__custom_sql__columns = {
-  name: string prop;  (** name *)
-  type_: string prop; [@key "type"] (** type *)
-} [@@deriving yojson_of]
-(** physical_table_map__custom_sql__columns *)
+  name: string prop; 
+  type_: string prop; [@key "type"]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type physical_table_map__custom_sql = {
-  data_source_arn: string prop;  (** data_source_arn *)
-  name: string prop;  (** name *)
-  sql_query: string prop;  (** sql_query *)
+  data_source_arn: string prop; 
+  name: string prop; 
+  sql_query: string prop; 
   columns: physical_table_map__custom_sql__columns list;
-} [@@deriving yojson_of]
-(** physical_table_map__custom_sql *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type physical_table_map__relational_table__input_columns = {
-  name: string prop;  (** name *)
-  type_: string prop; [@key "type"] (** type *)
-} [@@deriving yojson_of]
-(** physical_table_map__relational_table__input_columns *)
+  name: string prop; 
+  type_: string prop; [@key "type"]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type physical_table_map__relational_table = {
-  catalog: string  prop option; [@option] (** catalog *)
-  data_source_arn: string prop;  (** data_source_arn *)
-  name: string prop;  (** name *)
-  schema: string  prop option; [@option] (** schema *)
+  catalog: string  prop option; [@option]
+  data_source_arn: string prop; 
+  name: string prop; 
+  schema: string  prop option; [@option]
   input_columns: physical_table_map__relational_table__input_columns list;
-} [@@deriving yojson_of]
-(** physical_table_map__relational_table *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type physical_table_map__s3_source__input_columns = {
-  name: string prop;  (** name *)
-  type_: string prop; [@key "type"] (** type *)
-} [@@deriving yojson_of]
-(** physical_table_map__s3_source__input_columns *)
+  name: string prop; 
+  type_: string prop; [@key "type"]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type physical_table_map__s3_source__upload_settings = {
-  contains_header: bool  prop option; [@option] (** contains_header *)
-  delimiter: string  prop option; [@option] (** delimiter *)
-  format: string  prop option; [@option] (** format *)
-  start_from_row: float  prop option; [@option] (** start_from_row *)
-  text_qualifier: string  prop option; [@option] (** text_qualifier *)
-} [@@deriving yojson_of]
-(** physical_table_map__s3_source__upload_settings *)
+  contains_header: bool  prop option; [@option]
+  delimiter: string  prop option; [@option]
+  format: string  prop option; [@option]
+  start_from_row: float  prop option; [@option]
+  text_qualifier: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type physical_table_map__s3_source = {
-  data_source_arn: string prop;  (** data_source_arn *)
+  data_source_arn: string prop; 
   input_columns: physical_table_map__s3_source__input_columns list;
   upload_settings: physical_table_map__s3_source__upload_settings list;
-} [@@deriving yojson_of]
-(** physical_table_map__s3_source *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type physical_table_map = {
-  physical_table_map_id: string prop;  (** physical_table_map_id *)
+  physical_table_map_id: string prop; 
   custom_sql: physical_table_map__custom_sql list;
   relational_table: physical_table_map__relational_table list;
   s3_source: physical_table_map__s3_source list;
-} [@@deriving yojson_of]
-(** physical_table_map *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type refresh_properties__refresh_configuration__incremental_refresh__lookback_window = {
-  column_name: string prop;  (** column_name *)
-  size: float prop;  (** size *)
-  size_unit: string prop;  (** size_unit *)
-} [@@deriving yojson_of]
-(** refresh_properties__refresh_configuration__incremental_refresh__lookback_window *)
+  column_name: string prop; 
+  size: float prop; 
+  size_unit: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type refresh_properties__refresh_configuration__incremental_refresh = {
   lookback_window: refresh_properties__refresh_configuration__incremental_refresh__lookback_window list;
-} [@@deriving yojson_of]
-(** refresh_properties__refresh_configuration__incremental_refresh *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type refresh_properties__refresh_configuration = {
   incremental_refresh: refresh_properties__refresh_configuration__incremental_refresh list;
-} [@@deriving yojson_of]
-(** refresh_properties__refresh_configuration *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type refresh_properties = {
   refresh_configuration: refresh_properties__refresh_configuration list;
-} [@@deriving yojson_of]
-(** refresh_properties *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type row_level_permission_data_set = {
-  arn: string prop;  (** arn *)
-  format_version: string  prop option; [@option] (** format_version *)
-  namespace: string  prop option; [@option] (** namespace *)
-  permission_policy: string prop;  (** permission_policy *)
-  status: string  prop option; [@option] (** status *)
-} [@@deriving yojson_of]
-(** row_level_permission_data_set *)
+  arn: string prop; 
+  format_version: string  prop option; [@option]
+  namespace: string  prop option; [@option]
+  permission_policy: string prop; 
+  status: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type row_level_permission_tag_configuration__tag_rules = {
-  column_name: string prop;  (** column_name *)
-  match_all_value: string  prop option; [@option] (** match_all_value *)
-  tag_key: string prop;  (** tag_key *)
-  tag_multi_value_delimiter: string  prop option; [@option] (** tag_multi_value_delimiter *)
-} [@@deriving yojson_of]
-(** row_level_permission_tag_configuration__tag_rules *)
+  column_name: string prop; 
+  match_all_value: string  prop option; [@option]
+  tag_key: string prop; 
+  tag_multi_value_delimiter: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type row_level_permission_tag_configuration = {
-  status: string  prop option; [@option] (** status *)
+  status: string  prop option; [@option]
   tag_rules: row_level_permission_tag_configuration__tag_rules list;
-} [@@deriving yojson_of]
-(** row_level_permission_tag_configuration *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type output_columns = {
-  description: string prop;  (** description *)
-  name: string prop;  (** name *)
-  type_: string prop; [@key "type"] (** type *)
-} [@@deriving yojson_of]
+  description: string prop; 
+  name: string prop; 
+  type_: string prop; [@key "type"]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 type aws_quicksight_data_set = {
-  aws_account_id: string  prop option; [@option] (** aws_account_id *)
-  data_set_id: string prop;  (** data_set_id *)
-  id: string  prop option; [@option] (** id *)
-  import_mode: string prop;  (** import_mode *)
-  name: string prop;  (** name *)
-  tags: (string * string   prop) list option; [@option] (** tags *)
-  tags_all: (string * string   prop) list option; [@option] (** tags_all *)
+  aws_account_id: string  prop option; [@option]
+  data_set_id: string prop; 
+  id: string  prop option; [@option]
+  import_mode: string prop; 
+  name: string prop; 
+  tags: (string * string   prop) list option; [@option]
+  tags_all: (string * string   prop) list option; [@option]
   column_groups: column_groups list;
   column_level_permission_rules: column_level_permission_rules list;
   data_set_usage_configuration: data_set_usage_configuration list;
@@ -270,8 +271,8 @@ type aws_quicksight_data_set = {
   refresh_properties: refresh_properties list;
   row_level_permission_data_set: row_level_permission_data_set list;
   row_level_permission_tag_configuration: row_level_permission_tag_configuration list;
-} [@@deriving yojson_of]
-(** aws_quicksight_data_set *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let column_groups__geo_spatial_column_group ~columns ~country_code ~name () =
   ({

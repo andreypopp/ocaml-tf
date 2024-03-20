@@ -3,92 +3,520 @@
 open! Tf_core
 
 type input_data_config__annotations = {
-  s3_uri : string prop;  (** s3_uri *)
-  test_s3_uri : string prop option; [@option]  (** test_s3_uri *)
+  s3_uri : string prop;
+  test_s3_uri : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** input_data_config__annotations *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : input_data_config__annotations) -> ()
+
+let yojson_of_input_data_config__annotations =
+  (function
+   | { s3_uri = v_s3_uri; test_s3_uri = v_test_s3_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_test_s3_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "test_s3_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_s3_uri in
+         ("s3_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : input_data_config__annotations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_input_data_config__annotations
+
+[@@@deriving.end]
 
 type input_data_config__augmented_manifests = {
   annotation_data_s3_uri : string prop option; [@option]
-      (** annotation_data_s3_uri *)
-  attribute_names : string prop list;  (** attribute_names *)
-  document_type : string prop option; [@option]  (** document_type *)
-  s3_uri : string prop;  (** s3_uri *)
+  attribute_names : string prop list;
+  document_type : string prop option; [@option]
+  s3_uri : string prop;
   source_documents_s3_uri : string prop option; [@option]
-      (** source_documents_s3_uri *)
-  split : string prop option; [@option]  (** split *)
+  split : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** input_data_config__augmented_manifests *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : input_data_config__augmented_manifests) -> ()
+
+let yojson_of_input_data_config__augmented_manifests =
+  (function
+   | {
+       annotation_data_s3_uri = v_annotation_data_s3_uri;
+       attribute_names = v_attribute_names;
+       document_type = v_document_type;
+       s3_uri = v_s3_uri;
+       source_documents_s3_uri = v_source_documents_s3_uri;
+       split = v_split;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_split with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "split", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_documents_s3_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_documents_s3_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_s3_uri in
+         ("s3_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_document_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "document_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_attribute_names
+         in
+         ("attribute_names", arg) :: bnds
+       in
+       let bnds =
+         match v_annotation_data_s3_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "annotation_data_s3_uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : input_data_config__augmented_manifests ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_input_data_config__augmented_manifests
+
+[@@@deriving.end]
 
 type input_data_config__documents = {
-  input_format : string prop option; [@option]  (** input_format *)
-  s3_uri : string prop;  (** s3_uri *)
-  test_s3_uri : string prop option; [@option]  (** test_s3_uri *)
+  input_format : string prop option; [@option]
+  s3_uri : string prop;
+  test_s3_uri : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** input_data_config__documents *)
+[@@deriving_inline yojson_of]
 
-type input_data_config__entity_list = {
-  s3_uri : string prop;  (** s3_uri *)
-}
-[@@deriving yojson_of]
-(** input_data_config__entity_list *)
+let _ = fun (_ : input_data_config__documents) -> ()
+
+let yojson_of_input_data_config__documents =
+  (function
+   | {
+       input_format = v_input_format;
+       s3_uri = v_s3_uri;
+       test_s3_uri = v_test_s3_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_test_s3_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "test_s3_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_s3_uri in
+         ("s3_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_input_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "input_format", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : input_data_config__documents ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_input_data_config__documents
+
+[@@@deriving.end]
+
+type input_data_config__entity_list = { s3_uri : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : input_data_config__entity_list) -> ()
+
+let yojson_of_input_data_config__entity_list =
+  (function
+   | { s3_uri = v_s3_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_s3_uri in
+         ("s3_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : input_data_config__entity_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_input_data_config__entity_list
+
+[@@@deriving.end]
 
 type input_data_config__entity_types = {
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** input_data_config__entity_types *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : input_data_config__entity_types) -> ()
+
+let yojson_of_input_data_config__entity_types =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : input_data_config__entity_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_input_data_config__entity_types
+
+[@@@deriving.end]
 
 type input_data_config = {
-  data_format : string prop option; [@option]  (** data_format *)
+  data_format : string prop option; [@option]
   annotations : input_data_config__annotations list;
   augmented_manifests : input_data_config__augmented_manifests list;
   documents : input_data_config__documents list;
   entity_list : input_data_config__entity_list list;
   entity_types : input_data_config__entity_types list;
 }
-[@@deriving yojson_of]
-(** input_data_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : input_data_config) -> ()
+
+let yojson_of_input_data_config =
+  (function
+   | {
+       data_format = v_data_format;
+       annotations = v_annotations;
+       augmented_manifests = v_augmented_manifests;
+       documents = v_documents;
+       entity_list = v_entity_list;
+       entity_types = v_entity_types;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_input_data_config__entity_types
+             v_entity_types
+         in
+         ("entity_types", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_input_data_config__entity_list
+             v_entity_list
+         in
+         ("entity_list", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_input_data_config__documents
+             v_documents
+         in
+         ("documents", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_input_data_config__augmented_manifests
+             v_augmented_manifests
+         in
+         ("augmented_manifests", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_input_data_config__annotations
+             v_annotations
+         in
+         ("annotations", arg) :: bnds
+       in
+       let bnds =
+         match v_data_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_format", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : input_data_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_input_data_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type vpc_config = {
-  security_group_ids : string prop list;  (** security_group_ids *)
-  subnets : string prop list;  (** subnets *)
+  security_group_ids : string prop list;
+  subnets : string prop list;
 }
-[@@deriving yojson_of]
-(** vpc_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vpc_config) -> ()
+
+let yojson_of_vpc_config =
+  (function
+   | {
+       security_group_ids = v_security_group_ids;
+       subnets = v_subnets;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_subnets
+         in
+         ("subnets", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_security_group_ids
+         in
+         ("security_group_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : vpc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc_config
+
+[@@@deriving.end]
 
 type aws_comprehend_entity_recognizer = {
-  data_access_role_arn : string prop;  (** data_access_role_arn *)
-  id : string prop option; [@option]  (** id *)
-  language_code : string prop;  (** language_code *)
+  data_access_role_arn : string prop;
+  id : string prop option; [@option]
+  language_code : string prop;
   model_kms_key_id : string prop option; [@option]
-      (** model_kms_key_id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  version_name : string prop option; [@option]  (** version_name *)
+  version_name : string prop option; [@option]
   version_name_prefix : string prop option; [@option]
-      (** version_name_prefix *)
   volume_kms_key_id : string prop option; [@option]
-      (** volume_kms_key_id *)
   input_data_config : input_data_config list;
   timeouts : timeouts option;
   vpc_config : vpc_config list;
 }
-[@@deriving yojson_of]
-(** aws_comprehend_entity_recognizer *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_comprehend_entity_recognizer) -> ()
+
+let yojson_of_aws_comprehend_entity_recognizer =
+  (function
+   | {
+       data_access_role_arn = v_data_access_role_arn;
+       id = v_id;
+       language_code = v_language_code;
+       model_kms_key_id = v_model_kms_key_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       version_name = v_version_name;
+       version_name_prefix = v_version_name_prefix;
+       volume_kms_key_id = v_volume_kms_key_id;
+       input_data_config = v_input_data_config;
+       timeouts = v_timeouts;
+       vpc_config = v_vpc_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vpc_config v_vpc_config
+         in
+         ("vpc_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_input_data_config
+             v_input_data_config
+         in
+         ("input_data_config", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_version_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version_name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_version_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_model_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "model_kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_language_code in
+         ("language_code", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_access_role_arn
+         in
+         ("data_access_role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_comprehend_entity_recognizer ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_comprehend_entity_recognizer
+
+[@@@deriving.end]
 
 let input_data_config__annotations ?test_s3_uri ~s3_uri () :
     input_data_config__annotations =

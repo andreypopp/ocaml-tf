@@ -3,26 +3,155 @@
 open! Tf_core
 
 type parameter = {
-  apply_method : string prop option; [@option]  (** apply_method *)
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  apply_method : string prop option; [@option]
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** parameter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : parameter) -> ()
+
+let yojson_of_parameter =
+  (function
+   | {
+       apply_method = v_apply_method;
+       name = v_name;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_apply_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "apply_method", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : parameter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_parameter
+
+[@@@deriving.end]
 
 type aws_docdb_cluster_parameter_group = {
-  description : string prop option; [@option]  (** description *)
-  family : string prop;  (** family *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  family : string prop;
+  id : string prop option; [@option]
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   parameter : parameter list;
 }
-[@@deriving yojson_of]
-(** aws_docdb_cluster_parameter_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_docdb_cluster_parameter_group) -> ()
+
+let yojson_of_aws_docdb_cluster_parameter_group =
+  (function
+   | {
+       description = v_description;
+       family = v_family;
+       id = v_id;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       parameter = v_parameter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_parameter v_parameter in
+         ("parameter", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_family in
+         ("family", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_docdb_cluster_parameter_group ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_docdb_cluster_parameter_group
+
+[@@@deriving.end]
 
 let parameter ?apply_method ~name ~value () : parameter =
   { apply_method; name; value }

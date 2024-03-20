@@ -62,6 +62,8 @@ type build__artifacts__objects__timing = {
   start_time : string prop;  (** start_time *)
 }
 
+[@@@deriving.end]
+
 type build__artifacts__objects
 
 val build__artifacts__objects :

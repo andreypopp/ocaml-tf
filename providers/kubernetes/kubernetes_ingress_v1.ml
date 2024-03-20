@@ -4,176 +4,748 @@ open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the ingress that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the ingress. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the ingress, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Namespace defines the space within which name of the ingress must be unique. *)
 }
-[@@deriving yojson_of]
-(** Standard ingress's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+       namespace = v_namespace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type spec__default_backend__resource = {
   api_group : string prop;
-      (** APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required. *)
-  kind : string prop;  (** The kind of resource. *)
-  name : string prop;  (** The name of the User to bind to. *)
+  kind : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__default_backend__resource) -> ()
+
+let yojson_of_spec__default_backend__resource =
+  (function
+   | { api_group = v_api_group; kind = v_kind; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_group in
+         ("api_group", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__default_backend__resource ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__default_backend__resource
+
+[@@@deriving.end]
 
 type spec__default_backend__service__port = {
   name : string prop option; [@option]
-      (** Specifies the name of the port of the referenced service. *)
   number : float prop option; [@option]
-      (** Specifies the numerical port of the referenced service. *)
 }
-[@@deriving yojson_of]
-(** Specifies the port of the referenced service. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__default_backend__service__port) -> ()
+
+let yojson_of_spec__default_backend__service__port =
+  (function
+   | { name = v_name; number = v_number } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__default_backend__service__port ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__default_backend__service__port
+
+[@@@deriving.end]
 
 type spec__default_backend__service = {
   name : string prop;
-      (** Specifies the name of the referenced service. *)
   port : spec__default_backend__service__port list;
 }
-[@@deriving yojson_of]
-(** spec__default_backend__service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__default_backend__service) -> ()
+
+let yojson_of_spec__default_backend__service =
+  (function
+   | { name = v_name; port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__default_backend__service__port v_port
+         in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__default_backend__service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__default_backend__service
+
+[@@@deriving.end]
 
 type spec__default_backend = {
   resource : spec__default_backend__resource list;
   service : spec__default_backend__service list;
 }
-[@@deriving yojson_of]
-(** A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__default_backend) -> ()
+
+let yojson_of_spec__default_backend =
+  (function
+   | { resource = v_resource; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__default_backend__service
+             v_service
+         in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__default_backend__resource
+             v_resource
+         in
+         ("resource", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__default_backend -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__default_backend
+
+[@@@deriving.end]
 
 type spec__rule__http__path__backend__resource = {
   api_group : string prop;
-      (** APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required. *)
-  kind : string prop;  (** The kind of resource. *)
-  name : string prop;  (** The name of the User to bind to. *)
+  kind : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__rule__http__path__backend__resource) -> ()
+
+let yojson_of_spec__rule__http__path__backend__resource =
+  (function
+   | { api_group = v_api_group; kind = v_kind; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_group in
+         ("api_group", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__rule__http__path__backend__resource ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rule__http__path__backend__resource
+
+[@@@deriving.end]
 
 type spec__rule__http__path__backend__service__port = {
   name : string prop option; [@option]
-      (** Specifies the name of the port of the referenced service. *)
   number : float prop option; [@option]
-      (** Specifies the numerical port of the referenced service. *)
 }
-[@@deriving yojson_of]
-(** Specifies the port of the referenced service. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__rule__http__path__backend__service__port) -> ()
+
+let yojson_of_spec__rule__http__path__backend__service__port =
+  (function
+   | { name = v_name; number = v_number } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__rule__http__path__backend__service__port ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rule__http__path__backend__service__port
+
+[@@@deriving.end]
 
 type spec__rule__http__path__backend__service = {
   name : string prop;
-      (** Specifies the name of the referenced service. *)
   port : spec__rule__http__path__backend__service__port list;
 }
-[@@deriving yojson_of]
-(** spec__rule__http__path__backend__service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__rule__http__path__backend__service) -> ()
+
+let yojson_of_spec__rule__http__path__backend__service =
+  (function
+   | { name = v_name; port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__rule__http__path__backend__service__port
+             v_port
+         in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__rule__http__path__backend__service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rule__http__path__backend__service
+
+[@@@deriving.end]
 
 type spec__rule__http__path__backend = {
   resource : spec__rule__http__path__backend__resource list;
   service : spec__rule__http__path__backend__service list;
 }
-[@@deriving yojson_of]
-(** Backend defines the referenced service endpoint to which the traffic will be forwarded to. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__rule__http__path__backend) -> ()
+
+let yojson_of_spec__rule__http__path__backend =
+  (function
+   | { resource = v_resource; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__rule__http__path__backend__service
+             v_service
+         in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__rule__http__path__backend__resource
+             v_resource
+         in
+         ("resource", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__rule__http__path__backend ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rule__http__path__backend
+
+[@@@deriving.end]
 
 type spec__rule__http__path = {
   path : string prop option; [@option]
-      (** path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional path part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value Exact or Prefix. *)
   path_type : string prop option; [@option]
-      (** pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
-  done on a path element by element basis. A path element refers is the
-  list of labels in the path split by the '/' separator. A request is a
-  match for path p if every p is an element-wise prefix of p of the
-  request path. Note that if the last element of the path is a substring
-  of the last element in request path, it is not a match (e.g. /foo/bar
-  matches /foo/bar/baz, but does not match /foo/barbaz).
-* ImplementationSpecific: Interpretation of the Path matching is up to
-  the IngressClass. Implementations can treat this as a separate PathType
-  or treat it identically to Prefix or Exact path types.
-Implementations are required to support all path types. *)
   backend : spec__rule__http__path__backend list;
 }
-[@@deriving yojson_of]
-(** spec__rule__http__path *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__rule__http__path) -> ()
+
+let yojson_of_spec__rule__http__path =
+  (function
+   | { path = v_path; path_type = v_path_type; backend = v_backend }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__rule__http__path__backend
+             v_backend
+         in
+         ("backend", arg) :: bnds
+       in
+       let bnds =
+         match v_path_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__rule__http__path -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rule__http__path
+
+[@@@deriving.end]
 
 type spec__rule__http = { path : spec__rule__http__path list }
-[@@deriving yojson_of]
-(** http is a list of http selectors pointing to backends. In the example: http:///? -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__rule__http) -> ()
+
+let yojson_of_spec__rule__http =
+  (function
+   | { path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__rule__http__path v_path
+         in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__rule__http -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rule__http
+
+[@@@deriving.end]
 
 type spec__rule = {
   host : string prop option; [@option]
-      (** host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the host part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-   the IP in the Spec of the parent Ingress.
-2. The `:` delimiter is not respected because ports are not allowed.
-	  Currently the port of an Ingress is implicitly :80 for http and
-	  :443 for https.
-Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-
-host can be precise which is a domain name without the terminating dot of a network host (e.g. foo.bar.com) or wildcard, which is a domain name prefixed with a single wildcard label (e.g. *.foo.com). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == \*\). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule. *)
   http : spec__rule__http list;
 }
-[@@deriving yojson_of]
-(** spec__rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__rule) -> ()
+
+let yojson_of_spec__rule =
+  (function
+   | { host = v_host; http = v_http } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__rule__http v_http
+         in
+         ("http", arg) :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rule
+
+[@@@deriving.end]
 
 type spec__tls = {
   hosts : string prop list option; [@option]
-      (** hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified. *)
   secret_name : string prop option; [@option]
-      (** secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the Host header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing. *)
 }
-[@@deriving yojson_of]
-(** tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__tls) -> ()
+
+let yojson_of_spec__tls =
+  (function
+   | { hosts = v_hosts; secret_name = v_secret_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_secret_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hosts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "hosts", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__tls -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__tls
+
+[@@@deriving.end]
 
 type spec = {
   ingress_class_name : string prop option; [@option]
-      (** ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present. *)
   default_backend : spec__default_backend list;
   rule : spec__rule list;
   tls : spec__tls list;
 }
-[@@deriving yojson_of]
-(** spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       ingress_class_name = v_ingress_class_name;
+       default_backend = v_default_backend;
+       rule = v_rule;
+       tls = v_tls;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec__tls v_tls in
+         ("tls", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec__rule v_rule in
+         ("rule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__default_backend
+             v_default_backend
+         in
+         ("default_backend", arg) :: bnds
+       in
+       let bnds =
+         match v_ingress_class_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ingress_class_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type status__load_balancer__ingress = {
-  hostname : string prop;  (** hostname *)
-  ip : string prop;  (** ip *)
+  hostname : string prop;
+  ip : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : status__load_balancer__ingress) -> ()
+
+let yojson_of_status__load_balancer__ingress =
+  (function
+   | { hostname = v_hostname; ip = v_ip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip in
+         ("ip", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_hostname in
+         ("hostname", arg) :: bnds
+       in
+       `Assoc bnds
+    : status__load_balancer__ingress ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_status__load_balancer__ingress
+
+[@@@deriving.end]
 
 type status__load_balancer = {
-  ingress : status__load_balancer__ingress list;  (** ingress *)
+  ingress : status__load_balancer__ingress list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
 
-type status = {
-  load_balancer : status__load_balancer list;  (** load_balancer *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : status__load_balancer) -> ()
+
+let yojson_of_status__load_balancer =
+  (function
+   | { ingress = v_ingress } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_status__load_balancer__ingress
+             v_ingress
+         in
+         ("ingress", arg) :: bnds
+       in
+       `Assoc bnds
+    : status__load_balancer -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_status__load_balancer
+
+[@@@deriving.end]
+
+type status = { load_balancer : status__load_balancer list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : status) -> ()
+
+let yojson_of_status =
+  (function
+   | { load_balancer = v_load_balancer } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_status__load_balancer
+             v_load_balancer
+         in
+         ("load_balancer", arg) :: bnds
+       in
+       `Assoc bnds
+    : status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_status
+
+[@@@deriving.end]
 
 type kubernetes_ingress_v1 = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   wait_for_load_balancer : bool prop option; [@option]
-      (** Terraform will wait for the load balancer to have at least 1 endpoint before considering the resource created. *)
   metadata : metadata list;
   spec : spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** kubernetes_ingress_v1 *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_ingress_v1) -> ()
+
+let yojson_of_kubernetes_ingress_v1 =
+  (function
+   | {
+       id = v_id;
+       wait_for_load_balancer = v_wait_for_load_balancer;
+       metadata = v_metadata;
+       spec = v_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_wait_for_load_balancer with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "wait_for_load_balancer", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_ingress_v1 -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_ingress_v1
+
+[@@@deriving.end]
 
 let metadata ?annotations ?generate_name ?labels ?name ?namespace ()
     : metadata =

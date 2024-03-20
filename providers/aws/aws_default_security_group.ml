@@ -3,44 +3,290 @@
 open! Tf_core
 
 type egress = {
-  cidr_blocks : string prop list;  (** cidr_blocks *)
-  description : string prop;  (** description *)
-  from_port : float prop;  (** from_port *)
-  ipv6_cidr_blocks : string prop list;  (** ipv6_cidr_blocks *)
-  prefix_list_ids : string prop list;  (** prefix_list_ids *)
-  protocol : string prop;  (** protocol *)
-  security_groups : string prop list;  (** security_groups *)
-  self : bool prop;  (** self *)
-  to_port : float prop;  (** to_port *)
+  cidr_blocks : string prop list;
+  description : string prop;
+  from_port : float prop;
+  ipv6_cidr_blocks : string prop list;
+  prefix_list_ids : string prop list;
+  protocol : string prop;
+  security_groups : string prop list;
+  self : bool prop;
+  to_port : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : egress) -> ()
+
+let yojson_of_egress =
+  (function
+   | {
+       cidr_blocks = v_cidr_blocks;
+       description = v_description;
+       from_port = v_from_port;
+       ipv6_cidr_blocks = v_ipv6_cidr_blocks;
+       prefix_list_ids = v_prefix_list_ids;
+       protocol = v_protocol;
+       security_groups = v_security_groups;
+       self = v_self;
+       to_port = v_to_port;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_to_port in
+         ("to_port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_self in
+         ("self", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_security_groups
+         in
+         ("security_groups", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_prefix_list_ids
+         in
+         ("prefix_list_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_ipv6_cidr_blocks
+         in
+         ("ipv6_cidr_blocks", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_from_port in
+         ("from_port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_cidr_blocks
+         in
+         ("cidr_blocks", arg) :: bnds
+       in
+       `Assoc bnds
+    : egress -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_egress
+
+[@@@deriving.end]
 
 type ingress = {
-  cidr_blocks : string prop list;  (** cidr_blocks *)
-  description : string prop;  (** description *)
-  from_port : float prop;  (** from_port *)
-  ipv6_cidr_blocks : string prop list;  (** ipv6_cidr_blocks *)
-  prefix_list_ids : string prop list;  (** prefix_list_ids *)
-  protocol : string prop;  (** protocol *)
-  security_groups : string prop list;  (** security_groups *)
-  self : bool prop;  (** self *)
-  to_port : float prop;  (** to_port *)
+  cidr_blocks : string prop list;
+  description : string prop;
+  from_port : float prop;
+  ipv6_cidr_blocks : string prop list;
+  prefix_list_ids : string prop list;
+  protocol : string prop;
+  security_groups : string prop list;
+  self : bool prop;
+  to_port : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ingress) -> ()
+
+let yojson_of_ingress =
+  (function
+   | {
+       cidr_blocks = v_cidr_blocks;
+       description = v_description;
+       from_port = v_from_port;
+       ipv6_cidr_blocks = v_ipv6_cidr_blocks;
+       prefix_list_ids = v_prefix_list_ids;
+       protocol = v_protocol;
+       security_groups = v_security_groups;
+       self = v_self;
+       to_port = v_to_port;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_to_port in
+         ("to_port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_self in
+         ("self", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_security_groups
+         in
+         ("security_groups", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_prefix_list_ids
+         in
+         ("prefix_list_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_ipv6_cidr_blocks
+         in
+         ("ipv6_cidr_blocks", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_from_port in
+         ("from_port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_cidr_blocks
+         in
+         ("cidr_blocks", arg) :: bnds
+       in
+       `Assoc bnds
+    : ingress -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ingress
+
+[@@@deriving.end]
 
 type aws_default_security_group = {
-  egress : egress list option; [@option]  (** egress *)
-  id : string prop option; [@option]  (** id *)
-  ingress : ingress list option; [@option]  (** ingress *)
+  egress : egress list option; [@option]
+  id : string prop option; [@option]
+  ingress : ingress list option; [@option]
   revoke_rules_on_delete : bool prop option; [@option]
-      (** revoke_rules_on_delete *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  vpc_id : string prop option; [@option]  (** vpc_id *)
+  vpc_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_default_security_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_default_security_group) -> ()
+
+let yojson_of_aws_default_security_group =
+  (function
+   | {
+       egress = v_egress;
+       id = v_id;
+       ingress = v_ingress;
+       revoke_rules_on_delete = v_revoke_rules_on_delete;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       vpc_id = v_vpc_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vpc_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vpc_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_revoke_rules_on_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "revoke_rules_on_delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ingress with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_list yojson_of_ingress v in
+             let bnd = "ingress", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_egress with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_list yojson_of_egress v in
+             let bnd = "egress", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_default_security_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_default_security_group
+
+[@@@deriving.end]
 
 let aws_default_security_group ?egress ?id ?ingress
     ?revoke_rules_on_delete ?tags ?tags_all ?vpc_id () :

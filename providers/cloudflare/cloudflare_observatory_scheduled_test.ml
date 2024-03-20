@@ -2,26 +2,92 @@
 
 open! Tf_core
 
-type timeouts = {
-  create : string prop option; [@option]  (** create *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type cloudflare_observatory_scheduled_test = {
   frequency : string prop;
-      (** The frequency to run the test. Available values: `DAILY`, `WEEKLY`. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   region : string prop;
-      (** The region to run the test in. Available values: `us-central1`, `us-east1`, `us-east4`, `us-south1`, `us-west1`, `southamerica-east1`, `europe-north1`, `europe-southwest1`, `europe-west1`, `europe-west2`, `europe-west3`, `europe-west4`, `europe-west8`, `europe-west9`, `asia-east1`, `asia-south1`, `asia-southeast1`, `me-west1`, `australia-southeast1`. **Modifying this attribute will force creation of a new resource.** *)
   url : string prop;
-      (** The page to run the test on. **Modifying this attribute will force creation of a new resource.** *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Observatory Scheduled Test resource. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_observatory_scheduled_test) -> ()
+
+let yojson_of_cloudflare_observatory_scheduled_test =
+  (function
+   | {
+       frequency = v_frequency;
+       id = v_id;
+       region = v_region;
+       url = v_url;
+       zone_id = v_zone_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_frequency in
+         ("frequency", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_observatory_scheduled_test ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_observatory_scheduled_test
+
+[@@@deriving.end]
 
 let timeouts ?create () : timeouts = { create }
 

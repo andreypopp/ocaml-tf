@@ -4,14 +4,45 @@ open! Tf_core
 
 type cloudflare_r2_bucket = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   location : string prop option; [@option]
-      (** The location hint of the R2 bucket. *)
-  name : string prop;  (** The name of the R2 bucket. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** The [R2 Bucket](https://developers.cloudflare.com/r2/) resource allows you to manage Cloudflare R2 buckets.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_r2_bucket) -> ()
+
+let yojson_of_cloudflare_r2_bucket =
+  (function
+   | {
+       account_id = v_account_id;
+       location = v_location;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_r2_bucket -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_r2_bucket
+
+[@@@deriving.end]
 
 let cloudflare_r2_bucket ?location ~account_id ~name () :
     cloudflare_r2_bucket =

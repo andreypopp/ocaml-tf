@@ -2,117 +2,337 @@
 
 open! Tf_core
 
-type guest_os_features = {
-  type_ : string prop; [@key "type"]
-      (** The type of supported feature. Read [Enabling guest operating system features](https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images#guest-os-features) to see a list of available options. Possible values: [MULTI_IP_SUBNET, SECURE_BOOT, SEV_CAPABLE, UEFI_COMPATIBLE, VIRTIO_SCSI_MULTIQUEUE, WINDOWS, GVNIC, SEV_LIVE_MIGRATABLE, SEV_SNP_CAPABLE, SUSPEND_RESUME_COMPATIBLE, TDX_CAPABLE, SEV_LIVE_MIGRATABLE_V2] *)
-}
-[@@deriving yojson_of]
-(** A list of features to enable on the guest operating system.
-Applicable only for bootable images. *)
+type guest_os_features = { type_ : string prop [@key "type"] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : guest_os_features) -> ()
+
+let yojson_of_guest_os_features =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : guest_os_features -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_guest_os_features
+
+[@@@deriving.end]
 
 type image_encryption_key = {
   kms_key_self_link : string prop option; [@option]
-      (** The self link of the encryption key that is stored in Google Cloud
-KMS. *)
   kms_key_service_account : string prop option; [@option]
-      (** The service account being used for the encryption request for the
-given KMS key. If absent, the Compute Engine default service
-account is used. *)
 }
-[@@deriving yojson_of]
-(** Encrypts the image using a customer-supplied encryption key.
+[@@deriving_inline yojson_of]
 
-After you encrypt an image with a customer-supplied key, you must
-provide the same key if you use the image later (e.g. to create a
-disk from the image) *)
+let _ = fun (_ : image_encryption_key) -> ()
+
+let yojson_of_image_encryption_key =
+  (function
+   | {
+       kms_key_self_link = v_kms_key_self_link;
+       kms_key_service_account = v_kms_key_service_account;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_self_link with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_self_link", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : image_encryption_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_image_encryption_key
+
+[@@@deriving.end]
 
 type raw_disk = {
   container_type : string prop option; [@option]
-      (** The format used to encode and transmit the block device, which
-should be TAR. This is just a container and transmission format
-and not a runtime format. Provided by the client when the disk
-image is created. Default value: TAR Possible values: [TAR] *)
   sha1 : string prop option; [@option]
-      (** An optional SHA1 checksum of the disk image before unpackaging.
-This is provided by the client when the disk image is created. *)
   source : string prop;
-      (** The full Google Cloud Storage URL where disk storage is stored
-You must provide either this property or the sourceDisk property
-but not both. *)
 }
-[@@deriving yojson_of]
-(** The parameters of the raw disk image. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : raw_disk) -> ()
+
+let yojson_of_raw_disk =
+  (function
+   | {
+       container_type = v_container_type;
+       sha1 = v_sha1;
+       source = v_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         match v_sha1 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sha1", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "container_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : raw_disk -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_raw_disk
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_image = {
   description : string prop option; [@option]
-      (** An optional description of this resource. Provide this property when
-you create the resource. *)
   disk_size_gb : float prop option; [@option]
-      (** Size of the image when restored onto a persistent disk (in GB). *)
   family : string prop option; [@option]
-      (** The name of the image family to which this image belongs. You can
-create disks by specifying an image family instead of a specific
-image name. The image family always returns its latest image that is
-not deprecated. The name of the image family must comply with
-RFC1035. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels to apply to this Image.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   licenses : string prop list option; [@option]
-      (** Any applicable license URI. *)
   name : string prop;
-      (** Name of the resource; provided by the client when the resource is
-created. The name must be 1-63 characters long, and comply with
-RFC1035. Specifically, the name must be 1-63 characters long and
-match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means
-the first character must be a lowercase letter, and all following
-characters must be a dash, lowercase letter, or digit, except the
-last character, which cannot be a dash. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   source_disk : string prop option; [@option]
-      (** The source disk to create this image based on.
-You must provide either this property or the
-rawDisk.source property but not both to create an image. *)
   source_image : string prop option; [@option]
-      (** URL of the source image used to create this image. In order to create an image, you must provide the full or partial
-URL of one of the following:
-
-* The selfLink URL
-* This property
-* The rawDisk.source URL
-* The sourceDisk URL *)
   source_snapshot : string prop option; [@option]
-      (** URL of the source snapshot used to create this image.
-
-In order to create an image, you must provide the full or partial URL of one of the following:
-
-* The selfLink URL
-* This property
-* The sourceImage URL
-* The rawDisk.source URL
-* The sourceDisk URL *)
   storage_locations : string prop list option; [@option]
-      (** Cloud Storage bucket storage location of the image
-(regional or multi-regional).
-Reference link: https://cloud.google.com/compute/docs/reference/rest/v1/images *)
   guest_os_features : guest_os_features list;
   image_encryption_key : image_encryption_key list;
   raw_disk : raw_disk list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_image *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_image) -> ()
+
+let yojson_of_google_compute_image =
+  (function
+   | {
+       description = v_description;
+       disk_size_gb = v_disk_size_gb;
+       family = v_family;
+       id = v_id;
+       labels = v_labels;
+       licenses = v_licenses;
+       name = v_name;
+       project = v_project;
+       source_disk = v_source_disk;
+       source_image = v_source_image;
+       source_snapshot = v_source_snapshot;
+       storage_locations = v_storage_locations;
+       guest_os_features = v_guest_os_features;
+       image_encryption_key = v_image_encryption_key;
+       raw_disk = v_raw_disk;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_raw_disk v_raw_disk in
+         ("raw_disk", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_image_encryption_key
+             v_image_encryption_key
+         in
+         ("image_encryption_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_guest_os_features
+             v_guest_os_features
+         in
+         ("guest_os_features", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_locations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "storage_locations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_snapshot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_snapshot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_image", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_disk with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_disk", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_licenses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "licenses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_family with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "family", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "disk_size_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_image -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_image
+
+[@@@deriving.end]
 
 let guest_os_features ~type_ () : guest_os_features = { type_ }
 

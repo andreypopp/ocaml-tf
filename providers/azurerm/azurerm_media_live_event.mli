@@ -27,6 +27,8 @@ type input__endpoint = {
   url : string prop;  (** url *)
 }
 
+[@@@deriving.end]
+
 type input__ip_access_control_allow
 
 val input__ip_access_control_allow :
@@ -50,6 +52,8 @@ type preview__endpoint = {
   protocol : string prop;  (** protocol *)
   url : string prop;  (** url *)
 }
+
+[@@@deriving.end]
 
 type preview__ip_access_control_allow
 

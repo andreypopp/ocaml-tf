@@ -3,67 +3,273 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_netapp_active_directory = {
   aes_encryption : bool prop option; [@option]
-      (** Enables AES-128 and AES-256 encryption for Kerberos-based communication with Active Directory. *)
   backup_operators : string prop list option; [@option]
-      (** Domain user/group accounts to be added to the Backup Operators group of the SMB service. The Backup Operators group allows members to backup and restore files regardless of whether they have read or write access to the files. Comma-separated list. *)
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
   dns : string prop;
-      (** Comma separated list of DNS server IP addresses for the Active Directory domain. *)
   domain : string prop;
-      (** Fully qualified domain name for the Active Directory domain. *)
   encrypt_dc_connections : bool prop option; [@option]
-      (** If enabled, traffic between the SMB server to Domain Controller (DC) will be encrypted. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kdc_hostname : string prop option; [@option]
-      (** Hostname of the Active Directory server used as Kerberos Key Distribution Center. Only requried for volumes using kerberized NFSv4.1 *)
   kdc_ip : string prop option; [@option]
-      (** IP address of the Active Directory server used as Kerberos Key Distribution Center. *)
   labels : (string * string prop) list option; [@option]
-      (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   ldap_signing : bool prop option; [@option]
-      (** Specifies whether or not the LDAP traffic needs to be signed. *)
   location : string prop;
-      (** Name of the region for the policy to apply to. *)
   name : string prop;
-      (** The resource name of the Active Directory pool. Needs to be unique per location. *)
   net_bios_prefix : string prop;
-      (** NetBIOS name prefix of the server to be created.
-A five-character random ID is generated automatically, for example, -6f9a, and appended to the prefix. The full UNC share path will have the following format:
-'\\NetBIOS_PREFIX-ABCD.DOMAIN_NAME\SHARE_NAME' *)
   nfs_users_with_ldap : bool prop option; [@option]
-      (** Local UNIX users on clients without valid user information in Active Directory are blocked from access to LDAP enabled volumes.
-This option can be used to temporarily switch such volumes to AUTH_SYS authentication (user ID + 1-16 groups). *)
   organizational_unit : string prop option; [@option]
-      (** Name of the Organizational Unit where you intend to create the computer account for NetApp Volumes.
-Defaults to 'CN=Computers' if left empty. *)
   password : string prop;
-      (** Password for specified username. Note - Manual changes done to the password will not be detected. Terraform will not re-apply the password, unless you use a new password in Terraform. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   security_operators : string prop list option; [@option]
-      (** Domain accounts that require elevated privileges such as 'SeSecurityPrivilege' to manage security logs. Comma-separated list. *)
   site : string prop option; [@option]
-      (** Specifies an Active Directory site to manage domain controller selection.
-Use when Active Directory domain controllers in multiple regions are configured. Defaults to 'Default-First-Site-Name' if left empty. *)
   username : string prop;
-      (** Username for the Active Directory account with permissions to create the compute account within the specified organizational unit. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_netapp_active_directory *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_netapp_active_directory) -> ()
+
+let yojson_of_google_netapp_active_directory =
+  (function
+   | {
+       aes_encryption = v_aes_encryption;
+       backup_operators = v_backup_operators;
+       description = v_description;
+       dns = v_dns;
+       domain = v_domain;
+       encrypt_dc_connections = v_encrypt_dc_connections;
+       id = v_id;
+       kdc_hostname = v_kdc_hostname;
+       kdc_ip = v_kdc_ip;
+       labels = v_labels;
+       ldap_signing = v_ldap_signing;
+       location = v_location;
+       name = v_name;
+       net_bios_prefix = v_net_bios_prefix;
+       nfs_users_with_ldap = v_nfs_users_with_ldap;
+       organizational_unit = v_organizational_unit;
+       password = v_password;
+       project = v_project;
+       security_operators = v_security_operators;
+       site = v_site;
+       username = v_username;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         match v_site with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "site", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_operators with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_operators", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       let bnds =
+         match v_organizational_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "organizational_unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nfs_users_with_ldap with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "nfs_users_with_ldap", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_net_bios_prefix
+         in
+         ("net_bios_prefix", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_ldap_signing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ldap_signing", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kdc_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kdc_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kdc_hostname with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kdc_hostname", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encrypt_dc_connections with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encrypt_dc_connections", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dns in
+         ("dns", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backup_operators with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "backup_operators", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_aes_encryption with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "aes_encryption", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_netapp_active_directory ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_netapp_active_directory
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

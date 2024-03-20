@@ -2,98 +2,309 @@
 
 open! Tf_core
 
-type encryption_configuration = {
-  kms_key_name : string prop;
-      (** The self link or full name of a key which should be used to encrypt this table. Note that the default bigquery service account will need to have encrypt/decrypt permissions on this key - you may want to see the google_bigquery_default_service_account datasource and the google_kms_crypto_key_iam_binding resource. *)
-}
-[@@deriving yojson_of]
-(** Specifies how the table should be encrypted. If left blank, the table will be encrypted with a Google-managed key; that process is transparent to the user. *)
+type encryption_configuration = { kms_key_name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_configuration) -> ()
+
+let yojson_of_encryption_configuration =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_name in
+         ("kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_configuration
+
+[@@@deriving.end]
 
 type external_data_configuration__avro_options = {
   use_avro_logical_types : bool prop;
-      (** If sourceFormat is set to AVRO, indicates whether to interpret logical types as the corresponding BigQuery data type (for example, TIMESTAMP), instead of using the raw type (for example, INTEGER). *)
 }
-[@@deriving yojson_of]
-(** Additional options if source_format is set to AVRO *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : external_data_configuration__avro_options) -> ()
+
+let yojson_of_external_data_configuration__avro_options =
+  (function
+   | { use_avro_logical_types = v_use_avro_logical_types } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_use_avro_logical_types
+         in
+         ("use_avro_logical_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration__avro_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_data_configuration__avro_options
+
+[@@@deriving.end]
 
 type external_data_configuration__csv_options = {
   allow_jagged_rows : bool prop option; [@option]
-      (** Indicates if BigQuery should accept rows that are missing trailing optional columns. *)
   allow_quoted_newlines : bool prop option; [@option]
-      (** Indicates if BigQuery should allow quoted data sections that contain newline characters in a CSV file. The default value is false. *)
   encoding : string prop option; [@option]
-      (** The character encoding of the data. The supported values are UTF-8 or ISO-8859-1. *)
   field_delimiter : string prop option; [@option]
-      (** The separator for fields in a CSV file. *)
   quote : string prop;
-      (** The value that is used to quote data sections in a CSV file. If your data does not contain quoted sections, set the property value to an empty string. If your data contains quoted newline characters, you must also set the allow_quoted_newlines property to true. The API-side default is , specified in Terraform escaped as \. Due to limitations with Terraform default values, this value is required to be explicitly set. *)
   skip_leading_rows : float prop option; [@option]
-      (** The number of rows at the top of a CSV file that BigQuery will skip when reading the data. *)
 }
-[@@deriving yojson_of]
-(** Additional properties to set if source_format is set to CSV. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : external_data_configuration__csv_options) -> ()
+
+let yojson_of_external_data_configuration__csv_options =
+  (function
+   | {
+       allow_jagged_rows = v_allow_jagged_rows;
+       allow_quoted_newlines = v_allow_quoted_newlines;
+       encoding = v_encoding;
+       field_delimiter = v_field_delimiter;
+       quote = v_quote;
+       skip_leading_rows = v_skip_leading_rows;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_skip_leading_rows with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "skip_leading_rows", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_quote in
+         ("quote", arg) :: bnds
+       in
+       let bnds =
+         match v_field_delimiter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_delimiter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_quoted_newlines with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_quoted_newlines", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_jagged_rows with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_jagged_rows", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration__csv_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_data_configuration__csv_options
+
+[@@@deriving.end]
 
 type external_data_configuration__google_sheets_options = {
   range : string prop option; [@option]
-      (** Range of a sheet to query from. Only used when non-empty. At least one of range or skip_leading_rows must be set. Typical format: sheet_name!top_left_cell_id:bottom_right_cell_id For example: sheet1!A1:B20 *)
   skip_leading_rows : float prop option; [@option]
-      (** The number of rows at the top of the sheet that BigQuery will skip when reading the data. At least one of range or skip_leading_rows must be set. *)
 }
-[@@deriving yojson_of]
-(** Additional options if source_format is set to GOOGLE_SHEETS. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : external_data_configuration__google_sheets_options) -> ()
+
+let yojson_of_external_data_configuration__google_sheets_options =
+  (function
+   | { range = v_range; skip_leading_rows = v_skip_leading_rows } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_skip_leading_rows with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "skip_leading_rows", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "range", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration__google_sheets_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_data_configuration__google_sheets_options
+
+[@@@deriving.end]
 
 type external_data_configuration__hive_partitioning_options = {
   mode : string prop option; [@option]
-      (** When set, what mode of hive partitioning to use when reading data. *)
   require_partition_filter : bool prop option; [@option]
-      (** If set to true, queries over this table require a partition filter that can be used for partition elimination to be specified. *)
   source_uri_prefix : string prop option; [@option]
-      (** When hive partition detection is requested, a common for all source uris must be required. The prefix must end immediately before the partition key encoding begins. *)
 }
-[@@deriving yojson_of]
-(** When set, configures hive partitioning support. Not all storage formats support hive partitioning -- requesting hive partitioning on an unsupported format will lead to an error, as will providing an invalid specification. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : external_data_configuration__hive_partitioning_options) ->
+  ()
+
+let yojson_of_external_data_configuration__hive_partitioning_options
+    =
+  (function
+   | {
+       mode = v_mode;
+       require_partition_filter = v_require_partition_filter;
+       source_uri_prefix = v_source_uri_prefix;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source_uri_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_uri_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_require_partition_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_partition_filter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration__hive_partitioning_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_external_data_configuration__hive_partitioning_options
+
+[@@@deriving.end]
 
 type external_data_configuration__json_options = {
   encoding : string prop option; [@option]
-      (** The character encoding of the data. The supported values are UTF-8, UTF-16BE, UTF-16LE, UTF-32BE, and UTF-32LE. The default value is UTF-8. *)
 }
-[@@deriving yojson_of]
-(** Additional properties to set if sourceFormat is set to JSON. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : external_data_configuration__json_options) -> ()
+
+let yojson_of_external_data_configuration__json_options =
+  (function
+   | { encoding = v_encoding } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration__json_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_data_configuration__json_options
+
+[@@@deriving.end]
 
 type external_data_configuration__parquet_options = {
   enable_list_inference : bool prop option; [@option]
-      (** Indicates whether to use schema inference specifically for Parquet LIST logical type. *)
   enum_as_string : bool prop option; [@option]
-      (** Indicates whether to infer Parquet ENUM logical type as STRING instead of BYTES by default. *)
 }
-[@@deriving yojson_of]
-(** Additional properties to set if sourceFormat is set to PARQUET. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : external_data_configuration__parquet_options) -> ()
+
+let yojson_of_external_data_configuration__parquet_options =
+  (function
+   | {
+       enable_list_inference = v_enable_list_inference;
+       enum_as_string = v_enum_as_string;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enum_as_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enum_as_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_list_inference with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_list_inference", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration__parquet_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_data_configuration__parquet_options
+
+[@@@deriving.end]
 
 type external_data_configuration = {
   autodetect : bool prop;
-      (** Let BigQuery try to autodetect the schema and format of the table. *)
   compression : string prop option; [@option]
-      (** The compression type of the data source. Valid values are NONE or GZIP. *)
   connection_id : string prop option; [@option]
-      (** The connection specifying the credentials to be used to read external storage, such as Azure Blob, Cloud Storage, or S3. The connectionId can have the form {{project}}.{{location}}.{{connection_id}} or projects/{{project}}/locations/{{location}}/connections/{{connection_id}}. *)
   file_set_spec_type : string prop option; [@option]
-      (** Specifies how source URIs are interpreted for constructing the file set to load.  By default source URIs are expanded against the underlying storage.  Other options include specifying manifest files. Only applicable to object storage systems. *)
   ignore_unknown_values : bool prop option; [@option]
-      (** Indicates if BigQuery should allow extra values that are not represented in the table schema. If true, the extra values are ignored. If false, records with extra columns are treated as bad records, and if there are too many bad records, an invalid error is returned in the job result. The default value is false. *)
   max_bad_records : float prop option; [@option]
-      (** The maximum number of bad records that BigQuery can ignore when reading data. *)
   metadata_cache_mode : string prop option; [@option]
-      (** Metadata Cache Mode for the table. Set this to enable caching of metadata from external data source. *)
   object_metadata : string prop option; [@option]
-      (** Object Metadata is used to create Object Tables. Object Tables contain a listing of objects (with their metadata) found at the sourceUris. If ObjectMetadata is set, sourceFormat should be omitted. *)
   reference_file_schema_uri : string prop option; [@option]
-      (** When creating an external table, the user can provide a reference file with the table schema. This is enabled for the following formats: AVRO, PARQUET, ORC. *)
   schema : string prop option; [@option]
-      (** A JSON schema for the external table. Schema is required for CSV and JSON formats and is disallowed for Google Cloud Bigtable, Cloud Datastore backups, and Avro formats when using external tables. *)
   source_format : string prop option; [@option]
-      (**  Please see sourceFormat under ExternalDataConfiguration in Bigquery's public API documentation (https://cloud.google.com/bigquery/docs/reference/rest/v2/tables#externaldataconfiguration) for supported formats. To use GOOGLE_SHEETS the scopes must include googleapis.com/auth/drive.readonly. *)
   source_uris : string prop list;
-      (** A list of the fully-qualified URIs that point to your data in Google Cloud. *)
   avro_options : external_data_configuration__avro_options list;
   csv_options : external_data_configuration__csv_options list;
   google_sheets_options :
@@ -103,149 +314,654 @@ type external_data_configuration = {
   json_options : external_data_configuration__json_options list;
   parquet_options : external_data_configuration__parquet_options list;
 }
-[@@deriving yojson_of]
-(** Describes the data format, location, and other properties of a table stored outside of BigQuery. By defining these properties, the data source can then be queried as if it were a standard BigQuery table. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : external_data_configuration) -> ()
+
+let yojson_of_external_data_configuration =
+  (function
+   | {
+       autodetect = v_autodetect;
+       compression = v_compression;
+       connection_id = v_connection_id;
+       file_set_spec_type = v_file_set_spec_type;
+       ignore_unknown_values = v_ignore_unknown_values;
+       max_bad_records = v_max_bad_records;
+       metadata_cache_mode = v_metadata_cache_mode;
+       object_metadata = v_object_metadata;
+       reference_file_schema_uri = v_reference_file_schema_uri;
+       schema = v_schema;
+       source_format = v_source_format;
+       source_uris = v_source_uris;
+       avro_options = v_avro_options;
+       csv_options = v_csv_options;
+       google_sheets_options = v_google_sheets_options;
+       hive_partitioning_options = v_hive_partitioning_options;
+       json_options = v_json_options;
+       parquet_options = v_parquet_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_external_data_configuration__parquet_options
+             v_parquet_options
+         in
+         ("parquet_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_external_data_configuration__json_options
+             v_json_options
+         in
+         ("json_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_external_data_configuration__hive_partitioning_options
+             v_hive_partitioning_options
+         in
+         ("hive_partitioning_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_external_data_configuration__google_sheets_options
+             v_google_sheets_options
+         in
+         ("google_sheets_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_external_data_configuration__csv_options
+             v_csv_options
+         in
+         ("csv_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_external_data_configuration__avro_options
+             v_avro_options
+         in
+         ("avro_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_source_uris
+         in
+         ("source_uris", arg) :: bnds
+       in
+       let bnds =
+         match v_source_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_reference_file_schema_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "reference_file_schema_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_object_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metadata_cache_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metadata_cache_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_bad_records with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_bad_records", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_unknown_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_unknown_values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_set_spec_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "file_set_spec_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connection_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compression with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compression", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_autodetect in
+         ("autodetect", arg) :: bnds
+       in
+       `Assoc bnds
+    : external_data_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_data_configuration
+
+[@@@deriving.end]
 
 type materialized_view = {
   allow_non_incremental_definition : bool prop option; [@option]
-      (** Allow non incremental materialized view definition. The default value is false. *)
   enable_refresh : bool prop option; [@option]
-      (** Specifies if BigQuery should automatically refresh materialized view when the base table is updated. The default is true. *)
-  query : string prop;  (** A query whose result is persisted. *)
+  query : string prop;
   refresh_interval_ms : float prop option; [@option]
-      (** Specifies maximum frequency at which this materialized view will be refreshed. The default is 1800000. *)
 }
-[@@deriving yojson_of]
-(** If specified, configures this table as a materialized view. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : materialized_view) -> ()
+
+let yojson_of_materialized_view =
+  (function
+   | {
+       allow_non_incremental_definition =
+         v_allow_non_incremental_definition;
+       enable_refresh = v_enable_refresh;
+       query = v_query;
+       refresh_interval_ms = v_refresh_interval_ms;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_refresh_interval_ms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "refresh_interval_ms", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_query in
+         ("query", arg) :: bnds
+       in
+       let bnds =
+         match v_enable_refresh with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_refresh", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_non_incremental_definition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_non_incremental_definition", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : materialized_view -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_materialized_view
+
+[@@@deriving.end]
 
 type range_partitioning__range = {
   end_ : float prop; [@key "end"]
-      (** End of the range partitioning, exclusive. *)
   interval : float prop;
-      (** The width of each range within the partition. *)
   start : float prop;
-      (** Start of the range partitioning, inclusive. *)
 }
-[@@deriving yojson_of]
-(** Information required to partition based on ranges. Structure is documented below. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : range_partitioning__range) -> ()
+
+let yojson_of_range_partitioning__range =
+  (function
+   | { end_ = v_end_; interval = v_interval; start = v_start } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_start in
+         ("start", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_interval in
+         ("interval", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_end_ in
+         ("end", arg) :: bnds
+       in
+       `Assoc bnds
+    : range_partitioning__range -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_range_partitioning__range
+
+[@@@deriving.end]
 
 type range_partitioning = {
   field : string prop;
-      (** The field used to determine how to create a range-based partition. *)
   range : range_partitioning__range list;
 }
-[@@deriving yojson_of]
-(** If specified, configures range-based partitioning for this table. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : range_partitioning) -> ()
+
+let yojson_of_range_partitioning =
+  (function
+   | { field = v_field; range = v_range } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_range_partitioning__range v_range
+         in
+         ("range", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_field in
+         ("field", arg) :: bnds
+       in
+       `Assoc bnds
+    : range_partitioning -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_range_partitioning
+
+[@@@deriving.end]
 
 type table_constraints__foreign_keys__column_references = {
   referenced_column : string prop;
-      (** The column in the primary key that are referenced by the referencingColumn. *)
   referencing_column : string prop;
-      (** The column that composes the foreign key. *)
 }
-[@@deriving yojson_of]
-(** The pair of the foreign key column and primary key column. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : table_constraints__foreign_keys__column_references) -> ()
+
+let yojson_of_table_constraints__foreign_keys__column_references =
+  (function
+   | {
+       referenced_column = v_referenced_column;
+       referencing_column = v_referencing_column;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_referencing_column
+         in
+         ("referencing_column", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_referenced_column
+         in
+         ("referenced_column", arg) :: bnds
+       in
+       `Assoc bnds
+    : table_constraints__foreign_keys__column_references ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_table_constraints__foreign_keys__column_references
+
+[@@@deriving.end]
 
 type table_constraints__foreign_keys__referenced_table = {
   dataset_id : string prop;
-      (** The ID of the dataset containing this table. *)
   project_id : string prop;
-      (** The ID of the project containing this table. *)
   table_id : string prop;
-      (** The ID of the table. The ID must contain only letters (a-z, A-Z), numbers (0-9), or underscores (_). The maximum length is 1,024 characters. Certain operations allow suffixing of the table ID with a partition decorator, such as sample_table$20190123. *)
 }
-[@@deriving yojson_of]
-(** The table that holds the primary key and is referenced by this foreign key. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : table_constraints__foreign_keys__referenced_table) -> ()
+
+let yojson_of_table_constraints__foreign_keys__referenced_table =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       table_id = v_table_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_id in
+         ("table_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : table_constraints__foreign_keys__referenced_table ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_table_constraints__foreign_keys__referenced_table
+
+[@@@deriving.end]
 
 type table_constraints__foreign_keys = {
   name : string prop option; [@option]
-      (** Set only if the foreign key constraint is named. *)
   column_references :
     table_constraints__foreign_keys__column_references list;
   referenced_table :
     table_constraints__foreign_keys__referenced_table list;
 }
-[@@deriving yojson_of]
-(** Present only if the table has a foreign key. The foreign key is not enforced. *)
+[@@deriving_inline yojson_of]
 
-type table_constraints__primary_key = {
-  columns : string prop list;
-      (** The columns that are composed of the primary key constraint. *)
-}
-[@@deriving yojson_of]
-(** Represents a primary key constraint on a table's columns. Present only if the table has a primary key. The primary key is not enforced. *)
+let _ = fun (_ : table_constraints__foreign_keys) -> ()
+
+let yojson_of_table_constraints__foreign_keys =
+  (function
+   | {
+       name = v_name;
+       column_references = v_column_references;
+       referenced_table = v_referenced_table;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_table_constraints__foreign_keys__referenced_table
+             v_referenced_table
+         in
+         ("referenced_table", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_table_constraints__foreign_keys__column_references
+             v_column_references
+         in
+         ("column_references", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : table_constraints__foreign_keys ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_table_constraints__foreign_keys
+
+[@@@deriving.end]
+
+type table_constraints__primary_key = { columns : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : table_constraints__primary_key) -> ()
+
+let yojson_of_table_constraints__primary_key =
+  (function
+   | { columns = v_columns } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_columns
+         in
+         ("columns", arg) :: bnds
+       in
+       `Assoc bnds
+    : table_constraints__primary_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_table_constraints__primary_key
+
+[@@@deriving.end]
 
 type table_constraints = {
   foreign_keys : table_constraints__foreign_keys list;
   primary_key : table_constraints__primary_key list;
 }
-[@@deriving yojson_of]
-(** Defines the primary key and foreign keys. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : table_constraints) -> ()
+
+let yojson_of_table_constraints =
+  (function
+   | { foreign_keys = v_foreign_keys; primary_key = v_primary_key }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_table_constraints__primary_key
+             v_primary_key
+         in
+         ("primary_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_table_constraints__foreign_keys
+             v_foreign_keys
+         in
+         ("foreign_keys", arg) :: bnds
+       in
+       `Assoc bnds
+    : table_constraints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_table_constraints
+
+[@@@deriving.end]
 
 type table_replication_info = {
   replication_interval_ms : float prop option; [@option]
-      (** The interval at which the source materialized view is polled for updates. The default is 300000. *)
   source_dataset_id : string prop;
-      (** The ID of the source dataset. *)
   source_project_id : string prop;
-      (** The ID of the source project. *)
   source_table_id : string prop;
-      (** The ID of the source materialized view. *)
 }
-[@@deriving yojson_of]
-(** Replication info of a table created using AS REPLICA DDL like: CREATE MATERIALIZED VIEW mv1 AS REPLICA OF src_mv. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : table_replication_info) -> ()
+
+let yojson_of_table_replication_info =
+  (function
+   | {
+       replication_interval_ms = v_replication_interval_ms;
+       source_dataset_id = v_source_dataset_id;
+       source_project_id = v_source_project_id;
+       source_table_id = v_source_table_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_table_id
+         in
+         ("source_table_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_project_id
+         in
+         ("source_project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_dataset_id
+         in
+         ("source_dataset_id", arg) :: bnds
+       in
+       let bnds =
+         match v_replication_interval_ms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "replication_interval_ms", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : table_replication_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_table_replication_info
+
+[@@@deriving.end]
 
 type time_partitioning = {
   expiration_ms : float prop option; [@option]
-      (** Number of milliseconds for which to keep the storage for a partition. *)
   field : string prop option; [@option]
-      (** The field used to determine how to create a time-based partition. If time-based partitioning is enabled without this value, the table is partitioned based on the load time. *)
   require_partition_filter : bool prop option; [@option]
-      (** If set to true, queries over this table require a partition filter that can be used for partition elimination to be specified. *)
   type_ : string prop; [@key "type"]
-      (** The supported types are DAY, HOUR, MONTH, and YEAR, which will generate one partition per day, hour, month, and year, respectively. *)
 }
-[@@deriving yojson_of]
-(** If specified, configures time-based partitioning for this table. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : time_partitioning) -> ()
+
+let yojson_of_time_partitioning =
+  (function
+   | {
+       expiration_ms = v_expiration_ms;
+       field = v_field;
+       require_partition_filter = v_require_partition_filter;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_require_partition_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_partition_filter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_field with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expiration_ms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "expiration_ms", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : time_partitioning -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_time_partitioning
+
+[@@@deriving.end]
 
 type view = {
   query : string prop;
-      (** A query that BigQuery executes when the view is referenced. *)
   use_legacy_sql : bool prop option; [@option]
-      (** Specifies whether to use BigQuery's legacy SQL for this view. The default value is true. If set to false, the view will use BigQuery's standard SQL *)
 }
-[@@deriving yojson_of]
-(** If specified, configures this table as a view. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : view) -> ()
+
+let yojson_of_view =
+  (function
+   | { query = v_query; use_legacy_sql = v_use_legacy_sql } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_legacy_sql with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_legacy_sql", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_query in
+         ("query", arg) :: bnds
+       in
+       `Assoc bnds
+    : view -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_view
+
+[@@@deriving.end]
 
 type google_bigquery_table = {
   clustering : string prop list option; [@option]
-      (** Specifies column names to use for data clustering. Up to four top-level columns are allowed, and should be specified in descending priority order. *)
   dataset_id : string prop;
-      (** The dataset ID to create the table in. Changing this forces a new resource to be created. *)
   deletion_protection : bool prop option; [@option]
-      (** Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a terraform destroy or terraform apply that would delete the instance will fail. *)
   description : string prop option; [@option]
-      (** The field description. *)
   expiration_time : float prop option; [@option]
-      (** The time when this table expires, in milliseconds since the epoch. If not present, the table will persist indefinitely. Expired tables will be deleted and their storage reclaimed. *)
   friendly_name : string prop option; [@option]
-      (** A descriptive name for the table. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** A mapping of labels to assign to the resource.
-
-				**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   max_staleness : string prop option; [@option]
-      (** The maximum staleness of data that could be returned when the table (or stale MV) is queried. Staleness encoded as a string encoding of [SQL IntervalValue type](https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#interval_type). *)
   project : string prop option; [@option]
-      (** The ID of the project in which the resource belongs. *)
   require_partition_filter : bool prop option; [@option]
-      (** If set to true, queries over this table require a partition filter that can be used for partition elimination to be specified. *)
   schema : string prop option; [@option]
-      (** A JSON schema for the table. *)
   table_id : string prop;
-      (** A unique ID for the resource. Changing this forces a new resource to be created. *)
   encryption_configuration : encryption_configuration list;
   external_data_configuration : external_data_configuration list;
   materialized_view : materialized_view list;
@@ -255,8 +971,203 @@ type google_bigquery_table = {
   time_partitioning : time_partitioning list;
   view : view list;
 }
-[@@deriving yojson_of]
-(** google_bigquery_table *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigquery_table) -> ()
+
+let yojson_of_google_bigquery_table =
+  (function
+   | {
+       clustering = v_clustering;
+       dataset_id = v_dataset_id;
+       deletion_protection = v_deletion_protection;
+       description = v_description;
+       expiration_time = v_expiration_time;
+       friendly_name = v_friendly_name;
+       id = v_id;
+       labels = v_labels;
+       max_staleness = v_max_staleness;
+       project = v_project;
+       require_partition_filter = v_require_partition_filter;
+       schema = v_schema;
+       table_id = v_table_id;
+       encryption_configuration = v_encryption_configuration;
+       external_data_configuration = v_external_data_configuration;
+       materialized_view = v_materialized_view;
+       range_partitioning = v_range_partitioning;
+       table_constraints = v_table_constraints;
+       table_replication_info = v_table_replication_info;
+       time_partitioning = v_time_partitioning;
+       view = v_view;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_view v_view in
+         ("view", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_time_partitioning
+             v_time_partitioning
+         in
+         ("time_partitioning", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_table_replication_info
+             v_table_replication_info
+         in
+         ("table_replication_info", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_table_constraints
+             v_table_constraints
+         in
+         ("table_constraints", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_range_partitioning
+             v_range_partitioning
+         in
+         ("range_partitioning", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_materialized_view
+             v_materialized_view
+         in
+         ("materialized_view", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_external_data_configuration
+             v_external_data_configuration
+         in
+         ("external_data_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption_configuration
+             v_encryption_configuration
+         in
+         ("encryption_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_id in
+         ("table_id", arg) :: bnds
+       in
+       let bnds =
+         match v_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_require_partition_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_partition_filter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_staleness with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_staleness", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_friendly_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "friendly_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expiration_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "expiration_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deletion_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       let bnds =
+         match v_clustering with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "clustering", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_bigquery_table -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigquery_table
+
+[@@@deriving.end]
 
 let encryption_configuration ~kms_key_name () :
     encryption_configuration =

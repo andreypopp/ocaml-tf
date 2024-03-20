@@ -4,25 +4,171 @@ open! Tf_core
 
 type aws_ssm_parameter = {
   allowed_pattern : string prop option; [@option]
-      (** allowed_pattern *)
-  arn : string prop option; [@option]  (** arn *)
-  data_type : string prop option; [@option]  (** data_type *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
+  arn : string prop option; [@option]
+  data_type : string prop option; [@option]
+  description : string prop option; [@option]
+  id : string prop option; [@option]
   insecure_value : string prop option; [@option]
-      (** insecure_value *)
-  key_id : string prop option; [@option]  (** key_id *)
-  name : string prop;  (** name *)
-  overwrite : bool prop option; [@option]  (** overwrite *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  key_id : string prop option; [@option]
+  name : string prop;
+  overwrite : bool prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  tier : string prop option; [@option]  (** tier *)
-  type_ : string prop; [@key "type"]  (** type *)
-  value : string prop option; [@option]  (** value *)
+  tier : string prop option; [@option]
+  type_ : string prop; [@key "type"]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_ssm_parameter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssm_parameter) -> ()
+
+let yojson_of_aws_ssm_parameter =
+  (function
+   | {
+       allowed_pattern = v_allowed_pattern;
+       arn = v_arn;
+       data_type = v_data_type;
+       description = v_description;
+       id = v_id;
+       insecure_value = v_insecure_value;
+       key_id = v_key_id;
+       name = v_name;
+       overwrite = v_overwrite;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       tier = v_tier;
+       type_ = v_type_;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_overwrite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "overwrite", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_insecure_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "insecure_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_pattern with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "allowed_pattern", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ssm_parameter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssm_parameter
+
+[@@@deriving.end]
 
 let aws_ssm_parameter ?allowed_pattern ?arn ?data_type ?description
     ?id ?insecure_value ?key_id ?overwrite ?tags ?tags_all ?tier

@@ -3,49 +3,240 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type certs_info__cert_info = {
-  basic_constraints : string prop;  (** basic_constraints *)
-  expiry_date : string prop;  (** expiry_date *)
-  is_valid : string prop;  (** is_valid *)
-  issuer : string prop;  (** issuer *)
-  public_key : string prop;  (** public_key *)
-  serial_number : string prop;  (** serial_number *)
-  sig_alg_name : string prop;  (** sig_alg_name *)
-  subject : string prop;  (** subject *)
+  basic_constraints : string prop;
+  expiry_date : string prop;
+  is_valid : string prop;
+  issuer : string prop;
+  public_key : string prop;
+  serial_number : string prop;
+  sig_alg_name : string prop;
+  subject : string prop;
   subject_alternative_names : string prop list;
-      (** subject_alternative_names *)
-  valid_from : string prop;  (** valid_from *)
-  version : float prop;  (** version *)
+  valid_from : string prop;
+  version : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
 
-type certs_info = {
-  cert_info : certs_info__cert_info list;  (** cert_info *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : certs_info__cert_info) -> ()
+
+let yojson_of_certs_info__cert_info =
+  (function
+   | {
+       basic_constraints = v_basic_constraints;
+       expiry_date = v_expiry_date;
+       is_valid = v_is_valid;
+       issuer = v_issuer;
+       public_key = v_public_key;
+       serial_number = v_serial_number;
+       sig_alg_name = v_sig_alg_name;
+       subject = v_subject;
+       subject_alternative_names = v_subject_alternative_names;
+       valid_from = v_valid_from;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_valid_from in
+         ("valid_from", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subject_alternative_names
+         in
+         ("subject_alternative_names", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subject in
+         ("subject", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sig_alg_name in
+         ("sig_alg_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_serial_number in
+         ("serial_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_public_key in
+         ("public_key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_issuer in
+         ("issuer", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_is_valid in
+         ("is_valid", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expiry_date in
+         ("expiry_date", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_basic_constraints
+         in
+         ("basic_constraints", arg) :: bnds
+       in
+       `Assoc bnds
+    : certs_info__cert_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certs_info__cert_info
+
+[@@@deriving.end]
+
+type certs_info = { cert_info : certs_info__cert_info list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certs_info) -> ()
+
+let yojson_of_certs_info =
+  (function
+   | { cert_info = v_cert_info } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_certs_info__cert_info v_cert_info
+         in
+         ("cert_info", arg) :: bnds
+       in
+       `Assoc bnds
+    : certs_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certs_info
+
+[@@@deriving.end]
 
 type google_apigee_keystores_aliases_pkcs12 = {
-  alias : string prop;  (** Alias Name *)
+  alias : string prop;
   environment : string prop;
-      (** Environment associated with the alias *)
-  file : string prop;  (** Cert content *)
-  filehash : string prop;  (** Hash of the pkcs file *)
-  id : string prop option; [@option]  (** id *)
-  keystore : string prop;  (** Keystore Name *)
+  file : string prop;
+  filehash : string prop;
+  id : string prop option; [@option]
+  keystore : string prop;
   org_id : string prop;
-      (** Organization ID associated with the alias *)
   password : string prop option; [@option]
-      (** Password for the Private Key if it's encrypted *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_apigee_keystores_aliases_pkcs12 *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_apigee_keystores_aliases_pkcs12) -> ()
+
+let yojson_of_google_apigee_keystores_aliases_pkcs12 =
+  (function
+   | {
+       alias = v_alias;
+       environment = v_environment;
+       file = v_file;
+       filehash = v_filehash;
+       id = v_id;
+       keystore = v_keystore;
+       org_id = v_org_id;
+       password = v_password;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_org_id in
+         ("org_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_keystore in
+         ("keystore", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filehash in
+         ("filehash", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_file in
+         ("file", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_environment in
+         ("environment", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alias in
+         ("alias", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_apigee_keystores_aliases_pkcs12 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_apigee_keystores_aliases_pkcs12
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

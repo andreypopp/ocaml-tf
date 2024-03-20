@@ -4,58 +4,223 @@ open! Tf_core
 
 type access_restrictions__allowed_services = {
   domain : string prop option; [@option]
-      (** Domain name of the service.
-Example: console.cloud.google *)
 }
-[@@deriving yojson_of]
-(** Services allowed for web sign-in with the workforce pool.
-If not set by default there are no restrictions. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_restrictions__allowed_services) -> ()
+
+let yojson_of_access_restrictions__allowed_services =
+  (function
+   | { domain = v_domain } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_restrictions__allowed_services ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_restrictions__allowed_services
+
+[@@@deriving.end]
 
 type access_restrictions = {
   disable_programmatic_signin : bool prop option; [@option]
-      (** Disable programmatic sign-in by disabling token issue via the Security Token API endpoint.
-See [Security Token Service API](https://cloud.google.com/iam/docs/reference/sts/rest). *)
   allowed_services : access_restrictions__allowed_services list;
 }
-[@@deriving yojson_of]
-(** Configure access restrictions on the workforce pool users. This is an optional field. If specified web
-sign-in can be restricted to given set of services or programmatic sign-in can be disabled for pool users. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_restrictions) -> ()
+
+let yojson_of_access_restrictions =
+  (function
+   | {
+       disable_programmatic_signin = v_disable_programmatic_signin;
+       allowed_services = v_allowed_services;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_access_restrictions__allowed_services
+             v_allowed_services
+         in
+         ("allowed_services", arg) :: bnds
+       in
+       let bnds =
+         match v_disable_programmatic_signin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_programmatic_signin", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_restrictions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_restrictions
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_iam_workforce_pool = {
   description : string prop option; [@option]
-      (** A user-specified description of the pool. Cannot exceed 256 characters. *)
   disabled : bool prop option; [@option]
-      (** Whether the pool is disabled. You cannot use a disabled pool to exchange tokens,
-or use existing tokens to access resources. If the pool is re-enabled, existing tokens grant access again. *)
   display_name : string prop option; [@option]
-      (** A user-specified display name of the pool in Google Cloud Console. Cannot exceed 32 characters. *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location for the resource. *)
+  id : string prop option; [@option]
+  location : string prop;
   parent : string prop;
-      (** Immutable. The resource name of the parent. Format: 'organizations/{org-id}'. *)
   session_duration : string prop option; [@option]
-      (** Duration that the Google Cloud access tokens, console sign-in sessions,
-and 'gcloud' sign-in sessions from this pool are valid.
-Must be greater than 15 minutes (900s) and less than 12 hours (43200s).
-If 'sessionDuration' is not configured, minted credentials have a default duration of one hour (3600s).
-A duration in seconds with up to nine fractional digits, ending with ''s''. Example: '3.5s'. *)
   workforce_pool_id : string prop;
-      (** The name of the pool. The ID must be a globally unique string of 6 to 63 lowercase letters,
-digits, or hyphens. It must start with a letter, and cannot have a trailing hyphen.
-The prefix 'gcp-' is reserved for use by Google, and may not be specified. *)
   access_restrictions : access_restrictions list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_iam_workforce_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_iam_workforce_pool) -> ()
+
+let yojson_of_google_iam_workforce_pool =
+  (function
+   | {
+       description = v_description;
+       disabled = v_disabled;
+       display_name = v_display_name;
+       id = v_id;
+       location = v_location;
+       parent = v_parent;
+       session_duration = v_session_duration;
+       workforce_pool_id = v_workforce_pool_id;
+       access_restrictions = v_access_restrictions;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_restrictions
+             v_access_restrictions
+         in
+         ("access_restrictions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_workforce_pool_id
+         in
+         ("workforce_pool_id", arg) :: bnds
+       in
+       let bnds =
+         match v_session_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "session_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_iam_workforce_pool -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_iam_workforce_pool
+
+[@@@deriving.end]
 
 let access_restrictions__allowed_services ?domain () :
     access_restrictions__allowed_services =

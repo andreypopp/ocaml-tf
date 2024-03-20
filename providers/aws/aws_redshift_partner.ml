@@ -3,14 +3,60 @@
 open! Tf_core
 
 type aws_redshift_partner = {
-  account_id : string prop;  (** account_id *)
-  cluster_identifier : string prop;  (** cluster_identifier *)
-  database_name : string prop;  (** database_name *)
-  id : string prop option; [@option]  (** id *)
-  partner_name : string prop;  (** partner_name *)
+  account_id : string prop;
+  cluster_identifier : string prop;
+  database_name : string prop;
+  id : string prop option; [@option]
+  partner_name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_redshift_partner *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshift_partner) -> ()
+
+let yojson_of_aws_redshift_partner =
+  (function
+   | {
+       account_id = v_account_id;
+       cluster_identifier = v_cluster_identifier;
+       database_name = v_database_name;
+       id = v_id;
+       partner_name = v_partner_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_partner_name in
+         ("partner_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_name in
+         ("database_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cluster_identifier
+         in
+         ("cluster_identifier", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_redshift_partner -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshift_partner
+
+[@@@deriving.end]
 
 let aws_redshift_partner ?id ~account_id ~cluster_identifier
     ~database_name ~partner_name () : aws_redshift_partner =

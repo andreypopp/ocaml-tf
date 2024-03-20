@@ -3,55 +3,288 @@
 open! Tf_core
 
 type delegation__service_delegation = {
-  actions : string prop list option; [@option]  (** actions *)
-  name : string prop;  (** name *)
+  actions : string prop list option; [@option]
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** delegation__service_delegation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : delegation__service_delegation) -> ()
+
+let yojson_of_delegation__service_delegation =
+  (function
+   | { actions = v_actions; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "actions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : delegation__service_delegation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_delegation__service_delegation
+
+[@@@deriving.end]
 
 type delegation = {
-  name : string prop;  (** name *)
+  name : string prop;
   service_delegation : delegation__service_delegation list;
 }
-[@@deriving yojson_of]
-(** delegation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : delegation) -> ()
+
+let yojson_of_delegation =
+  (function
+   | { name = v_name; service_delegation = v_service_delegation } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_delegation__service_delegation
+             v_service_delegation
+         in
+         ("service_delegation", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : delegation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_delegation
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_subnet = {
-  address_prefixes : string prop list;  (** address_prefixes *)
+  address_prefixes : string prop list;
   enforce_private_link_endpoint_network_policies : bool prop option;
       [@option]
-      (** enforce_private_link_endpoint_network_policies *)
   enforce_private_link_service_network_policies : bool prop option;
       [@option]
-      (** enforce_private_link_service_network_policies *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   private_endpoint_network_policies_enabled : bool prop option;
       [@option]
-      (** private_endpoint_network_policies_enabled *)
   private_link_service_network_policies_enabled : bool prop option;
       [@option]
-      (** private_link_service_network_policies_enabled *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  resource_group_name : string prop;
   service_endpoint_policy_ids : string prop list option; [@option]
-      (** service_endpoint_policy_ids *)
   service_endpoints : string prop list option; [@option]
-      (** service_endpoints *)
-  virtual_network_name : string prop;  (** virtual_network_name *)
+  virtual_network_name : string prop;
   delegation : delegation list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_subnet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_subnet) -> ()
+
+let yojson_of_azurerm_subnet =
+  (function
+   | {
+       address_prefixes = v_address_prefixes;
+       enforce_private_link_endpoint_network_policies =
+         v_enforce_private_link_endpoint_network_policies;
+       enforce_private_link_service_network_policies =
+         v_enforce_private_link_service_network_policies;
+       id = v_id;
+       name = v_name;
+       private_endpoint_network_policies_enabled =
+         v_private_endpoint_network_policies_enabled;
+       private_link_service_network_policies_enabled =
+         v_private_link_service_network_policies_enabled;
+       resource_group_name = v_resource_group_name;
+       service_endpoint_policy_ids = v_service_endpoint_policy_ids;
+       service_endpoints = v_service_endpoints;
+       virtual_network_name = v_virtual_network_name;
+       delegation = v_delegation;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_delegation v_delegation
+         in
+         ("delegation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_network_name
+         in
+         ("virtual_network_name", arg) :: bnds
+       in
+       let bnds =
+         match v_service_endpoints with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "service_endpoints", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_endpoint_policy_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "service_endpoint_policy_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_private_link_service_network_policies_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "private_link_service_network_policies_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_endpoint_network_policies_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "private_endpoint_network_policies_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enforce_private_link_service_network_policies with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "enforce_private_link_service_network_policies", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enforce_private_link_endpoint_network_policies with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "enforce_private_link_endpoint_network_policies", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_address_prefixes
+         in
+         ("address_prefixes", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_subnet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_subnet
+
+[@@@deriving.end]
 
 let delegation__service_delegation ?actions ~name () :
     delegation__service_delegation =

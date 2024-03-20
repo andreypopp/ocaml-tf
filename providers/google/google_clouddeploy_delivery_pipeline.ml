@@ -4,32 +4,132 @@ open! Tf_core
 
 type serial_pipeline__stages__deploy_parameters = {
   match_target_labels : (string * string prop) list option; [@option]
-      (** Optional. Deploy parameters are applied to targets with match labels. If unspecified, deploy parameters are applied to all targets (including child targets of a multi-target). *)
   values : (string * string prop) list;
-      (** Required. Values are deploy parameters in key-value pairs. *)
 }
-[@@deriving yojson_of]
-(** Optional. The deploy parameters to use for the target in this stage. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : serial_pipeline__stages__deploy_parameters) -> ()
+
+let yojson_of_serial_pipeline__stages__deploy_parameters =
+  (function
+   | {
+       match_target_labels = v_match_target_labels;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         match v_match_target_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_target_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__deploy_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_serial_pipeline__stages__deploy_parameters
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy = {
   actions : string prop list option; [@option]
-      (** Optional. A sequence of skaffold custom actions to invoke during execution of the postdeploy job. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration for the postdeploy job of the last phase. If this is not configured, postdeploy job will not be present. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy
+    =
+  (function
+   | { actions = v_actions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "actions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__canary_deployment__predeploy = {
   actions : string prop list option; [@option]
-      (** Optional. A sequence of skaffold custom actions to invoke during execution of the predeploy job. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration for the predeploy job of the first phase. If this is not configured, predeploy job will not be present. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__canary_deployment__predeploy) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__predeploy
+    =
+  (function
+   | { actions = v_actions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "actions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__canary_deployment__predeploy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__predeploy
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__canary_deployment = {
   percentages : float prop list;
-      (** Required. The percentage based deployments that will occur as a part of a `Rollout`. List is expected in ascending order and each integer n is 0 <= n < 100. *)
   verify : bool prop option; [@option]
-      (** Whether to run verify tests after each percentage deployment. *)
   postdeploy :
     serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy
     list;
@@ -37,32 +137,143 @@ type serial_pipeline__stages__strategy__canary__canary_deployment = {
     serial_pipeline__stages__strategy__canary__canary_deployment__predeploy
     list;
 }
-[@@deriving yojson_of]
-(** Configures the progressive based deployment for a Target. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__canary_deployment) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment
+    =
+  (function
+   | {
+       percentages = v_percentages;
+       verify = v_verify;
+       postdeploy = v_postdeploy;
+       predeploy = v_predeploy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__predeploy
+             v_predeploy
+         in
+         ("predeploy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment__postdeploy
+             v_postdeploy
+         in
+         ("postdeploy", arg) :: bnds
+       in
+       let bnds =
+         match v_verify with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "verify", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_float)
+             v_percentages
+         in
+         ("percentages", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__canary_deployment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy = {
   actions : string prop list option; [@option]
-      (** Optional. A sequence of skaffold custom actions to invoke during execution of the postdeploy job. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration for the postdeploy job of this phase. If this is not configured, postdeploy job will not be present for this phase. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy
+    =
+  (function
+   | { actions = v_actions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "actions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy = {
   actions : string prop list option; [@option]
-      (** Optional. A sequence of skaffold custom actions to invoke during execution of the predeploy job. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration for the predeploy job of this phase. If this is not configured, predeploy job will not be present for this phase. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy
+    =
+  (function
+   | { actions = v_actions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "actions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs = {
   percentage : float prop;
-      (** Required. Percentage deployment for the phase. *)
   phase_id : string prop;
-      (** Required. The ID to assign to the `Rollout` phase. This value must consist of lower-case letters, numbers, and hyphens, start with a letter and end with a letter or a number, and have a max length of 63 characters. In other words, it must match the following regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`. *)
   profiles : string prop list option; [@option]
-      (** Skaffold profiles to use when rendering the manifest for this phase. These are in addition to the profiles list specified in the `DeliveryPipeline` stage. *)
   verify : bool prop option; [@option]
-      (** Whether to run verify tests after the deployment. *)
   postdeploy :
     serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy
     list;
@@ -70,55 +281,297 @@ type serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_
     serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy
     list;
 }
-[@@deriving yojson_of]
-(** Required. Configuration for each phase in the canary deployment in the order executed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs
+    =
+  (function
+   | {
+       percentage = v_percentage;
+       phase_id = v_phase_id;
+       profiles = v_profiles;
+       verify = v_verify;
+       postdeploy = v_postdeploy;
+       predeploy = v_predeploy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__predeploy
+             v_predeploy
+         in
+         ("predeploy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs__postdeploy
+             v_postdeploy
+         in
+         ("postdeploy", arg) :: bnds
+       in
+       let bnds =
+         match v_verify with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "verify", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_profiles with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "profiles", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_phase_id in
+         ("phase_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_percentage in
+         ("percentage", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__custom_canary_deployment = {
   phase_configs :
     serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs
     list;
 }
-[@@deriving yojson_of]
-(** Configures the progressive based deployment for a Target, but allows customizing at the phase level where a phase represents each of the percentage deployments. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__custom_canary_deployment) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment
+    =
+  (function
+   | { phase_configs = v_phase_configs } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment__phase_configs
+             v_phase_configs
+         in
+         ("phase_configs", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__custom_canary_deployment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__runtime_config__cloud_run = {
   automatic_traffic_control : bool prop option; [@option]
-      (** Whether Cloud Deploy should update the traffic stanza in a Cloud Run Service on the user's behalf to facilitate traffic splitting. This is required to be true for CanaryDeployments, but optional for CustomCanaryDeployments. *)
   canary_revision_tags : string prop list option; [@option]
-      (** Optional. A list of tags that are added to the canary revision while the canary phase is in progress. *)
   prior_revision_tags : string prop list option; [@option]
-      (** Optional. A list of tags that are added to the prior revision while the canary phase is in progress. *)
   stable_revision_tags : string prop list option; [@option]
-      (** Optional. A list of tags that are added to the final stable revision when the stable phase is applied. *)
 }
-[@@deriving yojson_of]
-(** Cloud Run runtime configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__runtime_config__cloud_run) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__cloud_run
+    =
+  (function
+   | {
+       automatic_traffic_control = v_automatic_traffic_control;
+       canary_revision_tags = v_canary_revision_tags;
+       prior_revision_tags = v_prior_revision_tags;
+       stable_revision_tags = v_stable_revision_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_stable_revision_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "stable_revision_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prior_revision_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "prior_revision_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_canary_revision_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "canary_revision_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_automatic_traffic_control with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "automatic_traffic_control", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__runtime_config__cloud_run ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__cloud_run
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh = {
   deployment : string prop;
-      (** Required. Name of the Kubernetes Deployment whose traffic is managed by the specified HTTPRoute and Service. *)
   http_route : string prop;
-      (** Required. Name of the Gateway API HTTPRoute. *)
   route_update_wait_time : string prop option; [@option]
-      (** Optional. The time to wait for route updates to propagate. The maximum configurable time is 3 hours, in seconds format. If unspecified, there is no wait time. *)
   service : string prop;
-      (** Required. Name of the Kubernetes Service. *)
   stable_cutback_duration : string prop option; [@option]
-      (** Optional. The amount of time to migrate traffic back from the canary Service to the original Service during the stable phase deployment. If specified, must be between 15s and 3600s. If unspecified, there is no cutback time. *)
 }
-[@@deriving yojson_of]
-(** Kubernetes Gateway API service mesh configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh
+    =
+  (function
+   | {
+       deployment = v_deployment;
+       http_route = v_http_route;
+       route_update_wait_time = v_route_update_wait_time;
+       service = v_service;
+       stable_cutback_duration = v_stable_cutback_duration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_stable_cutback_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stable_cutback_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         match v_route_update_wait_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "route_update_wait_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_http_route in
+         ("http_route", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_deployment in
+         ("deployment", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking = {
   deployment : string prop;
-      (** Required. Name of the Kubernetes Deployment whose traffic is managed by the specified Service. *)
   disable_pod_overprovisioning : bool prop option; [@option]
-      (** Optional. Whether to disable Pod overprovisioning. If Pod overprovisioning is disabled then Cloud Deploy will limit the number of total Pods used for the deployment strategy to the number of Pods the Deployment has on the cluster. *)
   service : string prop;
-      (** Required. Name of the Kubernetes Service. *)
 }
-[@@deriving yojson_of]
-(** Kubernetes Service networking configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking
+    =
+  (function
+   | {
+       deployment = v_deployment;
+       disable_pod_overprovisioning = v_disable_pod_overprovisioning;
+       service = v_service;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         match v_disable_pod_overprovisioning with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_pod_overprovisioning", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_deployment in
+         ("deployment", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__runtime_config__kubernetes = {
   gateway_service_mesh :
@@ -128,8 +581,47 @@ type serial_pipeline__stages__strategy__canary__runtime_config__kubernetes = {
     serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking
     list;
 }
-[@@deriving yojson_of]
-(** Kubernetes runtime configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       serial_pipeline__stages__strategy__canary__runtime_config__kubernetes) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
+    =
+  (function
+   | {
+       gateway_service_mesh = v_gateway_service_mesh;
+       service_networking = v_service_networking;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__service_networking
+             v_service_networking
+         in
+         ("service_networking", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes__gateway_service_mesh
+             v_gateway_service_mesh
+         in
+         ("gateway_service_mesh", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__runtime_config__kubernetes ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary__runtime_config = {
   cloud_run :
@@ -139,8 +631,43 @@ type serial_pipeline__stages__strategy__canary__runtime_config = {
     serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
     list;
 }
-[@@deriving yojson_of]
-(** Optional. Runtime specific configurations for the deployment strategy. The runtime configuration is used to determine how Cloud Deploy will split traffic to enable a progressive deployment. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : serial_pipeline__stages__strategy__canary__runtime_config) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary__runtime_config
+    =
+  (function
+   | { cloud_run = v_cloud_run; kubernetes = v_kubernetes } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__kubernetes
+             v_kubernetes
+         in
+         ("kubernetes", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config__cloud_run
+             v_cloud_run
+         in
+         ("cloud_run", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary__runtime_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__canary__runtime_config
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__canary = {
   canary_deployment :
@@ -151,122 +678,621 @@ type serial_pipeline__stages__strategy__canary = {
   runtime_config :
     serial_pipeline__stages__strategy__canary__runtime_config list;
 }
-[@@deriving yojson_of]
-(** Canary deployment strategy provides progressive percentage based deployments to a Target. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : serial_pipeline__stages__strategy__canary) -> ()
+
+let yojson_of_serial_pipeline__stages__strategy__canary =
+  (function
+   | {
+       canary_deployment = v_canary_deployment;
+       custom_canary_deployment = v_custom_canary_deployment;
+       runtime_config = v_runtime_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__runtime_config
+             v_runtime_config
+         in
+         ("runtime_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__custom_canary_deployment
+             v_custom_canary_deployment
+         in
+         ("custom_canary_deployment", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary__canary_deployment
+             v_canary_deployment
+         in
+         ("canary_deployment", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__canary ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_serial_pipeline__stages__strategy__canary
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__standard__postdeploy = {
   actions : string prop list option; [@option]
-      (** Optional. A sequence of skaffold custom actions to invoke during execution of the postdeploy job. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration for the postdeploy job. If this is not configured, postdeploy job will not be present. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : serial_pipeline__stages__strategy__standard__postdeploy) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__standard__postdeploy
+    =
+  (function
+   | { actions = v_actions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "actions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__standard__postdeploy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__standard__postdeploy
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__standard__predeploy = {
   actions : string prop list option; [@option]
-      (** Optional. A sequence of skaffold custom actions to invoke during execution of the predeploy job. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration for the predeploy job. If this is not configured, predeploy job will not be present. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : serial_pipeline__stages__strategy__standard__predeploy) ->
+  ()
+
+let yojson_of_serial_pipeline__stages__strategy__standard__predeploy
+    =
+  (function
+   | { actions = v_actions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "actions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__standard__predeploy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_serial_pipeline__stages__strategy__standard__predeploy
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy__standard = {
   verify : bool prop option; [@option]
-      (** Whether to verify a deployment. *)
   postdeploy :
     serial_pipeline__stages__strategy__standard__postdeploy list;
   predeploy :
     serial_pipeline__stages__strategy__standard__predeploy list;
 }
-[@@deriving yojson_of]
-(** Standard deployment strategy executes a single deploy and allows verifying the deployment. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : serial_pipeline__stages__strategy__standard) -> ()
+
+let yojson_of_serial_pipeline__stages__strategy__standard =
+  (function
+   | {
+       verify = v_verify;
+       postdeploy = v_postdeploy;
+       predeploy = v_predeploy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__standard__predeploy
+             v_predeploy
+         in
+         ("predeploy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__standard__postdeploy
+             v_postdeploy
+         in
+         ("postdeploy", arg) :: bnds
+       in
+       let bnds =
+         match v_verify with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "verify", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy__standard ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_serial_pipeline__stages__strategy__standard
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__strategy = {
   canary : serial_pipeline__stages__strategy__canary list;
   standard : serial_pipeline__stages__strategy__standard list;
 }
-[@@deriving yojson_of]
-(** Optional. The strategy to use for a `Rollout` to this stage. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : serial_pipeline__stages__strategy) -> ()
+
+let yojson_of_serial_pipeline__stages__strategy =
+  (function
+   | { canary = v_canary; standard = v_standard } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__standard
+             v_standard
+         in
+         ("standard", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__strategy__canary
+             v_canary
+         in
+         ("canary", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages__strategy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_serial_pipeline__stages__strategy
+
+[@@@deriving.end]
 
 type serial_pipeline__stages = {
   profiles : string prop list option; [@option]
-      (** Skaffold profiles to use when rendering the manifest for this stage's `Target`. *)
   target_id : string prop option; [@option]
-      (** The target_id to which this stage points. This field refers exclusively to the last segment of a target name. For example, this field would just be `my-target` (rather than `projects/project/locations/location/targets/my-target`). The location of the `Target` is inferred to be the same as the location of the `DeliveryPipeline` that contains this `Stage`. *)
   deploy_parameters :
     serial_pipeline__stages__deploy_parameters list;
   strategy : serial_pipeline__stages__strategy list;
 }
-[@@deriving yojson_of]
-(** Each stage specifies configuration for a `Target`. The ordering of this list defines the promotion flow. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : serial_pipeline__stages) -> ()
+
+let yojson_of_serial_pipeline__stages =
+  (function
+   | {
+       profiles = v_profiles;
+       target_id = v_target_id;
+       deploy_parameters = v_deploy_parameters;
+       strategy = v_strategy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_serial_pipeline__stages__strategy
+             v_strategy
+         in
+         ("strategy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serial_pipeline__stages__deploy_parameters
+             v_deploy_parameters
+         in
+         ("deploy_parameters", arg) :: bnds
+       in
+       let bnds =
+         match v_target_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_profiles with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "profiles", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline__stages -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_serial_pipeline__stages
+
+[@@@deriving.end]
 
 type serial_pipeline = { stages : serial_pipeline__stages list }
-[@@deriving yojson_of]
-(** SerialPipeline defines a sequential set of stages for a `DeliveryPipeline`. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : serial_pipeline) -> ()
+
+let yojson_of_serial_pipeline =
+  (function
+   | { stages = v_stages } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_serial_pipeline__stages v_stages
+         in
+         ("stages", arg) :: bnds
+       in
+       `Assoc bnds
+    : serial_pipeline -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_serial_pipeline
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type condition__targets_type_condition = {
-  error_details : string prop;  (** error_details *)
-  status : bool prop;  (** status *)
+  error_details : string prop;
+  status : bool prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__targets_type_condition) -> ()
+
+let yojson_of_condition__targets_type_condition =
+  (function
+   | { error_details = v_error_details; status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_error_details in
+         ("error_details", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__targets_type_condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__targets_type_condition
+
+[@@@deriving.end]
 
 type condition__targets_present_condition = {
-  missing_targets : string prop list;  (** missing_targets *)
-  status : bool prop;  (** status *)
-  update_time : string prop;  (** update_time *)
+  missing_targets : string prop list;
+  status : bool prop;
+  update_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__targets_present_condition) -> ()
+
+let yojson_of_condition__targets_present_condition =
+  (function
+   | {
+       missing_targets = v_missing_targets;
+       status = v_status;
+       update_time = v_update_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_missing_targets
+         in
+         ("missing_targets", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__targets_present_condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__targets_present_condition
+
+[@@@deriving.end]
 
 type condition__pipeline_ready_condition = {
-  status : bool prop;  (** status *)
-  update_time : string prop;  (** update_time *)
+  status : bool prop;
+  update_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__pipeline_ready_condition) -> ()
+
+let yojson_of_condition__pipeline_ready_condition =
+  (function
+   | { status = v_status; update_time = v_update_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_status in
+         ("status", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__pipeline_ready_condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__pipeline_ready_condition
+
+[@@@deriving.end]
 
 type condition = {
   pipeline_ready_condition :
     condition__pipeline_ready_condition list;
-      (** pipeline_ready_condition *)
   targets_present_condition :
     condition__targets_present_condition list;
-      (** targets_present_condition *)
   targets_type_condition : condition__targets_type_condition list;
-      (** targets_type_condition *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition) -> ()
+
+let yojson_of_condition =
+  (function
+   | {
+       pipeline_ready_condition = v_pipeline_ready_condition;
+       targets_present_condition = v_targets_present_condition;
+       targets_type_condition = v_targets_type_condition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__targets_type_condition
+             v_targets_type_condition
+         in
+         ("targets_type_condition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_condition__targets_present_condition
+             v_targets_present_condition
+         in
+         ("targets_present_condition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_condition__pipeline_ready_condition
+             v_pipeline_ready_condition
+         in
+         ("pipeline_ready_condition", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition
+
+[@@@deriving.end]
 
 type google_clouddeploy_delivery_pipeline = {
   annotations : (string * string prop) list option; [@option]
-      (** User annotations. These attributes can only be set and used by the user, and not by Google Cloud Deploy. See https://google.aip.dev/128#annotations for more details such as format and size limitations.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
   description : string prop option; [@option]
-      (** Description of the `DeliveryPipeline`. Max length is 255 characters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels are attributes that can be set and used by both the user and by Google Cloud Deploy. Labels must meet the following constraints: * Keys and values can contain only lowercase letters, numeric characters, underscores, and dashes. * All characters must use UTF-8 encoding, and international characters are allowed. * Keys must start with a lowercase letter or international character. * Each resource is limited to a maximum of 64 labels. Both keys and values are additionally constrained to be <= 128 bytes.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field `effective_labels` for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
+  location : string prop;
   name : string prop;
-      (** Name of the `DeliveryPipeline`. Format is [a-z][a-z0-9\-]{0,62}. *)
   project : string prop option; [@option]
-      (** The project for the resource *)
   suspended : bool prop option; [@option]
-      (** When suspended, no new releases or rollouts can be created, but in-progress ones will complete. *)
   serial_pipeline : serial_pipeline list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_clouddeploy_delivery_pipeline *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_clouddeploy_delivery_pipeline) -> ()
+
+let yojson_of_google_clouddeploy_delivery_pipeline =
+  (function
+   | {
+       annotations = v_annotations;
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       suspended = v_suspended;
+       serial_pipeline = v_serial_pipeline;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_serial_pipeline v_serial_pipeline
+         in
+         ("serial_pipeline", arg) :: bnds
+       in
+       let bnds =
+         match v_suspended with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "suspended", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_clouddeploy_delivery_pipeline ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_clouddeploy_delivery_pipeline
+
+[@@@deriving.end]
 
 let serial_pipeline__stages__deploy_parameters ?match_target_labels
     ~values () : serial_pipeline__stages__deploy_parameters =

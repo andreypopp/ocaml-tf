@@ -3,20 +3,124 @@
 open! Tf_core
 
 type aws_pinpoint_apns_voip_sandbox_channel = {
-  application_id : string prop;  (** application_id *)
-  bundle_id : string prop option; [@option]  (** bundle_id *)
-  certificate : string prop option; [@option]  (** certificate *)
+  application_id : string prop;
+  bundle_id : string prop option; [@option]
+  certificate : string prop option; [@option]
   default_authentication_method : string prop option; [@option]
-      (** default_authentication_method *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  private_key : string prop option; [@option]  (** private_key *)
-  team_id : string prop option; [@option]  (** team_id *)
-  token_key : string prop option; [@option]  (** token_key *)
-  token_key_id : string prop option; [@option]  (** token_key_id *)
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  private_key : string prop option; [@option]
+  team_id : string prop option; [@option]
+  token_key : string prop option; [@option]
+  token_key_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_pinpoint_apns_voip_sandbox_channel *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_pinpoint_apns_voip_sandbox_channel) -> ()
+
+let yojson_of_aws_pinpoint_apns_voip_sandbox_channel =
+  (function
+   | {
+       application_id = v_application_id;
+       bundle_id = v_bundle_id;
+       certificate = v_certificate;
+       default_authentication_method =
+         v_default_authentication_method;
+       enabled = v_enabled;
+       id = v_id;
+       private_key = v_private_key;
+       team_id = v_team_id;
+       token_key = v_token_key;
+       token_key_id = v_token_key_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_token_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_token_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_team_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "team_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_authentication_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_authentication_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bundle_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bundle_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_application_id
+         in
+         ("application_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_pinpoint_apns_voip_sandbox_channel ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_pinpoint_apns_voip_sandbox_channel
+
+[@@@deriving.end]
 
 let aws_pinpoint_apns_voip_sandbox_channel ?bundle_id ?certificate
     ?default_authentication_method ?enabled ?id ?private_key ?team_id

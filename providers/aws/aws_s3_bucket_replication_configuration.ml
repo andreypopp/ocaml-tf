@@ -2,54 +2,202 @@
 
 open! Tf_core
 
-type rule__delete_marker_replication = {
-  status : string prop;  (** status *)
-}
-[@@deriving yojson_of]
-(** rule__delete_marker_replication *)
+type rule__delete_marker_replication = { status : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__delete_marker_replication) -> ()
+
+let yojson_of_rule__delete_marker_replication =
+  (function
+   | { status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__delete_marker_replication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__delete_marker_replication
+
+[@@@deriving.end]
 
 type rule__destination__access_control_translation = {
-  owner : string prop;  (** owner *)
+  owner : string prop;
 }
-[@@deriving yojson_of]
-(** rule__destination__access_control_translation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__destination__access_control_translation) -> ()
+
+let yojson_of_rule__destination__access_control_translation =
+  (function
+   | { owner = v_owner } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_owner in
+         ("owner", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__destination__access_control_translation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__destination__access_control_translation
+
+[@@@deriving.end]
 
 type rule__destination__encryption_configuration = {
-  replica_kms_key_id : string prop;  (** replica_kms_key_id *)
+  replica_kms_key_id : string prop;
 }
-[@@deriving yojson_of]
-(** rule__destination__encryption_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__destination__encryption_configuration) -> ()
+
+let yojson_of_rule__destination__encryption_configuration =
+  (function
+   | { replica_kms_key_id = v_replica_kms_key_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_replica_kms_key_id
+         in
+         ("replica_kms_key_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__destination__encryption_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__destination__encryption_configuration
+
+[@@@deriving.end]
 
 type rule__destination__metrics__event_threshold = {
-  minutes : float prop;  (** minutes *)
+  minutes : float prop;
 }
-[@@deriving yojson_of]
-(** rule__destination__metrics__event_threshold *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__destination__metrics__event_threshold) -> ()
+
+let yojson_of_rule__destination__metrics__event_threshold =
+  (function
+   | { minutes = v_minutes } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minutes in
+         ("minutes", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__destination__metrics__event_threshold ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__destination__metrics__event_threshold
+
+[@@@deriving.end]
 
 type rule__destination__metrics = {
-  status : string prop;  (** status *)
+  status : string prop;
   event_threshold : rule__destination__metrics__event_threshold list;
 }
-[@@deriving yojson_of]
-(** rule__destination__metrics *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__destination__metrics) -> ()
+
+let yojson_of_rule__destination__metrics =
+  (function
+   | { status = v_status; event_threshold = v_event_threshold } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule__destination__metrics__event_threshold
+             v_event_threshold
+         in
+         ("event_threshold", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__destination__metrics -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__destination__metrics
+
+[@@@deriving.end]
 
 type rule__destination__replication_time__time = {
-  minutes : float prop;  (** minutes *)
+  minutes : float prop;
 }
-[@@deriving yojson_of]
-(** rule__destination__replication_time__time *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__destination__replication_time__time) -> ()
+
+let yojson_of_rule__destination__replication_time__time =
+  (function
+   | { minutes = v_minutes } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minutes in
+         ("minutes", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__destination__replication_time__time ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__destination__replication_time__time
+
+[@@@deriving.end]
 
 type rule__destination__replication_time = {
-  status : string prop;  (** status *)
+  status : string prop;
   time : rule__destination__replication_time__time list;
 }
-[@@deriving yojson_of]
-(** rule__destination__replication_time *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__destination__replication_time) -> ()
+
+let yojson_of_rule__destination__replication_time =
+  (function
+   | { status = v_status; time = v_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule__destination__replication_time__time
+             v_time
+         in
+         ("time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__destination__replication_time ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__destination__replication_time
+
+[@@@deriving.end]
 
 type rule__destination = {
-  account : string prop option; [@option]  (** account *)
-  bucket : string prop;  (** bucket *)
-  storage_class : string prop option; [@option]  (** storage_class *)
+  account : string prop option; [@option]
+  bucket : string prop;
+  storage_class : string prop option; [@option]
   access_control_translation :
     rule__destination__access_control_translation list;
   encryption_configuration :
@@ -57,48 +205,275 @@ type rule__destination = {
   metrics : rule__destination__metrics list;
   replication_time : rule__destination__replication_time list;
 }
-[@@deriving yojson_of]
-(** rule__destination *)
+[@@deriving_inline yojson_of]
 
-type rule__existing_object_replication = {
-  status : string prop;  (** status *)
-}
-[@@deriving yojson_of]
-(** rule__existing_object_replication *)
+let _ = fun (_ : rule__destination) -> ()
+
+let yojson_of_rule__destination =
+  (function
+   | {
+       account = v_account;
+       bucket = v_bucket;
+       storage_class = v_storage_class;
+       access_control_translation = v_access_control_translation;
+       encryption_configuration = v_encryption_configuration;
+       metrics = v_metrics;
+       replication_time = v_replication_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule__destination__replication_time
+             v_replication_time
+         in
+         ("replication_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__destination__metrics
+             v_metrics
+         in
+         ("metrics", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule__destination__encryption_configuration
+             v_encryption_configuration
+         in
+         ("encryption_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule__destination__access_control_translation
+             v_access_control_translation
+         in
+         ("access_control_translation", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       let bnds =
+         match v_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__destination
+
+[@@@deriving.end]
+
+type rule__existing_object_replication = { status : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__existing_object_replication) -> ()
+
+let yojson_of_rule__existing_object_replication =
+  (function
+   | { status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__existing_object_replication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__existing_object_replication
+
+[@@@deriving.end]
 
 type rule__filter__and = {
-  prefix : string prop option; [@option]  (** prefix *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  prefix : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
 }
-[@@deriving yojson_of]
-(** rule__filter__and *)
+[@@deriving_inline yojson_of]
 
-type rule__filter__tag = {
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
-}
-[@@deriving yojson_of]
-(** rule__filter__tag *)
+let _ = fun (_ : rule__filter__and) -> ()
+
+let yojson_of_rule__filter__and =
+  (function
+   | { prefix = v_prefix; tags = v_tags } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__filter__and -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__filter__and
+
+[@@@deriving.end]
+
+type rule__filter__tag = { key : string prop; value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__filter__tag) -> ()
+
+let yojson_of_rule__filter__tag =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__filter__tag -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__filter__tag
+
+[@@@deriving.end]
 
 type rule__filter = {
-  prefix : string prop option; [@option]  (** prefix *)
+  prefix : string prop option; [@option]
   and_ : rule__filter__and list;
   tag : rule__filter__tag list;
 }
-[@@deriving yojson_of]
-(** rule__filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__filter) -> ()
+
+let yojson_of_rule__filter =
+  (function
+   | { prefix = v_prefix; and_ = v_and_; tag = v_tag } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__filter__tag v_tag
+         in
+         ("tag", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__filter__and v_and_
+         in
+         ("and_", arg) :: bnds
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__filter
+
+[@@@deriving.end]
 
 type rule__source_selection_criteria__replica_modifications = {
-  status : string prop;  (** status *)
+  status : string prop;
 }
-[@@deriving yojson_of]
-(** rule__source_selection_criteria__replica_modifications *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : rule__source_selection_criteria__replica_modifications) ->
+  ()
+
+let yojson_of_rule__source_selection_criteria__replica_modifications
+    =
+  (function
+   | { status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__source_selection_criteria__replica_modifications ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_rule__source_selection_criteria__replica_modifications
+
+[@@@deriving.end]
 
 type rule__source_selection_criteria__sse_kms_encrypted_objects = {
-  status : string prop;  (** status *)
+  status : string prop;
 }
-[@@deriving yojson_of]
-(** rule__source_selection_criteria__sse_kms_encrypted_objects *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : rule__source_selection_criteria__sse_kms_encrypted_objects) ->
+  ()
+
+let yojson_of_rule__source_selection_criteria__sse_kms_encrypted_objects
+    =
+  (function
+   | { status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__source_selection_criteria__sse_kms_encrypted_objects ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_rule__source_selection_criteria__sse_kms_encrypted_objects
+
+[@@@deriving.end]
 
 type rule__source_selection_criteria = {
   replica_modifications :
@@ -106,14 +481,48 @@ type rule__source_selection_criteria = {
   sse_kms_encrypted_objects :
     rule__source_selection_criteria__sse_kms_encrypted_objects list;
 }
-[@@deriving yojson_of]
-(** rule__source_selection_criteria *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__source_selection_criteria) -> ()
+
+let yojson_of_rule__source_selection_criteria =
+  (function
+   | {
+       replica_modifications = v_replica_modifications;
+       sse_kms_encrypted_objects = v_sse_kms_encrypted_objects;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule__source_selection_criteria__sse_kms_encrypted_objects
+             v_sse_kms_encrypted_objects
+         in
+         ("sse_kms_encrypted_objects", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule__source_selection_criteria__replica_modifications
+             v_replica_modifications
+         in
+         ("replica_modifications", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__source_selection_criteria ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__source_selection_criteria
+
+[@@@deriving.end]
 
 type rule = {
-  id : string prop option; [@option]  (** id *)
-  prefix : string prop option; [@option]  (** prefix *)
-  priority : float prop option; [@option]  (** priority *)
-  status : string prop;  (** status *)
+  id : string prop option; [@option]
+  prefix : string prop option; [@option]
+  priority : float prop option; [@option]
+  status : string prop;
   delete_marker_replication : rule__delete_marker_replication list;
   destination : rule__destination list;
   existing_object_replication :
@@ -121,18 +530,150 @@ type rule = {
   filter : rule__filter list;
   source_selection_criteria : rule__source_selection_criteria list;
 }
-[@@deriving yojson_of]
-(** rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule) -> ()
+
+let yojson_of_rule =
+  (function
+   | {
+       id = v_id;
+       prefix = v_prefix;
+       priority = v_priority;
+       status = v_status;
+       delete_marker_replication = v_delete_marker_replication;
+       destination = v_destination;
+       existing_object_replication = v_existing_object_replication;
+       filter = v_filter;
+       source_selection_criteria = v_source_selection_criteria;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__source_selection_criteria
+             v_source_selection_criteria
+         in
+         ("source_selection_criteria", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rule__filter v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__existing_object_replication
+             v_existing_object_replication
+         in
+         ("existing_object_replication", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__destination v_destination
+         in
+         ("destination", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__delete_marker_replication
+             v_delete_marker_replication
+         in
+         ("delete_marker_replication", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule
+
+[@@@deriving.end]
 
 type aws_s3_bucket_replication_configuration = {
-  bucket : string prop;  (** bucket *)
-  id : string prop option; [@option]  (** id *)
-  role : string prop;  (** role *)
-  token : string prop option; [@option]  (** token *)
+  bucket : string prop;
+  id : string prop option; [@option]
+  role : string prop;
+  token : string prop option; [@option]
   rule : rule list;
 }
-[@@deriving yojson_of]
-(** aws_s3_bucket_replication_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_s3_bucket_replication_configuration) -> ()
+
+let yojson_of_aws_s3_bucket_replication_configuration =
+  (function
+   | {
+       bucket = v_bucket;
+       id = v_id;
+       role = v_role;
+       token = v_token;
+       rule = v_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rule v_rule in
+         ("rule", arg) :: bnds
+       in
+       let bnds =
+         match v_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role in
+         ("role", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_s3_bucket_replication_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3_bucket_replication_configuration
+
+[@@@deriving.end]
 
 let rule__delete_marker_replication ~status () :
     rule__delete_marker_replication =

@@ -3,12 +3,49 @@
 open! Tf_core
 
 type aws_sqs_queue_redrive_policy = {
-  id : string prop option; [@option]  (** id *)
-  queue_url : string prop;  (** queue_url *)
-  redrive_policy : string prop;  (** redrive_policy *)
+  id : string prop option; [@option]
+  queue_url : string prop;
+  redrive_policy : string prop;
 }
-[@@deriving yojson_of]
-(** aws_sqs_queue_redrive_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sqs_queue_redrive_policy) -> ()
+
+let yojson_of_aws_sqs_queue_redrive_policy =
+  (function
+   | {
+       id = v_id;
+       queue_url = v_queue_url;
+       redrive_policy = v_redrive_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_redrive_policy
+         in
+         ("redrive_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_queue_url in
+         ("queue_url", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sqs_queue_redrive_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sqs_queue_redrive_policy
+
+[@@@deriving.end]
 
 let aws_sqs_queue_redrive_policy ?id ~queue_url ~redrive_policy () :
     aws_sqs_queue_redrive_policy =

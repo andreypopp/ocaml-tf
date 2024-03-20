@@ -4,150 +4,341 @@ open! Tf_core
 
 type allow = {
   ports : string prop list option; [@option]
-      (** An optional list of ports to which this rule applies. This field
-is only applicable for UDP or TCP protocol. Each entry must be
-either an integer or a range. If not specified, this rule
-applies to connections through any port.
-
-Example inputs include: [22], [80,443], and
-[12345-12349]. *)
   protocol : string prop;
-      (** The IP protocol to which this rule applies. The protocol type is
-required when creating a firewall rule. This value can either be
-one of the following well known protocol strings (tcp, udp,
-icmp, esp, ah, sctp, ipip, all), or the IP protocol number. *)
 }
-[@@deriving yojson_of]
-(** The list of ALLOW rules specified by this firewall. Each rule
-specifies a protocol and port-range tuple that describes a permitted
-connection. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : allow) -> ()
+
+let yojson_of_allow =
+  (function
+   | { ports = v_ports; protocol = v_protocol } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         match v_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ports", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : allow -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_allow
+
+[@@@deriving.end]
 
 type deny = {
   ports : string prop list option; [@option]
-      (** An optional list of ports to which this rule applies. This field
-is only applicable for UDP or TCP protocol. Each entry must be
-either an integer or a range. If not specified, this rule
-applies to connections through any port.
-
-Example inputs include: [22], [80,443], and
-[12345-12349]. *)
   protocol : string prop;
-      (** The IP protocol to which this rule applies. The protocol type is
-required when creating a firewall rule. This value can either be
-one of the following well known protocol strings (tcp, udp,
-icmp, esp, ah, sctp, ipip, all), or the IP protocol number. *)
 }
-[@@deriving yojson_of]
-(** The list of DENY rules specified by this firewall. Each rule specifies
-a protocol and port-range tuple that describes a denied connection. *)
+[@@deriving_inline yojson_of]
 
-type log_config = {
-  metadata : string prop;
-      (** This field denotes whether to include or exclude metadata for firewall logs. Possible values: [EXCLUDE_ALL_METADATA, INCLUDE_ALL_METADATA] *)
-}
-[@@deriving yojson_of]
-(** This field denotes the logging options for a particular firewall rule.
-If defined, logging is enabled, and logs will be exported to Cloud Logging. *)
+let _ = fun (_ : deny) -> ()
+
+let yojson_of_deny =
+  (function
+   | { ports = v_ports; protocol = v_protocol } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         match v_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ports", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deny -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deny
+
+[@@@deriving.end]
+
+type log_config = { metadata : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log_config) -> ()
+
+let yojson_of_log_config =
+  (function
+   | { metadata = v_metadata } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       `Assoc bnds
+    : log_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_firewall = {
   description : string prop option; [@option]
-      (** An optional description of this resource. Provide this property when
-you create the resource. *)
   destination_ranges : string prop list option; [@option]
-      (** If destination ranges are specified, the firewall will apply only to
-traffic that has destination IP address in these ranges. These ranges
-must be expressed in CIDR format. IPv4 or IPv6 ranges are supported. *)
   direction : string prop option; [@option]
-      (** Direction of traffic to which this firewall applies; default is
-INGRESS. Note: For INGRESS traffic, one of 'source_ranges',
-'source_tags' or 'source_service_accounts' is required. Possible values: [INGRESS, EGRESS] *)
   disabled : bool prop option; [@option]
-      (** Denotes whether the firewall rule is disabled, i.e not applied to the
-network it is associated with. When set to true, the firewall rule is
-not enforced and the network behaves as if it did not exist. If this
-is unspecified, the firewall rule will be enabled. *)
   enable_logging : bool prop option; [@option]
-      (** This field denotes whether to enable logging for a particular firewall rule. If logging is enabled, logs will be exported to Stackdriver. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Name of the resource. Provided by the client when the resource is
-created. The name must be 1-63 characters long, and comply with
-RFC1035. Specifically, the name must be 1-63 characters long and match
-the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
-first character must be a lowercase letter, and all following
-characters must be a dash, lowercase letter, or digit, except the last
-character, which cannot be a dash. *)
   network : string prop;
-      (** The name or self_link of the network to attach this firewall to. *)
   priority : float prop option; [@option]
-      (** Priority for this rule. This is an integer between 0 and 65535, both
-inclusive. When not specified, the value assumed is 1000. Relative
-priorities determine precedence of conflicting rules. Lower value of
-priority implies higher precedence (eg, a rule with priority 0 has
-higher precedence than a rule with priority 1). DENY rules take
-precedence over ALLOW rules having equal priority. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   source_ranges : string prop list option; [@option]
-      (** If source ranges are specified, the firewall will apply only to
-traffic that has source IP address in these ranges. These ranges must
-be expressed in CIDR format. One or both of sourceRanges and
-sourceTags may be set. If both properties are set, the firewall will
-apply to traffic that has source IP address within sourceRanges OR the
-source IP that belongs to a tag listed in the sourceTags property. The
-connection does not need to match both properties for the firewall to
-apply. IPv4 or IPv6 ranges are supported. For INGRESS traffic, one of
-'source_ranges', 'source_tags' or 'source_service_accounts' is required. *)
   source_service_accounts : string prop list option; [@option]
-      (** If source service accounts are specified, the firewall will apply only
-to traffic originating from an instance with a service account in this
-list. Source service accounts cannot be used to control traffic to an
-instance's external IP address because service accounts are associated
-with an instance, not an IP address. sourceRanges can be set at the
-same time as sourceServiceAccounts. If both are set, the firewall will
-apply to traffic that has source IP address within sourceRanges OR the
-source IP belongs to an instance with service account listed in
-sourceServiceAccount. The connection does not need to match both
-properties for the firewall to apply. sourceServiceAccounts cannot be
-used at the same time as sourceTags or targetTags. For INGRESS traffic,
-one of 'source_ranges', 'source_tags' or 'source_service_accounts' is required. *)
   source_tags : string prop list option; [@option]
-      (** If source tags are specified, the firewall will apply only to traffic
-with source IP that belongs to a tag listed in source tags. Source
-tags cannot be used to control traffic to an instance's external IP
-address. Because tags are associated with an instance, not an IP
-address. One or both of sourceRanges and sourceTags may be set. If
-both properties are set, the firewall will apply to traffic that has
-source IP address within sourceRanges OR the source IP that belongs to
-a tag listed in the sourceTags property. The connection does not need
-to match both properties for the firewall to apply. For INGRESS traffic,
-one of 'source_ranges', 'source_tags' or 'source_service_accounts' is required. *)
   target_service_accounts : string prop list option; [@option]
-      (** A list of service accounts indicating sets of instances located in the
-network that may make network connections as specified in allowed[].
-targetServiceAccounts cannot be used at the same time as targetTags or
-sourceTags. If neither targetServiceAccounts nor targetTags are
-specified, the firewall rule applies to all instances on the specified
-network. *)
   target_tags : string prop list option; [@option]
-      (** A list of instance tags indicating sets of instances located in the
-network that may make network connections as specified in allowed[].
-If no targetTags are specified, the firewall rule applies to all
-instances on the specified network. *)
   allow : allow list;
   deny : deny list;
   log_config : log_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_firewall *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_firewall) -> ()
+
+let yojson_of_google_compute_firewall =
+  (function
+   | {
+       description = v_description;
+       destination_ranges = v_destination_ranges;
+       direction = v_direction;
+       disabled = v_disabled;
+       enable_logging = v_enable_logging;
+       id = v_id;
+       name = v_name;
+       network = v_network;
+       priority = v_priority;
+       project = v_project;
+       source_ranges = v_source_ranges;
+       source_service_accounts = v_source_service_accounts;
+       source_tags = v_source_tags;
+       target_service_accounts = v_target_service_accounts;
+       target_tags = v_target_tags;
+       allow = v_allow;
+       deny = v_deny;
+       log_config = v_log_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_log_config v_log_config
+         in
+         ("log_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_deny v_deny in
+         ("deny", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_allow v_allow in
+         ("allow", arg) :: bnds
+       in
+       let bnds =
+         match v_target_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "target_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_service_accounts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "target_service_accounts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_service_accounts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_service_accounts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_logging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_logging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_direction with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "direction", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "destination_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_firewall -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_firewall
+
+[@@@deriving.end]
 
 let allow ?ports ~protocol () : allow = { ports; protocol }
 let deny ?ports ~protocol () : deny = { ports; protocol }

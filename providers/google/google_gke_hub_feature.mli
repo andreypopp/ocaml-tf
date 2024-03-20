@@ -9,13 +9,20 @@ type resource_state = {
   state : string prop;  (** state *)
 }
 
+[@@@deriving.end]
+
 type state__state = {
   code : string prop;  (** code *)
   description : string prop;  (** description *)
   update_time : string prop;  (** update_time *)
 }
 
+[@@@deriving.end]
+
 type state = { state : state__state list  (** state *) }
+
+[@@@deriving.end]
+
 type fleet_default_member_config__configmanagement__config_sync__git
 
 val fleet_default_member_config__configmanagement__config_sync__git :

@@ -3,14 +3,71 @@
 open! Tf_core
 
 type aws_cognito_user_pool_ui_customization = {
-  client_id : string prop option; [@option]  (** client_id *)
-  css : string prop option; [@option]  (** css *)
-  id : string prop option; [@option]  (** id *)
-  image_file : string prop option; [@option]  (** image_file *)
-  user_pool_id : string prop;  (** user_pool_id *)
+  client_id : string prop option; [@option]
+  css : string prop option; [@option]
+  id : string prop option; [@option]
+  image_file : string prop option; [@option]
+  user_pool_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_cognito_user_pool_ui_customization *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cognito_user_pool_ui_customization) -> ()
+
+let yojson_of_aws_cognito_user_pool_ui_customization =
+  (function
+   | {
+       client_id = v_client_id;
+       css = v_css;
+       id = v_id;
+       image_file = v_image_file;
+       user_pool_id = v_user_pool_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_pool_id in
+         ("user_pool_id", arg) :: bnds
+       in
+       let bnds =
+         match v_image_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_file", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_css with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "css", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cognito_user_pool_ui_customization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cognito_user_pool_ui_customization
+
+[@@@deriving.end]
 
 let aws_cognito_user_pool_ui_customization ?client_id ?css ?id
     ?image_file ~user_pool_id () :

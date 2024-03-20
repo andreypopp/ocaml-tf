@@ -4,52 +4,235 @@ open! Tf_core
 
 type local_disk_encryption = {
   kms_key : string prop option; [@option]
-      (** The Cloud KMS CryptoKey e.g. projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{cryptoKey} to use for protecting node local disks.
-If not specified, a Google-managed key will be used instead. *)
 }
-[@@deriving yojson_of]
-(** Local disk encryption options. This field is only used when enabling CMEK support. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : local_disk_encryption) -> ()
+
+let yojson_of_local_disk_encryption =
+  (function
+   | { kms_key = v_kms_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : local_disk_encryption -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_local_disk_encryption
+
+[@@@deriving.end]
 
 type node_config = {
   labels : (string * string prop) list option; [@option]
-      (** The Kubernetes node labels *)
 }
-[@@deriving yojson_of]
-(** Configuration for each node in the NodePool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config) -> ()
+
+let yojson_of_node_config =
+  (function
+   | { labels = v_labels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_edgecontainer_node_pool = {
   cluster : string prop;
-      (** The name of the target Distributed Cloud Edge Cluster. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels associated with this resource.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The location of the resource. *)
+  location : string prop;
   machine_filter : string prop option; [@option]
-      (** Only machines matching this filter will be allowed to join the node pool.
-The filtering language accepts strings like name=<name>, and is
-documented in more detail in [AIP-160](https://google.aip.dev/160). *)
-  name : string prop;  (** The resource name of the node pool. *)
-  node_count : float prop;  (** The number of nodes in the pool. *)
+  name : string prop;
+  node_count : float prop;
   node_location : string prop;
-      (** Name of the Google Distributed Cloud Edge zone where this node pool will be created. For example: 'us-central1-edge-customer-a'. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   local_disk_encryption : local_disk_encryption list;
   node_config : node_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_edgecontainer_node_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_edgecontainer_node_pool) -> ()
+
+let yojson_of_google_edgecontainer_node_pool =
+  (function
+   | {
+       cluster = v_cluster;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       machine_filter = v_machine_filter;
+       name = v_name;
+       node_count = v_node_count;
+       node_location = v_node_location;
+       project = v_project;
+       local_disk_encryption = v_local_disk_encryption;
+       node_config = v_node_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config v_node_config
+         in
+         ("node_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_local_disk_encryption
+             v_local_disk_encryption
+         in
+         ("local_disk_encryption", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_node_location in
+         ("node_location", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_node_count in
+         ("node_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_machine_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_filter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster in
+         ("cluster", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_edgecontainer_node_pool ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_edgecontainer_node_pool
+
+[@@@deriving.end]
 
 let local_disk_encryption ?kms_key () : local_disk_encryption =
   { kms_key }

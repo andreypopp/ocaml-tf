@@ -3,21 +3,128 @@
 open! Tf_core
 
 type aws_dx_connection = {
-  bandwidth : string prop;  (** bandwidth *)
+  bandwidth : string prop;
   encryption_mode : string prop option; [@option]
-      (** encryption_mode *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  provider_name : string prop option; [@option]  (** provider_name *)
-  request_macsec : bool prop option; [@option]  (** request_macsec *)
-  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
+  provider_name : string prop option; [@option]
+  request_macsec : bool prop option; [@option]
+  skip_destroy : bool prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_dx_connection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dx_connection) -> ()
+
+let yojson_of_aws_dx_connection =
+  (function
+   | {
+       bandwidth = v_bandwidth;
+       encryption_mode = v_encryption_mode;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       provider_name = v_provider_name;
+       request_macsec = v_request_macsec;
+       skip_destroy = v_skip_destroy;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skip_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_request_macsec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "request_macsec", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_provider_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "provider_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bandwidth in
+         ("bandwidth", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_dx_connection -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dx_connection
+
+[@@@deriving.end]
 
 let aws_dx_connection ?encryption_mode ?id ?provider_name
     ?request_macsec ?skip_destroy ?tags ?tags_all ~bandwidth

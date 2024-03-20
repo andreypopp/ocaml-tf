@@ -4,23 +4,82 @@ open! Tf_core
 
 type cloudflare_access_mutual_tls_certificate = {
   account_id : string prop option; [@option]
-      (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
   associated_hostnames : string prop list option; [@option]
-      (** The hostnames that will be prompted for this certificate. *)
   certificate : string prop option; [@option]
-      (** The Root CA for your certificates. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The name of the certificate. *)
+  id : string prop option; [@option]
+  name : string prop;
   zone_id : string prop option; [@option]
-      (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Access Mutual TLS Certificate resource.
-Mutual TLS authentication ensures that the traffic is secure and
-trusted in both directions between a client and server and can be
- used with Access to only allows requests from devices with a
- corresponding client certificate.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_access_mutual_tls_certificate) -> ()
+
+let yojson_of_cloudflare_access_mutual_tls_certificate =
+  (function
+   | {
+       account_id = v_account_id;
+       associated_hostnames = v_associated_hostnames;
+       certificate = v_certificate;
+       id = v_id;
+       name = v_name;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_associated_hostnames with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "associated_hostnames", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_access_mutual_tls_certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_access_mutual_tls_certificate
+
+[@@@deriving.end]
 
 let cloudflare_access_mutual_tls_certificate ?account_id
     ?associated_hostnames ?certificate ?id ?zone_id ~name () :

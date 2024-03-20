@@ -3,12 +3,43 @@
 open! Tf_core
 
 type aws_iam_user_policy_attachment = {
-  id : string prop option; [@option]  (** id *)
-  policy_arn : string prop;  (** policy_arn *)
-  user : string prop;  (** user *)
+  id : string prop option; [@option]
+  policy_arn : string prop;
+  user : string prop;
 }
-[@@deriving yojson_of]
-(** aws_iam_user_policy_attachment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_user_policy_attachment) -> ()
+
+let yojson_of_aws_iam_user_policy_attachment =
+  (function
+   | { id = v_id; policy_arn = v_policy_arn; user = v_user } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user in
+         ("user", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_arn in
+         ("policy_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_user_policy_attachment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_user_policy_attachment
+
+[@@@deriving.end]
 
 let aws_iam_user_policy_attachment ?id ~policy_arn ~user () :
     aws_iam_user_policy_attachment =

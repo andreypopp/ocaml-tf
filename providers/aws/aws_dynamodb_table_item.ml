@@ -3,14 +3,62 @@
 open! Tf_core
 
 type aws_dynamodb_table_item = {
-  hash_key : string prop;  (** hash_key *)
-  id : string prop option; [@option]  (** id *)
-  item : string prop;  (** item *)
-  range_key : string prop option; [@option]  (** range_key *)
-  table_name : string prop;  (** table_name *)
+  hash_key : string prop;
+  id : string prop option; [@option]
+  item : string prop;
+  range_key : string prop option; [@option]
+  table_name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_dynamodb_table_item *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dynamodb_table_item) -> ()
+
+let yojson_of_aws_dynamodb_table_item =
+  (function
+   | {
+       hash_key = v_hash_key;
+       id = v_id;
+       item = v_item;
+       range_key = v_range_key;
+       table_name = v_table_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_name in
+         ("table_name", arg) :: bnds
+       in
+       let bnds =
+         match v_range_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "range_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_item in
+         ("item", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_hash_key in
+         ("hash_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_dynamodb_table_item -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dynamodb_table_item
+
+[@@@deriving.end]
 
 let aws_dynamodb_table_item ?id ?range_key ~hash_key ~item
     ~table_name () : aws_dynamodb_table_item =

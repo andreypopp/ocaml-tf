@@ -8,6 +8,8 @@ type certificate_description__x509_description__policy_ids = {
   object_id_path : float prop list;  (** object_id_path *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__x509_description__name_constraints = {
   critical : bool prop;  (** critical *)
   excluded_dns_names : string prop list;  (** excluded_dns_names *)
@@ -22,9 +24,13 @@ type certificate_description__x509_description__name_constraints = {
   permitted_uris : string prop list;  (** permitted_uris *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__x509_description__key_usage__unknown_extended_key_usages = {
   object_id_path : float prop list;  (** object_id_path *)
 }
+
+[@@@deriving.end]
 
 type certificate_description__x509_description__key_usage__extended_key_usage = {
   client_auth : bool prop;  (** client_auth *)
@@ -34,6 +40,8 @@ type certificate_description__x509_description__key_usage__extended_key_usage = 
   server_auth : bool prop;  (** server_auth *)
   time_stamping : bool prop;  (** time_stamping *)
 }
+
+[@@@deriving.end]
 
 type certificate_description__x509_description__key_usage__base_key_usage = {
   cert_sign : bool prop;  (** cert_sign *)
@@ -46,6 +54,8 @@ type certificate_description__x509_description__key_usage__base_key_usage = {
   key_agreement : bool prop;  (** key_agreement *)
   key_encipherment : bool prop;  (** key_encipherment *)
 }
+
+[@@@deriving.end]
 
 type certificate_description__x509_description__key_usage = {
   base_key_usage :
@@ -62,14 +72,20 @@ type certificate_description__x509_description__key_usage = {
       (** unknown_extended_key_usages *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__x509_description__ca_options = {
   is_ca : bool prop;  (** is_ca *)
   max_issuer_path_length : float prop;  (** max_issuer_path_length *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__x509_description__additional_extensions__object_id = {
   object_id_path : float prop list;  (** object_id_path *)
 }
+
+[@@@deriving.end]
 
 type certificate_description__x509_description__additional_extensions = {
   critical : bool prop;  (** critical *)
@@ -79,6 +95,8 @@ type certificate_description__x509_description__additional_extensions = {
       (** object_id *)
   value : string prop;  (** value *)
 }
+
+[@@@deriving.end]
 
 type certificate_description__x509_description = {
   additional_extensions :
@@ -100,13 +118,19 @@ type certificate_description__x509_description = {
       (** policy_ids *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__subject_key_id = {
   key_id : string prop;  (** key_id *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__subject_description__subject_alt_name__custom_sans__obect_id = {
   object_id_path : float prop list;  (** object_id_path *)
 }
+
+[@@@deriving.end]
 
 type certificate_description__subject_description__subject_alt_name__custom_sans = {
   critical : bool prop;  (** critical *)
@@ -116,6 +140,8 @@ type certificate_description__subject_description__subject_alt_name__custom_sans
       (** obect_id *)
   value : string prop;  (** value *)
 }
+
+[@@@deriving.end]
 
 type certificate_description__subject_description__subject_alt_name = {
   custom_sans :
@@ -128,6 +154,8 @@ type certificate_description__subject_description__subject_alt_name = {
   uris : string prop list;  (** uris *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__subject_description__subject = {
   common_name : string prop;  (** common_name *)
   country_code : string prop;  (** country_code *)
@@ -138,6 +166,8 @@ type certificate_description__subject_description__subject = {
   province : string prop;  (** province *)
   street_address : string prop;  (** street_address *)
 }
+
+[@@@deriving.end]
 
 type certificate_description__subject_description = {
   hex_serial_number : string prop;  (** hex_serial_number *)
@@ -153,18 +183,26 @@ type certificate_description__subject_description = {
       (** subject_alt_name *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__public_key = {
   format : string prop;  (** format *)
   key : string prop;  (** key *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__cert_fingerprint = {
   sha256_hash : string prop;  (** sha256_hash *)
 }
 
+[@@@deriving.end]
+
 type certificate_description__authority_key_id = {
   key_id : string prop;  (** key_id *)
 }
+
+[@@@deriving.end]
 
 type certificate_description = {
   aia_issuing_certificate_urls : string prop list;
@@ -186,10 +224,14 @@ type certificate_description = {
       (** x509_description *)
 }
 
+[@@@deriving.end]
+
 type revocation_details = {
   revocation_state : string prop;  (** revocation_state *)
   revocation_time : string prop;  (** revocation_time *)
 }
+
+[@@@deriving.end]
 
 type config__public_key
 

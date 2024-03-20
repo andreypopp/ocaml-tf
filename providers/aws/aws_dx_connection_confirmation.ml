@@ -3,11 +3,38 @@
 open! Tf_core
 
 type aws_dx_connection_confirmation = {
-  connection_id : string prop;  (** connection_id *)
-  id : string prop option; [@option]  (** id *)
+  connection_id : string prop;
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_dx_connection_confirmation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dx_connection_confirmation) -> ()
+
+let yojson_of_aws_dx_connection_confirmation =
+  (function
+   | { connection_id = v_connection_id; id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_connection_id in
+         ("connection_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_dx_connection_confirmation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dx_connection_confirmation
+
+[@@@deriving.end]
 
 let aws_dx_connection_confirmation ?id ~connection_id () :
     aws_dx_connection_confirmation =

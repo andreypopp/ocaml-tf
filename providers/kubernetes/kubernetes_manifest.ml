@@ -4,63 +4,287 @@ open! Tf_core
 
 type field_manager = {
   force_conflicts : bool prop option; [@option]
-      (** Force changes against conflicts. *)
   name : string prop option; [@option]
-      (** The name to use for the field manager when creating and updating the resource. *)
 }
-[@@deriving yojson_of]
-(** Configure field manager options. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : field_manager) -> ()
+
+let yojson_of_field_manager =
+  (function
+   | { force_conflicts = v_force_conflicts; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_conflicts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_conflicts", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : field_manager -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_field_manager
+
+[@@@deriving.end]
 
 type timeouts = {
   create : string prop option; [@option]
-      (** Timeout for the create operation. *)
   delete : string prop option; [@option]
-      (** Timeout for the delete operation. *)
   update : string prop option; [@option]
-      (** Timeout for the update operation. *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type wait__condition = {
   status : string prop option; [@option]
-      (** The condition status. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The type of condition. *)
 }
-[@@deriving yojson_of]
-(** wait__condition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : wait__condition) -> ()
+
+let yojson_of_wait__condition =
+  (function
+   | { status = v_status; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : wait__condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_wait__condition
+
+[@@@deriving.end]
 
 type wait = {
   fields : (string * string prop) list option; [@option]
-      (** A map of paths to fields to wait for a specific field value. *)
   rollout : bool prop option; [@option]
-      (** Wait for rollout to complete on resources that support `kubectl rollout status`. *)
   condition : wait__condition list;
 }
-[@@deriving yojson_of]
-(** Configure waiter options. *)
+[@@deriving_inline yojson_of]
 
-type wait_for = {
-  fields : (string * string prop) list;  (** fields *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : wait) -> ()
+
+let yojson_of_wait =
+  (function
+   | {
+       fields = v_fields;
+       rollout = v_rollout;
+       condition = v_condition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_wait__condition v_condition
+         in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         match v_rollout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "rollout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fields with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "fields", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : wait -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_wait
+
+[@@@deriving.end]
+
+type wait_for = { fields : (string * string prop) list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : wait_for) -> ()
+
+let yojson_of_wait_for =
+  (function
+   | { fields = v_fields } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_fields
+         in
+         ("fields", arg) :: bnds
+       in
+       `Assoc bnds
+    : wait_for -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_wait_for
+
+[@@@deriving.end]
 
 type kubernetes_manifest = {
   computed_fields : string prop list option; [@option]
-      (** List of manifest fields whose values can be altered by the API server during 'apply'. Defaults to: [metadata.annotations, metadata.labels] *)
   manifest : json prop;
-      (** A Kubernetes manifest describing the desired state of the resource in HCL format. *)
   object_ : json prop option; [@option] [@key "object"]
-      (** The resulting resource state, as returned by the API server after applying the desired state from `manifest`. *)
   wait_for : wait_for option; [@option]
-      (** A map of attribute paths and desired patterns to be matched. After each apply the provider will wait for all attributes listed here to reach a value that matches the desired pattern. *)
   field_manager : field_manager list;
   timeouts : timeouts list;
   wait : wait list;
 }
-[@@deriving yojson_of]
-(** kubernetes_manifest *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_manifest) -> ()
+
+let yojson_of_kubernetes_manifest =
+  (function
+   | {
+       computed_fields = v_computed_fields;
+       manifest = v_manifest;
+       object_ = v_object_;
+       wait_for = v_wait_for;
+       field_manager = v_field_manager;
+       timeouts = v_timeouts;
+       wait = v_wait;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_wait v_wait in
+         ("wait", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_field_manager v_field_manager
+         in
+         ("field_manager", arg) :: bnds
+       in
+       let bnds =
+         match v_wait_for with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_wait_for v in
+             let bnd = "wait_for", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_object_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_json v in
+             let bnd = "object", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_json v_manifest in
+         ("manifest", arg) :: bnds
+       in
+       let bnds =
+         match v_computed_fields with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "computed_fields", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_manifest -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_manifest
+
+[@@@deriving.end]
 
 let field_manager ?force_conflicts ?name () : field_manager =
   { force_conflicts; name }

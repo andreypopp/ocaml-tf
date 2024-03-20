@@ -17,6 +17,8 @@ type maintenance_events = {
   uuid : string prop;  (** uuid *)
 }
 
+[@@@deriving.end]
+
 type authorization__admin_users
 
 val authorization__admin_users :
@@ -56,6 +58,8 @@ type control_plane_encryption__kms_status = {
   code : float prop;  (** code *)
   message : string prop;  (** message *)
 }
+
+[@@@deriving.end]
 
 type control_plane_encryption
 

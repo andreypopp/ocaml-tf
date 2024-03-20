@@ -3,27 +3,153 @@
 open! Tf_core
 
 type storage_location = {
-  bucket : string prop;  (** bucket *)
-  key : string prop;  (** key *)
+  bucket : string prop;
+  key : string prop;
   object_version : string prop option; [@option]
-      (** object_version *)
-  role_arn : string prop;  (** role_arn *)
+  role_arn : string prop;
 }
-[@@deriving yojson_of]
-(** storage_location *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage_location) -> ()
+
+let yojson_of_storage_location =
+  (function
+   | {
+       bucket = v_bucket;
+       key = v_key;
+       object_version = v_object_version;
+       role_arn = v_role_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_object_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : storage_location -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage_location
+
+[@@@deriving.end]
 
 type aws_gamelift_script = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  version : string prop option; [@option]  (** version *)
-  zip_file : string prop option; [@option]  (** zip_file *)
+  version : string prop option; [@option]
+  zip_file : string prop option; [@option]
   storage_location : storage_location list;
 }
-[@@deriving yojson_of]
-(** aws_gamelift_script *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_gamelift_script) -> ()
+
+let yojson_of_aws_gamelift_script =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       version = v_version;
+       zip_file = v_zip_file;
+       storage_location = v_storage_location;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_storage_location
+             v_storage_location
+         in
+         ("storage_location", arg) :: bnds
+       in
+       let bnds =
+         match v_zip_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zip_file", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_gamelift_script -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_gamelift_script
+
+[@@@deriving.end]
 
 let storage_location ?object_version ~bucket ~key ~role_arn () :
     storage_location =

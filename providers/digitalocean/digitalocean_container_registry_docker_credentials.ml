@@ -4,13 +4,61 @@ open! Tf_core
 
 type digitalocean_container_registry_docker_credentials = {
   expiry_seconds : float prop option; [@option]
-      (** expiry_seconds *)
-  id : string prop option; [@option]  (** id *)
-  registry_name : string prop;  (** registry_name *)
-  write : bool prop option; [@option]  (** write *)
+  id : string prop option; [@option]
+  registry_name : string prop;
+  write : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** digitalocean_container_registry_docker_credentials *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : digitalocean_container_registry_docker_credentials) -> ()
+
+let yojson_of_digitalocean_container_registry_docker_credentials =
+  (function
+   | {
+       expiry_seconds = v_expiry_seconds;
+       id = v_id;
+       registry_name = v_registry_name;
+       write = v_write;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_write with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "write", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_registry_name in
+         ("registry_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expiry_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "expiry_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_container_registry_docker_credentials ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_container_registry_docker_credentials
+
+[@@@deriving.end]
 
 let digitalocean_container_registry_docker_credentials
     ?expiry_seconds ?id ?write ~registry_name () :

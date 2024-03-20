@@ -3,40 +3,221 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_spring_cloud_new_relic_application_performance_monitoring = {
-  agent_enabled : bool prop option; [@option]  (** agent_enabled *)
-  app_name : string prop;  (** app_name *)
+  agent_enabled : bool prop option; [@option]
+  app_name : string prop;
   app_server_port : float prop option; [@option]
-      (** app_server_port *)
   audit_mode_enabled : bool prop option; [@option]
-      (** audit_mode_enabled *)
   auto_app_naming_enabled : bool prop option; [@option]
-      (** auto_app_naming_enabled *)
   auto_transaction_naming_enabled : bool prop option; [@option]
-      (** auto_transaction_naming_enabled *)
   custom_tracing_enabled : bool prop option; [@option]
-      (** custom_tracing_enabled *)
   globally_enabled : bool prop option; [@option]
-      (** globally_enabled *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** labels *)
-  license_key : string prop;  (** license_key *)
-  name : string prop;  (** name *)
+  license_key : string prop;
+  name : string prop;
   spring_cloud_service_id : string prop;
-      (** spring_cloud_service_id *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_spring_cloud_new_relic_application_performance_monitoring *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       azurerm_spring_cloud_new_relic_application_performance_monitoring) ->
+  ()
+
+let yojson_of_azurerm_spring_cloud_new_relic_application_performance_monitoring
+    =
+  (function
+   | {
+       agent_enabled = v_agent_enabled;
+       app_name = v_app_name;
+       app_server_port = v_app_server_port;
+       audit_mode_enabled = v_audit_mode_enabled;
+       auto_app_naming_enabled = v_auto_app_naming_enabled;
+       auto_transaction_naming_enabled =
+         v_auto_transaction_naming_enabled;
+       custom_tracing_enabled = v_custom_tracing_enabled;
+       globally_enabled = v_globally_enabled;
+       id = v_id;
+       labels = v_labels;
+       license_key = v_license_key;
+       name = v_name;
+       spring_cloud_service_id = v_spring_cloud_service_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_spring_cloud_service_id
+         in
+         ("spring_cloud_service_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_license_key in
+         ("license_key", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_globally_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "globally_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_tracing_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "custom_tracing_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_transaction_naming_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_transaction_naming_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_app_naming_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_app_naming_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_audit_mode_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "audit_mode_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_app_server_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "app_server_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_app_name in
+         ("app_name", arg) :: bnds
+       in
+       let bnds =
+         match v_agent_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "agent_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_spring_cloud_new_relic_application_performance_monitoring ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_azurerm_spring_cloud_new_relic_application_performance_monitoring
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

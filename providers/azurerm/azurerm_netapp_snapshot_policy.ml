@@ -3,63 +3,356 @@
 open! Tf_core
 
 type daily_schedule = {
-  hour : float prop;  (** hour *)
-  minute : float prop;  (** minute *)
-  snapshots_to_keep : float prop;  (** snapshots_to_keep *)
+  hour : float prop;
+  minute : float prop;
+  snapshots_to_keep : float prop;
 }
-[@@deriving yojson_of]
-(** daily_schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : daily_schedule) -> ()
+
+let yojson_of_daily_schedule =
+  (function
+   | {
+       hour = v_hour;
+       minute = v_minute;
+       snapshots_to_keep = v_snapshots_to_keep;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_snapshots_to_keep
+         in
+         ("snapshots_to_keep", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minute in
+         ("minute", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hour in
+         ("hour", arg) :: bnds
+       in
+       `Assoc bnds
+    : daily_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_daily_schedule
+
+[@@@deriving.end]
 
 type hourly_schedule = {
-  minute : float prop;  (** minute *)
-  snapshots_to_keep : float prop;  (** snapshots_to_keep *)
+  minute : float prop;
+  snapshots_to_keep : float prop;
 }
-[@@deriving yojson_of]
-(** hourly_schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hourly_schedule) -> ()
+
+let yojson_of_hourly_schedule =
+  (function
+   | { minute = v_minute; snapshots_to_keep = v_snapshots_to_keep }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_snapshots_to_keep
+         in
+         ("snapshots_to_keep", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minute in
+         ("minute", arg) :: bnds
+       in
+       `Assoc bnds
+    : hourly_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hourly_schedule
+
+[@@@deriving.end]
 
 type monthly_schedule = {
-  days_of_month : float prop list;  (** days_of_month *)
-  hour : float prop;  (** hour *)
-  minute : float prop;  (** minute *)
-  snapshots_to_keep : float prop;  (** snapshots_to_keep *)
+  days_of_month : float prop list;
+  hour : float prop;
+  minute : float prop;
+  snapshots_to_keep : float prop;
 }
-[@@deriving yojson_of]
-(** monthly_schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : monthly_schedule) -> ()
+
+let yojson_of_monthly_schedule =
+  (function
+   | {
+       days_of_month = v_days_of_month;
+       hour = v_hour;
+       minute = v_minute;
+       snapshots_to_keep = v_snapshots_to_keep;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_snapshots_to_keep
+         in
+         ("snapshots_to_keep", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minute in
+         ("minute", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hour in
+         ("hour", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_float)
+             v_days_of_month
+         in
+         ("days_of_month", arg) :: bnds
+       in
+       `Assoc bnds
+    : monthly_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_monthly_schedule
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type weekly_schedule = {
-  days_of_week : string prop list;  (** days_of_week *)
-  hour : float prop;  (** hour *)
-  minute : float prop;  (** minute *)
-  snapshots_to_keep : float prop;  (** snapshots_to_keep *)
+  days_of_week : string prop list;
+  hour : float prop;
+  minute : float prop;
+  snapshots_to_keep : float prop;
 }
-[@@deriving yojson_of]
-(** weekly_schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : weekly_schedule) -> ()
+
+let yojson_of_weekly_schedule =
+  (function
+   | {
+       days_of_week = v_days_of_week;
+       hour = v_hour;
+       minute = v_minute;
+       snapshots_to_keep = v_snapshots_to_keep;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_snapshots_to_keep
+         in
+         ("snapshots_to_keep", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_minute in
+         ("minute", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hour in
+         ("hour", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_days_of_week
+         in
+         ("days_of_week", arg) :: bnds
+       in
+       `Assoc bnds
+    : weekly_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_weekly_schedule
+
+[@@@deriving.end]
 
 type azurerm_netapp_snapshot_policy = {
-  account_name : string prop;  (** account_name *)
-  enabled : bool prop;  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  account_name : string prop;
+  enabled : bool prop;
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   daily_schedule : daily_schedule list;
   hourly_schedule : hourly_schedule list;
   monthly_schedule : monthly_schedule list;
   timeouts : timeouts option;
   weekly_schedule : weekly_schedule list;
 }
-[@@deriving yojson_of]
-(** azurerm_netapp_snapshot_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_netapp_snapshot_policy) -> ()
+
+let yojson_of_azurerm_netapp_snapshot_policy =
+  (function
+   | {
+       account_name = v_account_name;
+       enabled = v_enabled;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       daily_schedule = v_daily_schedule;
+       hourly_schedule = v_hourly_schedule;
+       monthly_schedule = v_monthly_schedule;
+       timeouts = v_timeouts;
+       weekly_schedule = v_weekly_schedule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_weekly_schedule v_weekly_schedule
+         in
+         ("weekly_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_monthly_schedule
+             v_monthly_schedule
+         in
+         ("monthly_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_hourly_schedule v_hourly_schedule
+         in
+         ("hourly_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_daily_schedule v_daily_schedule
+         in
+         ("daily_schedule", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_name in
+         ("account_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_netapp_snapshot_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_netapp_snapshot_policy
+
+[@@@deriving.end]
 
 let daily_schedule ~hour ~minute ~snapshots_to_keep () :
     daily_schedule =

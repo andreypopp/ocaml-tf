@@ -3,25 +3,135 @@
 open! Tf_core
 
 type spec__egress_filter = {
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** spec__egress_filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__egress_filter) -> ()
+
+let yojson_of_spec__egress_filter =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__egress_filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__egress_filter
+
+[@@@deriving.end]
 
 type spec = { egress_filter : spec__egress_filter list }
-[@@deriving yojson_of]
-(** spec *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | { egress_filter = v_egress_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__egress_filter
+             v_egress_filter
+         in
+         ("egress_filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type aws_appmesh_mesh = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   spec : spec list;
 }
-[@@deriving yojson_of]
-(** aws_appmesh_mesh *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appmesh_mesh) -> ()
+
+let yojson_of_aws_appmesh_mesh =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       spec = v_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_appmesh_mesh -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appmesh_mesh
+
+[@@@deriving.end]
 
 let spec__egress_filter ?type_ () : spec__egress_filter = { type_ }
 let spec ~egress_filter () : spec = { egress_filter }

@@ -2,105 +2,536 @@
 
 open! Tf_core
 
-type encryption_spec = {
-  kms_key_name : string prop;
-      (** Required. The Cloud KMS resource identifier of the customer managed encryption key used to protect a resource. Has the form: 'projects/my-project/locations/my-region/keyRings/my-kr/cryptoKeys/my-key'. The key needs to be in the same region as where the compute resource is created. *)
-}
-[@@deriving yojson_of]
-(** Customer-managed encryption key spec for an Endpoint. If set, this Endpoint and all sub-resources of this Endpoint will be secured by this key. *)
+type encryption_spec = { kms_key_name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_spec) -> ()
+
+let yojson_of_encryption_spec =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_name in
+         ("kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_spec
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type deployed_models__private_endpoints = {
-  explain_http_uri : string prop;  (** explain_http_uri *)
-  health_http_uri : string prop;  (** health_http_uri *)
-  predict_http_uri : string prop;  (** predict_http_uri *)
-  service_attachment : string prop;  (** service_attachment *)
+  explain_http_uri : string prop;
+  health_http_uri : string prop;
+  predict_http_uri : string prop;
+  service_attachment : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployed_models__private_endpoints) -> ()
+
+let yojson_of_deployed_models__private_endpoints =
+  (function
+   | {
+       explain_http_uri = v_explain_http_uri;
+       health_http_uri = v_health_http_uri;
+       predict_http_uri = v_predict_http_uri;
+       service_attachment = v_service_attachment;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_attachment
+         in
+         ("service_attachment", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_predict_http_uri
+         in
+         ("predict_http_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_health_http_uri
+         in
+         ("health_http_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_explain_http_uri
+         in
+         ("explain_http_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployed_models__private_endpoints ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployed_models__private_endpoints
+
+[@@@deriving.end]
 
 type deployed_models__dedicated_resources__machine_spec = {
-  accelerator_count : float prop;  (** accelerator_count *)
-  accelerator_type : string prop;  (** accelerator_type *)
-  machine_type : string prop;  (** machine_type *)
+  accelerator_count : float prop;
+  accelerator_type : string prop;
+  machine_type : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : deployed_models__dedicated_resources__machine_spec) -> ()
+
+let yojson_of_deployed_models__dedicated_resources__machine_spec =
+  (function
+   | {
+       accelerator_count = v_accelerator_count;
+       accelerator_type = v_accelerator_type;
+       machine_type = v_machine_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_machine_type in
+         ("machine_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_accelerator_type
+         in
+         ("accelerator_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_accelerator_count
+         in
+         ("accelerator_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployed_models__dedicated_resources__machine_spec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployed_models__dedicated_resources__machine_spec
+
+[@@@deriving.end]
 
 type deployed_models__dedicated_resources__autoscaling_metric_specs = {
-  metric_name : string prop;  (** metric_name *)
-  target : float prop;  (** target *)
+  metric_name : string prop;
+  target : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deployed_models__dedicated_resources__autoscaling_metric_specs) ->
+  ()
+
+let yojson_of_deployed_models__dedicated_resources__autoscaling_metric_specs
+    =
+  (function
+   | { metric_name = v_metric_name; target = v_target } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_target in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_metric_name in
+         ("metric_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployed_models__dedicated_resources__autoscaling_metric_specs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deployed_models__dedicated_resources__autoscaling_metric_specs
+
+[@@@deriving.end]
 
 type deployed_models__dedicated_resources = {
   autoscaling_metric_specs :
     deployed_models__dedicated_resources__autoscaling_metric_specs
     list;
-      (** autoscaling_metric_specs *)
   machine_spec :
     deployed_models__dedicated_resources__machine_spec list;
-      (** machine_spec *)
-  max_replica_count : float prop;  (** max_replica_count *)
-  min_replica_count : float prop;  (** min_replica_count *)
+  max_replica_count : float prop;
+  min_replica_count : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployed_models__dedicated_resources) -> ()
+
+let yojson_of_deployed_models__dedicated_resources =
+  (function
+   | {
+       autoscaling_metric_specs = v_autoscaling_metric_specs;
+       machine_spec = v_machine_spec;
+       max_replica_count = v_max_replica_count;
+       min_replica_count = v_min_replica_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_min_replica_count
+         in
+         ("min_replica_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_replica_count
+         in
+         ("max_replica_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployed_models__dedicated_resources__machine_spec
+             v_machine_spec
+         in
+         ("machine_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployed_models__dedicated_resources__autoscaling_metric_specs
+             v_autoscaling_metric_specs
+         in
+         ("autoscaling_metric_specs", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployed_models__dedicated_resources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployed_models__dedicated_resources
+
+[@@@deriving.end]
 
 type deployed_models__automatic_resources = {
-  max_replica_count : float prop;  (** max_replica_count *)
-  min_replica_count : float prop;  (** min_replica_count *)
+  max_replica_count : float prop;
+  min_replica_count : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployed_models__automatic_resources) -> ()
+
+let yojson_of_deployed_models__automatic_resources =
+  (function
+   | {
+       max_replica_count = v_max_replica_count;
+       min_replica_count = v_min_replica_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_min_replica_count
+         in
+         ("min_replica_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_replica_count
+         in
+         ("max_replica_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployed_models__automatic_resources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployed_models__automatic_resources
+
+[@@@deriving.end]
 
 type deployed_models = {
   automatic_resources : deployed_models__automatic_resources list;
-      (** automatic_resources *)
-  create_time : string prop;  (** create_time *)
+  create_time : string prop;
   dedicated_resources : deployed_models__dedicated_resources list;
-      (** dedicated_resources *)
-  display_name : string prop;  (** display_name *)
-  enable_access_logging : bool prop;  (** enable_access_logging *)
+  display_name : string prop;
+  enable_access_logging : bool prop;
   enable_container_logging : bool prop;
-      (** enable_container_logging *)
-  id : string prop;  (** id *)
-  model : string prop;  (** model *)
-  model_version_id : string prop;  (** model_version_id *)
+  id : string prop;
+  model : string prop;
+  model_version_id : string prop;
   private_endpoints : deployed_models__private_endpoints list;
-      (** private_endpoints *)
-  service_account : string prop;  (** service_account *)
-  shared_resources : string prop;  (** shared_resources *)
+  service_account : string prop;
+  shared_resources : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployed_models) -> ()
+
+let yojson_of_deployed_models =
+  (function
+   | {
+       automatic_resources = v_automatic_resources;
+       create_time = v_create_time;
+       dedicated_resources = v_dedicated_resources;
+       display_name = v_display_name;
+       enable_access_logging = v_enable_access_logging;
+       enable_container_logging = v_enable_container_logging;
+       id = v_id;
+       model = v_model;
+       model_version_id = v_model_version_id;
+       private_endpoints = v_private_endpoints;
+       service_account = v_service_account;
+       shared_resources = v_shared_resources;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_shared_resources
+         in
+         ("shared_resources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_account
+         in
+         ("service_account", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployed_models__private_endpoints
+             v_private_endpoints
+         in
+         ("private_endpoints", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_model_version_id
+         in
+         ("model_version_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_model in
+         ("model", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_enable_container_logging
+         in
+         ("enable_container_logging", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_enable_access_logging
+         in
+         ("enable_access_logging", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployed_models__dedicated_resources
+             v_dedicated_resources
+         in
+         ("dedicated_resources", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_create_time in
+         ("create_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployed_models__automatic_resources
+             v_automatic_resources
+         in
+         ("automatic_resources", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployed_models -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployed_models
+
+[@@@deriving.end]
 
 type google_vertex_ai_endpoint = {
   description : string prop option; [@option]
-      (** The description of the Endpoint. *)
   display_name : string prop;
-      (** Required. The display name of the Endpoint. The name can be up to 128 characters long and can consist of any UTF-8 characters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** The labels with user-defined metadata to organize your Endpoints. Label keys and values can be no longer than 64 characters (Unicode codepoints), can only contain lowercase letters, numeric characters, underscores and dashes. International characters are allowed. See https://goo.gl/xmQnxf for more information and examples of labels.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
+  location : string prop;
   name : string prop;
-      (** The resource name of the Endpoint. The name must be numeric with no leading zeros and can be at most 10 digits. *)
   network : string prop option; [@option]
-      (** The full name of the Google Compute Engine [network](https://cloud.google.com//compute/docs/networks-and-firewalls#networks) to which the Endpoint should be peered. Private services access must already be configured for the network. If left unspecified, the Endpoint is not peered with any network. Only one of the fields, network or enable_private_service_connect, can be set. [Format](https://cloud.google.com/compute/docs/reference/rest/v1/networks/insert): 'projects/{project}/global/networks/{network}'. Where '{project}' is a project number, as in '12345', and '{network}' is network name. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The region for the resource *)
   encryption_spec : encryption_spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vertex_ai_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_vertex_ai_endpoint) -> ()
+
+let yojson_of_google_vertex_ai_endpoint =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       network = v_network;
+       project = v_project;
+       region = v_region;
+       encryption_spec = v_encryption_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption_spec v_encryption_spec
+         in
+         ("encryption_spec", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_vertex_ai_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vertex_ai_endpoint
+
+[@@@deriving.end]
 
 let encryption_spec ~kms_key_name () : encryption_spec =
   { kms_key_name }

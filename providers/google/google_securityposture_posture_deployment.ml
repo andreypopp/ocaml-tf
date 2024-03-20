@@ -3,37 +3,139 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_securityposture_posture_deployment = {
   description : string prop option; [@option]
-      (** Description of the posture deployment. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location : string prop;
-      (** The location of the resource, eg. global'. *)
   parent : string prop;
-      (** The parent of the resource, an organization. Format should be 'organizations/{organization_id}'. *)
   posture_deployment_id : string prop;
-      (** ID of the posture deployment. *)
   posture_id : string prop;
-      (** Relative name of the posture which needs to be deployed. It should be in the format:
-  organizations/{organization_id}/locations/{location}/postures/{posture_id} *)
   posture_revision_id : string prop;
-      (** Revision_id the posture which needs to be deployed. *)
   target_resource : string prop;
-      (** The resource on which the posture should be deployed. This can be in one of the following formats:
-projects/{project_number},
-folders/{folder_number},
-organizations/{organization_id} *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_securityposture_posture_deployment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_securityposture_posture_deployment) -> ()
+
+let yojson_of_google_securityposture_posture_deployment =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       location = v_location;
+       parent = v_parent;
+       posture_deployment_id = v_posture_deployment_id;
+       posture_id = v_posture_id;
+       posture_revision_id = v_posture_revision_id;
+       target_resource = v_target_resource;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_resource
+         in
+         ("target_resource", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_posture_revision_id
+         in
+         ("posture_revision_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_posture_id in
+         ("posture_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_posture_deployment_id
+         in
+         ("posture_deployment_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_securityposture_posture_deployment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_securityposture_posture_deployment
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

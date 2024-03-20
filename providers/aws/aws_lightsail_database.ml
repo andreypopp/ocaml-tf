@@ -4,35 +4,193 @@ open! Tf_core
 
 type aws_lightsail_database = {
   apply_immediately : bool prop option; [@option]
-      (** apply_immediately *)
   availability_zone : string prop option; [@option]
-      (** availability_zone *)
   backup_retention_enabled : bool prop option; [@option]
-      (** backup_retention_enabled *)
-  blueprint_id : string prop;  (** blueprint_id *)
-  bundle_id : string prop;  (** bundle_id *)
+  blueprint_id : string prop;
+  bundle_id : string prop;
   final_snapshot_name : string prop option; [@option]
-      (** final_snapshot_name *)
-  id : string prop option; [@option]  (** id *)
-  master_database_name : string prop;  (** master_database_name *)
-  master_password : string prop;  (** master_password *)
-  master_username : string prop;  (** master_username *)
+  id : string prop option; [@option]
+  master_database_name : string prop;
+  master_password : string prop;
+  master_username : string prop;
   preferred_backup_window : string prop option; [@option]
-      (** preferred_backup_window *)
   preferred_maintenance_window : string prop option; [@option]
-      (** preferred_maintenance_window *)
   publicly_accessible : bool prop option; [@option]
-      (** publicly_accessible *)
   relational_database_name : string prop;
-      (** relational_database_name *)
   skip_final_snapshot : bool prop option; [@option]
-      (** skip_final_snapshot *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_lightsail_database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lightsail_database) -> ()
+
+let yojson_of_aws_lightsail_database =
+  (function
+   | {
+       apply_immediately = v_apply_immediately;
+       availability_zone = v_availability_zone;
+       backup_retention_enabled = v_backup_retention_enabled;
+       blueprint_id = v_blueprint_id;
+       bundle_id = v_bundle_id;
+       final_snapshot_name = v_final_snapshot_name;
+       id = v_id;
+       master_database_name = v_master_database_name;
+       master_password = v_master_password;
+       master_username = v_master_username;
+       preferred_backup_window = v_preferred_backup_window;
+       preferred_maintenance_window = v_preferred_maintenance_window;
+       publicly_accessible = v_publicly_accessible;
+       relational_database_name = v_relational_database_name;
+       skip_final_snapshot = v_skip_final_snapshot;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skip_final_snapshot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_final_snapshot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_relational_database_name
+         in
+         ("relational_database_name", arg) :: bnds
+       in
+       let bnds =
+         match v_publicly_accessible with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "publicly_accessible", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preferred_maintenance_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preferred_maintenance_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preferred_backup_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preferred_backup_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_master_username
+         in
+         ("master_username", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_master_password
+         in
+         ("master_password", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_master_database_name
+         in
+         ("master_database_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_final_snapshot_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "final_snapshot_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bundle_id in
+         ("bundle_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_blueprint_id in
+         ("blueprint_id", arg) :: bnds
+       in
+       let bnds =
+         match v_backup_retention_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "backup_retention_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_availability_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "availability_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_apply_immediately with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "apply_immediately", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_lightsail_database -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lightsail_database
+
+[@@@deriving.end]
 
 let aws_lightsail_database ?apply_immediately ?availability_zone
     ?backup_retention_enabled ?final_snapshot_name ?id

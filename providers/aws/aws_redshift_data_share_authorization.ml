@@ -3,12 +3,51 @@
 open! Tf_core
 
 type aws_redshift_data_share_authorization = {
-  allow_writes : bool prop option; [@option]  (** allow_writes *)
-  consumer_identifier : string prop;  (** consumer_identifier *)
-  data_share_arn : string prop;  (** data_share_arn *)
+  allow_writes : bool prop option; [@option]
+  consumer_identifier : string prop;
+  data_share_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_redshift_data_share_authorization *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshift_data_share_authorization) -> ()
+
+let yojson_of_aws_redshift_data_share_authorization =
+  (function
+   | {
+       allow_writes = v_allow_writes;
+       consumer_identifier = v_consumer_identifier;
+       data_share_arn = v_data_share_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_share_arn
+         in
+         ("data_share_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_consumer_identifier
+         in
+         ("consumer_identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_allow_writes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_writes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_redshift_data_share_authorization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshift_data_share_authorization
+
+[@@@deriving.end]
 
 let aws_redshift_data_share_authorization ?allow_writes
     ~consumer_identifier ~data_share_arn () :

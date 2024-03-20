@@ -3,14 +3,69 @@
 open! Tf_core
 
 type aws_apigatewayv2_deployment = {
-  api_id : string prop;  (** api_id *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
+  api_id : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
   triggers : (string * string prop) list option; [@option]
-      (** triggers *)
 }
-[@@deriving yojson_of]
-(** aws_apigatewayv2_deployment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_apigatewayv2_deployment) -> ()
+
+let yojson_of_aws_apigatewayv2_deployment =
+  (function
+   | {
+       api_id = v_api_id;
+       description = v_description;
+       id = v_id;
+       triggers = v_triggers;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_triggers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "triggers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_id in
+         ("api_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_apigatewayv2_deployment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_apigatewayv2_deployment
+
+[@@@deriving.end]
 
 let aws_apigatewayv2_deployment ?description ?id ?triggers ~api_id ()
     : aws_apigatewayv2_deployment =

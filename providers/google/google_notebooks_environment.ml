@@ -4,55 +4,231 @@ open! Tf_core
 
 type container_image = {
   repository : string prop;
-      (** The path to the container image repository.
-For example: gcr.io/{project_id}/{imageName} *)
   tag : string prop option; [@option]
-      (** The tag of the container image. If not specified, this defaults to the latest tag. *)
 }
-[@@deriving yojson_of]
-(** Use a container image to start the notebook instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : container_image) -> ()
+
+let yojson_of_container_image =
+  (function
+   | { repository = v_repository; tag = v_tag } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_repository in
+         ("repository", arg) :: bnds
+       in
+       `Assoc bnds
+    : container_image -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_container_image
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type vm_image = {
   image_family : string prop option; [@option]
-      (** Use this VM image family to find the image; the newest image in this family will be used. *)
   image_name : string prop option; [@option]
-      (** Use VM image name to find the image. *)
   project : string prop;
-      (** The name of the Google Cloud project that this VM image belongs to.
-Format: projects/{project_id} *)
 }
-[@@deriving yojson_of]
-(** Use a Compute Engine VM image to start the notebook instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vm_image) -> ()
+
+let yojson_of_vm_image =
+  (function
+   | {
+       image_family = v_image_family;
+       image_name = v_image_name;
+       project = v_project;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project in
+         ("project", arg) :: bnds
+       in
+       let bnds =
+         match v_image_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_family with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_family", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : vm_image -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vm_image
+
+[@@@deriving.end]
 
 type google_notebooks_environment = {
   description : string prop option; [@option]
-      (** A brief description of this environment. *)
   display_name : string prop option; [@option]
-      (** Display name of this environment for the UI. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location : string prop;
-      (** A reference to the zone where the machine resides. *)
   name : string prop;
-      (** The name specified for the Environment instance.
-Format: projects/{project_id}/locations/{location}/environments/{environmentId} *)
   post_startup_script : string prop option; [@option]
-      (** Path to a Bash script that automatically runs after a notebook instance fully boots up.
-The path must be a URL or Cloud Storage path. Example: gs://path-to-file/file-name *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   container_image : container_image list;
   timeouts : timeouts option;
   vm_image : vm_image list;
 }
-[@@deriving yojson_of]
-(** google_notebooks_environment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_notebooks_environment) -> ()
+
+let yojson_of_google_notebooks_environment =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       post_startup_script = v_post_startup_script;
+       project = v_project;
+       container_image = v_container_image;
+       timeouts = v_timeouts;
+       vm_image = v_vm_image;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_vm_image v_vm_image in
+         ("vm_image", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_container_image v_container_image
+         in
+         ("container_image", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_post_startup_script with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "post_startup_script", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_notebooks_environment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_notebooks_environment
+
+[@@@deriving.end]
 
 let container_image ?tag ~repository () : container_image =
   { repository; tag }

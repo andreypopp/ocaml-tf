@@ -4,115 +4,579 @@ open! Tf_core
 
 type discovery_spec__csv_options = {
   delimiter : string prop option; [@option]
-      (** Optional. The delimiter being used to separate values. This defaults to ','. *)
   disable_type_inference : bool prop option; [@option]
-      (** Optional. Whether to disable the inference of data type for CSV data. If true, all columns will be registered as strings. *)
   encoding : string prop option; [@option]
-      (** Optional. The character encoding of the data. The default is UTF-8. *)
   header_rows : float prop option; [@option]
-      (** Optional. The number of rows to interpret as header rows that should be skipped when reading data rows. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration for CSV data. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : discovery_spec__csv_options) -> ()
+
+let yojson_of_discovery_spec__csv_options =
+  (function
+   | {
+       delimiter = v_delimiter;
+       disable_type_inference = v_disable_type_inference;
+       encoding = v_encoding;
+       header_rows = v_header_rows;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_header_rows with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "header_rows", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_type_inference with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_type_inference", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delimiter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delimiter", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : discovery_spec__csv_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_discovery_spec__csv_options
+
+[@@@deriving.end]
 
 type discovery_spec__json_options = {
   disable_type_inference : bool prop option; [@option]
-      (** Optional. Whether to disable the inference of data type for Json data. If true, all columns will be registered as their primitive types (strings, number or boolean). *)
   encoding : string prop option; [@option]
-      (** Optional. The character encoding of the data. The default is UTF-8. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration for Json data. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : discovery_spec__json_options) -> ()
+
+let yojson_of_discovery_spec__json_options =
+  (function
+   | {
+       disable_type_inference = v_disable_type_inference;
+       encoding = v_encoding;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_type_inference with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_type_inference", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : discovery_spec__json_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_discovery_spec__json_options
+
+[@@@deriving.end]
 
 type discovery_spec = {
   enabled : bool prop;
-      (** Required. Whether discovery is enabled. *)
   exclude_patterns : string prop list option; [@option]
-      (** Optional. The list of patterns to apply for selecting data to exclude during discovery. For Cloud Storage bucket assets, these are interpreted as glob patterns used to match object names. For BigQuery dataset assets, these are interpreted as patterns to match table names. *)
   include_patterns : string prop list option; [@option]
-      (** Optional. The list of patterns to apply for selecting data to include during discovery if only a subset of the data should considered. For Cloud Storage bucket assets, these are interpreted as glob patterns used to match object names. For BigQuery dataset assets, these are interpreted as patterns to match table names. *)
   schedule : string prop option; [@option]
-      (** Optional. Cron schedule (https://en.wikipedia.org/wiki/Cron) for running discovery periodically. Successive discovery runs must be scheduled at least 60 minutes apart. The default value is to run discovery every 60 minutes. To explicitly set a timezone to the cron tab, apply a prefix in the cron tab: CRON_TZ=${IANA_TIME_ZONE} or TZ=${IANA_TIME_ZONE}. The ${IANA_TIME_ZONE} may only be a valid string from IANA time zone database. For example, CRON_TZ=America/New_York 1 * * * *, or TZ=America/New_York 1 * * * *. *)
   csv_options : discovery_spec__csv_options list;
   json_options : discovery_spec__json_options list;
 }
-[@@deriving yojson_of]
-(** Required. Specification of the discovery feature applied to data referenced by this asset. When this spec is left unset, the asset will use the spec set on the parent zone. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : discovery_spec) -> ()
+
+let yojson_of_discovery_spec =
+  (function
+   | {
+       enabled = v_enabled;
+       exclude_patterns = v_exclude_patterns;
+       include_patterns = v_include_patterns;
+       schedule = v_schedule;
+       csv_options = v_csv_options;
+       json_options = v_json_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_discovery_spec__json_options
+             v_json_options
+         in
+         ("json_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_discovery_spec__csv_options
+             v_csv_options
+         in
+         ("csv_options", arg) :: bnds
+       in
+       let bnds =
+         match v_schedule with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schedule", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_patterns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "include_patterns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exclude_patterns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exclude_patterns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : discovery_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_discovery_spec
+
+[@@@deriving.end]
 
 type resource_spec = {
   name : string prop option; [@option]
-      (** Immutable. Relative name of the cloud resource that contains the data that is being managed within a lake. For example: `projects/{project_number}/buckets/{bucket_id}` `projects/{project_number}/datasets/{dataset_id}` *)
   read_access_mode : string prop option; [@option]
-      (** Optional. Determines how read permissions are handled for each asset and their associated tables. Only available to storage buckets assets. Possible values: DIRECT, MANAGED *)
   type_ : string prop; [@key "type"]
-      (** Required. Immutable. Type of resource. Possible values: STORAGE_BUCKET, BIGQUERY_DATASET *)
 }
-[@@deriving yojson_of]
-(** Required. Immutable. Specification of the resource that is referenced by this asset. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : resource_spec) -> ()
+
+let yojson_of_resource_spec =
+  (function
+   | {
+       name = v_name;
+       read_access_mode = v_read_access_mode;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_read_access_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read_access_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : resource_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_resource_spec
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type discovery_status__stats = {
-  data_items : float prop;  (** data_items *)
-  data_size : float prop;  (** data_size *)
-  filesets : float prop;  (** filesets *)
-  tables : float prop;  (** tables *)
+  data_items : float prop;
+  data_size : float prop;
+  filesets : float prop;
+  tables : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : discovery_status__stats) -> ()
+
+let yojson_of_discovery_status__stats =
+  (function
+   | {
+       data_items = v_data_items;
+       data_size = v_data_size;
+       filesets = v_filesets;
+       tables = v_tables;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_tables in
+         ("tables", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_filesets in
+         ("filesets", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_data_size in
+         ("data_size", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_data_items in
+         ("data_items", arg) :: bnds
+       in
+       `Assoc bnds
+    : discovery_status__stats -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_discovery_status__stats
+
+[@@@deriving.end]
 
 type discovery_status = {
-  last_run_duration : string prop;  (** last_run_duration *)
-  last_run_time : string prop;  (** last_run_time *)
-  message : string prop;  (** message *)
-  state : string prop;  (** state *)
-  stats : discovery_status__stats list;  (** stats *)
-  update_time : string prop;  (** update_time *)
+  last_run_duration : string prop;
+  last_run_time : string prop;
+  message : string prop;
+  state : string prop;
+  stats : discovery_status__stats list;
+  update_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : discovery_status) -> ()
+
+let yojson_of_discovery_status =
+  (function
+   | {
+       last_run_duration = v_last_run_duration;
+       last_run_time = v_last_run_time;
+       message = v_message;
+       state = v_state;
+       stats = v_stats;
+       update_time = v_update_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_discovery_status__stats v_stats
+         in
+         ("stats", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_last_run_time in
+         ("last_run_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_last_run_duration
+         in
+         ("last_run_duration", arg) :: bnds
+       in
+       `Assoc bnds
+    : discovery_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_discovery_status
+
+[@@@deriving.end]
 
 type resource_status = {
-  message : string prop;  (** message *)
-  state : string prop;  (** state *)
-  update_time : string prop;  (** update_time *)
+  message : string prop;
+  state : string prop;
+  update_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : resource_status) -> ()
+
+let yojson_of_resource_status =
+  (function
+   | {
+       message = v_message;
+       state = v_state;
+       update_time = v_update_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       `Assoc bnds
+    : resource_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_resource_status
+
+[@@@deriving.end]
 
 type security_status = {
-  message : string prop;  (** message *)
-  state : string prop;  (** state *)
-  update_time : string prop;  (** update_time *)
+  message : string prop;
+  state : string prop;
+  update_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : security_status) -> ()
+
+let yojson_of_security_status =
+  (function
+   | {
+       message = v_message;
+       state = v_state;
+       update_time = v_update_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       `Assoc bnds
+    : security_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_status
+
+[@@@deriving.end]
 
 type google_dataplex_asset = {
-  dataplex_zone : string prop;  (** The zone for the resource *)
+  dataplex_zone : string prop;
   description : string prop option; [@option]
-      (** Optional. Description of the asset. *)
   display_name : string prop option; [@option]
-      (** Optional. User friendly display name. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Optional. User defined labels for the asset.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field `effective_labels` for all of the labels present on the resource. *)
-  lake : string prop;  (** The lake for the resource *)
-  location : string prop;  (** The location for the resource *)
-  name : string prop;  (** The name of the asset. *)
+  lake : string prop;
+  location : string prop;
+  name : string prop;
   project : string prop option; [@option]
-      (** The project for the resource *)
   discovery_spec : discovery_spec list;
   resource_spec : resource_spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dataplex_asset *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dataplex_asset) -> ()
+
+let yojson_of_google_dataplex_asset =
+  (function
+   | {
+       dataplex_zone = v_dataplex_zone;
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       lake = v_lake;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       discovery_spec = v_discovery_spec;
+       resource_spec = v_resource_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_resource_spec v_resource_spec
+         in
+         ("resource_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_discovery_spec v_discovery_spec
+         in
+         ("discovery_spec", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_lake in
+         ("lake", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataplex_zone in
+         ("dataplex_zone", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_dataplex_asset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dataplex_asset
+
+[@@@deriving.end]
 
 let discovery_spec__csv_options ?delimiter ?disable_type_inference
     ?encoding ?header_rows () : discovery_spec__csv_options =

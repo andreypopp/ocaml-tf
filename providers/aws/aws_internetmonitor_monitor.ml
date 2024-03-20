@@ -4,46 +4,256 @@ open! Tf_core
 
 type health_events_config = {
   availability_score_threshold : float prop option; [@option]
-      (** availability_score_threshold *)
   performance_score_threshold : float prop option; [@option]
-      (** performance_score_threshold *)
 }
-[@@deriving yojson_of]
-(** health_events_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : health_events_config) -> ()
+
+let yojson_of_health_events_config =
+  (function
+   | {
+       availability_score_threshold = v_availability_score_threshold;
+       performance_score_threshold = v_performance_score_threshold;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_performance_score_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "performance_score_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_availability_score_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "availability_score_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : health_events_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_health_events_config
+
+[@@@deriving.end]
 
 type internet_measurements_log_delivery__s3_config = {
-  bucket_name : string prop;  (** bucket_name *)
-  bucket_prefix : string prop option; [@option]  (** bucket_prefix *)
+  bucket_name : string prop;
+  bucket_prefix : string prop option; [@option]
   log_delivery_status : string prop option; [@option]
-      (** log_delivery_status *)
 }
-[@@deriving yojson_of]
-(** internet_measurements_log_delivery__s3_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : internet_measurements_log_delivery__s3_config) -> ()
+
+let yojson_of_internet_measurements_log_delivery__s3_config =
+  (function
+   | {
+       bucket_name = v_bucket_name;
+       bucket_prefix = v_bucket_prefix;
+       log_delivery_status = v_log_delivery_status;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_log_delivery_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_delivery_status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bucket_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : internet_measurements_log_delivery__s3_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_internet_measurements_log_delivery__s3_config
+
+[@@@deriving.end]
 
 type internet_measurements_log_delivery = {
   s3_config : internet_measurements_log_delivery__s3_config list;
 }
-[@@deriving yojson_of]
-(** internet_measurements_log_delivery *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : internet_measurements_log_delivery) -> ()
+
+let yojson_of_internet_measurements_log_delivery =
+  (function
+   | { s3_config = v_s3_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_internet_measurements_log_delivery__s3_config
+             v_s3_config
+         in
+         ("s3_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : internet_measurements_log_delivery ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_internet_measurements_log_delivery
+
+[@@@deriving.end]
 
 type aws_internetmonitor_monitor = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   max_city_networks_to_monitor : float prop option; [@option]
-      (** max_city_networks_to_monitor *)
-  monitor_name : string prop;  (** monitor_name *)
-  resources : string prop list option; [@option]  (** resources *)
-  status : string prop option; [@option]  (** status *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  monitor_name : string prop;
+  resources : string prop list option; [@option]
+  status : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   traffic_percentage_to_monitor : float prop option; [@option]
-      (** traffic_percentage_to_monitor *)
   health_events_config : health_events_config list;
   internet_measurements_log_delivery :
     internet_measurements_log_delivery list;
 }
-[@@deriving yojson_of]
-(** aws_internetmonitor_monitor *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_internetmonitor_monitor) -> ()
+
+let yojson_of_aws_internetmonitor_monitor =
+  (function
+   | {
+       id = v_id;
+       max_city_networks_to_monitor = v_max_city_networks_to_monitor;
+       monitor_name = v_monitor_name;
+       resources = v_resources;
+       status = v_status;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       traffic_percentage_to_monitor =
+         v_traffic_percentage_to_monitor;
+       health_events_config = v_health_events_config;
+       internet_measurements_log_delivery =
+         v_internet_measurements_log_delivery;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_internet_measurements_log_delivery
+             v_internet_measurements_log_delivery
+         in
+         ("internet_measurements_log_delivery", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_health_events_config
+             v_health_events_config
+         in
+         ("health_events_config", arg) :: bnds
+       in
+       let bnds =
+         match v_traffic_percentage_to_monitor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "traffic_percentage_to_monitor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resources with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resources", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_monitor_name in
+         ("monitor_name", arg) :: bnds
+       in
+       let bnds =
+         match v_max_city_networks_to_monitor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_city_networks_to_monitor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_internetmonitor_monitor ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_internetmonitor_monitor
+
+[@@@deriving.end]
 
 let health_events_config ?availability_score_threshold
     ?performance_score_threshold () : health_events_config =

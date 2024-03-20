@@ -3,12 +3,42 @@
 open! Tf_core
 
 type aws_ce_cost_allocation_tag = {
-  id : string prop option; [@option]  (** id *)
-  status : string prop;  (** status *)
-  tag_key : string prop;  (** tag_key *)
+  id : string prop option; [@option]
+  status : string prop;
+  tag_key : string prop;
 }
-[@@deriving yojson_of]
-(** aws_ce_cost_allocation_tag *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ce_cost_allocation_tag) -> ()
+
+let yojson_of_aws_ce_cost_allocation_tag =
+  (function
+   | { id = v_id; status = v_status; tag_key = v_tag_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tag_key in
+         ("tag_key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ce_cost_allocation_tag -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ce_cost_allocation_tag
+
+[@@@deriving.end]
 
 let aws_ce_cost_allocation_tag ?id ~status ~tag_key () :
     aws_ce_cost_allocation_tag =

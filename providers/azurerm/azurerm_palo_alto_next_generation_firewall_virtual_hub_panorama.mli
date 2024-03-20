@@ -15,6 +15,8 @@ type panorama = {
       (** virtual_machine_ssh_key *)
 }
 
+[@@@deriving.end]
+
 type destination_nat__backend_config
 
 val destination_nat__backend_config :

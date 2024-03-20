@@ -4,22 +4,92 @@ open! Tf_core
 
 type cloudflare_keyless_certificate = {
   bundle_method : string prop option; [@option]
-      (** A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`. Defaults to `ubiquitous`. **Modifying this attribute will force creation of a new resource.** *)
   certificate : string prop;
-      (** The zone's SSL certificate or SSL certificate and intermediate(s). **Modifying this attribute will force creation of a new resource.** *)
   enabled : bool prop option; [@option]
-      (** Whether the KeyLess SSL is on. *)
-  host : string prop;  (** The KeyLess SSL host. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** The KeyLess SSL name. *)
+  host : string prop;
+  id : string prop option; [@option]
+  name : string prop option; [@option]
   port : float prop option; [@option]
-      (** The KeyLess SSL port used to communicate between Cloudflare and the client's KeyLess SSL server. Defaults to `24008`. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. *)
 }
-[@@deriving yojson_of]
-(** Provides a resource, that manages Keyless certificates.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_keyless_certificate) -> ()
+
+let yojson_of_cloudflare_keyless_certificate =
+  (function
+   | {
+       bundle_method = v_bundle_method;
+       certificate = v_certificate;
+       enabled = v_enabled;
+       host = v_host;
+       id = v_id;
+       name = v_name;
+       port = v_port;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_certificate in
+         ("certificate", arg) :: bnds
+       in
+       let bnds =
+         match v_bundle_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bundle_method", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_keyless_certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_keyless_certificate
+
+[@@@deriving.end]
 
 let cloudflare_keyless_certificate ?bundle_method ?enabled ?id ?name
     ?port ~certificate ~host ~zone_id () :

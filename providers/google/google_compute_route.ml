@@ -3,83 +3,197 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_route = {
   description : string prop option; [@option]
-      (** An optional description of this resource. Provide this property
-when you create the resource. *)
   dest_range : string prop;
-      (** The destination range of outgoing packets that this route applies to.
-Only IPv4 is supported. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Name of the resource. Provided by the client when the resource is
-created. The name must be 1-63 characters long, and comply with
-RFC1035.  Specifically, the name must be 1-63 characters long and
-match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means
-the first character must be a lowercase letter, and all following
-characters must be a dash, lowercase letter, or digit, except the
-last character, which cannot be a dash. *)
   network : string prop;
-      (** The network that this route applies to. *)
   next_hop_gateway : string prop option; [@option]
-      (** URL to a gateway that should handle matching packets.
-Currently, you can only specify the internet gateway, using a full or
-partial valid URL:
-* 'https://www.googleapis.com/compute/v1/projects/project/global/gateways/default-internet-gateway'
-* 'projects/project/global/gateways/default-internet-gateway'
-* 'global/gateways/default-internet-gateway'
-* The string 'default-internet-gateway'. *)
   next_hop_ilb : string prop option; [@option]
-      (** The IP address or URL to a forwarding rule of type
-loadBalancingScheme=INTERNAL that should handle matching
-packets.
-
-With the GA provider you can only specify the forwarding
-rule as a partial or full URL. For example, the following
-are all valid values:
-* 10.128.0.56
-* https://www.googleapis.com/compute/v1/projects/project/regions/region/forwardingRules/forwardingRule
-* regions/region/forwardingRules/forwardingRule
-
-When the beta provider, you can also specify the IP address
-of a forwarding rule from the same VPC or any peered VPC.
-
-Note that this can only be used when the destinationRange is
-a public (non-RFC 1918) IP CIDR range. *)
   next_hop_instance : string prop option; [@option]
-      (** URL to an instance that should handle matching packets.
-You can specify this as a full or partial URL. For example:
-* 'https://www.googleapis.com/compute/v1/projects/project/zones/zone/instances/instance'
-* 'projects/project/zones/zone/instances/instance'
-* 'zones/zone/instances/instance'
-* Just the instance name, with the zone in 'next_hop_instance_zone'. *)
   next_hop_instance_zone : string prop option; [@option]
-      (** The zone of the instance specified in next_hop_instance. Omit if next_hop_instance is specified as a URL. *)
   next_hop_ip : string prop option; [@option]
-      (** Network IP address of an instance that should handle matching packets. *)
   next_hop_vpn_tunnel : string prop option; [@option]
-      (** URL to a VpnTunnel that should handle matching packets. *)
   priority : float prop option; [@option]
-      (** The priority of this route. Priority is used to break ties in cases
-where there is more than one matching route of equal prefix length.
-
-In the case of two routes with equal prefix length, the one with the
-lowest-numbered priority value wins.
-
-Default value is 1000. Valid range is 0 through 65535. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   tags : string prop list option; [@option]
-      (** A list of instance tags to which this route applies. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_route *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_route) -> ()
+
+let yojson_of_google_compute_route =
+  (function
+   | {
+       description = v_description;
+       dest_range = v_dest_range;
+       id = v_id;
+       name = v_name;
+       network = v_network;
+       next_hop_gateway = v_next_hop_gateway;
+       next_hop_ilb = v_next_hop_ilb;
+       next_hop_instance = v_next_hop_instance;
+       next_hop_instance_zone = v_next_hop_instance_zone;
+       next_hop_ip = v_next_hop_ip;
+       next_hop_vpn_tunnel = v_next_hop_vpn_tunnel;
+       priority = v_priority;
+       project = v_project;
+       tags = v_tags;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_hop_vpn_tunnel with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_hop_vpn_tunnel", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_hop_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_hop_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_hop_instance_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_hop_instance_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_hop_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_hop_instance", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_hop_ilb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_hop_ilb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_hop_gateway with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_hop_gateway", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dest_range in
+         ("dest_range", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_route
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

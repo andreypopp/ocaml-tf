@@ -9,11 +9,15 @@ type gclb_targets__ip_configs = {
   ports : float prop list;  (** ports *)
 }
 
+[@@@deriving.end]
+
 type gclb_targets = {
   ip_configs : gclb_targets__ip_configs list;  (** ip_configs *)
   target_https_proxy : string prop;  (** target_https_proxy *)
   target_ssl_proxy : string prop;  (** target_ssl_proxy *)
 }
+
+[@@@deriving.end]
 
 type timeouts
 

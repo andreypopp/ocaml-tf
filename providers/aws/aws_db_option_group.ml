@@ -3,47 +3,262 @@
 open! Tf_core
 
 type option__option_settings = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** option__option_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : option__option_settings) -> ()
+
+let yojson_of_option__option_settings =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : option__option_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_option__option_settings
+
+[@@@deriving.end]
 
 type option_ = {
   db_security_group_memberships : string prop list option; [@option]
-      (** db_security_group_memberships *)
-  option_name : string prop;  (** option_name *)
-  port : float prop option; [@option]  (** port *)
-  version : string prop option; [@option]  (** version *)
+  option_name : string prop;
+  port : float prop option; [@option]
+  version : string prop option; [@option]
   vpc_security_group_memberships : string prop list option; [@option]
-      (** vpc_security_group_memberships *)
   option_settings : option__option_settings list;
 }
-[@@deriving yojson_of]
-(** option *)
+[@@deriving_inline yojson_of]
 
-type timeouts = {
-  delete : string prop option; [@option]  (** delete *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+let _ = fun (_ : option_) -> ()
+
+let yojson_of_option_ =
+  (function
+   | {
+       db_security_group_memberships =
+         v_db_security_group_memberships;
+       option_name = v_option_name;
+       port = v_port;
+       version = v_version;
+       vpc_security_group_memberships =
+         v_vpc_security_group_memberships;
+       option_settings = v_option_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_option__option_settings
+             v_option_settings
+         in
+         ("option_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_vpc_security_group_memberships with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "vpc_security_group_memberships", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_option_name in
+         ("option_name", arg) :: bnds
+       in
+       let bnds =
+         match v_db_security_group_memberships with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "db_security_group_memberships", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : option_ -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_option_
+
+[@@@deriving.end]
+
+type timeouts = { delete : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_db_option_group = {
-  engine_name : string prop;  (** engine_name *)
-  id : string prop option; [@option]  (** id *)
-  major_engine_version : string prop;  (** major_engine_version *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
+  engine_name : string prop;
+  id : string prop option; [@option]
+  major_engine_version : string prop;
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
   option_group_description : string prop option; [@option]
-      (** option_group_description *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   option_ : option_ list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_db_option_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_db_option_group) -> ()
+
+let yojson_of_aws_db_option_group =
+  (function
+   | {
+       engine_name = v_engine_name;
+       id = v_id;
+       major_engine_version = v_major_engine_version;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       option_group_description = v_option_group_description;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       option_ = v_option_;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_option_ v_option_ in
+         ("option_", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_option_group_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "option_group_description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_major_engine_version
+         in
+         ("major_engine_version", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_engine_name in
+         ("engine_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_db_option_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_db_option_group
+
+[@@@deriving.end]
 
 let option__option_settings ~name ~value () : option__option_settings
     =

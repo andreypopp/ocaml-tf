@@ -3,47 +3,157 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_apigee_instance = {
   consumer_accept_list : string prop list option; [@option]
-      (** Optional. Customer accept list represents the list of projects (id/number) on customer
-side that can privately connect to the service attachment. It is an optional field
-which the customers can provide during the instance creation. By default, the customer
-project associated with the Apigee organization will be included to the list. *)
   description : string prop option; [@option]
-      (** Description of the instance. *)
   disk_encryption_key_name : string prop option; [@option]
-      (** Customer Managed Encryption Key (CMEK) used for disk and volume encryption. Required for Apigee paid subscriptions only.
-Use the following format: 'projects/([^/]+)/locations/([^/]+)/keyRings/([^/]+)/cryptoKeys/([^/]+)' *)
   display_name : string prop option; [@option]
-      (** Display name of the instance. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_range : string prop option; [@option]
-      (** IP range represents the customer-provided CIDR block of length 22 that will be used for
-the Apigee instance creation. This optional range, if provided, should be freely
-available as part of larger named range the customer has allocated to the Service
-Networking peering. If this is not provided, Apigee will automatically request for any
-available /22 CIDR block from Service Networking. The customer should use this CIDR block
-for configuring their firewall needs to allow traffic from Apigee.
-Input format: a.b.c.d/22 *)
   location : string prop;
-      (** Required. Compute Engine location where the instance resides. *)
-  name : string prop;  (** Resource ID of the instance. *)
+  name : string prop;
   org_id : string prop;
-      (** The Apigee Organization associated with the Apigee instance,
-in the format 'organizations/{{org_name}}'. *)
   peering_cidr_range : string prop option; [@option]
-      (** The size of the CIDR block range that will be reserved by the instance. For valid values,
-see [CidrRange](https://cloud.google.com/apigee/docs/reference/apis/apigee/rest/v1/organizations.instances#CidrRange) on the documentation. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_apigee_instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_apigee_instance) -> ()
+
+let yojson_of_google_apigee_instance =
+  (function
+   | {
+       consumer_accept_list = v_consumer_accept_list;
+       description = v_description;
+       disk_encryption_key_name = v_disk_encryption_key_name;
+       display_name = v_display_name;
+       id = v_id;
+       ip_range = v_ip_range;
+       location = v_location;
+       name = v_name;
+       org_id = v_org_id;
+       peering_cidr_range = v_peering_cidr_range;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_peering_cidr_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "peering_cidr_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_org_id in
+         ("org_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_ip_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_encryption_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disk_encryption_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_consumer_accept_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "consumer_accept_list", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_apigee_instance -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_apigee_instance
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

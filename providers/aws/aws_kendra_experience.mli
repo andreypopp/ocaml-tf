@@ -9,6 +9,8 @@ type endpoints = {
   endpoint_type : string prop;  (** endpoint_type *)
 }
 
+[@@@deriving.end]
+
 type configuration__content_source_configuration
 
 val configuration__content_source_configuration :

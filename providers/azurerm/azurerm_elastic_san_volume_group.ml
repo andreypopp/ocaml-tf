@@ -3,51 +3,263 @@
 open! Tf_core
 
 type encryption = {
-  key_vault_key_id : string prop;  (** key_vault_key_id *)
+  key_vault_key_id : string prop;
   user_assigned_identity_id : string prop option; [@option]
-      (** user_assigned_identity_id *)
 }
-[@@deriving yojson_of]
-(** encryption *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption) -> ()
+
+let yojson_of_encryption =
+  (function
+   | {
+       key_vault_key_id = v_key_vault_key_id;
+       user_assigned_identity_id = v_user_assigned_identity_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user_assigned_identity_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_assigned_identity_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_key_vault_key_id
+         in
+         ("key_vault_key_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption
+
+[@@@deriving.end]
 
 type identity = {
   identity_ids : string prop list option; [@option]
-      (** identity_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
 
 type network_rule = {
-  action : string prop option; [@option]  (** action *)
-  subnet_id : string prop;  (** subnet_id *)
+  action : string prop option; [@option]
+  subnet_id : string prop;
 }
-[@@deriving yojson_of]
-(** network_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_rule) -> ()
+
+let yojson_of_network_rule =
+  (function
+   | { action = v_action; subnet_id = v_subnet_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         match v_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "action", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_rule
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_elastic_san_volume_group = {
-  elastic_san_id : string prop;  (** elastic_san_id *)
+  elastic_san_id : string prop;
   encryption_type : string prop option; [@option]
-      (** encryption_type *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  protocol_type : string prop option; [@option]  (** protocol_type *)
+  id : string prop option; [@option]
+  name : string prop;
+  protocol_type : string prop option; [@option]
   encryption : encryption list;
   identity : identity list;
   network_rule : network_rule list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_elastic_san_volume_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_elastic_san_volume_group) -> ()
+
+let yojson_of_azurerm_elastic_san_volume_group =
+  (function
+   | {
+       elastic_san_id = v_elastic_san_id;
+       encryption_type = v_encryption_type;
+       id = v_id;
+       name = v_name;
+       protocol_type = v_protocol_type;
+       encryption = v_encryption;
+       identity = v_identity;
+       network_rule = v_network_rule;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_rule v_network_rule
+         in
+         ("network_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity v_identity in
+         ("identity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption v_encryption
+         in
+         ("encryption", arg) :: bnds
+       in
+       let bnds =
+         match v_protocol_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_elastic_san_id
+         in
+         ("elastic_san_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_elastic_san_volume_group ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_elastic_san_volume_group
+
+[@@@deriving.end]
 
 let encryption ?user_assigned_identity_id ~key_vault_key_id () :
     encryption =

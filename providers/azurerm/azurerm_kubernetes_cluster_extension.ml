@@ -3,55 +3,303 @@
 open! Tf_core
 
 type plan = {
-  name : string prop;  (** name *)
-  product : string prop;  (** product *)
+  name : string prop;
+  product : string prop;
   promotion_code : string prop option; [@option]
-      (** promotion_code *)
-  publisher : string prop;  (** publisher *)
-  version : string prop option; [@option]  (** version *)
+  publisher : string prop;
+  version : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** plan *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : plan) -> ()
+
+let yojson_of_plan =
+  (function
+   | {
+       name = v_name;
+       product = v_product;
+       promotion_code = v_promotion_code;
+       publisher = v_publisher;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_publisher in
+         ("publisher", arg) :: bnds
+       in
+       let bnds =
+         match v_promotion_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "promotion_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_product in
+         ("product", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : plan -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_plan
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aks_assigned_identity = {
-  principal_id : string prop;  (** principal_id *)
-  tenant_id : string prop;  (** tenant_id *)
-  type_ : string prop; [@key "type"]  (** type *)
+  principal_id : string prop;
+  tenant_id : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aks_assigned_identity) -> ()
+
+let yojson_of_aks_assigned_identity =
+  (function
+   | {
+       principal_id = v_principal_id;
+       tenant_id = v_tenant_id;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tenant_id in
+         ("tenant_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_principal_id in
+         ("principal_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aks_assigned_identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aks_assigned_identity
+
+[@@@deriving.end]
 
 type azurerm_kubernetes_cluster_extension = {
-  cluster_id : string prop;  (** cluster_id *)
+  cluster_id : string prop;
   configuration_protected_settings :
     (string * string prop) list option;
       [@option]
-      (** configuration_protected_settings *)
   configuration_settings : (string * string prop) list option;
       [@option]
-      (** configuration_settings *)
-  extension_type : string prop;  (** extension_type *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  extension_type : string prop;
+  id : string prop option; [@option]
+  name : string prop;
   release_namespace : string prop option; [@option]
-      (** release_namespace *)
-  release_train : string prop option; [@option]  (** release_train *)
+  release_train : string prop option; [@option]
   target_namespace : string prop option; [@option]
-      (** target_namespace *)
-  version : string prop option; [@option]  (** version *)
+  version : string prop option; [@option]
   plan : plan list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_kubernetes_cluster_extension *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_kubernetes_cluster_extension) -> ()
+
+let yojson_of_azurerm_kubernetes_cluster_extension =
+  (function
+   | {
+       cluster_id = v_cluster_id;
+       configuration_protected_settings =
+         v_configuration_protected_settings;
+       configuration_settings = v_configuration_settings;
+       extension_type = v_extension_type;
+       id = v_id;
+       name = v_name;
+       release_namespace = v_release_namespace;
+       release_train = v_release_train;
+       target_namespace = v_target_namespace;
+       version = v_version;
+       plan = v_plan;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_plan v_plan in
+         ("plan", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_release_train with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "release_train", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_release_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "release_namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_extension_type
+         in
+         ("extension_type", arg) :: bnds
+       in
+       let bnds =
+         match v_configuration_settings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "configuration_settings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_configuration_protected_settings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "configuration_protected_settings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_kubernetes_cluster_extension ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_kubernetes_cluster_extension
+
+[@@@deriving.end]
 
 let plan ?promotion_code ?version ~name ~product ~publisher () : plan
     =

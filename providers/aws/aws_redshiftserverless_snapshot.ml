@@ -3,14 +3,59 @@
 open! Tf_core
 
 type aws_redshiftserverless_snapshot = {
-  id : string prop option; [@option]  (** id *)
-  namespace_name : string prop;  (** namespace_name *)
+  id : string prop option; [@option]
+  namespace_name : string prop;
   retention_period : float prop option; [@option]
-      (** retention_period *)
-  snapshot_name : string prop;  (** snapshot_name *)
+  snapshot_name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_redshiftserverless_snapshot *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshiftserverless_snapshot) -> ()
+
+let yojson_of_aws_redshiftserverless_snapshot =
+  (function
+   | {
+       id = v_id;
+       namespace_name = v_namespace_name;
+       retention_period = v_retention_period;
+       snapshot_name = v_snapshot_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_snapshot_name in
+         ("snapshot_name", arg) :: bnds
+       in
+       let bnds =
+         match v_retention_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "retention_period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_namespace_name
+         in
+         ("namespace_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_redshiftserverless_snapshot ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshiftserverless_snapshot
+
+[@@@deriving.end]
 
 let aws_redshiftserverless_snapshot ?id ?retention_period
     ~namespace_name ~snapshot_name () :

@@ -11,6 +11,8 @@ type production_branch = {
   thumbnail_url : string prop;  (** thumbnail_url *)
 }
 
+[@@@deriving.end]
+
 type auto_branch_creation_config
 
 val auto_branch_creation_config :

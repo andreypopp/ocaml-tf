@@ -4,67 +4,339 @@ open! Tf_core
 
 type aggregation_rule__cluster_role_selectors__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       aggregation_rule__cluster_role_selectors__match_expressions) ->
+  ()
+
+let yojson_of_aggregation_rule__cluster_role_selectors__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aggregation_rule__cluster_role_selectors__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_aggregation_rule__cluster_role_selectors__match_expressions
+
+[@@@deriving.end]
 
 type aggregation_rule__cluster_role_selectors = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     aggregation_rule__cluster_role_selectors__match_expressions list;
 }
-[@@deriving yojson_of]
-(** A list of selectors which will be used to find ClusterRoles and create the rules. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aggregation_rule__cluster_role_selectors) -> ()
+
+let yojson_of_aggregation_rule__cluster_role_selectors =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_aggregation_rule__cluster_role_selectors__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aggregation_rule__cluster_role_selectors ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aggregation_rule__cluster_role_selectors
+
+[@@@deriving.end]
 
 type aggregation_rule = {
   cluster_role_selectors :
     aggregation_rule__cluster_role_selectors list;
 }
-[@@deriving yojson_of]
-(** Describes how to build the Rules for this ClusterRole. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aggregation_rule) -> ()
+
+let yojson_of_aggregation_rule =
+  (function
+   | { cluster_role_selectors = v_cluster_role_selectors } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_aggregation_rule__cluster_role_selectors
+             v_cluster_role_selectors
+         in
+         ("cluster_role_selectors", arg) :: bnds
+       in
+       `Assoc bnds
+    : aggregation_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aggregation_rule
+
+[@@@deriving.end]
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the clusterRole that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the clusterRole. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the clusterRole, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Standard clusterRole's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type rule = {
   api_groups : string prop list option; [@option]
-      (** APIGroups is the name of the APIGroup that contains the resources. If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. *)
   non_resource_urls : string prop list option; [@option]
-      (** NonResourceURLs is a set of partial urls that a user should have access to. *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as pods or secrets) or non-resource URL paths (such as /api), but not both. *)
   resource_names : string prop list option; [@option]
-      (** ResourceNames is an optional white list of names that the rule applies to. An empty set means that everything is allowed. *)
   resources : string prop list option; [@option]
-      (** Resources is a list of resources this rule applies to. ResourceAll represents all resources. *)
   verbs : string prop list;
-      (** Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. VerbAll represents all kinds. *)
 }
-[@@deriving yojson_of]
-(** List of PolicyRules for this ClusterRole *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule) -> ()
+
+let yojson_of_rule =
+  (function
+   | {
+       api_groups = v_api_groups;
+       non_resource_urls = v_non_resource_urls;
+       resource_names = v_resource_names;
+       resources = v_resources;
+       verbs = v_verbs;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_verbs
+         in
+         ("verbs", arg) :: bnds
+       in
+       let bnds =
+         match v_resources with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resources", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resource_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_non_resource_urls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "non_resource_urls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "api_groups", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule
+
+[@@@deriving.end]
 
 type kubernetes_cluster_role_v1 = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   aggregation_rule : aggregation_rule list;
   metadata : metadata list;
   rule : rule list;
 }
-[@@deriving yojson_of]
-(** kubernetes_cluster_role_v1 *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_cluster_role_v1) -> ()
+
+let yojson_of_kubernetes_cluster_role_v1 =
+  (function
+   | {
+       id = v_id;
+       aggregation_rule = v_aggregation_rule;
+       metadata = v_metadata;
+       rule = v_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rule v_rule in
+         ("rule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_aggregation_rule
+             v_aggregation_rule
+         in
+         ("aggregation_rule", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_cluster_role_v1 -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_cluster_role_v1
+
+[@@@deriving.end]
 
 let aggregation_rule__cluster_role_selectors__match_expressions ?key
     ?operator ?values () :

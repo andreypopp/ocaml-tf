@@ -3,15 +3,87 @@
 open! Tf_core
 
 type aws_vpclattice_access_log_subscription = {
-  destination_arn : string prop;  (** destination_arn *)
-  id : string prop option; [@option]  (** id *)
-  resource_identifier : string prop;  (** resource_identifier *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  destination_arn : string prop;
+  id : string prop option; [@option]
+  resource_identifier : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_vpclattice_access_log_subscription *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_vpclattice_access_log_subscription) -> ()
+
+let yojson_of_aws_vpclattice_access_log_subscription =
+  (function
+   | {
+       destination_arn = v_destination_arn;
+       id = v_id;
+       resource_identifier = v_resource_identifier;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_identifier
+         in
+         ("resource_identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_arn
+         in
+         ("destination_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_vpclattice_access_log_subscription ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_vpclattice_access_log_subscription
+
+[@@@deriving.end]
 
 let aws_vpclattice_access_log_subscription ?id ?tags ?tags_all
     ~destination_arn ~resource_identifier () :

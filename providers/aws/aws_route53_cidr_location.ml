@@ -3,12 +3,48 @@
 open! Tf_core
 
 type aws_route53_cidr_location = {
-  cidr_blocks : string prop list;  (** cidr_blocks *)
-  cidr_collection_id : string prop;  (** cidr_collection_id *)
-  name : string prop;  (** name *)
+  cidr_blocks : string prop list;
+  cidr_collection_id : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_route53_cidr_location *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_cidr_location) -> ()
+
+let yojson_of_aws_route53_cidr_location =
+  (function
+   | {
+       cidr_blocks = v_cidr_blocks;
+       cidr_collection_id = v_cidr_collection_id;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cidr_collection_id
+         in
+         ("cidr_collection_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_cidr_blocks
+         in
+         ("cidr_blocks", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_cidr_location -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_cidr_location
+
+[@@@deriving.end]
 
 let aws_route53_cidr_location ~cidr_blocks ~cidr_collection_id ~name
     () : aws_route53_cidr_location =

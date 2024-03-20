@@ -4,16 +4,56 @@ open! Tf_core
 
 type cloudflare_email_routing_settings = {
   enabled : bool prop;
-      (** State of the zone settings for Email Routing. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   skip_wizard : bool prop option; [@option]
-      (** Flag to check if the user skipped the configuration wizard. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a resource for managing Email Routing settings.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_email_routing_settings) -> ()
+
+let yojson_of_cloudflare_email_routing_settings =
+  (function
+   | {
+       enabled = v_enabled;
+       id = v_id;
+       skip_wizard = v_skip_wizard;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_skip_wizard with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_wizard", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_email_routing_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_email_routing_settings
+
+[@@@deriving.end]
 
 let cloudflare_email_routing_settings ?id ?skip_wizard ~enabled
     ~zone_id () : cloudflare_email_routing_settings =

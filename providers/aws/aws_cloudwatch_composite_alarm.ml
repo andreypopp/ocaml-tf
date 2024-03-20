@@ -3,33 +3,188 @@
 open! Tf_core
 
 type actions_suppressor = {
-  alarm : string prop;  (** alarm *)
-  extension_period : float prop;  (** extension_period *)
-  wait_period : float prop;  (** wait_period *)
+  alarm : string prop;
+  extension_period : float prop;
+  wait_period : float prop;
 }
-[@@deriving yojson_of]
-(** actions_suppressor *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : actions_suppressor) -> ()
+
+let yojson_of_actions_suppressor =
+  (function
+   | {
+       alarm = v_alarm;
+       extension_period = v_extension_period;
+       wait_period = v_wait_period;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_wait_period in
+         ("wait_period", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_extension_period
+         in
+         ("extension_period", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alarm in
+         ("alarm", arg) :: bnds
+       in
+       `Assoc bnds
+    : actions_suppressor -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_actions_suppressor
+
+[@@@deriving.end]
 
 type aws_cloudwatch_composite_alarm = {
   actions_enabled : bool prop option; [@option]
-      (** actions_enabled *)
   alarm_actions : string prop list option; [@option]
-      (** alarm_actions *)
   alarm_description : string prop option; [@option]
-      (** alarm_description *)
-  alarm_name : string prop;  (** alarm_name *)
-  alarm_rule : string prop;  (** alarm_rule *)
-  id : string prop option; [@option]  (** id *)
+  alarm_name : string prop;
+  alarm_rule : string prop;
+  id : string prop option; [@option]
   insufficient_data_actions : string prop list option; [@option]
-      (** insufficient_data_actions *)
-  ok_actions : string prop list option; [@option]  (** ok_actions *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  ok_actions : string prop list option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   actions_suppressor : actions_suppressor list;
 }
-[@@deriving yojson_of]
-(** aws_cloudwatch_composite_alarm *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudwatch_composite_alarm) -> ()
+
+let yojson_of_aws_cloudwatch_composite_alarm =
+  (function
+   | {
+       actions_enabled = v_actions_enabled;
+       alarm_actions = v_alarm_actions;
+       alarm_description = v_alarm_description;
+       alarm_name = v_alarm_name;
+       alarm_rule = v_alarm_rule;
+       id = v_id;
+       insufficient_data_actions = v_insufficient_data_actions;
+       ok_actions = v_ok_actions;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       actions_suppressor = v_actions_suppressor;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_actions_suppressor
+             v_actions_suppressor
+         in
+         ("actions_suppressor", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ok_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ok_actions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_insufficient_data_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "insufficient_data_actions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alarm_rule in
+         ("alarm_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alarm_name in
+         ("alarm_name", arg) :: bnds
+       in
+       let bnds =
+         match v_alarm_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "alarm_description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_alarm_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "alarm_actions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_actions_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "actions_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudwatch_composite_alarm ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudwatch_composite_alarm
+
+[@@@deriving.end]
 
 let actions_suppressor ~alarm ~extension_period ~wait_period () :
     actions_suppressor =

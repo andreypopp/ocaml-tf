@@ -8,6 +8,8 @@ type configuration__encryption_configuration = {
   kms_key_id : string prop;  (** kms_key_id *)
 }
 
+[@@@deriving.end]
+
 type configuration__lifecycle_configuration__expiration
 
 val configuration__lifecycle_configuration__expiration :

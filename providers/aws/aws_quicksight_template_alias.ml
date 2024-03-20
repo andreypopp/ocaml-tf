@@ -3,12 +3,12 @@
 open! Tf_core
 
 type aws_quicksight_template_alias = {
-  alias_name: string prop;  (** alias_name *)
-  aws_account_id: string  prop option; [@option] (** aws_account_id *)
-  template_id: string prop;  (** template_id *)
-  template_version_number: float prop;  (** template_version_number *)
-} [@@deriving yojson_of]
-(** aws_quicksight_template_alias *)
+  alias_name: string prop; 
+  aws_account_id: string  prop option; [@option]
+  template_id: string prop; 
+  template_version_number: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let aws_quicksight_template_alias ?aws_account_id ~alias_name ~template_id ~template_version_number () =
   ({

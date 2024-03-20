@@ -3,38 +3,250 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type digitalocean_droplet = {
-  backups : bool prop option; [@option]  (** backups *)
-  droplet_agent : bool prop option; [@option]  (** droplet_agent *)
+  backups : bool prop option; [@option]
+  droplet_agent : bool prop option; [@option]
   graceful_shutdown : bool prop option; [@option]
-      (** graceful_shutdown *)
-  id : string prop option; [@option]  (** id *)
-  image : string prop;  (** image *)
-  ipv6 : bool prop option; [@option]  (** ipv6 *)
-  ipv6_address : string prop option; [@option]  (** ipv6_address *)
-  monitoring : bool prop option; [@option]  (** monitoring *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  image : string prop;
+  ipv6 : bool prop option; [@option]
+  ipv6_address : string prop option; [@option]
+  monitoring : bool prop option; [@option]
+  name : string prop;
   private_networking : bool prop option; [@option]
-      (** private_networking *)
-  region : string prop option; [@option]  (** region *)
-  resize_disk : bool prop option; [@option]  (** resize_disk *)
-  size : string prop;  (** size *)
-  ssh_keys : string prop list option; [@option]  (** ssh_keys *)
-  tags : string prop list option; [@option]  (** tags *)
-  user_data : string prop option; [@option]  (** user_data *)
-  volume_ids : string prop list option; [@option]  (** volume_ids *)
-  vpc_uuid : string prop option; [@option]  (** vpc_uuid *)
+  region : string prop option; [@option]
+  resize_disk : bool prop option; [@option]
+  size : string prop;
+  ssh_keys : string prop list option; [@option]
+  tags : string prop list option; [@option]
+  user_data : string prop option; [@option]
+  volume_ids : string prop list option; [@option]
+  vpc_uuid : string prop option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** digitalocean_droplet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_droplet) -> ()
+
+let yojson_of_digitalocean_droplet =
+  (function
+   | {
+       backups = v_backups;
+       droplet_agent = v_droplet_agent;
+       graceful_shutdown = v_graceful_shutdown;
+       id = v_id;
+       image = v_image;
+       ipv6 = v_ipv6;
+       ipv6_address = v_ipv6_address;
+       monitoring = v_monitoring;
+       name = v_name;
+       private_networking = v_private_networking;
+       region = v_region;
+       resize_disk = v_resize_disk;
+       size = v_size;
+       ssh_keys = v_ssh_keys;
+       tags = v_tags;
+       user_data = v_user_data;
+       volume_ids = v_volume_ids;
+       vpc_uuid = v_vpc_uuid;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_vpc_uuid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vpc_uuid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_volume_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "volume_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_user_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ssh_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ssh_keys", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_size in
+         ("size", arg) :: bnds
+       in
+       let bnds =
+         match v_resize_disk with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "resize_disk", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_networking with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "private_networking", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_monitoring with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "monitoring", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ipv6", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_image in
+         ("image", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_graceful_shutdown with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "graceful_shutdown", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_droplet_agent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "droplet_agent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "backups", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_droplet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_droplet
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

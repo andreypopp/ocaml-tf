@@ -3,13 +3,52 @@
 open! Tf_core
 
 type aws_api_gateway_resource = {
-  id : string prop option; [@option]  (** id *)
-  parent_id : string prop;  (** parent_id *)
-  path_part : string prop;  (** path_part *)
-  rest_api_id : string prop;  (** rest_api_id *)
+  id : string prop option; [@option]
+  parent_id : string prop;
+  path_part : string prop;
+  rest_api_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_api_gateway_resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_api_gateway_resource) -> ()
+
+let yojson_of_aws_api_gateway_resource =
+  (function
+   | {
+       id = v_id;
+       parent_id = v_parent_id;
+       path_part = v_path_part;
+       rest_api_id = v_rest_api_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rest_api_id in
+         ("rest_api_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path_part in
+         ("path_part", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent_id in
+         ("parent_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_api_gateway_resource -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_api_gateway_resource
+
+[@@@deriving.end]
 
 let aws_api_gateway_resource ?id ~parent_id ~path_part ~rest_api_id
     () : aws_api_gateway_resource =

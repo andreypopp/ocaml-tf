@@ -4,178 +4,602 @@ open! Tf_core
 
 type app_engine_http_target__app_engine_routing = {
   instance : string prop option; [@option]
-      (** App instance.
-By default, the job is sent to an instance which is available when the job is attempted. *)
   service : string prop option; [@option]
-      (** App service.
-By default, the job is sent to the service which is the default service when the job is attempted. *)
   version : string prop option; [@option]
-      (** App version.
-By default, the job is sent to the version which is the default version when the job is attempted. *)
 }
-[@@deriving yojson_of]
-(** App Engine Routing setting for the job. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : app_engine_http_target__app_engine_routing) -> ()
+
+let yojson_of_app_engine_http_target__app_engine_routing =
+  (function
+   | {
+       instance = v_instance;
+       service = v_service;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : app_engine_http_target__app_engine_routing ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_app_engine_http_target__app_engine_routing
+
+[@@@deriving.end]
 
 type app_engine_http_target = {
   body : string prop option; [@option]
-      (** HTTP request body.
-A request body is allowed only if the HTTP method is POST or PUT.
-It will result in invalid argument error to set a body on a job with an incompatible HttpMethod.
-
-A base64-encoded string. *)
   headers : (string * string prop) list option; [@option]
-      (** HTTP request headers.
-This map contains the header field names and values.
-Headers can be set when the job is created. *)
   http_method : string prop option; [@option]
-      (** Which HTTP method to use for the request. *)
   relative_uri : string prop;
-      (** The relative URI.
-The relative URL must begin with / and must be a valid HTTP relative URL.
-It can contain a path, query string arguments, and \# fragments.
-If the relative URL is empty, then the root path / will be used.
-No spaces are allowed, and the maximum length allowed is 2083 characters *)
   app_engine_routing :
     app_engine_http_target__app_engine_routing list;
 }
-[@@deriving yojson_of]
-(** App Engine HTTP target.
-If the job providers a App Engine HTTP target the cron will
-send a request to the service instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : app_engine_http_target) -> ()
+
+let yojson_of_app_engine_http_target =
+  (function
+   | {
+       body = v_body;
+       headers = v_headers;
+       http_method = v_http_method;
+       relative_uri = v_relative_uri;
+       app_engine_routing = v_app_engine_routing;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_app_engine_http_target__app_engine_routing
+             v_app_engine_routing
+         in
+         ("app_engine_routing", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_relative_uri in
+         ("relative_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_http_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "http_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "headers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_body with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "body", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : app_engine_http_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_app_engine_http_target
+
+[@@@deriving.end]
 
 type http_target__oauth_token = {
   scope : string prop option; [@option]
-      (** OAuth scope to be used for generating OAuth access token. If not specified,
-https://www.googleapis.com/auth/cloud-platform will be used. *)
   service_account_email : string prop;
-      (** Service account email to be used for generating OAuth token.
-The service account must be within the same project as the job. *)
 }
-[@@deriving yojson_of]
-(** Contains information needed for generating an OAuth token.
-This type of authorization should be used when sending requests to a GCP endpoint. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : http_target__oauth_token) -> ()
+
+let yojson_of_http_target__oauth_token =
+  (function
+   | {
+       scope = v_scope;
+       service_account_email = v_service_account_email;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_account_email
+         in
+         ("service_account_email", arg) :: bnds
+       in
+       let bnds =
+         match v_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scope", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : http_target__oauth_token -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_http_target__oauth_token
+
+[@@@deriving.end]
 
 type http_target__oidc_token = {
   audience : string prop option; [@option]
-      (** Audience to be used when generating OIDC token. If not specified,
-the URI specified in target will be used. *)
   service_account_email : string prop;
-      (** Service account email to be used for generating OAuth token.
-The service account must be within the same project as the job. *)
 }
-[@@deriving yojson_of]
-(** Contains information needed for generating an OpenID Connect token.
-This type of authorization should be used when sending requests to third party endpoints or Cloud Run. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : http_target__oidc_token) -> ()
+
+let yojson_of_http_target__oidc_token =
+  (function
+   | {
+       audience = v_audience;
+       service_account_email = v_service_account_email;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_account_email
+         in
+         ("service_account_email", arg) :: bnds
+       in
+       let bnds =
+         match v_audience with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "audience", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : http_target__oidc_token -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_http_target__oidc_token
+
+[@@@deriving.end]
 
 type http_target = {
   body : string prop option; [@option]
-      (** HTTP request body.
-A request body is allowed only if the HTTP method is POST, PUT, or PATCH.
-It is an error to set body on a job with an incompatible HttpMethod.
-
-A base64-encoded string. *)
   headers : (string * string prop) list option; [@option]
-      (** This map contains the header field names and values.
-Repeated headers are not supported, but a header value can contain commas. *)
   http_method : string prop option; [@option]
-      (** Which HTTP method to use for the request. *)
   uri : string prop;
-      (** The full URI path that the request will be sent to. *)
   oauth_token : http_target__oauth_token list;
   oidc_token : http_target__oidc_token list;
 }
-[@@deriving yojson_of]
-(** HTTP target.
-If the job providers a http_target the cron will
-send a request to the targeted url *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : http_target) -> ()
+
+let yojson_of_http_target =
+  (function
+   | {
+       body = v_body;
+       headers = v_headers;
+       http_method = v_http_method;
+       uri = v_uri;
+       oauth_token = v_oauth_token;
+       oidc_token = v_oidc_token;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_http_target__oidc_token
+             v_oidc_token
+         in
+         ("oidc_token", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_http_target__oauth_token
+             v_oauth_token
+         in
+         ("oauth_token", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_http_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "http_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "headers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_body with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "body", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : http_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_http_target
+
+[@@@deriving.end]
 
 type pubsub_target = {
   attributes : (string * string prop) list option; [@option]
-      (** Attributes for PubsubMessage.
-Pubsub message must contain either non-empty data, or at least one attribute. *)
   data : string prop option; [@option]
-      (** The message payload for PubsubMessage.
-Pubsub message must contain either non-empty data, or at least one attribute.
-
- A base64-encoded string. *)
   topic_name : string prop;
-      (** The full resource name for the Cloud Pub/Sub topic to which
-messages will be published when a job is delivered. ~>**NOTE:**
-The topic name must be in the same format as required by PubSub's
-PublishRequest.name, e.g. 'projects/my-project/topics/my-topic'. *)
 }
-[@@deriving yojson_of]
-(** Pub/Sub target
-If the job providers a Pub/Sub target the cron will publish
-a message to the provided topic *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : pubsub_target) -> ()
+
+let yojson_of_pubsub_target =
+  (function
+   | {
+       attributes = v_attributes;
+       data = v_data;
+       topic_name = v_topic_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic_name in
+         ("topic_name", arg) :: bnds
+       in
+       let bnds =
+         match v_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attributes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "attributes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : pubsub_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pubsub_target
+
+[@@@deriving.end]
 
 type retry_config = {
   max_backoff_duration : string prop option; [@option]
-      (** The maximum amount of time to wait before retrying a job after it fails.
-A duration in seconds with up to nine fractional digits, terminated by 's'. *)
   max_doublings : float prop option; [@option]
-      (** The time between retries will double maxDoublings times.
-A job's retry interval starts at minBackoffDuration,
-then doubles maxDoublings times, then increases linearly,
-and finally retries retries at intervals of maxBackoffDuration up to retryCount times. *)
   max_retry_duration : string prop option; [@option]
-      (** The time limit for retrying a failed job, measured from time when an execution was first attempted.
-If specified with retryCount, the job will be retried until both limits are reached.
-A duration in seconds with up to nine fractional digits, terminated by 's'. *)
   min_backoff_duration : string prop option; [@option]
-      (** The minimum amount of time to wait before retrying a job after it fails.
-A duration in seconds with up to nine fractional digits, terminated by 's'. *)
   retry_count : float prop option; [@option]
-      (** The number of attempts that the system will make to run a
-job using the exponential backoff procedure described by maxDoublings.
-Values greater than 5 and negative values are not allowed. *)
 }
-[@@deriving yojson_of]
-(** By default, if a job does not complete successfully,
-meaning that an acknowledgement is not received from the handler,
-then it will be retried with exponential backoff according to the settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : retry_config) -> ()
+
+let yojson_of_retry_config =
+  (function
+   | {
+       max_backoff_duration = v_max_backoff_duration;
+       max_doublings = v_max_doublings;
+       max_retry_duration = v_max_retry_duration;
+       min_backoff_duration = v_min_backoff_duration;
+       retry_count = v_retry_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_retry_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "retry_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_backoff_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_backoff_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_retry_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_retry_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_doublings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_doublings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_backoff_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_backoff_duration", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : retry_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retry_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_cloud_scheduler_job = {
   attempt_deadline : string prop option; [@option]
-      (** The deadline for job attempts. If the request handler does not respond by this deadline then the request is
-cancelled and the attempt is marked as a DEADLINE_EXCEEDED failure. The failed attempt can be viewed in
-execution logs. Cloud Scheduler will retry the job according to the RetryConfig.
-The allowed duration for this deadline is:
-* For HTTP targets, between 15 seconds and 30 minutes.
-* For App Engine HTTP targets, between 15 seconds and 24 hours.
-* **Note**: For PubSub targets, this field is ignored - setting it will introduce an unresolvable diff.
-A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s *)
   description : string prop option; [@option]
-      (** A human-readable description for the job.
-This string must not contain more than 500 characters. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The name of the job. *)
+  id : string prop option; [@option]
+  name : string prop;
   paused : bool prop option; [@option]
-      (** Sets the job to a paused state. Jobs default to being enabled when this property is not set. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** Region where the scheduler job resides. If it is not provided, Terraform will use the provider default. *)
   schedule : string prop option; [@option]
-      (** Describes the schedule on which the job will be executed. *)
   time_zone : string prop option; [@option]
-      (** Specifies the time zone to be used in interpreting schedule.
-The value of this field must be a time zone name from the tz database. *)
   app_engine_http_target : app_engine_http_target list;
   http_target : http_target list;
   pubsub_target : pubsub_target list;
   retry_config : retry_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_cloud_scheduler_job *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_cloud_scheduler_job) -> ()
+
+let yojson_of_google_cloud_scheduler_job =
+  (function
+   | {
+       attempt_deadline = v_attempt_deadline;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       paused = v_paused;
+       project = v_project;
+       region = v_region;
+       schedule = v_schedule;
+       time_zone = v_time_zone;
+       app_engine_http_target = v_app_engine_http_target;
+       http_target = v_http_target;
+       pubsub_target = v_pubsub_target;
+       retry_config = v_retry_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retry_config v_retry_config
+         in
+         ("retry_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_pubsub_target v_pubsub_target
+         in
+         ("pubsub_target", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_http_target v_http_target
+         in
+         ("http_target", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_app_engine_http_target
+             v_app_engine_http_target
+         in
+         ("app_engine_http_target", arg) :: bnds
+       in
+       let bnds =
+         match v_time_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "time_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_schedule with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schedule", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_paused with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "paused", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attempt_deadline with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "attempt_deadline", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_cloud_scheduler_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_cloud_scheduler_job
+
+[@@@deriving.end]
 
 let app_engine_http_target__app_engine_routing ?instance ?service
     ?version () : app_engine_http_target__app_engine_routing =

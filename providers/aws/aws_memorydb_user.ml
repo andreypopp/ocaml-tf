@@ -3,23 +3,124 @@
 open! Tf_core
 
 type authentication_mode = {
-  passwords : string prop list;  (** passwords *)
-  type_ : string prop; [@key "type"]  (** type *)
+  passwords : string prop list;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** authentication_mode *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : authentication_mode) -> ()
+
+let yojson_of_authentication_mode =
+  (function
+   | { passwords = v_passwords; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_passwords
+         in
+         ("passwords", arg) :: bnds
+       in
+       `Assoc bnds
+    : authentication_mode -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authentication_mode
+
+[@@@deriving.end]
 
 type aws_memorydb_user = {
-  access_string : string prop;  (** access_string *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  access_string : string prop;
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  user_name : string prop;  (** user_name *)
+  user_name : string prop;
   authentication_mode : authentication_mode list;
 }
-[@@deriving yojson_of]
-(** aws_memorydb_user *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_memorydb_user) -> ()
+
+let yojson_of_aws_memorydb_user =
+  (function
+   | {
+       access_string = v_access_string;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       user_name = v_user_name;
+       authentication_mode = v_authentication_mode;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authentication_mode
+             v_authentication_mode
+         in
+         ("authentication_mode", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_name in
+         ("user_name", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_access_string in
+         ("access_string", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_memorydb_user -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_memorydb_user
+
+[@@@deriving.end]
 
 let authentication_mode ~passwords ~type_ () : authentication_mode =
   { passwords; type_ }

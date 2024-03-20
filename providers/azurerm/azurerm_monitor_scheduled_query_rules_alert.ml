@@ -3,65 +3,390 @@
 open! Tf_core
 
 type action = {
-  action_group : string prop list;  (** action_group *)
+  action_group : string prop list;
   custom_webhook_payload : string prop option; [@option]
-      (** custom_webhook_payload *)
-  email_subject : string prop option; [@option]  (** email_subject *)
+  email_subject : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : action) -> ()
+
+let yojson_of_action =
+  (function
+   | {
+       action_group = v_action_group;
+       custom_webhook_payload = v_custom_webhook_payload;
+       email_subject = v_email_subject;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_email_subject with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "email_subject", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_webhook_payload with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_webhook_payload", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_action_group
+         in
+         ("action_group", arg) :: bnds
+       in
+       `Assoc bnds
+    : action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_action
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type trigger__metric_trigger = {
-  metric_column : string prop option; [@option]  (** metric_column *)
-  metric_trigger_type : string prop;  (** metric_trigger_type *)
-  operator : string prop;  (** operator *)
-  threshold : float prop;  (** threshold *)
+  metric_column : string prop option; [@option]
+  metric_trigger_type : string prop;
+  operator : string prop;
+  threshold : float prop;
 }
-[@@deriving yojson_of]
-(** trigger__metric_trigger *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trigger__metric_trigger) -> ()
+
+let yojson_of_trigger__metric_trigger =
+  (function
+   | {
+       metric_column = v_metric_column;
+       metric_trigger_type = v_metric_trigger_type;
+       operator = v_operator;
+       threshold = v_threshold;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_threshold in
+         ("threshold", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_metric_trigger_type
+         in
+         ("metric_trigger_type", arg) :: bnds
+       in
+       let bnds =
+         match v_metric_column with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metric_column", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : trigger__metric_trigger -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trigger__metric_trigger
+
+[@@@deriving.end]
 
 type trigger = {
-  operator : string prop;  (** operator *)
-  threshold : float prop;  (** threshold *)
+  operator : string prop;
+  threshold : float prop;
   metric_trigger : trigger__metric_trigger list;
 }
-[@@deriving yojson_of]
-(** trigger *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trigger) -> ()
+
+let yojson_of_trigger =
+  (function
+   | {
+       operator = v_operator;
+       threshold = v_threshold;
+       metric_trigger = v_metric_trigger;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_trigger__metric_trigger
+             v_metric_trigger
+         in
+         ("metric_trigger", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_threshold in
+         ("threshold", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : trigger -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trigger
+
+[@@@deriving.end]
 
 type azurerm_monitor_scheduled_query_rules_alert = {
   authorized_resource_ids : string prop list option; [@option]
-      (** authorized_resource_ids *)
   auto_mitigation_enabled : bool prop option; [@option]
-      (** auto_mitigation_enabled *)
-  data_source_id : string prop;  (** data_source_id *)
-  description : string prop option; [@option]  (** description *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  frequency : float prop;  (** frequency *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  query : string prop;  (** query *)
-  query_type : string prop option; [@option]  (** query_type *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  severity : float prop option; [@option]  (** severity *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
-  throttling : float prop option; [@option]  (** throttling *)
-  time_window : float prop;  (** time_window *)
+  data_source_id : string prop;
+  description : string prop option; [@option]
+  enabled : bool prop option; [@option]
+  frequency : float prop;
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
+  query : string prop;
+  query_type : string prop option; [@option]
+  resource_group_name : string prop;
+  severity : float prop option; [@option]
+  tags : (string * string prop) list option; [@option]
+  throttling : float prop option; [@option]
+  time_window : float prop;
   action : action list;
   timeouts : timeouts option;
   trigger : trigger list;
 }
-[@@deriving yojson_of]
-(** azurerm_monitor_scheduled_query_rules_alert *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_monitor_scheduled_query_rules_alert) -> ()
+
+let yojson_of_azurerm_monitor_scheduled_query_rules_alert =
+  (function
+   | {
+       authorized_resource_ids = v_authorized_resource_ids;
+       auto_mitigation_enabled = v_auto_mitigation_enabled;
+       data_source_id = v_data_source_id;
+       description = v_description;
+       enabled = v_enabled;
+       frequency = v_frequency;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       query = v_query;
+       query_type = v_query_type;
+       resource_group_name = v_resource_group_name;
+       severity = v_severity;
+       tags = v_tags;
+       throttling = v_throttling;
+       time_window = v_time_window;
+       action = v_action;
+       timeouts = v_timeouts;
+       trigger = v_trigger;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_trigger v_trigger in
+         ("trigger", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_action v_action in
+         ("action", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_time_window in
+         ("time_window", arg) :: bnds
+       in
+       let bnds =
+         match v_throttling with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "throttling", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_severity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "severity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_query_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "query_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_query in
+         ("query", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_frequency in
+         ("frequency", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_source_id
+         in
+         ("data_source_id", arg) :: bnds
+       in
+       let bnds =
+         match v_auto_mitigation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_mitigation_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authorized_resource_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "authorized_resource_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_monitor_scheduled_query_rules_alert ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_monitor_scheduled_query_rules_alert
+
+[@@@deriving.end]
 
 let action ?custom_webhook_payload ?email_subject ~action_group () :
     action =

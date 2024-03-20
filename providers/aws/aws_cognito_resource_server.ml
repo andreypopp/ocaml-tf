@@ -3,21 +3,93 @@
 open! Tf_core
 
 type scope = {
-  scope_description : string prop;  (** scope_description *)
-  scope_name : string prop;  (** scope_name *)
+  scope_description : string prop;
+  scope_name : string prop;
 }
-[@@deriving yojson_of]
-(** scope *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scope) -> ()
+
+let yojson_of_scope =
+  (function
+   | {
+       scope_description = v_scope_description;
+       scope_name = v_scope_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_scope_name in
+         ("scope_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_scope_description
+         in
+         ("scope_description", arg) :: bnds
+       in
+       `Assoc bnds
+    : scope -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scope
+
+[@@@deriving.end]
 
 type aws_cognito_resource_server = {
-  id : string prop option; [@option]  (** id *)
-  identifier : string prop;  (** identifier *)
-  name : string prop;  (** name *)
-  user_pool_id : string prop;  (** user_pool_id *)
+  id : string prop option; [@option]
+  identifier : string prop;
+  name : string prop;
+  user_pool_id : string prop;
   scope : scope list;
 }
-[@@deriving yojson_of]
-(** aws_cognito_resource_server *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cognito_resource_server) -> ()
+
+let yojson_of_aws_cognito_resource_server =
+  (function
+   | {
+       id = v_id;
+       identifier = v_identifier;
+       name = v_name;
+       user_pool_id = v_user_pool_id;
+       scope = v_scope;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_scope v_scope in
+         ("scope", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_pool_id in
+         ("user_pool_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_identifier in
+         ("identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cognito_resource_server ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cognito_resource_server
+
+[@@@deriving.end]
 
 let scope ~scope_description ~scope_name () : scope =
   { scope_description; scope_name }

@@ -4,23 +4,121 @@ open! Tf_core
 
 type media_insights_configuration = {
   configuration_arn : string prop option; [@option]
-      (** configuration_arn *)
-  disabled : bool prop option; [@option]  (** disabled *)
+  disabled : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** media_insights_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : media_insights_configuration) -> ()
+
+let yojson_of_media_insights_configuration =
+  (function
+   | {
+       configuration_arn = v_configuration_arn;
+       disabled = v_disabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_configuration_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "configuration_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : media_insights_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_media_insights_configuration
+
+[@@@deriving.end]
 
 type aws_chime_voice_connector_streaming = {
-  data_retention : float prop;  (** data_retention *)
-  disabled : bool prop option; [@option]  (** disabled *)
-  id : string prop option; [@option]  (** id *)
+  data_retention : float prop;
+  disabled : bool prop option; [@option]
+  id : string prop option; [@option]
   streaming_notification_targets : string prop list option; [@option]
-      (** streaming_notification_targets *)
-  voice_connector_id : string prop;  (** voice_connector_id *)
+  voice_connector_id : string prop;
   media_insights_configuration : media_insights_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_chime_voice_connector_streaming *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_chime_voice_connector_streaming) -> ()
+
+let yojson_of_aws_chime_voice_connector_streaming =
+  (function
+   | {
+       data_retention = v_data_retention;
+       disabled = v_disabled;
+       id = v_id;
+       streaming_notification_targets =
+         v_streaming_notification_targets;
+       voice_connector_id = v_voice_connector_id;
+       media_insights_configuration = v_media_insights_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_media_insights_configuration
+             v_media_insights_configuration
+         in
+         ("media_insights_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_voice_connector_id
+         in
+         ("voice_connector_id", arg) :: bnds
+       in
+       let bnds =
+         match v_streaming_notification_targets with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "streaming_notification_targets", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_data_retention in
+         ("data_retention", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_chime_voice_connector_streaming ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_chime_voice_connector_streaming
+
+[@@@deriving.end]
 
 let media_insights_configuration ?configuration_arn ?disabled () :
     media_insights_configuration =

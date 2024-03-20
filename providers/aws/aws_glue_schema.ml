@@ -3,19 +3,116 @@
 open! Tf_core
 
 type aws_glue_schema = {
-  compatibility : string prop;  (** compatibility *)
-  data_format : string prop;  (** data_format *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  registry_arn : string prop option; [@option]  (** registry_arn *)
-  schema_definition : string prop;  (** schema_definition *)
-  schema_name : string prop;  (** schema_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  compatibility : string prop;
+  data_format : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  registry_arn : string prop option; [@option]
+  schema_definition : string prop;
+  schema_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_glue_schema *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_glue_schema) -> ()
+
+let yojson_of_aws_glue_schema =
+  (function
+   | {
+       compatibility = v_compatibility;
+       data_format = v_data_format;
+       description = v_description;
+       id = v_id;
+       registry_arn = v_registry_arn;
+       schema_definition = v_schema_definition;
+       schema_name = v_schema_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schema_name in
+         ("schema_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_schema_definition
+         in
+         ("schema_definition", arg) :: bnds
+       in
+       let bnds =
+         match v_registry_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "registry_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_data_format in
+         ("data_format", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_compatibility in
+         ("compatibility", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_glue_schema -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_glue_schema
+
+[@@@deriving.end]
 
 let aws_glue_schema ?description ?id ?registry_arn ?tags ?tags_all
     ~compatibility ~data_format ~schema_definition ~schema_name () :

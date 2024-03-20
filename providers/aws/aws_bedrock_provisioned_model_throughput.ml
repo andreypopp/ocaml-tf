@@ -2,25 +2,106 @@
 
 open! Tf_core
 
-type timeouts = {
-  create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_bedrock_provisioned_model_throughput = {
   commitment_duration : string prop option; [@option]
-      (** commitment_duration *)
-  model_arn : string prop;  (** model_arn *)
-  model_units : float prop;  (** model_units *)
+  model_arn : string prop;
+  model_units : float prop;
   provisioned_model_name : string prop;
-      (** provisioned_model_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_bedrock_provisioned_model_throughput *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_bedrock_provisioned_model_throughput) -> ()
+
+let yojson_of_aws_bedrock_provisioned_model_throughput =
+  (function
+   | {
+       commitment_duration = v_commitment_duration;
+       model_arn = v_model_arn;
+       model_units = v_model_units;
+       provisioned_model_name = v_provisioned_model_name;
+       tags = v_tags;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_provisioned_model_name
+         in
+         ("provisioned_model_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_model_units in
+         ("model_units", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_model_arn in
+         ("model_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_commitment_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "commitment_duration", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_bedrock_provisioned_model_throughput ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_bedrock_provisioned_model_throughput
+
+[@@@deriving.end]
 
 let timeouts ?create () : timeouts = { create }
 

@@ -4,64 +4,272 @@ open! Tf_core
 
 type capacity_specification = {
   read_capacity_units : float prop option; [@option]
-      (** read_capacity_units *)
   throughput_mode : string prop option; [@option]
-      (** throughput_mode *)
   write_capacity_units : float prop option; [@option]
-      (** write_capacity_units *)
 }
-[@@deriving yojson_of]
-(** capacity_specification *)
+[@@deriving_inline yojson_of]
 
-type client_side_timestamps = { status : string prop  (** status *) }
-[@@deriving yojson_of]
-(** client_side_timestamps *)
+let _ = fun (_ : capacity_specification) -> ()
 
-type comment = {
-  message : string prop option; [@option]  (** message *)
-}
-[@@deriving yojson_of]
-(** comment *)
+let yojson_of_capacity_specification =
+  (function
+   | {
+       read_capacity_units = v_read_capacity_units;
+       throughput_mode = v_throughput_mode;
+       write_capacity_units = v_write_capacity_units;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_write_capacity_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "write_capacity_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_throughput_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "throughput_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_capacity_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "read_capacity_units", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : capacity_specification -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_capacity_specification
+
+[@@@deriving.end]
+
+type client_side_timestamps = { status : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client_side_timestamps) -> ()
+
+let yojson_of_client_side_timestamps =
+  (function
+   | { status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       `Assoc bnds
+    : client_side_timestamps -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client_side_timestamps
+
+[@@@deriving.end]
+
+type comment = { message : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : comment) -> ()
+
+let yojson_of_comment =
+  (function
+   | { message = v_message } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_message with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "message", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : comment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_comment
+
+[@@@deriving.end]
 
 type encryption_specification = {
   kms_key_identifier : string prop option; [@option]
-      (** kms_key_identifier *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** encryption_specification *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_specification) -> ()
+
+let yojson_of_encryption_specification =
+  (function
+   | { kms_key_identifier = v_kms_key_identifier; type_ = v_type_ }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_identifier", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : encryption_specification -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_specification
+
+[@@@deriving.end]
 
 type point_in_time_recovery = {
-  status : string prop option; [@option]  (** status *)
+  status : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** point_in_time_recovery *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : point_in_time_recovery) -> ()
+
+let yojson_of_point_in_time_recovery =
+  (function
+   | { status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : point_in_time_recovery -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_point_in_time_recovery
+
+[@@@deriving.end]
 
 type schema_definition__clustering_key = {
-  name : string prop;  (** name *)
-  order_by : string prop;  (** order_by *)
+  name : string prop;
+  order_by : string prop;
 }
-[@@deriving yojson_of]
-(** schema_definition__clustering_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schema_definition__clustering_key) -> ()
+
+let yojson_of_schema_definition__clustering_key =
+  (function
+   | { name = v_name; order_by = v_order_by } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_order_by in
+         ("order_by", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : schema_definition__clustering_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schema_definition__clustering_key
+
+[@@@deriving.end]
 
 type schema_definition__column = {
-  name : string prop;  (** name *)
-  type_ : string prop; [@key "type"]  (** type *)
+  name : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** schema_definition__column *)
+[@@deriving_inline yojson_of]
 
-type schema_definition__partition_key = {
-  name : string prop;  (** name *)
-}
-[@@deriving yojson_of]
-(** schema_definition__partition_key *)
+let _ = fun (_ : schema_definition__column) -> ()
 
-type schema_definition__static_column = {
-  name : string prop;  (** name *)
-}
-[@@deriving yojson_of]
-(** schema_definition__static_column *)
+let yojson_of_schema_definition__column =
+  (function
+   | { name = v_name; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : schema_definition__column -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schema_definition__column
+
+[@@@deriving.end]
+
+type schema_definition__partition_key = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schema_definition__partition_key) -> ()
+
+let yojson_of_schema_definition__partition_key =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : schema_definition__partition_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schema_definition__partition_key
+
+[@@@deriving.end]
+
+type schema_definition__static_column = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schema_definition__static_column) -> ()
+
+let yojson_of_schema_definition__static_column =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : schema_definition__static_column ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schema_definition__static_column
+
+[@@@deriving.end]
 
 type schema_definition = {
   clustering_key : schema_definition__clustering_key list;
@@ -69,30 +277,130 @@ type schema_definition = {
   partition_key : schema_definition__partition_key list;
   static_column : schema_definition__static_column list;
 }
-[@@deriving yojson_of]
-(** schema_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schema_definition) -> ()
+
+let yojson_of_schema_definition =
+  (function
+   | {
+       clustering_key = v_clustering_key;
+       column = v_column;
+       partition_key = v_partition_key;
+       static_column = v_static_column;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_schema_definition__static_column
+             v_static_column
+         in
+         ("static_column", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_schema_definition__partition_key
+             v_partition_key
+         in
+         ("partition_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_schema_definition__column
+             v_column
+         in
+         ("column", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_schema_definition__clustering_key
+             v_clustering_key
+         in
+         ("clustering_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : schema_definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schema_definition
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type ttl = { status : string prop  (** status *) }
-[@@deriving yojson_of]
-(** ttl *)
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type ttl = { status : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : ttl) -> ()
+
+let yojson_of_ttl =
+  (function
+   | { status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       `Assoc bnds
+    : ttl -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ttl
+
+[@@@deriving.end]
 
 type aws_keyspaces_table = {
   default_time_to_live : float prop option; [@option]
-      (** default_time_to_live *)
-  id : string prop option; [@option]  (** id *)
-  keyspace_name : string prop;  (** keyspace_name *)
-  table_name : string prop;  (** table_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  keyspace_name : string prop;
+  table_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   capacity_specification : capacity_specification list;
   client_side_timestamps : client_side_timestamps list;
   comment : comment list;
@@ -102,8 +410,140 @@ type aws_keyspaces_table = {
   timeouts : timeouts option;
   ttl : ttl list;
 }
-[@@deriving yojson_of]
-(** aws_keyspaces_table *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_keyspaces_table) -> ()
+
+let yojson_of_aws_keyspaces_table =
+  (function
+   | {
+       default_time_to_live = v_default_time_to_live;
+       id = v_id;
+       keyspace_name = v_keyspace_name;
+       table_name = v_table_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       capacity_specification = v_capacity_specification;
+       client_side_timestamps = v_client_side_timestamps;
+       comment = v_comment;
+       encryption_specification = v_encryption_specification;
+       point_in_time_recovery = v_point_in_time_recovery;
+       schema_definition = v_schema_definition;
+       timeouts = v_timeouts;
+       ttl = v_ttl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_ttl v_ttl in
+         ("ttl", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_schema_definition
+             v_schema_definition
+         in
+         ("schema_definition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_point_in_time_recovery
+             v_point_in_time_recovery
+         in
+         ("point_in_time_recovery", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption_specification
+             v_encryption_specification
+         in
+         ("encryption_specification", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_comment v_comment in
+         ("comment", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_client_side_timestamps
+             v_client_side_timestamps
+         in
+         ("client_side_timestamps", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_capacity_specification
+             v_capacity_specification
+         in
+         ("capacity_specification", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_name in
+         ("table_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_keyspace_name in
+         ("keyspace_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_time_to_live with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_time_to_live", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_keyspaces_table -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_keyspaces_table
+
+[@@@deriving.end]
 
 let capacity_specification ?read_capacity_units ?throughput_mode
     ?write_capacity_units () : capacity_specification =

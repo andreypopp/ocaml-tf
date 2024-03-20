@@ -4,103 +4,528 @@ open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the job that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the job. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the job, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Namespace defines the space within which name of the job must be unique. *)
 }
-[@@deriving yojson_of]
-(** Standard job's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+       namespace = v_namespace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type spec__pod_failure_policy__rule__on_exit_codes = {
   container_name : string prop option; [@option]
-      (** container_name *)
-  operator : string prop option; [@option]  (** operator *)
-  values : float prop list;  (** values *)
+  operator : string prop option; [@option]
+  values : float prop list;
 }
-[@@deriving yojson_of]
-(** spec__pod_failure_policy__rule__on_exit_codes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__pod_failure_policy__rule__on_exit_codes) -> ()
+
+let yojson_of_spec__pod_failure_policy__rule__on_exit_codes =
+  (function
+   | {
+       container_name = v_container_name;
+       operator = v_operator;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_float) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "container_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__pod_failure_policy__rule__on_exit_codes ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__pod_failure_policy__rule__on_exit_codes
+
+[@@@deriving.end]
 
 type spec__pod_failure_policy__rule__on_pod_condition = {
-  status : string prop option; [@option]  (** status *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  status : string prop option; [@option]
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** spec__pod_failure_policy__rule__on_pod_condition *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__pod_failure_policy__rule__on_pod_condition) -> ()
+
+let yojson_of_spec__pod_failure_policy__rule__on_pod_condition =
+  (function
+   | { status = v_status; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__pod_failure_policy__rule__on_pod_condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__pod_failure_policy__rule__on_pod_condition
+
+[@@@deriving.end]
 
 type spec__pod_failure_policy__rule = {
-  action : string prop option; [@option]  (** action *)
+  action : string prop option; [@option]
   on_exit_codes : spec__pod_failure_policy__rule__on_exit_codes list;
   on_pod_condition :
     spec__pod_failure_policy__rule__on_pod_condition list;
 }
-[@@deriving yojson_of]
-(** A label query over volumes to consider for binding. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__pod_failure_policy__rule) -> ()
+
+let yojson_of_spec__pod_failure_policy__rule =
+  (function
+   | {
+       action = v_action;
+       on_exit_codes = v_on_exit_codes;
+       on_pod_condition = v_on_pod_condition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__pod_failure_policy__rule__on_pod_condition
+             v_on_pod_condition
+         in
+         ("on_pod_condition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__pod_failure_policy__rule__on_exit_codes
+             v_on_exit_codes
+         in
+         ("on_exit_codes", arg) :: bnds
+       in
+       let bnds =
+         match v_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "action", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__pod_failure_policy__rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__pod_failure_policy__rule
+
+[@@@deriving.end]
 
 type spec__pod_failure_policy = {
   rule : spec__pod_failure_policy__rule list;
 }
-[@@deriving yojson_of]
-(** Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/ *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__pod_failure_policy) -> ()
+
+let yojson_of_spec__pod_failure_policy =
+  (function
+   | { rule = v_rule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__pod_failure_policy__rule
+             v_rule
+         in
+         ("rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__pod_failure_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__pod_failure_policy
+
+[@@@deriving.end]
 
 type spec__selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__selector__match_expressions) -> ()
+
+let yojson_of_spec__selector__match_expressions =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions : spec__selector__match_expressions list;
 }
-[@@deriving yojson_of]
-(** A label query over volumes to consider for binding. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__selector) -> ()
+
+let yojson_of_spec__selector =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__selector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__selector
+
+[@@@deriving.end]
 
 type spec__template__metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the job that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the job. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the job, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Standard job's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__metadata) -> ()
+
+let yojson_of_spec__template__metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__metadata
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** Operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt. *)
   values : string prop list option; [@option]
-      (** Values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** List of node selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields = {
   key : string prop;
-      (** The label key that the selector applies to. *)
   operator : string prop;
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, and `Lt`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of node selector requirements by node's fields. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference = {
   match_expressions :
@@ -110,39 +535,188 @@ type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
     list;
 }
-[@@deriving yojson_of]
-(** A node selector term, associated with the corresponding weight. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
+    =
+  (function
+   | {
+       match_expressions = v_match_expressions;
+       match_fields = v_match_fields;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_fields
+             v_match_fields
+         in
+         ("match_fields", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution = {
-  weight : float prop;  (** weight is in the range 1-100 *)
+  weight : float prop;
   preference :
     spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
     list;
 }
-[@@deriving yojson_of]
-(** The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding 'weight' to the sum if the node matches the corresponding MatchExpressions; the node(s) with the highest sum are the most preferred. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
+    =
+  (function
+   | { weight = v_weight; preference = v_preference } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution__preference
+             v_preference
+         in
+         ("preference", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_weight in
+         ("weight", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** Operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt. *)
   values : string prop list option; [@option]
-      (** Values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** List of node selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields = {
   key : string prop;
-      (** The label key that the selector applies to. *)
   operator : string prop;
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, and `Lt`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of node selector requirements by node's fields. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term = {
   match_expressions :
@@ -152,16 +726,83 @@ type spec__template__spec__affinity__node_affinity__required_during_scheduling_i
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
     list;
 }
-[@@deriving yojson_of]
-(** List of node selector terms. The terms are ORed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
+    =
+  (function
+   | {
+       match_expressions = v_match_expressions;
+       match_fields = v_match_fields;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_fields
+             v_match_fields
+         in
+         ("match_fields", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution = {
   node_selector_term :
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
     list;
 }
-[@@deriving yojson_of]
-(** If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a node label update), the system may or may not try to eventually evict the pod from its node. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
+    =
+  (function
+   | { node_selector_term = v_node_selector_term } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution__node_selector_term
+             v_node_selector_term
+         in
+         ("node_selector_term", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__node_affinity = {
   preferred_during_scheduling_ignored_during_execution :
@@ -171,84 +812,420 @@ type spec__template__spec__affinity__node_affinity = {
     spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
     list;
 }
-[@@deriving yojson_of]
-(** Node affinity scheduling rules for the pod. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__affinity__node_affinity) -> ()
+
+let yojson_of_spec__template__spec__affinity__node_affinity =
+  (function
+   | {
+       preferred_during_scheduling_ignored_during_execution =
+         v_preferred_during_scheduling_ignored_during_execution;
+       required_during_scheduling_ignored_during_execution =
+         v_required_during_scheduling_ignored_during_execution;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__node_affinity__required_during_scheduling_ignored_during_execution
+             v_required_during_scheduling_ignored_during_execution
+         in
+         ("required_during_scheduling_ignored_during_execution", arg)
+         :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__node_affinity__preferred_during_scheduling_ignored_during_execution
+             v_preferred_during_scheduling_ignored_during_execution
+         in
+         ("preferred_during_scheduling_ignored_during_execution", arg)
+         :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__node_affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__affinity__node_affinity
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
 }
-[@@deriving yojson_of]
-(** A label query over a set of resources, in this case pods. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+    =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term = {
   namespaces : string prop list option; [@option]
-      (** namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace' *)
   topology_key : string prop;
-      (** empty topology key is interpreted by the scheduler as 'all topologies' *)
   label_selector :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
 }
-[@@deriving yojson_of]
-(** A pod affinity term, associated with the corresponding weight *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+    =
+  (function
+   | {
+       namespaces = v_namespaces;
+       topology_key = v_topology_key;
+       label_selector = v_label_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+             v_label_selector
+         in
+         ("label_selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topology_key in
+         ("topology_key", arg) :: bnds
+       in
+       let bnds =
+         match v_namespaces with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "namespaces", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution = {
   weight : float prop;
-      (** weight associated with matching the corresponding podAffinityTerm, in the range 1-100 *)
   pod_affinity_term :
     spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
 }
-[@@deriving yojson_of]
-(** The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding 'weight' to the sum if the node matches the corresponding MatchExpressions; the node(s) with the highest sum are the most preferred. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
+    =
+  (function
+   | { weight = v_weight; pod_affinity_term = v_pod_affinity_term }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+             v_pod_affinity_term
+         in
+         ("pod_affinity_term", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_weight in
+         ("weight", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
 }
-[@@deriving yojson_of]
-(** A label query over a set of resources, in this case pods. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
+    =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution = {
   namespaces : string prop list option; [@option]
-      (** namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace' *)
   topology_key : string prop;
-      (** empty topology key is interpreted by the scheduler as 'all topologies' *)
   label_selector :
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
 }
-[@@deriving yojson_of]
-(** If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each PodAffinityTerm are intersected, i.e. all terms must be satisfied. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
+    =
+  (function
+   | {
+       namespaces = v_namespaces;
+       topology_key = v_topology_key;
+       label_selector = v_label_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution__label_selector
+             v_label_selector
+         in
+         ("label_selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topology_key in
+         ("topology_key", arg) :: bnds
+       in
+       let bnds =
+         match v_namespaces with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "namespaces", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_affinity = {
   preferred_during_scheduling_ignored_during_execution :
@@ -258,84 +1235,420 @@ type spec__template__spec__affinity__pod_affinity = {
     spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
     list;
 }
-[@@deriving yojson_of]
-(** Inter-pod topological affinity. rules that specify that certain pods should be placed in the same topological domain (e.g. same node, same rack, same zone, same power domain, etc.) *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__affinity__pod_affinity) -> ()
+
+let yojson_of_spec__template__spec__affinity__pod_affinity =
+  (function
+   | {
+       preferred_during_scheduling_ignored_during_execution =
+         v_preferred_during_scheduling_ignored_during_execution;
+       required_during_scheduling_ignored_during_execution =
+         v_required_during_scheduling_ignored_during_execution;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_affinity__required_during_scheduling_ignored_during_execution
+             v_required_during_scheduling_ignored_during_execution
+         in
+         ("required_during_scheduling_ignored_during_execution", arg)
+         :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_affinity__preferred_during_scheduling_ignored_during_execution
+             v_preferred_during_scheduling_ignored_during_execution
+         in
+         ("preferred_during_scheduling_ignored_during_execution", arg)
+         :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__affinity__pod_affinity
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
     list;
 }
-[@@deriving yojson_of]
-(** A label query over a set of resources, in this case pods. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+    =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term = {
   namespaces : string prop list option; [@option]
-      (** namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace' *)
   topology_key : string prop;
-      (** empty topology key is interpreted by the scheduler as 'all topologies' *)
   label_selector :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
     list;
 }
-[@@deriving yojson_of]
-(** A pod affinity term, associated with the corresponding weight *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+    =
+  (function
+   | {
+       namespaces = v_namespaces;
+       topology_key = v_topology_key;
+       label_selector = v_label_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term__label_selector
+             v_label_selector
+         in
+         ("label_selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topology_key in
+         ("topology_key", arg) :: bnds
+       in
+       let bnds =
+         match v_namespaces with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "namespaces", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution = {
   weight : float prop;
-      (** weight associated with matching the corresponding podAffinityTerm, in the range 1-100 *)
   pod_affinity_term :
     spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
     list;
 }
-[@@deriving yojson_of]
-(** The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, RequiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding 'weight' to the sum if the node matches the corresponding MatchExpressions; the node(s) with the highest sum are the most preferred. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
+    =
+  (function
+   | { weight = v_weight; pod_affinity_term = v_pod_affinity_term }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution__pod_affinity_term
+             v_pod_affinity_term
+         in
+         ("pod_affinity_term", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_weight in
+         ("weight", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
     list;
 }
-[@@deriving yojson_of]
-(** A label query over a set of resources, in this case pods. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
+    =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution = {
   namespaces : string prop list option; [@option]
-      (** namespaces specifies which namespaces the labelSelector applies to (matches against); null or empty list means 'this pod's namespace' *)
   topology_key : string prop;
-      (** empty topology key is interpreted by the scheduler as 'all topologies' *)
   label_selector :
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
     list;
 }
-[@@deriving yojson_of]
-(** If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each PodAffinityTerm are intersected, i.e. all terms must be satisfied. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution) ->
+  ()
+
+let yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
+    =
+  (function
+   | {
+       namespaces = v_namespaces;
+       topology_key = v_topology_key;
+       label_selector = v_label_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution__label_selector
+             v_label_selector
+         in
+         ("label_selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topology_key in
+         ("topology_key", arg) :: bnds
+       in
+       let bnds =
+         match v_namespaces with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "namespaces", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity__pod_anti_affinity = {
   preferred_during_scheduling_ignored_during_execution :
@@ -345,8 +1658,47 @@ type spec__template__spec__affinity__pod_anti_affinity = {
     spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
     list;
 }
-[@@deriving yojson_of]
-(** Inter-pod topological affinity. rules that specify that certain pods should be placed in the same topological domain (e.g. same node, same rack, same zone, same power domain, etc.) *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__affinity__pod_anti_affinity) -> ()
+
+let yojson_of_spec__template__spec__affinity__pod_anti_affinity =
+  (function
+   | {
+       preferred_during_scheduling_ignored_during_execution =
+         v_preferred_during_scheduling_ignored_during_execution;
+       required_during_scheduling_ignored_during_execution =
+         v_required_during_scheduling_ignored_during_execution;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_anti_affinity__required_during_scheduling_ignored_during_execution
+             v_required_during_scheduling_ignored_during_execution
+         in
+         ("required_during_scheduling_ignored_during_execution", arg)
+         :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_anti_affinity__preferred_during_scheduling_ignored_during_execution
+             v_preferred_during_scheduling_ignored_during_execution
+         in
+         ("preferred_during_scheduling_ignored_during_execution", arg)
+         :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity__pod_anti_affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__affinity__pod_anti_affinity
+
+[@@@deriving.end]
 
 type spec__template__spec__affinity = {
   node_affinity : spec__template__spec__affinity__node_affinity list;
@@ -354,47 +1706,250 @@ type spec__template__spec__affinity = {
   pod_anti_affinity :
     spec__template__spec__affinity__pod_anti_affinity list;
 }
-[@@deriving yojson_of]
-(** Optional pod scheduling constraints. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__affinity) -> ()
+
+let yojson_of_spec__template__spec__affinity =
+  (function
+   | {
+       node_affinity = v_node_affinity;
+       pod_affinity = v_pod_affinity;
+       pod_anti_affinity = v_pod_anti_affinity;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_anti_affinity
+             v_pod_anti_affinity
+         in
+         ("pod_anti_affinity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__pod_affinity
+             v_pod_affinity
+         in
+         ("pod_affinity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__affinity__node_affinity
+             v_node_affinity
+         in
+         ("node_affinity", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__affinity
+
+[@@@deriving.end]
 
 type spec__template__spec__container__env__value_from__config_map_key_ref = {
-  key : string prop option; [@option]  (** The key to select. *)
+  key : string prop option; [@option]
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the ConfigMap or its key must be defined. *)
 }
-[@@deriving yojson_of]
-(** Selects a key of a ConfigMap. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__env__value_from__config_map_key_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__container__env__value_from__config_map_key_ref
+    =
+  (function
+   | { key = v_key; name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__env__value_from__config_map_key_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__env__value_from__config_map_key_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__container__env__value_from__field_ref = {
   api_version : string prop option; [@option]
-      (** Version of the schema the FieldPath is written in terms of, defaults to v1. *)
   field_path : string prop option; [@option]
-      (** Path of the field to select in the specified API version *)
 }
-[@@deriving yojson_of]
-(** Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.podIP. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__env__value_from__field_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__container__env__value_from__field_ref
+    =
+  (function
+   | { api_version = v_api_version; field_path = v_field_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_field_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__env__value_from__field_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__env__value_from__field_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__container__env__value_from__resource_field_ref = {
   container_name : string prop option; [@option]
-      (** container_name *)
-  divisor : string prop option; [@option]  (** divisor *)
-  resource : string prop;  (** Resource to select *)
+  divisor : string prop option; [@option]
+  resource : string prop;
 }
-[@@deriving yojson_of]
-(** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__env__value_from__resource_field_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__container__env__value_from__resource_field_ref
+    =
+  (function
+   | {
+       container_name = v_container_name;
+       divisor = v_divisor;
+       resource = v_resource;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource in
+         ("resource", arg) :: bnds
+       in
+       let bnds =
+         match v_divisor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "divisor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "container_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__env__value_from__resource_field_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__env__value_from__resource_field_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__container__env__value_from__secret_key_ref = {
   key : string prop option; [@option]
-      (** The key of the secret to select from. Must be a valid secret key. *)
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the Secret or its key must be defined. *)
 }
-[@@deriving yojson_of]
-(** Selects a key of a secret in the pod's namespace. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__env__value_from__secret_key_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__container__env__value_from__secret_key_ref
+    =
+  (function
+   | { key = v_key; name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__env__value_from__secret_key_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__env__value_from__secret_key_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__container__env__value_from = {
   config_map_key_ref :
@@ -409,84 +1964,419 @@ type spec__template__spec__container__env__value_from = {
     spec__template__spec__container__env__value_from__secret_key_ref
     list;
 }
-[@@deriving yojson_of]
-(** Source for the environment variable's value *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__env__value_from) -> ()
+
+let yojson_of_spec__template__spec__container__env__value_from =
+  (function
+   | {
+       config_map_key_ref = v_config_map_key_ref;
+       field_ref = v_field_ref;
+       resource_field_ref = v_resource_field_ref;
+       secret_key_ref = v_secret_key_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__env__value_from__secret_key_ref
+             v_secret_key_ref
+         in
+         ("secret_key_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__env__value_from__resource_field_ref
+             v_resource_field_ref
+         in
+         ("resource_field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__env__value_from__field_ref
+             v_field_ref
+         in
+         ("field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__env__value_from__config_map_key_ref
+             v_config_map_key_ref
+         in
+         ("config_map_key_ref", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__env__value_from ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__env__value_from
+
+[@@@deriving.end]
 
 type spec__template__spec__container__env = {
   name : string prop;
-      (** Name of the environment variable. Must be a C_IDENTIFIER *)
   value : string prop option; [@option]
-      (** Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to . *)
   value_from : spec__template__spec__container__env__value_from list;
 }
-[@@deriving yojson_of]
-(** List of environment variables to set in the container. Cannot be updated. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__container__env) -> ()
+
+let yojson_of_spec__template__spec__container__env =
+  (function
+   | { name = v_name; value = v_value; value_from = v_value_from } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__env__value_from
+             v_value_from
+         in
+         ("value_from", arg) :: bnds
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__env ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__env
+
+[@@@deriving.end]
 
 type spec__template__spec__container__env_from__config_map_ref = {
   name : string prop;
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the ConfigMap must be defined *)
 }
-[@@deriving yojson_of]
-(** The ConfigMap to select from *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__env_from__config_map_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__container__env_from__config_map_ref
+    =
+  (function
+   | { name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__env_from__config_map_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__env_from__config_map_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__container__env_from__secret_ref = {
   name : string prop;
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the Secret must be defined *)
 }
-[@@deriving yojson_of]
-(** The Secret to select from *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__env_from__secret_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__container__env_from__secret_ref =
+  (function
+   | { name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__env_from__secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__env_from__secret_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__container__env_from = {
   prefix : string prop option; [@option]
-      (** An optional identifer to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER. *)
   config_map_ref :
     spec__template__spec__container__env_from__config_map_ref list;
   secret_ref :
     spec__template__spec__container__env_from__secret_ref list;
 }
-[@@deriving yojson_of]
-(** List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__container__env_from) -> ()
+
+let yojson_of_spec__template__spec__container__env_from =
+  (function
+   | {
+       prefix = v_prefix;
+       config_map_ref = v_config_map_ref;
+       secret_ref = v_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__env_from__secret_ref
+             v_secret_ref
+         in
+         ("secret_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__env_from__config_map_ref
+             v_config_map_ref
+         in
+         ("config_map_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__env_from ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__env_from
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__post_start__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__lifecycle__post_start__exec) ->
+  ()
+
+let yojson_of_spec__template__spec__container__lifecycle__post_start__exec
+    =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__post_start__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__post_start__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__post_start__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__lifecycle__post_start__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__container__lifecycle__post_start__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__post_start__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__post_start__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__post_start__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__container__lifecycle__post_start__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__lifecycle__post_start__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__container__lifecycle__post_start__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__post_start__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__post_start__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__post_start__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__post_start__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__lifecycle__post_start__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__container__lifecycle__post_start__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__post_start__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__post_start__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__post_start = {
   exec :
@@ -498,45 +2388,241 @@ type spec__template__spec__container__lifecycle__post_start = {
     spec__template__spec__container__lifecycle__post_start__tcp_socket
     list;
 }
-[@@deriving yojson_of]
-(** post_start is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__lifecycle__post_start) ->
+  ()
+
+let yojson_of_spec__template__spec__container__lifecycle__post_start
+    =
+  (function
+   | {
+       exec = v_exec;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__post_start__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__post_start__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__post_start__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__post_start ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__post_start
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__pre_stop__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__lifecycle__pre_stop__exec) ->
+  ()
+
+let yojson_of_spec__template__spec__container__lifecycle__pre_stop__exec
+    =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__pre_stop__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__pre_stop__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__pre_stop__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__lifecycle__pre_stop__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__pre_stop__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__pre_stop__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__lifecycle__pre_stop__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__pre_stop__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__pre_stop__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__lifecycle__pre_stop__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__container__lifecycle__pre_stop__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__pre_stop__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__pre_stop__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle__pre_stop = {
   exec :
@@ -548,8 +2634,53 @@ type spec__template__spec__container__lifecycle__pre_stop = {
     spec__template__spec__container__lifecycle__pre_stop__tcp_socket
     list;
 }
-[@@deriving yojson_of]
-(** pre_stop is called immediately before a container is terminated. The container is terminated after the handler completes. The reason for termination is passed to the handler. Regardless of the outcome of the handler, the container is eventually terminated. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__lifecycle__pre_stop) -> ()
+
+let yojson_of_spec__template__spec__container__lifecycle__pre_stop =
+  (function
+   | {
+       exec = v_exec;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__pre_stop__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__pre_stop__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__pre_stop__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle__pre_stop ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__lifecycle__pre_stop
+
+[@@@deriving.end]
 
 type spec__template__spec__container__lifecycle = {
   post_start :
@@ -557,66 +2688,267 @@ type spec__template__spec__container__lifecycle = {
   pre_stop :
     spec__template__spec__container__lifecycle__pre_stop list;
 }
-[@@deriving yojson_of]
-(** Actions that the management system should take in response to container lifecycle events *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__container__lifecycle) -> ()
+
+let yojson_of_spec__template__spec__container__lifecycle =
+  (function
+   | { post_start = v_post_start; pre_stop = v_pre_stop } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__pre_stop
+             v_pre_stop
+         in
+         ("pre_stop", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle__post_start
+             v_post_start
+         in
+         ("post_start", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__lifecycle ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__lifecycle
+
+[@@@deriving.end]
 
 type spec__template__spec__container__liveness_probe__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__liveness_probe__exec) ->
+  ()
+
+let yojson_of_spec__template__spec__container__liveness_probe__exec =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__liveness_probe__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__liveness_probe__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__container__liveness_probe__grpc = {
   port : float prop;
-      (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
-      (** Name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md). If this is not specified, the default behavior is defined by gRPC. *)
 }
-[@@deriving yojson_of]
-(** GRPC specifies an action involving a GRPC port. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__liveness_probe__grpc) ->
+  ()
+
+let yojson_of_spec__template__spec__container__liveness_probe__grpc =
+  (function
+   | { port = v_port; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__liveness_probe__grpc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__liveness_probe__grpc
+
+[@@@deriving.end]
 
 type spec__template__spec__container__liveness_probe__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__liveness_probe__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__container__liveness_probe__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__liveness_probe__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__liveness_probe__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__container__liveness_probe__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__container__liveness_probe__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__liveness_probe__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__container__liveness_probe__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__liveness_probe__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__liveness_probe__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__liveness_probe__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__container__liveness_probe__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__liveness_probe__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__container__liveness_probe__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__liveness_probe__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__liveness_probe__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__container__liveness_probe = {
   failure_threshold : float prop option; [@option]
-      (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
-      (** Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   period_seconds : float prop option; [@option]
-      (** How often (in seconds) to perform the probe *)
   success_threshold : float prop option; [@option]
-      (** Minimum consecutive successes for the probe to be considered successful after having failed. *)
   timeout_seconds : float prop option; [@option]
-      (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   exec : spec__template__spec__container__liveness_probe__exec list;
   grpc : spec__template__spec__container__liveness_probe__grpc list;
   http_get :
@@ -624,81 +2956,403 @@ type spec__template__spec__container__liveness_probe = {
   tcp_socket :
     spec__template__spec__container__liveness_probe__tcp_socket list;
 }
-[@@deriving yojson_of]
-(** Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__liveness_probe) -> ()
+
+let yojson_of_spec__template__spec__container__liveness_probe =
+  (function
+   | {
+       failure_threshold = v_failure_threshold;
+       initial_delay_seconds = v_initial_delay_seconds;
+       period_seconds = v_period_seconds;
+       success_threshold = v_success_threshold;
+       timeout_seconds = v_timeout_seconds;
+       exec = v_exec;
+       grpc = v_grpc;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__liveness_probe__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__liveness_probe__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__liveness_probe__grpc
+             v_grpc
+         in
+         ("grpc", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__liveness_probe__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_success_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "success_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_delay_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_delay_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__liveness_probe ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__liveness_probe
+
+[@@@deriving.end]
 
 type spec__template__spec__container__port = {
   container_port : float prop;
-      (** Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536. *)
   host_ip : string prop option; [@option]
-      (** What host IP to bind the external port to. *)
   host_port : float prop option; [@option]
-      (** Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this. *)
   name : string prop option; [@option]
-      (** If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services *)
   protocol : string prop option; [@option]
-      (** Protocol for port. Must be UDP or TCP. Defaults to TCP. *)
 }
-[@@deriving yojson_of]
-(** List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default 0.0.0.0 address inside a container will be accessible from the network. Cannot be updated. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__container__port) -> ()
+
+let yojson_of_spec__template__spec__container__port =
+  (function
+   | {
+       container_port = v_container_port;
+       host_ip = v_host_ip;
+       host_port = v_host_port;
+       name = v_name;
+       protocol = v_protocol;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "host_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_container_port in
+         ("container_port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__port ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__port
+
+[@@@deriving.end]
 
 type spec__template__spec__container__readiness_probe__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__readiness_probe__exec) ->
+  ()
+
+let yojson_of_spec__template__spec__container__readiness_probe__exec
+    =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__readiness_probe__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__readiness_probe__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__container__readiness_probe__grpc = {
   port : float prop;
-      (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
-      (** Name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md). If this is not specified, the default behavior is defined by gRPC. *)
 }
-[@@deriving yojson_of]
-(** GRPC specifies an action involving a GRPC port. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__readiness_probe__grpc) ->
+  ()
+
+let yojson_of_spec__template__spec__container__readiness_probe__grpc
+    =
+  (function
+   | { port = v_port; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__readiness_probe__grpc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__readiness_probe__grpc
+
+[@@@deriving.end]
 
 type spec__template__spec__container__readiness_probe__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__readiness_probe__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__container__readiness_probe__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__readiness_probe__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__readiness_probe__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__container__readiness_probe__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__container__readiness_probe__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__readiness_probe__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__container__readiness_probe__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__readiness_probe__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__readiness_probe__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__readiness_probe__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__container__readiness_probe__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__readiness_probe__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__container__readiness_probe__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__readiness_probe__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__readiness_probe__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__container__readiness_probe = {
   failure_threshold : float prop option; [@option]
-      (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
-      (** Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   period_seconds : float prop option; [@option]
-      (** How often (in seconds) to perform the probe *)
   success_threshold : float prop option; [@option]
-      (** Minimum consecutive successes for the probe to be considered successful after having failed. *)
   timeout_seconds : float prop option; [@option]
-      (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   exec : spec__template__spec__container__readiness_probe__exec list;
   grpc : spec__template__spec__container__readiness_probe__grpc list;
   http_get :
@@ -706,61 +3360,324 @@ type spec__template__spec__container__readiness_probe = {
   tcp_socket :
     spec__template__spec__container__readiness_probe__tcp_socket list;
 }
-[@@deriving yojson_of]
-(** Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__readiness_probe) -> ()
+
+let yojson_of_spec__template__spec__container__readiness_probe =
+  (function
+   | {
+       failure_threshold = v_failure_threshold;
+       initial_delay_seconds = v_initial_delay_seconds;
+       period_seconds = v_period_seconds;
+       success_threshold = v_success_threshold;
+       timeout_seconds = v_timeout_seconds;
+       exec = v_exec;
+       grpc = v_grpc;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__readiness_probe__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__readiness_probe__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__readiness_probe__grpc
+             v_grpc
+         in
+         ("grpc", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__readiness_probe__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_success_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "success_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_delay_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_delay_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__readiness_probe ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__readiness_probe
+
+[@@@deriving.end]
 
 type spec__template__spec__container__resources = {
   limits : (string * string prop) list option; [@option]
-      (** Describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ *)
   requests : (string * string prop) list option; [@option]
-      (** Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ *)
 }
-[@@deriving yojson_of]
-(** Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__container__resources) -> ()
+
+let yojson_of_spec__template__spec__container__resources =
+  (function
+   | { limits = v_limits; requests = v_requests } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_requests with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "requests", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_limits with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "limits", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__resources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__resources
+
+[@@@deriving.end]
 
 type spec__template__spec__container__security_context__capabilities = {
-  add : string prop list option; [@option]  (** Added capabilities *)
+  add : string prop list option; [@option]
   drop : string prop list option; [@option]
-      (** Removed capabilities *)
 }
-[@@deriving yojson_of]
-(** The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__security_context__capabilities) ->
+  ()
+
+let yojson_of_spec__template__spec__container__security_context__capabilities
+    =
+  (function
+   | { add = v_add; drop = v_drop } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_drop with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "drop", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_add with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "add", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__security_context__capabilities ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__security_context__capabilities
+
+[@@@deriving.end]
 
 type spec__template__spec__container__security_context__se_linux_options = {
   level : string prop option; [@option]
-      (** Level is SELinux level label that applies to the container. *)
   role : string prop option; [@option]
-      (** Role is a SELinux role label that applies to the container. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Type is a SELinux type label that applies to the container. *)
   user : string prop option; [@option]
-      (** User is a SELinux user label that applies to the container. *)
 }
-[@@deriving yojson_of]
-(** The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__security_context__se_linux_options) ->
+  ()
+
+let yojson_of_spec__template__spec__container__security_context__se_linux_options
+    =
+  (function
+   | {
+       level = v_level;
+       role = v_role;
+       type_ = v_type_;
+       user = v_user;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "level", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__security_context__se_linux_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__security_context__se_linux_options
+
+[@@@deriving.end]
 
 type spec__template__spec__container__security_context__seccomp_profile = {
   localhost_profile : string prop option; [@option]
-      (** Localhost Profile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Type indicates which kind of seccomp profile will be applied. Valid options are: Localhost, RuntimeDefault, Unconfined. *)
 }
-[@@deriving yojson_of]
-(** The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__security_context__seccomp_profile) ->
+  ()
+
+let yojson_of_spec__template__spec__container__security_context__seccomp_profile
+    =
+  (function
+   | { localhost_profile = v_localhost_profile; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_localhost_profile with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "localhost_profile", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__security_context__seccomp_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__security_context__seccomp_profile
+
+[@@@deriving.end]
 
 type spec__template__spec__container__security_context = {
   allow_privilege_escalation : bool prop option; [@option]
-      (** AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN *)
   privileged : bool prop option; [@option]
-      (** Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. *)
   read_only_root_filesystem : bool prop option; [@option]
-      (** Whether this container has a read-only root filesystem. Default is false. *)
   run_as_group : string prop option; [@option]
-      (** The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
   run_as_non_root : bool prop option; [@option]
-      (** Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
   run_as_user : string prop option; [@option]
-      (** The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
   capabilities :
     spec__template__spec__container__security_context__capabilities
     list;
@@ -771,66 +3688,331 @@ type spec__template__spec__container__security_context = {
     spec__template__spec__container__security_context__seccomp_profile
     list;
 }
-[@@deriving yojson_of]
-(** Security options the pod should run with. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__security_context) -> ()
+
+let yojson_of_spec__template__spec__container__security_context =
+  (function
+   | {
+       allow_privilege_escalation = v_allow_privilege_escalation;
+       privileged = v_privileged;
+       read_only_root_filesystem = v_read_only_root_filesystem;
+       run_as_group = v_run_as_group;
+       run_as_non_root = v_run_as_non_root;
+       run_as_user = v_run_as_user;
+       capabilities = v_capabilities;
+       se_linux_options = v_se_linux_options;
+       seccomp_profile = v_seccomp_profile;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__security_context__seccomp_profile
+             v_seccomp_profile
+         in
+         ("seccomp_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__security_context__se_linux_options
+             v_se_linux_options
+         in
+         ("se_linux_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__security_context__capabilities
+             v_capabilities
+         in
+         ("capabilities", arg) :: bnds
+       in
+       let bnds =
+         match v_run_as_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "run_as_user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_run_as_non_root with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "run_as_non_root", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_run_as_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "run_as_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only_root_filesystem with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only_root_filesystem", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_privileged with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "privileged", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_privilege_escalation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_privilege_escalation", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__security_context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__security_context
+
+[@@@deriving.end]
 
 type spec__template__spec__container__startup_probe__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__startup_probe__exec) -> ()
+
+let yojson_of_spec__template__spec__container__startup_probe__exec =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__startup_probe__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__startup_probe__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__container__startup_probe__grpc = {
   port : float prop;
-      (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
-      (** Name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md). If this is not specified, the default behavior is defined by gRPC. *)
 }
-[@@deriving yojson_of]
-(** GRPC specifies an action involving a GRPC port. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__startup_probe__grpc) -> ()
+
+let yojson_of_spec__template__spec__container__startup_probe__grpc =
+  (function
+   | { port = v_port; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__startup_probe__grpc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__startup_probe__grpc
+
+[@@@deriving.end]
 
 type spec__template__spec__container__startup_probe__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__container__startup_probe__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__container__startup_probe__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__startup_probe__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__startup_probe__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__container__startup_probe__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__container__startup_probe__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__startup_probe__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__container__startup_probe__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__startup_probe__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__startup_probe__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__startup_probe__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__container__startup_probe__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__startup_probe__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__container__startup_probe__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__startup_probe__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__container__startup_probe__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__container__startup_probe = {
   failure_threshold : float prop option; [@option]
-      (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
-      (** Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   period_seconds : float prop option; [@option]
-      (** How often (in seconds) to perform the probe *)
   success_threshold : float prop option; [@option]
-      (** Minimum consecutive successes for the probe to be considered successful after having failed. *)
   timeout_seconds : float prop option; [@option]
-      (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   exec : spec__template__spec__container__startup_probe__exec list;
   grpc : spec__template__spec__container__startup_probe__grpc list;
   http_get :
@@ -838,46 +4020,182 @@ type spec__template__spec__container__startup_probe = {
   tcp_socket :
     spec__template__spec__container__startup_probe__tcp_socket list;
 }
-[@@deriving yojson_of]
-(** StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is an alpha feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__container__startup_probe) -> ()
+
+let yojson_of_spec__template__spec__container__startup_probe =
+  (function
+   | {
+       failure_threshold = v_failure_threshold;
+       initial_delay_seconds = v_initial_delay_seconds;
+       period_seconds = v_period_seconds;
+       success_threshold = v_success_threshold;
+       timeout_seconds = v_timeout_seconds;
+       exec = v_exec;
+       grpc = v_grpc;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__startup_probe__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__startup_probe__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__startup_probe__grpc
+             v_grpc
+         in
+         ("grpc", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__startup_probe__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_success_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "success_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_delay_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_delay_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__startup_probe ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__startup_probe
+
+[@@@deriving.end]
 
 type spec__template__spec__container__volume_mount = {
   mount_path : string prop;
-      (** Path within the container at which the volume should be mounted. Must not contain ':'. *)
   mount_propagation : string prop option; [@option]
-      (** Mount propagation mode. mount_propagation determines how mounts are propagated from the host to container and the other way around. Valid values are None (default), HostToContainer and Bidirectional. *)
-  name : string prop;  (** This must match the Name of a Volume. *)
+  name : string prop;
   read_only : bool prop option; [@option]
-      (** Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false. *)
   sub_path : string prop option; [@option]
-      (** Path within the volume from which the container's volume should be mounted. Defaults to  (volume's root). *)
 }
-[@@deriving yojson_of]
-(** Pod volumes to mount into the container's filesystem. Cannot be updated. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__container__volume_mount) -> ()
+
+let yojson_of_spec__template__spec__container__volume_mount =
+  (function
+   | {
+       mount_path = v_mount_path;
+       mount_propagation = v_mount_propagation;
+       name = v_name;
+       read_only = v_read_only;
+       sub_path = v_sub_path;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sub_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sub_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mount_propagation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mount_propagation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mount_path in
+         ("mount_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container__volume_mount ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container__volume_mount
+
+[@@@deriving.end]
 
 type spec__template__spec__container = {
   args : string prop list option; [@option]
-      (** Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell *)
   command : string prop list option; [@option]
-      (** Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell *)
   image : string prop option; [@option]
-      (** Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images/ *)
   image_pull_policy : string prop option; [@option]
-      (** Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images/#updating-images *)
   name : string prop;
-      (** Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated. *)
   stdin : bool prop option; [@option]
-      (** Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF.  *)
   stdin_once : bool prop option; [@option]
-      (** Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. *)
   termination_message_path : string prop option; [@option]
-      (** Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Defaults to /dev/termination-log. Cannot be updated. *)
   termination_message_policy : string prop option; [@option]
-      (** Optional: Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated. *)
   tty : bool prop option; [@option]
-      (** Whether this container should allocate a TTY for itself *)
   working_dir : string prop option; [@option]
-      (** Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated. *)
   env : spec__template__spec__container__env list;
   env_from : spec__template__spec__container__env_from list;
   lifecycle : spec__template__spec__container__lifecycle list;
@@ -893,79 +4211,558 @@ type spec__template__spec__container = {
     spec__template__spec__container__startup_probe list;
   volume_mount : spec__template__spec__container__volume_mount list;
 }
-[@@deriving yojson_of]
-(** List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/ *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__container) -> ()
+
+let yojson_of_spec__template__spec__container =
+  (function
+   | {
+       args = v_args;
+       command = v_command;
+       image = v_image;
+       image_pull_policy = v_image_pull_policy;
+       name = v_name;
+       stdin = v_stdin;
+       stdin_once = v_stdin_once;
+       termination_message_path = v_termination_message_path;
+       termination_message_policy = v_termination_message_policy;
+       tty = v_tty;
+       working_dir = v_working_dir;
+       env = v_env;
+       env_from = v_env_from;
+       lifecycle = v_lifecycle;
+       liveness_probe = v_liveness_probe;
+       port = v_port;
+       readiness_probe = v_readiness_probe;
+       resources = v_resources;
+       security_context = v_security_context;
+       startup_probe = v_startup_probe;
+       volume_mount = v_volume_mount;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__volume_mount
+             v_volume_mount
+         in
+         ("volume_mount", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__startup_probe
+             v_startup_probe
+         in
+         ("startup_probe", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__security_context
+             v_security_context
+         in
+         ("security_context", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__resources
+             v_resources
+         in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__readiness_probe
+             v_readiness_probe
+         in
+         ("readiness_probe", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__port v_port
+         in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__liveness_probe
+             v_liveness_probe
+         in
+         ("liveness_probe", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__lifecycle
+             v_lifecycle
+         in
+         ("lifecycle", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__env_from
+             v_env_from
+         in
+         ("env_from", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__container__env v_env
+         in
+         ("env", arg) :: bnds
+       in
+       let bnds =
+         match v_working_dir with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "working_dir", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tty with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "tty", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_termination_message_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "termination_message_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_termination_message_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "termination_message_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_stdin_once with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "stdin_once", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_stdin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "stdin", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_image_pull_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_pull_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__container ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__container
+
+[@@@deriving.end]
 
 type spec__template__spec__dns_config__option = {
-  name : string prop;  (** Name of the option. *)
+  name : string prop;
   value : string prop option; [@option]
-      (** Value of the option. Optional: Defaults to empty. *)
 }
-[@@deriving yojson_of]
-(** A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__dns_config__option) -> ()
+
+let yojson_of_spec__template__spec__dns_config__option =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__dns_config__option ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__dns_config__option
+
+[@@@deriving.end]
 
 type spec__template__spec__dns_config = {
   nameservers : string prop list option; [@option]
-      (** A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed. *)
   searches : string prop list option; [@option]
-      (** A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed. *)
   option_ : spec__template__spec__dns_config__option list;
 }
-[@@deriving yojson_of]
-(** Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy. Optional: Defaults to empty *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__dns_config) -> ()
+
+let yojson_of_spec__template__spec__dns_config =
+  (function
+   | {
+       nameservers = v_nameservers;
+       searches = v_searches;
+       option_ = v_option_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__dns_config__option
+             v_option_
+         in
+         ("option_", arg) :: bnds
+       in
+       let bnds =
+         match v_searches with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "searches", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nameservers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "nameservers", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__dns_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__dns_config
+
+[@@@deriving.end]
 
 type spec__template__spec__host_aliases = {
-  hostnames : string prop list;  (** Hostnames for the IP address. *)
-  ip : string prop;  (** IP address of the host file entry. *)
+  hostnames : string prop list;
+  ip : string prop;
 }
-[@@deriving yojson_of]
-(** List of hosts and IPs that will be injected into the pod's hosts file if specified. Optional: Defaults to empty. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__host_aliases) -> ()
+
+let yojson_of_spec__template__spec__host_aliases =
+  (function
+   | { hostnames = v_hostnames; ip = v_ip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip in
+         ("ip", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_hostnames
+         in
+         ("hostnames", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__host_aliases ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__host_aliases
+
+[@@@deriving.end]
 
 type spec__template__spec__image_pull_secrets = {
   name : string prop;
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__image_pull_secrets) -> ()
+
+let yojson_of_spec__template__spec__image_pull_secrets =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__image_pull_secrets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__image_pull_secrets
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__env__value_from__config_map_key_ref = {
-  key : string prop option; [@option]  (** The key to select. *)
+  key : string prop option; [@option]
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the ConfigMap or its key must be defined. *)
 }
-[@@deriving yojson_of]
-(** Selects a key of a ConfigMap. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__env__value_from__config_map_key_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__env__value_from__config_map_key_ref
+    =
+  (function
+   | { key = v_key; name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__env__value_from__config_map_key_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__env__value_from__config_map_key_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__env__value_from__field_ref = {
   api_version : string prop option; [@option]
-      (** Version of the schema the FieldPath is written in terms of, defaults to v1. *)
   field_path : string prop option; [@option]
-      (** Path of the field to select in the specified API version *)
 }
-[@@deriving yojson_of]
-(** Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.podIP. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__env__value_from__field_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__env__value_from__field_ref
+    =
+  (function
+   | { api_version = v_api_version; field_path = v_field_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_field_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__env__value_from__field_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__env__value_from__field_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__env__value_from__resource_field_ref = {
   container_name : string prop option; [@option]
-      (** container_name *)
-  divisor : string prop option; [@option]  (** divisor *)
-  resource : string prop;  (** Resource to select *)
+  divisor : string prop option; [@option]
+  resource : string prop;
 }
-[@@deriving yojson_of]
-(** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__env__value_from__resource_field_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__env__value_from__resource_field_ref
+    =
+  (function
+   | {
+       container_name = v_container_name;
+       divisor = v_divisor;
+       resource = v_resource;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource in
+         ("resource", arg) :: bnds
+       in
+       let bnds =
+         match v_divisor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "divisor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "container_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__env__value_from__resource_field_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__env__value_from__resource_field_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__env__value_from__secret_key_ref = {
   key : string prop option; [@option]
-      (** The key of the secret to select from. Must be a valid secret key. *)
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the Secret or its key must be defined. *)
 }
-[@@deriving yojson_of]
-(** Selects a key of a secret in the pod's namespace. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__env__value_from__secret_key_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__env__value_from__secret_key_ref
+    =
+  (function
+   | { key = v_key; name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__env__value_from__secret_key_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__env__value_from__secret_key_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__env__value_from = {
   config_map_key_ref :
@@ -981,86 +4778,426 @@ type spec__template__spec__init_container__env__value_from = {
     spec__template__spec__init_container__env__value_from__secret_key_ref
     list;
 }
-[@@deriving yojson_of]
-(** Source for the environment variable's value *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__env__value_from) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__env__value_from =
+  (function
+   | {
+       config_map_key_ref = v_config_map_key_ref;
+       field_ref = v_field_ref;
+       resource_field_ref = v_resource_field_ref;
+       secret_key_ref = v_secret_key_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__env__value_from__secret_key_ref
+             v_secret_key_ref
+         in
+         ("secret_key_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__env__value_from__resource_field_ref
+             v_resource_field_ref
+         in
+         ("resource_field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__env__value_from__field_ref
+             v_field_ref
+         in
+         ("field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__env__value_from__config_map_key_ref
+             v_config_map_key_ref
+         in
+         ("config_map_key_ref", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__env__value_from ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__env__value_from
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__env = {
   name : string prop;
-      (** Name of the environment variable. Must be a C_IDENTIFIER *)
   value : string prop option; [@option]
-      (** Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to . *)
   value_from :
     spec__template__spec__init_container__env__value_from list;
 }
-[@@deriving yojson_of]
-(** List of environment variables to set in the container. Cannot be updated. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__init_container__env) -> ()
+
+let yojson_of_spec__template__spec__init_container__env =
+  (function
+   | { name = v_name; value = v_value; value_from = v_value_from } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__env__value_from
+             v_value_from
+         in
+         ("value_from", arg) :: bnds
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__env ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__init_container__env
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__env_from__config_map_ref = {
   name : string prop;
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the ConfigMap must be defined *)
 }
-[@@deriving yojson_of]
-(** The ConfigMap to select from *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__env_from__config_map_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__env_from__config_map_ref
+    =
+  (function
+   | { name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__env_from__config_map_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__env_from__config_map_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__env_from__secret_ref = {
   name : string prop;
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the Secret must be defined *)
 }
-[@@deriving yojson_of]
-(** The Secret to select from *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__env_from__secret_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__env_from__secret_ref
+    =
+  (function
+   | { name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__env_from__secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__env_from__secret_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__env_from = {
   prefix : string prop option; [@option]
-      (** An optional identifer to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER. *)
   config_map_ref :
     spec__template__spec__init_container__env_from__config_map_ref
     list;
   secret_ref :
     spec__template__spec__init_container__env_from__secret_ref list;
 }
-[@@deriving yojson_of]
-(** List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__env_from) -> ()
+
+let yojson_of_spec__template__spec__init_container__env_from =
+  (function
+   | {
+       prefix = v_prefix;
+       config_map_ref = v_config_map_ref;
+       secret_ref = v_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__env_from__secret_ref
+             v_secret_ref
+         in
+         ("secret_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__env_from__config_map_ref
+             v_config_map_ref
+         in
+         ("config_map_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__env_from ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__init_container__env_from
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__post_start__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__lifecycle__post_start__exec) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__post_start__exec
+    =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__post_start__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__post_start__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__post_start__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__lifecycle__post_start__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__post_start__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__post_start__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__lifecycle__post_start__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__post_start__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__post_start__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__lifecycle__post_start__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__post_start__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__post_start__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__post_start__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__post_start = {
   exec :
@@ -1073,45 +5210,243 @@ type spec__template__spec__init_container__lifecycle__post_start = {
     spec__template__spec__init_container__lifecycle__post_start__tcp_socket
     list;
 }
-[@@deriving yojson_of]
-(** post_start is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__lifecycle__post_start) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__post_start
+    =
+  (function
+   | {
+       exec = v_exec;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__post_start__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__post_start__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__post_start__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__post_start ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__post_start
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__pre_stop__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__lifecycle__pre_stop__exec) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__exec
+    =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__pre_stop__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__pre_stop__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__lifecycle__pre_stop__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__pre_stop__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle__pre_stop = {
   exec :
@@ -1124,8 +5459,55 @@ type spec__template__spec__init_container__lifecycle__pre_stop = {
     spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
     list;
 }
-[@@deriving yojson_of]
-(** pre_stop is called immediately before a container is terminated. The container is terminated after the handler completes. The reason for termination is passed to the handler. Regardless of the outcome of the handler, the container is eventually terminated. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__lifecycle__pre_stop) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle__pre_stop
+    =
+  (function
+   | {
+       exec = v_exec;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle__pre_stop ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__lifecycle__pre_stop
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__lifecycle = {
   post_start :
@@ -1133,66 +5515,271 @@ type spec__template__spec__init_container__lifecycle = {
   pre_stop :
     spec__template__spec__init_container__lifecycle__pre_stop list;
 }
-[@@deriving yojson_of]
-(** Actions that the management system should take in response to container lifecycle events *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__lifecycle) -> ()
+
+let yojson_of_spec__template__spec__init_container__lifecycle =
+  (function
+   | { post_start = v_post_start; pre_stop = v_pre_stop } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__pre_stop
+             v_pre_stop
+         in
+         ("pre_stop", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle__post_start
+             v_post_start
+         in
+         ("post_start", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__lifecycle ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__init_container__lifecycle
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__liveness_probe__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__liveness_probe__exec) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__liveness_probe__exec
+    =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__liveness_probe__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__liveness_probe__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__liveness_probe__grpc = {
   port : float prop;
-      (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
-      (** Name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md). If this is not specified, the default behavior is defined by gRPC. *)
 }
-[@@deriving yojson_of]
-(** GRPC specifies an action involving a GRPC port. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__liveness_probe__grpc) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__liveness_probe__grpc
+    =
+  (function
+   | { port = v_port; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__liveness_probe__grpc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__liveness_probe__grpc
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__liveness_probe__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__liveness_probe__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__liveness_probe__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__liveness_probe__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__liveness_probe__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__liveness_probe__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__init_container__liveness_probe__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__liveness_probe__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__liveness_probe__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__liveness_probe__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__liveness_probe__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__liveness_probe__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__liveness_probe__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__liveness_probe__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__liveness_probe__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__liveness_probe__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__liveness_probe__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__liveness_probe = {
   failure_threshold : float prop option; [@option]
-      (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
-      (** Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   period_seconds : float prop option; [@option]
-      (** How often (in seconds) to perform the probe *)
   success_threshold : float prop option; [@option]
-      (** Minimum consecutive successes for the probe to be considered successful after having failed. *)
   timeout_seconds : float prop option; [@option]
-      (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   exec :
     spec__template__spec__init_container__liveness_probe__exec list;
   grpc :
@@ -1204,81 +5791,407 @@ type spec__template__spec__init_container__liveness_probe = {
     spec__template__spec__init_container__liveness_probe__tcp_socket
     list;
 }
-[@@deriving yojson_of]
-(** Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__liveness_probe) -> ()
+
+let yojson_of_spec__template__spec__init_container__liveness_probe =
+  (function
+   | {
+       failure_threshold = v_failure_threshold;
+       initial_delay_seconds = v_initial_delay_seconds;
+       period_seconds = v_period_seconds;
+       success_threshold = v_success_threshold;
+       timeout_seconds = v_timeout_seconds;
+       exec = v_exec;
+       grpc = v_grpc;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__liveness_probe__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__liveness_probe__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__liveness_probe__grpc
+             v_grpc
+         in
+         ("grpc", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__liveness_probe__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_success_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "success_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_delay_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_delay_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__liveness_probe ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__liveness_probe
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__port = {
   container_port : float prop;
-      (** Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536. *)
   host_ip : string prop option; [@option]
-      (** What host IP to bind the external port to. *)
   host_port : float prop option; [@option]
-      (** Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this. *)
   name : string prop option; [@option]
-      (** If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services *)
   protocol : string prop option; [@option]
-      (** Protocol for port. Must be UDP or TCP. Defaults to TCP. *)
 }
-[@@deriving yojson_of]
-(** List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default 0.0.0.0 address inside a container will be accessible from the network. Cannot be updated. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__init_container__port) -> ()
+
+let yojson_of_spec__template__spec__init_container__port =
+  (function
+   | {
+       container_port = v_container_port;
+       host_ip = v_host_ip;
+       host_port = v_host_port;
+       name = v_name;
+       protocol = v_protocol;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "host_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_container_port in
+         ("container_port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__port ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__init_container__port
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__readiness_probe__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__readiness_probe__exec) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__readiness_probe__exec
+    =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__readiness_probe__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__readiness_probe__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__readiness_probe__grpc = {
   port : float prop;
-      (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
-      (** Name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md). If this is not specified, the default behavior is defined by gRPC. *)
 }
-[@@deriving yojson_of]
-(** GRPC specifies an action involving a GRPC port. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__readiness_probe__grpc) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__readiness_probe__grpc
+    =
+  (function
+   | { port = v_port; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__readiness_probe__grpc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__readiness_probe__grpc
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__readiness_probe__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__readiness_probe__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__readiness_probe__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__readiness_probe__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__readiness_probe__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__readiness_probe__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__init_container__readiness_probe__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__readiness_probe__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__readiness_probe__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__readiness_probe__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__readiness_probe__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__readiness_probe__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__readiness_probe__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__readiness_probe__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__readiness_probe__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__readiness_probe__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__readiness_probe__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__readiness_probe = {
   failure_threshold : float prop option; [@option]
-      (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
-      (** Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   period_seconds : float prop option; [@option]
-      (** How often (in seconds) to perform the probe *)
   success_threshold : float prop option; [@option]
-      (** Minimum consecutive successes for the probe to be considered successful after having failed. *)
   timeout_seconds : float prop option; [@option]
-      (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   exec :
     spec__template__spec__init_container__readiness_probe__exec list;
   grpc :
@@ -1290,61 +6203,327 @@ type spec__template__spec__init_container__readiness_probe = {
     spec__template__spec__init_container__readiness_probe__tcp_socket
     list;
 }
-[@@deriving yojson_of]
-(** Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__readiness_probe) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__readiness_probe =
+  (function
+   | {
+       failure_threshold = v_failure_threshold;
+       initial_delay_seconds = v_initial_delay_seconds;
+       period_seconds = v_period_seconds;
+       success_threshold = v_success_threshold;
+       timeout_seconds = v_timeout_seconds;
+       exec = v_exec;
+       grpc = v_grpc;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__readiness_probe__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__readiness_probe__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__readiness_probe__grpc
+             v_grpc
+         in
+         ("grpc", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__readiness_probe__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_success_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "success_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_delay_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_delay_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__readiness_probe ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__readiness_probe
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__resources = {
   limits : (string * string prop) list option; [@option]
-      (** Describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ *)
   requests : (string * string prop) list option; [@option]
-      (** Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/ *)
 }
-[@@deriving yojson_of]
-(** Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__resources) -> ()
+
+let yojson_of_spec__template__spec__init_container__resources =
+  (function
+   | { limits = v_limits; requests = v_requests } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_requests with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "requests", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_limits with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "limits", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__resources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__init_container__resources
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__security_context__capabilities = {
-  add : string prop list option; [@option]  (** Added capabilities *)
+  add : string prop list option; [@option]
   drop : string prop list option; [@option]
-      (** Removed capabilities *)
 }
-[@@deriving yojson_of]
-(** The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__security_context__capabilities) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__security_context__capabilities
+    =
+  (function
+   | { add = v_add; drop = v_drop } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_drop with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "drop", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_add with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "add", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__security_context__capabilities ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__security_context__capabilities
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__security_context__se_linux_options = {
   level : string prop option; [@option]
-      (** Level is SELinux level label that applies to the container. *)
   role : string prop option; [@option]
-      (** Role is a SELinux role label that applies to the container. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Type is a SELinux type label that applies to the container. *)
   user : string prop option; [@option]
-      (** User is a SELinux user label that applies to the container. *)
 }
-[@@deriving yojson_of]
-(** The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__security_context__se_linux_options) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__security_context__se_linux_options
+    =
+  (function
+   | {
+       level = v_level;
+       role = v_role;
+       type_ = v_type_;
+       user = v_user;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "level", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__security_context__se_linux_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__security_context__se_linux_options
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__security_context__seccomp_profile = {
   localhost_profile : string prop option; [@option]
-      (** Localhost Profile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Type indicates which kind of seccomp profile will be applied. Valid options are: Localhost, RuntimeDefault, Unconfined. *)
 }
-[@@deriving yojson_of]
-(** The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__security_context__seccomp_profile) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__security_context__seccomp_profile
+    =
+  (function
+   | { localhost_profile = v_localhost_profile; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_localhost_profile with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "localhost_profile", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__security_context__seccomp_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__security_context__seccomp_profile
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__security_context = {
   allow_privilege_escalation : bool prop option; [@option]
-      (** AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN *)
   privileged : bool prop option; [@option]
-      (** Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. *)
   read_only_root_filesystem : bool prop option; [@option]
-      (** Whether this container has a read-only root filesystem. Default is false. *)
   run_as_group : string prop option; [@option]
-      (** The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
   run_as_non_root : bool prop option; [@option]
-      (** Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
   run_as_user : string prop option; [@option]
-      (** The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
   capabilities :
     spec__template__spec__init_container__security_context__capabilities
     list;
@@ -1355,66 +6534,340 @@ type spec__template__spec__init_container__security_context = {
     spec__template__spec__init_container__security_context__seccomp_profile
     list;
 }
-[@@deriving yojson_of]
-(** Security options the pod should run with. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__security_context) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__security_context
+    =
+  (function
+   | {
+       allow_privilege_escalation = v_allow_privilege_escalation;
+       privileged = v_privileged;
+       read_only_root_filesystem = v_read_only_root_filesystem;
+       run_as_group = v_run_as_group;
+       run_as_non_root = v_run_as_non_root;
+       run_as_user = v_run_as_user;
+       capabilities = v_capabilities;
+       se_linux_options = v_se_linux_options;
+       seccomp_profile = v_seccomp_profile;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__security_context__seccomp_profile
+             v_seccomp_profile
+         in
+         ("seccomp_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__security_context__se_linux_options
+             v_se_linux_options
+         in
+         ("se_linux_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__security_context__capabilities
+             v_capabilities
+         in
+         ("capabilities", arg) :: bnds
+       in
+       let bnds =
+         match v_run_as_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "run_as_user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_run_as_non_root with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "run_as_non_root", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_run_as_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "run_as_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only_root_filesystem with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only_root_filesystem", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_privileged with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "privileged", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_privilege_escalation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_privilege_escalation", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__security_context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__security_context
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__startup_probe__exec = {
   command : string prop list option; [@option]
-      (** Command is the command line to execute inside the container, the working directory for the command is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy. *)
 }
-[@@deriving yojson_of]
-(** exec specifies the action to take. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__startup_probe__exec) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__startup_probe__exec
+    =
+  (function
+   | { command = v_command } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__startup_probe__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__startup_probe__exec
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__startup_probe__grpc = {
   port : float prop;
-      (** Number of the port to access on the container. Number must be in the range 1 to 65535. *)
   service : string prop option; [@option]
-      (** Name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md). If this is not specified, the default behavior is defined by gRPC. *)
 }
-[@@deriving yojson_of]
-(** GRPC specifies an action involving a GRPC port. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__startup_probe__grpc) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__startup_probe__grpc
+    =
+  (function
+   | { port = v_port; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__startup_probe__grpc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__startup_probe__grpc
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__startup_probe__http_get__http_header = {
-  name : string prop option; [@option]  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Scheme to use for connecting to the host. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__startup_probe__http_get__http_header) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__startup_probe__http_get__http_header
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__startup_probe__http_get__http_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__startup_probe__http_get__http_header
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__startup_probe__http_get = {
   host : string prop option; [@option]
-      (** Host name to connect to, defaults to the pod IP. You probably want to set Host in httpHeaders instead. *)
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. *)
   port : string prop option; [@option]
-      (** Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
   scheme : string prop option; [@option]
-      (** Scheme to use for connecting to the host. *)
   http_header :
     spec__template__spec__init_container__startup_probe__http_get__http_header
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__startup_probe__http_get) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__startup_probe__http_get
+    =
+  (function
+   | {
+       host = v_host;
+       path = v_path;
+       port = v_port;
+       scheme = v_scheme;
+       http_header = v_http_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__startup_probe__http_get__http_header
+             v_http_header
+         in
+         ("http_header", arg) :: bnds
+       in
+       let bnds =
+         match v_scheme with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheme", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__startup_probe__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__startup_probe__http_get
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__startup_probe__tcp_socket = {
   port : string prop;
-      (** Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__init_container__startup_probe__tcp_socket) ->
+  ()
+
+let yojson_of_spec__template__spec__init_container__startup_probe__tcp_socket
+    =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__startup_probe__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__init_container__startup_probe__tcp_socket
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__startup_probe = {
   failure_threshold : float prop option; [@option]
-      (** Minimum consecutive failures for the probe to be considered failed after having succeeded. *)
   initial_delay_seconds : float prop option; [@option]
-      (** Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   period_seconds : float prop option; [@option]
-      (** How often (in seconds) to perform the probe *)
   success_threshold : float prop option; [@option]
-      (** Minimum consecutive successes for the probe to be considered successful after having failed. *)
   timeout_seconds : float prop option; [@option]
-      (** Number of seconds after which the probe times out. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes *)
   exec :
     spec__template__spec__init_container__startup_probe__exec list;
   grpc :
@@ -1426,46 +6879,183 @@ type spec__template__spec__init_container__startup_probe = {
     spec__template__spec__init_container__startup_probe__tcp_socket
     list;
 }
-[@@deriving yojson_of]
-(** StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. This is an alpha feature enabled by the StartupProbe feature flag. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__startup_probe) -> ()
+
+let yojson_of_spec__template__spec__init_container__startup_probe =
+  (function
+   | {
+       failure_threshold = v_failure_threshold;
+       initial_delay_seconds = v_initial_delay_seconds;
+       period_seconds = v_period_seconds;
+       success_threshold = v_success_threshold;
+       timeout_seconds = v_timeout_seconds;
+       exec = v_exec;
+       grpc = v_grpc;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__startup_probe__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__startup_probe__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__startup_probe__grpc
+             v_grpc
+         in
+         ("grpc", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__startup_probe__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_success_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "success_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_delay_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_delay_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__startup_probe ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__init_container__startup_probe
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container__volume_mount = {
   mount_path : string prop;
-      (** Path within the container at which the volume should be mounted. Must not contain ':'. *)
   mount_propagation : string prop option; [@option]
-      (** Mount propagation mode. mount_propagation determines how mounts are propagated from the host to container and the other way around. Valid values are None (default), HostToContainer and Bidirectional. *)
-  name : string prop;  (** This must match the Name of a Volume. *)
+  name : string prop;
   read_only : bool prop option; [@option]
-      (** Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false. *)
   sub_path : string prop option; [@option]
-      (** Path within the volume from which the container's volume should be mounted. Defaults to  (volume's root). *)
 }
-[@@deriving yojson_of]
-(** Pod volumes to mount into the container's filesystem. Cannot be updated. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__init_container__volume_mount) -> ()
+
+let yojson_of_spec__template__spec__init_container__volume_mount =
+  (function
+   | {
+       mount_path = v_mount_path;
+       mount_propagation = v_mount_propagation;
+       name = v_name;
+       read_only = v_read_only;
+       sub_path = v_sub_path;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sub_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sub_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mount_propagation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mount_propagation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mount_path in
+         ("mount_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container__volume_mount ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__init_container__volume_mount
+
+[@@@deriving.end]
 
 type spec__template__spec__init_container = {
   args : string prop list option; [@option]
-      (** Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell *)
   command : string prop list option; [@option]
-      (** Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell *)
   image : string prop option; [@option]
-      (** Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images/ *)
   image_pull_policy : string prop option; [@option]
-      (** Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images/#updating-images *)
   name : string prop;
-      (** Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated. *)
   stdin : bool prop option; [@option]
-      (** Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF.  *)
   stdin_once : bool prop option; [@option]
-      (** Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. *)
   termination_message_path : string prop option; [@option]
-      (** Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Defaults to /dev/termination-log. Cannot be updated. *)
   termination_message_policy : string prop option; [@option]
-      (** Optional: Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated. *)
   tty : bool prop option; [@option]
-      (** Whether this container should allocate a TTY for itself *)
   working_dir : string prop option; [@option]
-      (** Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated. *)
   env : spec__template__spec__init_container__env list;
   env_from : spec__template__spec__init_container__env_from list;
   lifecycle : spec__template__spec__init_container__lifecycle list;
@@ -1482,78 +7072,473 @@ type spec__template__spec__init_container = {
   volume_mount :
     spec__template__spec__init_container__volume_mount list;
 }
-[@@deriving yojson_of]
-(** List of init containers belonging to the pod. Init containers always run to completion and each must complete successfully before the next is started. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/ *)
+[@@deriving_inline yojson_of]
 
-type spec__template__spec__os = {
-  name : string prop;
-      (** Name is the name of the operating system. The currently supported values are linux and windows. *)
-}
-[@@deriving yojson_of]
-(** Specifies the OS of the containers in the pod. *)
+let _ = fun (_ : spec__template__spec__init_container) -> ()
+
+let yojson_of_spec__template__spec__init_container =
+  (function
+   | {
+       args = v_args;
+       command = v_command;
+       image = v_image;
+       image_pull_policy = v_image_pull_policy;
+       name = v_name;
+       stdin = v_stdin;
+       stdin_once = v_stdin_once;
+       termination_message_path = v_termination_message_path;
+       termination_message_policy = v_termination_message_policy;
+       tty = v_tty;
+       working_dir = v_working_dir;
+       env = v_env;
+       env_from = v_env_from;
+       lifecycle = v_lifecycle;
+       liveness_probe = v_liveness_probe;
+       port = v_port;
+       readiness_probe = v_readiness_probe;
+       resources = v_resources;
+       security_context = v_security_context;
+       startup_probe = v_startup_probe;
+       volume_mount = v_volume_mount;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__volume_mount
+             v_volume_mount
+         in
+         ("volume_mount", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__startup_probe
+             v_startup_probe
+         in
+         ("startup_probe", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__security_context
+             v_security_context
+         in
+         ("security_context", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__resources
+             v_resources
+         in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__readiness_probe
+             v_readiness_probe
+         in
+         ("readiness_probe", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__port
+             v_port
+         in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__liveness_probe
+             v_liveness_probe
+         in
+         ("liveness_probe", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__lifecycle
+             v_lifecycle
+         in
+         ("lifecycle", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__env_from
+             v_env_from
+         in
+         ("env_from", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container__env
+             v_env
+         in
+         ("env", arg) :: bnds
+       in
+       let bnds =
+         match v_working_dir with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "working_dir", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tty with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "tty", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_termination_message_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "termination_message_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_termination_message_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "termination_message_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_stdin_once with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "stdin_once", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_stdin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "stdin", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_image_pull_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_pull_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__init_container ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__init_container
+
+[@@@deriving.end]
+
+type spec__template__spec__os = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__os) -> ()
+
+let yojson_of_spec__template__spec__os =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__os -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__os
+
+[@@@deriving.end]
 
 type spec__template__spec__readiness_gate = {
   condition_type : string prop;
-      (** refers to a condition in the pod's condition list with matching type. *)
 }
-[@@deriving yojson_of]
-(** If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to True More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__readiness_gate) -> ()
+
+let yojson_of_spec__template__spec__readiness_gate =
+  (function
+   | { condition_type = v_condition_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_condition_type
+         in
+         ("condition_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__readiness_gate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__readiness_gate
+
+[@@@deriving.end]
 
 type spec__template__spec__security_context__se_linux_options = {
   level : string prop option; [@option]
-      (** Level is SELinux level label that applies to the container. *)
   role : string prop option; [@option]
-      (** Role is a SELinux role label that applies to the container. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Type is a SELinux type label that applies to the container. *)
   user : string prop option; [@option]
-      (** User is a SELinux user label that applies to the container. *)
 }
-[@@deriving yojson_of]
-(** The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container. May also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__security_context__se_linux_options) ->
+  ()
+
+let yojson_of_spec__template__spec__security_context__se_linux_options
+    =
+  (function
+   | {
+       level = v_level;
+       role = v_role;
+       type_ = v_type_;
+       user = v_user;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "level", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__security_context__se_linux_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__security_context__se_linux_options
+
+[@@@deriving.end]
 
 type spec__template__spec__security_context__seccomp_profile = {
   localhost_profile : string prop option; [@option]
-      (** Localhost Profile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Type indicates which kind of seccomp profile will be applied. Valid options are: Localhost, RuntimeDefault, Unconfined. *)
 }
-[@@deriving yojson_of]
-(** The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__security_context__seccomp_profile) ->
+  ()
+
+let yojson_of_spec__template__spec__security_context__seccomp_profile
+    =
+  (function
+   | { localhost_profile = v_localhost_profile; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_localhost_profile with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "localhost_profile", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__security_context__seccomp_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__security_context__seccomp_profile
+
+[@@@deriving.end]
 
 type spec__template__spec__security_context__sysctl = {
-  name : string prop;  (** Name of a property to set. *)
-  value : string prop;  (** Value of a property to set. *)
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** holds a list of namespaced sysctls used for the pod. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__security_context__sysctl) -> ()
+
+let yojson_of_spec__template__spec__security_context__sysctl =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__security_context__sysctl ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__security_context__sysctl
+
+[@@@deriving.end]
 
 type spec__template__spec__security_context__windows_options = {
   gmsa_credential_spec : string prop option; [@option]
-      (** GMSACredentialSpec is where the GMSA admission webhook inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field *)
   gmsa_credential_spec_name : string prop option; [@option]
-      (** GMSACredentialSpecName is the name of the GMSA credential spec to use. *)
   host_process : bool prop option; [@option]
-      (** HostProcess determines if a container should be run as a 'Host Process' container. Default value is false. *)
   run_as_username : string prop option; [@option]
-      (** The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
 }
-[@@deriving yojson_of]
-(** The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__security_context__windows_options) ->
+  ()
+
+let yojson_of_spec__template__spec__security_context__windows_options
+    =
+  (function
+   | {
+       gmsa_credential_spec = v_gmsa_credential_spec;
+       gmsa_credential_spec_name = v_gmsa_credential_spec_name;
+       host_process = v_host_process;
+       run_as_username = v_run_as_username;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_run_as_username with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "run_as_username", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_process with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "host_process", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gmsa_credential_spec_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gmsa_credential_spec_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gmsa_credential_spec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gmsa_credential_spec", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__security_context__windows_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__security_context__windows_options
+
+[@@@deriving.end]
 
 type spec__template__spec__security_context = {
   fs_group : string prop option; [@option]
-      (** A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod: 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw---- If unset, the Kubelet will not modify the ownership and permissions of any volume. *)
   fs_group_change_policy : string prop option; [@option]
-      (** fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. *)
   run_as_group : string prop option; [@option]
-      (** The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. *)
   run_as_non_root : bool prop option; [@option]
-      (** Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. *)
   run_as_user : string prop option; [@option]
-      (** The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. *)
   supplemental_groups : float prop list option; [@option]
-      (** A list of groups applied to the first process run in each container, in addition to the container's primary GID. If unspecified, no groups will be added to any container. *)
   se_linux_options :
     spec__template__spec__security_context__se_linux_options list;
   seccomp_profile :
@@ -1562,285 +7547,1434 @@ type spec__template__spec__security_context = {
   windows_options :
     spec__template__spec__security_context__windows_options list;
 }
-[@@deriving yojson_of]
-(** SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__security_context) -> ()
+
+let yojson_of_spec__template__spec__security_context =
+  (function
+   | {
+       fs_group = v_fs_group;
+       fs_group_change_policy = v_fs_group_change_policy;
+       run_as_group = v_run_as_group;
+       run_as_non_root = v_run_as_non_root;
+       run_as_user = v_run_as_user;
+       supplemental_groups = v_supplemental_groups;
+       se_linux_options = v_se_linux_options;
+       seccomp_profile = v_seccomp_profile;
+       sysctl = v_sysctl;
+       windows_options = v_windows_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__security_context__windows_options
+             v_windows_options
+         in
+         ("windows_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__security_context__sysctl
+             v_sysctl
+         in
+         ("sysctl", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__security_context__seccomp_profile
+             v_seccomp_profile
+         in
+         ("seccomp_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__security_context__se_linux_options
+             v_se_linux_options
+         in
+         ("se_linux_options", arg) :: bnds
+       in
+       let bnds =
+         match v_supplemental_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "supplemental_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_run_as_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "run_as_user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_run_as_non_root with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "run_as_non_root", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_run_as_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "run_as_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_group_change_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_group_change_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_group", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__security_context ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__security_context
+
+[@@@deriving.end]
 
 type spec__template__spec__toleration = {
   effect : string prop option; [@option]
-      (** Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute. *)
   key : string prop option; [@option]
-      (** Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys. *)
   operator : string prop option; [@option]
-      (** Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. *)
   toleration_seconds : string prop option; [@option]
-      (** TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system. *)
   value : string prop option; [@option]
-      (** Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string. *)
 }
-[@@deriving yojson_of]
-(** If specified, the pod's toleration. Optional: Defaults to empty *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__toleration) -> ()
+
+let yojson_of_spec__template__spec__toleration =
+  (function
+   | {
+       effect = v_effect;
+       key = v_key;
+       operator = v_operator;
+       toleration_seconds = v_toleration_seconds;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_toleration_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "toleration_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_effect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "effect", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__toleration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__toleration
+
+[@@@deriving.end]
 
 type spec__template__spec__topology_spread_constraint__label_selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__topology_spread_constraint__label_selector__match_expressions) ->
+  ()
+
+let yojson_of_spec__template__spec__topology_spread_constraint__label_selector__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__topology_spread_constraint__label_selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__topology_spread_constraint__label_selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__template__spec__topology_spread_constraint__label_selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     spec__template__spec__topology_spread_constraint__label_selector__match_expressions
     list;
 }
-[@@deriving yojson_of]
-(** A label query over a set of resources, in this case pods. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__topology_spread_constraint__label_selector) ->
+  ()
+
+let yojson_of_spec__template__spec__topology_spread_constraint__label_selector
+    =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__topology_spread_constraint__label_selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__topology_spread_constraint__label_selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__topology_spread_constraint__label_selector
+
+[@@@deriving.end]
 
 type spec__template__spec__topology_spread_constraint = {
   match_label_keys : string prop list option; [@option]
-      (** is a set of pod label keys to select the pods over which spreading will be calculated. *)
   max_skew : float prop option; [@option]
-      (** describes the degree to which pods may be unevenly distributed. *)
   min_domains : float prop option; [@option]
-      (** indicates a minimum number of eligible domains. *)
   node_affinity_policy : string prop option; [@option]
-      (** indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. *)
   node_taints_policy : string prop option; [@option]
-      (** indicates how we will treat node taints when calculating pod topology spread skew. *)
   topology_key : string prop option; [@option]
-      (** the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. *)
   when_unsatisfiable : string prop option; [@option]
-      (** indicates how to deal with a pod if it doesn't satisfy the spread constraint. *)
   label_selector :
     spec__template__spec__topology_spread_constraint__label_selector
     list;
 }
-[@@deriving yojson_of]
-(** describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__topology_spread_constraint) -> ()
+
+let yojson_of_spec__template__spec__topology_spread_constraint =
+  (function
+   | {
+       match_label_keys = v_match_label_keys;
+       max_skew = v_max_skew;
+       min_domains = v_min_domains;
+       node_affinity_policy = v_node_affinity_policy;
+       node_taints_policy = v_node_taints_policy;
+       topology_key = v_topology_key;
+       when_unsatisfiable = v_when_unsatisfiable;
+       label_selector = v_label_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__topology_spread_constraint__label_selector
+             v_label_selector
+         in
+         ("label_selector", arg) :: bnds
+       in
+       let bnds =
+         match v_when_unsatisfiable with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "when_unsatisfiable", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_topology_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "topology_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_taints_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_taints_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_affinity_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_affinity_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_domains with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_domains", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_skew with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_skew", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_match_label_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "match_label_keys", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__topology_spread_constraint ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__topology_spread_constraint
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__aws_elastic_block_store = {
   fs_type : string prop option; [@option]
-      (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
   partition : float prop option; [@option]
-      (** The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as 1. Similarly, the volume partition for /dev/sda is 0 (or you can leave the property empty). *)
   read_only : bool prop option; [@option]
-      (** Whether to set the read-only property in VolumeMounts to true. If omitted, the default is false. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
   volume_id : string prop;
-      (** Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
 }
-[@@deriving yojson_of]
-(** Represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__aws_elastic_block_store) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__aws_elastic_block_store =
+  (function
+   | {
+       fs_type = v_fs_type;
+       partition = v_partition;
+       read_only = v_read_only;
+       volume_id = v_volume_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_id in
+         ("volume_id", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_partition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "partition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__aws_elastic_block_store ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__aws_elastic_block_store
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__azure_disk = {
   caching_mode : string prop;
-      (** Host Caching mode: None, Read Only, Read Write. *)
   data_disk_uri : string prop;
-      (** The URI the data disk in the blob storage *)
   disk_name : string prop;
-      (** The Name of the data disk in the blob storage *)
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   kind : string prop option; [@option]
-      (** The type for the data disk. Expected values: Shared, Dedicated, Managed. Defaults to Shared *)
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). *)
 }
-[@@deriving yojson_of]
-(** Represents an Azure Data Disk mount on the host and bind mount to the pod. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__azure_disk) -> ()
+
+let yojson_of_spec__template__spec__volume__azure_disk =
+  (function
+   | {
+       caching_mode = v_caching_mode;
+       data_disk_uri = v_data_disk_uri;
+       disk_name = v_disk_name;
+       fs_type = v_fs_type;
+       kind = v_kind;
+       read_only = v_read_only;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kind with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kind", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_disk_name in
+         ("disk_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_data_disk_uri in
+         ("data_disk_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_caching_mode in
+         ("caching_mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__azure_disk ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__azure_disk
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__azure_file = {
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). *)
   secret_name : string prop;
-      (** The name of secret that contains Azure Storage Account Name and Key *)
   secret_namespace : string prop option; [@option]
-      (** The namespace of the secret that contains Azure Storage Account Name and Key. For Kubernetes up to 1.18.x the default is the same as the Pod. For Kubernetes 1.19.x and later the default is default namespace. *)
-  share_name : string prop;  (** Share Name *)
+  share_name : string prop;
 }
-[@@deriving yojson_of]
-(** Represents an Azure File Service mount on the host and bind mount to the pod. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__azure_file) -> ()
+
+let yojson_of_spec__template__spec__volume__azure_file =
+  (function
+   | {
+       read_only = v_read_only;
+       secret_name = v_secret_name;
+       secret_namespace = v_secret_namespace;
+       share_name = v_share_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_share_name in
+         ("share_name", arg) :: bnds
+       in
+       let bnds =
+         match v_secret_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_name in
+         ("secret_name", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__azure_file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__azure_file
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__ceph_fs__secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__ceph_fs__secret_ref) -> ()
+
+let yojson_of_spec__template__spec__volume__ceph_fs__secret_ref =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__ceph_fs__secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__ceph_fs__secret_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__ceph_fs = {
   monitors : string prop list;
-      (** Monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   path : string prop option; [@option]
-      (** Used as the mounted root, rather than the full Ceph tree, default is / *)
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to `false` (read/write). More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   secret_file : string prop option; [@option]
-      (** The path to key ring for User, default is `/etc/ceph/user.secret`. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   user : string prop option; [@option]
-      (** User is the rados user name, default is admin. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   secret_ref : spec__template__spec__volume__ceph_fs__secret_ref list;
 }
-[@@deriving yojson_of]
-(** Represents a Ceph FS mount on the host that shares a pod's lifetime *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__ceph_fs) -> ()
+
+let yojson_of_spec__template__spec__volume__ceph_fs =
+  (function
+   | {
+       monitors = v_monitors;
+       path = v_path;
+       read_only = v_read_only;
+       secret_file = v_secret_file;
+       user = v_user;
+       secret_ref = v_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__ceph_fs__secret_ref
+             v_secret_ref
+         in
+         ("secret_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_file", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_monitors
+         in
+         ("monitors", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__ceph_fs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__ceph_fs
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__cinder = {
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
   volume_id : string prop;
-      (** Volume ID used to identify the volume in Cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
 }
-[@@deriving yojson_of]
-(** Represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__cinder) -> ()
+
+let yojson_of_spec__template__spec__volume__cinder =
+  (function
+   | {
+       fs_type = v_fs_type;
+       read_only = v_read_only;
+       volume_id = v_volume_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_id in
+         ("volume_id", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__cinder ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__cinder
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__config_map__items = {
-  key : string prop option; [@option]  (** The key to project. *)
+  key : string prop option; [@option]
   mode : string prop option; [@option]
-      (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   path : string prop option; [@option]
-      (** The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'. *)
 }
-[@@deriving yojson_of]
-(** If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__config_map__items) -> ()
+
+let yojson_of_spec__template__spec__volume__config_map__items =
+  (function
+   | { key = v_key; mode = v_mode; path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__config_map__items ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__config_map__items
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__config_map = {
   default_mode : string prop option; [@option]
-      (** Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Optional: Specify whether the ConfigMap or its keys must be defined. *)
   items : spec__template__spec__volume__config_map__items list;
 }
-[@@deriving yojson_of]
-(** ConfigMap represents a configMap that should populate this volume *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__config_map) -> ()
+
+let yojson_of_spec__template__spec__volume__config_map =
+  (function
+   | {
+       default_mode = v_default_mode;
+       name = v_name;
+       optional = v_optional;
+       items = v_items;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__config_map__items
+             v_items
+         in
+         ("items", arg) :: bnds
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__config_map ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__config_map
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__csi__node_publish_secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** A reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__csi__node_publish_secret_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__csi__node_publish_secret_ref
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__csi__node_publish_secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__csi__node_publish_secret_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__csi = {
   driver : string prop;
-      (** the name of the volume driver to use. More info: https://kubernetes.io/docs/concepts/storage/volumes/#csi *)
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   read_only : bool prop option; [@option]
-      (** Whether to set the read-only property in VolumeMounts to true. If omitted, the default is false. More info: https://kubernetes.io/docs/concepts/storage/volumes#csi *)
   volume_attributes : (string * string prop) list option; [@option]
-      (** Attributes of the volume to publish. *)
   node_publish_secret_ref :
     spec__template__spec__volume__csi__node_publish_secret_ref list;
 }
-[@@deriving yojson_of]
-(** Represents a CSI Volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#csi *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__csi) -> ()
+
+let yojson_of_spec__template__spec__volume__csi =
+  (function
+   | {
+       driver = v_driver;
+       fs_type = v_fs_type;
+       read_only = v_read_only;
+       volume_attributes = v_volume_attributes;
+       node_publish_secret_ref = v_node_publish_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__csi__node_publish_secret_ref
+             v_node_publish_secret_ref
+         in
+         ("node_publish_secret_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_attributes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "volume_attributes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_driver in
+         ("driver", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__csi ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__csi
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__downward_api__items__field_ref = {
   api_version : string prop option; [@option]
-      (** Version of the schema the FieldPath is written in terms of, defaults to v1. *)
   field_path : string prop option; [@option]
-      (** Path of the field to select in the specified API version *)
 }
-[@@deriving yojson_of]
-(** Required: Selects a field of the pod: only annotations, labels, name and namespace are supported. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__downward_api__items__field_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__downward_api__items__field_ref
+    =
+  (function
+   | { api_version = v_api_version; field_path = v_field_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_field_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__downward_api__items__field_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__downward_api__items__field_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__downward_api__items__resource_field_ref = {
-  container_name : string prop;  (** container_name *)
-  divisor : string prop option; [@option]  (** divisor *)
-  resource : string prop;  (** Resource to select *)
+  container_name : string prop;
+  divisor : string prop option; [@option]
+  resource : string prop;
 }
-[@@deriving yojson_of]
-(** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__downward_api__items__resource_field_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__downward_api__items__resource_field_ref
+    =
+  (function
+   | {
+       container_name = v_container_name;
+       divisor = v_divisor;
+       resource = v_resource;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource in
+         ("resource", arg) :: bnds
+       in
+       let bnds =
+         match v_divisor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "divisor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_name
+         in
+         ("container_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__downward_api__items__resource_field_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__downward_api__items__resource_field_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__downward_api__items = {
   mode : string prop option; [@option]
-      (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   path : string prop;
-      (** Path is the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..' *)
   field_ref :
     spec__template__spec__volume__downward_api__items__field_ref list;
   resource_field_ref :
     spec__template__spec__volume__downward_api__items__resource_field_ref
     list;
 }
-[@@deriving yojson_of]
-(** If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error. Paths must be relative and may not contain the '..' path or start with '..'. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__downward_api__items) -> ()
+
+let yojson_of_spec__template__spec__volume__downward_api__items =
+  (function
+   | {
+       mode = v_mode;
+       path = v_path;
+       field_ref = v_field_ref;
+       resource_field_ref = v_resource_field_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__downward_api__items__resource_field_ref
+             v_resource_field_ref
+         in
+         ("resource_field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__downward_api__items__field_ref
+             v_field_ref
+         in
+         ("field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__downward_api__items ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__downward_api__items
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__downward_api = {
   default_mode : string prop option; [@option]
-      (** Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   items : spec__template__spec__volume__downward_api__items list;
 }
-[@@deriving yojson_of]
-(** DownwardAPI represents downward API about the pod that should populate this volume *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__downward_api) -> ()
+
+let yojson_of_spec__template__spec__volume__downward_api =
+  (function
+   | { default_mode = v_default_mode; items = v_items } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__downward_api__items
+             v_items
+         in
+         ("items", arg) :: bnds
+       in
+       let bnds =
+         match v_default_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__downward_api ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__downward_api
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__empty_dir = {
   medium : string prop option; [@option]
-      (** What type of storage medium should back this directory. The default is  which means to use the node's default medium. Must be one of [ Memory HugePages HugePages-2Mi HugePages-1Gi]. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir *)
   size_limit : string prop option; [@option]
-      (** Total amount of local storage required for this EmptyDir volume. *)
 }
-[@@deriving yojson_of]
-(** EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__empty_dir) -> ()
+
+let yojson_of_spec__template__spec__volume__empty_dir =
+  (function
+   | { medium = v_medium; size_limit = v_size_limit } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_size_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "size_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_medium with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "medium", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__empty_dir ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__empty_dir
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the persistent volume claim that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the persistent volume claim. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
 }
-[@@deriving yojson_of]
-(** May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__ephemeral__volume_claim_template__metadata) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__metadata
+    =
+  (function
+   | { annotations = v_annotations; labels = v_labels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__ephemeral__volume_claim_template__metadata ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__metadata
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources = {
   limits : (string * string prop) list option; [@option]
-      (** Map describing the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ *)
   requests : (string * string prop) list option; [@option]
-      (** Map describing the minimum amount of compute resources required. If this is omitted for a container, it defaults to `limits` if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ *)
 }
-[@@deriving yojson_of]
-(** A list of the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
+    =
+  (function
+   | { limits = v_limits; requests = v_requests } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_requests with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "requests", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_limits with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "limits", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
     list;
 }
-[@@deriving yojson_of]
-(** A label query over volumes to consider for binding. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
+    =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral__volume_claim_template__spec = {
   access_modes : string prop list;
-      (** A set of the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes *)
   storage_class_name : string prop option; [@option]
-      (** Name of the storage class requested by the claim *)
   volume_mode : string prop option; [@option]
-      (** Defines what type of volume is required by the claim. *)
   volume_name : string prop option; [@option]
-      (** The binding reference to the PersistentVolume backing this claim. *)
   resources :
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
     list;
@@ -1848,8 +8982,83 @@ type spec__template__spec__volume__ephemeral__volume_claim_template__spec = {
     spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
     list;
 }
-[@@deriving yojson_of]
-(** The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__ephemeral__volume_claim_template__spec) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec
+    =
+  (function
+   | {
+       access_modes = v_access_modes;
+       storage_class_name = v_storage_class_name;
+       volume_mode = v_volume_mode;
+       volume_name = v_volume_name;
+       resources = v_resources;
+       selector = v_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__selector
+             v_selector
+         in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec__resources
+             v_resources
+         in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_volume_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_class_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_class_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_access_modes
+         in
+         ("access_modes", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__ephemeral__volume_claim_template__spec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral__volume_claim_template = {
   metadata :
@@ -1859,200 +9068,901 @@ type spec__template__spec__volume__ephemeral__volume_claim_template = {
     spec__template__spec__volume__ephemeral__volume_claim_template__spec
     list;
 }
-[@@deriving yojson_of]
-(** Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__ephemeral__volume_claim_template) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template
+    =
+  (function
+   | { metadata = v_metadata; spec = v_spec } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__spec
+             v_spec
+         in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template__metadata
+             v_metadata
+         in
+         ("metadata", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__ephemeral__volume_claim_template ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__ephemeral = {
   volume_claim_template :
     spec__template__spec__volume__ephemeral__volume_claim_template
     list;
 }
-[@@deriving yojson_of]
-(** Represents an ephemeral volume that is handled by a normal storage driver. More info: https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__ephemeral) -> ()
+
+let yojson_of_spec__template__spec__volume__ephemeral =
+  (function
+   | { volume_claim_template = v_volume_claim_template } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__ephemeral__volume_claim_template
+             v_volume_claim_template
+         in
+         ("volume_claim_template", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__ephemeral ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__ephemeral
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__fc = {
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
-  lun : float prop;  (** FC target lun number *)
+  lun : float prop;
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). *)
   target_ww_ns : string prop list;
-      (** FC target worldwide names (WWNs) *)
 }
-[@@deriving yojson_of]
-(** Represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__fc) -> ()
+
+let yojson_of_spec__template__spec__volume__fc =
+  (function
+   | {
+       fs_type = v_fs_type;
+       lun = v_lun;
+       read_only = v_read_only;
+       target_ww_ns = v_target_ww_ns;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_target_ww_ns
+         in
+         ("target_ww_ns", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_lun in
+         ("lun", arg) :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__fc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__fc
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__flex_volume__secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__flex_volume__secret_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__flex_volume__secret_ref =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__flex_volume__secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__flex_volume__secret_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__flex_volume = {
   driver : string prop;
-      (** Driver is the name of the driver to use for this volume. *)
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. The default filesystem depends on FlexVolume script. *)
   options : (string * string prop) list option; [@option]
-      (** Extra command options if any. *)
   read_only : bool prop option; [@option]
-      (** Whether to force the ReadOnly setting in VolumeMounts. Defaults to false (read/write). *)
   secret_ref :
     spec__template__spec__volume__flex_volume__secret_ref list;
 }
-[@@deriving yojson_of]
-(** Represents a generic volume resource that is provisioned/attached using an exec based plugin. This is an alpha feature and may change in future. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__flex_volume) -> ()
+
+let yojson_of_spec__template__spec__volume__flex_volume =
+  (function
+   | {
+       driver = v_driver;
+       fs_type = v_fs_type;
+       options = v_options;
+       read_only = v_read_only;
+       secret_ref = v_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__flex_volume__secret_ref
+             v_secret_ref
+         in
+         ("secret_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_options with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "options", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_driver in
+         ("driver", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__flex_volume ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__flex_volume
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__flocker = {
   dataset_name : string prop option; [@option]
-      (** Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated *)
   dataset_uuid : string prop option; [@option]
-      (** UUID of the dataset. This is unique identifier of a Flocker dataset *)
 }
-[@@deriving yojson_of]
-(** Represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__flocker) -> ()
+
+let yojson_of_spec__template__spec__volume__flocker =
+  (function
+   | { dataset_name = v_dataset_name; dataset_uuid = v_dataset_uuid }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_dataset_uuid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dataset_uuid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dataset_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dataset_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__flocker ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__flocker
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__gce_persistent_disk = {
   fs_type : string prop option; [@option]
-      (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
   partition : float prop option; [@option]
-      (** The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as 1. Similarly, the volume partition for /dev/sda is 0 (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
   pd_name : string prop;
-      (** Unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
   read_only : bool prop option; [@option]
-      (** Whether to force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
 }
-[@@deriving yojson_of]
-(** Represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__gce_persistent_disk) -> ()
+
+let yojson_of_spec__template__spec__volume__gce_persistent_disk =
+  (function
+   | {
+       fs_type = v_fs_type;
+       partition = v_partition;
+       pd_name = v_pd_name;
+       read_only = v_read_only;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pd_name in
+         ("pd_name", arg) :: bnds
+       in
+       let bnds =
+         match v_partition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "partition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__gce_persistent_disk ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__gce_persistent_disk
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__git_repo = {
   directory : string prop option; [@option]
-      (** Target directory name. Must not contain or start with '..'. If '.' is supplied, the volume directory will be the git repository. Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name. *)
-  repository : string prop option; [@option]  (** Repository URL *)
+  repository : string prop option; [@option]
   revision : string prop option; [@option]
-      (** Commit hash for the specified revision. *)
 }
-[@@deriving yojson_of]
-(** GitRepo represents a git repository at a particular revision. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__git_repo) -> ()
+
+let yojson_of_spec__template__spec__volume__git_repo =
+  (function
+   | {
+       directory = v_directory;
+       repository = v_repository;
+       revision = v_revision;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_revision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "revision", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_repository with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repository", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_directory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "directory", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__git_repo ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__git_repo
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__glusterfs = {
   endpoints_name : string prop;
-      (** The endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod *)
   path : string prop;
-      (** The Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod *)
   read_only : bool prop option; [@option]
-      (** Whether to force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod *)
 }
-[@@deriving yojson_of]
-(** Represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__glusterfs) -> ()
+
+let yojson_of_spec__template__spec__volume__glusterfs =
+  (function
+   | {
+       endpoints_name = v_endpoints_name;
+       path = v_path;
+       read_only = v_read_only;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_endpoints_name
+         in
+         ("endpoints_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__glusterfs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__glusterfs
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__host_path = {
   path : string prop option; [@option]
-      (** Path of the directory on the host. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Type for HostPath volume. Allowed values are  (default), DirectoryOrCreate, Directory, FileOrCreate, File, Socket, CharDevice and BlockDevice *)
 }
-[@@deriving yojson_of]
-(** Represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__host_path) -> ()
+
+let yojson_of_spec__template__spec__volume__host_path =
+  (function
+   | { path = v_path; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__host_path ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__host_path
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__iscsi = {
   fs_type : string prop option; [@option]
-      (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi *)
-  iqn : string prop;  (** Target iSCSI Qualified Name. *)
+  iqn : string prop;
   iscsi_interface : string prop option; [@option]
-      (** iSCSI interface name that uses an iSCSI transport. Defaults to 'default' (tcp). *)
-  lun : float prop option; [@option]  (** iSCSI target lun number. *)
+  lun : float prop option; [@option]
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false. *)
   target_portal : string prop;
-      (** iSCSI target portal. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260). *)
 }
-[@@deriving yojson_of]
-(** Represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__iscsi) -> ()
+
+let yojson_of_spec__template__spec__volume__iscsi =
+  (function
+   | {
+       fs_type = v_fs_type;
+       iqn = v_iqn;
+       iscsi_interface = v_iscsi_interface;
+       lun = v_lun;
+       read_only = v_read_only;
+       target_portal = v_target_portal;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target_portal in
+         ("target_portal", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lun with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "lun", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iscsi_interface with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "iscsi_interface", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_iqn in
+         ("iqn", arg) :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__iscsi ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__iscsi
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__local = {
   path : string prop option; [@option]
-      (** Path of the directory on the host. More info: https://kubernetes.io/docs/concepts/storage/volumes#local *)
 }
-[@@deriving yojson_of]
-(** Represents a mounted local storage device such as a disk, partition or directory. Local volumes can only be used as a statically created PersistentVolume. Dynamic provisioning is not supported yet. More info: https://kubernetes.io/docs/concepts/storage/volumes#local *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__local) -> ()
+
+let yojson_of_spec__template__spec__volume__local =
+  (function
+   | { path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__local ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__local
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__nfs = {
   path : string prop;
-      (** Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
   read_only : bool prop option; [@option]
-      (** Whether to force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
   server : string prop;
-      (** Server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
 }
-[@@deriving yojson_of]
-(** Represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__nfs) -> ()
+
+let yojson_of_spec__template__spec__volume__nfs =
+  (function
+   | { path = v_path; read_only = v_read_only; server = v_server } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_server in
+         ("server", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__nfs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__nfs
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__persistent_volume_claim = {
   claim_name : string prop option; [@option]
-      (** ClaimName is the name of a PersistentVolumeClaim in the same  *)
   read_only : bool prop option; [@option]
-      (** Will force the ReadOnly setting in VolumeMounts. *)
 }
-[@@deriving yojson_of]
-(** The specification of a persistent volume. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__persistent_volume_claim) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__persistent_volume_claim =
+  (function
+   | { claim_name = v_claim_name; read_only = v_read_only } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_claim_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "claim_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__persistent_volume_claim ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__persistent_volume_claim
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__photon_persistent_disk = {
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   pd_id : string prop;
-      (** ID that identifies Photon Controller persistent disk *)
 }
-[@@deriving yojson_of]
-(** Represents a PhotonController persistent disk attached and mounted on kubelets host machine *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__photon_persistent_disk) -> ()
+
+let yojson_of_spec__template__spec__volume__photon_persistent_disk =
+  (function
+   | { fs_type = v_fs_type; pd_id = v_pd_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pd_id in
+         ("pd_id", arg) :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__photon_persistent_disk ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__photon_persistent_disk
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources__config_map__items = {
-  key : string prop option; [@option]  (** The key to project. *)
+  key : string prop option; [@option]
   mode : string prop option; [@option]
-      (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   path : string prop option; [@option]
-      (** The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'. *)
 }
-[@@deriving yojson_of]
-(** If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error. Paths must be relative and may not contain the '..' path or start with '..'. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__projected__sources__config_map__items) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__projected__sources__config_map__items
+    =
+  (function
+   | { key = v_key; mode = v_mode; path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources__config_map__items ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__projected__sources__config_map__items
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources__config_map = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Optional: Specify whether the ConfigMap or it's keys must be defined. *)
   items :
     spec__template__spec__volume__projected__sources__config_map__items
     list;
 }
-[@@deriving yojson_of]
-(** ConfigMap represents a configMap that should populate this volume *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__projected__sources__config_map) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__projected__sources__config_map
+    =
+  (function
+   | { name = v_name; optional = v_optional; items = v_items } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources__config_map__items
+             v_items
+         in
+         ("items", arg) :: bnds
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources__config_map ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__projected__sources__config_map
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources__downward_api__items__field_ref = {
   api_version : string prop option; [@option]
-      (** Version of the schema the FieldPath is written in terms of, defaults to 'v1'. *)
   field_path : string prop option; [@option]
-      (** Path of the field to select in the specified API version *)
 }
-[@@deriving yojson_of]
-(** Selects a field of the pod: only annotations, labels, name and namespace are supported. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__projected__sources__downward_api__items__field_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__field_ref
+    =
+  (function
+   | { api_version = v_api_version; field_path = v_field_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_field_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources__downward_api__items__field_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__field_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref = {
-  container_name : string prop;  (** container_name *)
-  divisor : string prop option; [@option]  (** divisor *)
-  resource : string prop;  (** Resource to select *)
+  container_name : string prop;
+  divisor : string prop option; [@option]
+  resource : string prop;
 }
-[@@deriving yojson_of]
-(** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
+    =
+  (function
+   | {
+       container_name = v_container_name;
+       divisor = v_divisor;
+       resource = v_resource;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource in
+         ("resource", arg) :: bnds
+       in
+       let bnds =
+         match v_divisor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "divisor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_name
+         in
+         ("container_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources__downward_api__items = {
   mode : string prop option; [@option]
-      (** Mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   path : string prop;
-      (** Path is the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..' *)
   field_ref :
     spec__template__spec__volume__projected__sources__downward_api__items__field_ref
     list;
@@ -2060,49 +9970,254 @@ type spec__template__spec__volume__projected__sources__downward_api__items = {
     spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
     list;
 }
-[@@deriving yojson_of]
-(** Represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__projected__sources__downward_api__items) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__projected__sources__downward_api__items
+    =
+  (function
+   | {
+       mode = v_mode;
+       path = v_path;
+       field_ref = v_field_ref;
+       resource_field_ref = v_resource_field_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__resource_field_ref
+             v_resource_field_ref
+         in
+         ("resource_field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources__downward_api__items__field_ref
+             v_field_ref
+         in
+         ("field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources__downward_api__items ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__projected__sources__downward_api__items
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources__downward_api = {
   items :
     spec__template__spec__volume__projected__sources__downward_api__items
     list;
 }
-[@@deriving yojson_of]
-(** DownwardAPI represents downward API about the pod that should populate this volume *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__projected__sources__downward_api) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__projected__sources__downward_api
+    =
+  (function
+   | { items = v_items } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources__downward_api__items
+             v_items
+         in
+         ("items", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources__downward_api ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__projected__sources__downward_api
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources__secret__items = {
-  key : string prop option; [@option]  (** The key to project. *)
+  key : string prop option; [@option]
   mode : string prop option; [@option]
-      (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   path : string prop option; [@option]
-      (** The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'. *)
 }
-[@@deriving yojson_of]
-(** If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__projected__sources__secret__items) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__projected__sources__secret__items
+    =
+  (function
+   | { key = v_key; mode = v_mode; path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources__secret__items ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__projected__sources__secret__items
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources__secret = {
   name : string prop option; [@option]
-      (** Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secrets *)
   optional : bool prop option; [@option]
-      (** Optional: Specify whether the Secret or it's keys must be defined. *)
   items :
     spec__template__spec__volume__projected__sources__secret__items
     list;
 }
-[@@deriving yojson_of]
-(** Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secrets *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__projected__sources__secret) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__projected__sources__secret
+    =
+  (function
+   | { name = v_name; optional = v_optional; items = v_items } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources__secret__items
+             v_items
+         in
+         ("items", arg) :: bnds
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources__secret ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__projected__sources__secret
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources__service_account_token = {
   audience : string prop option; [@option]
-      (** Audience is the intended audience of the token *)
   expiration_seconds : float prop option; [@option]
-      (** ExpirationSeconds is the expected duration of validity of the service account token. It defaults to 1 hour and must be at least 10 minutes (600 seconds). *)
   path : string prop;
-      (** Path specifies a relative path to the mount point of the projected volume. *)
 }
-[@@deriving yojson_of]
-(** A projected service account token volume *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__template__spec__volume__projected__sources__service_account_token) ->
+  ()
+
+let yojson_of_spec__template__spec__volume__projected__sources__service_account_token
+    =
+  (function
+   | {
+       audience = v_audience;
+       expiration_seconds = v_expiration_seconds;
+       path = v_path;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_expiration_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "expiration_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_audience with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "audience", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources__service_account_token ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__template__spec__volume__projected__sources__service_account_token
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected__sources = {
   config_map :
@@ -2116,95 +10231,442 @@ type spec__template__spec__volume__projected__sources = {
     spec__template__spec__volume__projected__sources__service_account_token
     list;
 }
-[@@deriving yojson_of]
-(** Source of the volume to project in the directory. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__template__spec__volume__projected__sources) -> ()
+
+let yojson_of_spec__template__spec__volume__projected__sources =
+  (function
+   | {
+       config_map = v_config_map;
+       downward_api = v_downward_api;
+       secret = v_secret;
+       service_account_token = v_service_account_token;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources__service_account_token
+             v_service_account_token
+         in
+         ("service_account_token", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources__secret
+             v_secret
+         in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources__downward_api
+             v_downward_api
+         in
+         ("downward_api", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources__config_map
+             v_config_map
+         in
+         ("config_map", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected__sources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__projected__sources
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__projected = {
   default_mode : string prop option; [@option]
-      (** Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   sources : spec__template__spec__volume__projected__sources list;
 }
-[@@deriving yojson_of]
-(** Projected represents a single volume that projects several volume sources into the same directory. More info: https://kubernetes.io/docs/concepts/storage/volumes/#projected *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__projected) -> ()
+
+let yojson_of_spec__template__spec__volume__projected =
+  (function
+   | { default_mode = v_default_mode; sources = v_sources } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected__sources
+             v_sources
+         in
+         ("sources", arg) :: bnds
+       in
+       let bnds =
+         match v_default_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__projected ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__projected
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__quobyte = {
   group : string prop option; [@option]
-      (** Group to map volume access to Default is no group *)
   read_only : bool prop option; [@option]
-      (** Whether to force the Quobyte volume to be mounted with read-only permissions. Defaults to false. *)
   registry : string prop;
-      (** Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes *)
   user : string prop option; [@option]
-      (** User to map volume access to Defaults to serivceaccount user *)
   volume : string prop;
-      (** Volume is a string that references an already created Quobyte volume by name. *)
 }
-[@@deriving yojson_of]
-(** Quobyte represents a Quobyte mount on the host that shares a pod's lifetime *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__quobyte) -> ()
+
+let yojson_of_spec__template__spec__volume__quobyte =
+  (function
+   | {
+       group = v_group;
+       read_only = v_read_only;
+       registry = v_registry;
+       user = v_user;
+       volume = v_volume;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume in
+         ("volume", arg) :: bnds
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_registry in
+         ("registry", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__quobyte ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__quobyte
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__rbd__secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__rbd__secret_ref) -> ()
+
+let yojson_of_spec__template__spec__volume__rbd__secret_ref =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__rbd__secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__rbd__secret_ref
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__rbd = {
   ceph_monitors : string prop list;
-      (** A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   fs_type : string prop option; [@option]
-      (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd *)
   keyring : string prop option; [@option]
-      (** Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   rados_user : string prop option; [@option]
-      (** The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   rbd_image : string prop;
-      (** The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   rbd_pool : string prop option; [@option]
-      (** The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it. *)
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   secret_ref : spec__template__spec__volume__rbd__secret_ref list;
 }
-[@@deriving yojson_of]
-(** Represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__rbd) -> ()
+
+let yojson_of_spec__template__spec__volume__rbd =
+  (function
+   | {
+       ceph_monitors = v_ceph_monitors;
+       fs_type = v_fs_type;
+       keyring = v_keyring;
+       rados_user = v_rados_user;
+       rbd_image = v_rbd_image;
+       rbd_pool = v_rbd_pool;
+       read_only = v_read_only;
+       secret_ref = v_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__rbd__secret_ref
+             v_secret_ref
+         in
+         ("secret_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rbd_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rbd_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rbd_image in
+         ("rbd_image", arg) :: bnds
+       in
+       let bnds =
+         match v_rados_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rados_user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keyring with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keyring", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_ceph_monitors
+         in
+         ("ceph_monitors", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__rbd ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__rbd
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__secret__items = {
-  key : string prop option; [@option]  (** The key to project. *)
+  key : string prop option; [@option]
   mode : string prop option; [@option]
-      (** Optional: mode bits to use on this file, must be a value between 0 and 0777. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   path : string prop option; [@option]
-      (** The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'. *)
 }
-[@@deriving yojson_of]
-(** If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__secret__items) -> ()
+
+let yojson_of_spec__template__spec__volume__secret__items =
+  (function
+   | { key = v_key; mode = v_mode; path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__secret__items ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__secret__items
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__secret = {
   default_mode : string prop option; [@option]
-      (** Optional: mode bits to use on created files by default. Must be a value between 0 and 0777. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set. *)
   optional : bool prop option; [@option]
-      (** Optional: Specify whether the Secret or its keys must be defined. *)
   secret_name : string prop option; [@option]
-      (** Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secrets *)
   items : spec__template__spec__volume__secret__items list;
 }
-[@@deriving yojson_of]
-(** Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secrets *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__secret) -> ()
+
+let yojson_of_spec__template__spec__volume__secret =
+  (function
+   | {
+       default_mode = v_default_mode;
+       optional = v_optional;
+       secret_name = v_secret_name;
+       items = v_items;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__secret__items
+             v_items
+         in
+         ("items", arg) :: bnds
+       in
+       let bnds =
+         match v_secret_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__secret ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__secret
+
+[@@@deriving.end]
 
 type spec__template__spec__volume__vsphere_volume = {
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   volume_path : string prop;
-      (** Path that identifies vSphere volume vmdk *)
 }
-[@@deriving yojson_of]
-(** Represents a vSphere volume attached and mounted on kubelets host machine *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume__vsphere_volume) -> ()
+
+let yojson_of_spec__template__spec__volume__vsphere_volume =
+  (function
+   | { fs_type = v_fs_type; volume_path = v_volume_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_path in
+         ("volume_path", arg) :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume__vsphere_volume ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume__vsphere_volume
+
+[@@@deriving.end]
 
 type spec__template__spec__volume = {
   name : string prop option; [@option]
-      (** Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   aws_elastic_block_store :
     spec__template__spec__volume__aws_elastic_block_store list;
   azure_disk : spec__template__spec__volume__azure_disk list;
@@ -2237,46 +10699,288 @@ type spec__template__spec__volume = {
   secret : spec__template__spec__volume__secret list;
   vsphere_volume : spec__template__spec__volume__vsphere_volume list;
 }
-[@@deriving yojson_of]
-(** List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec__volume) -> ()
+
+let yojson_of_spec__template__spec__volume =
+  (function
+   | {
+       name = v_name;
+       aws_elastic_block_store = v_aws_elastic_block_store;
+       azure_disk = v_azure_disk;
+       azure_file = v_azure_file;
+       ceph_fs = v_ceph_fs;
+       cinder = v_cinder;
+       config_map = v_config_map;
+       csi = v_csi;
+       downward_api = v_downward_api;
+       empty_dir = v_empty_dir;
+       ephemeral = v_ephemeral;
+       fc = v_fc;
+       flex_volume = v_flex_volume;
+       flocker = v_flocker;
+       gce_persistent_disk = v_gce_persistent_disk;
+       git_repo = v_git_repo;
+       glusterfs = v_glusterfs;
+       host_path = v_host_path;
+       iscsi = v_iscsi;
+       local = v_local;
+       nfs = v_nfs;
+       persistent_volume_claim = v_persistent_volume_claim;
+       photon_persistent_disk = v_photon_persistent_disk;
+       projected = v_projected;
+       quobyte = v_quobyte;
+       rbd = v_rbd;
+       secret = v_secret;
+       vsphere_volume = v_vsphere_volume;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__vsphere_volume
+             v_vsphere_volume
+         in
+         ("vsphere_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__secret v_secret
+         in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__volume__rbd
+             v_rbd
+         in
+         ("rbd", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__quobyte
+             v_quobyte
+         in
+         ("quobyte", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__projected
+             v_projected
+         in
+         ("projected", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__photon_persistent_disk
+             v_photon_persistent_disk
+         in
+         ("photon_persistent_disk", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__persistent_volume_claim
+             v_persistent_volume_claim
+         in
+         ("persistent_volume_claim", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__volume__nfs
+             v_nfs
+         in
+         ("nfs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__local v_local
+         in
+         ("local", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__iscsi v_iscsi
+         in
+         ("iscsi", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__host_path
+             v_host_path
+         in
+         ("host_path", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__glusterfs
+             v_glusterfs
+         in
+         ("glusterfs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__git_repo
+             v_git_repo
+         in
+         ("git_repo", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__gce_persistent_disk
+             v_gce_persistent_disk
+         in
+         ("gce_persistent_disk", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__flocker
+             v_flocker
+         in
+         ("flocker", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__flex_volume
+             v_flex_volume
+         in
+         ("flex_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__volume__fc
+             v_fc
+         in
+         ("fc", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__ephemeral
+             v_ephemeral
+         in
+         ("ephemeral", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__empty_dir
+             v_empty_dir
+         in
+         ("empty_dir", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__downward_api
+             v_downward_api
+         in
+         ("downward_api", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__volume__csi
+             v_csi
+         in
+         ("csi", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__config_map
+             v_config_map
+         in
+         ("config_map", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__cinder v_cinder
+         in
+         ("cinder", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__ceph_fs
+             v_ceph_fs
+         in
+         ("ceph_fs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__azure_file
+             v_azure_file
+         in
+         ("azure_file", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__azure_disk
+             v_azure_disk
+         in
+         ("azure_disk", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__volume__aws_elastic_block_store
+             v_aws_elastic_block_store
+         in
+         ("aws_elastic_block_store", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec__volume ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec__volume
+
+[@@@deriving.end]
 
 type spec__template__spec = {
   active_deadline_seconds : float prop option; [@option]
-      (** Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer. *)
   automount_service_account_token : bool prop option; [@option]
-      (** AutomountServiceAccountToken indicates whether a service account token should be automatically mounted. *)
   dns_policy : string prop option; [@option]
-      (** Set DNS policy for containers within the pod. Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'. Defaults to 'ClusterFirst'. More info: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy *)
   enable_service_links : bool prop option; [@option]
-      (** Enables generating environment variables for service discovery. Defaults to true. *)
   host_ipc : bool prop option; [@option]
-      (** Use the host's ipc namespace. Optional: Defaults to false. *)
   host_network : bool prop option; [@option]
-      (** Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. *)
   host_pid : bool prop option; [@option]
-      (** Use the host's pid namespace. *)
   hostname : string prop option; [@option]
-      (** Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value. *)
   node_name : string prop option; [@option]
-      (** NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements. *)
   node_selector : (string * string prop) list option; [@option]
-      (** NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/. *)
   priority_class_name : string prop option; [@option]
-      (** If specified, indicates the pod's priority. system-node-critical and system-cluster-critical are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default. *)
   restart_policy : string prop option; [@option]
-      (** Restart policy for all containers within the pod. One of Always, OnFailure, Never. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy. *)
   runtime_class_name : string prop option; [@option]
-      (** RuntimeClassName is a feature for selecting the container runtime configuration. The container runtime configuration is used to run a Pod's containers. More info: https://kubernetes.io/docs/concepts/containers/runtime-class *)
   scheduler_name : string prop option; [@option]
-      (** If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler. *)
   service_account_name : string prop option; [@option]
-      (** ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: http://releases.k8s.io/HEAD/docs/design/service_accounts.md. *)
   share_process_namespace : bool prop option; [@option]
-      (** Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Defaults to false. *)
   subdomain : string prop option; [@option]
-      (** If specified, the fully qualified Pod hostname will be ...svc.. If not specified, the pod will not have a domainname at all.. *)
   termination_grace_period_seconds : float prop option; [@option]
-      (** Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. *)
   affinity : spec__template__spec__affinity list;
   container : spec__template__spec__container list;
   dns_config : spec__template__spec__dns_config list;
@@ -2291,56 +10995,549 @@ type spec__template__spec = {
     spec__template__spec__topology_spread_constraint list;
   volume : spec__template__spec__volume list;
 }
-[@@deriving yojson_of]
-(** Spec of the pods owned by the job *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template__spec) -> ()
+
+let yojson_of_spec__template__spec =
+  (function
+   | {
+       active_deadline_seconds = v_active_deadline_seconds;
+       automount_service_account_token =
+         v_automount_service_account_token;
+       dns_policy = v_dns_policy;
+       enable_service_links = v_enable_service_links;
+       host_ipc = v_host_ipc;
+       host_network = v_host_network;
+       host_pid = v_host_pid;
+       hostname = v_hostname;
+       node_name = v_node_name;
+       node_selector = v_node_selector;
+       priority_class_name = v_priority_class_name;
+       restart_policy = v_restart_policy;
+       runtime_class_name = v_runtime_class_name;
+       scheduler_name = v_scheduler_name;
+       service_account_name = v_service_account_name;
+       share_process_namespace = v_share_process_namespace;
+       subdomain = v_subdomain;
+       termination_grace_period_seconds =
+         v_termination_grace_period_seconds;
+       affinity = v_affinity;
+       container = v_container;
+       dns_config = v_dns_config;
+       host_aliases = v_host_aliases;
+       image_pull_secrets = v_image_pull_secrets;
+       init_container = v_init_container;
+       os = v_os;
+       readiness_gate = v_readiness_gate;
+       security_context = v_security_context;
+       toleration = v_toleration;
+       topology_spread_constraint = v_topology_spread_constraint;
+       volume = v_volume;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__volume
+             v_volume
+         in
+         ("volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__topology_spread_constraint
+             v_topology_spread_constraint
+         in
+         ("topology_spread_constraint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__toleration
+             v_toleration
+         in
+         ("toleration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__security_context
+             v_security_context
+         in
+         ("security_context", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__readiness_gate
+             v_readiness_gate
+         in
+         ("readiness_gate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__os v_os
+         in
+         ("os", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__init_container
+             v_init_container
+         in
+         ("init_container", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__image_pull_secrets
+             v_image_pull_secrets
+         in
+         ("image_pull_secrets", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__template__spec__host_aliases
+             v_host_aliases
+         in
+         ("host_aliases", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__dns_config
+             v_dns_config
+         in
+         ("dns_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__container
+             v_container
+         in
+         ("container", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec__affinity
+             v_affinity
+         in
+         ("affinity", arg) :: bnds
+       in
+       let bnds =
+         match v_termination_grace_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "termination_grace_period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subdomain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subdomain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_share_process_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "share_process_namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_scheduler_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheduler_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_runtime_class_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "runtime_class_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_restart_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "restart_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_priority_class_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "priority_class_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_selector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "node_selector", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hostname with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "hostname", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_pid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "host_pid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "host_network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_ipc with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "host_ipc", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_service_links with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_service_links", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dns_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dns_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_automount_service_account_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "automount_service_account_token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_active_deadline_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "active_deadline_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__template__spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template__spec
+
+[@@@deriving.end]
 
 type spec__template = {
   metadata : spec__template__metadata list;
   spec : spec__template__spec list;
 }
-[@@deriving yojson_of]
-(** Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/ *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__template) -> ()
+
+let yojson_of_spec__template =
+  (function
+   | { metadata = v_metadata; spec = v_spec } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__spec v_spec
+         in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template__metadata
+             v_metadata
+         in
+         ("metadata", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__template -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__template
+
+[@@@deriving.end]
 
 type spec = {
   active_deadline_seconds : float prop option; [@option]
-      (** Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer. *)
   backoff_limit : float prop option; [@option]
-      (** Specifies the number of retries before marking this job failed. Defaults to 6 *)
   completion_mode : string prop option; [@option]
-      (** Specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`. More info: https://kubernetes.io/docs/concepts/workloads/controllers/job/#completion-mode *)
   completions : float prop option; [@option]
-      (** Specifies the desired number of successfully finished pods the job should be run with. Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value. Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/ *)
   manual_selector : bool prop option; [@option]
-      (** Controls generation of pod labels and pod selectors. Leave unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template. When true, the user is responsible for picking unique labels and specifying the selector. Failure to pick a unique label may cause this and other jobs to not function correctly. More info: https://git.k8s.io/community/contributors/design-proposals/selector-generation.md *)
   parallelism : float prop option; [@option]
-      (** Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/ *)
   ttl_seconds_after_finished : string prop option; [@option]
-      (** ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. *)
   pod_failure_policy : spec__pod_failure_policy list;
   selector : spec__selector list;
   template : spec__template list;
 }
-[@@deriving yojson_of]
-(** Spec of the job owned by the cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       active_deadline_seconds = v_active_deadline_seconds;
+       backoff_limit = v_backoff_limit;
+       completion_mode = v_completion_mode;
+       completions = v_completions;
+       manual_selector = v_manual_selector;
+       parallelism = v_parallelism;
+       ttl_seconds_after_finished = v_ttl_seconds_after_finished;
+       pod_failure_policy = v_pod_failure_policy;
+       selector = v_selector;
+       template = v_template;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__template v_template
+         in
+         ("template", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__selector v_selector
+         in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__pod_failure_policy
+             v_pod_failure_policy
+         in
+         ("pod_failure_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_ttl_seconds_after_finished with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ttl_seconds_after_finished", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parallelism with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "parallelism", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_manual_selector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "manual_selector", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_completions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "completions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_completion_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "completion_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backoff_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "backoff_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_active_deadline_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "active_deadline_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type kubernetes_job = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   wait_for_completion : bool prop option; [@option]
-      (** wait_for_completion *)
   metadata : metadata list;
   spec : spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** kubernetes_job *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_job) -> ()
+
+let yojson_of_kubernetes_job =
+  (function
+   | {
+       id = v_id;
+       wait_for_completion = v_wait_for_completion;
+       metadata = v_metadata;
+       spec = v_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_wait_for_completion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "wait_for_completion", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_job
+
+[@@@deriving.end]
 
 let metadata ?annotations ?generate_name ?labels ?name ?namespace ()
     : metadata =

@@ -4,14 +4,61 @@ open! Tf_core
 
 type aws_autoscaling_attachment = {
   autoscaling_group_name : string prop;
-      (** autoscaling_group_name *)
-  elb : string prop option; [@option]  (** elb *)
-  id : string prop option; [@option]  (** id *)
+  elb : string prop option; [@option]
+  id : string prop option; [@option]
   lb_target_group_arn : string prop option; [@option]
-      (** lb_target_group_arn *)
 }
-[@@deriving yojson_of]
-(** aws_autoscaling_attachment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_autoscaling_attachment) -> ()
+
+let yojson_of_aws_autoscaling_attachment =
+  (function
+   | {
+       autoscaling_group_name = v_autoscaling_group_name;
+       elb = v_elb;
+       id = v_id;
+       lb_target_group_arn = v_lb_target_group_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_lb_target_group_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lb_target_group_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_elb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "elb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_autoscaling_group_name
+         in
+         ("autoscaling_group_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_autoscaling_attachment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_autoscaling_attachment
+
+[@@@deriving.end]
 
 let aws_autoscaling_attachment ?elb ?id ?lb_target_group_arn
     ~autoscaling_group_name () : aws_autoscaling_attachment =

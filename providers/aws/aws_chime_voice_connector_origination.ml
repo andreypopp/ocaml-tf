@@ -3,23 +3,113 @@
 open! Tf_core
 
 type route = {
-  host : string prop;  (** host *)
-  port : float prop option; [@option]  (** port *)
-  priority : float prop;  (** priority *)
-  protocol : string prop;  (** protocol *)
-  weight : float prop;  (** weight *)
+  host : string prop;
+  port : float prop option; [@option]
+  priority : float prop;
+  protocol : string prop;
+  weight : float prop;
 }
-[@@deriving yojson_of]
-(** route *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : route) -> ()
+
+let yojson_of_route =
+  (function
+   | {
+       host = v_host;
+       port = v_port;
+       priority = v_priority;
+       protocol = v_protocol;
+       weight = v_weight;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_weight in
+         ("weight", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_priority in
+         ("priority", arg) :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       `Assoc bnds
+    : route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_route
+
+[@@@deriving.end]
 
 type aws_chime_voice_connector_origination = {
-  disabled : bool prop option; [@option]  (** disabled *)
-  id : string prop option; [@option]  (** id *)
-  voice_connector_id : string prop;  (** voice_connector_id *)
+  disabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  voice_connector_id : string prop;
   route : route list;
 }
-[@@deriving yojson_of]
-(** aws_chime_voice_connector_origination *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_chime_voice_connector_origination) -> ()
+
+let yojson_of_aws_chime_voice_connector_origination =
+  (function
+   | {
+       disabled = v_disabled;
+       id = v_id;
+       voice_connector_id = v_voice_connector_id;
+       route = v_route;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_route v_route in
+         ("route", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_voice_connector_id
+         in
+         ("voice_connector_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_chime_voice_connector_origination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_chime_voice_connector_origination
+
+[@@@deriving.end]
 
 let route ?port ~host ~priority ~protocol ~weight () : route =
   { host; port; priority; protocol; weight }

@@ -3,43 +3,258 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_vpc_ipam_pool = {
-  address_family : string prop;  (** address_family *)
+  address_family : string prop;
   allocation_default_netmask_length : float prop option; [@option]
-      (** allocation_default_netmask_length *)
   allocation_max_netmask_length : float prop option; [@option]
-      (** allocation_max_netmask_length *)
   allocation_min_netmask_length : float prop option; [@option]
-      (** allocation_min_netmask_length *)
   allocation_resource_tags : (string * string prop) list option;
       [@option]
-      (** allocation_resource_tags *)
-  auto_import : bool prop option; [@option]  (** auto_import *)
-  aws_service : string prop option; [@option]  (** aws_service *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  ipam_scope_id : string prop;  (** ipam_scope_id *)
-  locale : string prop option; [@option]  (** locale *)
+  auto_import : bool prop option; [@option]
+  aws_service : string prop option; [@option]
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  ipam_scope_id : string prop;
+  locale : string prop option; [@option]
   public_ip_source : string prop option; [@option]
-      (** public_ip_source *)
   publicly_advertisable : bool prop option; [@option]
-      (** publicly_advertisable *)
   source_ipam_pool_id : string prop option; [@option]
-      (** source_ipam_pool_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_vpc_ipam_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_vpc_ipam_pool) -> ()
+
+let yojson_of_aws_vpc_ipam_pool =
+  (function
+   | {
+       address_family = v_address_family;
+       allocation_default_netmask_length =
+         v_allocation_default_netmask_length;
+       allocation_max_netmask_length =
+         v_allocation_max_netmask_length;
+       allocation_min_netmask_length =
+         v_allocation_min_netmask_length;
+       allocation_resource_tags = v_allocation_resource_tags;
+       auto_import = v_auto_import;
+       aws_service = v_aws_service;
+       description = v_description;
+       id = v_id;
+       ipam_scope_id = v_ipam_scope_id;
+       locale = v_locale;
+       public_ip_source = v_public_ip_source;
+       publicly_advertisable = v_publicly_advertisable;
+       source_ipam_pool_id = v_source_ipam_pool_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_ipam_pool_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_ipam_pool_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_publicly_advertisable with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "publicly_advertisable", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_ip_source with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "public_ip_source", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_locale with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "locale", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ipam_scope_id in
+         ("ipam_scope_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_aws_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "aws_service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_import with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_import", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allocation_resource_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "allocation_resource_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allocation_min_netmask_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "allocation_min_netmask_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allocation_max_netmask_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "allocation_max_netmask_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allocation_default_netmask_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "allocation_default_netmask_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_address_family
+         in
+         ("address_family", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_vpc_ipam_pool -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_vpc_ipam_pool
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

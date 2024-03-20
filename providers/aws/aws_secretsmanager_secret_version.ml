@@ -3,15 +3,73 @@
 open! Tf_core
 
 type aws_secretsmanager_secret_version = {
-  id : string prop option; [@option]  (** id *)
-  secret_binary : string prop option; [@option]  (** secret_binary *)
-  secret_id : string prop;  (** secret_id *)
-  secret_string : string prop option; [@option]  (** secret_string *)
+  id : string prop option; [@option]
+  secret_binary : string prop option; [@option]
+  secret_id : string prop;
+  secret_string : string prop option; [@option]
   version_stages : string prop list option; [@option]
-      (** version_stages *)
 }
-[@@deriving yojson_of]
-(** aws_secretsmanager_secret_version *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_secretsmanager_secret_version) -> ()
+
+let yojson_of_aws_secretsmanager_secret_version =
+  (function
+   | {
+       id = v_id;
+       secret_binary = v_secret_binary;
+       secret_id = v_secret_id;
+       secret_string = v_secret_string;
+       version_stages = v_version_stages;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_version_stages with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "version_stages", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_id in
+         ("secret_id", arg) :: bnds
+       in
+       let bnds =
+         match v_secret_binary with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_binary", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_secretsmanager_secret_version ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_secretsmanager_secret_version
+
+[@@@deriving.end]
 
 let aws_secretsmanager_secret_version ?id ?secret_binary
     ?secret_string ?version_stages ~secret_id () :

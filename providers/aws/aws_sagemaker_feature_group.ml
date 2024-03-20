@@ -3,81 +3,463 @@
 open! Tf_core
 
 type feature_definition = {
-  feature_name : string prop option; [@option]  (** feature_name *)
-  feature_type : string prop option; [@option]  (** feature_type *)
+  feature_name : string prop option; [@option]
+  feature_type : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** feature_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : feature_definition) -> ()
+
+let yojson_of_feature_definition =
+  (function
+   | { feature_name = v_feature_name; feature_type = v_feature_type }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_feature_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "feature_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_feature_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "feature_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : feature_definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_feature_definition
+
+[@@@deriving.end]
 
 type offline_store_config__data_catalog_config = {
-  catalog : string prop option; [@option]  (** catalog *)
-  database : string prop option; [@option]  (** database *)
-  table_name : string prop option; [@option]  (** table_name *)
+  catalog : string prop option; [@option]
+  database : string prop option; [@option]
+  table_name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** offline_store_config__data_catalog_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : offline_store_config__data_catalog_config) -> ()
+
+let yojson_of_offline_store_config__data_catalog_config =
+  (function
+   | {
+       catalog = v_catalog;
+       database = v_database;
+       table_name = v_table_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_table_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "table_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_database with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "database", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_catalog with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "catalog", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : offline_store_config__data_catalog_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_offline_store_config__data_catalog_config
+
+[@@@deriving.end]
 
 type offline_store_config__s3_storage_config = {
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]
   resolved_output_s3_uri : string prop option; [@option]
-      (** resolved_output_s3_uri *)
-  s3_uri : string prop;  (** s3_uri *)
+  s3_uri : string prop;
 }
-[@@deriving yojson_of]
-(** offline_store_config__s3_storage_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : offline_store_config__s3_storage_config) -> ()
+
+let yojson_of_offline_store_config__s3_storage_config =
+  (function
+   | {
+       kms_key_id = v_kms_key_id;
+       resolved_output_s3_uri = v_resolved_output_s3_uri;
+       s3_uri = v_s3_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_s3_uri in
+         ("s3_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_resolved_output_s3_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resolved_output_s3_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : offline_store_config__s3_storage_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_offline_store_config__s3_storage_config
+
+[@@@deriving.end]
 
 type offline_store_config = {
   disable_glue_table_creation : bool prop option; [@option]
-      (** disable_glue_table_creation *)
-  table_format : string prop option; [@option]  (** table_format *)
+  table_format : string prop option; [@option]
   data_catalog_config :
     offline_store_config__data_catalog_config list;
   s3_storage_config : offline_store_config__s3_storage_config list;
 }
-[@@deriving yojson_of]
-(** offline_store_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : offline_store_config) -> ()
+
+let yojson_of_offline_store_config =
+  (function
+   | {
+       disable_glue_table_creation = v_disable_glue_table_creation;
+       table_format = v_table_format;
+       data_catalog_config = v_data_catalog_config;
+       s3_storage_config = v_s3_storage_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_offline_store_config__s3_storage_config
+             v_s3_storage_config
+         in
+         ("s3_storage_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_offline_store_config__data_catalog_config
+             v_data_catalog_config
+         in
+         ("data_catalog_config", arg) :: bnds
+       in
+       let bnds =
+         match v_table_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "table_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_glue_table_creation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_glue_table_creation", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : offline_store_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_offline_store_config
+
+[@@@deriving.end]
 
 type online_store_config__security_config = {
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** online_store_config__security_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : online_store_config__security_config) -> ()
+
+let yojson_of_online_store_config__security_config =
+  (function
+   | { kms_key_id = v_kms_key_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : online_store_config__security_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_online_store_config__security_config
+
+[@@@deriving.end]
 
 type online_store_config__ttl_duration = {
-  unit : string prop option; [@option]  (** unit *)
-  value : float prop option; [@option]  (** value *)
+  unit : string prop option; [@option]
+  value : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** online_store_config__ttl_duration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : online_store_config__ttl_duration) -> ()
+
+let yojson_of_online_store_config__ttl_duration =
+  (function
+   | { unit = v_unit; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "unit", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : online_store_config__ttl_duration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_online_store_config__ttl_duration
+
+[@@@deriving.end]
 
 type online_store_config = {
   enable_online_store : bool prop option; [@option]
-      (** enable_online_store *)
-  storage_type : string prop option; [@option]  (** storage_type *)
+  storage_type : string prop option; [@option]
   security_config : online_store_config__security_config list;
   ttl_duration : online_store_config__ttl_duration list;
 }
-[@@deriving yojson_of]
-(** online_store_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : online_store_config) -> ()
+
+let yojson_of_online_store_config =
+  (function
+   | {
+       enable_online_store = v_enable_online_store;
+       storage_type = v_storage_type;
+       security_config = v_security_config;
+       ttl_duration = v_ttl_duration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_online_store_config__ttl_duration
+             v_ttl_duration
+         in
+         ("ttl_duration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_online_store_config__security_config
+             v_security_config
+         in
+         ("security_config", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_online_store with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_online_store", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : online_store_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_online_store_config
+
+[@@@deriving.end]
 
 type aws_sagemaker_feature_group = {
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   event_time_feature_name : string prop;
-      (** event_time_feature_name *)
-  feature_group_name : string prop;  (** feature_group_name *)
-  id : string prop option; [@option]  (** id *)
+  feature_group_name : string prop;
+  id : string prop option; [@option]
   record_identifier_feature_name : string prop;
-      (** record_identifier_feature_name *)
-  role_arn : string prop;  (** role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  role_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   feature_definition : feature_definition list;
   offline_store_config : offline_store_config list;
   online_store_config : online_store_config list;
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_feature_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sagemaker_feature_group) -> ()
+
+let yojson_of_aws_sagemaker_feature_group =
+  (function
+   | {
+       description = v_description;
+       event_time_feature_name = v_event_time_feature_name;
+       feature_group_name = v_feature_group_name;
+       id = v_id;
+       record_identifier_feature_name =
+         v_record_identifier_feature_name;
+       role_arn = v_role_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       feature_definition = v_feature_definition;
+       offline_store_config = v_offline_store_config;
+       online_store_config = v_online_store_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_online_store_config
+             v_online_store_config
+         in
+         ("online_store_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_offline_store_config
+             v_offline_store_config
+         in
+         ("offline_store_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_feature_definition
+             v_feature_definition
+         in
+         ("feature_definition", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_record_identifier_feature_name
+         in
+         ("record_identifier_feature_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_feature_group_name
+         in
+         ("feature_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_event_time_feature_name
+         in
+         ("event_time_feature_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_feature_group ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sagemaker_feature_group
+
+[@@@deriving.end]
 
 let feature_definition ?feature_name ?feature_type () :
     feature_definition =

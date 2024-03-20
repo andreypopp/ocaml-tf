@@ -3,76 +3,333 @@
 open! Tf_core
 
 type test_case_conversation_turns__user_input__input__dtmf = {
-  digits : string prop option; [@option]  (** The dtmf digits. *)
+  digits : string prop option; [@option]
   finish_digit : string prop option; [@option]
-      (** The finish digit (if any). *)
 }
-[@@deriving yojson_of]
-(** The DTMF event to be handled. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : test_case_conversation_turns__user_input__input__dtmf) ->
+  ()
+
+let yojson_of_test_case_conversation_turns__user_input__input__dtmf =
+  (function
+   | { digits = v_digits; finish_digit = v_finish_digit } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_finish_digit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "finish_digit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_digits with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "digits", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns__user_input__input__dtmf ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_test_case_conversation_turns__user_input__input__dtmf
+
+[@@@deriving.end]
 
 type test_case_conversation_turns__user_input__input__event = {
-  event : string prop;  (** Name of the event. *)
+  event : string prop;
 }
-[@@deriving yojson_of]
-(** The event to be triggered. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : test_case_conversation_turns__user_input__input__event) ->
+  ()
+
+let yojson_of_test_case_conversation_turns__user_input__input__event
+    =
+  (function
+   | { event = v_event } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_event in
+         ("event", arg) :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns__user_input__input__event ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_test_case_conversation_turns__user_input__input__event
+
+[@@@deriving.end]
 
 type test_case_conversation_turns__user_input__input__text = {
   text : string prop;
-      (** The natural language text to be processed. Text length must not exceed 256 characters. *)
 }
-[@@deriving yojson_of]
-(** The natural language text to be processed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : test_case_conversation_turns__user_input__input__text) ->
+  ()
+
+let yojson_of_test_case_conversation_turns__user_input__input__text =
+  (function
+   | { text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_text in
+         ("text", arg) :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns__user_input__input__text ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_test_case_conversation_turns__user_input__input__text
+
+[@@@deriving.end]
 
 type test_case_conversation_turns__user_input__input = {
   language_code : string prop option; [@option]
-      (** The language of the input. See [Language Support](https://cloud.google.com/dialogflow/cx/docs/reference/language) for a list of the currently supported language codes.
-Note that queries in the same session do not necessarily need to specify the same language. *)
   dtmf : test_case_conversation_turns__user_input__input__dtmf list;
   event :
     test_case_conversation_turns__user_input__input__event list;
   text : test_case_conversation_turns__user_input__input__text list;
 }
-[@@deriving yojson_of]
-(** User input. Supports text input, event input, dtmf input in the test case. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : test_case_conversation_turns__user_input__input) -> ()
+
+let yojson_of_test_case_conversation_turns__user_input__input =
+  (function
+   | {
+       language_code = v_language_code;
+       dtmf = v_dtmf;
+       event = v_event;
+       text = v_text;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_test_case_conversation_turns__user_input__input__text
+             v_text
+         in
+         ("text", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_test_case_conversation_turns__user_input__input__event
+             v_event
+         in
+         ("event", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_test_case_conversation_turns__user_input__input__dtmf
+             v_dtmf
+         in
+         ("dtmf", arg) :: bnds
+       in
+       let bnds =
+         match v_language_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "language_code", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns__user_input__input ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_test_case_conversation_turns__user_input__input
+
+[@@@deriving.end]
 
 type test_case_conversation_turns__user_input = {
   enable_sentiment_analysis : bool prop option; [@option]
-      (** Whether sentiment analysis is enabled. *)
   injected_parameters : string prop option; [@option]
-      (** Parameters that need to be injected into the conversation during intent detection. *)
   is_webhook_enabled : bool prop option; [@option]
-      (** If webhooks should be allowed to trigger in response to the user utterance. Often if parameters are injected, webhooks should not be enabled. *)
   input : test_case_conversation_turns__user_input__input list;
 }
-[@@deriving yojson_of]
-(** The user input. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : test_case_conversation_turns__user_input) -> ()
+
+let yojson_of_test_case_conversation_turns__user_input =
+  (function
+   | {
+       enable_sentiment_analysis = v_enable_sentiment_analysis;
+       injected_parameters = v_injected_parameters;
+       is_webhook_enabled = v_is_webhook_enabled;
+       input = v_input;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_test_case_conversation_turns__user_input__input
+             v_input
+         in
+         ("input", arg) :: bnds
+       in
+       let bnds =
+         match v_is_webhook_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_webhook_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_injected_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "injected_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_sentiment_analysis with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_sentiment_analysis", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns__user_input ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_test_case_conversation_turns__user_input
+
+[@@@deriving.end]
 
 type test_case_conversation_turns__virtual_agent_output__current_page = {
   name : string prop option; [@option]
-      (** The unique identifier of the page.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>/pages/<Page ID>. *)
 }
-[@@deriving yojson_of]
-(** The [Page](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/projects.locations.agents.flows.pages#Page) on which the utterance was spoken. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       test_case_conversation_turns__virtual_agent_output__current_page) ->
+  ()
+
+let yojson_of_test_case_conversation_turns__virtual_agent_output__current_page
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns__virtual_agent_output__current_page ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_test_case_conversation_turns__virtual_agent_output__current_page
+
+[@@@deriving.end]
 
 type test_case_conversation_turns__virtual_agent_output__text_responses = {
   text : string prop list option; [@option]
-      (** A collection of text responses. *)
 }
-[@@deriving yojson_of]
-(** The text responses from the agent for the turn. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       test_case_conversation_turns__virtual_agent_output__text_responses) ->
+  ()
+
+let yojson_of_test_case_conversation_turns__virtual_agent_output__text_responses
+    =
+  (function
+   | { text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "text", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns__virtual_agent_output__text_responses ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_test_case_conversation_turns__virtual_agent_output__text_responses
+
+[@@@deriving.end]
 
 type test_case_conversation_turns__virtual_agent_output__triggered_intent = {
   name : string prop option; [@option]
-      (** The unique identifier of the intent.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/intents/<Intent ID>. *)
 }
-[@@deriving yojson_of]
-(** The [Intent](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/projects.locations.agents.intents#Intent) that triggered the response. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       test_case_conversation_turns__virtual_agent_output__triggered_intent) ->
+  ()
+
+let yojson_of_test_case_conversation_turns__virtual_agent_output__triggered_intent
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns__virtual_agent_output__triggered_intent ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_test_case_conversation_turns__virtual_agent_output__triggered_intent
+
+[@@@deriving.end]
 
 type test_case_conversation_turns__virtual_agent_output = {
   session_parameters : string prop option; [@option]
-      (** The session parameters available to the bot at this point. *)
   current_page :
     test_case_conversation_turns__virtual_agent_output__current_page
     list;
@@ -83,176 +340,878 @@ type test_case_conversation_turns__virtual_agent_output = {
     test_case_conversation_turns__virtual_agent_output__triggered_intent
     list;
 }
-[@@deriving yojson_of]
-(** The virtual agent output. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : test_case_conversation_turns__virtual_agent_output) -> ()
+
+let yojson_of_test_case_conversation_turns__virtual_agent_output =
+  (function
+   | {
+       session_parameters = v_session_parameters;
+       current_page = v_current_page;
+       text_responses = v_text_responses;
+       triggered_intent = v_triggered_intent;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_test_case_conversation_turns__virtual_agent_output__triggered_intent
+             v_triggered_intent
+         in
+         ("triggered_intent", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_test_case_conversation_turns__virtual_agent_output__text_responses
+             v_text_responses
+         in
+         ("text_responses", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_test_case_conversation_turns__virtual_agent_output__current_page
+             v_current_page
+         in
+         ("current_page", arg) :: bnds
+       in
+       let bnds =
+         match v_session_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "session_parameters", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns__virtual_agent_output ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_test_case_conversation_turns__virtual_agent_output
+
+[@@@deriving.end]
 
 type test_case_conversation_turns = {
   user_input : test_case_conversation_turns__user_input list;
   virtual_agent_output :
     test_case_conversation_turns__virtual_agent_output list;
 }
-[@@deriving yojson_of]
-(** The conversation turns uttered when the test case was created, in chronological order. These include the canonical set of agent utterances that should occur when the agent is working properly. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : test_case_conversation_turns) -> ()
+
+let yojson_of_test_case_conversation_turns =
+  (function
+   | {
+       user_input = v_user_input;
+       virtual_agent_output = v_virtual_agent_output;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_test_case_conversation_turns__virtual_agent_output
+             v_virtual_agent_output
+         in
+         ("virtual_agent_output", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_test_case_conversation_turns__user_input
+             v_user_input
+         in
+         ("user_input", arg) :: bnds
+       in
+       `Assoc bnds
+    : test_case_conversation_turns ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_test_case_conversation_turns
+
+[@@@deriving.end]
 
 type test_config = {
   flow : string prop option; [@option]
-      (** Flow name to start the test case with.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>.
-Only one of flow and page should be set to indicate the starting point of the test case. If neither is set, the test case will start with start page on the default start flow. *)
   page : string prop option; [@option]
-      (** The page to start the test case with.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/flows/<Flow ID>/pages/<Page ID>.
-Only one of flow and page should be set to indicate the starting point of the test case. If neither is set, the test case will start with start page on the default start flow. *)
   tracking_parameters : string prop list option; [@option]
-      (** Session parameters to be compared when calculating differences. *)
 }
-[@@deriving yojson_of]
-(** Config for the test case. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : test_config) -> ()
+
+let yojson_of_test_config =
+  (function
+   | {
+       flow = v_flow;
+       page = v_page;
+       tracking_parameters = v_tracking_parameters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tracking_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tracking_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_page with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "page", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_flow with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "flow", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : test_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_test_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__virtual_agent_output__triggered_intent = {
-  display_name : string prop;  (** display_name *)
-  name : string prop;  (** name *)
+  display_name : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       last_test_result__conversation_turns__virtual_agent_output__triggered_intent) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__virtual_agent_output__triggered_intent
+    =
+  (function
+   | { display_name = v_display_name; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__virtual_agent_output__triggered_intent ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__virtual_agent_output__triggered_intent
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__virtual_agent_output__text_responses = {
-  text : string prop list;  (** text *)
+  text : string prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       last_test_result__conversation_turns__virtual_agent_output__text_responses) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__virtual_agent_output__text_responses
+    =
+  (function
+   | { text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_text
+         in
+         ("text", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__virtual_agent_output__text_responses ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__virtual_agent_output__text_responses
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__virtual_agent_output__status = {
-  code : float prop;  (** code *)
-  details : string prop;  (** details *)
-  message : string prop;  (** message *)
+  code : float prop;
+  details : string prop;
+  message : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       last_test_result__conversation_turns__virtual_agent_output__status) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__virtual_agent_output__status
+    =
+  (function
+   | { code = v_code; details = v_details; message = v_message } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_details in
+         ("details", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_code in
+         ("code", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__virtual_agent_output__status ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__virtual_agent_output__status
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__virtual_agent_output__differences = {
-  description : string prop;  (** description *)
-  type_ : string prop; [@key "type"]  (** type *)
+  description : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       last_test_result__conversation_turns__virtual_agent_output__differences) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__virtual_agent_output__differences
+    =
+  (function
+   | { description = v_description; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__virtual_agent_output__differences ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__virtual_agent_output__differences
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__virtual_agent_output__current_page = {
-  display_name : string prop;  (** display_name *)
-  name : string prop;  (** name *)
+  display_name : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       last_test_result__conversation_turns__virtual_agent_output__current_page) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__virtual_agent_output__current_page
+    =
+  (function
+   | { display_name = v_display_name; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__virtual_agent_output__current_page ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__virtual_agent_output__current_page
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__virtual_agent_output = {
   current_page :
     last_test_result__conversation_turns__virtual_agent_output__current_page
     list;
-      (** current_page *)
   differences :
     last_test_result__conversation_turns__virtual_agent_output__differences
     list;
-      (** differences *)
-  session_parameters : string prop;  (** session_parameters *)
+  session_parameters : string prop;
   status :
     last_test_result__conversation_turns__virtual_agent_output__status
     list;
-      (** status *)
   text_responses :
     last_test_result__conversation_turns__virtual_agent_output__text_responses
     list;
-      (** text_responses *)
   triggered_intent :
     last_test_result__conversation_turns__virtual_agent_output__triggered_intent
     list;
-      (** triggered_intent *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : last_test_result__conversation_turns__virtual_agent_output) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__virtual_agent_output
+    =
+  (function
+   | {
+       current_page = v_current_page;
+       differences = v_differences;
+       session_parameters = v_session_parameters;
+       status = v_status;
+       text_responses = v_text_responses;
+       triggered_intent = v_triggered_intent;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__virtual_agent_output__triggered_intent
+             v_triggered_intent
+         in
+         ("triggered_intent", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__virtual_agent_output__text_responses
+             v_text_responses
+         in
+         ("text_responses", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__virtual_agent_output__status
+             v_status
+         in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_session_parameters
+         in
+         ("session_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__virtual_agent_output__differences
+             v_differences
+         in
+         ("differences", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__virtual_agent_output__current_page
+             v_current_page
+         in
+         ("current_page", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__virtual_agent_output ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__virtual_agent_output
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__user_input__input__text = {
-  text : string prop;  (** text *)
+  text : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       last_test_result__conversation_turns__user_input__input__text) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__user_input__input__text
+    =
+  (function
+   | { text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_text in
+         ("text", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__user_input__input__text ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__user_input__input__text
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__user_input__input__event = {
-  event : string prop;  (** event *)
+  event : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       last_test_result__conversation_turns__user_input__input__event) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__user_input__input__event
+    =
+  (function
+   | { event = v_event } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_event in
+         ("event", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__user_input__input__event ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__user_input__input__event
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__user_input__input__dtmf = {
-  digits : string prop;  (** digits *)
-  finish_digit : string prop;  (** finish_digit *)
+  digits : string prop;
+  finish_digit : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       last_test_result__conversation_turns__user_input__input__dtmf) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__user_input__input__dtmf
+    =
+  (function
+   | { digits = v_digits; finish_digit = v_finish_digit } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_finish_digit in
+         ("finish_digit", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_digits in
+         ("digits", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__user_input__input__dtmf ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__user_input__input__dtmf
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__user_input__input = {
   dtmf :
     last_test_result__conversation_turns__user_input__input__dtmf
     list;
-      (** dtmf *)
   event :
     last_test_result__conversation_turns__user_input__input__event
     list;
-      (** event *)
-  language_code : string prop;  (** language_code *)
+  language_code : string prop;
   text :
     last_test_result__conversation_turns__user_input__input__text
     list;
-      (** text *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : last_test_result__conversation_turns__user_input__input) ->
+  ()
+
+let yojson_of_last_test_result__conversation_turns__user_input__input
+    =
+  (function
+   | {
+       dtmf = v_dtmf;
+       event = v_event;
+       language_code = v_language_code;
+       text = v_text;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__user_input__input__text
+             v_text
+         in
+         ("text", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_language_code in
+         ("language_code", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__user_input__input__event
+             v_event
+         in
+         ("event", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__user_input__input__dtmf
+             v_dtmf
+         in
+         ("dtmf", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__user_input__input ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_last_test_result__conversation_turns__user_input__input
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns__user_input = {
   enable_sentiment_analysis : bool prop;
-      (** enable_sentiment_analysis *)
-  injected_parameters : string prop;  (** injected_parameters *)
+  injected_parameters : string prop;
   input :
     last_test_result__conversation_turns__user_input__input list;
-      (** input *)
-  is_webhook_enabled : bool prop;  (** is_webhook_enabled *)
+  is_webhook_enabled : bool prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : last_test_result__conversation_turns__user_input) -> ()
+
+let yojson_of_last_test_result__conversation_turns__user_input =
+  (function
+   | {
+       enable_sentiment_analysis = v_enable_sentiment_analysis;
+       injected_parameters = v_injected_parameters;
+       input = v_input;
+       is_webhook_enabled = v_is_webhook_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_is_webhook_enabled
+         in
+         ("is_webhook_enabled", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__user_input__input
+             v_input
+         in
+         ("input", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_injected_parameters
+         in
+         ("injected_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_enable_sentiment_analysis
+         in
+         ("enable_sentiment_analysis", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns__user_input ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_last_test_result__conversation_turns__user_input
+
+[@@@deriving.end]
 
 type last_test_result__conversation_turns = {
   user_input : last_test_result__conversation_turns__user_input list;
-      (** user_input *)
   virtual_agent_output :
     last_test_result__conversation_turns__virtual_agent_output list;
-      (** virtual_agent_output *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : last_test_result__conversation_turns) -> ()
+
+let yojson_of_last_test_result__conversation_turns =
+  (function
+   | {
+       user_input = v_user_input;
+       virtual_agent_output = v_virtual_agent_output;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__virtual_agent_output
+             v_virtual_agent_output
+         in
+         ("virtual_agent_output", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns__user_input
+             v_user_input
+         in
+         ("user_input", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result__conversation_turns ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_last_test_result__conversation_turns
+
+[@@@deriving.end]
 
 type last_test_result = {
   conversation_turns : last_test_result__conversation_turns list;
-      (** conversation_turns *)
-  environment : string prop;  (** environment *)
-  name : string prop;  (** name *)
-  test_result : string prop;  (** test_result *)
-  test_time : string prop;  (** test_time *)
+  environment : string prop;
+  name : string prop;
+  test_result : string prop;
+  test_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : last_test_result) -> ()
+
+let yojson_of_last_test_result =
+  (function
+   | {
+       conversation_turns = v_conversation_turns;
+       environment = v_environment;
+       name = v_name;
+       test_result = v_test_result;
+       test_time = v_test_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_test_time in
+         ("test_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_test_result in
+         ("test_result", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_environment in
+         ("environment", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_last_test_result__conversation_turns
+             v_conversation_turns
+         in
+         ("conversation_turns", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_test_result -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_last_test_result
+
+[@@@deriving.end]
 
 type google_dialogflow_cx_test_case = {
   display_name : string prop;
-      (** The human-readable name of the test case, unique within the agent. Limit of 200 characters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   notes : string prop option; [@option]
-      (** Additional freeform notes about the test case. Limit of 400 characters. *)
   parent : string prop option; [@option]
-      (** The agent to create the test case for.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
   tags : string prop list option; [@option]
-      (** Tags are short descriptions that users may apply to test cases for organizational and filtering purposes.
-Each tag should start with # and has a limit of 30 characters *)
   test_case_conversation_turns : test_case_conversation_turns list;
   test_config : test_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dialogflow_cx_test_case *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dialogflow_cx_test_case) -> ()
+
+let yojson_of_google_dialogflow_cx_test_case =
+  (function
+   | {
+       display_name = v_display_name;
+       id = v_id;
+       notes = v_notes;
+       parent = v_parent;
+       tags = v_tags;
+       test_case_conversation_turns = v_test_case_conversation_turns;
+       test_config = v_test_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_test_config v_test_config
+         in
+         ("test_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_test_case_conversation_turns
+             v_test_case_conversation_turns
+         in
+         ("test_case_conversation_turns", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_dialogflow_cx_test_case ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dialogflow_cx_test_case
+
+[@@@deriving.end]
 
 let test_case_conversation_turns__user_input__input__dtmf ?digits
     ?finish_digit () :

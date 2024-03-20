@@ -3,26 +3,153 @@
 open! Tf_core
 
 type reservation_plan_settings = {
-  commitment : string prop;  (** commitment *)
-  renewal_type : string prop;  (** renewal_type *)
-  reserved_slots : float prop;  (** reserved_slots *)
+  commitment : string prop;
+  renewal_type : string prop;
+  reserved_slots : float prop;
 }
-[@@deriving yojson_of]
-(** reservation_plan_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : reservation_plan_settings) -> ()
+
+let yojson_of_reservation_plan_settings =
+  (function
+   | {
+       commitment = v_commitment;
+       renewal_type = v_renewal_type;
+       reserved_slots = v_reserved_slots;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_reserved_slots in
+         ("reserved_slots", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_renewal_type in
+         ("renewal_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_commitment in
+         ("commitment", arg) :: bnds
+       in
+       `Assoc bnds
+    : reservation_plan_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_reservation_plan_settings
+
+[@@@deriving.end]
 
 type aws_media_convert_queue = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  pricing_plan : string prop option; [@option]  (** pricing_plan *)
-  status : string prop option; [@option]  (** status *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  pricing_plan : string prop option; [@option]
+  status : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   reservation_plan_settings : reservation_plan_settings list;
 }
-[@@deriving yojson_of]
-(** aws_media_convert_queue *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_media_convert_queue) -> ()
+
+let yojson_of_aws_media_convert_queue =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       pricing_plan = v_pricing_plan;
+       status = v_status;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       reservation_plan_settings = v_reservation_plan_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_reservation_plan_settings
+             v_reservation_plan_settings
+         in
+         ("reservation_plan_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pricing_plan with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pricing_plan", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_media_convert_queue -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_media_convert_queue
+
+[@@@deriving.end]
 
 let reservation_plan_settings ~commitment ~renewal_type
     ~reserved_slots () : reservation_plan_settings =

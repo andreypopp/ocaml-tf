@@ -3,14 +3,67 @@
 open! Tf_core
 
 type google_privateca_ca_pool_iam_policy = {
-  ca_pool : string prop;  (** ca_pool *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop option; [@option]  (** location *)
-  policy_data : string prop;  (** policy_data *)
-  project : string prop option; [@option]  (** project *)
+  ca_pool : string prop;
+  id : string prop option; [@option]
+  location : string prop option; [@option]
+  policy_data : string prop;
+  project : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** google_privateca_ca_pool_iam_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_privateca_ca_pool_iam_policy) -> ()
+
+let yojson_of_google_privateca_ca_pool_iam_policy =
+  (function
+   | {
+       ca_pool = v_ca_pool;
+       id = v_id;
+       location = v_location;
+       policy_data = v_policy_data;
+       project = v_project;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_data in
+         ("policy_data", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ca_pool in
+         ("ca_pool", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_privateca_ca_pool_iam_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_privateca_ca_pool_iam_policy
+
+[@@@deriving.end]
 
 let google_privateca_ca_pool_iam_policy ?id ?location ?project
     ~ca_pool ~policy_data () : google_privateca_ca_pool_iam_policy =

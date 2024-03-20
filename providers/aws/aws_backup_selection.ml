@@ -3,32 +3,121 @@
 open! Tf_core
 
 type condition__string_equals = {
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** condition__string_equals *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__string_equals) -> ()
+
+let yojson_of_condition__string_equals =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__string_equals -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__string_equals
+
+[@@@deriving.end]
 
 type condition__string_like = {
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** condition__string_like *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__string_like) -> ()
+
+let yojson_of_condition__string_like =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__string_like -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__string_like
+
+[@@@deriving.end]
 
 type condition__string_not_equals = {
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** condition__string_not_equals *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__string_not_equals) -> ()
+
+let yojson_of_condition__string_not_equals =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__string_not_equals ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__string_not_equals
+
+[@@@deriving.end]
 
 type condition__string_not_like = {
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** condition__string_not_like *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__string_not_like) -> ()
+
+let yojson_of_condition__string_not_like =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__string_not_like -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__string_not_like
+
+[@@@deriving.end]
 
 type condition = {
   string_equals : condition__string_equals list;
@@ -36,30 +125,175 @@ type condition = {
   string_not_equals : condition__string_not_equals list;
   string_not_like : condition__string_not_like list;
 }
-[@@deriving yojson_of]
-(** condition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition) -> ()
+
+let yojson_of_condition =
+  (function
+   | {
+       string_equals = v_string_equals;
+       string_like = v_string_like;
+       string_not_equals = v_string_not_equals;
+       string_not_like = v_string_not_like;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__string_not_like
+             v_string_not_like
+         in
+         ("string_not_like", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__string_not_equals
+             v_string_not_equals
+         in
+         ("string_not_equals", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__string_like
+             v_string_like
+         in
+         ("string_like", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__string_equals
+             v_string_equals
+         in
+         ("string_equals", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition
+
+[@@@deriving.end]
 
 type selection_tag = {
-  key : string prop;  (** key *)
-  type_ : string prop; [@key "type"]  (** type *)
-  value : string prop;  (** value *)
+  key : string prop;
+  type_ : string prop; [@key "type"]
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** selection_tag *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : selection_tag) -> ()
+
+let yojson_of_selection_tag =
+  (function
+   | { key = v_key; type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : selection_tag -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_selection_tag
+
+[@@@deriving.end]
 
 type aws_backup_selection = {
-  iam_role_arn : string prop;  (** iam_role_arn *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  iam_role_arn : string prop;
+  id : string prop option; [@option]
+  name : string prop;
   not_resources : string prop list option; [@option]
-      (** not_resources *)
-  plan_id : string prop;  (** plan_id *)
-  resources : string prop list option; [@option]  (** resources *)
+  plan_id : string prop;
+  resources : string prop list option; [@option]
   condition : condition list;
   selection_tag : selection_tag list;
 }
-[@@deriving yojson_of]
-(** aws_backup_selection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_backup_selection) -> ()
+
+let yojson_of_aws_backup_selection =
+  (function
+   | {
+       iam_role_arn = v_iam_role_arn;
+       id = v_id;
+       name = v_name;
+       not_resources = v_not_resources;
+       plan_id = v_plan_id;
+       resources = v_resources;
+       condition = v_condition;
+       selection_tag = v_selection_tag;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_selection_tag v_selection_tag
+         in
+         ("selection_tag", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_condition v_condition in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         match v_resources with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resources", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_plan_id in
+         ("plan_id", arg) :: bnds
+       in
+       let bnds =
+         match v_not_resources with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "not_resources", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_iam_role_arn in
+         ("iam_role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_backup_selection -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_backup_selection
+
+[@@@deriving.end]
 
 let condition__string_equals ~key ~value () :
     condition__string_equals =

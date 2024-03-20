@@ -3,12 +3,44 @@
 open! Tf_core
 
 type aws_storagegateway_working_storage = {
-  disk_id : string prop;  (** disk_id *)
-  gateway_arn : string prop;  (** gateway_arn *)
-  id : string prop option; [@option]  (** id *)
+  disk_id : string prop;
+  gateway_arn : string prop;
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_storagegateway_working_storage *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_storagegateway_working_storage) -> ()
+
+let yojson_of_aws_storagegateway_working_storage =
+  (function
+   | { disk_id = v_disk_id; gateway_arn = v_gateway_arn; id = v_id }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_gateway_arn in
+         ("gateway_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_disk_id in
+         ("disk_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_storagegateway_working_storage ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_storagegateway_working_storage
+
+[@@@deriving.end]
 
 let aws_storagegateway_working_storage ?id ~disk_id ~gateway_arn () :
     aws_storagegateway_working_storage =

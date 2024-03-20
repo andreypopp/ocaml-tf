@@ -3,31 +3,160 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type vpc_configuration = {
-  role_arn : string prop;  (** role_arn *)
+  role_arn : string prop;
   security_groups : string prop list option; [@option]
-      (** security_groups *)
-  subnet_ids : string prop list;  (** subnet_ids *)
-  vpc_id : string prop;  (** vpc_id *)
+  subnet_ids : string prop list;
+  vpc_id : string prop;
 }
-[@@deriving yojson_of]
-(** vpc_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vpc_configuration) -> ()
+
+let yojson_of_vpc_configuration =
+  (function
+   | {
+       role_arn = v_role_arn;
+       security_groups = v_security_groups;
+       subnet_ids = v_subnet_ids;
+       vpc_id = v_vpc_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_security_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : vpc_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc_configuration
+
+[@@@deriving.end]
 
 type aws_iot_topic_rule_destination = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
   timeouts : timeouts option;
   vpc_configuration : vpc_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_iot_topic_rule_destination *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iot_topic_rule_destination) -> ()
+
+let yojson_of_aws_iot_topic_rule_destination =
+  (function
+   | {
+       enabled = v_enabled;
+       id = v_id;
+       timeouts = v_timeouts;
+       vpc_configuration = v_vpc_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vpc_configuration
+             v_vpc_configuration
+         in
+         ("vpc_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_iot_topic_rule_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iot_topic_rule_destination
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

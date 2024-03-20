@@ -4,20 +4,118 @@ open! Tf_core
 
 type aws_rds_cluster_endpoint = {
   cluster_endpoint_identifier : string prop;
-      (** cluster_endpoint_identifier *)
-  cluster_identifier : string prop;  (** cluster_identifier *)
-  custom_endpoint_type : string prop;  (** custom_endpoint_type *)
+  cluster_identifier : string prop;
+  custom_endpoint_type : string prop;
   excluded_members : string prop list option; [@option]
-      (** excluded_members *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   static_members : string prop list option; [@option]
-      (** static_members *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_rds_cluster_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_rds_cluster_endpoint) -> ()
+
+let yojson_of_aws_rds_cluster_endpoint =
+  (function
+   | {
+       cluster_endpoint_identifier = v_cluster_endpoint_identifier;
+       cluster_identifier = v_cluster_identifier;
+       custom_endpoint_type = v_custom_endpoint_type;
+       excluded_members = v_excluded_members;
+       id = v_id;
+       static_members = v_static_members;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_static_members with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "static_members", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_excluded_members with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "excluded_members", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_custom_endpoint_type
+         in
+         ("custom_endpoint_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cluster_identifier
+         in
+         ("cluster_identifier", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_cluster_endpoint_identifier
+         in
+         ("cluster_endpoint_identifier", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_rds_cluster_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_rds_cluster_endpoint
+
+[@@@deriving.end]
 
 let aws_rds_cluster_endpoint ?excluded_members ?id ?static_members
     ?tags ?tags_all ~cluster_endpoint_identifier ~cluster_identifier

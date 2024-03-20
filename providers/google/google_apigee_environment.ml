@@ -4,56 +4,195 @@ open! Tf_core
 
 type node_config = {
   max_node_count : string prop option; [@option]
-      (** The maximum total number of gateway nodes that the is reserved for all instances that
-has the specified environment. If not specified, the default is determined by the
-recommended maximum number of nodes for that gateway. *)
   min_node_count : string prop option; [@option]
-      (** The minimum total number of gateway nodes that the is reserved for all instances that
-has the specified environment. If not specified, the default is determined by the
-recommended minimum number of nodes for that gateway. *)
 }
-[@@deriving yojson_of]
-(** NodeConfig for setting the min/max number of nodes associated with the environment. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config) -> ()
+
+let yojson_of_node_config =
+  (function
+   | {
+       max_node_count = v_max_node_count;
+       min_node_count = v_min_node_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_min_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_node_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_apigee_environment = {
   api_proxy_type : string prop option; [@option]
-      (** Optional. API Proxy type supported by the environment. The type can be set when creating
-the Environment and cannot be changed. Possible values: [API_PROXY_TYPE_UNSPECIFIED, PROGRAMMABLE, CONFIGURABLE] *)
   deployment_type : string prop option; [@option]
-      (** Optional. Deployment type supported by the environment. The deployment type can be
-set when creating the environment and cannot be changed. When you enable archive
-deployment, you will be prevented from performing a subset of actions within the
-environment, including:
-Managing the deployment of API proxy or shared flow revisions;
-Creating, updating, or deleting resource files;
-Creating, updating, or deleting target servers. Possible values: [DEPLOYMENT_TYPE_UNSPECIFIED, PROXY, ARCHIVE] *)
   description : string prop option; [@option]
-      (** Description of the environment. *)
   display_name : string prop option; [@option]
-      (** Display name of the environment. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The resource ID of the environment. *)
+  id : string prop option; [@option]
+  name : string prop;
   org_id : string prop;
-      (** The Apigee Organization associated with the Apigee environment,
-in the format 'organizations/{{org_name}}'. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Types that can be selected for an Environment. Each of the types are
-limited by capability and capacity. Refer to Apigee's public documentation
-to understand about each of these types in details.
-An Apigee org can support heterogeneous Environments. Possible values: [ENVIRONMENT_TYPE_UNSPECIFIED, BASE, INTERMEDIATE, COMPREHENSIVE] *)
   node_config : node_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_apigee_environment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_apigee_environment) -> ()
+
+let yojson_of_google_apigee_environment =
+  (function
+   | {
+       api_proxy_type = v_api_proxy_type;
+       deployment_type = v_deployment_type;
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       name = v_name;
+       org_id = v_org_id;
+       type_ = v_type_;
+       node_config = v_node_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config v_node_config
+         in
+         ("node_config", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_org_id in
+         ("org_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deployment_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deployment_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_proxy_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_proxy_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_apigee_environment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_apigee_environment
+
+[@@@deriving.end]
 
 let node_config ?max_node_count ?min_node_count () : node_config =
   { max_node_count; min_node_count }

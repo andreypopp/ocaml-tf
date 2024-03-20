@@ -2,27 +2,151 @@
 
 open! Tf_core
 
-type mount_options = {
-  version : string prop option; [@option]  (** version *)
-}
-[@@deriving yojson_of]
-(** mount_options *)
+type mount_options = { version : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mount_options) -> ()
+
+let yojson_of_mount_options =
+  (function
+   | { version = v_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : mount_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mount_options
+
+[@@@deriving.end]
 
 type aws_datasync_location_smb = {
-  agent_arns : string prop list;  (** agent_arns *)
-  domain : string prop option; [@option]  (** domain *)
-  id : string prop option; [@option]  (** id *)
-  password : string prop;  (** password *)
-  server_hostname : string prop;  (** server_hostname *)
-  subdirectory : string prop;  (** subdirectory *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  agent_arns : string prop list;
+  domain : string prop option; [@option]
+  id : string prop option; [@option]
+  password : string prop;
+  server_hostname : string prop;
+  subdirectory : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  user : string prop;  (** user *)
+  user : string prop;
   mount_options : mount_options list;
 }
-[@@deriving yojson_of]
-(** aws_datasync_location_smb *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_datasync_location_smb) -> ()
+
+let yojson_of_aws_datasync_location_smb =
+  (function
+   | {
+       agent_arns = v_agent_arns;
+       domain = v_domain;
+       id = v_id;
+       password = v_password;
+       server_hostname = v_server_hostname;
+       subdirectory = v_subdirectory;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       user = v_user;
+       mount_options = v_mount_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_mount_options v_mount_options
+         in
+         ("mount_options", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user in
+         ("user", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subdirectory in
+         ("subdirectory", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_server_hostname
+         in
+         ("server_hostname", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_agent_arns
+         in
+         ("agent_arns", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_datasync_location_smb -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_datasync_location_smb
+
+[@@@deriving.end]
 
 let mount_options ?version () : mount_options = { version }
 

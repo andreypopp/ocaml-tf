@@ -4,31 +4,168 @@ open! Tf_core
 
 type player_latency_policy = {
   maximum_individual_player_latency_milliseconds : float prop;
-      (** maximum_individual_player_latency_milliseconds *)
   policy_duration_seconds : float prop option; [@option]
-      (** policy_duration_seconds *)
 }
-[@@deriving yojson_of]
-(** player_latency_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : player_latency_policy) -> ()
+
+let yojson_of_player_latency_policy =
+  (function
+   | {
+       maximum_individual_player_latency_milliseconds =
+         v_maximum_individual_player_latency_milliseconds;
+       policy_duration_seconds = v_policy_duration_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_policy_duration_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "policy_duration_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_maximum_individual_player_latency_milliseconds
+         in
+         ("maximum_individual_player_latency_milliseconds", arg)
+         :: bnds
+       in
+       `Assoc bnds
+    : player_latency_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_player_latency_policy
+
+[@@@deriving.end]
 
 type aws_gamelift_game_session_queue = {
   custom_event_data : string prop option; [@option]
-      (** custom_event_data *)
   destinations : string prop list option; [@option]
-      (** destinations *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   notification_target : string prop option; [@option]
-      (** notification_target *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   timeout_in_seconds : float prop option; [@option]
-      (** timeout_in_seconds *)
   player_latency_policy : player_latency_policy list;
 }
-[@@deriving yojson_of]
-(** aws_gamelift_game_session_queue *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_gamelift_game_session_queue) -> ()
+
+let yojson_of_aws_gamelift_game_session_queue =
+  (function
+   | {
+       custom_event_data = v_custom_event_data;
+       destinations = v_destinations;
+       id = v_id;
+       name = v_name;
+       notification_target = v_notification_target;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       timeout_in_seconds = v_timeout_in_seconds;
+       player_latency_policy = v_player_latency_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_player_latency_policy
+             v_player_latency_policy
+         in
+         ("player_latency_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_in_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notification_target with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_target", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destinations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "destinations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_event_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_event_data", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_gamelift_game_session_queue ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_gamelift_game_session_queue
+
+[@@@deriving.end]
 
 let player_latency_policy ?policy_duration_seconds
     ~maximum_individual_player_latency_milliseconds () :

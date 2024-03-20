@@ -4,40 +4,202 @@ open! Tf_core
 
 type privilege__resource = {
   collection_name : string prop option; [@option]
-      (** collection_name *)
-  db_name : string prop option; [@option]  (** db_name *)
+  db_name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** privilege__resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : privilege__resource) -> ()
+
+let yojson_of_privilege__resource =
+  (function
+   | { collection_name = v_collection_name; db_name = v_db_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_db_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "db_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_collection_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "collection_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : privilege__resource -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_privilege__resource
+
+[@@@deriving.end]
 
 type privilege = {
-  actions : string prop list;  (** actions *)
+  actions : string prop list;
   resource : privilege__resource list;
 }
-[@@deriving yojson_of]
-(** privilege *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : privilege) -> ()
+
+let yojson_of_privilege =
+  (function
+   | { actions = v_actions; resource = v_resource } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_privilege__resource v_resource
+         in
+         ("resource", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_actions
+         in
+         ("actions", arg) :: bnds
+       in
+       `Assoc bnds
+    : privilege -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_privilege
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_cosmosdb_mongo_role_definition = {
   cosmos_mongo_database_id : string prop;
-      (** cosmos_mongo_database_id *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   inherited_role_names : string prop list option; [@option]
-      (** inherited_role_names *)
-  role_name : string prop;  (** role_name *)
+  role_name : string prop;
   privilege : privilege list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_cosmosdb_mongo_role_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_cosmosdb_mongo_role_definition) -> ()
+
+let yojson_of_azurerm_cosmosdb_mongo_role_definition =
+  (function
+   | {
+       cosmos_mongo_database_id = v_cosmos_mongo_database_id;
+       id = v_id;
+       inherited_role_names = v_inherited_role_names;
+       role_name = v_role_name;
+       privilege = v_privilege;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_privilege v_privilege in
+         ("privilege", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_name in
+         ("role_name", arg) :: bnds
+       in
+       let bnds =
+         match v_inherited_role_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "inherited_role_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cosmos_mongo_database_id
+         in
+         ("cosmos_mongo_database_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_cosmosdb_mongo_role_definition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_cosmosdb_mongo_role_definition
+
+[@@@deriving.end]
 
 let privilege__resource ?collection_name ?db_name () :
     privilege__resource =

@@ -3,16 +3,75 @@
 open! Tf_core
 
 type digitalocean_database_connection_pool = {
-  cluster_id : string prop;  (** cluster_id *)
-  db_name : string prop;  (** db_name *)
-  id : string prop option; [@option]  (** id *)
-  mode : string prop;  (** mode *)
-  name : string prop;  (** name *)
-  size : float prop;  (** size *)
-  user : string prop option; [@option]  (** user *)
+  cluster_id : string prop;
+  db_name : string prop;
+  id : string prop option; [@option]
+  mode : string prop;
+  name : string prop;
+  size : float prop;
+  user : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** digitalocean_database_connection_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_database_connection_pool) -> ()
+
+let yojson_of_digitalocean_database_connection_pool =
+  (function
+   | {
+       cluster_id = v_cluster_id;
+       db_name = v_db_name;
+       id = v_id;
+       mode = v_mode;
+       name = v_name;
+       size = v_size;
+       user = v_user;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_size in
+         ("size", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_db_name in
+         ("db_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_database_connection_pool ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_database_connection_pool
+
+[@@@deriving.end]
 
 let digitalocean_database_connection_pool ?id ?user ~cluster_id
     ~db_name ~mode ~name ~size () :

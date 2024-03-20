@@ -3,34 +3,187 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type vpc_settings = {
-  subnet_ids : string prop list;  (** subnet_ids *)
-  vpc_id : string prop;  (** vpc_id *)
+  subnet_ids : string prop list;
+  vpc_id : string prop;
 }
-[@@deriving yojson_of]
-(** vpc_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vpc_settings) -> ()
+
+let yojson_of_vpc_settings =
+  (function
+   | { subnet_ids = v_subnet_ids; vpc_id = v_vpc_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : vpc_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc_settings
+
+[@@@deriving.end]
 
 type aws_directory_service_region = {
   desired_number_of_domain_controllers : float prop option; [@option]
-      (** desired_number_of_domain_controllers *)
-  directory_id : string prop;  (** directory_id *)
-  id : string prop option; [@option]  (** id *)
-  region_name : string prop;  (** region_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  directory_id : string prop;
+  id : string prop option; [@option]
+  region_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   timeouts : timeouts option;
   vpc_settings : vpc_settings list;
 }
-[@@deriving yojson_of]
-(** aws_directory_service_region *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_directory_service_region) -> ()
+
+let yojson_of_aws_directory_service_region =
+  (function
+   | {
+       desired_number_of_domain_controllers =
+         v_desired_number_of_domain_controllers;
+       directory_id = v_directory_id;
+       id = v_id;
+       region_name = v_region_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       timeouts = v_timeouts;
+       vpc_settings = v_vpc_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vpc_settings v_vpc_settings
+         in
+         ("vpc_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region_name in
+         ("region_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_directory_id in
+         ("directory_id", arg) :: bnds
+       in
+       let bnds =
+         match v_desired_number_of_domain_controllers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "desired_number_of_domain_controllers", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_directory_service_region ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_directory_service_region
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

@@ -3,15 +3,71 @@
 open! Tf_core
 
 type aws_route53_traffic_policy_instance = {
-  hosted_zone_id : string prop;  (** hosted_zone_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  traffic_policy_id : string prop;  (** traffic_policy_id *)
-  traffic_policy_version : float prop;  (** traffic_policy_version *)
-  ttl : float prop;  (** ttl *)
+  hosted_zone_id : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  traffic_policy_id : string prop;
+  traffic_policy_version : float prop;
+  ttl : float prop;
 }
-[@@deriving yojson_of]
-(** aws_route53_traffic_policy_instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_traffic_policy_instance) -> ()
+
+let yojson_of_aws_route53_traffic_policy_instance =
+  (function
+   | {
+       hosted_zone_id = v_hosted_zone_id;
+       id = v_id;
+       name = v_name;
+       traffic_policy_id = v_traffic_policy_id;
+       traffic_policy_version = v_traffic_policy_version;
+       ttl = v_ttl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_ttl in
+         ("ttl", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_traffic_policy_version
+         in
+         ("traffic_policy_version", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_traffic_policy_id
+         in
+         ("traffic_policy_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_hosted_zone_id
+         in
+         ("hosted_zone_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_traffic_policy_instance ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_traffic_policy_instance
+
+[@@@deriving.end]
 
 let aws_route53_traffic_policy_instance ?id ~hosted_zone_id ~name
     ~traffic_policy_id ~traffic_policy_version ~ttl () :

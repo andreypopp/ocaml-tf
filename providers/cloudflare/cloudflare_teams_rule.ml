@@ -2,95 +2,312 @@
 
 open! Tf_core
 
-type rule_settings__audit_ssh = {
-  command_logging : bool prop;  (** Log all SSH commands. *)
-}
-[@@deriving yojson_of]
-(** Settings for auditing SSH usage. *)
+type rule_settings__audit_ssh = { command_logging : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__audit_ssh) -> ()
+
+let yojson_of_rule_settings__audit_ssh =
+  (function
+   | { command_logging = v_command_logging } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_command_logging in
+         ("command_logging", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__audit_ssh -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__audit_ssh
+
+[@@@deriving.end]
 
 type rule_settings__biso_admin_controls = {
   disable_copy_paste : bool prop option; [@option]
-      (** Disable copy-paste. *)
   disable_download : bool prop option; [@option]
-      (** Disable download. *)
   disable_keyboard : bool prop option; [@option]
-      (** Disable keyboard usage. *)
   disable_printing : bool prop option; [@option]
-      (** Disable printing. *)
-  disable_upload : bool prop option; [@option]  (** Disable upload. *)
+  disable_upload : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Configure how browser isolation behaves. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__biso_admin_controls) -> ()
+
+let yojson_of_rule_settings__biso_admin_controls =
+  (function
+   | {
+       disable_copy_paste = v_disable_copy_paste;
+       disable_download = v_disable_download;
+       disable_keyboard = v_disable_keyboard;
+       disable_printing = v_disable_printing;
+       disable_upload = v_disable_upload;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_disable_upload with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_upload", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_printing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_printing", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_keyboard with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_keyboard", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_download with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_download", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_copy_paste with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_copy_paste", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__biso_admin_controls ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__biso_admin_controls
+
+[@@@deriving.end]
 
 type rule_settings__check_session = {
   duration : string prop;
-      (** Configure how fresh the session needs to be to be considered valid. *)
   enforce : bool prop;
-      (** Enable session enforcement for this rule. *)
 }
-[@@deriving yojson_of]
-(** Configure how session check behaves. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__check_session) -> ()
+
+let yojson_of_rule_settings__check_session =
+  (function
+   | { duration = v_duration; enforce = v_enforce } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enforce in
+         ("enforce", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_duration in
+         ("duration", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__check_session ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__check_session
+
+[@@@deriving.end]
 
 type rule_settings__egress = {
-  ipv4 : string prop;  (** The IPv4 address to be used for egress. *)
+  ipv4 : string prop;
   ipv4_fallback : string prop option; [@option]
-      (** The IPv4 address to be used for egress in the event of an error egressing with the primary IPv4. Can be '0.0.0.0' to indicate local egreass via Warp IPs. *)
-  ipv6 : string prop;  (** The IPv6 range to be used for egress. *)
+  ipv6 : string prop;
 }
-[@@deriving yojson_of]
-(** Configure how Proxy traffic egresses. Can be set for rules with Egress action and Egress filter. Can be omitted to indicate local egress via Warp IPs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__egress) -> ()
+
+let yojson_of_rule_settings__egress =
+  (function
+   | {
+       ipv4 = v_ipv4;
+       ipv4_fallback = v_ipv4_fallback;
+       ipv6 = v_ipv6;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ipv6 in
+         ("ipv6", arg) :: bnds
+       in
+       let bnds =
+         match v_ipv4_fallback with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv4_fallback", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ipv4 in
+         ("ipv4", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__egress -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__egress
+
+[@@@deriving.end]
 
 type rule_settings__l4override = {
-  ip : string prop;  (** Override IP to forward traffic to. *)
-  port : float prop;  (** Override Port to forward traffic to. *)
+  ip : string prop;
+  port : float prop;
 }
-[@@deriving yojson_of]
-(** Settings to forward layer 4 traffic. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__l4override) -> ()
+
+let yojson_of_rule_settings__l4override =
+  (function
+   | { ip = v_ip; port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip in
+         ("ip", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__l4override -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__l4override
+
+[@@@deriving.end]
 
 type rule_settings__notification_settings = {
   enabled : bool prop option; [@option]
-      (** Enable notification settings. *)
   message : string prop option; [@option]
-      (** Notification content. *)
   support_url : string prop option; [@option]
-      (** Support URL to show in the notification. *)
 }
-[@@deriving yojson_of]
-(** Notification settings on a block rule. *)
+[@@deriving_inline yojson_of]
 
-type rule_settings__payload_log = {
-  enabled : bool prop;
-      (** Enable or disable DLP Payload Logging for this rule. *)
-}
-[@@deriving yojson_of]
-(** Configure DLP Payload Logging settings for this rule. *)
+let _ = fun (_ : rule_settings__notification_settings) -> ()
+
+let yojson_of_rule_settings__notification_settings =
+  (function
+   | {
+       enabled = v_enabled;
+       message = v_message;
+       support_url = v_support_url;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_support_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "support_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_message with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "message", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__notification_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__notification_settings
+
+[@@@deriving.end]
+
+type rule_settings__payload_log = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__payload_log) -> ()
+
+let yojson_of_rule_settings__payload_log =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__payload_log -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__payload_log
+
+[@@@deriving.end]
 
 type rule_settings__untrusted_cert = {
   action : string prop option; [@option]
-      (** Action to be taken when the SSL certificate of upstream is invalid. Available values: `pass_through`, `block`, `error`. *)
 }
-[@@deriving yojson_of]
-(** Configure untrusted certificate settings for this rule. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings__untrusted_cert) -> ()
+
+let yojson_of_rule_settings__untrusted_cert =
+  (function
+   | { action = v_action } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "action", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule_settings__untrusted_cert ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings__untrusted_cert
+
+[@@@deriving.end]
 
 type rule_settings = {
   add_headers : (string * string prop) list option; [@option]
-      (** Add custom headers to allowed requests in the form of key-value pairs. *)
   allow_child_bypass : bool prop option; [@option]
-      (** Allow parent MSP accounts to enable bypass their children's rules. *)
   block_page_enabled : bool prop option; [@option]
-      (** Indicator of block page enablement. *)
   block_page_reason : string prop option; [@option]
-      (** The displayed reason for a user being blocked. *)
   bypass_parent_rule : bool prop option; [@option]
-      (** Allow child MSP accounts to bypass their parent's rule. *)
   insecure_disable_dnssec_validation : bool prop option; [@option]
-      (** Disable DNSSEC validation (must be Allow rule). *)
   ip_categories : bool prop option; [@option]
-      (** Turns on IP category based filter on dns if the rule contains dns category checks. *)
   override_host : string prop option; [@option]
-      (** The host to override matching DNS queries with. *)
   override_ips : string prop list option; [@option]
-      (** The IPs to override matching DNS queries with. *)
   audit_ssh : rule_settings__audit_ssh list;
   biso_admin_controls : rule_settings__biso_admin_controls list;
   check_session : rule_settings__check_session list;
@@ -100,34 +317,300 @@ type rule_settings = {
   payload_log : rule_settings__payload_log list;
   untrusted_cert : rule_settings__untrusted_cert list;
 }
-[@@deriving yojson_of]
-(** Additional rule settings. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_settings) -> ()
+
+let yojson_of_rule_settings =
+  (function
+   | {
+       add_headers = v_add_headers;
+       allow_child_bypass = v_allow_child_bypass;
+       block_page_enabled = v_block_page_enabled;
+       block_page_reason = v_block_page_reason;
+       bypass_parent_rule = v_bypass_parent_rule;
+       insecure_disable_dnssec_validation =
+         v_insecure_disable_dnssec_validation;
+       ip_categories = v_ip_categories;
+       override_host = v_override_host;
+       override_ips = v_override_ips;
+       audit_ssh = v_audit_ssh;
+       biso_admin_controls = v_biso_admin_controls;
+       check_session = v_check_session;
+       egress = v_egress;
+       l4override = v_l4override;
+       notification_settings = v_notification_settings;
+       payload_log = v_payload_log;
+       untrusted_cert = v_untrusted_cert;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule_settings__untrusted_cert
+             v_untrusted_cert
+         in
+         ("untrusted_cert", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule_settings__payload_log
+             v_payload_log
+         in
+         ("payload_log", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule_settings__notification_settings
+             v_notification_settings
+         in
+         ("notification_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule_settings__l4override
+             v_l4override
+         in
+         ("l4override", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule_settings__egress v_egress
+         in
+         ("egress", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule_settings__check_session
+             v_check_session
+         in
+         ("check_session", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule_settings__biso_admin_controls
+             v_biso_admin_controls
+         in
+         ("biso_admin_controls", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule_settings__audit_ssh
+             v_audit_ssh
+         in
+         ("audit_ssh", arg) :: bnds
+       in
+       let bnds =
+         match v_override_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "override_ips", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_override_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "override_host", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_categories with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ip_categories", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_insecure_disable_dnssec_validation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "insecure_disable_dnssec_validation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bypass_parent_rule with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bypass_parent_rule", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_block_page_reason with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "block_page_reason", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_block_page_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "block_page_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_child_bypass with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_child_bypass", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_add_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "add_headers", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_settings
+
+[@@@deriving.end]
 
 type cloudflare_teams_rule = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   action : string prop;
-      (** The action executed by matched teams rule. Available values: `allow`, `block`, `safesearch`, `ytrestricted`, `on`, `off`, `scan`, `noscan`, `isolate`, `noisolate`, `override`, `l4_override`, `egress`, `audit_ssh`. *)
   description : string prop;
-      (** The description of the teams rule. *)
   device_posture : string prop option; [@option]
-      (** The wirefilter expression to be used for device_posture check matching. *)
   enabled : bool prop option; [@option]
-      (** Indicator of rule enablement. *)
   filters : string prop list option; [@option]
-      (** The protocol or layer to evaluate the traffic and identity expressions. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   identity : string prop option; [@option]
-      (** The wirefilter expression to be used for identity matching. *)
-  name : string prop;  (** The name of the teams rule. *)
+  name : string prop;
   precedence : float prop;
-      (** The evaluation precedence of the teams rule. *)
   traffic : string prop option; [@option]
-      (** The wirefilter expression to be used for traffic matching. *)
   rule_settings : rule_settings list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Teams rule resource. Teams rules comprise secure web gateway policies. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_teams_rule) -> ()
+
+let yojson_of_cloudflare_teams_rule =
+  (function
+   | {
+       account_id = v_account_id;
+       action = v_action;
+       description = v_description;
+       device_posture = v_device_posture;
+       enabled = v_enabled;
+       filters = v_filters;
+       id = v_id;
+       identity = v_identity;
+       name = v_name;
+       precedence = v_precedence;
+       traffic = v_traffic;
+       rule_settings = v_rule_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule_settings v_rule_settings
+         in
+         ("rule_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_traffic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "traffic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_precedence in
+         ("precedence", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_identity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_filters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "filters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_device_posture with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "device_posture", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_teams_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_teams_rule
+
+[@@@deriving.end]
 
 let rule_settings__audit_ssh ~command_logging () :
     rule_settings__audit_ssh =

@@ -4,131 +4,340 @@ open! Tf_core
 
 type basic_algorithm__yarn_config = {
   graceful_decommission_timeout : string prop;
-      (** Timeout for YARN graceful decommissioning of Node Managers. Specifies the
-duration to wait for jobs to complete before forcefully removing workers
-(and potentially interrupting jobs). Only applicable to downscaling operations.
-
-Bounds: [0s, 1d]. *)
   scale_down_factor : float prop;
-      (** Fraction of average pending memory in the last cooldown period for which to
-remove workers. A scale-down factor of 1 will result in scaling down so that there
-is no available memory remaining after the update (more aggressive scaling).
-A scale-down factor of 0 disables removing workers, which can be beneficial for
-autoscaling a single job.
-
-Bounds: [0.0, 1.0]. *)
   scale_down_min_worker_fraction : float prop option; [@option]
-      (** Minimum scale-down threshold as a fraction of total cluster size before scaling occurs.
-For example, in a 20-worker cluster, a threshold of 0.1 means the autoscaler must
-recommend at least a 2 worker scale-down for the cluster to scale. A threshold of 0
-means the autoscaler will scale down on any recommended change.
-
-Bounds: [0.0, 1.0]. Default: 0.0. *)
   scale_up_factor : float prop;
-      (** Fraction of average pending memory in the last cooldown period for which to
-add workers. A scale-up factor of 1.0 will result in scaling up so that there
-is no pending memory remaining after the update (more aggressive scaling).
-A scale-up factor closer to 0 will result in a smaller magnitude of scaling up
-(less aggressive scaling).
-
-Bounds: [0.0, 1.0]. *)
   scale_up_min_worker_fraction : float prop option; [@option]
-      (** Minimum scale-up threshold as a fraction of total cluster size before scaling
-occurs. For example, in a 20-worker cluster, a threshold of 0.1 means the autoscaler
-must recommend at least a 2-worker scale-up for the cluster to scale. A threshold of
-0 means the autoscaler will scale up on any recommended change.
-
-Bounds: [0.0, 1.0]. Default: 0.0. *)
 }
-[@@deriving yojson_of]
-(** YARN autoscaling configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : basic_algorithm__yarn_config) -> ()
+
+let yojson_of_basic_algorithm__yarn_config =
+  (function
+   | {
+       graceful_decommission_timeout =
+         v_graceful_decommission_timeout;
+       scale_down_factor = v_scale_down_factor;
+       scale_down_min_worker_fraction =
+         v_scale_down_min_worker_fraction;
+       scale_up_factor = v_scale_up_factor;
+       scale_up_min_worker_fraction = v_scale_up_min_worker_fraction;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_scale_up_min_worker_fraction with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "scale_up_min_worker_fraction", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_scale_up_factor
+         in
+         ("scale_up_factor", arg) :: bnds
+       in
+       let bnds =
+         match v_scale_down_min_worker_fraction with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "scale_down_min_worker_fraction", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_scale_down_factor
+         in
+         ("scale_down_factor", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_graceful_decommission_timeout
+         in
+         ("graceful_decommission_timeout", arg) :: bnds
+       in
+       `Assoc bnds
+    : basic_algorithm__yarn_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_basic_algorithm__yarn_config
+
+[@@@deriving.end]
 
 type basic_algorithm = {
   cooldown_period : string prop option; [@option]
-      (** Duration between scaling events. A scaling period starts after the
-update operation from the previous event has completed.
-
-Bounds: [2m, 1d]. Default: 2m. *)
   yarn_config : basic_algorithm__yarn_config list;
 }
-[@@deriving yojson_of]
-(** Basic algorithm for autoscaling. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : basic_algorithm) -> ()
+
+let yojson_of_basic_algorithm =
+  (function
+   | {
+       cooldown_period = v_cooldown_period;
+       yarn_config = v_yarn_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_basic_algorithm__yarn_config
+             v_yarn_config
+         in
+         ("yarn_config", arg) :: bnds
+       in
+       let bnds =
+         match v_cooldown_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cooldown_period", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : basic_algorithm -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_basic_algorithm
+
+[@@@deriving.end]
 
 type secondary_worker_config = {
   max_instances : float prop option; [@option]
-      (** Maximum number of instances for this group. Note that by default, clusters will not use
-secondary workers. Required for secondary workers if the minimum secondary instances is set.
-Bounds: [minInstances, ). Defaults to 0. *)
   min_instances : float prop option; [@option]
-      (** Minimum number of instances for this group. Bounds: [0, maxInstances]. Defaults to 0. *)
   weight : float prop option; [@option]
-      (** Weight for the instance group, which is used to determine the fraction of total workers
-in the cluster from this instance group. For example, if primary workers have weight 2,
-and secondary workers have weight 1, the cluster will have approximately 2 primary workers
-for each secondary worker.
-
-The cluster may not reach the specified balance if constrained by min/max bounds or other
-autoscaling settings. For example, if maxInstances for secondary workers is 0, then only
-primary workers will be added. The cluster can also be out of balance when created.
-
-If weight is not set on any instance group, the cluster will default to equal weight for
-all groups: the cluster will attempt to maintain an equal number of workers in each group
-within the configured size bounds for each group. If weight is set for one group only,
-the cluster will default to zero weight on the unset group. For example if weight is set
-only on primary workers, the cluster will use primary workers only and no secondary workers. *)
 }
-[@@deriving yojson_of]
-(** Describes how the autoscaler will operate for secondary workers. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secondary_worker_config) -> ()
+
+let yojson_of_secondary_worker_config =
+  (function
+   | {
+       max_instances = v_max_instances;
+       min_instances = v_min_instances;
+       weight = v_weight;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_weight with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "weight", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_instances", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : secondary_worker_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secondary_worker_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type worker_config = {
   max_instances : float prop;
-      (** Maximum number of instances for this group. *)
   min_instances : float prop option; [@option]
-      (** Minimum number of instances for this group. Bounds: [2, maxInstances]. Defaults to 2. *)
   weight : float prop option; [@option]
-      (** Weight for the instance group, which is used to determine the fraction of total workers
-in the cluster from this instance group. For example, if primary workers have weight 2,
-and secondary workers have weight 1, the cluster will have approximately 2 primary workers
-for each secondary worker.
-
-The cluster may not reach the specified balance if constrained by min/max bounds or other
-autoscaling settings. For example, if maxInstances for secondary workers is 0, then only
-primary workers will be added. The cluster can also be out of balance when created.
-
-If weight is not set on any instance group, the cluster will default to equal weight for
-all groups: the cluster will attempt to maintain an equal number of workers in each group
-within the configured size bounds for each group. If weight is set for one group only,
-the cluster will default to zero weight on the unset group. For example if weight is set
-only on primary workers, the cluster will use primary workers only and no secondary workers. *)
 }
-[@@deriving yojson_of]
-(** Describes how the autoscaler will operate for primary workers. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : worker_config) -> ()
+
+let yojson_of_worker_config =
+  (function
+   | {
+       max_instances = v_max_instances;
+       min_instances = v_min_instances;
+       weight = v_weight;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_weight with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "weight", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_instances in
+         ("max_instances", arg) :: bnds
+       in
+       `Assoc bnds
+    : worker_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_worker_config
+
+[@@@deriving.end]
 
 type google_dataproc_autoscaling_policy = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location : string prop option; [@option]
-      (** The  location where the autoscaling policy should reside.
-The default value is 'global'. *)
   policy_id : string prop;
-      (** The policy id. The id must contain only letters (a-z, A-Z), numbers (0-9), underscores (_),
-and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of between
-3 and 50 characters. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   basic_algorithm : basic_algorithm list;
   secondary_worker_config : secondary_worker_config list;
   timeouts : timeouts option;
   worker_config : worker_config list;
 }
-[@@deriving yojson_of]
-(** google_dataproc_autoscaling_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dataproc_autoscaling_policy) -> ()
+
+let yojson_of_google_dataproc_autoscaling_policy =
+  (function
+   | {
+       id = v_id;
+       location = v_location;
+       policy_id = v_policy_id;
+       project = v_project;
+       basic_algorithm = v_basic_algorithm;
+       secondary_worker_config = v_secondary_worker_config;
+       timeouts = v_timeouts;
+       worker_config = v_worker_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_worker_config v_worker_config
+         in
+         ("worker_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_secondary_worker_config
+             v_secondary_worker_config
+         in
+         ("secondary_worker_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_basic_algorithm v_basic_algorithm
+         in
+         ("basic_algorithm", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_id in
+         ("policy_id", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dataproc_autoscaling_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dataproc_autoscaling_policy
+
+[@@@deriving.end]
 
 let basic_algorithm__yarn_config ?scale_down_min_worker_fraction
     ?scale_up_min_worker_fraction ~graceful_decommission_timeout

@@ -9,6 +9,8 @@ type private_endpoint_connection = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

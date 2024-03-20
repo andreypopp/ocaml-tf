@@ -3,53 +3,222 @@
 open! Tf_core
 
 type condition__alert_context = {
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** condition__alert_context *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__alert_context) -> ()
+
+let yojson_of_condition__alert_context =
+  (function
+   | { operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__alert_context -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__alert_context
+
+[@@@deriving.end]
 
 type condition__alert_rule_id = {
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** condition__alert_rule_id *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__alert_rule_id) -> ()
+
+let yojson_of_condition__alert_rule_id =
+  (function
+   | { operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__alert_rule_id -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__alert_rule_id
+
+[@@@deriving.end]
 
 type condition__description = {
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** condition__description *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__description) -> ()
+
+let yojson_of_condition__description =
+  (function
+   | { operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__description -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__description
+
+[@@@deriving.end]
 
 type condition__monitor = {
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** condition__monitor *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__monitor) -> ()
+
+let yojson_of_condition__monitor =
+  (function
+   | { operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__monitor -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__monitor
+
+[@@@deriving.end]
 
 type condition__monitor_service = {
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** condition__monitor_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__monitor_service) -> ()
+
+let yojson_of_condition__monitor_service =
+  (function
+   | { operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__monitor_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__monitor_service
+
+[@@@deriving.end]
 
 type condition__severity = {
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** condition__severity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__severity) -> ()
+
+let yojson_of_condition__severity =
+  (function
+   | { operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__severity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__severity
+
+[@@@deriving.end]
 
 type condition__target_resource_type = {
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** condition__target_resource_type *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__target_resource_type) -> ()
+
+let yojson_of_condition__target_resource_type =
+  (function
+   | { operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition__target_resource_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__target_resource_type
+
+[@@@deriving.end]
 
 type condition = {
   alert_context : condition__alert_context list;
@@ -60,57 +229,371 @@ type condition = {
   severity : condition__severity list;
   target_resource_type : condition__target_resource_type list;
 }
-[@@deriving yojson_of]
-(** condition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition) -> ()
+
+let yojson_of_condition =
+  (function
+   | {
+       alert_context = v_alert_context;
+       alert_rule_id = v_alert_rule_id;
+       description = v_description;
+       monitor = v_monitor;
+       monitor_service = v_monitor_service;
+       severity = v_severity;
+       target_resource_type = v_target_resource_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__target_resource_type
+             v_target_resource_type
+         in
+         ("target_resource_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__severity v_severity
+         in
+         ("severity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__monitor_service
+             v_monitor_service
+         in
+         ("monitor_service", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__monitor v_monitor
+         in
+         ("monitor", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__description
+             v_description
+         in
+         ("description", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__alert_rule_id
+             v_alert_rule_id
+         in
+         ("alert_rule_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__alert_context
+             v_alert_context
+         in
+         ("alert_context", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition
+
+[@@@deriving.end]
 
 type scope = {
-  resource_ids : string prop list;  (** resource_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  resource_ids : string prop list;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** scope *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scope) -> ()
+
+let yojson_of_scope =
+  (function
+   | { resource_ids = v_resource_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_resource_ids
+         in
+         ("resource_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : scope -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scope
+
+[@@@deriving.end]
 
 type suppression__schedule = {
-  end_date_utc : string prop;  (** end_date_utc *)
+  end_date_utc : string prop;
   recurrence_monthly : float prop list option; [@option]
-      (** recurrence_monthly *)
   recurrence_weekly : string prop list option; [@option]
-      (** recurrence_weekly *)
-  start_date_utc : string prop;  (** start_date_utc *)
+  start_date_utc : string prop;
 }
-[@@deriving yojson_of]
-(** suppression__schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : suppression__schedule) -> ()
+
+let yojson_of_suppression__schedule =
+  (function
+   | {
+       end_date_utc = v_end_date_utc;
+       recurrence_monthly = v_recurrence_monthly;
+       recurrence_weekly = v_recurrence_weekly;
+       start_date_utc = v_start_date_utc;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_start_date_utc
+         in
+         ("start_date_utc", arg) :: bnds
+       in
+       let bnds =
+         match v_recurrence_weekly with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "recurrence_weekly", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_recurrence_monthly with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "recurrence_monthly", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_end_date_utc in
+         ("end_date_utc", arg) :: bnds
+       in
+       `Assoc bnds
+    : suppression__schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_suppression__schedule
+
+[@@@deriving.end]
 
 type suppression = {
-  recurrence_type : string prop;  (** recurrence_type *)
+  recurrence_type : string prop;
   schedule : suppression__schedule list;
 }
-[@@deriving yojson_of]
-(** suppression *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : suppression) -> ()
+
+let yojson_of_suppression =
+  (function
+   | { recurrence_type = v_recurrence_type; schedule = v_schedule }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_suppression__schedule v_schedule
+         in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_recurrence_type
+         in
+         ("recurrence_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : suppression -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_suppression
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_monitor_action_rule_suppression = {
-  description : string prop option; [@option]  (** description *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   condition : condition list;
   scope : scope list;
   suppression : suppression list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_monitor_action_rule_suppression *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_monitor_action_rule_suppression) -> ()
+
+let yojson_of_azurerm_monitor_action_rule_suppression =
+  (function
+   | {
+       description = v_description;
+       enabled = v_enabled;
+       id = v_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       condition = v_condition;
+       scope = v_scope;
+       suppression = v_suppression;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_suppression v_suppression
+         in
+         ("suppression", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_scope v_scope in
+         ("scope", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_condition v_condition in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_monitor_action_rule_suppression ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_monitor_action_rule_suppression
+
+[@@@deriving.end]
 
 let condition__alert_context ~operator ~values () :
     condition__alert_context =

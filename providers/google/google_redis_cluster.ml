@@ -2,80 +2,362 @@
 
 open! Tf_core
 
-type psc_configs = {
-  network : string prop;
-      (** Required. The consumer network where the network address of
-the discovery endpoint will be reserved, in the form of
-projects/{network_project_id_or_number}/global/networks/{network_id}. *)
-}
-[@@deriving yojson_of]
-(** Required. Each PscConfig configures the consumer network where two
-network addresses will be designated to the cluster for client access.
-Currently, only one PscConfig is supported. *)
+type psc_configs = { network : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : psc_configs) -> ()
+
+let yojson_of_psc_configs =
+  (function
+   | { network = v_network } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       `Assoc bnds
+    : psc_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_psc_configs
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type discovery_endpoints__psc_config = {
-  network : string prop;  (** network *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type discovery_endpoints__psc_config = { network : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : discovery_endpoints__psc_config) -> ()
+
+let yojson_of_discovery_endpoints__psc_config =
+  (function
+   | { network = v_network } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       `Assoc bnds
+    : discovery_endpoints__psc_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_discovery_endpoints__psc_config
+
+[@@@deriving.end]
 
 type discovery_endpoints = {
-  address : string prop;  (** address *)
-  port : float prop;  (** port *)
+  address : string prop;
+  port : float prop;
   psc_config : discovery_endpoints__psc_config list;
-      (** psc_config *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : discovery_endpoints) -> ()
+
+let yojson_of_discovery_endpoints =
+  (function
+   | {
+       address = v_address;
+       port = v_port;
+       psc_config = v_psc_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_discovery_endpoints__psc_config
+             v_psc_config
+         in
+         ("psc_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_address in
+         ("address", arg) :: bnds
+       in
+       `Assoc bnds
+    : discovery_endpoints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_discovery_endpoints
+
+[@@@deriving.end]
 
 type psc_connections = {
-  address : string prop;  (** address *)
-  forwarding_rule : string prop;  (** forwarding_rule *)
-  network : string prop;  (** network *)
-  project_id : string prop;  (** project_id *)
-  psc_connection_id : string prop;  (** psc_connection_id *)
+  address : string prop;
+  forwarding_rule : string prop;
+  network : string prop;
+  project_id : string prop;
+  psc_connection_id : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : psc_connections) -> ()
+
+let yojson_of_psc_connections =
+  (function
+   | {
+       address = v_address;
+       forwarding_rule = v_forwarding_rule;
+       network = v_network;
+       project_id = v_project_id;
+       psc_connection_id = v_psc_connection_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_psc_connection_id
+         in
+         ("psc_connection_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_forwarding_rule
+         in
+         ("forwarding_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_address in
+         ("address", arg) :: bnds
+       in
+       `Assoc bnds
+    : psc_connections -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_psc_connections
+
+[@@@deriving.end]
 
 type state_info__update_info = {
-  target_replica_count : float prop;  (** target_replica_count *)
-  target_shard_count : float prop;  (** target_shard_count *)
+  target_replica_count : float prop;
+  target_shard_count : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
 
-type state_info = {
-  update_info : state_info__update_info list;  (** update_info *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : state_info__update_info) -> ()
+
+let yojson_of_state_info__update_info =
+  (function
+   | {
+       target_replica_count = v_target_replica_count;
+       target_shard_count = v_target_shard_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_target_shard_count
+         in
+         ("target_shard_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_target_replica_count
+         in
+         ("target_replica_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : state_info__update_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_state_info__update_info
+
+[@@@deriving.end]
+
+type state_info = { update_info : state_info__update_info list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : state_info) -> ()
+
+let yojson_of_state_info =
+  (function
+   | { update_info = v_update_info } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_state_info__update_info
+             v_update_info
+         in
+         ("update_info", arg) :: bnds
+       in
+       `Assoc bnds
+    : state_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_state_info
+
+[@@@deriving.end]
 
 type google_redis_cluster = {
   authorization_mode : string prop option; [@option]
-      (** Optional. The authorization mode of the Redis cluster. If not provided, auth feature is disabled for the cluster. Default value: AUTH_MODE_DISABLED Possible values: [AUTH_MODE_UNSPECIFIED, AUTH_MODE_IAM_AUTH, AUTH_MODE_DISABLED] *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop option; [@option]
-      (** Unique name of the resource in this scope including project and location using the form:
-projects/{projectId}/locations/{locationId}/clusters/{clusterId} *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The name of the region of the Redis cluster. *)
   replica_count : float prop option; [@option]
-      (** Optional. The number of replica nodes per shard. *)
   shard_count : float prop;
-      (** Required. Number of shards for the Redis cluster. *)
   transit_encryption_mode : string prop option; [@option]
-      (** Optional. The in-transit encryption for the Redis cluster.
-If not provided, encryption is disabled for the cluster. Default value: TRANSIT_ENCRYPTION_MODE_DISABLED Possible values: [TRANSIT_ENCRYPTION_MODE_UNSPECIFIED, TRANSIT_ENCRYPTION_MODE_DISABLED, TRANSIT_ENCRYPTION_MODE_SERVER_AUTHENTICATION] *)
   psc_configs : psc_configs list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_redis_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_redis_cluster) -> ()
+
+let yojson_of_google_redis_cluster =
+  (function
+   | {
+       authorization_mode = v_authorization_mode;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       replica_count = v_replica_count;
+       shard_count = v_shard_count;
+       transit_encryption_mode = v_transit_encryption_mode;
+       psc_configs = v_psc_configs;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_psc_configs v_psc_configs
+         in
+         ("psc_configs", arg) :: bnds
+       in
+       let bnds =
+         match v_transit_encryption_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transit_encryption_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_shard_count in
+         ("shard_count", arg) :: bnds
+       in
+       let bnds =
+         match v_replica_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "replica_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authorization_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "authorization_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_redis_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_redis_cluster
+
+[@@@deriving.end]
 
 let psc_configs ~network () : psc_configs = { network }
 

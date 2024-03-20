@@ -3,112 +3,593 @@
 open! Tf_core
 
 type email_integration = {
-  id : string prop;  (** id *)
-  name : string prop option; [@option]  (** name *)
+  id : string prop;
+  name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** The email ID to which the notification should be dispatched. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : email_integration) -> ()
+
+let yojson_of_email_integration =
+  (function
+   | { id = v_id; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : email_integration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_email_integration
+
+[@@@deriving.end]
 
 type filters = {
   actions : string prop list option; [@option]
-      (** Targeted actions for alert. *)
   affected_components : string prop list option; [@option]
-      (** Affected components for alert. Available values: `API`, `API Shield`, `Access`, `Always Online`, `Analytics`, `Apps Marketplace`, `Argo Smart Routing`, `Audit Logs`, `Authoritative DNS`, `Billing`, `Bot Management`, `Bring Your Own IP (BYOIP)`, `Browser Isolation`, `CDN Cache Purge`, `CDN/Cache`, `Cache Reserve`, `Challenge Platform`, `Cloud Access Security Broker (CASB)`, `Community Site`, `DNS Root Servers`, `DNS Updates`, `Dashboard`, `Data Loss Prevention (DLP)`, `Developer's Site`, `Digital Experience Monitoring (DEX)`, `Distributed Web Gateway`, `Durable Objects`, `Email Routing`, `Ethereum Gateway`, `Firewall`, `Gateway`, `Geo-Key Manager`, `Image Resizing`, `Images`, `Infrastructure`, `Lists`, `Load Balancing and Monitoring`, `Logs`, `Magic Firewall`, `Magic Transit`, `Magic WAN`, `Magic WAN Connector`, `Marketing Site`, `Mirage`, `Network`, `Notifications`, `Observatory`, `Page Shield`, `Pages`, `R2`, `Radar`, `Randomness Beacon`, `Recursive DNS`, `Registrar`, `Registration Data Access Protocol (RDAP)`, `SSL Certificate Provisioning`, `SSL for SaaS Provisioning`, `Security Center`, `Snippets`, `Spectrum`, `Speed Optimizations`, `Stream`, `Support Site`, `Time Services`, `Trace`, `Tunnel`, `Turnstile`, `WARP`, `Waiting Room`, `Web Analytics`, `Workers`, `Workers KV`, `Workers Preview`, `Zaraz`, `Zero Trust`, `Zero Trust Dashboard`, `Zone Versioning`. *)
   alert_trigger_preferences : string prop list option; [@option]
-      (** Alert trigger preferences. Example: `slo`. *)
   enabled : string prop list option; [@option]
-      (** State of the pool to alert on. *)
   environment : string prop list option; [@option]
-      (** Environment of pages. Available values: `ENVIRONMENT_PREVIEW`, `ENVIRONMENT_PRODUCTION`. *)
   event : string prop list option; [@option]
-      (** Pages event to alert. Available values: `EVENT_DEPLOYMENT_STARTED`, `EVENT_DEPLOYMENT_FAILED`, `EVENT_DEPLOYMENT_SUCCESS`. *)
   event_source : string prop list option; [@option]
-      (** Source configuration to alert on for pool or origin. *)
   event_type : string prop list option; [@option]
-      (** Stream event type to alert on. *)
   group_by : string prop list option; [@option]
-      (** Alert grouping. *)
   health_check_id : string prop list option; [@option]
-      (** Identifier health check. Required when using `filters.0.status`. *)
   incident_impact : string prop list option; [@option]
-      (** The incident impact level that will trigger the dispatch of a notification. Available values: `INCIDENT_IMPACT_NONE`, `INCIDENT_IMPACT_MINOR`, `INCIDENT_IMPACT_MAJOR`, `INCIDENT_IMPACT_CRITICAL`. *)
   input_id : string prop list option; [@option]
-      (** Stream input id to alert on. *)
   limit : string prop list option; [@option]
-      (** A numerical limit. Example: `100`. *)
   megabits_per_second : string prop list option; [@option]
-      (** Megabits per second threshold for dos alert. *)
   new_health : string prop list option; [@option]
-      (** Health status to alert on for pool or origin. *)
   new_status : string prop list option; [@option]
-      (** Tunnel health status to alert on. *)
   packets_per_second : string prop list option; [@option]
-      (** Packets per second threshold for dos alert. *)
   pool_id : string prop list option; [@option]
-      (** Load balancer pool identifier. *)
   product : string prop list option; [@option]
-      (** Product name. Available values: `worker_requests`, `worker_durable_objects_requests`, `worker_durable_objects_duration`, `worker_durable_objects_data_transfer`, `worker_durable_objects_stored_data`, `worker_durable_objects_storage_deletes`, `worker_durable_objects_storage_writes`, `worker_durable_objects_storage_reads`. *)
   project_id : string prop list option; [@option]
-      (** Identifier of pages project. *)
   protocol : string prop list option; [@option]
-      (** Protocol to alert on for dos. *)
   requests_per_second : string prop list option; [@option]
-      (** Requests per second threshold for dos alert. *)
   selectors : string prop list option; [@option]
-      (** Selectors for alert. Valid options depend on the alert type. *)
-  services : string prop list option; [@option]  (** services *)
+  services : string prop list option; [@option]
   slo : string prop list option; [@option]
-      (** A numerical limit. Example: `99.9`. *)
   status : string prop list option; [@option]
-      (** Status to alert on. *)
   target_hostname : string prop list option; [@option]
-      (** Target host to alert on for dos. *)
   target_zone_name : string prop list option; [@option]
-      (** Target domain to alert on. *)
   tunnel_id : string prop list option; [@option]
-      (** Tunnel IDs to alert on. *)
   where : string prop list option; [@option]
-      (** Filter for alert. *)
   zones : string prop list option; [@option]
-      (** A list of zone identifiers. *)
 }
-[@@deriving yojson_of]
-(** An optional nested block of filters that applies to the selected `alert_type`. A key-value map that specifies the type of filter and the values to match against (refer to the alert type block for available fields). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : filters) -> ()
+
+let yojson_of_filters =
+  (function
+   | {
+       actions = v_actions;
+       affected_components = v_affected_components;
+       alert_trigger_preferences = v_alert_trigger_preferences;
+       enabled = v_enabled;
+       environment = v_environment;
+       event = v_event;
+       event_source = v_event_source;
+       event_type = v_event_type;
+       group_by = v_group_by;
+       health_check_id = v_health_check_id;
+       incident_impact = v_incident_impact;
+       input_id = v_input_id;
+       limit = v_limit;
+       megabits_per_second = v_megabits_per_second;
+       new_health = v_new_health;
+       new_status = v_new_status;
+       packets_per_second = v_packets_per_second;
+       pool_id = v_pool_id;
+       product = v_product;
+       project_id = v_project_id;
+       protocol = v_protocol;
+       requests_per_second = v_requests_per_second;
+       selectors = v_selectors;
+       services = v_services;
+       slo = v_slo;
+       status = v_status;
+       target_hostname = v_target_hostname;
+       target_zone_name = v_target_zone_name;
+       tunnel_id = v_tunnel_id;
+       where = v_where;
+       zones = v_zones;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_zones with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "zones", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_where with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "where", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tunnel_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tunnel_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_zone_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "target_zone_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_hostname with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "target_hostname", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_slo with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "slo", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_services with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "services", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_selectors with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "selectors", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_requests_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "requests_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_product with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "product", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pool_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "pool_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_packets_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "packets_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_new_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "new_status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_new_health with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "new_health", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_megabits_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "megabits_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_input_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "input_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_incident_impact with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "incident_impact", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_health_check_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "health_check_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group_by with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "group_by", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "event_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event_source with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "event_source", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "event", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_environment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "environment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_alert_trigger_preferences with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "alert_trigger_preferences", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_affected_components with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "affected_components", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "actions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : filters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filters
+
+[@@@deriving.end]
 
 type pagerduty_integration = {
-  id : string prop;  (** id *)
-  name : string prop option; [@option]  (** name *)
+  id : string prop;
+  name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** The unique ID of a configured pagerduty endpoint to which the notification should be dispatched. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : pagerduty_integration) -> ()
+
+let yojson_of_pagerduty_integration =
+  (function
+   | { id = v_id; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : pagerduty_integration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pagerduty_integration
+
+[@@@deriving.end]
 
 type webhooks_integration = {
-  id : string prop;  (** id *)
-  name : string prop option; [@option]  (** name *)
+  id : string prop;
+  name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** The unique ID of a configured webhooks endpoint to which the notification should be dispatched. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : webhooks_integration) -> ()
+
+let yojson_of_webhooks_integration =
+  (function
+   | { id = v_id; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : webhooks_integration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_webhooks_integration
+
+[@@@deriving.end]
 
 type cloudflare_notification_policy = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   alert_type : string prop;
-      (** The event type that will trigger the dispatch of a notification. See the developer documentation for descriptions of [available alert types](https://developers.cloudflare.com/fundamentals/notifications/notification-available/). Available values: `advanced_http_alert_error`, `access_custom_certificate_expiration_type`, `advanced_ddos_attack_l4_alert`, `advanced_ddos_attack_l7_alert`, `bgp_hijack_notification`, `billing_usage_alert`, `block_notification_block_removed`, `block_notification_new_block`, `block_notification_review_rejected`, `brand_protection_alert`, `brand_protection_digest`, `clickhouse_alert_fw_anomaly`, `clickhouse_alert_fw_ent_anomaly`, `custom_ssl_certificate_event_type`, `dedicated_ssl_certificate_event_type`, `dos_attack_l4`, `dos_attack_l7`, `expiring_service_token_alert`, `failing_logpush_job_disabled_alert`, `fbm_auto_advertisement`, `fbm_dosd_attack`, `fbm_volumetric_attack`, `health_check_status_notification`, `hostname_aop_custom_certificate_expiration_type`, `http_alert_edge_error`, `http_alert_origin_error`, `incident_alert`, `load_balancing_health_alert`, `load_balancing_pool_enablement_alert`, `logo_match_alert`, `magic_tunnel_health_check_event`, `maintenance_event_notification`, `mtls_certificate_store_certificate_expiration_type`, `pages_event_alert`, `radar_notification`, `real_origin_monitoring`, `scriptmonitor_alert_new_code_change_detections`, `scriptmonitor_alert_new_hosts`, `scriptmonitor_alert_new_malicious_hosts`, `scriptmonitor_alert_new_malicious_scripts`, `scriptmonitor_alert_new_malicious_url`, `scriptmonitor_alert_new_max_length_resource_url`, `scriptmonitor_alert_new_resources`, `secondary_dns_all_primaries_failing`, `secondary_dns_primaries_failing`, `secondary_dns_zone_successfully_updated`, `secondary_dns_zone_validation_warning`, `sentinel_alert`, `stream_live_notifications`, `traffic_anomalies_alert`, `tunnel_health_event`, `tunnel_update_event`, `universal_ssl_event_type`, `web_analytics_metrics_update`, `weekly_account_overview`, `workers_alert`, `zone_aop_custom_certificate_expiration_type`. *)
   description : string prop option; [@option]
-      (** Description of the notification policy. *)
-  enabled : bool prop;  (** The status of the notification policy. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The name of the notification policy. *)
+  enabled : bool prop;
+  id : string prop option; [@option]
+  name : string prop;
   email_integration : email_integration list;
   filters : filters list;
   pagerduty_integration : pagerduty_integration list;
   webhooks_integration : webhooks_integration list;
 }
-[@@deriving yojson_of]
-(** Provides a resource, that manages a notification policy for
-Cloudflare's products. The delivery mechanisms supported are email,
-webhooks, and PagerDuty.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_notification_policy) -> ()
+
+let yojson_of_cloudflare_notification_policy =
+  (function
+   | {
+       account_id = v_account_id;
+       alert_type = v_alert_type;
+       description = v_description;
+       enabled = v_enabled;
+       id = v_id;
+       name = v_name;
+       email_integration = v_email_integration;
+       filters = v_filters;
+       pagerduty_integration = v_pagerduty_integration;
+       webhooks_integration = v_webhooks_integration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_webhooks_integration
+             v_webhooks_integration
+         in
+         ("webhooks_integration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_pagerduty_integration
+             v_pagerduty_integration
+         in
+         ("pagerduty_integration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_filters v_filters in
+         ("filters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_email_integration
+             v_email_integration
+         in
+         ("email_integration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alert_type in
+         ("alert_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_notification_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_notification_policy
+
+[@@@deriving.end]
 
 let email_integration ?name ~id () : email_integration = { id; name }
 

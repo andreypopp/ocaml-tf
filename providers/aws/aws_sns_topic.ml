@@ -5,62 +5,355 @@ open! Tf_core
 type aws_sns_topic = {
   application_failure_feedback_role_arn : string prop option;
       [@option]
-      (** application_failure_feedback_role_arn *)
   application_success_feedback_role_arn : string prop option;
       [@option]
-      (** application_success_feedback_role_arn *)
   application_success_feedback_sample_rate : float prop option;
       [@option]
-      (** application_success_feedback_sample_rate *)
   archive_policy : string prop option; [@option]
-      (** archive_policy *)
   content_based_deduplication : bool prop option; [@option]
-      (** content_based_deduplication *)
   delivery_policy : string prop option; [@option]
-      (** delivery_policy *)
-  display_name : string prop option; [@option]  (** display_name *)
-  fifo_topic : bool prop option; [@option]  (** fifo_topic *)
+  display_name : string prop option; [@option]
+  fifo_topic : bool prop option; [@option]
   firehose_failure_feedback_role_arn : string prop option; [@option]
-      (** firehose_failure_feedback_role_arn *)
   firehose_success_feedback_role_arn : string prop option; [@option]
-      (** firehose_success_feedback_role_arn *)
   firehose_success_feedback_sample_rate : float prop option;
       [@option]
-      (** firehose_success_feedback_sample_rate *)
   http_failure_feedback_role_arn : string prop option; [@option]
-      (** http_failure_feedback_role_arn *)
   http_success_feedback_role_arn : string prop option; [@option]
-      (** http_success_feedback_role_arn *)
   http_success_feedback_sample_rate : float prop option; [@option]
-      (** http_success_feedback_sample_rate *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kms_master_key_id : string prop option; [@option]
-      (** kms_master_key_id *)
   lambda_failure_feedback_role_arn : string prop option; [@option]
-      (** lambda_failure_feedback_role_arn *)
   lambda_success_feedback_role_arn : string prop option; [@option]
-      (** lambda_success_feedback_role_arn *)
   lambda_success_feedback_sample_rate : float prop option; [@option]
-      (** lambda_success_feedback_sample_rate *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  policy : string prop option; [@option]  (** policy *)
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  policy : string prop option; [@option]
   signature_version : float prop option; [@option]
-      (** signature_version *)
   sqs_failure_feedback_role_arn : string prop option; [@option]
-      (** sqs_failure_feedback_role_arn *)
   sqs_success_feedback_role_arn : string prop option; [@option]
-      (** sqs_success_feedback_role_arn *)
   sqs_success_feedback_sample_rate : float prop option; [@option]
-      (** sqs_success_feedback_sample_rate *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   tracing_config : string prop option; [@option]
-      (** tracing_config *)
 }
-[@@deriving yojson_of]
-(** aws_sns_topic *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sns_topic) -> ()
+
+let yojson_of_aws_sns_topic =
+  (function
+   | {
+       application_failure_feedback_role_arn =
+         v_application_failure_feedback_role_arn;
+       application_success_feedback_role_arn =
+         v_application_success_feedback_role_arn;
+       application_success_feedback_sample_rate =
+         v_application_success_feedback_sample_rate;
+       archive_policy = v_archive_policy;
+       content_based_deduplication = v_content_based_deduplication;
+       delivery_policy = v_delivery_policy;
+       display_name = v_display_name;
+       fifo_topic = v_fifo_topic;
+       firehose_failure_feedback_role_arn =
+         v_firehose_failure_feedback_role_arn;
+       firehose_success_feedback_role_arn =
+         v_firehose_success_feedback_role_arn;
+       firehose_success_feedback_sample_rate =
+         v_firehose_success_feedback_sample_rate;
+       http_failure_feedback_role_arn =
+         v_http_failure_feedback_role_arn;
+       http_success_feedback_role_arn =
+         v_http_success_feedback_role_arn;
+       http_success_feedback_sample_rate =
+         v_http_success_feedback_sample_rate;
+       id = v_id;
+       kms_master_key_id = v_kms_master_key_id;
+       lambda_failure_feedback_role_arn =
+         v_lambda_failure_feedback_role_arn;
+       lambda_success_feedback_role_arn =
+         v_lambda_success_feedback_role_arn;
+       lambda_success_feedback_sample_rate =
+         v_lambda_success_feedback_sample_rate;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       policy = v_policy;
+       signature_version = v_signature_version;
+       sqs_failure_feedback_role_arn =
+         v_sqs_failure_feedback_role_arn;
+       sqs_success_feedback_role_arn =
+         v_sqs_success_feedback_role_arn;
+       sqs_success_feedback_sample_rate =
+         v_sqs_success_feedback_sample_rate;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       tracing_config = v_tracing_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tracing_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tracing_config", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sqs_success_feedback_sample_rate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "sqs_success_feedback_sample_rate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sqs_success_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sqs_success_feedback_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sqs_failure_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sqs_failure_feedback_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_signature_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "signature_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lambda_success_feedback_sample_rate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "lambda_success_feedback_sample_rate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lambda_success_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lambda_success_feedback_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lambda_failure_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lambda_failure_feedback_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_master_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_master_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http_success_feedback_sample_rate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "http_success_feedback_sample_rate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http_success_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "http_success_feedback_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http_failure_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "http_failure_feedback_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_firehose_success_feedback_sample_rate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "firehose_success_feedback_sample_rate", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_firehose_success_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "firehose_success_feedback_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_firehose_failure_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "firehose_failure_feedback_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fifo_topic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "fifo_topic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delivery_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delivery_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_based_deduplication with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "content_based_deduplication", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_archive_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "archive_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_application_success_feedback_sample_rate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "application_success_feedback_sample_rate", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_application_success_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "application_success_feedback_role_arn", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_application_failure_feedback_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "application_failure_feedback_role_arn", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sns_topic -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sns_topic
+
+[@@@deriving.end]
 
 let aws_sns_topic ?application_failure_feedback_role_arn
     ?application_success_feedback_role_arn

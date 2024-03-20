@@ -4,19 +4,115 @@ open! Tf_core
 
 type aws_mq_configuration = {
   authentication_strategy : string prop option; [@option]
-      (** authentication_strategy *)
-  data : string prop;  (** data *)
-  description : string prop option; [@option]  (** description *)
-  engine_type : string prop;  (** engine_type *)
-  engine_version : string prop;  (** engine_version *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  data : string prop;
+  description : string prop option; [@option]
+  engine_type : string prop;
+  engine_version : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_mq_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_mq_configuration) -> ()
+
+let yojson_of_aws_mq_configuration =
+  (function
+   | {
+       authentication_strategy = v_authentication_strategy;
+       data = v_data;
+       description = v_description;
+       engine_type = v_engine_type;
+       engine_version = v_engine_version;
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_engine_version
+         in
+         ("engine_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_engine_type in
+         ("engine_type", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_data in
+         ("data", arg) :: bnds
+       in
+       let bnds =
+         match v_authentication_strategy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "authentication_strategy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_mq_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_mq_configuration
+
+[@@@deriving.end]
 
 let aws_mq_configuration ?authentication_strategy ?description ?id
     ?tags ?tags_all ~data ~engine_type ~engine_version ~name () :

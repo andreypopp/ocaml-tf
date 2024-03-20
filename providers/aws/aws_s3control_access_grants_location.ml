@@ -3,13 +3,67 @@
 open! Tf_core
 
 type aws_s3control_access_grants_location = {
-  account_id : string prop option; [@option]  (** account_id *)
-  iam_role_arn : string prop;  (** iam_role_arn *)
-  location_scope : string prop;  (** location_scope *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  account_id : string prop option; [@option]
+  iam_role_arn : string prop;
+  location_scope : string prop;
+  tags : (string * string prop) list option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_s3control_access_grants_location *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_s3control_access_grants_location) -> ()
+
+let yojson_of_aws_s3control_access_grants_location =
+  (function
+   | {
+       account_id = v_account_id;
+       iam_role_arn = v_iam_role_arn;
+       location_scope = v_location_scope;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_location_scope
+         in
+         ("location_scope", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_iam_role_arn in
+         ("iam_role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_s3control_access_grants_location ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3control_access_grants_location
+
+[@@@deriving.end]
 
 let aws_s3control_access_grants_location ?account_id ?tags
     ~iam_role_arn ~location_scope () :

@@ -4,64 +4,273 @@ open! Tf_core
 
 type idp_config__idp_certificates = {
   x509_certificate : string prop option; [@option]
-      (** The x509 certificate *)
 }
-[@@deriving yojson_of]
-(** The IDP's certificate data to verify the signature in the SAMLResponse issued by the IDP. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : idp_config__idp_certificates) -> ()
+
+let yojson_of_idp_config__idp_certificates =
+  (function
+   | { x509_certificate = v_x509_certificate } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_x509_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "x509_certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : idp_config__idp_certificates ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_idp_config__idp_certificates
+
+[@@@deriving.end]
 
 type idp_config = {
   idp_entity_id : string prop;
-      (** Unique identifier for all SAML entities *)
   sign_request : bool prop option; [@option]
-      (** Indicates if outbounding SAMLRequest should be signed. *)
   sso_url : string prop;
-      (** URL to send Authentication request to. *)
   idp_certificates : idp_config__idp_certificates list;
 }
-[@@deriving yojson_of]
-(** SAML IdP configuration when the project acts as the relying party *)
+[@@deriving_inline yojson_of]
 
-type sp_config__sp_certificates = {
-  x509_certificate : string prop;  (** x509_certificate *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : idp_config) -> ()
+
+let yojson_of_idp_config =
+  (function
+   | {
+       idp_entity_id = v_idp_entity_id;
+       sign_request = v_sign_request;
+       sso_url = v_sso_url;
+       idp_certificates = v_idp_certificates;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_idp_config__idp_certificates
+             v_idp_certificates
+         in
+         ("idp_certificates", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sso_url in
+         ("sso_url", arg) :: bnds
+       in
+       let bnds =
+         match v_sign_request with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "sign_request", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_idp_entity_id in
+         ("idp_entity_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : idp_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_idp_config
+
+[@@@deriving.end]
+
+type sp_config__sp_certificates = { x509_certificate : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sp_config__sp_certificates) -> ()
+
+let yojson_of_sp_config__sp_certificates =
+  (function
+   | { x509_certificate = v_x509_certificate } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_x509_certificate
+         in
+         ("x509_certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : sp_config__sp_certificates -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sp_config__sp_certificates
+
+[@@@deriving.end]
 
 type sp_config = {
   callback_uri : string prop;
-      (** Callback URI where responses from IDP are handled. Must start with 'https://'. *)
   sp_entity_id : string prop;
-      (** Unique identifier for all SAML entities. *)
 }
-[@@deriving yojson_of]
-(** SAML SP (Service Provider) configuration when the project acts as the relying party to receive
-and accept an authentication assertion issued by a SAML identity provider. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sp_config) -> ()
+
+let yojson_of_sp_config =
+  (function
+   | { callback_uri = v_callback_uri; sp_entity_id = v_sp_entity_id }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sp_entity_id in
+         ("sp_entity_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_callback_uri in
+         ("callback_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : sp_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sp_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_identity_platform_tenant_inbound_saml_config = {
-  display_name : string prop;  (** Human friendly display name. *)
+  display_name : string prop;
   enabled : bool prop option; [@option]
-      (** If this config allows users to sign in with the provider. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The name of the InboundSamlConfig resource. Must start with 'saml.' and can only have alphanumeric characters,
-hyphens, underscores or periods. The part after 'saml.' must also start with a lowercase letter, end with an
-alphanumeric character, and have at least 2 characters. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   tenant : string prop;
-      (** The name of the tenant where this inbound SAML config resource exists *)
   idp_config : idp_config list;
   sp_config : sp_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_identity_platform_tenant_inbound_saml_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_identity_platform_tenant_inbound_saml_config) -> ()
+
+let yojson_of_google_identity_platform_tenant_inbound_saml_config =
+  (function
+   | {
+       display_name = v_display_name;
+       enabled = v_enabled;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       tenant = v_tenant;
+       idp_config = v_idp_config;
+       sp_config = v_sp_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sp_config v_sp_config in
+         ("sp_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_idp_config v_idp_config
+         in
+         ("idp_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tenant in
+         ("tenant", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_identity_platform_tenant_inbound_saml_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_identity_platform_tenant_inbound_saml_config
+
+[@@@deriving.end]
 
 let idp_config__idp_certificates ?x509_certificate () :
     idp_config__idp_certificates =

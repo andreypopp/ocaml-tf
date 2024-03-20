@@ -3,18 +3,98 @@
 open! Tf_core
 
 type aws_dms_certificate = {
-  certificate_id : string prop;  (** certificate_id *)
+  certificate_id : string prop;
   certificate_pem : string prop option; [@option]
-      (** certificate_pem *)
   certificate_wallet : string prop option; [@option]
-      (** certificate_wallet *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_dms_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dms_certificate) -> ()
+
+let yojson_of_aws_dms_certificate =
+  (function
+   | {
+       certificate_id = v_certificate_id;
+       certificate_pem = v_certificate_pem;
+       certificate_wallet = v_certificate_wallet;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_wallet with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_wallet", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_pem with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_pem", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_id
+         in
+         ("certificate_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_dms_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dms_certificate
+
+[@@@deriving.end]
 
 let aws_dms_certificate ?certificate_pem ?certificate_wallet ?id
     ?tags ?tags_all ~certificate_id () : aws_dms_certificate =

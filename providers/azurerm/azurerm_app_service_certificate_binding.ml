@@ -3,22 +3,109 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; read = v_read } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_app_service_certificate_binding = {
-  certificate_id : string prop;  (** certificate_id *)
-  hostname_binding_id : string prop;  (** hostname_binding_id *)
-  id : string prop option; [@option]  (** id *)
-  ssl_state : string prop;  (** ssl_state *)
+  certificate_id : string prop;
+  hostname_binding_id : string prop;
+  id : string prop option; [@option]
+  ssl_state : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_app_service_certificate_binding *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_app_service_certificate_binding) -> ()
+
+let yojson_of_azurerm_app_service_certificate_binding =
+  (function
+   | {
+       certificate_id = v_certificate_id;
+       hostname_binding_id = v_hostname_binding_id;
+       id = v_id;
+       ssl_state = v_ssl_state;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ssl_state in
+         ("ssl_state", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_hostname_binding_id
+         in
+         ("hostname_binding_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_id
+         in
+         ("certificate_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_app_service_certificate_binding ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_app_service_certificate_binding
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }

@@ -3,9 +3,9 @@
 open! Tf_core
 
 type aws_ram_sharing_with_organization = {
-  id: string  prop option; [@option] (** id *)
-} [@@deriving yojson_of]
-(** aws_ram_sharing_with_organization *)
+  id: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let aws_ram_sharing_with_organization ?id () =
   ({

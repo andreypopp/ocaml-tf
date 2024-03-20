@@ -4,60 +4,335 @@ open! Tf_core
 
 type catalog_info = {
   administrator_login : string prop option; [@option]
-      (** administrator_login *)
   administrator_password : string prop option; [@option]
-      (** administrator_password *)
-  pricing_tier : string prop option; [@option]  (** pricing_tier *)
-  server_endpoint : string prop;  (** server_endpoint *)
+  pricing_tier : string prop option; [@option]
+  server_endpoint : string prop;
 }
-[@@deriving yojson_of]
-(** catalog_info *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : catalog_info) -> ()
+
+let yojson_of_catalog_info =
+  (function
+   | {
+       administrator_login = v_administrator_login;
+       administrator_password = v_administrator_password;
+       pricing_tier = v_pricing_tier;
+       server_endpoint = v_server_endpoint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_server_endpoint
+         in
+         ("server_endpoint", arg) :: bnds
+       in
+       let bnds =
+         match v_pricing_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pricing_tier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_administrator_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "administrator_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_administrator_login with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "administrator_login", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : catalog_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_catalog_info
+
+[@@@deriving.end]
 
 type custom_setup_script = {
-  blob_container_uri : string prop;  (** blob_container_uri *)
-  sas_token : string prop;  (** sas_token *)
+  blob_container_uri : string prop;
+  sas_token : string prop;
 }
-[@@deriving yojson_of]
-(** custom_setup_script *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_setup_script) -> ()
+
+let yojson_of_custom_setup_script =
+  (function
+   | {
+       blob_container_uri = v_blob_container_uri;
+       sas_token = v_sas_token;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sas_token in
+         ("sas_token", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_blob_container_uri
+         in
+         ("blob_container_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_setup_script -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_setup_script
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type vnet_integration = {
-  subnet_name : string prop;  (** subnet_name *)
-  vnet_id : string prop;  (** vnet_id *)
+  subnet_name : string prop;
+  vnet_id : string prop;
 }
-[@@deriving yojson_of]
-(** vnet_integration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vnet_integration) -> ()
+
+let yojson_of_vnet_integration =
+  (function
+   | { subnet_name = v_subnet_name; vnet_id = v_vnet_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vnet_id in
+         ("vnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_name in
+         ("subnet_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : vnet_integration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vnet_integration
+
+[@@@deriving.end]
 
 type azurerm_data_factory_integration_runtime_managed = {
   credential_name : string prop option; [@option]
-      (** credential_name *)
-  data_factory_id : string prop;  (** data_factory_id *)
-  description : string prop option; [@option]  (** description *)
-  edition : string prop option; [@option]  (** edition *)
-  id : string prop option; [@option]  (** id *)
-  license_type : string prop option; [@option]  (** license_type *)
-  location : string prop;  (** location *)
+  data_factory_id : string prop;
+  description : string prop option; [@option]
+  edition : string prop option; [@option]
+  id : string prop option; [@option]
+  license_type : string prop option; [@option]
+  location : string prop;
   max_parallel_executions_per_node : float prop option; [@option]
-      (** max_parallel_executions_per_node *)
-  name : string prop;  (** name *)
-  node_size : string prop;  (** node_size *)
+  name : string prop;
+  node_size : string prop;
   number_of_nodes : float prop option; [@option]
-      (** number_of_nodes *)
   catalog_info : catalog_info list;
   custom_setup_script : custom_setup_script list;
   timeouts : timeouts option;
   vnet_integration : vnet_integration list;
 }
-[@@deriving yojson_of]
-(** azurerm_data_factory_integration_runtime_managed *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : azurerm_data_factory_integration_runtime_managed) -> ()
+
+let yojson_of_azurerm_data_factory_integration_runtime_managed =
+  (function
+   | {
+       credential_name = v_credential_name;
+       data_factory_id = v_data_factory_id;
+       description = v_description;
+       edition = v_edition;
+       id = v_id;
+       license_type = v_license_type;
+       location = v_location;
+       max_parallel_executions_per_node =
+         v_max_parallel_executions_per_node;
+       name = v_name;
+       node_size = v_node_size;
+       number_of_nodes = v_number_of_nodes;
+       catalog_info = v_catalog_info;
+       custom_setup_script = v_custom_setup_script;
+       timeouts = v_timeouts;
+       vnet_integration = v_vnet_integration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vnet_integration
+             v_vnet_integration
+         in
+         ("vnet_integration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_setup_script
+             v_custom_setup_script
+         in
+         ("custom_setup_script", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_catalog_info v_catalog_info
+         in
+         ("catalog_info", arg) :: bnds
+       in
+       let bnds =
+         match v_number_of_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_of_nodes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_node_size in
+         ("node_size", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_max_parallel_executions_per_node with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_parallel_executions_per_node", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_license_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "license_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_edition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "edition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_factory_id
+         in
+         ("data_factory_id", arg) :: bnds
+       in
+       let bnds =
+         match v_credential_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "credential_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_data_factory_integration_runtime_managed ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_data_factory_integration_runtime_managed
+
+[@@@deriving.end]
 
 let catalog_info ?administrator_login ?administrator_password
     ?pricing_tier ~server_endpoint () : catalog_info =

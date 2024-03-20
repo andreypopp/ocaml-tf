@@ -3,17 +3,84 @@
 open! Tf_core
 
 type aws_cloudwatch_event_api_destination = {
-  connection_arn : string prop;  (** connection_arn *)
-  description : string prop option; [@option]  (** description *)
-  http_method : string prop;  (** http_method *)
-  id : string prop option; [@option]  (** id *)
-  invocation_endpoint : string prop;  (** invocation_endpoint *)
+  connection_arn : string prop;
+  description : string prop option; [@option]
+  http_method : string prop;
+  id : string prop option; [@option]
+  invocation_endpoint : string prop;
   invocation_rate_limit_per_second : float prop option; [@option]
-      (** invocation_rate_limit_per_second *)
-  name : string prop;  (** name *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_cloudwatch_event_api_destination *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudwatch_event_api_destination) -> ()
+
+let yojson_of_aws_cloudwatch_event_api_destination =
+  (function
+   | {
+       connection_arn = v_connection_arn;
+       description = v_description;
+       http_method = v_http_method;
+       id = v_id;
+       invocation_endpoint = v_invocation_endpoint;
+       invocation_rate_limit_per_second =
+         v_invocation_rate_limit_per_second;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_invocation_rate_limit_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "invocation_rate_limit_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_invocation_endpoint
+         in
+         ("invocation_endpoint", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_http_method in
+         ("http_method", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_connection_arn
+         in
+         ("connection_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudwatch_event_api_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudwatch_event_api_destination
+
+[@@@deriving.end]
 
 let aws_cloudwatch_event_api_destination ?description ?id
     ?invocation_rate_limit_per_second ~connection_arn ~http_method

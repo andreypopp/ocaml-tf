@@ -4,24 +4,90 @@ open! Tf_core
 
 type cloudflare_turnstile_widget = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   bot_fight_mode : bool prop option; [@option]
-      (** If bot_fight_mode is set to true, Cloudflare issues computationally expensive challenges in response to malicious bots (Enterprise only). *)
   domains : string prop list;
-      (** Domains where the widget is deployed *)
   id : string prop option; [@option]
-      (** The identifier of this resource. This is the site key value. *)
   mode : string prop;
-      (** Widget Mode. Available values: `non-interactive`, `invisible`, `managed` *)
-  name : string prop;  (** Human readable widget name. *)
+  name : string prop;
   offlabel : bool prop option; [@option]
-      (** Do not show any Cloudflare branding on the widget (Enterprise only). *)
   region : string prop option; [@option]
-      (** Region where this widget can be used. *)
 }
-[@@deriving yojson_of]
-(** The [Turnstile Widget](https://developers.cloudflare.com/turnstile/) resource allows you to manage Cloudflare Turnstile Widgets.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_turnstile_widget) -> ()
+
+let yojson_of_cloudflare_turnstile_widget =
+  (function
+   | {
+       account_id = v_account_id;
+       bot_fight_mode = v_bot_fight_mode;
+       domains = v_domains;
+       id = v_id;
+       mode = v_mode;
+       name = v_name;
+       offlabel = v_offlabel;
+       region = v_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_offlabel with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "offlabel", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_domains
+         in
+         ("domains", arg) :: bnds
+       in
+       let bnds =
+         match v_bot_fight_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bot_fight_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_turnstile_widget ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_turnstile_widget
+
+[@@@deriving.end]
 
 let cloudflare_turnstile_widget ?bot_fight_mode ?id ?offlabel ?region
     ~account_id ~domains ~mode ~name () : cloudflare_turnstile_widget

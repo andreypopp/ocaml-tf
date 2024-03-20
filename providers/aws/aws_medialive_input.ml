@@ -2,54 +2,208 @@
 
 open! Tf_core
 
-type destinations = { stream_name : string prop  (** stream_name *) }
-[@@deriving yojson_of]
-(** destinations *)
+type destinations = { stream_name : string prop }
+[@@deriving_inline yojson_of]
 
-type input_devices = { id : string prop  (** id *) }
-[@@deriving yojson_of]
-(** input_devices *)
+let _ = fun (_ : destinations) -> ()
 
-type media_connect_flows = {
-  flow_arn : string prop;  (** flow_arn *)
-}
-[@@deriving yojson_of]
-(** media_connect_flows *)
+let yojson_of_destinations =
+  (function
+   | { stream_name = v_stream_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stream_name in
+         ("stream_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : destinations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destinations
+
+[@@@deriving.end]
+
+type input_devices = { id : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : input_devices) -> ()
+
+let yojson_of_input_devices =
+  (function
+   | { id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : input_devices -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_input_devices
+
+[@@@deriving.end]
+
+type media_connect_flows = { flow_arn : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : media_connect_flows) -> ()
+
+let yojson_of_media_connect_flows =
+  (function
+   | { flow_arn = v_flow_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_flow_arn in
+         ("flow_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : media_connect_flows -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_media_connect_flows
+
+[@@@deriving.end]
 
 type sources = {
-  password_param : string prop;  (** password_param *)
-  url : string prop;  (** url *)
-  username : string prop;  (** username *)
+  password_param : string prop;
+  url : string prop;
+  username : string prop;
 }
-[@@deriving yojson_of]
-(** sources *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sources) -> ()
+
+let yojson_of_sources =
+  (function
+   | {
+       password_param = v_password_param;
+       url = v_url;
+       username = v_username;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_password_param
+         in
+         ("password_param", arg) :: bnds
+       in
+       `Assoc bnds
+    : sources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sources
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type vpc = {
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  subnet_ids : string prop list;
 }
-[@@deriving yojson_of]
-(** vpc *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vpc) -> ()
+
+let yojson_of_vpc =
+  (function
+   | {
+       security_group_ids = v_security_group_ids;
+       subnet_ids = v_subnet_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : vpc -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc
+
+[@@@deriving.end]
 
 type aws_medialive_input = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   input_security_groups : string prop list option; [@option]
-      (** input_security_groups *)
-  name : string prop;  (** name *)
-  role_arn : string prop option; [@option]  (** role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  name : string prop;
+  role_arn : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
   destinations : destinations list;
   input_devices : input_devices list;
   media_connect_flows : media_connect_flows list;
@@ -57,8 +211,133 @@ type aws_medialive_input = {
   timeouts : timeouts option;
   vpc : vpc list;
 }
-[@@deriving yojson_of]
-(** aws_medialive_input *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_medialive_input) -> ()
+
+let yojson_of_aws_medialive_input =
+  (function
+   | {
+       id = v_id;
+       input_security_groups = v_input_security_groups;
+       name = v_name;
+       role_arn = v_role_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       type_ = v_type_;
+       destinations = v_destinations;
+       input_devices = v_input_devices;
+       media_connect_flows = v_media_connect_flows;
+       sources = v_sources;
+       timeouts = v_timeouts;
+       vpc = v_vpc;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_vpc v_vpc in
+         ("vpc", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sources v_sources in
+         ("sources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_media_connect_flows
+             v_media_connect_flows
+         in
+         ("media_connect_flows", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_input_devices v_input_devices
+         in
+         ("input_devices", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destinations v_destinations
+         in
+         ("destinations", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_input_security_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "input_security_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_medialive_input -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_medialive_input
+
+[@@@deriving.end]
 
 let destinations ~stream_name () : destinations = { stream_name }
 let input_devices ~id () : input_devices = { id }

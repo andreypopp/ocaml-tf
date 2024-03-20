@@ -3,39 +3,239 @@
 open! Tf_core
 
 type report_delivery_channel = {
-  formats : string prop list option; [@option]  (** formats *)
-  s3_bucket_name : string prop;  (** s3_bucket_name *)
-  s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
+  formats : string prop list option; [@option]
+  s3_bucket_name : string prop;
+  s3_key_prefix : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** report_delivery_channel *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : report_delivery_channel) -> ()
+
+let yojson_of_report_delivery_channel =
+  (function
+   | {
+       formats = v_formats;
+       s3_bucket_name = v_s3_bucket_name;
+       s3_key_prefix = v_s3_key_prefix;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_s3_key_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_key_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_s3_bucket_name
+         in
+         ("s3_bucket_name", arg) :: bnds
+       in
+       let bnds =
+         match v_formats with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "formats", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : report_delivery_channel -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_report_delivery_channel
+
+[@@@deriving.end]
 
 type report_setting = {
-  accounts : string prop list option; [@option]  (** accounts *)
+  accounts : string prop list option; [@option]
   framework_arns : string prop list option; [@option]
-      (** framework_arns *)
   number_of_frameworks : float prop option; [@option]
-      (** number_of_frameworks *)
   organization_units : string prop list option; [@option]
-      (** organization_units *)
-  regions : string prop list option; [@option]  (** regions *)
-  report_template : string prop;  (** report_template *)
+  regions : string prop list option; [@option]
+  report_template : string prop;
 }
-[@@deriving yojson_of]
-(** report_setting *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : report_setting) -> ()
+
+let yojson_of_report_setting =
+  (function
+   | {
+       accounts = v_accounts;
+       framework_arns = v_framework_arns;
+       number_of_frameworks = v_number_of_frameworks;
+       organization_units = v_organization_units;
+       regions = v_regions;
+       report_template = v_report_template;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_report_template
+         in
+         ("report_template", arg) :: bnds
+       in
+       let bnds =
+         match v_regions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "regions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_organization_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "organization_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_of_frameworks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_of_frameworks", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_framework_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "framework_arns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accounts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "accounts", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : report_setting -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_report_setting
+
+[@@@deriving.end]
 
 type aws_backup_report_plan = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   report_delivery_channel : report_delivery_channel list;
   report_setting : report_setting list;
 }
-[@@deriving yojson_of]
-(** aws_backup_report_plan *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_backup_report_plan) -> ()
+
+let yojson_of_aws_backup_report_plan =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       report_delivery_channel = v_report_delivery_channel;
+       report_setting = v_report_setting;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_report_setting v_report_setting
+         in
+         ("report_setting", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_report_delivery_channel
+             v_report_delivery_channel
+         in
+         ("report_delivery_channel", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_backup_report_plan -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_backup_report_plan
+
+[@@@deriving.end]
 
 let report_delivery_channel ?formats ?s3_key_prefix ~s3_bucket_name
     () : report_delivery_channel =

@@ -3,19 +3,99 @@
 open! Tf_core
 
 type digitalocean_database_replica = {
-  cluster_id : string prop;  (** cluster_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  cluster_id : string prop;
+  id : string prop option; [@option]
+  name : string prop;
   private_network_uuid : string prop option; [@option]
-      (** private_network_uuid *)
-  region : string prop option; [@option]  (** region *)
-  size : string prop option; [@option]  (** size *)
+  region : string prop option; [@option]
+  size : string prop option; [@option]
   storage_size_mib : string prop option; [@option]
-      (** storage_size_mib *)
-  tags : string prop list option; [@option]  (** tags *)
+  tags : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** digitalocean_database_replica *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_database_replica) -> ()
+
+let yojson_of_digitalocean_database_replica =
+  (function
+   | {
+       cluster_id = v_cluster_id;
+       id = v_id;
+       name = v_name;
+       private_network_uuid = v_private_network_uuid;
+       region = v_region;
+       size = v_size;
+       storage_size_mib = v_storage_size_mib;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_size_mib with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_size_mib", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_network_uuid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_network_uuid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_database_replica ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_database_replica
+
+[@@@deriving.end]
 
 let digitalocean_database_replica ?id ?private_network_uuid ?region
     ?size ?storage_size_mib ?tags ~cluster_id ~name () :

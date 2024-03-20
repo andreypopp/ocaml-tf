@@ -4,34 +4,204 @@ open! Tf_core
 
 type single_network_slice_selection_assistance_information = {
   slice_differentiator : string prop option; [@option]
-      (** slice_differentiator *)
-  slice_service_type : float prop;  (** slice_service_type *)
+  slice_service_type : float prop;
 }
-[@@deriving yojson_of]
-(** single_network_slice_selection_assistance_information *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : single_network_slice_selection_assistance_information) ->
+  ()
+
+let yojson_of_single_network_slice_selection_assistance_information =
+  (function
+   | {
+       slice_differentiator = v_slice_differentiator;
+       slice_service_type = v_slice_service_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_slice_service_type
+         in
+         ("slice_service_type", arg) :: bnds
+       in
+       let bnds =
+         match v_slice_differentiator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "slice_differentiator", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : single_network_slice_selection_assistance_information ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_single_network_slice_selection_assistance_information
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_mobile_network_slice = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  mobile_network_id : string prop;  (** mobile_network_id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   single_network_slice_selection_assistance_information :
     single_network_slice_selection_assistance_information list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_mobile_network_slice *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_mobile_network_slice) -> ()
+
+let yojson_of_azurerm_mobile_network_slice =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       location = v_location;
+       mobile_network_id = v_mobile_network_id;
+       name = v_name;
+       tags = v_tags;
+       single_network_slice_selection_assistance_information =
+         v_single_network_slice_selection_assistance_information;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_single_network_slice_selection_assistance_information
+             v_single_network_slice_selection_assistance_information
+         in
+         ( "single_network_slice_selection_assistance_information",
+           arg )
+         :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_mobile_network_id
+         in
+         ("mobile_network_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_mobile_network_slice ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_mobile_network_slice
+
+[@@@deriving.end]
 
 let single_network_slice_selection_assistance_information
     ?slice_differentiator ~slice_service_type () :

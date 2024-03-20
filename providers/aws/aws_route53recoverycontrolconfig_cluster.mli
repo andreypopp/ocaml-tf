@@ -9,6 +9,8 @@ type cluster_endpoints = {
   region : string prop;  (** region *)
 }
 
+[@@@deriving.end]
+
 type aws_route53recoverycontrolconfig_cluster
 
 val aws_route53recoverycontrolconfig_cluster :

@@ -2,45 +2,200 @@
 
 open! Tf_core
 
-type principal_info__service_account = {
-  email : string prop;  (** Email address of the service account. *)
-}
-[@@deriving yojson_of]
-(** ServiceAccount represents a GCP service account. *)
+type principal_info__service_account = { email : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : principal_info__service_account) -> ()
+
+let yojson_of_principal_info__service_account =
+  (function
+   | { email = v_email } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email in
+         ("email", arg) :: bnds
+       in
+       `Assoc bnds
+    : principal_info__service_account ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_principal_info__service_account
+
+[@@@deriving.end]
 
 type principal_info = {
   service_account : principal_info__service_account list;
 }
-[@@deriving yojson_of]
-(** Principal information about the Identity of the AppConnector. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : principal_info) -> ()
+
+let yojson_of_principal_info =
+  (function
+   | { service_account = v_service_account } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_principal_info__service_account
+             v_service_account
+         in
+         ("service_account", arg) :: bnds
+       in
+       `Assoc bnds
+    : principal_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_principal_info
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_beyondcorp_app_connector = {
   display_name : string prop option; [@option]
-      (** An arbitrary user-provided name for the AppConnector. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Resource labels to represent user provided metadata.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string prop;  (** ID of the AppConnector. *)
-  project : string prop option; [@option]  (** project *)
+  name : string prop;
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The region of the AppConnector. *)
   principal_info : principal_info list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_beyondcorp_app_connector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_beyondcorp_app_connector) -> ()
+
+let yojson_of_google_beyondcorp_app_connector =
+  (function
+   | {
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       principal_info = v_principal_info;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_principal_info v_principal_info
+         in
+         ("principal_info", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_beyondcorp_app_connector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_beyondcorp_app_connector
+
+[@@@deriving.end]
 
 let principal_info__service_account ~email () :
     principal_info__service_account =

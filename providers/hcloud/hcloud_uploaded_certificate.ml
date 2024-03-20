@@ -3,15 +3,71 @@
 open! Tf_core
 
 type hcloud_uploaded_certificate = {
-  certificate : string prop;  (** certificate *)
-  id : string prop option; [@option]  (** id *)
+  certificate : string prop;
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** labels *)
-  name : string prop;  (** name *)
-  private_key : string prop;  (** private_key *)
+  name : string prop;
+  private_key : string prop;
 }
-[@@deriving yojson_of]
-(** hcloud_uploaded_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_uploaded_certificate) -> ()
+
+let yojson_of_hcloud_uploaded_certificate =
+  (function
+   | {
+       certificate = v_certificate;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       private_key = v_private_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_private_key in
+         ("private_key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_certificate in
+         ("certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : hcloud_uploaded_certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_uploaded_certificate
+
+[@@@deriving.end]
 
 let hcloud_uploaded_certificate ?id ?labels ~certificate ~name
     ~private_key () : hcloud_uploaded_certificate =

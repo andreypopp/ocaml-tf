@@ -2,54 +2,244 @@
 
 open! Tf_core
 
-type feature_settings = {
-  split_health_checks : bool prop;  (** split_health_checks *)
-}
-[@@deriving yojson_of]
-(** A block of optional settings to configure specific App Engine features: *)
+type feature_settings = { split_health_checks : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : feature_settings) -> ()
+
+let yojson_of_feature_settings =
+  (function
+   | { split_health_checks = v_split_health_checks } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_split_health_checks
+         in
+         ("split_health_checks", arg) :: bnds
+       in
+       `Assoc bnds
+    : feature_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_feature_settings
+
+[@@@deriving.end]
 
 type iap = {
   enabled : bool prop option; [@option]
-      (** Adapted for use with the app *)
   oauth2_client_id : string prop;
-      (** OAuth2 client ID to use for the authentication flow. *)
   oauth2_client_secret : string prop;
-      (** OAuth2 client secret to use for the authentication flow. The SHA-256 hash of the value is returned in the oauth2ClientSecretSha256 field. *)
 }
-[@@deriving yojson_of]
-(** Settings for enabling Cloud Identity Aware Proxy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : iap) -> ()
+
+let yojson_of_iap =
+  (function
+   | {
+       enabled = v_enabled;
+       oauth2_client_id = v_oauth2_client_id;
+       oauth2_client_secret = v_oauth2_client_secret;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_oauth2_client_secret
+         in
+         ("oauth2_client_secret", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_oauth2_client_id
+         in
+         ("oauth2_client_id", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : iap -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_iap
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type url_dispatch_rule = {
-  domain : string prop;  (** domain *)
-  path : string prop;  (** path *)
-  service : string prop;  (** service *)
+  domain : string prop;
+  path : string prop;
+  service : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : url_dispatch_rule) -> ()
+
+let yojson_of_url_dispatch_rule =
+  (function
+   | { domain = v_domain; path = v_path; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       `Assoc bnds
+    : url_dispatch_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_url_dispatch_rule
+
+[@@@deriving.end]
 
 type google_app_engine_application = {
   auth_domain : string prop option; [@option]
-      (** The domain to authenticate users with when using App Engine's User API. *)
-  database_type : string prop option; [@option]  (** database_type *)
-  id : string prop option; [@option]  (** id *)
+  database_type : string prop option; [@option]
+  id : string prop option; [@option]
   location_id : string prop;
-      (** The location to serve the app from. *)
   project : string prop option; [@option]
-      (** The project ID to create the application under. *)
   serving_status : string prop option; [@option]
-      (** The serving status of the app. *)
   feature_settings : feature_settings list;
   iap : iap list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_app_engine_application *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_app_engine_application) -> ()
+
+let yojson_of_google_app_engine_application =
+  (function
+   | {
+       auth_domain = v_auth_domain;
+       database_type = v_database_type;
+       id = v_id;
+       location_id = v_location_id;
+       project = v_project;
+       serving_status = v_serving_status;
+       feature_settings = v_feature_settings;
+       iap = v_iap;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_iap v_iap in
+         ("iap", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_feature_settings
+             v_feature_settings
+         in
+         ("feature_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_serving_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "serving_status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location_id in
+         ("location_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_database_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "database_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auth_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auth_domain", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_app_engine_application ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_app_engine_application
+
+[@@@deriving.end]
 
 let feature_settings ~split_health_checks () : feature_settings =
   { split_health_checks }

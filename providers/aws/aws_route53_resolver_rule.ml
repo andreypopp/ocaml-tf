@@ -3,36 +3,202 @@
 open! Tf_core
 
 type target_ip = {
-  ip : string prop;  (** ip *)
-  port : float prop option; [@option]  (** port *)
-  protocol : string prop option; [@option]  (** protocol *)
+  ip : string prop;
+  port : float prop option; [@option]
+  protocol : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** target_ip *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target_ip) -> ()
+
+let yojson_of_target_ip =
+  (function
+   | { ip = v_ip; port = v_port; protocol = v_protocol } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip in
+         ("ip", arg) :: bnds
+       in
+       `Assoc bnds
+    : target_ip -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target_ip
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_route53_resolver_rule = {
-  domain_name : string prop;  (** domain_name *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
+  domain_name : string prop;
+  id : string prop option; [@option]
+  name : string prop option; [@option]
   resolver_endpoint_id : string prop option; [@option]
-      (** resolver_endpoint_id *)
-  rule_type : string prop;  (** rule_type *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  rule_type : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   target_ip : target_ip list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_route53_resolver_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_resolver_rule) -> ()
+
+let yojson_of_aws_route53_resolver_rule =
+  (function
+   | {
+       domain_name = v_domain_name;
+       id = v_id;
+       name = v_name;
+       resolver_endpoint_id = v_resolver_endpoint_id;
+       rule_type = v_rule_type;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       target_ip = v_target_ip;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_target_ip v_target_ip in
+         ("target_ip", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule_type in
+         ("rule_type", arg) :: bnds
+       in
+       let bnds =
+         match v_resolver_endpoint_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resolver_endpoint_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_resolver_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_resolver_rule
+
+[@@@deriving.end]
 
 let target_ip ?port ?protocol ~ip () : target_ip =
   { ip; port; protocol }

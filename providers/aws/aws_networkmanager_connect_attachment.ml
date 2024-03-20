@@ -2,33 +2,169 @@
 
 open! Tf_core
 
-type options = {
-  protocol : string prop option; [@option]  (** protocol *)
-}
-[@@deriving yojson_of]
-(** options *)
+type options = { protocol : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : options) -> ()
+
+let yojson_of_options =
+  (function
+   | { protocol = v_protocol } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_options
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_networkmanager_connect_attachment = {
-  core_network_id : string prop;  (** core_network_id *)
-  edge_location : string prop;  (** edge_location *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  core_network_id : string prop;
+  edge_location : string prop;
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   transport_attachment_id : string prop;
-      (** transport_attachment_id *)
   options : options list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_networkmanager_connect_attachment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_networkmanager_connect_attachment) -> ()
+
+let yojson_of_aws_networkmanager_connect_attachment =
+  (function
+   | {
+       core_network_id = v_core_network_id;
+       edge_location = v_edge_location;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       transport_attachment_id = v_transport_attachment_id;
+       options = v_options;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_options v_options in
+         ("options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_transport_attachment_id
+         in
+         ("transport_attachment_id", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_edge_location in
+         ("edge_location", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_core_network_id
+         in
+         ("core_network_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_networkmanager_connect_attachment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_networkmanager_connect_attachment
+
+[@@@deriving.end]
 
 let options ?protocol () : options = { protocol }
 let timeouts ?create ?delete () : timeouts = { create; delete }

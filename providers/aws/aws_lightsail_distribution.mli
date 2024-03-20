@@ -9,6 +9,8 @@ type location = {
   region_name : string prop;  (** region_name *)
 }
 
+[@@@deriving.end]
+
 type cache_behavior
 
 val cache_behavior :

@@ -3,16 +3,56 @@
 open! Tf_core
 
 type cloudflare_worker_route = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   pattern : string prop;
-      (** The [route pattern](https://developers.cloudflare.com/workers/about/routes/) to associate the Worker with. *)
   script_name : string prop option; [@option]
-      (** Worker script name to invoke for requests that match the route pattern. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare worker route resource. A route will also require a `cloudflare_worker_script`. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_worker_route) -> ()
+
+let yojson_of_cloudflare_worker_route =
+  (function
+   | {
+       id = v_id;
+       pattern = v_pattern;
+       script_name = v_script_name;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_script_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "script_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pattern in
+         ("pattern", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_worker_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_worker_route
+
+[@@@deriving.end]
 
 let cloudflare_worker_route ?id ?script_name ~pattern ~zone_id () :
     cloudflare_worker_route =

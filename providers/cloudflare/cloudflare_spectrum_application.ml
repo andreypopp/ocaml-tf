@@ -2,71 +2,271 @@
 
 open! Tf_core
 
-type dns = {
-  name : string prop;
-      (** The name of the DNS record associated with the application. *)
-  type_ : string prop; [@key "type"]
-      (** The type of DNS record associated with the application. *)
-}
-[@@deriving yojson_of]
-(** The name and type of DNS record for the Spectrum application. *)
+type dns = { name : string prop; type_ : string prop [@key "type"] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dns) -> ()
+
+let yojson_of_dns =
+  (function
+   | { name = v_name; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : dns -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dns
+
+[@@@deriving.end]
 
 type edge_ips = {
   connectivity : string prop option; [@option]
-      (** The IP versions supported for inbound connections on Spectrum anycast IPs. Required when `type` is not `static`. Available values: `all`, `ipv4`, `ipv6`. *)
   ips : string prop list option; [@option]
-      (** The collection of customer owned IPs to broadcast via anycast for this hostname and application. Requires [Bring Your Own IP](https://developers.cloudflare.com/spectrum/getting-started/byoip/) provisioned. *)
   type_ : string prop; [@key "type"]
-      (** The type of edge IP configuration specified. Available values: `dynamic`, `static`. *)
 }
-[@@deriving yojson_of]
-(** The anycast edge IP configuration for the hostname of this application. *)
+[@@deriving_inline yojson_of]
 
-type origin_dns = {
-  name : string prop;
-      (** Fully qualified domain name of the origin. *)
-}
-[@@deriving yojson_of]
-(** A destination DNS addresses to the origin. *)
+let _ = fun (_ : edge_ips) -> ()
+
+let yojson_of_edge_ips =
+  (function
+   | { connectivity = v_connectivity; ips = v_ips; type_ = v_type_ }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ips", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connectivity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connectivity", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : edge_ips -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_edge_ips
+
+[@@@deriving.end]
+
+type origin_dns = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin_dns) -> ()
+
+let yojson_of_origin_dns =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin_dns -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin_dns
+
+[@@@deriving.end]
 
 type origin_port_range = {
   end_ : float prop; [@key "end"]
-      (** Upper bound of the origin port range. *)
-  start : float prop;  (** Lower bound of the origin port range. *)
+  start : float prop;
 }
-[@@deriving yojson_of]
-(** Origin port range to proxy traffice to. When using a range, the protocol field must also specify a range, e.g. `tcp/22-23`. Conflicts with `origin_port`. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin_port_range) -> ()
+
+let yojson_of_origin_port_range =
+  (function
+   | { end_ = v_end_; start = v_start } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_start in
+         ("start", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_end_ in
+         ("end", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin_port_range -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin_port_range
+
+[@@@deriving.end]
 
 type cloudflare_spectrum_application = {
   argo_smart_routing : bool prop option; [@option]
-      (** Enables Argo Smart Routing. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_firewall : bool prop option; [@option]
-      (** Enables the IP Firewall for this application. *)
   origin_direct : string prop list option; [@option]
-      (** A list of destination addresses to the origin. e.g. `tcp://192.0.2.1:22`. *)
   origin_port : float prop option; [@option]
-      (** Origin port to proxy traffice to. Conflicts with `origin_port_range`. *)
   protocol : string prop;
-      (** The port configuration at Cloudflare's edge. e.g. `tcp/22`. *)
   proxy_protocol : string prop option; [@option]
-      (** Enables a proxy protocol to the origin. Available values: `off`, `v1`, `v2`, `simple`. *)
   tls : string prop option; [@option]
-      (** TLS configuration option for Cloudflare to connect to your origin. Available values: `off`, `flexible`, `full`, `strict`. *)
   traffic_type : string prop option; [@option]
-      (** Sets application type. Available values: `direct`, `http`, `https`. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. *)
   dns : dns list;
   edge_ips : edge_ips list;
   origin_dns : origin_dns list;
   origin_port_range : origin_port_range list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Spectrum Application. You can extend the power
-of Cloudflare's DDoS, TLS, and IP Firewall to your other TCP-based
-services.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_spectrum_application) -> ()
+
+let yojson_of_cloudflare_spectrum_application =
+  (function
+   | {
+       argo_smart_routing = v_argo_smart_routing;
+       id = v_id;
+       ip_firewall = v_ip_firewall;
+       origin_direct = v_origin_direct;
+       origin_port = v_origin_port;
+       protocol = v_protocol;
+       proxy_protocol = v_proxy_protocol;
+       tls = v_tls;
+       traffic_type = v_traffic_type;
+       zone_id = v_zone_id;
+       dns = v_dns;
+       edge_ips = v_edge_ips;
+       origin_dns = v_origin_dns;
+       origin_port_range = v_origin_port_range;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin_port_range
+             v_origin_port_range
+         in
+         ("origin_port_range", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin_dns v_origin_dns
+         in
+         ("origin_dns", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_edge_ips v_edge_ips in
+         ("edge_ips", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_dns v_dns in
+         ("dns", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_traffic_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "traffic_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_proxy_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "proxy_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         match v_origin_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "origin_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_origin_direct with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "origin_direct", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_firewall with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ip_firewall", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_argo_smart_routing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "argo_smart_routing", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_spectrum_application ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_spectrum_application
+
+[@@@deriving.end]
 
 let dns ~name ~type_ () : dns = { name; type_ }
 

@@ -3,13 +3,60 @@
 open! Tf_core
 
 type aws_kms_alias = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  target_key_id : string prop;  (** target_key_id *)
+  id : string prop option; [@option]
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  target_key_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_kms_alias *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_kms_alias) -> ()
+
+let yojson_of_aws_kms_alias =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       target_key_id = v_target_key_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target_key_id in
+         ("target_key_id", arg) :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_kms_alias -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_kms_alias
+
+[@@@deriving.end]
 
 let aws_kms_alias ?id ?name ?name_prefix ~target_key_id () :
     aws_kms_alias =

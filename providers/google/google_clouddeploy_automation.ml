@@ -4,85 +4,401 @@ open! Tf_core
 
 type rules__advance_rollout_rule = {
   id : string prop;
-      (** Required. ID of the rule. This id must be unique in the 'Automation' resource to which this rule belongs. The format is 'a-z{0,62}'. *)
   source_phases : string prop list option; [@option]
-      (** Optional. Proceeds only after phase name matched any one in the list. This value must consist of lower-case letters, numbers, and hyphens, start with a letter and end with a letter or a number, and have a max length of 63 characters. In other words, it must match the following regex: '^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$'. *)
   wait : string prop option; [@option]
-      (** Optional. How long to wait after a rollout is finished. *)
 }
-[@@deriving yojson_of]
-(** Optional. The 'AdvanceRolloutRule' will automatically advance a successful Rollout. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules__advance_rollout_rule) -> ()
+
+let yojson_of_rules__advance_rollout_rule =
+  (function
+   | { id = v_id; source_phases = v_source_phases; wait = v_wait } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_wait with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "wait", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_phases with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_phases", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : rules__advance_rollout_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules__advance_rollout_rule
+
+[@@@deriving.end]
 
 type rules__promote_release_rule = {
   destination_phase : string prop option; [@option]
-      (** Optional. The starting phase of the rollout created by this operation. Default to the first phase. *)
   destination_target_id : string prop option; [@option]
-      (** Optional. The ID of the stage in the pipeline to which this 'Release' is deploying. If unspecified, default it to the next stage in the promotion flow. The value of this field could be one of the following: * The last segment of a target name. It only needs the ID to determine if the target is one of the stages in the promotion sequence defined in the pipeline. * @next, the next target in the promotion sequence. *)
   id : string prop;
-      (** Required. ID of the rule. This id must be unique in the 'Automation' resource to which this rule belongs. The format is 'a-z{0,62}'. *)
   wait : string prop option; [@option]
-      (** Optional. How long the release need to be paused until being promoted to the next target. *)
 }
-[@@deriving yojson_of]
-(** Optional. 'PromoteReleaseRule' will automatically promote a release from the current target to a specified target. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules__promote_release_rule) -> ()
+
+let yojson_of_rules__promote_release_rule =
+  (function
+   | {
+       destination_phase = v_destination_phase;
+       destination_target_id = v_destination_target_id;
+       id = v_id;
+       wait = v_wait;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_wait with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "wait", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         match v_destination_target_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "destination_target_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_phase with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "destination_phase", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rules__promote_release_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules__promote_release_rule
+
+[@@@deriving.end]
 
 type rules = {
   advance_rollout_rule : rules__advance_rollout_rule list;
   promote_release_rule : rules__promote_release_rule list;
 }
-[@@deriving yojson_of]
-(** Required. List of Automation rules associated with the Automation resource. Must have at least one rule and limited to 250 rules per Delivery Pipeline. Note: the order of the rules here is not the same as the order of execution. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules) -> ()
+
+let yojson_of_rules =
+  (function
+   | {
+       advance_rollout_rule = v_advance_rollout_rule;
+       promote_release_rule = v_promote_release_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rules__promote_release_rule
+             v_promote_release_rule
+         in
+         ("promote_release_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rules__advance_rollout_rule
+             v_advance_rollout_rule
+         in
+         ("advance_rollout_rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules
+
+[@@@deriving.end]
 
 type selector__targets = {
   id : string prop option; [@option]
-      (** ID of the 'Target'. The value of this field could be one of the following: * The last segment of a target name. It only needs the ID to determine which target is being referred to * *, all targets in a location. *)
   labels : (string * string prop) list option; [@option]
-      (** Target labels. *)
 }
-[@@deriving yojson_of]
-(** Contains attributes about a target. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : selector__targets) -> ()
+
+let yojson_of_selector__targets =
+  (function
+   | { id = v_id; labels = v_labels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : selector__targets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_selector__targets
+
+[@@@deriving.end]
 
 type selector = { targets : selector__targets list }
-[@@deriving yojson_of]
-(** Required. Selected resources to which the automation will be applied. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : selector) -> ()
+
+let yojson_of_selector =
+  (function
+   | { targets = v_targets } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_selector__targets v_targets
+         in
+         ("targets", arg) :: bnds
+       in
+       `Assoc bnds
+    : selector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_selector
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_clouddeploy_automation = {
   annotations : (string * string prop) list option; [@option]
-      (** Optional. User annotations. These attributes can only be set and used by the user, and not by Cloud Deploy. Annotations must meet the following constraints: * Annotations are key/value pairs. * Valid annotation keys have two segments: an optional prefix and name, separated by a slash ('/'). * The name segment is required and must be 63 characters or less, beginning and ending with an alphanumeric character ('[a-z0-9A-Z]') with dashes ('-'), underscores ('_'), dots ('.'), and alphanumerics between. * The prefix is optional. If specified, the prefix must be a DNS subdomain: a series of DNS labels separated by dots('.'), not longer than 253 characters in total, followed by a slash ('/'). See https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/#syntax-and-character-set for more details.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
   delivery_pipeline : string prop;
-      (** The delivery_pipeline for the resource *)
   description : string prop option; [@option]
-      (** Optional. Description of the 'Automation'. Max length is 255 characters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Optional. Labels are attributes that can be set and used by both the user and by Cloud Deploy. Labels must meet the following constraints: * Keys and values can contain only lowercase letters, numeric characters, underscores, and dashes. * All characters must use UTF-8 encoding, and international characters are allowed. * Keys must start with a lowercase letter or international character. * Each resource is limited to a maximum of 64 labels. Both keys and values are additionally constrained to be <= 63 characters.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
-  name : string prop;  (** Name of the 'Automation'. *)
-  project : string prop option; [@option]  (** project *)
+  location : string prop;
+  name : string prop;
+  project : string prop option; [@option]
   service_account : string prop;
-      (** Required. Email address of the user-managed IAM service account that creates Cloud Deploy release and rollout resources. *)
   suspended : bool prop option; [@option]
-      (** Optional. When Suspended, automation is deactivated from execution. *)
   rules : rules list;
   selector : selector list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_clouddeploy_automation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_clouddeploy_automation) -> ()
+
+let yojson_of_google_clouddeploy_automation =
+  (function
+   | {
+       annotations = v_annotations;
+       delivery_pipeline = v_delivery_pipeline;
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       service_account = v_service_account;
+       suspended = v_suspended;
+       rules = v_rules;
+       selector = v_selector;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_selector v_selector in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rules v_rules in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         match v_suspended with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "suspended", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_account
+         in
+         ("service_account", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_delivery_pipeline
+         in
+         ("delivery_pipeline", arg) :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_clouddeploy_automation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_clouddeploy_automation
+
+[@@@deriving.end]
 
 let rules__advance_rollout_rule ?source_phases ?wait ~id () :
     rules__advance_rollout_rule =

@@ -2,50 +2,273 @@
 
 open! Tf_core
 
-type cluster_setting = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
-}
-[@@deriving yojson_of]
-(** cluster_setting *)
+type cluster_setting = { name : string prop; value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_setting) -> ()
+
+let yojson_of_cluster_setting =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_setting -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_setting
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type inbound_network_dependencies = {
-  description : string prop;  (** description *)
-  ip_addresses : string prop list;  (** ip_addresses *)
-  ports : string prop list;  (** ports *)
+  description : string prop;
+  ip_addresses : string prop list;
+  ports : string prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inbound_network_dependencies) -> ()
+
+let yojson_of_inbound_network_dependencies =
+  (function
+   | {
+       description = v_description;
+       ip_addresses = v_ip_addresses;
+       ports = v_ports;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_ports
+         in
+         ("ports", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_ip_addresses
+         in
+         ("ip_addresses", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       `Assoc bnds
+    : inbound_network_dependencies ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inbound_network_dependencies
+
+[@@@deriving.end]
 
 type azurerm_app_service_environment_v3 = {
   allow_new_private_endpoint_connections : bool prop option;
       [@option]
-      (** allow_new_private_endpoint_connections *)
   dedicated_host_count : float prop option; [@option]
-      (** dedicated_host_count *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   internal_load_balancing_mode : string prop option; [@option]
-      (** internal_load_balancing_mode *)
-  name : string prop;  (** name *)
+  name : string prop;
   remote_debugging_enabled : bool prop option; [@option]
-      (** remote_debugging_enabled *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  subnet_id : string prop;  (** subnet_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
-  zone_redundant : bool prop option; [@option]  (** zone_redundant *)
+  resource_group_name : string prop;
+  subnet_id : string prop;
+  tags : (string * string prop) list option; [@option]
+  zone_redundant : bool prop option; [@option]
   cluster_setting : cluster_setting list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_app_service_environment_v3 *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_app_service_environment_v3) -> ()
+
+let yojson_of_azurerm_app_service_environment_v3 =
+  (function
+   | {
+       allow_new_private_endpoint_connections =
+         v_allow_new_private_endpoint_connections;
+       dedicated_host_count = v_dedicated_host_count;
+       id = v_id;
+       internal_load_balancing_mode = v_internal_load_balancing_mode;
+       name = v_name;
+       remote_debugging_enabled = v_remote_debugging_enabled;
+       resource_group_name = v_resource_group_name;
+       subnet_id = v_subnet_id;
+       tags = v_tags;
+       zone_redundant = v_zone_redundant;
+       cluster_setting = v_cluster_setting;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_setting v_cluster_setting
+         in
+         ("cluster_setting", arg) :: bnds
+       in
+       let bnds =
+         match v_zone_redundant with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "zone_redundant", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_remote_debugging_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "remote_debugging_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_internal_load_balancing_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "internal_load_balancing_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dedicated_host_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "dedicated_host_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_new_private_endpoint_connections with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "allow_new_private_endpoint_connections", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_app_service_environment_v3 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_app_service_environment_v3
+
+[@@@deriving.end]
 
 let cluster_setting ~name ~value () : cluster_setting =
   { name; value }

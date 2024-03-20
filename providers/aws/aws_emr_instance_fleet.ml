@@ -4,75 +4,390 @@ open! Tf_core
 
 type instance_type_configs__configurations = {
   classification : string prop option; [@option]
-      (** classification *)
   properties : (string * string prop) list option; [@option]
-      (** properties *)
 }
-[@@deriving yojson_of]
-(** instance_type_configs__configurations *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_type_configs__configurations) -> ()
+
+let yojson_of_instance_type_configs__configurations =
+  (function
+   | { classification = v_classification; properties = v_properties }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_classification with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "classification", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : instance_type_configs__configurations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_type_configs__configurations
+
+[@@@deriving.end]
 
 type instance_type_configs__ebs_config = {
-  iops : float prop option; [@option]  (** iops *)
-  size : float prop;  (** size *)
-  type_ : string prop; [@key "type"]  (** type *)
+  iops : float prop option; [@option]
+  size : float prop;
+  type_ : string prop; [@key "type"]
   volumes_per_instance : float prop option; [@option]
-      (** volumes_per_instance *)
 }
-[@@deriving yojson_of]
-(** instance_type_configs__ebs_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_type_configs__ebs_config) -> ()
+
+let yojson_of_instance_type_configs__ebs_config =
+  (function
+   | {
+       iops = v_iops;
+       size = v_size;
+       type_ = v_type_;
+       volumes_per_instance = v_volumes_per_instance;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_volumes_per_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "volumes_per_instance", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_size in
+         ("size", arg) :: bnds
+       in
+       let bnds =
+         match v_iops with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "iops", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : instance_type_configs__ebs_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_type_configs__ebs_config
+
+[@@@deriving.end]
 
 type instance_type_configs = {
-  bid_price : string prop option; [@option]  (** bid_price *)
+  bid_price : string prop option; [@option]
   bid_price_as_percentage_of_on_demand_price : float prop option;
       [@option]
-      (** bid_price_as_percentage_of_on_demand_price *)
-  instance_type : string prop;  (** instance_type *)
+  instance_type : string prop;
   weighted_capacity : float prop option; [@option]
-      (** weighted_capacity *)
   configurations : instance_type_configs__configurations list;
   ebs_config : instance_type_configs__ebs_config list;
 }
-[@@deriving yojson_of]
-(** instance_type_configs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_type_configs) -> ()
+
+let yojson_of_instance_type_configs =
+  (function
+   | {
+       bid_price = v_bid_price;
+       bid_price_as_percentage_of_on_demand_price =
+         v_bid_price_as_percentage_of_on_demand_price;
+       instance_type = v_instance_type;
+       weighted_capacity = v_weighted_capacity;
+       configurations = v_configurations;
+       ebs_config = v_ebs_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_instance_type_configs__ebs_config
+             v_ebs_config
+         in
+         ("ebs_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_instance_type_configs__configurations
+             v_configurations
+         in
+         ("configurations", arg) :: bnds
+       in
+       let bnds =
+         match v_weighted_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "weighted_capacity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance_type in
+         ("instance_type", arg) :: bnds
+       in
+       let bnds =
+         match v_bid_price_as_percentage_of_on_demand_price with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "bid_price_as_percentage_of_on_demand_price", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bid_price with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bid_price", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : instance_type_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_type_configs
+
+[@@@deriving.end]
 
 type launch_specifications__on_demand_specification = {
-  allocation_strategy : string prop;  (** allocation_strategy *)
+  allocation_strategy : string prop;
 }
-[@@deriving yojson_of]
-(** launch_specifications__on_demand_specification *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : launch_specifications__on_demand_specification) -> ()
+
+let yojson_of_launch_specifications__on_demand_specification =
+  (function
+   | { allocation_strategy = v_allocation_strategy } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_allocation_strategy
+         in
+         ("allocation_strategy", arg) :: bnds
+       in
+       `Assoc bnds
+    : launch_specifications__on_demand_specification ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_launch_specifications__on_demand_specification
+
+[@@@deriving.end]
 
 type launch_specifications__spot_specification = {
-  allocation_strategy : string prop;  (** allocation_strategy *)
+  allocation_strategy : string prop;
   block_duration_minutes : float prop option; [@option]
-      (** block_duration_minutes *)
-  timeout_action : string prop;  (** timeout_action *)
+  timeout_action : string prop;
   timeout_duration_minutes : float prop;
-      (** timeout_duration_minutes *)
 }
-[@@deriving yojson_of]
-(** launch_specifications__spot_specification *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : launch_specifications__spot_specification) -> ()
+
+let yojson_of_launch_specifications__spot_specification =
+  (function
+   | {
+       allocation_strategy = v_allocation_strategy;
+       block_duration_minutes = v_block_duration_minutes;
+       timeout_action = v_timeout_action;
+       timeout_duration_minutes = v_timeout_duration_minutes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_timeout_duration_minutes
+         in
+         ("timeout_duration_minutes", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_timeout_action
+         in
+         ("timeout_action", arg) :: bnds
+       in
+       let bnds =
+         match v_block_duration_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "block_duration_minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_allocation_strategy
+         in
+         ("allocation_strategy", arg) :: bnds
+       in
+       `Assoc bnds
+    : launch_specifications__spot_specification ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_launch_specifications__spot_specification
+
+[@@@deriving.end]
 
 type launch_specifications = {
   on_demand_specification :
     launch_specifications__on_demand_specification list;
   spot_specification : launch_specifications__spot_specification list;
 }
-[@@deriving yojson_of]
-(** launch_specifications *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : launch_specifications) -> ()
+
+let yojson_of_launch_specifications =
+  (function
+   | {
+       on_demand_specification = v_on_demand_specification;
+       spot_specification = v_spot_specification;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_launch_specifications__spot_specification
+             v_spot_specification
+         in
+         ("spot_specification", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_launch_specifications__on_demand_specification
+             v_on_demand_specification
+         in
+         ("on_demand_specification", arg) :: bnds
+       in
+       `Assoc bnds
+    : launch_specifications -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_launch_specifications
+
+[@@@deriving.end]
 
 type aws_emr_instance_fleet = {
-  cluster_id : string prop;  (** cluster_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
+  cluster_id : string prop;
+  id : string prop option; [@option]
+  name : string prop option; [@option]
   target_on_demand_capacity : float prop option; [@option]
-      (** target_on_demand_capacity *)
   target_spot_capacity : float prop option; [@option]
-      (** target_spot_capacity *)
   instance_type_configs : instance_type_configs list;
   launch_specifications : launch_specifications list;
 }
-[@@deriving yojson_of]
-(** aws_emr_instance_fleet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_emr_instance_fleet) -> ()
+
+let yojson_of_aws_emr_instance_fleet =
+  (function
+   | {
+       cluster_id = v_cluster_id;
+       id = v_id;
+       name = v_name;
+       target_on_demand_capacity = v_target_on_demand_capacity;
+       target_spot_capacity = v_target_spot_capacity;
+       instance_type_configs = v_instance_type_configs;
+       launch_specifications = v_launch_specifications;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_launch_specifications
+             v_launch_specifications
+         in
+         ("launch_specifications", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_instance_type_configs
+             v_instance_type_configs
+         in
+         ("instance_type_configs", arg) :: bnds
+       in
+       let bnds =
+         match v_target_spot_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_spot_capacity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_on_demand_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_on_demand_capacity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_emr_instance_fleet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_emr_instance_fleet
+
+[@@@deriving.end]
 
 let instance_type_configs__configurations ?classification ?properties
     () : instance_type_configs__configurations =

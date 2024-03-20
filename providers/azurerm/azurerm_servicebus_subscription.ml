@@ -3,53 +3,291 @@
 open! Tf_core
 
 type client_scoped_subscription = {
-  client_id : string prop option; [@option]  (** client_id *)
+  client_id : string prop option; [@option]
   is_client_scoped_subscription_shareable : bool prop option;
       [@option]
-      (** is_client_scoped_subscription_shareable *)
 }
-[@@deriving yojson_of]
-(** client_scoped_subscription *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client_scoped_subscription) -> ()
+
+let yojson_of_client_scoped_subscription =
+  (function
+   | {
+       client_id = v_client_id;
+       is_client_scoped_subscription_shareable =
+         v_is_client_scoped_subscription_shareable;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_is_client_scoped_subscription_shareable with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "is_client_scoped_subscription_shareable", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : client_scoped_subscription -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client_scoped_subscription
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_servicebus_subscription = {
   auto_delete_on_idle : string prop option; [@option]
-      (** auto_delete_on_idle *)
   client_scoped_subscription_enabled : bool prop option; [@option]
-      (** client_scoped_subscription_enabled *)
   dead_lettering_on_filter_evaluation_error : bool prop option;
       [@option]
-      (** dead_lettering_on_filter_evaluation_error *)
   dead_lettering_on_message_expiration : bool prop option; [@option]
-      (** dead_lettering_on_message_expiration *)
   default_message_ttl : string prop option; [@option]
-      (** default_message_ttl *)
   enable_batched_operations : bool prop option; [@option]
-      (** enable_batched_operations *)
   forward_dead_lettered_messages_to : string prop option; [@option]
-      (** forward_dead_lettered_messages_to *)
-  forward_to : string prop option; [@option]  (** forward_to *)
-  id : string prop option; [@option]  (** id *)
-  lock_duration : string prop option; [@option]  (** lock_duration *)
-  max_delivery_count : float prop;  (** max_delivery_count *)
-  name : string prop;  (** name *)
+  forward_to : string prop option; [@option]
+  id : string prop option; [@option]
+  lock_duration : string prop option; [@option]
+  max_delivery_count : float prop;
+  name : string prop;
   requires_session : bool prop option; [@option]
-      (** requires_session *)
-  status : string prop option; [@option]  (** status *)
-  topic_id : string prop;  (** topic_id *)
+  status : string prop option; [@option]
+  topic_id : string prop;
   client_scoped_subscription : client_scoped_subscription list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_servicebus_subscription *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_servicebus_subscription) -> ()
+
+let yojson_of_azurerm_servicebus_subscription =
+  (function
+   | {
+       auto_delete_on_idle = v_auto_delete_on_idle;
+       client_scoped_subscription_enabled =
+         v_client_scoped_subscription_enabled;
+       dead_lettering_on_filter_evaluation_error =
+         v_dead_lettering_on_filter_evaluation_error;
+       dead_lettering_on_message_expiration =
+         v_dead_lettering_on_message_expiration;
+       default_message_ttl = v_default_message_ttl;
+       enable_batched_operations = v_enable_batched_operations;
+       forward_dead_lettered_messages_to =
+         v_forward_dead_lettered_messages_to;
+       forward_to = v_forward_to;
+       id = v_id;
+       lock_duration = v_lock_duration;
+       max_delivery_count = v_max_delivery_count;
+       name = v_name;
+       requires_session = v_requires_session;
+       status = v_status;
+       topic_id = v_topic_id;
+       client_scoped_subscription = v_client_scoped_subscription;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_client_scoped_subscription
+             v_client_scoped_subscription
+         in
+         ("client_scoped_subscription", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic_id in
+         ("topic_id", arg) :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_requires_session with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "requires_session", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_delivery_count
+         in
+         ("max_delivery_count", arg) :: bnds
+       in
+       let bnds =
+         match v_lock_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lock_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_forward_to with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "forward_to", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_forward_dead_lettered_messages_to with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "forward_dead_lettered_messages_to", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_batched_operations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_batched_operations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_message_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_message_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dead_lettering_on_message_expiration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "dead_lettering_on_message_expiration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dead_lettering_on_filter_evaluation_error with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "dead_lettering_on_filter_evaluation_error", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_scoped_subscription_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "client_scoped_subscription_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_delete_on_idle with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auto_delete_on_idle", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_servicebus_subscription ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_servicebus_subscription
+
+[@@@deriving.end]
 
 let client_scoped_subscription ?client_id
     ?is_client_scoped_subscription_shareable () :

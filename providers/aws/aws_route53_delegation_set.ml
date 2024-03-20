@@ -3,12 +3,41 @@
 open! Tf_core
 
 type aws_route53_delegation_set = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   reference_name : string prop option; [@option]
-      (** reference_name *)
 }
-[@@deriving yojson_of]
-(** aws_route53_delegation_set *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_delegation_set) -> ()
+
+let yojson_of_aws_route53_delegation_set =
+  (function
+   | { id = v_id; reference_name = v_reference_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_reference_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "reference_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_delegation_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_delegation_set
+
+[@@@deriving.end]
 
 let aws_route53_delegation_set ?id ?reference_name () :
     aws_route53_delegation_set =

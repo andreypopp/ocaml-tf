@@ -4,18 +4,42 @@ open! Tf_core
 
 type cloudflare_zone_cache_reserve = {
   enabled : bool prop;
-      (** Whether to enable or disable Cache Reserve support for a given zone. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Cache Reserve resource. Cache Reserve can
-increase cache lifetimes by automatically storing all cacheable
-files in Cloudflare's persistent object storage buckets.
+[@@deriving_inline yojson_of]
 
-Note: Using Cache Reserve without Tiered Cache is not recommended.
- *)
+let _ = fun (_ : cloudflare_zone_cache_reserve) -> ()
+
+let yojson_of_cloudflare_zone_cache_reserve =
+  (function
+   | { enabled = v_enabled; id = v_id; zone_id = v_zone_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_zone_cache_reserve ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_zone_cache_reserve
+
+[@@@deriving.end]
 
 let cloudflare_zone_cache_reserve ?id ~enabled ~zone_id () :
     cloudflare_zone_cache_reserve =

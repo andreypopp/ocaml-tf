@@ -10,6 +10,8 @@ type warnings = {
   warning_message : string prop;  (** warning_message *)
 }
 
+[@@@deriving.end]
+
 type filter
 
 val filter :

@@ -4,54 +4,296 @@ open! Tf_core
 
 type identity = {
   identity_ids : string prop list option; [@option]
-      (** identity_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_log_analytics_workspace = {
   allow_resource_only_permissions : bool prop option; [@option]
-      (** allow_resource_only_permissions *)
   cmk_for_query_forced : bool prop option; [@option]
-      (** cmk_for_query_forced *)
   daily_quota_gb : float prop option; [@option]
-      (** daily_quota_gb *)
   data_collection_rule_id : string prop option; [@option]
-      (** data_collection_rule_id *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   immediate_data_purge_on_30_days_enabled : bool prop option;
       [@option]
-      (** immediate_data_purge_on_30_days_enabled *)
   internet_ingestion_enabled : bool prop option; [@option]
-      (** internet_ingestion_enabled *)
   internet_query_enabled : bool prop option; [@option]
-      (** internet_query_enabled *)
   local_authentication_disabled : bool prop option; [@option]
-      (** local_authentication_disabled *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
+  location : string prop;
+  name : string prop;
   reservation_capacity_in_gb_per_day : float prop option; [@option]
-      (** reservation_capacity_in_gb_per_day *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  resource_group_name : string prop;
   retention_in_days : float prop option; [@option]
-      (** retention_in_days *)
-  sku : string prop option; [@option]  (** sku *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  sku : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   identity : identity list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_log_analytics_workspace *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_log_analytics_workspace) -> ()
+
+let yojson_of_azurerm_log_analytics_workspace =
+  (function
+   | {
+       allow_resource_only_permissions =
+         v_allow_resource_only_permissions;
+       cmk_for_query_forced = v_cmk_for_query_forced;
+       daily_quota_gb = v_daily_quota_gb;
+       data_collection_rule_id = v_data_collection_rule_id;
+       id = v_id;
+       immediate_data_purge_on_30_days_enabled =
+         v_immediate_data_purge_on_30_days_enabled;
+       internet_ingestion_enabled = v_internet_ingestion_enabled;
+       internet_query_enabled = v_internet_query_enabled;
+       local_authentication_disabled =
+         v_local_authentication_disabled;
+       location = v_location;
+       name = v_name;
+       reservation_capacity_in_gb_per_day =
+         v_reservation_capacity_in_gb_per_day;
+       resource_group_name = v_resource_group_name;
+       retention_in_days = v_retention_in_days;
+       sku = v_sku;
+       tags = v_tags;
+       identity = v_identity;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity v_identity in
+         ("identity", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sku with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sku", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_retention_in_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "retention_in_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_reservation_capacity_in_gb_per_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "reservation_capacity_in_gb_per_day", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_local_authentication_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "local_authentication_disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_internet_query_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "internet_query_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_internet_ingestion_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "internet_ingestion_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_immediate_data_purge_on_30_days_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "immediate_data_purge_on_30_days_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_collection_rule_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_collection_rule_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_daily_quota_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "daily_quota_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cmk_for_query_forced with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cmk_for_query_forced", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_resource_only_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_resource_only_permissions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_log_analytics_workspace ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_log_analytics_workspace
+
+[@@@deriving.end]
 
 let identity ?identity_ids ~type_ () : identity =
   { identity_ids; type_ }

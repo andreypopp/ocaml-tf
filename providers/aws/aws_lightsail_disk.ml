@@ -3,16 +3,90 @@
 open! Tf_core
 
 type aws_lightsail_disk = {
-  availability_zone : string prop;  (** availability_zone *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  size_in_gb : float prop;  (** size_in_gb *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  availability_zone : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  size_in_gb : float prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_lightsail_disk *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lightsail_disk) -> ()
+
+let yojson_of_aws_lightsail_disk =
+  (function
+   | {
+       availability_zone = v_availability_zone;
+       id = v_id;
+       name = v_name;
+       size_in_gb = v_size_in_gb;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_size_in_gb in
+         ("size_in_gb", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_availability_zone
+         in
+         ("availability_zone", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lightsail_disk -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lightsail_disk
+
+[@@@deriving.end]
 
 let aws_lightsail_disk ?id ?tags ?tags_all ~availability_zone ~name
     ~size_in_gb () : aws_lightsail_disk =

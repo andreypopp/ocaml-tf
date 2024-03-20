@@ -2,48 +2,159 @@
 
 open! Tf_core
 
-type managed = {
-  domains : string prop list;
-      (** Domains for which a managed SSL certificate will be valid.  Currently,
-there can be up to 100 domains in this list. *)
-}
-[@@deriving yojson_of]
-(** Properties relevant to a managed certificate.  These will be used if the
-certificate is managed (as indicated by a value of 'MANAGED' in 'type'). *)
+type managed = { domains : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed) -> ()
+
+let yojson_of_managed =
+  (function
+   | { domains = v_domains } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_domains
+         in
+         ("domains", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_managed_ssl_certificate = {
   certificate_id : float prop option; [@option]
-      (** The unique identifier for the resource. *)
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop option; [@option]
-      (** Name of the resource. Provided by the client when the resource is
-created. The name must be 1-63 characters long, and comply with
-RFC1035. Specifically, the name must be 1-63 characters long and match
-the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
-first character must be a lowercase letter, and all following
-characters must be a dash, lowercase letter, or digit, except the last
-character, which cannot be a dash.
-
-
-These are in the same namespace as the managed SSL certificates. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   type_ : string prop option; [@option] [@key "type"]
-      (** Enum field whose value is always 'MANAGED' - used to signal to the API
-which type this is. Default value: MANAGED Possible values: [MANAGED] *)
   managed : managed list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_managed_ssl_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_managed_ssl_certificate) -> ()
+
+let yojson_of_google_compute_managed_ssl_certificate =
+  (function
+   | {
+       certificate_id = v_certificate_id;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       type_ = v_type_;
+       managed = v_managed;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_managed v_managed in
+         ("managed", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "certificate_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_managed_ssl_certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_managed_ssl_certificate
+
+[@@@deriving.end]
 
 let managed ~domains () : managed = { domains }
 let timeouts ?create ?delete () : timeouts = { create; delete }

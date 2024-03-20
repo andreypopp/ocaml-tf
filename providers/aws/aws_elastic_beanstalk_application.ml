@@ -4,26 +4,151 @@ open! Tf_core
 
 type appversion_lifecycle = {
   delete_source_from_s3 : bool prop option; [@option]
-      (** delete_source_from_s3 *)
   max_age_in_days : float prop option; [@option]
-      (** max_age_in_days *)
-  max_count : float prop option; [@option]  (** max_count *)
-  service_role : string prop;  (** service_role *)
+  max_count : float prop option; [@option]
+  service_role : string prop;
 }
-[@@deriving yojson_of]
-(** appversion_lifecycle *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : appversion_lifecycle) -> ()
+
+let yojson_of_appversion_lifecycle =
+  (function
+   | {
+       delete_source_from_s3 = v_delete_source_from_s3;
+       max_age_in_days = v_max_age_in_days;
+       max_count = v_max_count;
+       service_role = v_service_role;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_role in
+         ("service_role", arg) :: bnds
+       in
+       let bnds =
+         match v_max_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_age_in_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_age_in_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_source_from_s3 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete_source_from_s3", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : appversion_lifecycle -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_appversion_lifecycle
+
+[@@@deriving.end]
 
 type aws_elastic_beanstalk_application = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   appversion_lifecycle : appversion_lifecycle list;
 }
-[@@deriving yojson_of]
-(** aws_elastic_beanstalk_application *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_elastic_beanstalk_application) -> ()
+
+let yojson_of_aws_elastic_beanstalk_application =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       appversion_lifecycle = v_appversion_lifecycle;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_appversion_lifecycle
+             v_appversion_lifecycle
+         in
+         ("appversion_lifecycle", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_elastic_beanstalk_application ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_elastic_beanstalk_application
+
+[@@@deriving.end]
 
 let appversion_lifecycle ?delete_source_from_s3 ?max_age_in_days
     ?max_count ~service_role () : appversion_lifecycle =

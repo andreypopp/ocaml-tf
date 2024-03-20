@@ -10,11 +10,15 @@ type edges = {
   inside_cidr_blocks : string prop list;  (** inside_cidr_blocks *)
 }
 
+[@@@deriving.end]
+
 type segments = {
   edge_locations : string prop list;  (** edge_locations *)
   name : string prop;  (** name *)
   shared_segments : string prop list;  (** shared_segments *)
 }
+
+[@@@deriving.end]
 
 type timeouts
 

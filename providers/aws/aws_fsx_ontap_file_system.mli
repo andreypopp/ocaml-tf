@@ -9,15 +9,21 @@ type endpoints__management = {
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
+[@@@deriving.end]
+
 type endpoints__intercluster = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
+[@@@deriving.end]
+
 type endpoints = {
   intercluster : endpoints__intercluster list;  (** intercluster *)
   management : endpoints__management list;  (** management *)
 }
+
+[@@@deriving.end]
 
 type disk_iops_configuration
 

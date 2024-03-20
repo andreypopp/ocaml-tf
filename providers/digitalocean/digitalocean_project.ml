@@ -2,29 +2,125 @@
 
 open! Tf_core
 
-type timeouts = {
-  delete : string prop option; [@option]  (** delete *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+type timeouts = { delete : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type digitalocean_project = {
   description : string prop option; [@option]
-      (** the description of the project *)
   environment : string prop option; [@option]
-      (** the environment of the project's resources *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   is_default : bool prop option; [@option]
-      (** determine if the project is the default or not. *)
-  name : string prop;  (** the human-readable name for the project *)
+  name : string prop;
   purpose : string prop option; [@option]
-      (** the purpose of the project *)
   resources : string prop list option; [@option]
-      (** the resources associated with the project *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** digitalocean_project *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_project) -> ()
+
+let yojson_of_digitalocean_project =
+  (function
+   | {
+       description = v_description;
+       environment = v_environment;
+       id = v_id;
+       is_default = v_is_default;
+       name = v_name;
+       purpose = v_purpose;
+       resources = v_resources;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_resources with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resources", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_purpose with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "purpose", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_is_default with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_default", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_environment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "environment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_project -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_project
+
+[@@@deriving.end]
 
 let timeouts ?delete () : timeouts = { delete }
 

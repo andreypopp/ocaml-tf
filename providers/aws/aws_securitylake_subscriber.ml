@@ -3,73 +3,361 @@
 open! Tf_core
 
 type source__aws_log_source_resource = {
-  source_name : string prop option; [@option]  (** source_name *)
+  source_name : string prop option; [@option]
   source_version : string prop option; [@option]
-      (** source_version *)
 }
-[@@deriving yojson_of]
-(** source__aws_log_source_resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source__aws_log_source_resource) -> ()
+
+let yojson_of_source__aws_log_source_resource =
+  (function
+   | {
+       source_name = v_source_name;
+       source_version = v_source_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : source__aws_log_source_resource ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__aws_log_source_resource
+
+[@@@deriving.end]
 
 type source__custom_log_source_resource__attributes = {
-  crawler_arn : string prop;  (** crawler_arn *)
-  database_arn : string prop;  (** database_arn *)
-  table_arn : string prop;  (** table_arn *)
+  crawler_arn : string prop;
+  database_arn : string prop;
+  table_arn : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : source__custom_log_source_resource__attributes) -> ()
+
+let yojson_of_source__custom_log_source_resource__attributes =
+  (function
+   | {
+       crawler_arn = v_crawler_arn;
+       database_arn = v_database_arn;
+       table_arn = v_table_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_arn in
+         ("table_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_arn in
+         ("database_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_crawler_arn in
+         ("crawler_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : source__custom_log_source_resource__attributes ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__custom_log_source_resource__attributes
+
+[@@@deriving.end]
 
 type source__custom_log_source_resource__provider = {
-  location : string prop;  (** location *)
-  role_arn : string prop;  (** role_arn *)
+  location : string prop;
+  role_arn : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source__custom_log_source_resource__provider) -> ()
+
+let yojson_of_source__custom_log_source_resource__provider =
+  (function
+   | { location = v_location; role_arn = v_role_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       `Assoc bnds
+    : source__custom_log_source_resource__provider ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__custom_log_source_resource__provider
+
+[@@@deriving.end]
 
 type source__custom_log_source_resource = {
-  source_name : string prop option; [@option]  (** source_name *)
+  source_name : string prop option; [@option]
   source_version : string prop option; [@option]
-      (** source_version *)
 }
-[@@deriving yojson_of]
-(** source__custom_log_source_resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source__custom_log_source_resource) -> ()
+
+let yojson_of_source__custom_log_source_resource =
+  (function
+   | {
+       source_name = v_source_name;
+       source_version = v_source_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : source__custom_log_source_resource ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__custom_log_source_resource
+
+[@@@deriving.end]
 
 type source = {
   aws_log_source_resource : source__aws_log_source_resource list;
   custom_log_source_resource :
     source__custom_log_source_resource list;
 }
-[@@deriving yojson_of]
-(** source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source) -> ()
+
+let yojson_of_source =
+  (function
+   | {
+       aws_log_source_resource = v_aws_log_source_resource;
+       custom_log_source_resource = v_custom_log_source_resource;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_source__custom_log_source_resource
+             v_custom_log_source_resource
+         in
+         ("custom_log_source_resource", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_source__aws_log_source_resource
+             v_aws_log_source_resource
+         in
+         ("aws_log_source_resource", arg) :: bnds
+       in
+       `Assoc bnds
+    : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source
+
+[@@@deriving.end]
 
 type subscriber_identity = {
-  external_id : string prop;  (** external_id *)
-  principal : string prop;  (** principal *)
+  external_id : string prop;
+  principal : string prop;
 }
-[@@deriving yojson_of]
-(** subscriber_identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subscriber_identity) -> ()
+
+let yojson_of_subscriber_identity =
+  (function
+   | { external_id = v_external_id; principal = v_principal } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_principal in
+         ("principal", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_external_id in
+         ("external_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : subscriber_identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subscriber_identity
+
+[@@@deriving.end]
 
 type timeouts = {
   create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
   update : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_securitylake_subscriber = {
-  access_type : string prop option; [@option]  (** access_type *)
+  access_type : string prop option; [@option]
   subscriber_description : string prop option; [@option]
-      (** subscriber_description *)
   subscriber_name : string prop option; [@option]
-      (** subscriber_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   source : source list;
   subscriber_identity : subscriber_identity list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_securitylake_subscriber *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securitylake_subscriber) -> ()
+
+let yojson_of_aws_securitylake_subscriber =
+  (function
+   | {
+       access_type = v_access_type;
+       subscriber_description = v_subscriber_description;
+       subscriber_name = v_subscriber_name;
+       tags = v_tags;
+       source = v_source;
+       subscriber_identity = v_subscriber_identity;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_subscriber_identity
+             v_subscriber_identity
+         in
+         ("subscriber_identity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_source v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subscriber_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subscriber_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subscriber_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subscriber_description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_securitylake_subscriber ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securitylake_subscriber
+
+[@@@deriving.end]
 
 let source__aws_log_source_resource ?source_name ?source_version () :
     source__aws_log_source_resource =

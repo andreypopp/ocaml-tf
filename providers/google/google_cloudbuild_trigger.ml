@@ -4,426 +4,1143 @@ open! Tf_core
 
 type approval_config = {
   approval_required : bool prop option; [@option]
-      (** Whether or not approval is needed. If this is set on a build, it will become pending when run,
-and will need to be explicitly approved to start. *)
 }
-[@@deriving yojson_of]
-(** Configuration for manual approval to start a build invocation of this BuildTrigger.
-Builds created by this trigger will require approval before they execute.
-Any user with a Cloud Build Approver role for the project can approve a build. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : approval_config) -> ()
+
+let yojson_of_approval_config =
+  (function
+   | { approval_required = v_approval_required } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_approval_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "approval_required", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : approval_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_approval_config
+
+[@@@deriving.end]
 
 type bitbucket_server_trigger_config__pull_request = {
   branch : string prop;
-      (** Regex of branches to match.
-The syntax of the regular expressions accepted is the syntax accepted by RE2 and described at https://github.com/google/re2/wiki/Syntax *)
   comment_control : string prop option; [@option]
-      (** Configure builds to run whether a repository owner or collaborator need to comment /gcbrun. Possible values: [COMMENTS_DISABLED, COMMENTS_ENABLED, COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY] *)
   invert_regex : bool prop option; [@option]
-      (** If true, branches that do NOT match the git_ref will trigger a build. *)
 }
-[@@deriving yojson_of]
-(** Filter to match changes in pull requests. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bitbucket_server_trigger_config__pull_request) -> ()
+
+let yojson_of_bitbucket_server_trigger_config__pull_request =
+  (function
+   | {
+       branch = v_branch;
+       comment_control = v_comment_control;
+       invert_regex = v_invert_regex;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_invert_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment_control with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment_control", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_branch in
+         ("branch", arg) :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_server_trigger_config__pull_request ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bitbucket_server_trigger_config__pull_request
+
+[@@@deriving.end]
 
 type bitbucket_server_trigger_config__push = {
   branch : string prop option; [@option]
-      (** Regex of branches to match.  Specify only one of branch or tag. *)
   invert_regex : bool prop option; [@option]
-      (** When true, only trigger a build if the revision regex does NOT match the gitRef regex. *)
   tag : string prop option; [@option]
-      (** Regex of tags to match.  Specify only one of branch or tag. *)
 }
-[@@deriving yojson_of]
-(** Filter to match changes in refs like branches, tags. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bitbucket_server_trigger_config__push) -> ()
+
+let yojson_of_bitbucket_server_trigger_config__push =
+  (function
+   | {
+       branch = v_branch;
+       invert_regex = v_invert_regex;
+       tag = v_tag;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invert_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_branch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "branch", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_server_trigger_config__push ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bitbucket_server_trigger_config__push
+
+[@@@deriving.end]
 
 type bitbucket_server_trigger_config = {
   bitbucket_server_config_resource : string prop;
-      (** The Bitbucket server config resource that this trigger config maps to. *)
   project_key : string prop;
-      (** Key of the project that the repo is in. For example: The key for https://mybitbucket.server/projects/TEST/repos/test-repo is TEST. *)
   repo_slug : string prop;
-      (** Slug of the repository. A repository slug is a URL-friendly version of a repository name, automatically generated by Bitbucket for use in the URL.
-For example, if the repository name is 'test repo', in the URL it would become 'test-repo' as in https://mybitbucket.server/projects/TEST/repos/test-repo. *)
   pull_request : bitbucket_server_trigger_config__pull_request list;
   push : bitbucket_server_trigger_config__push list;
 }
-[@@deriving yojson_of]
-(** BitbucketServerTriggerConfig describes the configuration of a trigger that creates a build whenever a Bitbucket Server event is received. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bitbucket_server_trigger_config) -> ()
+
+let yojson_of_bitbucket_server_trigger_config =
+  (function
+   | {
+       bitbucket_server_config_resource =
+         v_bitbucket_server_config_resource;
+       project_key = v_project_key;
+       repo_slug = v_repo_slug;
+       pull_request = v_pull_request;
+       push = v_push;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_bitbucket_server_trigger_config__push v_push
+         in
+         ("push", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_bitbucket_server_trigger_config__pull_request
+             v_pull_request
+         in
+         ("pull_request", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_repo_slug in
+         ("repo_slug", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_key in
+         ("project_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_bitbucket_server_config_resource
+         in
+         ("bitbucket_server_config_resource", arg) :: bnds
+       in
+       `Assoc bnds
+    : bitbucket_server_trigger_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bitbucket_server_trigger_config
+
+[@@@deriving.end]
 
 type build__artifacts__maven_artifacts = {
   artifact_id : string prop option; [@option]
-      (** Maven artifactId value used when uploading the artifact to Artifact Registry. *)
   group_id : string prop option; [@option]
-      (** Maven groupId value used when uploading the artifact to Artifact Registry. *)
   path : string prop option; [@option]
-      (** Path to an artifact in the build's workspace to be uploaded to Artifact Registry. This can be either an absolute path, e.g. /workspace/my-app/target/my-app-1.0.SNAPSHOT.jar or a relative path from /workspace, e.g. my-app/target/my-app-1.0.SNAPSHOT.jar. *)
   repository : string prop option; [@option]
-      (** Artifact Registry repository, in the form https://$REGION-maven.pkg.dev/$PROJECT/$REPOSITORY
-
-Artifact in the workspace specified by path will be uploaded to Artifact Registry with this location as a prefix. *)
   version : string prop option; [@option]
-      (** Maven version value used when uploading the artifact to Artifact Registry. *)
 }
-[@@deriving yojson_of]
-(** A Maven artifact to upload to Artifact Registry upon successful completion of all build steps.
+[@@deriving_inline yojson_of]
 
-The location and generation of the uploaded objects will be stored in the Build resource's results field.
+let _ = fun (_ : build__artifacts__maven_artifacts) -> ()
 
-If any objects fail to be pushed, the build is marked FAILURE. *)
+let yojson_of_build__artifacts__maven_artifacts =
+  (function
+   | {
+       artifact_id = v_artifact_id;
+       group_id = v_group_id;
+       path = v_path;
+       repository = v_repository;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_repository with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repository", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_artifact_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "artifact_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build__artifacts__maven_artifacts ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__artifacts__maven_artifacts
+
+[@@@deriving.end]
 
 type build__artifacts__npm_packages = {
   package_path : string prop option; [@option]
-      (** Path to the package.json. e.g. workspace/path/to/package *)
   repository : string prop option; [@option]
-      (** Artifact Registry repository, in the form https://$REGION-npm.pkg.dev/$PROJECT/$REPOSITORY
-
-Npm package in the workspace specified by path will be zipped and uploaded to Artifact Registry with this location as a prefix. *)
 }
-[@@deriving yojson_of]
-(** Npm package to upload to Artifact Registry upon successful completion of all build steps.
+[@@deriving_inline yojson_of]
 
-The location and generation of the uploaded objects will be stored in the Build resource's results field.
+let _ = fun (_ : build__artifacts__npm_packages) -> ()
 
-If any objects fail to be pushed, the build is marked FAILURE. *)
+let yojson_of_build__artifacts__npm_packages =
+  (function
+   | { package_path = v_package_path; repository = v_repository } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_repository with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repository", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_package_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "package_path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build__artifacts__npm_packages ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__artifacts__npm_packages
+
+[@@@deriving.end]
 
 type build__artifacts__objects__timing = {
-  end_time : string prop;  (** end_time *)
-  start_time : string prop;  (** start_time *)
+  end_time : string prop;
+  start_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build__artifacts__objects__timing) -> ()
+
+let yojson_of_build__artifacts__objects__timing =
+  (function
+   | { end_time = v_end_time; start_time = v_start_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_start_time in
+         ("start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_end_time in
+         ("end_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : build__artifacts__objects__timing ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__artifacts__objects__timing
+
+[@@@deriving.end]
 
 type build__artifacts__objects = {
   location : string prop option; [@option]
-      (** Cloud Storage bucket and optional object path, in the form gs://bucket/path/to/somewhere/.
-
-Files in the workspace matching any path pattern will be uploaded to Cloud Storage with
-this location as a prefix. *)
   paths : string prop list option; [@option]
-      (** Path globs used to match files in the build's workspace. *)
 }
-[@@deriving yojson_of]
-(** A list of objects to be uploaded to Cloud Storage upon successful completion of all build steps.
+[@@deriving_inline yojson_of]
 
-Files in the workspace matching specified paths globs will be uploaded to the
-Cloud Storage location using the builder service account's credentials.
+let _ = fun (_ : build__artifacts__objects) -> ()
 
-The location and generation of the uploaded objects will be stored in the Build resource's results field.
+let yojson_of_build__artifacts__objects =
+  (function
+   | { location = v_location; paths = v_paths } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_paths with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "paths", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build__artifacts__objects -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-If any objects fail to be pushed, the build is marked FAILURE. *)
+let _ = yojson_of_build__artifacts__objects
+
+[@@@deriving.end]
 
 type build__artifacts__python_packages = {
   paths : string prop list option; [@option]
-      (** Path globs used to match files in the build's workspace. For Python/ Twine, this is usually dist/*, and sometimes additionally an .asc file. *)
   repository : string prop option; [@option]
-      (** Artifact Registry repository, in the form https://$REGION-python.pkg.dev/$PROJECT/$REPOSITORY
-
-Files in the workspace matching any path pattern will be uploaded to Artifact Registry with this location as a prefix. *)
 }
-[@@deriving yojson_of]
-(** Python package to upload to Artifact Registry upon successful completion of all build steps. A package can encapsulate multiple objects to be uploaded to a single repository.
+[@@deriving_inline yojson_of]
 
-The location and generation of the uploaded objects will be stored in the Build resource's results field.
+let _ = fun (_ : build__artifacts__python_packages) -> ()
 
-If any objects fail to be pushed, the build is marked FAILURE. *)
+let yojson_of_build__artifacts__python_packages =
+  (function
+   | { paths = v_paths; repository = v_repository } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_repository with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repository", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_paths with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "paths", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build__artifacts__python_packages ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__artifacts__python_packages
+
+[@@@deriving.end]
 
 type build__artifacts = {
   images : string prop list option; [@option]
-      (** A list of images to be pushed upon the successful completion of all build steps.
-
-The images will be pushed using the builder service account's credentials.
-
-The digests of the pushed images will be stored in the Build resource's results field.
-
-If any of the images fail to be pushed, the build is marked FAILURE. *)
   maven_artifacts : build__artifacts__maven_artifacts list;
   npm_packages : build__artifacts__npm_packages list;
   objects : build__artifacts__objects list;
   python_packages : build__artifacts__python_packages list;
 }
-[@@deriving yojson_of]
-(** Artifacts produced by the build that should be uploaded upon successful completion of all build steps. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build__artifacts) -> ()
+
+let yojson_of_build__artifacts =
+  (function
+   | {
+       images = v_images;
+       maven_artifacts = v_maven_artifacts;
+       npm_packages = v_npm_packages;
+       objects = v_objects;
+       python_packages = v_python_packages;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__artifacts__python_packages
+             v_python_packages
+         in
+         ("python_packages", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__artifacts__objects
+             v_objects
+         in
+         ("objects", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__artifacts__npm_packages
+             v_npm_packages
+         in
+         ("npm_packages", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__artifacts__maven_artifacts
+             v_maven_artifacts
+         in
+         ("maven_artifacts", arg) :: bnds
+       in
+       let bnds =
+         match v_images with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "images", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build__artifacts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__artifacts
+
+[@@@deriving.end]
 
 type build__available_secrets__secret_manager = {
   env : string prop;
-      (** Environment variable name to associate with the secret. Secret environment
-variables must be unique across all of a build's secrets, and must be used
-by at least one build step. *)
   version_name : string prop;
-      (** Resource name of the SecretVersion. In format: projects/*/secrets/*/versions/* *)
 }
-[@@deriving yojson_of]
-(** Pairs a secret environment variable with a SecretVersion in Secret Manager. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build__available_secrets__secret_manager) -> ()
+
+let yojson_of_build__available_secrets__secret_manager =
+  (function
+   | { env = v_env; version_name = v_version_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version_name in
+         ("version_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_env in
+         ("env", arg) :: bnds
+       in
+       `Assoc bnds
+    : build__available_secrets__secret_manager ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__available_secrets__secret_manager
+
+[@@@deriving.end]
 
 type build__available_secrets = {
   secret_manager : build__available_secrets__secret_manager list;
 }
-[@@deriving yojson_of]
-(** Secrets and secret environment variables. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build__available_secrets) -> ()
+
+let yojson_of_build__available_secrets =
+  (function
+   | { secret_manager = v_secret_manager } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_build__available_secrets__secret_manager
+             v_secret_manager
+         in
+         ("secret_manager", arg) :: bnds
+       in
+       `Assoc bnds
+    : build__available_secrets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__available_secrets
+
+[@@@deriving.end]
 
 type build__options__volumes = {
   name : string prop option; [@option]
-      (** Name of the volume to mount.
-
-Volume names must be unique per build step and must be valid names for Docker volumes.
-Each named volume must be used by at least two build steps. *)
   path : string prop option; [@option]
-      (** Path at which to mount the volume.
-
-Paths must be absolute and cannot conflict with other volume paths on the same
-build step or with certain reserved volume paths. *)
 }
-[@@deriving yojson_of]
-(** Global list of volumes to mount for ALL build steps
+[@@deriving_inline yojson_of]
 
-Each volume is created as an empty volume prior to starting the build process.
-Upon completion of the build, volumes and their contents are discarded. Global
-volume names and paths cannot conflict with the volumes defined a build step.
+let _ = fun (_ : build__options__volumes) -> ()
 
-Using a global volume in a build with only one step is not valid as it is indicative
-of a build request with an incorrect configuration. *)
+let yojson_of_build__options__volumes =
+  (function
+   | { name = v_name; path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build__options__volumes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__options__volumes
+
+[@@@deriving.end]
 
 type build__options = {
   disk_size_gb : float prop option; [@option]
-      (** Requested disk size for the VM that runs the build. Note that this is NOT disk free;
-some of the space will be used by the operating system and build utilities.
-Also note that this is the minimum disk size that will be allocated for the build --
-the build may run with a larger disk than requested. At present, the maximum disk size
-is 1000GB; builds that request more than the maximum are rejected with an error. *)
   dynamic_substitutions : bool prop option; [@option]
-      (** Option to specify whether or not to apply bash style string operations to the substitutions.
-
-NOTE this is always enabled for triggered builds and cannot be overridden in the build configuration file. *)
   env : string prop list option; [@option]
-      (** A list of global environment variable definitions that will exist for all build steps
-in this build. If a variable is defined in both globally and in a build step,
-the variable will use the build step value.
-
-The elements are of the form KEY=VALUE for the environment variable KEY being given the value VALUE. *)
   log_streaming_option : string prop option; [@option]
-      (** Option to define build log streaming behavior to Google Cloud Storage. Possible values: [STREAM_DEFAULT, STREAM_ON, STREAM_OFF] *)
   logging : string prop option; [@option]
-      (** Option to specify the logging mode, which determines if and where build logs are stored. Possible values: [LOGGING_UNSPECIFIED, LEGACY, GCS_ONLY, STACKDRIVER_ONLY, CLOUD_LOGGING_ONLY, NONE] *)
   machine_type : string prop option; [@option]
-      (** Compute Engine machine type on which to run the build. *)
   requested_verify_option : string prop option; [@option]
-      (** Requested verifiability options. Possible values: [NOT_VERIFIED, VERIFIED] *)
   secret_env : string prop list option; [@option]
-      (** A list of global environment variables, which are encrypted using a Cloud Key Management
-Service crypto key. These values must be specified in the build's Secret. These variables
-will be available to all build steps in this build. *)
   source_provenance_hash : string prop list option; [@option]
-      (** Requested hash for SourceProvenance. Possible values: [NONE, SHA256, MD5] *)
   substitution_option : string prop option; [@option]
-      (** Option to specify behavior when there is an error in the substitution checks.
-
-NOTE this is always set to ALLOW_LOOSE for triggered builds and cannot be overridden
-in the build configuration file. Possible values: [MUST_MATCH, ALLOW_LOOSE] *)
   worker_pool : string prop option; [@option]
-      (** Option to specify a WorkerPool for the build. Format projects/{project}/workerPools/{workerPool}
-
-This field is experimental. *)
   volumes : build__options__volumes list;
 }
-[@@deriving yojson_of]
-(** Special options for this build. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build__options) -> ()
+
+let yojson_of_build__options =
+  (function
+   | {
+       disk_size_gb = v_disk_size_gb;
+       dynamic_substitutions = v_dynamic_substitutions;
+       env = v_env;
+       log_streaming_option = v_log_streaming_option;
+       logging = v_logging;
+       machine_type = v_machine_type;
+       requested_verify_option = v_requested_verify_option;
+       secret_env = v_secret_env;
+       source_provenance_hash = v_source_provenance_hash;
+       substitution_option = v_substitution_option;
+       worker_pool = v_worker_pool;
+       volumes = v_volumes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__options__volumes v_volumes
+         in
+         ("volumes", arg) :: bnds
+       in
+       let bnds =
+         match v_worker_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "worker_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_substitution_option with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "substitution_option", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_provenance_hash with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "source_provenance_hash", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret_env with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "secret_env", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_requested_verify_option with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "requested_verify_option", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_logging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "logging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_log_streaming_option with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_streaming_option", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_env with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "env", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dynamic_substitutions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "dynamic_substitutions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "disk_size_gb", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build__options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__options
+
+[@@@deriving.end]
 
 type build__secret = {
   kms_key_name : string prop;
-      (** Cloud KMS key name to use to decrypt these envs. *)
   secret_env : (string * string prop) list option; [@option]
-      (** Map of environment variable name to its encrypted value.
-Secret environment variables must be unique across all of a build's secrets,
-and must be used by at least one build step. Values can be at most 64 KB in size.
-There can be at most 100 secret values across all of a build's secrets. *)
 }
-[@@deriving yojson_of]
-(** Secrets to decrypt using Cloud Key Management Service. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build__secret) -> ()
+
+let yojson_of_build__secret =
+  (function
+   | { kms_key_name = v_kms_key_name; secret_env = v_secret_env } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_secret_env with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "secret_env", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_name in
+         ("kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : build__secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__secret
+
+[@@@deriving.end]
 
 type build__source__repo_source = {
   branch_name : string prop option; [@option]
-      (** Regex matching branches to build. Exactly one a of branch name, tag, or commit SHA must be provided.
-The syntax of the regular expressions accepted is the syntax accepted by RE2 and
-described at https://github.com/google/re2/wiki/Syntax *)
   commit_sha : string prop option; [@option]
-      (** Explicit commit SHA to build. Exactly one a of branch name, tag, or commit SHA must be provided. *)
   dir : string prop option; [@option]
-      (** Directory, relative to the source root, in which to run the build.
-This must be a relative path. If a step's dir is specified and is an absolute path,
-this value is ignored for that step's execution. *)
   invert_regex : bool prop option; [@option]
-      (** Only trigger a build if the revision regex does NOT match the revision regex. *)
   project_id : string prop option; [@option]
-      (** ID of the project that owns the Cloud Source Repository.
-If omitted, the project ID requesting the build is assumed. *)
   repo_name : string prop;
-      (** Name of the Cloud Source Repository. *)
   substitutions : (string * string prop) list option; [@option]
-      (** Substitutions to use in a triggered build. Should only be used with triggers.run *)
   tag_name : string prop option; [@option]
-      (** Regex matching tags to build. Exactly one a of branch name, tag, or commit SHA must be provided.
-The syntax of the regular expressions accepted is the syntax accepted by RE2 and
-described at https://github.com/google/re2/wiki/Syntax *)
 }
-[@@deriving yojson_of]
-(** Location of the source in a Google Cloud Source Repository. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build__source__repo_source) -> ()
+
+let yojson_of_build__source__repo_source =
+  (function
+   | {
+       branch_name = v_branch_name;
+       commit_sha = v_commit_sha;
+       dir = v_dir;
+       invert_regex = v_invert_regex;
+       project_id = v_project_id;
+       repo_name = v_repo_name;
+       substitutions = v_substitutions;
+       tag_name = v_tag_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tag_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_substitutions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "substitutions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_repo_name in
+         ("repo_name", arg) :: bnds
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invert_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dir with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dir", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_commit_sha with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "commit_sha", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_branch_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "branch_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build__source__repo_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__source__repo_source
+
+[@@@deriving.end]
 
 type build__source__storage_source = {
   bucket : string prop;
-      (** Google Cloud Storage bucket containing the source. *)
   generation : string prop option; [@option]
-      (** Google Cloud Storage generation for the object.
-If the generation is omitted, the latest generation will be used *)
   object_ : string prop; [@key "object"]
-      (** Google Cloud Storage object containing the source.
-This object must be a gzipped archive file (.tar.gz) containing source to build. *)
 }
-[@@deriving yojson_of]
-(** Location of the source in an archive file in Google Cloud Storage. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build__source__storage_source) -> ()
+
+let yojson_of_build__source__storage_source =
+  (function
+   | {
+       bucket = v_bucket;
+       generation = v_generation;
+       object_ = v_object_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_ in
+         ("object", arg) :: bnds
+       in
+       let bnds =
+         match v_generation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : build__source__storage_source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__source__storage_source
+
+[@@@deriving.end]
 
 type build__source = {
   repo_source : build__source__repo_source list;
   storage_source : build__source__storage_source list;
 }
-[@@deriving yojson_of]
-(** The location of the source files to build.
+[@@deriving_inline yojson_of]
 
-One of 'storageSource' or 'repoSource' must be provided. *)
+let _ = fun (_ : build__source) -> ()
+
+let yojson_of_build__source =
+  (function
+   | {
+       repo_source = v_repo_source;
+       storage_source = v_storage_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__source__storage_source
+             v_storage_source
+         in
+         ("storage_source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__source__repo_source
+             v_repo_source
+         in
+         ("repo_source", arg) :: bnds
+       in
+       `Assoc bnds
+    : build__source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__source
+
+[@@@deriving.end]
 
 type build__step__volumes = {
   name : string prop;
-      (** Name of the volume to mount.
-
-Volume names must be unique per build step and must be valid names for
-Docker volumes. Each named volume must be used by at least two build steps. *)
   path : string prop;
-      (** Path at which to mount the volume.
-
-Paths must be absolute and cannot conflict with other volume paths on
-the same build step or with certain reserved volume paths. *)
 }
-[@@deriving yojson_of]
-(** List of volumes to mount into the build step.
+[@@deriving_inline yojson_of]
 
-Each volume is created as an empty volume prior to execution of the
-build step. Upon completion of the build, volumes and their contents
-are discarded.
+let _ = fun (_ : build__step__volumes) -> ()
 
-Using a named volume in only one step is not valid as it is
-indicative of a build request with an incorrect configuration. *)
+let yojson_of_build__step__volumes =
+  (function
+   | { name = v_name; path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : build__step__volumes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__step__volumes
+
+[@@@deriving.end]
 
 type build__step = {
   allow_exit_codes : float prop list option; [@option]
-      (** Allow this build step to fail without failing the entire build if and
-only if the exit code is one of the specified codes.
-
-If 'allowFailure' is also specified, this field will take precedence. *)
   allow_failure : bool prop option; [@option]
-      (** Allow this build step to fail without failing the entire build.
-If false, the entire build will fail if this step fails. Otherwise, the
-build will succeed, but this step will still have a failure status.
-Error information will be reported in the 'failureDetail' field.
-
-'allowExitCodes' takes precedence over this field. *)
   args : string prop list option; [@option]
-      (** A list of arguments that will be presented to the step when it is started.
-
-If the image used to run the step's container has an entrypoint, the args
-are used as arguments to that entrypoint. If the image does not define an
-entrypoint, the first element in args is used as the entrypoint, and the
-remainder will be used as arguments. *)
   dir : string prop option; [@option]
-      (** Working directory to use when running this step's container.
-
-If this value is a relative path, it is relative to the build's working
-directory. If this value is absolute, it may be outside the build's working
-directory, in which case the contents of the path may not be persisted
-across build step executions, unless a 'volume' for that path is specified.
-
-If the build specifies a 'RepoSource' with 'dir' and a step with a
-'dir',
-which specifies an absolute path, the 'RepoSource' 'dir' is ignored
-for the step's execution. *)
   entrypoint : string prop option; [@option]
-      (** Entrypoint to be used instead of the build step image's
-default entrypoint.
-If unset, the image's default entrypoint is used *)
   env : string prop list option; [@option]
-      (** A list of environment variable definitions to be used when
-running a step.
-
-The elements are of the form KEY=VALUE for the environment variable
-KEY being given the value VALUE. *)
   id : string prop option; [@option]
-      (** Unique identifier for this build step, used in 'wait_for' to
-reference this build step as a dependency. *)
   name : string prop;
-      (** The name of the container image that will run this particular build step.
-
-If the image is available in the host's Docker daemon's cache, it will be
-run directly. If not, the host will attempt to pull the image first, using
-the builder service account's credentials if necessary.
-
-The Docker daemon's cache will already have the latest versions of all of
-the officially supported build steps (see https://github.com/GoogleCloudPlatform/cloud-builders
-for images and examples).
-The Docker daemon will also have cached many of the layers for some popular
-images, like ubuntu, debian, but they will be refreshed at the time
-you attempt to use them.
-
-If you built an image in a previous build step, it will be stored in the
-host's Docker daemon's cache and is available to use as the name for a
-later build step. *)
   script : string prop option; [@option]
-      (** A shell script to be executed in the step.
-When script is provided, the user cannot specify the entrypoint or args. *)
   secret_env : string prop list option; [@option]
-      (** A list of environment variables which are encrypted using
-a Cloud Key
-Management Service crypto key. These values must be specified in
-the build's 'Secret'. *)
   timeout : string prop option; [@option]
-      (** Time limit for executing this build step. If not defined,
-the step has no
-time limit and will be allowed to continue to run until either it
-completes or the build itself times out. *)
   timing : string prop option; [@option]
-      (** Output only. Stores timing information for executing this
-build step. *)
   wait_for : string prop list option; [@option]
-      (** The ID(s) of the step(s) that this build step depends on.
-
-This build step will not start until all the build steps in 'wait_for'
-have completed successfully. If 'wait_for' is empty, this build step
-will start when all previous build steps in the 'Build.Steps' list
-have completed successfully. *)
   volumes : build__step__volumes list;
 }
-[@@deriving yojson_of]
-(** The operations to be performed on the workspace. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build__step) -> ()
+
+let yojson_of_build__step =
+  (function
+   | {
+       allow_exit_codes = v_allow_exit_codes;
+       allow_failure = v_allow_failure;
+       args = v_args;
+       dir = v_dir;
+       entrypoint = v_entrypoint;
+       env = v_env;
+       id = v_id;
+       name = v_name;
+       script = v_script;
+       secret_env = v_secret_env;
+       timeout = v_timeout;
+       timing = v_timing;
+       wait_for = v_wait_for;
+       volumes = v_volumes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__step__volumes v_volumes
+         in
+         ("volumes", arg) :: bnds
+       in
+       let bnds =
+         match v_wait_for with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "wait_for", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_timing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timing", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret_env with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "secret_env", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_script with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "script", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_env with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "env", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_entrypoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "entrypoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dir with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dir", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_failure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_failure", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_exit_codes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "allow_exit_codes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build__step -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build__step
+
+[@@@deriving.end]
 
 type build = {
   images : string prop list option; [@option]
-      (** A list of images to be pushed upon the successful completion of all build steps.
-The images are pushed using the builder service account's credentials.
-The digests of the pushed images will be stored in the Build resource's results field.
-If any of the images fail to be pushed, the build status is marked FAILURE. *)
   logs_bucket : string prop option; [@option]
-      (** Google Cloud Storage bucket where logs should be written.
-Logs file names will be of the format ${logsBucket}/log-${build_id}.txt. *)
   queue_ttl : string prop option; [@option]
-      (** TTL in queue for this build. If provided and the build is enqueued longer than this value,
-the build will expire and the build status will be EXPIRED.
-The TTL starts ticking from createTime.
-A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
   substitutions : (string * string prop) list option; [@option]
-      (** Substitutions data for Build resource. *)
   tags : string prop list option; [@option]
-      (** Tags for annotation of a Build. These are not docker tags. *)
   timeout : string prop option; [@option]
-      (** Amount of time that this build should be allowed to run, to second granularity.
-If this amount of time elapses, work on the build will cease and the build status will be TIMEOUT.
-This timeout must be equal to or greater than the sum of the timeouts for build steps within the build.
-The expected format is the number of seconds followed by s.
-Default time is ten minutes (600s). *)
   artifacts : build__artifacts list;
   available_secrets : build__available_secrets list;
   options : build__options list;
@@ -431,257 +1148,803 @@ Default time is ten minutes (600s). *)
   source : build__source list;
   step : build__step list;
 }
-[@@deriving yojson_of]
-(** Contents of the build template. Either a filename or build template must be provided. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : build) -> ()
+
+let yojson_of_build =
+  (function
+   | {
+       images = v_images;
+       logs_bucket = v_logs_bucket;
+       queue_ttl = v_queue_ttl;
+       substitutions = v_substitutions;
+       tags = v_tags;
+       timeout = v_timeout;
+       artifacts = v_artifacts;
+       available_secrets = v_available_secrets;
+       options = v_options;
+       secret = v_secret;
+       source = v_source;
+       step = v_step;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_build__step v_step in
+         ("step", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_build__source v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_build__secret v_secret in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__options v_options
+         in
+         ("options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__available_secrets
+             v_available_secrets
+         in
+         ("available_secrets", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build__artifacts v_artifacts
+         in
+         ("artifacts", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_substitutions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "substitutions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_queue_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "queue_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_logs_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "logs_bucket", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_images with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "images", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build
+
+[@@@deriving.end]
 
 type git_file_source = {
   bitbucket_server_config : string prop option; [@option]
-      (** The full resource name of the bitbucket server config.
-Format: projects/{project}/locations/{location}/bitbucketServerConfigs/{id}. *)
   github_enterprise_config : string prop option; [@option]
-      (** The full resource name of the github enterprise config.
-Format: projects/{project}/locations/{location}/githubEnterpriseConfigs/{id}. projects/{project}/githubEnterpriseConfigs/{id}. *)
   path : string prop;
-      (** The path of the file, with the repo root as the root of the path. *)
   repo_type : string prop;
-      (** The type of the repo, since it may not be explicit from the repo field (e.g from a URL).
-Values can be UNKNOWN, CLOUD_SOURCE_REPOSITORIES, GITHUB, BITBUCKET_SERVER Possible values: [UNKNOWN, CLOUD_SOURCE_REPOSITORIES, GITHUB, BITBUCKET_SERVER] *)
   repository : string prop option; [@option]
-      (** The fully qualified resource name of the Repo API repository. The fully qualified resource name of the Repo API repository.
-If unspecified, the repo from which the trigger invocation originated is assumed to be the repo from which to read the specified path. *)
   revision : string prop option; [@option]
-      (** The branch, tag, arbitrary ref, or SHA version of the repo to use when resolving the
-filename (optional). This field respects the same syntax/resolution as described here: https://git-scm.com/docs/gitrevisions
-If unspecified, the revision from which the trigger invocation originated is assumed to be the revision from which to read the specified path. *)
   uri : string prop option; [@option]
-      (** The URI of the repo (optional). If unspecified, the repo from which the trigger
-invocation originated is assumed to be the repo from which to read the specified path. *)
 }
-[@@deriving yojson_of]
-(** The file source describing the local or remote Build template. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : git_file_source) -> ()
+
+let yojson_of_git_file_source =
+  (function
+   | {
+       bitbucket_server_config = v_bitbucket_server_config;
+       github_enterprise_config = v_github_enterprise_config;
+       path = v_path;
+       repo_type = v_repo_type;
+       repository = v_repository;
+       revision = v_revision;
+       uri = v_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_revision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "revision", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_repository with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repository", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_repo_type in
+         ("repo_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_github_enterprise_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "github_enterprise_config", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bitbucket_server_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bitbucket_server_config", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : git_file_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_git_file_source
+
+[@@@deriving.end]
 
 type github__pull_request = {
-  branch : string prop;  (** Regex of branches to match. *)
+  branch : string prop;
   comment_control : string prop option; [@option]
-      (** Whether to block builds on a /gcbrun comment from a repository owner or collaborator. Possible values: [COMMENTS_DISABLED, COMMENTS_ENABLED, COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY] *)
   invert_regex : bool prop option; [@option]
-      (** If true, branches that do NOT match the git_ref will trigger a build. *)
 }
-[@@deriving yojson_of]
-(** filter to match changes in pull requests. Specify only one of 'pull_request' or 'push'. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : github__pull_request) -> ()
+
+let yojson_of_github__pull_request =
+  (function
+   | {
+       branch = v_branch;
+       comment_control = v_comment_control;
+       invert_regex = v_invert_regex;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_invert_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment_control with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment_control", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_branch in
+         ("branch", arg) :: bnds
+       in
+       `Assoc bnds
+    : github__pull_request -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github__pull_request
+
+[@@@deriving.end]
 
 type github__push = {
   branch : string prop option; [@option]
-      (** Regex of branches to match.  Specify only one of branch or tag. *)
   invert_regex : bool prop option; [@option]
-      (** When true, only trigger a build if the revision regex does NOT match the git_ref regex. *)
   tag : string prop option; [@option]
-      (** Regex of tags to match.  Specify only one of branch or tag. *)
 }
-[@@deriving yojson_of]
-(** filter to match changes in refs, like branches or tags. Specify only one of 'pull_request' or 'push'. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : github__push) -> ()
+
+let yojson_of_github__push =
+  (function
+   | {
+       branch = v_branch;
+       invert_regex = v_invert_regex;
+       tag = v_tag;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invert_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_branch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "branch", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : github__push -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github__push
+
+[@@@deriving.end]
 
 type github = {
   enterprise_config_resource_name : string prop option; [@option]
-      (** The resource name of the github enterprise config that should be applied to this installation.
-For example: projects/{$projectId}/locations/{$locationId}/githubEnterpriseConfigs/{$configId} *)
   name : string prop option; [@option]
-      (** Name of the repository. For example: The name for
-https://github.com/googlecloudplatform/cloud-builders is cloud-builders. *)
   owner : string prop option; [@option]
-      (** Owner of the repository. For example: The owner for
-https://github.com/googlecloudplatform/cloud-builders is googlecloudplatform. *)
   pull_request : github__pull_request list;
   push : github__push list;
 }
-[@@deriving yojson_of]
-(** Describes the configuration of a trigger that creates a build whenever a GitHub event is received.
+[@@deriving_inline yojson_of]
 
-One of 'trigger_template', 'github', 'pubsub_config' or 'webhook_config' must be provided. *)
+let _ = fun (_ : github) -> ()
+
+let yojson_of_github =
+  (function
+   | {
+       enterprise_config_resource_name =
+         v_enterprise_config_resource_name;
+       name = v_name;
+       owner = v_owner;
+       pull_request = v_pull_request;
+       push = v_push;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_github__push v_push in
+         ("push", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_github__pull_request
+             v_pull_request
+         in
+         ("pull_request", arg) :: bnds
+       in
+       let bnds =
+         match v_owner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "owner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enterprise_config_resource_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "enterprise_config_resource_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : github -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github
+
+[@@@deriving.end]
 
 type pubsub_config = {
   service_account_email : string prop option; [@option]
-      (** Service account that will make the push request. *)
   topic : string prop;
-      (** The name of the topic from which this subscription is receiving messages. *)
 }
-[@@deriving yojson_of]
-(** PubsubConfig describes the configuration of a trigger that creates
-a build whenever a Pub/Sub message is published.
+[@@deriving_inline yojson_of]
 
-One of 'trigger_template', 'github', 'pubsub_config' 'webhook_config' or 'source_to_build' must be provided. *)
+let _ = fun (_ : pubsub_config) -> ()
+
+let yojson_of_pubsub_config =
+  (function
+   | {
+       service_account_email = v_service_account_email;
+       topic = v_topic;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic in
+         ("topic", arg) :: bnds
+       in
+       let bnds =
+         match v_service_account_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account_email", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : pubsub_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pubsub_config
+
+[@@@deriving.end]
 
 type repository_event_config__pull_request = {
   branch : string prop option; [@option]
-      (** Regex of branches to match.
-
-The syntax of the regular expressions accepted is the syntax accepted by
-RE2 and described at https://github.com/google/re2/wiki/Syntax *)
   comment_control : string prop option; [@option]
-      (** Configure builds to run whether a repository owner or collaborator need to comment '/gcbrun'. Possible values: [COMMENTS_DISABLED, COMMENTS_ENABLED, COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY] *)
   invert_regex : bool prop option; [@option]
-      (** If true, branches that do NOT match the git_ref will trigger a build. *)
 }
-[@@deriving yojson_of]
-(** Contains filter properties for matching Pull Requests. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : repository_event_config__pull_request) -> ()
+
+let yojson_of_repository_event_config__pull_request =
+  (function
+   | {
+       branch = v_branch;
+       comment_control = v_comment_control;
+       invert_regex = v_invert_regex;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_invert_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment_control with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment_control", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_branch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "branch", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : repository_event_config__pull_request ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_repository_event_config__pull_request
+
+[@@@deriving.end]
 
 type repository_event_config__push = {
   branch : string prop option; [@option]
-      (** Regex of branches to match.
-
-The syntax of the regular expressions accepted is the syntax accepted by
-RE2 and described at https://github.com/google/re2/wiki/Syntax *)
   invert_regex : bool prop option; [@option]
-      (** If true, only trigger a build if the revision regex does NOT match the git_ref regex. *)
   tag : string prop option; [@option]
-      (** Regex of tags to match.
-
-The syntax of the regular expressions accepted is the syntax accepted by
-RE2 and described at https://github.com/google/re2/wiki/Syntax *)
 }
-[@@deriving yojson_of]
-(** Contains filter properties for matching git pushes. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : repository_event_config__push) -> ()
+
+let yojson_of_repository_event_config__push =
+  (function
+   | {
+       branch = v_branch;
+       invert_regex = v_invert_regex;
+       tag = v_tag;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invert_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_branch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "branch", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : repository_event_config__push ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_repository_event_config__push
+
+[@@@deriving.end]
 
 type repository_event_config = {
   repository : string prop option; [@option]
-      (** The resource name of the Repo API resource. *)
   pull_request : repository_event_config__pull_request list;
   push : repository_event_config__push list;
 }
-[@@deriving yojson_of]
-(** The configuration of a trigger that creates a build whenever an event from Repo API is received. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : repository_event_config) -> ()
+
+let yojson_of_repository_event_config =
+  (function
+   | {
+       repository = v_repository;
+       pull_request = v_pull_request;
+       push = v_push;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_repository_event_config__push
+             v_push
+         in
+         ("push", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_repository_event_config__pull_request
+             v_pull_request
+         in
+         ("pull_request", arg) :: bnds
+       in
+       let bnds =
+         match v_repository with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repository", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : repository_event_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_repository_event_config
+
+[@@@deriving.end]
 
 type source_to_build = {
   bitbucket_server_config : string prop option; [@option]
-      (** The full resource name of the bitbucket server config.
-Format: projects/{project}/locations/{location}/bitbucketServerConfigs/{id}. *)
   github_enterprise_config : string prop option; [@option]
-      (** The full resource name of the github enterprise config.
-Format: projects/{project}/locations/{location}/githubEnterpriseConfigs/{id}. projects/{project}/githubEnterpriseConfigs/{id}. *)
   ref : string prop;
-      (** The branch or tag to use. Must start with refs/ (required). *)
   repo_type : string prop;
-      (** The type of the repo, since it may not be explicit from the repo field (e.g from a URL).
-Values can be UNKNOWN, CLOUD_SOURCE_REPOSITORIES, GITHUB, BITBUCKET_SERVER Possible values: [UNKNOWN, CLOUD_SOURCE_REPOSITORIES, GITHUB, BITBUCKET_SERVER] *)
   repository : string prop option; [@option]
-      (** The qualified resource name of the Repo API repository.
-Either uri or repository can be specified and is required. *)
-  uri : string prop option; [@option]  (** The URI of the repo. *)
+  uri : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** The repo and ref of the repository from which to build.
-This field is used only for those triggers that do not respond to SCM events.
-Triggers that respond to such events build source at whatever commit caused the event.
-This field is currently only used by Webhook, Pub/Sub, Manual, and Cron triggers.
+[@@deriving_inline yojson_of]
 
-One of 'trigger_template', 'github', 'pubsub_config' 'webhook_config' or 'source_to_build' must be provided. *)
+let _ = fun (_ : source_to_build) -> ()
+
+let yojson_of_source_to_build =
+  (function
+   | {
+       bitbucket_server_config = v_bitbucket_server_config;
+       github_enterprise_config = v_github_enterprise_config;
+       ref = v_ref;
+       repo_type = v_repo_type;
+       repository = v_repository;
+       uri = v_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_repository with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repository", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_repo_type in
+         ("repo_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ref in
+         ("ref", arg) :: bnds
+       in
+       let bnds =
+         match v_github_enterprise_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "github_enterprise_config", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bitbucket_server_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bitbucket_server_config", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : source_to_build -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source_to_build
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type trigger_template = {
   branch_name : string prop option; [@option]
-      (** Name of the branch to build. Exactly one a of branch name, tag, or commit SHA must be provided.
-This field is a regular expression. *)
   commit_sha : string prop option; [@option]
-      (** Explicit commit SHA to build. Exactly one of a branch name, tag, or commit SHA must be provided. *)
   dir : string prop option; [@option]
-      (** Directory, relative to the source root, in which to run the build.
-
-This must be a relative path. If a step's dir is specified and
-is an absolute path, this value is ignored for that step's
-execution. *)
   invert_regex : bool prop option; [@option]
-      (** Only trigger a build if the revision regex does NOT match the revision regex. *)
   project_id : string prop option; [@option]
-      (** ID of the project that owns the Cloud Source Repository. If
-omitted, the project ID requesting the build is assumed. *)
   repo_name : string prop option; [@option]
-      (** Name of the Cloud Source Repository. If omitted, the name default is assumed. *)
   tag_name : string prop option; [@option]
-      (** Name of the tag to build. Exactly one of a branch name, tag, or commit SHA must be provided.
-This field is a regular expression. *)
 }
-[@@deriving yojson_of]
-(** Template describing the types of source changes to trigger a build.
+[@@deriving_inline yojson_of]
 
-Branch and tag names in trigger templates are interpreted as regular
-expressions. Any branch or tag change that matches that regular
-expression will trigger a build.
+let _ = fun (_ : trigger_template) -> ()
 
-One of 'trigger_template', 'github', 'pubsub_config', 'webhook_config' or 'source_to_build' must be provided. *)
+let yojson_of_trigger_template =
+  (function
+   | {
+       branch_name = v_branch_name;
+       commit_sha = v_commit_sha;
+       dir = v_dir;
+       invert_regex = v_invert_regex;
+       project_id = v_project_id;
+       repo_name = v_repo_name;
+       tag_name = v_tag_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tag_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_repo_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repo_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_invert_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invert_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dir with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dir", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_commit_sha with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "commit_sha", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_branch_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "branch_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : trigger_template -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-type webhook_config = {
-  secret : string prop;
-      (** Resource name for the secret required as a URL parameter. *)
-}
-[@@deriving yojson_of]
-(** WebhookConfig describes the configuration of a trigger that creates
-a build whenever a webhook is sent to a trigger's webhook URL.
+let _ = yojson_of_trigger_template
 
-One of 'trigger_template', 'github', 'pubsub_config' 'webhook_config' or 'source_to_build' must be provided. *)
+[@@@deriving.end]
+
+type webhook_config = { secret : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : webhook_config) -> ()
+
+let yojson_of_webhook_config =
+  (function
+   | { secret = v_secret } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret in
+         ("secret", arg) :: bnds
+       in
+       `Assoc bnds
+    : webhook_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_webhook_config
+
+[@@@deriving.end]
 
 type google_cloudbuild_trigger = {
   description : string prop option; [@option]
-      (** Human-readable description of the trigger. *)
   disabled : bool prop option; [@option]
-      (** Whether the trigger is disabled or not. If true, the trigger will never result in a build. *)
   filename : string prop option; [@option]
-      (** Path, from the source root, to a file whose contents is used for the template.
-Either a filename or build template must be provided. Set this only when using trigger_template or github.
-When using Pub/Sub, Webhook or Manual set the file name using git_file_source instead. *)
   filter : string prop option; [@option]
-      (** A Common Expression Language string. Used only with Pub/Sub and Webhook. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ignored_files : string prop list option; [@option]
-      (** ignoredFiles and includedFiles are file glob matches using https://golang.org/pkg/path/filepath/#Match
-extended with support for '**'.
-
-If ignoredFiles and changed files are both empty, then they are not
-used to determine whether or not to trigger a build.
-
-If ignoredFiles is not empty, then we ignore any files that match any
-of the ignored_file globs. If the change has no files that are outside
-of the ignoredFiles globs, then we do not trigger a build. *)
   include_build_logs : string prop option; [@option]
-      (** Build logs will be sent back to GitHub as part of the checkrun
-result.  Values can be INCLUDE_BUILD_LOGS_UNSPECIFIED or
-INCLUDE_BUILD_LOGS_WITH_STATUS Possible values: [INCLUDE_BUILD_LOGS_UNSPECIFIED, INCLUDE_BUILD_LOGS_WITH_STATUS] *)
   included_files : string prop list option; [@option]
-      (** ignoredFiles and includedFiles are file glob matches using https://golang.org/pkg/path/filepath/#Match
-extended with support for '**'.
-
-If any of the files altered in the commit pass the ignoredFiles filter
-and includedFiles is empty, then as far as this filter is concerned, we
-should trigger the build.
-
-If any of the files altered in the commit pass the ignoredFiles filter
-and includedFiles is not empty, then we make sure that at least one of
-those files matches a includedFiles glob. If not, then we do not trigger
-a build. *)
   location : string prop option; [@option]
-      (** The [Cloud Build location](https://cloud.google.com/build/docs/locations) for the trigger.
-If not specified, global is used. *)
   name : string prop option; [@option]
-      (** Name of the trigger. Must be unique within the project. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   service_account : string prop option; [@option]
-      (** The service account used for all user-controlled operations including
-triggers.patch, triggers.run, builds.create, and builds.cancel.
-
-If no service account is set, then the standard Cloud Build service account
-([PROJECT_NUM]@system.gserviceaccount.com) will be used instead.
-
-Format: projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT_ID_OR_EMAIL} *)
   substitutions : (string * string prop) list option; [@option]
-      (** Substitutions data for Build resource. *)
   tags : string prop list option; [@option]
-      (** Tags for annotation of a BuildTrigger *)
   approval_config : approval_config list;
   bitbucket_server_trigger_config :
     bitbucket_server_trigger_config list;
@@ -695,8 +1958,238 @@ Format: projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT_ID_OR_EMAIL} *)
   trigger_template : trigger_template list;
   webhook_config : webhook_config list;
 }
-[@@deriving yojson_of]
-(** google_cloudbuild_trigger *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_cloudbuild_trigger) -> ()
+
+let yojson_of_google_cloudbuild_trigger =
+  (function
+   | {
+       description = v_description;
+       disabled = v_disabled;
+       filename = v_filename;
+       filter = v_filter;
+       id = v_id;
+       ignored_files = v_ignored_files;
+       include_build_logs = v_include_build_logs;
+       included_files = v_included_files;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       service_account = v_service_account;
+       substitutions = v_substitutions;
+       tags = v_tags;
+       approval_config = v_approval_config;
+       bitbucket_server_trigger_config =
+         v_bitbucket_server_trigger_config;
+       build = v_build;
+       git_file_source = v_git_file_source;
+       github = v_github;
+       pubsub_config = v_pubsub_config;
+       repository_event_config = v_repository_event_config;
+       source_to_build = v_source_to_build;
+       timeouts = v_timeouts;
+       trigger_template = v_trigger_template;
+       webhook_config = v_webhook_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_webhook_config v_webhook_config
+         in
+         ("webhook_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_trigger_template
+             v_trigger_template
+         in
+         ("trigger_template", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_source_to_build v_source_to_build
+         in
+         ("source_to_build", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_repository_event_config
+             v_repository_event_config
+         in
+         ("repository_event_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_pubsub_config v_pubsub_config
+         in
+         ("pubsub_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_github v_github in
+         ("github", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_git_file_source v_git_file_source
+         in
+         ("git_file_source", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_build v_build in
+         ("build", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bitbucket_server_trigger_config
+             v_bitbucket_server_trigger_config
+         in
+         ("bitbucket_server_trigger_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_approval_config v_approval_config
+         in
+         ("approval_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_substitutions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "substitutions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_included_files with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "included_files", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_build_logs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "include_build_logs", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignored_files with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ignored_files", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_filter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_filename with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filename", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_cloudbuild_trigger -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_cloudbuild_trigger
+
+[@@@deriving.end]
 
 let approval_config ?approval_required () : approval_config =
   { approval_required }

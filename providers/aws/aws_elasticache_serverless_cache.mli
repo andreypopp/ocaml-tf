@@ -9,10 +9,14 @@ type endpoint = {
   port : float prop;  (** port *)
 }
 
+[@@@deriving.end]
+
 type reader_endpoint = {
   address : string prop;  (** address *)
   port : float prop;  (** port *)
 }
+
+[@@@deriving.end]
 
 type cache_usage_limits__data_storage
 

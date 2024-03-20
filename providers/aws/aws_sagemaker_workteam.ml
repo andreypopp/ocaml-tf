@@ -3,18 +3,70 @@
 open! Tf_core
 
 type member_definition__cognito_member_definition = {
-  client_id : string prop;  (** client_id *)
-  user_group : string prop;  (** user_group *)
-  user_pool : string prop;  (** user_pool *)
+  client_id : string prop;
+  user_group : string prop;
+  user_pool : string prop;
 }
-[@@deriving yojson_of]
-(** member_definition__cognito_member_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : member_definition__cognito_member_definition) -> ()
+
+let yojson_of_member_definition__cognito_member_definition =
+  (function
+   | {
+       client_id = v_client_id;
+       user_group = v_user_group;
+       user_pool = v_user_pool;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_pool in
+         ("user_pool", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_group in
+         ("user_group", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_id in
+         ("client_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : member_definition__cognito_member_definition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_member_definition__cognito_member_definition
+
+[@@@deriving.end]
 
 type member_definition__oidc_member_definition = {
-  groups : string prop list;  (** groups *)
+  groups : string prop list;
 }
-[@@deriving yojson_of]
-(** member_definition__oidc_member_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : member_definition__oidc_member_definition) -> ()
+
+let yojson_of_member_definition__oidc_member_definition =
+  (function
+   | { groups = v_groups } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_groups
+         in
+         ("groups", arg) :: bnds
+       in
+       `Assoc bnds
+    : member_definition__oidc_member_definition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_member_definition__oidc_member_definition
+
+[@@@deriving.end]
 
 type member_definition = {
   cognito_member_definition :
@@ -22,29 +74,173 @@ type member_definition = {
   oidc_member_definition :
     member_definition__oidc_member_definition list;
 }
-[@@deriving yojson_of]
-(** member_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : member_definition) -> ()
+
+let yojson_of_member_definition =
+  (function
+   | {
+       cognito_member_definition = v_cognito_member_definition;
+       oidc_member_definition = v_oidc_member_definition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_member_definition__oidc_member_definition
+             v_oidc_member_definition
+         in
+         ("oidc_member_definition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_member_definition__cognito_member_definition
+             v_cognito_member_definition
+         in
+         ("cognito_member_definition", arg) :: bnds
+       in
+       `Assoc bnds
+    : member_definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_member_definition
+
+[@@@deriving.end]
 
 type notification_configuration = {
   notification_topic_arn : string prop option; [@option]
-      (** notification_topic_arn *)
 }
-[@@deriving yojson_of]
-(** notification_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notification_configuration) -> ()
+
+let yojson_of_notification_configuration =
+  (function
+   | { notification_topic_arn = v_notification_topic_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_notification_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_topic_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : notification_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notification_configuration
+
+[@@@deriving.end]
 
 type aws_sagemaker_workteam = {
-  description : string prop;  (** description *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop;
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  workforce_name : string prop;  (** workforce_name *)
-  workteam_name : string prop;  (** workteam_name *)
+  workforce_name : string prop;
+  workteam_name : string prop;
   member_definition : member_definition list;
   notification_configuration : notification_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_workteam *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sagemaker_workteam) -> ()
+
+let yojson_of_aws_sagemaker_workteam =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       workforce_name = v_workforce_name;
+       workteam_name = v_workteam_name;
+       member_definition = v_member_definition;
+       notification_configuration = v_notification_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_notification_configuration
+             v_notification_configuration
+         in
+         ("notification_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_member_definition
+             v_member_definition
+         in
+         ("member_definition", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workteam_name in
+         ("workteam_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_workforce_name
+         in
+         ("workforce_name", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_workteam -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sagemaker_workteam
+
+[@@@deriving.end]
 
 let member_definition__cognito_member_definition ~client_id
     ~user_group ~user_pool () :

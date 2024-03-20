@@ -3,274 +3,1115 @@
 open! Tf_core
 
 type alloydb__settings__initial_user = {
-  password : string prop;  (** The initial password for the user. *)
-  user : string prop;  (** The database username. *)
+  password : string prop;
+  user : string prop;
 }
-[@@deriving yojson_of]
-(** Required. Input only. Initial user to setup during cluster creation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : alloydb__settings__initial_user) -> ()
+
+let yojson_of_alloydb__settings__initial_user =
+  (function
+   | { password = v_password; user = v_user } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user in
+         ("user", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       `Assoc bnds
+    : alloydb__settings__initial_user ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_alloydb__settings__initial_user
+
+[@@@deriving.end]
 
 type alloydb__settings__primary_instance_settings__machine_config = {
   cpu_count : float prop;
-      (** The number of CPU's in the VM instance. *)
 }
-[@@deriving yojson_of]
-(** Configuration for the machines that host the underlying database engine. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       alloydb__settings__primary_instance_settings__machine_config) ->
+  ()
+
+let yojson_of_alloydb__settings__primary_instance_settings__machine_config
+    =
+  (function
+   | { cpu_count = v_cpu_count } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_cpu_count in
+         ("cpu_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : alloydb__settings__primary_instance_settings__machine_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_alloydb__settings__primary_instance_settings__machine_config
+
+[@@@deriving.end]
 
 type alloydb__settings__primary_instance_settings = {
   database_flags : (string * string prop) list option; [@option]
-      (** Database flags to pass to AlloyDB when DMS is creating the AlloyDB cluster and instances. See the AlloyDB documentation for how these can be used. *)
-  id : string prop;  (** The database username. *)
+  id : string prop;
   labels : (string * string prop) list option; [@option]
-      (** Labels for the AlloyDB primary instance created by DMS. *)
   machine_config :
     alloydb__settings__primary_instance_settings__machine_config list;
 }
-[@@deriving yojson_of]
-(** Settings for the cluster's primary instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : alloydb__settings__primary_instance_settings) -> ()
+
+let yojson_of_alloydb__settings__primary_instance_settings =
+  (function
+   | {
+       database_flags = v_database_flags;
+       id = v_id;
+       labels = v_labels;
+       machine_config = v_machine_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_alloydb__settings__primary_instance_settings__machine_config
+             v_machine_config
+         in
+         ("machine_config", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         match v_database_flags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "database_flags", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : alloydb__settings__primary_instance_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_alloydb__settings__primary_instance_settings
+
+[@@@deriving.end]
 
 type alloydb__settings = {
   labels : (string * string prop) list option; [@option]
-      (** Labels for the AlloyDB cluster created by DMS. *)
   vpc_network : string prop;
-      (** Required. The resource link for the VPC network in which cluster resources are created and from which they are accessible via Private IP. The network must belong to the same project as the cluster.
-It is specified in the form: 'projects/{project_number}/global/networks/{network_id}'. This is required to create a cluster. *)
   initial_user : alloydb__settings__initial_user list;
   primary_instance_settings :
     alloydb__settings__primary_instance_settings list;
 }
-[@@deriving yojson_of]
-(** Immutable. Metadata used to create the destination AlloyDB cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : alloydb__settings) -> ()
+
+let yojson_of_alloydb__settings =
+  (function
+   | {
+       labels = v_labels;
+       vpc_network = v_vpc_network;
+       initial_user = v_initial_user;
+       primary_instance_settings = v_primary_instance_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_alloydb__settings__primary_instance_settings
+             v_primary_instance_settings
+         in
+         ("primary_instance_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_alloydb__settings__initial_user
+             v_initial_user
+         in
+         ("initial_user", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_network in
+         ("vpc_network", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : alloydb__settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_alloydb__settings
+
+[@@@deriving.end]
 
 type alloydb = {
   cluster_id : string prop;
-      (** Required. The AlloyDB cluster ID that this connection profile is associated with. *)
   settings : alloydb__settings list;
 }
-[@@deriving yojson_of]
-(** Specifies required connection parameters, and the parameters required to create an AlloyDB destination cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : alloydb) -> ()
+
+let yojson_of_alloydb =
+  (function
+   | { cluster_id = v_cluster_id; settings = v_settings } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_alloydb__settings v_settings
+         in
+         ("settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : alloydb -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_alloydb
+
+[@@@deriving.end]
 
 type cloudsql__settings__ip_config__authorized_networks = {
   expire_time : string prop option; [@option]
-      (** The time when this access control entry expires in RFC 3339 format. *)
   label : string prop option; [@option]
-      (** A label to identify this entry. *)
   ttl : string prop option; [@option]
-      (** Input only. The time-to-leave of this access control entry. *)
   value : string prop;
-      (** The allowlisted value for the access control list. *)
 }
-[@@deriving yojson_of]
-(** The list of external networks that are allowed to connect to the instance using the IP. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : cloudsql__settings__ip_config__authorized_networks) -> ()
+
+let yojson_of_cloudsql__settings__ip_config__authorized_networks =
+  (function
+   | {
+       expire_time = v_expire_time;
+       label = v_label;
+       ttl = v_ttl;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         match v_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_label with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "label", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expire_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expire_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudsql__settings__ip_config__authorized_networks ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudsql__settings__ip_config__authorized_networks
+
+[@@@deriving.end]
 
 type cloudsql__settings__ip_config = {
   enable_ipv4 : bool prop option; [@option]
-      (** Whether the instance should be assigned an IPv4 address or not. *)
   private_network : string prop option; [@option]
-      (** The resource link for the VPC network from which the Cloud SQL instance is accessible for private IP. For example, projects/myProject/global/networks/default.
-This setting can be updated, but it cannot be removed after it is set. *)
   require_ssl : bool prop option; [@option]
-      (** Whether SSL connections over IP should be enforced or not. *)
   authorized_networks :
     cloudsql__settings__ip_config__authorized_networks list;
 }
-[@@deriving yojson_of]
-(** The settings for IP Management. This allows to enable or disable the instance IP and manage which external networks can connect to the instance. The IPv4 address cannot be disabled. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudsql__settings__ip_config) -> ()
+
+let yojson_of_cloudsql__settings__ip_config =
+  (function
+   | {
+       enable_ipv4 = v_enable_ipv4;
+       private_network = v_private_network;
+       require_ssl = v_require_ssl;
+       authorized_networks = v_authorized_networks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cloudsql__settings__ip_config__authorized_networks
+             v_authorized_networks
+         in
+         ("authorized_networks", arg) :: bnds
+       in
+       let bnds =
+         match v_require_ssl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_ssl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_ipv4 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_ipv4", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudsql__settings__ip_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudsql__settings__ip_config
+
+[@@@deriving.end]
 
 type cloudsql__settings = {
   activation_policy : string prop option; [@option]
-      (** The activation policy specifies when the instance is activated; it is applicable only when the instance state is 'RUNNABLE'. Possible values: [ALWAYS, NEVER] *)
   auto_storage_increase : bool prop option; [@option]
-      (** If you enable this setting, Cloud SQL checks your available storage every 30 seconds. If the available storage falls below a threshold size, Cloud SQL automatically adds additional storage capacity.
-If the available storage repeatedly falls below the threshold size, Cloud SQL continues to add storage until it reaches the maximum of 30 TB. *)
   cmek_key_name : string prop option; [@option]
-      (** The KMS key name used for the csql instance. *)
   collation : string prop option; [@option]
-      (** The Cloud SQL default instance level collation. *)
   data_disk_size_gb : string prop option; [@option]
-      (** The storage capacity available to the database, in GB. The minimum (and default) size is 10GB. *)
   data_disk_type : string prop option; [@option]
-      (** The type of storage. Possible values: [PD_SSD, PD_HDD] *)
   database_flags : (string * string prop) list option; [@option]
-      (** The database flags passed to the Cloud SQL instance at startup. *)
   database_version : string prop option; [@option]
-      (** The database engine type and version.
-Currently supported values located at https://cloud.google.com/database-migration/docs/reference/rest/v1/projects.locations.connectionProfiles#sqldatabaseversion *)
   edition : string prop option; [@option]
-      (** The edition of the given Cloud SQL instance. Possible values: [ENTERPRISE, ENTERPRISE_PLUS] *)
   root_password : string prop option; [@option]
-      (** Input only. Initial root password. *)
   source_id : string prop;
-      (** The Database Migration Service source connection profile ID, in the format: projects/my_project_name/locations/us-central1/connectionProfiles/connection_profile_ID *)
   storage_auto_resize_limit : string prop option; [@option]
-      (** The maximum size to which storage capacity can be automatically increased. The default value is 0, which specifies that there is no limit. *)
   tier : string prop option; [@option]
-      (** The tier (or machine type) for this instance, for example: db-n1-standard-1 (MySQL instances) or db-custom-1-3840 (PostgreSQL instances).
-For more information, see https://cloud.google.com/sql/docs/mysql/instance-settings *)
   user_labels : (string * string prop) list option; [@option]
-      (** The resource labels for a Cloud SQL instance to use to annotate any related underlying resources such as Compute Engine VMs. *)
   zone : string prop option; [@option]
-      (** The Google Cloud Platform zone where your Cloud SQL datdabse instance is located. *)
   ip_config : cloudsql__settings__ip_config list;
 }
-[@@deriving yojson_of]
-(** Immutable. Metadata used to create the destination Cloud SQL database. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudsql__settings) -> ()
+
+let yojson_of_cloudsql__settings =
+  (function
+   | {
+       activation_policy = v_activation_policy;
+       auto_storage_increase = v_auto_storage_increase;
+       cmek_key_name = v_cmek_key_name;
+       collation = v_collation;
+       data_disk_size_gb = v_data_disk_size_gb;
+       data_disk_type = v_data_disk_type;
+       database_flags = v_database_flags;
+       database_version = v_database_version;
+       edition = v_edition;
+       root_password = v_root_password;
+       source_id = v_source_id;
+       storage_auto_resize_limit = v_storage_auto_resize_limit;
+       tier = v_tier;
+       user_labels = v_user_labels;
+       zone = v_zone;
+       ip_config = v_ip_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cloudsql__settings__ip_config
+             v_ip_config
+         in
+         ("ip_config", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_user_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "user_labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_auto_resize_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_auto_resize_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source_id in
+         ("source_id", arg) :: bnds
+       in
+       let bnds =
+         match v_root_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "root_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_edition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "edition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_database_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "database_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_database_flags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "database_flags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_disk_size_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_collation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "collation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cmek_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cmek_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_storage_increase with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_storage_increase", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_activation_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "activation_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudsql__settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudsql__settings
+
+[@@@deriving.end]
 
 type cloudsql = { settings : cloudsql__settings list }
-[@@deriving yojson_of]
-(** Specifies required connection parameters, and, optionally, the parameters required to create a Cloud SQL destination database instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudsql) -> ()
+
+let yojson_of_cloudsql =
+  (function
+   | { settings = v_settings } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cloudsql__settings v_settings
+         in
+         ("settings", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudsql -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudsql
+
+[@@@deriving.end]
 
 type mysql__ssl = {
   ca_certificate : string prop;
-      (** Required. Input only. The x509 PEM-encoded certificate of the CA that signed the source database server's certificate.
-The replica will use this certificate to verify it's connecting to the right host. *)
   client_certificate : string prop option; [@option]
-      (** Input only. The x509 PEM-encoded certificate that will be used by the replica to authenticate against the source database server.
-If this field is used then the 'clientKey' field is mandatory *)
   client_key : string prop option; [@option]
-      (** Input only. The unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with the Client Certificate.
-If this field is used then the 'clientCertificate' field is mandatory. *)
 }
-[@@deriving yojson_of]
-(** SSL configuration for the destination to connect to the source database. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mysql__ssl) -> ()
+
+let yojson_of_mysql__ssl =
+  (function
+   | {
+       ca_certificate = v_ca_certificate;
+       client_certificate = v_client_certificate;
+       client_key = v_client_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_client_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ca_certificate
+         in
+         ("ca_certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : mysql__ssl -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mysql__ssl
+
+[@@@deriving.end]
 
 type mysql = {
   cloud_sql_id : string prop option; [@option]
-      (** If the source is a Cloud SQL database, use this field to provide the Cloud SQL instance ID of the source. *)
   host : string prop;
-      (** Required. The IP or hostname of the source MySQL database. *)
   password : string prop;
-      (** Required. Input only. The password for the user that Database Migration Service will be using to connect to the database.
-This field is not returned on request, and the value is encrypted when stored in Database Migration Service. *)
   port : float prop;
-      (** Required. The network port of the source MySQL database. *)
   username : string prop;
-      (** Required. The username that Database Migration Service will use to connect to the database. The value is encrypted when stored in Database Migration Service. *)
   ssl : mysql__ssl list;
 }
-[@@deriving yojson_of]
-(** Specifies connection parameters required specifically for MySQL databases. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mysql) -> ()
+
+let yojson_of_mysql =
+  (function
+   | {
+       cloud_sql_id = v_cloud_sql_id;
+       host = v_host;
+       password = v_password;
+       port = v_port;
+       username = v_username;
+       ssl = v_ssl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_mysql__ssl v_ssl in
+         ("ssl", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       let bnds =
+         match v_cloud_sql_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloud_sql_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : mysql -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mysql
+
+[@@@deriving.end]
 
 type oracle__forward_ssh_connectivity = {
   hostname : string prop;
-      (** Required. Hostname for the SSH tunnel. *)
   password : string prop option; [@option]
-      (** Input only. SSH password. Only one of 'password' and 'private_key' can be configured. *)
   port : float prop;
-      (** Port for the SSH tunnel, default value is 22. *)
   private_key : string prop option; [@option]
-      (** Input only. SSH private key. Only one of 'password' and 'private_key' can be configured. *)
   username : string prop;
-      (** Required. Username for the SSH tunnel. *)
 }
-[@@deriving yojson_of]
-(** SSL configuration for the destination to connect to the source database. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : oracle__forward_ssh_connectivity) -> ()
+
+let yojson_of_oracle__forward_ssh_connectivity =
+  (function
+   | {
+       hostname = v_hostname;
+       password = v_password;
+       port = v_port;
+       private_key = v_private_key;
+       username = v_username;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         match v_private_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         match v_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_hostname in
+         ("hostname", arg) :: bnds
+       in
+       `Assoc bnds
+    : oracle__forward_ssh_connectivity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_oracle__forward_ssh_connectivity
+
+[@@@deriving.end]
 
 type oracle__private_connectivity = {
   private_connection : string prop;
-      (** Required. The resource name (URI) of the private connection. *)
 }
-[@@deriving yojson_of]
-(** Configuration for using a private network to communicate with the source database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : oracle__private_connectivity) -> ()
+
+let yojson_of_oracle__private_connectivity =
+  (function
+   | { private_connection = v_private_connection } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_private_connection
+         in
+         ("private_connection", arg) :: bnds
+       in
+       `Assoc bnds
+    : oracle__private_connectivity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_oracle__private_connectivity
+
+[@@@deriving.end]
 
 type oracle__ssl = {
   ca_certificate : string prop;
-      (** Required. Input only. The x509 PEM-encoded certificate of the CA that signed the source database server's certificate.
-The replica will use this certificate to verify it's connecting to the right host. *)
   client_certificate : string prop option; [@option]
-      (** Input only. The x509 PEM-encoded certificate that will be used by the replica to authenticate against the source database server.
-If this field is used then the 'clientKey' field is mandatory *)
   client_key : string prop option; [@option]
-      (** Input only. The unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with the Client Certificate.
-If this field is used then the 'clientCertificate' field is mandatory. *)
 }
-[@@deriving yojson_of]
-(** SSL configuration for the destination to connect to the source database. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : oracle__ssl) -> ()
+
+let yojson_of_oracle__ssl =
+  (function
+   | {
+       ca_certificate = v_ca_certificate;
+       client_certificate = v_client_certificate;
+       client_key = v_client_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_client_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ca_certificate
+         in
+         ("ca_certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : oracle__ssl -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_oracle__ssl
+
+[@@@deriving.end]
 
 type oracle__static_service_ip_connectivity = unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : oracle__static_service_ip_connectivity) -> ()
+
+let yojson_of_oracle__static_service_ip_connectivity =
+  (yojson_of_unit
+    : oracle__static_service_ip_connectivity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_oracle__static_service_ip_connectivity
+
+[@@@deriving.end]
 
 type oracle = {
   database_service : string prop;
-      (** Required. Database service for the Oracle connection. *)
   host : string prop;
-      (** Required. The IP or hostname of the source Oracle database. *)
   password : string prop;
-      (** Required. Input only. The password for the user that Database Migration Service will be using to connect to the database.
-This field is not returned on request, and the value is encrypted when stored in Database Migration Service. *)
   port : float prop;
-      (** Required. The network port of the source Oracle database. *)
   username : string prop;
-      (** Required. The username that Database Migration Service will use to connect to the database. The value is encrypted when stored in Database Migration Service. *)
   forward_ssh_connectivity : oracle__forward_ssh_connectivity list;
   private_connectivity : oracle__private_connectivity list;
   ssl : oracle__ssl list;
   static_service_ip_connectivity :
     oracle__static_service_ip_connectivity list;
 }
-[@@deriving yojson_of]
-(** Specifies connection parameters required specifically for Oracle databases. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : oracle) -> ()
+
+let yojson_of_oracle =
+  (function
+   | {
+       database_service = v_database_service;
+       host = v_host;
+       password = v_password;
+       port = v_port;
+       username = v_username;
+       forward_ssh_connectivity = v_forward_ssh_connectivity;
+       private_connectivity = v_private_connectivity;
+       ssl = v_ssl;
+       static_service_ip_connectivity =
+         v_static_service_ip_connectivity;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_oracle__static_service_ip_connectivity
+             v_static_service_ip_connectivity
+         in
+         ("static_service_ip_connectivity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_oracle__ssl v_ssl in
+         ("ssl", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_oracle__private_connectivity
+             v_private_connectivity
+         in
+         ("private_connectivity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_oracle__forward_ssh_connectivity
+             v_forward_ssh_connectivity
+         in
+         ("forward_ssh_connectivity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_database_service
+         in
+         ("database_service", arg) :: bnds
+       in
+       `Assoc bnds
+    : oracle -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_oracle
+
+[@@@deriving.end]
 
 type postgresql__ssl = {
   ca_certificate : string prop;
-      (** Required. Input only. The x509 PEM-encoded certificate of the CA that signed the source database server's certificate.
-The replica will use this certificate to verify it's connecting to the right host. *)
   client_certificate : string prop option; [@option]
-      (** Input only. The x509 PEM-encoded certificate that will be used by the replica to authenticate against the source database server.
-If this field is used then the 'clientKey' field is mandatory *)
   client_key : string prop option; [@option]
-      (** Input only. The unencrypted PKCS#1 or PKCS#8 PEM-encoded private key associated with the Client Certificate.
-If this field is used then the 'clientCertificate' field is mandatory. *)
 }
-[@@deriving yojson_of]
-(** SSL configuration for the destination to connect to the source database. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : postgresql__ssl) -> ()
+
+let yojson_of_postgresql__ssl =
+  (function
+   | {
+       ca_certificate = v_ca_certificate;
+       client_certificate = v_client_certificate;
+       client_key = v_client_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_client_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ca_certificate
+         in
+         ("ca_certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : postgresql__ssl -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_postgresql__ssl
+
+[@@@deriving.end]
 
 type postgresql = {
   cloud_sql_id : string prop option; [@option]
-      (** If the source is a Cloud SQL database, use this field to provide the Cloud SQL instance ID of the source. *)
   host : string prop;
-      (** Required. The IP or hostname of the source MySQL database. *)
   password : string prop;
-      (** Required. Input only. The password for the user that Database Migration Service will be using to connect to the database.
-This field is not returned on request, and the value is encrypted when stored in Database Migration Service. *)
   port : float prop;
-      (** Required. The network port of the source MySQL database. *)
   username : string prop;
-      (** Required. The username that Database Migration Service will use to connect to the database. The value is encrypted when stored in Database Migration Service. *)
   ssl : postgresql__ssl list;
 }
-[@@deriving yojson_of]
-(** Specifies connection parameters required specifically for PostgreSQL databases. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : postgresql) -> ()
+
+let yojson_of_postgresql =
+  (function
+   | {
+       cloud_sql_id = v_cloud_sql_id;
+       host = v_host;
+       password = v_password;
+       port = v_port;
+       username = v_username;
+       ssl = v_ssl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_postgresql__ssl v_ssl in
+         ("ssl", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       let bnds =
+         match v_cloud_sql_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloud_sql_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : postgresql -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_postgresql
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type error = {
-  code : float prop;  (** code *)
-  details : (string * string prop) list list;  (** details *)
-  message : string prop;  (** message *)
+  code : float prop;
+  details : (string * string prop) list list;
+  message : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : error) -> ()
+
+let yojson_of_error =
+  (function
+   | { code = v_code; details = v_details; message = v_message } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_list (function v0, v1 ->
+                  let v0 = yojson_of_string v0
+                  and v1 = yojson_of_prop yojson_of_string v1 in
+                  `List [ v0; v1 ]))
+             v_details
+         in
+         ("details", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_code in
+         ("code", arg) :: bnds
+       in
+       `Assoc bnds
+    : error -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_error
+
+[@@@deriving.end]
 
 type google_database_migration_service_connection_profile = {
   connection_profile_id : string prop;
-      (** The ID of the connection profile. *)
   display_name : string prop option; [@option]
-      (** The connection profile display name. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** The resource labels for connection profile to use to annotate any related underlying resources such as Compute Engine VMs.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop option; [@option]
-      (** The location where the connection profile should reside. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   alloydb : alloydb list;
   cloudsql : cloudsql list;
   mysql : mysql list;
@@ -278,8 +1119,118 @@ Please refer to the field 'effective_labels' for all of the labels present on th
   postgresql : postgresql list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_database_migration_service_connection_profile *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_database_migration_service_connection_profile) -> ()
+
+let yojson_of_google_database_migration_service_connection_profile =
+  (function
+   | {
+       connection_profile_id = v_connection_profile_id;
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       project = v_project;
+       alloydb = v_alloydb;
+       cloudsql = v_cloudsql;
+       mysql = v_mysql;
+       oracle = v_oracle;
+       postgresql = v_postgresql;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_postgresql v_postgresql
+         in
+         ("postgresql", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_oracle v_oracle in
+         ("oracle", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_mysql v_mysql in
+         ("mysql", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_cloudsql v_cloudsql in
+         ("cloudsql", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_alloydb v_alloydb in
+         ("alloydb", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_connection_profile_id
+         in
+         ("connection_profile_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_database_migration_service_connection_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_google_database_migration_service_connection_profile
+
+[@@@deriving.end]
 
 let alloydb__settings__initial_user ~password ~user () :
     alloydb__settings__initial_user =

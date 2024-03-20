@@ -191,7 +191,7 @@ let get_attributes ~input_only attrs =
 
 let is_input_attribute attr = attr.optional || attr.required
 
-let gen_attribute_types name ppf attributes =
+let gen_attribute_types ~is_mli name ppf attributes =
   List.iter attributes
     ~f:(fun (attr_name, (attribute : attribute)) ->
       let ty = attribute.type_ in
@@ -202,9 +202,12 @@ let gen_attribute_types name ppf attributes =
           | Some name -> [ attr_name; name ])
       in
       let doc =
-        match attribute.description with
-        | None -> Printf.sprintf " (** %s *)" attr_name
-        | Some doc -> Printf.sprintf " (** %s *)" (to_ocaml_doc doc)
+        if is_mli then
+          match attribute.description with
+          | None -> Printf.sprintf " (** %s *)" attr_name
+          | Some doc ->
+              Printf.sprintf " (** %s *)" (to_ocaml_doc doc)
+        else ""
       in
       let ocaml_name = to_ocaml_name attr_name in
       let ext = [] in
@@ -250,10 +253,12 @@ let gen_object_types_ml ~is_mli ~input_only ppf
           in
           let ty_name = List.rev path |> String.concat ~sep:"__" in
           Format.fprintf ppf "type %s = {@." (to_ocaml_name ty_name);
-          gen_attribute_types (Some ty_name) ppf
+          gen_attribute_types ~is_mli (Some ty_name) ppf
             (get_attributes ~input_only attributes);
           if is_mli then Format.fprintf ppf "}@."
-          else Format.fprintf ppf "} [%@%@deriving yojson_of]@."))
+          else
+            Format.fprintf ppf "} [%@%@deriving_inline yojson_of]@.";
+          Format.fprintf ppf "[%@%@%@deriving.end]@."))
 
 let gen_block_type_name ~kind basename
     ((block_name, block) : string * block_type) =
@@ -281,7 +286,14 @@ let rec gen_block_type_ml ?(is_resource = false) ~is_mli ~input_only
     ((if is_resource then None else Some name), block);
   gen_object_types_ml ~is_mli ~input_only ppf (basename, block);
   match is_mli with
-  | true -> Format.fprintf ppf "type %s@.@." (to_ocaml_name name)
+  | true ->
+      let doc =
+        match block.description with
+        | None -> Printf.sprintf "(** %s *)" name
+        | Some doc -> Printf.sprintf "(** %s *)" (to_ocaml_doc doc)
+      in
+      Format.fprintf ppf "type %s@." (to_ocaml_name name);
+      Format.fprintf ppf "%s@.@." doc
   | false ->
       let attributes = get_attributes ~input_only block.attributes in
       let is_unit =
@@ -289,14 +301,15 @@ let rec gen_block_type_ml ?(is_resource = false) ~is_mli ~input_only
         | [], [] -> true
         | _ -> false
       in
-      if is_unit then
+      if is_unit then (
         Format.fprintf ppf
-          "type %s = unit [%@%@deriving yojson_of]@.@."
-          (to_ocaml_name name)
+          "type %s = unit [%@%@deriving_inline yojson_of]@."
+          (to_ocaml_name name);
+        Format.fprintf ppf "[%@%@%@deriving.end]@.@.")
       else (
         Format.fprintf ppf "type %s = %s{@." (to_ocaml_name name)
           (if is_mli then "private " else "");
-        gen_attribute_types basename ppf attributes;
+        gen_attribute_types ~is_mli basename ppf attributes;
         List.iter block.block_types ~f:(fun (block_name, block) ->
             let ocaml_name = to_ocaml_name block_name in
             let ty =
@@ -304,12 +317,8 @@ let rec gen_block_type_ml ?(is_resource = false) ~is_mli ~input_only
                 (block_name, block)
             in
             Format.fprintf ppf "  %s: %s;@." ocaml_name ty);
-        let doc =
-          match block.description with
-          | None -> Printf.sprintf "(** %s *)" name
-          | Some doc -> Printf.sprintf "(** %s *)" (to_ocaml_doc doc)
-        in
-        Format.fprintf ppf "} [%@%@deriving yojson_of]@.%s@.@." doc)
+        Format.fprintf ppf "} [%@%@deriving_inline yojson_of]@.";
+        Format.fprintf ppf "[%@%@%@deriving.end]@.@.")
 
 and gen_block_types_ml ~is_mli ppf (name, (block : block)) =
   List.iter block.block_types

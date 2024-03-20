@@ -3,13 +3,51 @@
 open! Tf_core
 
 type aws_ssoadmin_application_access_scope = {
-  application_arn : string prop;  (** application_arn *)
+  application_arn : string prop;
   authorized_targets : string prop list option; [@option]
-      (** authorized_targets *)
-  scope : string prop;  (** scope *)
+  scope : string prop;
 }
-[@@deriving yojson_of]
-(** aws_ssoadmin_application_access_scope *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ssoadmin_application_access_scope) -> ()
+
+let yojson_of_aws_ssoadmin_application_access_scope =
+  (function
+   | {
+       application_arn = v_application_arn;
+       authorized_targets = v_authorized_targets;
+       scope = v_scope;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_scope in
+         ("scope", arg) :: bnds
+       in
+       let bnds =
+         match v_authorized_targets with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "authorized_targets", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_application_arn
+         in
+         ("application_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ssoadmin_application_access_scope ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssoadmin_application_access_scope
+
+[@@@deriving.end]
 
 let aws_ssoadmin_application_access_scope ?authorized_targets
     ~application_arn ~scope () :

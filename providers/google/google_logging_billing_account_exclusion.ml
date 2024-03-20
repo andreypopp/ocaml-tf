@@ -3,18 +3,75 @@
 open! Tf_core
 
 type google_logging_billing_account_exclusion = {
-  billing_account : string prop;  (** billing_account *)
+  billing_account : string prop;
   description : string prop option; [@option]
-      (** A human-readable description. *)
   disabled : bool prop option; [@option]
-      (** Whether this exclusion rule should be disabled or not. This defaults to false. *)
   filter : string prop;
-      (** The filter to apply when excluding logs. Only log entries that match the filter are excluded. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The name of the logging exclusion. *)
+  id : string prop option; [@option]
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** google_logging_billing_account_exclusion *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_logging_billing_account_exclusion) -> ()
+
+let yojson_of_google_logging_billing_account_exclusion =
+  (function
+   | {
+       billing_account = v_billing_account;
+       description = v_description;
+       disabled = v_disabled;
+       filter = v_filter;
+       id = v_id;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_billing_account
+         in
+         ("billing_account", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_logging_billing_account_exclusion ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_logging_billing_account_exclusion
+
+[@@@deriving.end]
 
 let google_logging_billing_account_exclusion ?description ?disabled
     ?id ~billing_account ~filter ~name () :

@@ -4,17 +4,57 @@ open! Tf_core
 
 type cloudflare_worker_secret = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The name of the Worker secret. **Modifying this attribute will force creation of a new resource.** *)
   script_name : string prop;
-      (** The name of the Worker script to associate the secret with. **Modifying this attribute will force creation of a new resource.** *)
   secret_text : string prop;
-      (** The text of the Worker secret. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Worker secret resource. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_worker_secret) -> ()
+
+let yojson_of_cloudflare_worker_secret =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       name = v_name;
+       script_name = v_script_name;
+       secret_text = v_secret_text;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_text in
+         ("secret_text", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_script_name in
+         ("script_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_worker_secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_worker_secret
+
+[@@@deriving.end]
 
 let cloudflare_worker_secret ?id ~account_id ~name ~script_name
     ~secret_text () : cloudflare_worker_secret =

@@ -3,31 +3,164 @@
 open! Tf_core
 
 type source__source_data = {
-  acm_pca_arn : string prop option; [@option]  (** acm_pca_arn *)
+  acm_pca_arn : string prop option; [@option]
   x509_certificate_data : string prop option; [@option]
-      (** x509_certificate_data *)
 }
-[@@deriving yojson_of]
-(** source__source_data *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source__source_data) -> ()
+
+let yojson_of_source__source_data =
+  (function
+   | {
+       acm_pca_arn = v_acm_pca_arn;
+       x509_certificate_data = v_x509_certificate_data;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_x509_certificate_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "x509_certificate_data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_acm_pca_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "acm_pca_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : source__source_data -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__source_data
+
+[@@@deriving.end]
 
 type source = {
-  source_type : string prop;  (** source_type *)
+  source_type : string prop;
   source_data : source__source_data list;
 }
-[@@deriving yojson_of]
-(** source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source) -> ()
+
+let yojson_of_source =
+  (function
+   | { source_type = v_source_type; source_data = v_source_data } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_source__source_data v_source_data
+         in
+         ("source_data", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source_type in
+         ("source_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source
+
+[@@@deriving.end]
 
 type aws_rolesanywhere_trust_anchor = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   source : source list;
 }
-[@@deriving yojson_of]
-(** aws_rolesanywhere_trust_anchor *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_rolesanywhere_trust_anchor) -> ()
+
+let yojson_of_aws_rolesanywhere_trust_anchor =
+  (function
+   | {
+       enabled = v_enabled;
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       source = v_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_source v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_rolesanywhere_trust_anchor ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_rolesanywhere_trust_anchor
+
+[@@@deriving.end]
 
 let source__source_data ?acm_pca_arn ?x509_certificate_data () :
     source__source_data =

@@ -3,19 +3,78 @@
 open! Tf_core
 
 type geo_match_constraint = {
-  type_ : string prop; [@key "type"]  (** type *)
-  value : string prop;  (** value *)
+  type_ : string prop; [@key "type"]
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** geo_match_constraint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : geo_match_constraint) -> ()
+
+let yojson_of_geo_match_constraint =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : geo_match_constraint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_geo_match_constraint
+
+[@@@deriving.end]
 
 type aws_waf_geo_match_set = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   geo_match_constraint : geo_match_constraint list;
 }
-[@@deriving yojson_of]
-(** aws_waf_geo_match_set *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_waf_geo_match_set) -> ()
+
+let yojson_of_aws_waf_geo_match_set =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       geo_match_constraint = v_geo_match_constraint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_geo_match_constraint
+             v_geo_match_constraint
+         in
+         ("geo_match_constraint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_waf_geo_match_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_waf_geo_match_set
+
+[@@@deriving.end]
 
 let geo_match_constraint ~type_ ~value () : geo_match_constraint =
   { type_; value }

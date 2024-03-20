@@ -3,12 +3,49 @@
 open! Tf_core
 
 type aws_media_store_container_policy = {
-  container_name : string prop;  (** container_name *)
-  id : string prop option; [@option]  (** id *)
-  policy : string prop;  (** policy *)
+  container_name : string prop;
+  id : string prop option; [@option]
+  policy : string prop;
 }
-[@@deriving yojson_of]
-(** aws_media_store_container_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_media_store_container_policy) -> ()
+
+let yojson_of_aws_media_store_container_policy =
+  (function
+   | {
+       container_name = v_container_name;
+       id = v_id;
+       policy = v_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_name
+         in
+         ("container_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_media_store_container_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_media_store_container_policy
+
+[@@@deriving.end]
 
 let aws_media_store_container_policy ?id ~container_name ~policy () :
     aws_media_store_container_policy =

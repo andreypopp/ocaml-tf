@@ -11,6 +11,8 @@ type mount_options = {
   protocol : string prop;  (** protocol *)
 }
 
+[@@@deriving.end]
+
 type export_policy__rules
 
 val export_policy__rules :

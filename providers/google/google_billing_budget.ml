@@ -4,178 +4,561 @@ open! Tf_core
 
 type all_updates_rule = {
   disable_default_iam_recipients : bool prop option; [@option]
-      (** Boolean. When set to true, disables default notifications sent
-when a threshold is exceeded. Default recipients are
-those with Billing Account Administrators and Billing
-Account Users IAM roles for the target account. *)
   monitoring_notification_channels : string prop list option;
       [@option]
-      (** The full resource name of a monitoring notification
-channel in the form
-projects/{project_id}/notificationChannels/{channel_id}.
-A maximum of 5 channels are allowed. *)
   pubsub_topic : string prop option; [@option]
-      (** The name of the Cloud Pub/Sub topic where budget related
-messages will be published, in the form
-projects/{project_id}/topics/{topic_id}. Updates are sent
-at regular intervals to the topic. *)
   schema_version : string prop option; [@option]
-      (** The schema version of the notification. Only 1.0 is
-accepted. It represents the JSON schema as defined in
-https://cloud.google.com/billing/docs/how-to/budgets#notification_format. *)
 }
-[@@deriving yojson_of]
-(** Defines notifications that are sent on every update to the
-billing account's spend, regardless of the thresholds defined
-using threshold rules. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : all_updates_rule) -> ()
+
+let yojson_of_all_updates_rule =
+  (function
+   | {
+       disable_default_iam_recipients =
+         v_disable_default_iam_recipients;
+       monitoring_notification_channels =
+         v_monitoring_notification_channels;
+       pubsub_topic = v_pubsub_topic;
+       schema_version = v_schema_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_schema_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schema_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pubsub_topic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pubsub_topic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_monitoring_notification_channels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "monitoring_notification_channels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_default_iam_recipients with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_default_iam_recipients", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : all_updates_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_all_updates_rule
+
+[@@@deriving.end]
 
 type amount__specified_amount = {
   currency_code : string prop option; [@option]
-      (** The 3-letter currency code defined in ISO 4217. *)
   nanos : float prop option; [@option]
-      (** Number of nano (10^-9) units of the amount.
-The value must be between -999,999,999 and +999,999,999
-inclusive. If units is positive, nanos must be positive or
-zero. If units is zero, nanos can be positive, zero, or
-negative. If units is negative, nanos must be negative or
-zero. For example $-1.75 is represented as units=-1 and
-nanos=-750,000,000. *)
   units : string prop option; [@option]
-      (** The whole units of the amount. For example if currencyCode
-is USD, then 1 unit is one US dollar. *)
 }
-[@@deriving yojson_of]
-(** A specified amount to use as the budget. currencyCode is
-optional. If specified, it must match the currency of the
-billing account. The currencyCode is provided on output. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : amount__specified_amount) -> ()
+
+let yojson_of_amount__specified_amount =
+  (function
+   | {
+       currency_code = v_currency_code;
+       nanos = v_nanos;
+       units = v_units;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_currency_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "currency_code", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : amount__specified_amount -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_amount__specified_amount
+
+[@@@deriving.end]
 
 type amount = {
   last_period_amount : bool prop option; [@option]
-      (** Configures a budget amount that is automatically set to 100% of
-last period's spend.
-Boolean. Set value to true to use. Do not set to false, instead
-use the 'specified_amount' block. *)
   specified_amount : amount__specified_amount list;
 }
-[@@deriving yojson_of]
-(** The budgeted amount for each usage period. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : amount) -> ()
+
+let yojson_of_amount =
+  (function
+   | {
+       last_period_amount = v_last_period_amount;
+       specified_amount = v_specified_amount;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_amount__specified_amount
+             v_specified_amount
+         in
+         ("specified_amount", arg) :: bnds
+       in
+       let bnds =
+         match v_last_period_amount with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "last_period_amount", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : amount -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_amount
+
+[@@@deriving.end]
 
 type budget_filter__custom_period__end_date = {
   day : float prop;
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month. *)
-  month : float prop;  (** Month of a year. Must be from 1 to 12. *)
-  year : float prop;  (** Year of the date. Must be from 1 to 9999. *)
+  month : float prop;
+  year : float prop;
 }
-[@@deriving yojson_of]
-(** Optional. The end date of the time period. Budgets with elapsed end date won't be processed.
-If unset, specifies to track all usage incurred since the startDate. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : budget_filter__custom_period__end_date) -> ()
+
+let yojson_of_budget_filter__custom_period__end_date =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_year in
+         ("year", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_month in
+         ("month", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_day in
+         ("day", arg) :: bnds
+       in
+       `Assoc bnds
+    : budget_filter__custom_period__end_date ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_budget_filter__custom_period__end_date
+
+[@@@deriving.end]
 
 type budget_filter__custom_period__start_date = {
   day : float prop;
-      (** Day of a month. Must be from 1 to 31 and valid for the year and month. *)
-  month : float prop;  (** Month of a year. Must be from 1 to 12. *)
-  year : float prop;  (** Year of the date. Must be from 1 to 9999. *)
+  month : float prop;
+  year : float prop;
 }
-[@@deriving yojson_of]
-(** A start date is required. The start date must be after January 1, 2017. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : budget_filter__custom_period__start_date) -> ()
+
+let yojson_of_budget_filter__custom_period__start_date =
+  (function
+   | { day = v_day; month = v_month; year = v_year } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_year in
+         ("year", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_month in
+         ("month", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_day in
+         ("day", arg) :: bnds
+       in
+       `Assoc bnds
+    : budget_filter__custom_period__start_date ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_budget_filter__custom_period__start_date
+
+[@@@deriving.end]
 
 type budget_filter__custom_period = {
   end_date : budget_filter__custom_period__end_date list;
   start_date : budget_filter__custom_period__start_date list;
 }
-[@@deriving yojson_of]
-(** Specifies to track usage from any start date (required) to any end date (optional).
-This time period is static, it does not recur.
+[@@deriving_inline yojson_of]
 
-Exactly one of 'calendar_period', 'custom_period' must be provided. *)
+let _ = fun (_ : budget_filter__custom_period) -> ()
+
+let yojson_of_budget_filter__custom_period =
+  (function
+   | { end_date = v_end_date; start_date = v_start_date } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_budget_filter__custom_period__start_date
+             v_start_date
+         in
+         ("start_date", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_budget_filter__custom_period__end_date
+             v_end_date
+         in
+         ("end_date", arg) :: bnds
+       in
+       `Assoc bnds
+    : budget_filter__custom_period ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_budget_filter__custom_period
+
+[@@@deriving.end]
 
 type budget_filter = {
   calendar_period : string prop option; [@option]
-      (** A CalendarPeriod represents the abstract concept of a recurring time period that has a
-canonical start. Grammatically, the start of the current CalendarPeriod.
-All calendar times begin at 12 AM US and Canadian Pacific Time (UTC-8).
-
-Exactly one of 'calendar_period', 'custom_period' must be provided. Possible values: [MONTH, QUARTER, YEAR, CALENDAR_PERIOD_UNSPECIFIED] *)
   credit_types : string prop list option; [@option]
-      (** Optional. If creditTypesTreatment is INCLUDE_SPECIFIED_CREDITS,
-this is a list of credit types to be subtracted from gross cost to determine the spend for threshold calculations. See a list of acceptable credit type values.
-If creditTypesTreatment is not INCLUDE_SPECIFIED_CREDITS, this field must be empty.
-
-**Note:** If the field has a value in the config and needs to be removed, the field has to be an emtpy array in the config. *)
   credit_types_treatment : string prop option; [@option]
-      (** Specifies how credits should be treated when determining spend
-for threshold calculations. Default value: INCLUDE_ALL_CREDITS Possible values: [INCLUDE_ALL_CREDITS, EXCLUDE_ALL_CREDITS, INCLUDE_SPECIFIED_CREDITS] *)
   labels : (string * string prop) list option; [@option]
-      (** A single label and value pair specifying that usage from only
-this set of labeled resources should be included in the budget. *)
   projects : string prop list option; [@option]
-      (** A set of projects of the form projects/{project_number},
-specifying that usage from only this set of projects should be
-included in the budget. If omitted, the report will include
-all usage for the billing account, regardless of which project
-the usage occurred on. *)
   resource_ancestors : string prop list option; [@option]
-      (** A set of folder and organization names of the form folders/{folderId} or organizations/{organizationId},
-specifying that usage from only this set of folders and organizations should be included in the budget.
-If omitted, the budget includes all usage that the billing account pays for. If the folder or organization
-contains projects that are paid for by a different Cloud Billing account, the budget doesn't apply to those projects. *)
   services : string prop list option; [@option]
-      (** A set of services of the form services/{service_id},
-specifying that usage from only this set of services should be
-included in the budget. If omitted, the report will include
-usage for all the services. The service names are available
-through the Catalog API:
-https://cloud.google.com/billing/v1/how-tos/catalog-api. *)
   subaccounts : string prop list option; [@option]
-      (** A set of subaccounts of the form billingAccounts/{account_id},
-specifying that usage from only this set of subaccounts should
-be included in the budget. If a subaccount is set to the name of
-the parent account, usage from the parent account will be included.
-If the field is omitted, the report will include usage from the parent
-account and all subaccounts, if they exist.
-
-**Note:** If the field has a value in the config and needs to be removed, the field has to be an emtpy array in the config. *)
   custom_period : budget_filter__custom_period list;
 }
-[@@deriving yojson_of]
-(** Filters that define which resources are used to compute the actual
-spend against the budget. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : budget_filter) -> ()
+
+let yojson_of_budget_filter =
+  (function
+   | {
+       calendar_period = v_calendar_period;
+       credit_types = v_credit_types;
+       credit_types_treatment = v_credit_types_treatment;
+       labels = v_labels;
+       projects = v_projects;
+       resource_ancestors = v_resource_ancestors;
+       services = v_services;
+       subaccounts = v_subaccounts;
+       custom_period = v_custom_period;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_budget_filter__custom_period
+             v_custom_period
+         in
+         ("custom_period", arg) :: bnds
+       in
+       let bnds =
+         match v_subaccounts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "subaccounts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_services with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "services", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_ancestors with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resource_ancestors", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_projects with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "projects", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_credit_types_treatment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "credit_types_treatment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_credit_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "credit_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_calendar_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "calendar_period", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : budget_filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_budget_filter
+
+[@@@deriving.end]
 
 type threshold_rules = {
   spend_basis : string prop option; [@option]
-      (** The type of basis used to determine if spend has passed
-the threshold. Default value: CURRENT_SPEND Possible values: [CURRENT_SPEND, FORECASTED_SPEND] *)
   threshold_percent : float prop;
-      (** Send an alert when this threshold is exceeded. This is a
-1.0-based percentage, so 0.5 = 50%. Must be >= 0. *)
 }
-[@@deriving yojson_of]
-(** Rules that trigger alerts (notifications of thresholds being
-crossed) when spend exceeds the specified percentages of the
-budget. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : threshold_rules) -> ()
+
+let yojson_of_threshold_rules =
+  (function
+   | {
+       spend_basis = v_spend_basis;
+       threshold_percent = v_threshold_percent;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_threshold_percent
+         in
+         ("threshold_percent", arg) :: bnds
+       in
+       let bnds =
+         match v_spend_basis with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "spend_basis", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : threshold_rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_threshold_rules
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_billing_budget = {
   billing_account : string prop;
-      (** ID of the billing account to set a budget on. *)
   display_name : string prop option; [@option]
-      (** User data for display name in UI. Must be <= 60 chars. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   all_updates_rule : all_updates_rule list;
   amount : amount list;
   budget_filter : budget_filter list;
   threshold_rules : threshold_rules list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_billing_budget *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_billing_budget) -> ()
+
+let yojson_of_google_billing_budget =
+  (function
+   | {
+       billing_account = v_billing_account;
+       display_name = v_display_name;
+       id = v_id;
+       all_updates_rule = v_all_updates_rule;
+       amount = v_amount;
+       budget_filter = v_budget_filter;
+       threshold_rules = v_threshold_rules;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_threshold_rules v_threshold_rules
+         in
+         ("threshold_rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_budget_filter v_budget_filter
+         in
+         ("budget_filter", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_amount v_amount in
+         ("amount", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_all_updates_rule
+             v_all_updates_rule
+         in
+         ("all_updates_rule", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_billing_account
+         in
+         ("billing_account", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_billing_budget -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_billing_budget
+
+[@@@deriving.end]
 
 let all_updates_rule ?disable_default_iam_recipients
     ?monitoring_notification_channels ?pubsub_topic ?schema_version

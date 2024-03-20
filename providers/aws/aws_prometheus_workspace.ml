@@ -2,23 +2,122 @@
 
 open! Tf_core
 
-type logging_configuration = {
-  log_group_arn : string prop;  (** log_group_arn *)
-}
-[@@deriving yojson_of]
-(** logging_configuration *)
+type logging_configuration = { log_group_arn : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_configuration) -> ()
+
+let yojson_of_logging_configuration =
+  (function
+   | { log_group_arn = v_log_group_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_log_group_arn in
+         ("log_group_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_configuration
+
+[@@@deriving.end]
 
 type aws_prometheus_workspace = {
-  alias : string prop option; [@option]  (** alias *)
-  id : string prop option; [@option]  (** id *)
-  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  alias : string prop option; [@option]
+  id : string prop option; [@option]
+  kms_key_arn : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   logging_configuration : logging_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_prometheus_workspace *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_prometheus_workspace) -> ()
+
+let yojson_of_aws_prometheus_workspace =
+  (function
+   | {
+       alias = v_alias;
+       id = v_id;
+       kms_key_arn = v_kms_key_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       logging_configuration = v_logging_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logging_configuration
+             v_logging_configuration
+         in
+         ("logging_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_alias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "alias", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_prometheus_workspace -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_prometheus_workspace
+
+[@@@deriving.end]
 
 let logging_configuration ~log_group_arn () : logging_configuration =
   { log_group_arn }

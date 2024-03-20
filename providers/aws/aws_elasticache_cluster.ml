@@ -3,77 +3,449 @@
 open! Tf_core
 
 type log_delivery_configuration = {
-  destination : string prop;  (** destination *)
-  destination_type : string prop;  (** destination_type *)
-  log_format : string prop;  (** log_format *)
-  log_type : string prop;  (** log_type *)
+  destination : string prop;
+  destination_type : string prop;
+  log_format : string prop;
+  log_type : string prop;
 }
-[@@deriving yojson_of]
-(** log_delivery_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log_delivery_configuration) -> ()
+
+let yojson_of_log_delivery_configuration =
+  (function
+   | {
+       destination = v_destination;
+       destination_type = v_destination_type;
+       log_format = v_log_format;
+       log_type = v_log_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_log_type in
+         ("log_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_log_format in
+         ("log_format", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_type
+         in
+         ("destination_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_destination in
+         ("destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : log_delivery_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log_delivery_configuration
+
+[@@@deriving.end]
 
 type cache_nodes = {
-  address : string prop;  (** address *)
-  availability_zone : string prop;  (** availability_zone *)
-  id : string prop;  (** id *)
-  outpost_arn : string prop;  (** outpost_arn *)
-  port : float prop;  (** port *)
+  address : string prop;
+  availability_zone : string prop;
+  id : string prop;
+  outpost_arn : string prop;
+  port : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cache_nodes) -> ()
+
+let yojson_of_cache_nodes =
+  (function
+   | {
+       address = v_address;
+       availability_zone = v_availability_zone;
+       id = v_id;
+       outpost_arn = v_outpost_arn;
+       port = v_port;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_outpost_arn in
+         ("outpost_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_availability_zone
+         in
+         ("availability_zone", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_address in
+         ("address", arg) :: bnds
+       in
+       `Assoc bnds
+    : cache_nodes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cache_nodes
+
+[@@@deriving.end]
 
 type aws_elasticache_cluster = {
   apply_immediately : bool prop option; [@option]
-      (** apply_immediately *)
   auto_minor_version_upgrade : string prop option; [@option]
-      (** auto_minor_version_upgrade *)
   availability_zone : string prop option; [@option]
-      (** availability_zone *)
-  az_mode : string prop option; [@option]  (** az_mode *)
-  cluster_id : string prop;  (** cluster_id *)
-  engine : string prop option; [@option]  (** engine *)
+  az_mode : string prop option; [@option]
+  cluster_id : string prop;
+  engine : string prop option; [@option]
   engine_version : string prop option; [@option]
-      (** engine_version *)
   final_snapshot_identifier : string prop option; [@option]
-      (** final_snapshot_identifier *)
-  id : string prop option; [@option]  (** id *)
-  ip_discovery : string prop option; [@option]  (** ip_discovery *)
+  id : string prop option; [@option]
+  ip_discovery : string prop option; [@option]
   maintenance_window : string prop option; [@option]
-      (** maintenance_window *)
-  network_type : string prop option; [@option]  (** network_type *)
-  node_type : string prop option; [@option]  (** node_type *)
+  network_type : string prop option; [@option]
+  node_type : string prop option; [@option]
   notification_topic_arn : string prop option; [@option]
-      (** notification_topic_arn *)
   num_cache_nodes : float prop option; [@option]
-      (** num_cache_nodes *)
-  outpost_mode : string prop option; [@option]  (** outpost_mode *)
+  outpost_mode : string prop option; [@option]
   parameter_group_name : string prop option; [@option]
-      (** parameter_group_name *)
-  port : float prop option; [@option]  (** port *)
+  port : float prop option; [@option]
   preferred_availability_zones : string prop list option; [@option]
-      (** preferred_availability_zones *)
   preferred_outpost_arn : string prop option; [@option]
-      (** preferred_outpost_arn *)
   replication_group_id : string prop option; [@option]
-      (** replication_group_id *)
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
   snapshot_arns : string prop list option; [@option]
-      (** snapshot_arns *)
-  snapshot_name : string prop option; [@option]  (** snapshot_name *)
+  snapshot_name : string prop option; [@option]
   snapshot_retention_limit : float prop option; [@option]
-      (** snapshot_retention_limit *)
   snapshot_window : string prop option; [@option]
-      (** snapshot_window *)
   subnet_group_name : string prop option; [@option]
-      (** subnet_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   transit_encryption_enabled : bool prop option; [@option]
-      (** transit_encryption_enabled *)
   log_delivery_configuration : log_delivery_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_elasticache_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_elasticache_cluster) -> ()
+
+let yojson_of_aws_elasticache_cluster =
+  (function
+   | {
+       apply_immediately = v_apply_immediately;
+       auto_minor_version_upgrade = v_auto_minor_version_upgrade;
+       availability_zone = v_availability_zone;
+       az_mode = v_az_mode;
+       cluster_id = v_cluster_id;
+       engine = v_engine;
+       engine_version = v_engine_version;
+       final_snapshot_identifier = v_final_snapshot_identifier;
+       id = v_id;
+       ip_discovery = v_ip_discovery;
+       maintenance_window = v_maintenance_window;
+       network_type = v_network_type;
+       node_type = v_node_type;
+       notification_topic_arn = v_notification_topic_arn;
+       num_cache_nodes = v_num_cache_nodes;
+       outpost_mode = v_outpost_mode;
+       parameter_group_name = v_parameter_group_name;
+       port = v_port;
+       preferred_availability_zones = v_preferred_availability_zones;
+       preferred_outpost_arn = v_preferred_outpost_arn;
+       replication_group_id = v_replication_group_id;
+       security_group_ids = v_security_group_ids;
+       snapshot_arns = v_snapshot_arns;
+       snapshot_name = v_snapshot_name;
+       snapshot_retention_limit = v_snapshot_retention_limit;
+       snapshot_window = v_snapshot_window;
+       subnet_group_name = v_subnet_group_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       transit_encryption_enabled = v_transit_encryption_enabled;
+       log_delivery_configuration = v_log_delivery_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_log_delivery_configuration
+             v_log_delivery_configuration
+         in
+         ("log_delivery_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_transit_encryption_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "transit_encryption_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "snapshot_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_retention_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "snapshot_retention_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "snapshot_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "snapshot_arns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_replication_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "replication_group_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preferred_outpost_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preferred_outpost_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preferred_availability_zones with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "preferred_availability_zones", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameter_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parameter_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_outpost_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "outpost_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_cache_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_cache_nodes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notification_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maintenance_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "maintenance_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_discovery with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_discovery", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_final_snapshot_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "final_snapshot_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_engine_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_engine with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       let bnds =
+         match v_az_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "az_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_availability_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "availability_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_minor_version_upgrade with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auto_minor_version_upgrade", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_apply_immediately with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "apply_immediately", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_elasticache_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_elasticache_cluster
+
+[@@@deriving.end]
 
 let log_delivery_configuration ~destination ~destination_type
     ~log_format ~log_type () : log_delivery_configuration =

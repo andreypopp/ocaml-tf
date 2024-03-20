@@ -4,97 +4,357 @@ open! Tf_core
 
 type file_shares__nfs_export_options = {
   access_mode : string prop option; [@option]
-      (** Either READ_ONLY, for allowing only read requests on the exported directory,
-or READ_WRITE, for allowing both read and write requests. The default is READ_WRITE. Default value: READ_WRITE Possible values: [READ_ONLY, READ_WRITE] *)
   anon_gid : float prop option; [@option]
-      (** An integer representing the anonymous group id with a default value of 65534.
-Anon_gid may only be set with squashMode of ROOT_SQUASH. An error will be returned
-if this field is specified for other squashMode settings. *)
   anon_uid : float prop option; [@option]
-      (** An integer representing the anonymous user id with a default value of 65534.
-Anon_uid may only be set with squashMode of ROOT_SQUASH. An error will be returned
-if this field is specified for other squashMode settings. *)
   ip_ranges : string prop list option; [@option]
-      (** List of either IPv4 addresses, or ranges in CIDR notation which may mount the file share.
-Overlapping IP ranges are not allowed, both within and across NfsExportOptions. An error will be returned.
-The limit is 64 IP ranges/addresses for each FileShareConfig among all NfsExportOptions. *)
   squash_mode : string prop option; [@option]
-      (** Either NO_ROOT_SQUASH, for allowing root access on the exported directory, or ROOT_SQUASH,
-for not allowing root access. The default is NO_ROOT_SQUASH. Default value: NO_ROOT_SQUASH Possible values: [NO_ROOT_SQUASH, ROOT_SQUASH] *)
 }
-[@@deriving yojson_of]
-(** Nfs Export Options. There is a limit of 10 export options per file share. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : file_shares__nfs_export_options) -> ()
+
+let yojson_of_file_shares__nfs_export_options =
+  (function
+   | {
+       access_mode = v_access_mode;
+       anon_gid = v_anon_gid;
+       anon_uid = v_anon_uid;
+       ip_ranges = v_ip_ranges;
+       squash_mode = v_squash_mode;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_squash_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "squash_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_anon_uid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "anon_uid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_anon_gid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "anon_gid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : file_shares__nfs_export_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_file_shares__nfs_export_options
+
+[@@@deriving.end]
 
 type file_shares = {
   capacity_gb : float prop;
-      (** File share capacity in GiB. This must be at least 1024 GiB
-for the standard tier, or 2560 GiB for the premium tier. *)
   name : string prop;
-      (** The name of the fileshare (16 characters or less) *)
   source_backup : string prop option; [@option]
-      (** The resource name of the backup, in the format
-projects/{projectId}/locations/{locationId}/backups/{backupId},
-that this file share has been restored from. *)
   nfs_export_options : file_shares__nfs_export_options list;
 }
-[@@deriving yojson_of]
-(** File system shares on the instance. For this version, only a
-single file share is supported. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : file_shares) -> ()
+
+let yojson_of_file_shares =
+  (function
+   | {
+       capacity_gb = v_capacity_gb;
+       name = v_name;
+       source_backup = v_source_backup;
+       nfs_export_options = v_nfs_export_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_file_shares__nfs_export_options
+             v_nfs_export_options
+         in
+         ("nfs_export_options", arg) :: bnds
+       in
+       let bnds =
+         match v_source_backup with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_backup", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_capacity_gb in
+         ("capacity_gb", arg) :: bnds
+       in
+       `Assoc bnds
+    : file_shares -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_file_shares
+
+[@@@deriving.end]
 
 type networks = {
   connect_mode : string prop option; [@option]
-      (** The network connect mode of the Filestore instance.
-If not provided, the connect mode defaults to
-DIRECT_PEERING. Default value: DIRECT_PEERING Possible values: [DIRECT_PEERING, PRIVATE_SERVICE_ACCESS] *)
   modes : string prop list;
-      (** IP versions for which the instance has
-IP addresses assigned. Possible values: [ADDRESS_MODE_UNSPECIFIED, MODE_IPV4, MODE_IPV6] *)
   network : string prop;
-      (** The name of the GCE VPC network to which the
-instance is connected. *)
   reserved_ip_range : string prop option; [@option]
-      (** A /29 CIDR block that identifies the range of IP
-addresses reserved for this instance. *)
 }
-[@@deriving yojson_of]
-(** VPC networks to which the instance is connected. For this version,
-only a single network is supported. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : networks) -> ()
+
+let yojson_of_networks =
+  (function
+   | {
+       connect_mode = v_connect_mode;
+       modes = v_modes;
+       network = v_network;
+       reserved_ip_range = v_reserved_ip_range;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_reserved_ip_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "reserved_ip_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_modes
+         in
+         ("modes", arg) :: bnds
+       in
+       let bnds =
+         match v_connect_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connect_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : networks -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_networks
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_filestore_instance = {
   description : string prop option; [@option]
-      (** A description of the instance. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kms_key_name : string prop option; [@option]
-      (** KMS key name used for data encryption. *)
   labels : (string * string prop) list option; [@option]
-      (** Resource labels to represent user-provided metadata.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop option; [@option]
-      (** The name of the location of the instance. This can be a region for ENTERPRISE tier instances. *)
-  name : string prop;  (** The resource name of the instance. *)
-  project : string prop option; [@option]  (** project *)
+  name : string prop;
+  project : string prop option; [@option]
   tier : string prop;
-      (** The service tier of the instance.
-Possible values include: STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, HIGH_SCALE_SSD, ZONAL, REGIONAL and ENTERPRISE *)
   zone : string prop option; [@option]
-      (** The name of the Filestore zone of the instance. *)
   file_shares : file_shares list;
   networks : networks list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_filestore_instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_filestore_instance) -> ()
+
+let yojson_of_google_filestore_instance =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       kms_key_name = v_kms_key_name;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       tier = v_tier;
+       zone = v_zone;
+       file_shares = v_file_shares;
+       networks = v_networks;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_networks v_networks in
+         ("networks", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_file_shares v_file_shares
+         in
+         ("file_shares", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tier in
+         ("tier", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_filestore_instance -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_filestore_instance
+
+[@@@deriving.end]
 
 let file_shares__nfs_export_options ?access_mode ?anon_gid ?anon_uid
     ?ip_ranges ?squash_mode () : file_shares__nfs_export_options =

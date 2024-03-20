@@ -3,15 +3,75 @@
 open! Tf_core
 
 type aws_emr_studio_session_mapping = {
-  id : string prop option; [@option]  (** id *)
-  identity_id : string prop option; [@option]  (** identity_id *)
-  identity_name : string prop option; [@option]  (** identity_name *)
-  identity_type : string prop;  (** identity_type *)
-  session_policy_arn : string prop;  (** session_policy_arn *)
-  studio_id : string prop;  (** studio_id *)
+  id : string prop option; [@option]
+  identity_id : string prop option; [@option]
+  identity_name : string prop option; [@option]
+  identity_type : string prop;
+  session_policy_arn : string prop;
+  studio_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_emr_studio_session_mapping *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_emr_studio_session_mapping) -> ()
+
+let yojson_of_aws_emr_studio_session_mapping =
+  (function
+   | {
+       id = v_id;
+       identity_id = v_identity_id;
+       identity_name = v_identity_name;
+       identity_type = v_identity_type;
+       session_policy_arn = v_session_policy_arn;
+       studio_id = v_studio_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_studio_id in
+         ("studio_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_session_policy_arn
+         in
+         ("session_policy_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_identity_type in
+         ("identity_type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_emr_studio_session_mapping ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_emr_studio_session_mapping
+
+[@@@deriving.end]
 
 let aws_emr_studio_session_mapping ?id ?identity_id ?identity_name
     ~identity_type ~session_policy_arn ~studio_id () :

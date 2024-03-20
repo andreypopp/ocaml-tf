@@ -3,19 +3,78 @@
 open! Tf_core
 
 type ip_set_descriptor = {
-  type_ : string prop; [@key "type"]  (** type *)
-  value : string prop;  (** value *)
+  type_ : string prop; [@key "type"]
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** ip_set_descriptor *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ip_set_descriptor) -> ()
+
+let yojson_of_ip_set_descriptor =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : ip_set_descriptor -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ip_set_descriptor
+
+[@@@deriving.end]
 
 type aws_wafregional_ipset = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   ip_set_descriptor : ip_set_descriptor list;
 }
-[@@deriving yojson_of]
-(** aws_wafregional_ipset *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_wafregional_ipset) -> ()
+
+let yojson_of_aws_wafregional_ipset =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       ip_set_descriptor = v_ip_set_descriptor;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ip_set_descriptor
+             v_ip_set_descriptor
+         in
+         ("ip_set_descriptor", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_wafregional_ipset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_wafregional_ipset
+
+[@@@deriving.end]
 
 let ip_set_descriptor ~type_ ~value () : ip_set_descriptor =
   { type_; value }

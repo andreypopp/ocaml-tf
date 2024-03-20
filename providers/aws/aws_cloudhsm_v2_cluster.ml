@@ -3,37 +3,208 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type cluster_certificates = {
   aws_hardware_certificate : string prop;
-      (** aws_hardware_certificate *)
-  cluster_certificate : string prop;  (** cluster_certificate *)
-  cluster_csr : string prop;  (** cluster_csr *)
-  hsm_certificate : string prop;  (** hsm_certificate *)
+  cluster_certificate : string prop;
+  cluster_csr : string prop;
+  hsm_certificate : string prop;
   manufacturer_hardware_certificate : string prop;
-      (** manufacturer_hardware_certificate *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_certificates) -> ()
+
+let yojson_of_cluster_certificates =
+  (function
+   | {
+       aws_hardware_certificate = v_aws_hardware_certificate;
+       cluster_certificate = v_cluster_certificate;
+       cluster_csr = v_cluster_csr;
+       hsm_certificate = v_hsm_certificate;
+       manufacturer_hardware_certificate =
+         v_manufacturer_hardware_certificate;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_manufacturer_hardware_certificate
+         in
+         ("manufacturer_hardware_certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_hsm_certificate
+         in
+         ("hsm_certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_csr in
+         ("cluster_csr", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cluster_certificate
+         in
+         ("cluster_certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_aws_hardware_certificate
+         in
+         ("aws_hardware_certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_certificates -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_certificates
+
+[@@@deriving.end]
 
 type aws_cloudhsm_v2_cluster = {
-  hsm_type : string prop;  (** hsm_type *)
-  id : string prop option; [@option]  (** id *)
+  hsm_type : string prop;
+  id : string prop option; [@option]
   source_backup_identifier : string prop option; [@option]
-      (** source_backup_identifier *)
-  subnet_ids : string prop list;  (** subnet_ids *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  subnet_ids : string prop list;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_cloudhsm_v2_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudhsm_v2_cluster) -> ()
+
+let yojson_of_aws_cloudhsm_v2_cluster =
+  (function
+   | {
+       hsm_type = v_hsm_type;
+       id = v_id;
+       source_backup_identifier = v_source_backup_identifier;
+       subnet_ids = v_subnet_ids;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_source_backup_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_backup_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_hsm_type in
+         ("hsm_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudhsm_v2_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudhsm_v2_cluster
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

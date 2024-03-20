@@ -3,11 +3,42 @@
 open! Tf_core
 
 type aws_cloudfront_origin_access_identity = {
-  comment : string prop option; [@option]  (** comment *)
-  id : string prop option; [@option]  (** id *)
+  comment : string prop option; [@option]
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_cloudfront_origin_access_identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudfront_origin_access_identity) -> ()
+
+let yojson_of_aws_cloudfront_origin_access_identity =
+  (function
+   | { comment = v_comment; id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudfront_origin_access_identity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudfront_origin_access_identity
+
+[@@@deriving.end]
 
 let aws_cloudfront_origin_access_identity ?comment ?id () :
     aws_cloudfront_origin_access_identity =

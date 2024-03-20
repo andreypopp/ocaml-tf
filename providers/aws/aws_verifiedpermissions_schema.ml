@@ -2,16 +2,62 @@
 
 open! Tf_core
 
-type definition = { value : string prop  (** value *) }
-[@@deriving yojson_of]
-(** definition *)
+type definition = { value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : definition) -> ()
+
+let yojson_of_definition =
+  (function
+   | { value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       `Assoc bnds
+    : definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_definition
+
+[@@@deriving.end]
 
 type aws_verifiedpermissions_schema = {
-  policy_store_id : string prop;  (** policy_store_id *)
+  policy_store_id : string prop;
   definition : definition;
 }
-[@@deriving yojson_of]
-(** aws_verifiedpermissions_schema *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_verifiedpermissions_schema) -> ()
+
+let yojson_of_aws_verifiedpermissions_schema =
+  (function
+   | {
+       policy_store_id = v_policy_store_id;
+       definition = v_definition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_definition v_definition in
+         ("definition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_policy_store_id
+         in
+         ("policy_store_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_verifiedpermissions_schema ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_verifiedpermissions_schema
+
+[@@@deriving.end]
 
 let definition ~value () : definition = { value }
 

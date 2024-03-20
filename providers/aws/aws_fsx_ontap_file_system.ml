@@ -3,74 +3,433 @@
 open! Tf_core
 
 type disk_iops_configuration = {
-  iops : float prop option; [@option]  (** iops *)
-  mode : string prop option; [@option]  (** mode *)
+  iops : float prop option; [@option]
+  mode : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** disk_iops_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : disk_iops_configuration) -> ()
+
+let yojson_of_disk_iops_configuration =
+  (function
+   | { iops = v_iops; mode = v_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iops with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "iops", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : disk_iops_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_disk_iops_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type endpoints__management = {
-  dns_name : string prop;  (** dns_name *)
-  ip_addresses : string prop list;  (** ip_addresses *)
+  dns_name : string prop;
+  ip_addresses : string prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoints__management) -> ()
+
+let yojson_of_endpoints__management =
+  (function
+   | { dns_name = v_dns_name; ip_addresses = v_ip_addresses } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_ip_addresses
+         in
+         ("ip_addresses", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dns_name in
+         ("dns_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoints__management -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoints__management
+
+[@@@deriving.end]
 
 type endpoints__intercluster = {
-  dns_name : string prop;  (** dns_name *)
-  ip_addresses : string prop list;  (** ip_addresses *)
+  dns_name : string prop;
+  ip_addresses : string prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoints__intercluster) -> ()
+
+let yojson_of_endpoints__intercluster =
+  (function
+   | { dns_name = v_dns_name; ip_addresses = v_ip_addresses } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_ip_addresses
+         in
+         ("ip_addresses", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dns_name in
+         ("dns_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoints__intercluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoints__intercluster
+
+[@@@deriving.end]
 
 type endpoints = {
-  intercluster : endpoints__intercluster list;  (** intercluster *)
-  management : endpoints__management list;  (** management *)
+  intercluster : endpoints__intercluster list;
+  management : endpoints__management list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoints) -> ()
+
+let yojson_of_endpoints =
+  (function
+   | { intercluster = v_intercluster; management = v_management } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_endpoints__management
+             v_management
+         in
+         ("management", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_endpoints__intercluster
+             v_intercluster
+         in
+         ("intercluster", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoints
+
+[@@@deriving.end]
 
 type aws_fsx_ontap_file_system = {
   automatic_backup_retention_days : float prop option; [@option]
-      (** automatic_backup_retention_days *)
   daily_automatic_backup_start_time : string prop option; [@option]
-      (** daily_automatic_backup_start_time *)
-  deployment_type : string prop;  (** deployment_type *)
+  deployment_type : string prop;
   endpoint_ip_address_range : string prop option; [@option]
-      (** endpoint_ip_address_range *)
   fsx_admin_password : string prop option; [@option]
-      (** fsx_admin_password *)
-  ha_pairs : float prop option; [@option]  (** ha_pairs *)
-  id : string prop option; [@option]  (** id *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
-  preferred_subnet_id : string prop;  (** preferred_subnet_id *)
+  ha_pairs : float prop option; [@option]
+  id : string prop option; [@option]
+  kms_key_id : string prop option; [@option]
+  preferred_subnet_id : string prop;
   route_table_ids : string prop list option; [@option]
-      (** route_table_ids *)
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
   storage_capacity : float prop option; [@option]
-      (** storage_capacity *)
-  storage_type : string prop option; [@option]  (** storage_type *)
-  subnet_ids : string prop list;  (** subnet_ids *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  storage_type : string prop option; [@option]
+  subnet_ids : string prop list;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   throughput_capacity : float prop option; [@option]
-      (** throughput_capacity *)
   throughput_capacity_per_ha_pair : float prop option; [@option]
-      (** throughput_capacity_per_ha_pair *)
   weekly_maintenance_start_time : string prop option; [@option]
-      (** weekly_maintenance_start_time *)
   disk_iops_configuration : disk_iops_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_fsx_ontap_file_system *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_fsx_ontap_file_system) -> ()
+
+let yojson_of_aws_fsx_ontap_file_system =
+  (function
+   | {
+       automatic_backup_retention_days =
+         v_automatic_backup_retention_days;
+       daily_automatic_backup_start_time =
+         v_daily_automatic_backup_start_time;
+       deployment_type = v_deployment_type;
+       endpoint_ip_address_range = v_endpoint_ip_address_range;
+       fsx_admin_password = v_fsx_admin_password;
+       ha_pairs = v_ha_pairs;
+       id = v_id;
+       kms_key_id = v_kms_key_id;
+       preferred_subnet_id = v_preferred_subnet_id;
+       route_table_ids = v_route_table_ids;
+       security_group_ids = v_security_group_ids;
+       storage_capacity = v_storage_capacity;
+       storage_type = v_storage_type;
+       subnet_ids = v_subnet_ids;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       throughput_capacity = v_throughput_capacity;
+       throughput_capacity_per_ha_pair =
+         v_throughput_capacity_per_ha_pair;
+       weekly_maintenance_start_time =
+         v_weekly_maintenance_start_time;
+       disk_iops_configuration = v_disk_iops_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_disk_iops_configuration
+             v_disk_iops_configuration
+         in
+         ("disk_iops_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_weekly_maintenance_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "weekly_maintenance_start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_throughput_capacity_per_ha_pair with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "throughput_capacity_per_ha_pair", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_throughput_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "throughput_capacity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "storage_capacity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_route_table_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "route_table_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_preferred_subnet_id
+         in
+         ("preferred_subnet_id", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ha_pairs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "ha_pairs", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fsx_admin_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fsx_admin_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_endpoint_ip_address_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "endpoint_ip_address_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_deployment_type
+         in
+         ("deployment_type", arg) :: bnds
+       in
+       let bnds =
+         match v_daily_automatic_backup_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "daily_automatic_backup_start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_automatic_backup_retention_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "automatic_backup_retention_days", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_fsx_ontap_file_system -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_fsx_ontap_file_system
+
+[@@@deriving.end]
 
 let disk_iops_configuration ?iops ?mode () : disk_iops_configuration
     =

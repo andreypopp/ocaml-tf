@@ -4,127 +4,274 @@ open! Tf_core
 
 type autoscaling_policy__cpu_utilization = {
   predictive_method : string prop option; [@option]
-      (** Indicates whether predictive autoscaling based on CPU metric is enabled. Valid values are:
-
-- NONE (default). No predictive method is used. The autoscaler scales the group to meet current demand based on real-time metrics.
-
-- OPTIMIZE_AVAILABILITY. Predictive autoscaling improves availability by monitoring daily and weekly load patterns and scaling out ahead of anticipated demand. *)
   target : float prop;
-      (** The target CPU utilization that the autoscaler should maintain.
-Must be a float value in the range (0, 1]. If not specified, the
-default is 0.6.
-
-If the CPU level is below the target utilization, the autoscaler
-scales down the number of instances until it reaches the minimum
-number of instances you specified or until the average CPU of
-your instances reaches the target utilization.
-
-If the average CPU is above the target utilization, the autoscaler
-scales up until it reaches the maximum number of instances you
-specified or until the average utilization reaches the target
-utilization. *)
 }
-[@@deriving yojson_of]
-(** Defines the CPU utilization policy that allows the autoscaler to
-scale based on the average CPU utilization of a managed instance
-group. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoscaling_policy__cpu_utilization) -> ()
+
+let yojson_of_autoscaling_policy__cpu_utilization =
+  (function
+   | { predictive_method = v_predictive_method; target = v_target }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_target in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         match v_predictive_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "predictive_method", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : autoscaling_policy__cpu_utilization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling_policy__cpu_utilization
+
+[@@@deriving.end]
 
 type autoscaling_policy__load_balancing_utilization = {
   target : float prop;
-      (** Fraction of backend capacity utilization (set in HTTP(s) load
-balancing configuration) that autoscaler should maintain. Must
-be a positive float value. If not defined, the default is 0.8. *)
 }
-[@@deriving yojson_of]
-(** Configuration parameters of autoscaling based on a load balancer. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : autoscaling_policy__load_balancing_utilization) -> ()
+
+let yojson_of_autoscaling_policy__load_balancing_utilization =
+  (function
+   | { target = v_target } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_target in
+         ("target", arg) :: bnds
+       in
+       `Assoc bnds
+    : autoscaling_policy__load_balancing_utilization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling_policy__load_balancing_utilization
+
+[@@@deriving.end]
 
 type autoscaling_policy__metric = {
   name : string prop;
-      (** The identifier (type) of the Stackdriver Monitoring metric.
-The metric cannot have negative values.
-
-The metric must have a value type of INT64 or DOUBLE. *)
   target : float prop option; [@option]
-      (** The target value of the metric that autoscaler should
-maintain. This must be a positive value. A utilization
-metric scales number of virtual machines handling requests
-to increase or decrease proportionally to the metric.
-
-For example, a good metric to use as a utilizationTarget is
-www.googleapis.com/compute/instance/network/received_bytes_count.
-The autoscaler will work to keep this value constant for each
-of the instances. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Defines how target utilization value is expressed for a
-Stackdriver Monitoring metric. Possible values: [GAUGE, DELTA_PER_SECOND, DELTA_PER_MINUTE] *)
 }
-[@@deriving yojson_of]
-(** Configuration parameters of autoscaling based on a custom metric. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoscaling_policy__metric) -> ()
+
+let yojson_of_autoscaling_policy__metric =
+  (function
+   | { name = v_name; target = v_target; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : autoscaling_policy__metric -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling_policy__metric
+
+[@@@deriving.end]
 
 type autoscaling_policy__scale_in_control__max_scaled_in_replicas = {
   fixed : float prop option; [@option]
-      (** Specifies a fixed number of VM instances. This must be a positive
-integer. *)
   percent : float prop option; [@option]
-      (** Specifies a percentage of instances between 0 to 100%, inclusive.
-For example, specify 80 for 80%. *)
 }
-[@@deriving yojson_of]
-(** A nested object resource *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       autoscaling_policy__scale_in_control__max_scaled_in_replicas) ->
+  ()
+
+let yojson_of_autoscaling_policy__scale_in_control__max_scaled_in_replicas
+    =
+  (function
+   | { fixed = v_fixed; percent = v_percent } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fixed with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "fixed", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : autoscaling_policy__scale_in_control__max_scaled_in_replicas ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_autoscaling_policy__scale_in_control__max_scaled_in_replicas
+
+[@@@deriving.end]
 
 type autoscaling_policy__scale_in_control = {
   time_window_sec : float prop option; [@option]
-      (** How long back autoscaling should look when computing recommendations
-to include directives regarding slower scale down, as described above. *)
   max_scaled_in_replicas :
     autoscaling_policy__scale_in_control__max_scaled_in_replicas list;
 }
-[@@deriving yojson_of]
-(** Defines scale in controls to reduce the risk of response latency
-and outages due to abrupt scale-in events *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoscaling_policy__scale_in_control) -> ()
+
+let yojson_of_autoscaling_policy__scale_in_control =
+  (function
+   | {
+       time_window_sec = v_time_window_sec;
+       max_scaled_in_replicas = v_max_scaled_in_replicas;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_autoscaling_policy__scale_in_control__max_scaled_in_replicas
+             v_max_scaled_in_replicas
+         in
+         ("max_scaled_in_replicas", arg) :: bnds
+       in
+       let bnds =
+         match v_time_window_sec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "time_window_sec", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : autoscaling_policy__scale_in_control ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling_policy__scale_in_control
+
+[@@@deriving.end]
 
 type autoscaling_policy__scaling_schedules = {
   description : string prop option; [@option]
-      (** A description of a scaling schedule. *)
   disabled : bool prop option; [@option]
-      (** A boolean value that specifies if a scaling schedule can influence autoscaler recommendations. If set to true, then a scaling schedule has no effect. *)
   duration_sec : float prop;
-      (** The duration of time intervals (in seconds) for which this scaling schedule will be running. The minimum allowed value is 300. *)
   min_required_replicas : float prop;
-      (** Minimum number of VM instances that autoscaler will recommend in time intervals starting according to schedule. *)
-  name : string prop;  (** name *)
+  name : string prop;
   schedule : string prop;
-      (** The start timestamps of time intervals when this scaling schedule should provide a scaling signal. This field uses the extended cron format (with an optional year field). *)
   time_zone : string prop option; [@option]
-      (** The time zone to be used when interpreting the schedule. The value of this field must be a time zone name from the tz database: http://en.wikipedia.org/wiki/Tz_database. *)
 }
-[@@deriving yojson_of]
-(** Scaling schedules defined for an autoscaler. Multiple schedules can be set on an autoscaler and they can overlap. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoscaling_policy__scaling_schedules) -> ()
+
+let yojson_of_autoscaling_policy__scaling_schedules =
+  (function
+   | {
+       description = v_description;
+       disabled = v_disabled;
+       duration_sec = v_duration_sec;
+       min_required_replicas = v_min_required_replicas;
+       name = v_name;
+       schedule = v_schedule;
+       time_zone = v_time_zone;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_time_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "time_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schedule in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_min_required_replicas
+         in
+         ("min_required_replicas", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_duration_sec in
+         ("duration_sec", arg) :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : autoscaling_policy__scaling_schedules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling_policy__scaling_schedules
+
+[@@@deriving.end]
 
 type autoscaling_policy = {
   cooldown_period : float prop option; [@option]
-      (** The number of seconds that the autoscaler should wait before it
-starts collecting information from a new instance. This prevents
-the autoscaler from collecting information when the instance is
-initializing, during which the collected usage would not be
-reliable. The default time autoscaler waits is 60 seconds.
-
-Virtual machine initialization times might vary because of
-numerous factors. We recommend that you test how long an
-instance may take to initialize. To do this, create an instance
-and time the startup process. *)
   max_replicas : float prop;
-      (** The maximum number of instances that the autoscaler can scale up
-to. This is required when creating or updating an autoscaler. The
-maximum number of replicas should not be lower than minimal number
-of replicas. *)
   min_replicas : float prop;
-      (** The minimum number of replicas that the autoscaler can scale down
-to. This cannot be less than 0. If not provided, autoscaler will
-choose a default value depending on maximum number of instances
-allowed. *)
   mode : string prop option; [@option]
-      (** Defines operating mode for this policy. *)
   cpu_utilization : autoscaling_policy__cpu_utilization list;
   load_balancing_utilization :
     autoscaling_policy__load_balancing_utilization list;
@@ -132,42 +279,228 @@ allowed. *)
   scale_in_control : autoscaling_policy__scale_in_control list;
   scaling_schedules : autoscaling_policy__scaling_schedules list;
 }
-[@@deriving yojson_of]
-(** The configuration parameters for the autoscaling algorithm. You can
-define one or more of the policies for an autoscaler: cpuUtilization,
-customMetricUtilizations, and loadBalancingUtilization.
+[@@deriving_inline yojson_of]
 
-If none of these are specified, the default will be to autoscale based
-on cpuUtilization to 0.6 or 60%. *)
+let _ = fun (_ : autoscaling_policy) -> ()
+
+let yojson_of_autoscaling_policy =
+  (function
+   | {
+       cooldown_period = v_cooldown_period;
+       max_replicas = v_max_replicas;
+       min_replicas = v_min_replicas;
+       mode = v_mode;
+       cpu_utilization = v_cpu_utilization;
+       load_balancing_utilization = v_load_balancing_utilization;
+       metric = v_metric;
+       scale_in_control = v_scale_in_control;
+       scaling_schedules = v_scaling_schedules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_autoscaling_policy__scaling_schedules
+             v_scaling_schedules
+         in
+         ("scaling_schedules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_autoscaling_policy__scale_in_control
+             v_scale_in_control
+         in
+         ("scale_in_control", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_autoscaling_policy__metric
+             v_metric
+         in
+         ("metric", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_autoscaling_policy__load_balancing_utilization
+             v_load_balancing_utilization
+         in
+         ("load_balancing_utilization", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_autoscaling_policy__cpu_utilization
+             v_cpu_utilization
+         in
+         ("cpu_utilization", arg) :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_replicas in
+         ("min_replicas", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_replicas in
+         ("max_replicas", arg) :: bnds
+       in
+       let bnds =
+         match v_cooldown_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cooldown_period", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : autoscaling_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_autoscaler = {
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Name of the resource. The name must be 1-63 characters long and match
-the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
-first character must be a lowercase letter, and all following
-characters must be a dash, lowercase letter, or digit, except the last
-character, which cannot be a dash. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   target : string prop;
-      (** URL of the managed instance group that this autoscaler will scale. *)
   zone : string prop option; [@option]
-      (** URL of the zone where the instance group resides. *)
   autoscaling_policy : autoscaling_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_autoscaler *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_autoscaler) -> ()
+
+let yojson_of_google_compute_autoscaler =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       target = v_target;
+       zone = v_zone;
+       autoscaling_policy = v_autoscaling_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_autoscaling_policy
+             v_autoscaling_policy
+         in
+         ("autoscaling_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_autoscaler -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_autoscaler
+
+[@@@deriving.end]
 
 let autoscaling_policy__cpu_utilization ?predictive_method ~target ()
     : autoscaling_policy__cpu_utilization =

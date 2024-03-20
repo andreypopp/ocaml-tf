@@ -4,63 +4,279 @@ open! Tf_core
 
 type cluster__autoscaling_config = {
   cpu_target : float prop;
-      (** The target CPU utilization for autoscaling. Value must be between 10 and 80. *)
   max_nodes : float prop;
-      (** The maximum number of nodes for autoscaling. *)
   min_nodes : float prop;
-      (** The minimum number of nodes for autoscaling. *)
   storage_target : float prop option; [@option]
-      (** The target storage utilization for autoscaling, in GB, for each node in a cluster. This number is limited between 2560 (2.5TiB) and 5120 (5TiB) for a SSD cluster and between 8192 (8TiB) and 16384 (16 TiB) for an HDD cluster. If not set, whatever is already set for the cluster will not change, or if the cluster is just being created, it will use the default value of 2560 for SSD clusters and 8192 for HDD clusters. *)
 }
-[@@deriving yojson_of]
-(** A list of Autoscaling configurations. Only one element is used and allowed. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster__autoscaling_config) -> ()
+
+let yojson_of_cluster__autoscaling_config =
+  (function
+   | {
+       cpu_target = v_cpu_target;
+       max_nodes = v_max_nodes;
+       min_nodes = v_min_nodes;
+       storage_target = v_storage_target;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_storage_target with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "storage_target", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_nodes in
+         ("min_nodes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_nodes in
+         ("max_nodes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_cpu_target in
+         ("cpu_target", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster__autoscaling_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster__autoscaling_config
+
+[@@@deriving.end]
 
 type cluster = {
   cluster_id : string prop;
-      (** The ID of the Cloud Bigtable cluster. Must be 6-30 characters and must only contain hyphens, lowercase letters and numbers. *)
   kms_key_name : string prop option; [@option]
-      (** Describes the Cloud KMS encryption key that will be used to protect the destination Bigtable cluster. The requirements for this key are: 1) The Cloud Bigtable service account associated with the project that contains this cluster must be granted the cloudkms.cryptoKeyEncrypterDecrypter role on the CMEK key. 2) Only regional keys can be used and the region of the CMEK key must match the region of the cluster. 3) All clusters within an instance must use the same CMEK key. Values are of the form projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key} *)
   num_nodes : float prop option; [@option]
-      (** The number of nodes in the cluster. If no value is set, Cloud Bigtable automatically allocates nodes based on your data footprint and optimized for 50% storage utilization. *)
   storage_type : string prop option; [@option]
-      (** The storage type to use. One of SSD or HDD. Defaults to SSD. *)
   zone : string prop option; [@option]
-      (** The zone to create the Cloud Bigtable cluster in. Each cluster must have a different zone in the same region. Zones that support Bigtable instances are noted on the Cloud Bigtable locations page. *)
   autoscaling_config : cluster__autoscaling_config list;
 }
-[@@deriving yojson_of]
-(** A block of cluster configuration options. This can be specified at least once. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster) -> ()
+
+let yojson_of_cluster =
+  (function
+   | {
+       cluster_id = v_cluster_id;
+       kms_key_name = v_kms_key_name;
+       num_nodes = v_num_nodes;
+       storage_type = v_storage_type;
+       zone = v_zone;
+       autoscaling_config = v_autoscaling_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster__autoscaling_config
+             v_autoscaling_config
+         in
+         ("autoscaling_config", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_nodes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; read = v_read; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigtable_instance = {
   deletion_protection : bool prop option; [@option]
-      (** Whether or not to allow Terraform to destroy the instance. Unless this field is set to false in Terraform state, a terraform destroy or terraform apply that would delete the instance will fail. *)
   display_name : string prop option; [@option]
-      (** The human-readable display name of the Bigtable instance. Defaults to the instance name. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   instance_type : string prop option; [@option]
-      (** The instance type to create. One of DEVELOPMENT or PRODUCTION. Defaults to PRODUCTION. *)
   labels : (string * string prop) list option; [@option]
-      (** A mapping of labels to assign to the resource.
-				
-				**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** The name (also called Instance Id in the Cloud Console) of the Cloud Bigtable instance. Must be 6-33 characters and must only contain hyphens, lowercase letters and numbers. *)
   project : string prop option; [@option]
-      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   cluster : cluster list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigtable_instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigtable_instance) -> ()
+
+let yojson_of_google_bigtable_instance =
+  (function
+   | {
+       deletion_protection = v_deletion_protection;
+       display_name = v_display_name;
+       id = v_id;
+       instance_type = v_instance_type;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       cluster = v_cluster;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_cluster v_cluster in
+         ("cluster", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deletion_protection", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_bigtable_instance -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigtable_instance
+
+[@@@deriving.end]
 
 let cluster__autoscaling_config ?storage_target ~cpu_target
     ~max_nodes ~min_nodes () : cluster__autoscaling_config =

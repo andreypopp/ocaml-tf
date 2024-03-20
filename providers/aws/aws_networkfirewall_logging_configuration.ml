@@ -4,27 +4,127 @@ open! Tf_core
 
 type logging_configuration__log_destination_config = {
   log_destination : (string * string prop) list;
-      (** log_destination *)
-  log_destination_type : string prop;  (** log_destination_type *)
-  log_type : string prop;  (** log_type *)
+  log_destination_type : string prop;
+  log_type : string prop;
 }
-[@@deriving yojson_of]
-(** logging_configuration__log_destination_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_configuration__log_destination_config) -> ()
+
+let yojson_of_logging_configuration__log_destination_config =
+  (function
+   | {
+       log_destination = v_log_destination;
+       log_destination_type = v_log_destination_type;
+       log_type = v_log_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_log_type in
+         ("log_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_log_destination_type
+         in
+         ("log_destination_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_log_destination
+         in
+         ("log_destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging_configuration__log_destination_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_configuration__log_destination_config
+
+[@@@deriving.end]
 
 type logging_configuration = {
   log_destination_config :
     logging_configuration__log_destination_config list;
 }
-[@@deriving yojson_of]
-(** logging_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_configuration) -> ()
+
+let yojson_of_logging_configuration =
+  (function
+   | { log_destination_config = v_log_destination_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_logging_configuration__log_destination_config
+             v_log_destination_config
+         in
+         ("log_destination_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_configuration
+
+[@@@deriving.end]
 
 type aws_networkfirewall_logging_configuration = {
-  firewall_arn : string prop;  (** firewall_arn *)
-  id : string prop option; [@option]  (** id *)
+  firewall_arn : string prop;
+  id : string prop option; [@option]
   logging_configuration : logging_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_networkfirewall_logging_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_networkfirewall_logging_configuration) -> ()
+
+let yojson_of_aws_networkfirewall_logging_configuration =
+  (function
+   | {
+       firewall_arn = v_firewall_arn;
+       id = v_id;
+       logging_configuration = v_logging_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logging_configuration
+             v_logging_configuration
+         in
+         ("logging_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_firewall_arn in
+         ("firewall_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_networkfirewall_logging_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_networkfirewall_logging_configuration
+
+[@@@deriving.end]
 
 let logging_configuration__log_destination_config ~log_destination
     ~log_destination_type ~log_type () :

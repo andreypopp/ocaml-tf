@@ -4,19 +4,62 @@ open! Tf_core
 
 type cloudflare_logpush_ownership_challenge = {
   account_id : string prop option; [@option]
-      (** The account identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. *)
   destination_conf : string prop;
-      (** Uniquely identifies a resource (such as an s3 bucket) where data will be pushed. Additional configuration parameters supported by the destination may be included. See [Logpush destination documentation](https://developers.cloudflare.com/logs/logpush/logpush-configuration-api/understanding-logpush-api/#destination). **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   zone_id : string prop option; [@option]
-      (** The zone identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. *)
 }
-[@@deriving yojson_of]
-(** Provides a resource which manages Cloudflare Logpush ownership
-challenges to use in a Logpush Job. On it's own, doesn't do much
-however this resource should be used in conjunction to create
-Logpush jobs.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_logpush_ownership_challenge) -> ()
+
+let yojson_of_cloudflare_logpush_ownership_challenge =
+  (function
+   | {
+       account_id = v_account_id;
+       destination_conf = v_destination_conf;
+       id = v_id;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_conf
+         in
+         ("destination_conf", arg) :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_logpush_ownership_challenge ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_logpush_ownership_challenge
+
+[@@@deriving.end]
 
 let cloudflare_logpush_ownership_challenge ?account_id ?id ?zone_id
     ~destination_conf () : cloudflare_logpush_ownership_challenge =

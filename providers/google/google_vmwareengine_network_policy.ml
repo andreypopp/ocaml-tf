@@ -2,53 +2,204 @@
 
 open! Tf_core
 
-type external_ip = {
-  enabled : bool prop option; [@option]
-      (** True if the service is enabled; false otherwise. *)
-}
-[@@deriving yojson_of]
-(** Network service that allows External IP addresses to be assigned to VMware workloads.
-This service can only be enabled when internetAccess is also enabled. *)
+type external_ip = { enabled : bool prop option [@option] }
+[@@deriving_inline yojson_of]
 
-type internet_access = {
-  enabled : bool prop option; [@option]
-      (** True if the service is enabled; false otherwise. *)
-}
-[@@deriving yojson_of]
-(** Network service that allows VMware workloads to access the internet. *)
+let _ = fun (_ : external_ip) -> ()
+
+let yojson_of_external_ip =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : external_ip -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_external_ip
+
+[@@@deriving.end]
+
+type internet_access = { enabled : bool prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : internet_access) -> ()
+
+let yojson_of_internet_access =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : internet_access -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_internet_access
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_vmwareengine_network_policy = {
   description : string prop option; [@option]
-      (** User-provided description for this network policy. *)
   edge_services_cidr : string prop;
-      (** IP address range in CIDR notation used to create internet access and external IP access.
-An RFC 1918 CIDR block, with a /26 prefix, is required. The range cannot overlap with any
-prefixes either in the consumer VPC network or in use by the private clouds attached to that VPC network. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location : string prop;
-      (** The resource name of the location (region) to create the new network policy in.
-Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
-For example: projects/my-project/locations/us-central1 *)
-  name : string prop;  (** The ID of the Network Policy. *)
-  project : string prop option; [@option]  (** project *)
+  name : string prop;
+  project : string prop option; [@option]
   vmware_engine_network : string prop;
-      (** The relative resource name of the VMware Engine network. Specify the name in the following form:
-projects/{project}/locations/{location}/vmwareEngineNetworks/{vmwareEngineNetworkId} where {project}
-can either be a project number or a project ID. *)
   external_ip : external_ip list;
   internet_access : internet_access list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vmwareengine_network_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_vmwareengine_network_policy) -> ()
+
+let yojson_of_google_vmwareengine_network_policy =
+  (function
+   | {
+       description = v_description;
+       edge_services_cidr = v_edge_services_cidr;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       vmware_engine_network = v_vmware_engine_network;
+       external_ip = v_external_ip;
+       internet_access = v_internet_access;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_internet_access v_internet_access
+         in
+         ("internet_access", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_external_ip v_external_ip
+         in
+         ("external_ip", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_vmware_engine_network
+         in
+         ("vmware_engine_network", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_edge_services_cidr
+         in
+         ("edge_services_cidr", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_vmwareengine_network_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vmwareengine_network_policy
+
+[@@@deriving.end]
 
 let external_ip ?enabled () : external_ip = { enabled }
 let internet_access ?enabled () : internet_access = { enabled }

@@ -10,6 +10,8 @@ type workload_identity_config = {
   workload_pool : string prop;  (** workload_pool *)
 }
 
+[@@@deriving.end]
+
 type authorization__admin_groups
 
 val authorization__admin_groups :

@@ -2,59 +2,238 @@
 
 open! Tf_core
 
-type application_endpoint = {
-  host : string prop;
-      (** Hostname or IP address of the remote application endpoint. *)
-  port : float prop;  (** Port of the remote application endpoint. *)
-}
-[@@deriving yojson_of]
-(** Address of the remote application endpoint for the BeyondCorp AppConnection. *)
+type application_endpoint = { host : string prop; port : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : application_endpoint) -> ()
+
+let yojson_of_application_endpoint =
+  (function
+   | { host = v_host; port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host in
+         ("host", arg) :: bnds
+       in
+       `Assoc bnds
+    : application_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_application_endpoint
+
+[@@@deriving.end]
 
 type gateway = {
   app_gateway : string prop;
-      (** AppGateway name in following format: projects/{project_id}/locations/{locationId}/appgateways/{gateway_id}. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The type of hosting used by the gateway. Refer to
-https://cloud.google.com/beyondcorp/docs/reference/rest/v1/projects.locations.appConnections#Type_1
-for a list of possible values. *)
 }
-[@@deriving yojson_of]
-(** Gateway used by the AppConnection. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : gateway) -> ()
+
+let yojson_of_gateway =
+  (function
+   | { app_gateway = v_app_gateway; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_app_gateway in
+         ("app_gateway", arg) :: bnds
+       in
+       `Assoc bnds
+    : gateway -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gateway
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_beyondcorp_app_connection = {
   connectors : string prop list option; [@option]
-      (** List of AppConnectors that are authorised to be associated with this AppConnection *)
   display_name : string prop option; [@option]
-      (** An arbitrary user-provided name for the AppConnection. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Resource labels to represent user provided metadata.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  name : string prop;  (** ID of the AppConnection. *)
-  project : string prop option; [@option]  (** project *)
+  name : string prop;
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The region of the AppConnection. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The type of network connectivity used by the AppConnection. Refer to
-https://cloud.google.com/beyondcorp/docs/reference/rest/v1/projects.locations.appConnections#type
-for a list of possible values. *)
   application_endpoint : application_endpoint list;
   gateway : gateway list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_beyondcorp_app_connection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_beyondcorp_app_connection) -> ()
+
+let yojson_of_google_beyondcorp_app_connection =
+  (function
+   | {
+       connectors = v_connectors;
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       type_ = v_type_;
+       application_endpoint = v_application_endpoint;
+       gateway = v_gateway;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_gateway v_gateway in
+         ("gateway", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_application_endpoint
+             v_application_endpoint
+         in
+         ("application_endpoint", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connectors with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "connectors", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_beyondcorp_app_connection ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_beyondcorp_app_connection
+
+[@@@deriving.end]
 
 let application_endpoint ~host ~port () : application_endpoint =
   { host; port }

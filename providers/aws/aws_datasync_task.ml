@@ -3,101 +3,484 @@
 open! Tf_core
 
 type excludes = {
-  filter_type : string prop option; [@option]  (** filter_type *)
-  value : string prop option; [@option]  (** value *)
+  filter_type : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** excludes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : excludes) -> ()
+
+let yojson_of_excludes =
+  (function
+   | { filter_type = v_filter_type; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_filter_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filter_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : excludes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_excludes
+
+[@@@deriving.end]
 
 type includes = {
-  filter_type : string prop option; [@option]  (** filter_type *)
-  value : string prop option; [@option]  (** value *)
+  filter_type : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** includes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : includes) -> ()
+
+let yojson_of_includes =
+  (function
+   | { filter_type = v_filter_type; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_filter_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filter_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : includes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_includes
+
+[@@@deriving.end]
 
 type options = {
-  atime : string prop option; [@option]  (** atime *)
+  atime : string prop option; [@option]
   bytes_per_second : float prop option; [@option]
-      (** bytes_per_second *)
-  gid : string prop option; [@option]  (** gid *)
-  log_level : string prop option; [@option]  (** log_level *)
-  mtime : string prop option; [@option]  (** mtime *)
-  object_tags : string prop option; [@option]  (** object_tags *)
+  gid : string prop option; [@option]
+  log_level : string prop option; [@option]
+  mtime : string prop option; [@option]
+  object_tags : string prop option; [@option]
   overwrite_mode : string prop option; [@option]
-      (** overwrite_mode *)
   posix_permissions : string prop option; [@option]
-      (** posix_permissions *)
   preserve_deleted_files : string prop option; [@option]
-      (** preserve_deleted_files *)
   preserve_devices : string prop option; [@option]
-      (** preserve_devices *)
   security_descriptor_copy_flags : string prop option; [@option]
-      (** security_descriptor_copy_flags *)
-  task_queueing : string prop option; [@option]  (** task_queueing *)
-  transfer_mode : string prop option; [@option]  (** transfer_mode *)
-  uid : string prop option; [@option]  (** uid *)
-  verify_mode : string prop option; [@option]  (** verify_mode *)
+  task_queueing : string prop option; [@option]
+  transfer_mode : string prop option; [@option]
+  uid : string prop option; [@option]
+  verify_mode : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** options *)
+[@@deriving_inline yojson_of]
 
-type schedule = {
-  schedule_expression : string prop;  (** schedule_expression *)
-}
-[@@deriving yojson_of]
-(** schedule *)
+let _ = fun (_ : options) -> ()
+
+let yojson_of_options =
+  (function
+   | {
+       atime = v_atime;
+       bytes_per_second = v_bytes_per_second;
+       gid = v_gid;
+       log_level = v_log_level;
+       mtime = v_mtime;
+       object_tags = v_object_tags;
+       overwrite_mode = v_overwrite_mode;
+       posix_permissions = v_posix_permissions;
+       preserve_deleted_files = v_preserve_deleted_files;
+       preserve_devices = v_preserve_devices;
+       security_descriptor_copy_flags =
+         v_security_descriptor_copy_flags;
+       task_queueing = v_task_queueing;
+       transfer_mode = v_transfer_mode;
+       uid = v_uid;
+       verify_mode = v_verify_mode;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_verify_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "verify_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_uid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "uid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_transfer_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transfer_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_task_queueing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "task_queueing", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_descriptor_copy_flags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_descriptor_copy_flags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preserve_devices with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preserve_devices", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preserve_deleted_files with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preserve_deleted_files", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_posix_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "posix_permissions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_overwrite_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "overwrite_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_object_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mtime with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mtime", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_log_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bytes_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "bytes_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_atime with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "atime", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_options
+
+[@@@deriving.end]
+
+type schedule = { schedule_expression : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schedule) -> ()
+
+let yojson_of_schedule =
+  (function
+   | { schedule_expression = v_schedule_expression } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_schedule_expression
+         in
+         ("schedule_expression", arg) :: bnds
+       in
+       `Assoc bnds
+    : schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schedule
+
+[@@@deriving.end]
 
 type task_report_config__report_overrides = {
   deleted_override : string prop option; [@option]
-      (** deleted_override *)
   skipped_override : string prop option; [@option]
-      (** skipped_override *)
   transferred_override : string prop option; [@option]
-      (** transferred_override *)
   verified_override : string prop option; [@option]
-      (** verified_override *)
 }
-[@@deriving yojson_of]
-(** task_report_config__report_overrides *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : task_report_config__report_overrides) -> ()
+
+let yojson_of_task_report_config__report_overrides =
+  (function
+   | {
+       deleted_override = v_deleted_override;
+       skipped_override = v_skipped_override;
+       transferred_override = v_transferred_override;
+       verified_override = v_verified_override;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_verified_override with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "verified_override", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_transferred_override with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transferred_override", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skipped_override with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "skipped_override", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deleted_override with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deleted_override", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : task_report_config__report_overrides ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_task_report_config__report_overrides
+
+[@@@deriving.end]
 
 type task_report_config__s3_destination = {
   bucket_access_role_arn : string prop;
-      (** bucket_access_role_arn *)
-  s3_bucket_arn : string prop;  (** s3_bucket_arn *)
-  subdirectory : string prop option; [@option]  (** subdirectory *)
+  s3_bucket_arn : string prop;
+  subdirectory : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** task_report_config__s3_destination *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : task_report_config__s3_destination) -> ()
+
+let yojson_of_task_report_config__s3_destination =
+  (function
+   | {
+       bucket_access_role_arn = v_bucket_access_role_arn;
+       s3_bucket_arn = v_s3_bucket_arn;
+       subdirectory = v_subdirectory;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subdirectory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subdirectory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_s3_bucket_arn in
+         ("s3_bucket_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_bucket_access_role_arn
+         in
+         ("bucket_access_role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : task_report_config__s3_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_task_report_config__s3_destination
+
+[@@@deriving.end]
 
 type task_report_config = {
-  output_type : string prop option; [@option]  (** output_type *)
-  report_level : string prop option; [@option]  (** report_level *)
+  output_type : string prop option; [@option]
+  report_level : string prop option; [@option]
   s3_object_versioning : string prop option; [@option]
-      (** s3_object_versioning *)
   report_overrides : task_report_config__report_overrides list;
   s3_destination : task_report_config__s3_destination list;
 }
-[@@deriving yojson_of]
-(** task_report_config *)
+[@@deriving_inline yojson_of]
 
-type timeouts = {
-  create : string prop option; [@option]  (** create *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+let _ = fun (_ : task_report_config) -> ()
+
+let yojson_of_task_report_config =
+  (function
+   | {
+       output_type = v_output_type;
+       report_level = v_report_level;
+       s3_object_versioning = v_s3_object_versioning;
+       report_overrides = v_report_overrides;
+       s3_destination = v_s3_destination;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_report_config__s3_destination
+             v_s3_destination
+         in
+         ("s3_destination", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_task_report_config__report_overrides
+             v_report_overrides
+         in
+         ("report_overrides", arg) :: bnds
+       in
+       let bnds =
+         match v_s3_object_versioning with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_object_versioning", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_report_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "report_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_output_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : task_report_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_task_report_config
+
+[@@@deriving.end]
+
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_datasync_task = {
   cloudwatch_log_group_arn : string prop option; [@option]
-      (** cloudwatch_log_group_arn *)
   destination_location_arn : string prop;
-      (** destination_location_arn *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
-  source_location_arn : string prop;  (** source_location_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  name : string prop option; [@option]
+  source_location_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   excludes : excludes list;
   includes : includes list;
   options : options list;
@@ -105,8 +488,131 @@ type aws_datasync_task = {
   task_report_config : task_report_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_datasync_task *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_datasync_task) -> ()
+
+let yojson_of_aws_datasync_task =
+  (function
+   | {
+       cloudwatch_log_group_arn = v_cloudwatch_log_group_arn;
+       destination_location_arn = v_destination_location_arn;
+       id = v_id;
+       name = v_name;
+       source_location_arn = v_source_location_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       excludes = v_excludes;
+       includes = v_includes;
+       options = v_options;
+       schedule = v_schedule;
+       task_report_config = v_task_report_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_task_report_config
+             v_task_report_config
+         in
+         ("task_report_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_schedule v_schedule in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_options v_options in
+         ("options", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_includes v_includes in
+         ("includes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_excludes v_excludes in
+         ("excludes", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_location_arn
+         in
+         ("source_location_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_location_arn
+         in
+         ("destination_location_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_cloudwatch_log_group_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloudwatch_log_group_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_datasync_task -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_datasync_task
+
+[@@@deriving.end]
 
 let excludes ?filter_type ?value () : excludes =
   { filter_type; value }

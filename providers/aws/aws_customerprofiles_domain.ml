@@ -4,107 +4,490 @@ open! Tf_core
 
 type matching__auto_merging__conflict_resolution = {
   conflict_resolving_model : string prop;
-      (** conflict_resolving_model *)
-  source_name : string prop option; [@option]  (** source_name *)
+  source_name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** matching__auto_merging__conflict_resolution *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : matching__auto_merging__conflict_resolution) -> ()
+
+let yojson_of_matching__auto_merging__conflict_resolution =
+  (function
+   | {
+       conflict_resolving_model = v_conflict_resolving_model;
+       source_name = v_source_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_conflict_resolving_model
+         in
+         ("conflict_resolving_model", arg) :: bnds
+       in
+       `Assoc bnds
+    : matching__auto_merging__conflict_resolution ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_matching__auto_merging__conflict_resolution
+
+[@@@deriving.end]
 
 type matching__auto_merging__consolidation = {
   matching_attributes_list : string prop list list;
-      (** matching_attributes_list *)
 }
-[@@deriving yojson_of]
-(** matching__auto_merging__consolidation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : matching__auto_merging__consolidation) -> ()
+
+let yojson_of_matching__auto_merging__consolidation =
+  (function
+   | { matching_attributes_list = v_matching_attributes_list } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_list (yojson_of_prop yojson_of_string))
+             v_matching_attributes_list
+         in
+         ("matching_attributes_list", arg) :: bnds
+       in
+       `Assoc bnds
+    : matching__auto_merging__consolidation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_matching__auto_merging__consolidation
+
+[@@@deriving.end]
 
 type matching__auto_merging = {
-  enabled : bool prop;  (** enabled *)
+  enabled : bool prop;
   min_allowed_confidence_score_for_merging : float prop option;
       [@option]
-      (** min_allowed_confidence_score_for_merging *)
   conflict_resolution :
     matching__auto_merging__conflict_resolution list;
   consolidation : matching__auto_merging__consolidation list;
 }
-[@@deriving yojson_of]
-(** matching__auto_merging *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : matching__auto_merging) -> ()
+
+let yojson_of_matching__auto_merging =
+  (function
+   | {
+       enabled = v_enabled;
+       min_allowed_confidence_score_for_merging =
+         v_min_allowed_confidence_score_for_merging;
+       conflict_resolution = v_conflict_resolution;
+       consolidation = v_consolidation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_matching__auto_merging__consolidation
+             v_consolidation
+         in
+         ("consolidation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_matching__auto_merging__conflict_resolution
+             v_conflict_resolution
+         in
+         ("conflict_resolution", arg) :: bnds
+       in
+       let bnds =
+         match v_min_allowed_confidence_score_for_merging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "min_allowed_confidence_score_for_merging", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : matching__auto_merging -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_matching__auto_merging
+
+[@@@deriving.end]
 
 type matching__exporting_config__s3_exporting = {
-  s3_bucket_name : string prop;  (** s3_bucket_name *)
-  s3_key_name : string prop option; [@option]  (** s3_key_name *)
+  s3_bucket_name : string prop;
+  s3_key_name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** matching__exporting_config__s3_exporting *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : matching__exporting_config__s3_exporting) -> ()
+
+let yojson_of_matching__exporting_config__s3_exporting =
+  (function
+   | {
+       s3_bucket_name = v_s3_bucket_name;
+       s3_key_name = v_s3_key_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_s3_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_s3_bucket_name
+         in
+         ("s3_bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : matching__exporting_config__s3_exporting ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_matching__exporting_config__s3_exporting
+
+[@@@deriving.end]
 
 type matching__exporting_config = {
   s3_exporting : matching__exporting_config__s3_exporting list;
 }
-[@@deriving yojson_of]
-(** matching__exporting_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : matching__exporting_config) -> ()
+
+let yojson_of_matching__exporting_config =
+  (function
+   | { s3_exporting = v_s3_exporting } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_matching__exporting_config__s3_exporting
+             v_s3_exporting
+         in
+         ("s3_exporting", arg) :: bnds
+       in
+       `Assoc bnds
+    : matching__exporting_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_matching__exporting_config
+
+[@@@deriving.end]
 
 type matching__job_schedule = {
-  day_of_the_week : string prop;  (** day_of_the_week *)
-  time : string prop;  (** time *)
+  day_of_the_week : string prop;
+  time : string prop;
 }
-[@@deriving yojson_of]
-(** matching__job_schedule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : matching__job_schedule) -> ()
+
+let yojson_of_matching__job_schedule =
+  (function
+   | { day_of_the_week = v_day_of_the_week; time = v_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time in
+         ("time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_day_of_the_week
+         in
+         ("day_of_the_week", arg) :: bnds
+       in
+       `Assoc bnds
+    : matching__job_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_matching__job_schedule
+
+[@@@deriving.end]
 
 type matching = {
-  enabled : bool prop;  (** enabled *)
+  enabled : bool prop;
   auto_merging : matching__auto_merging list;
   exporting_config : matching__exporting_config list;
   job_schedule : matching__job_schedule list;
 }
-[@@deriving yojson_of]
-(** matching *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : matching) -> ()
+
+let yojson_of_matching =
+  (function
+   | {
+       enabled = v_enabled;
+       auto_merging = v_auto_merging;
+       exporting_config = v_exporting_config;
+       job_schedule = v_job_schedule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_matching__job_schedule
+             v_job_schedule
+         in
+         ("job_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_matching__exporting_config
+             v_exporting_config
+         in
+         ("exporting_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_matching__auto_merging
+             v_auto_merging
+         in
+         ("auto_merging", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : matching -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_matching
+
+[@@@deriving.end]
 
 type rule_based_matching__attribute_types_selector = {
-  address : string prop list option; [@option]  (** address *)
+  address : string prop list option; [@option]
   attribute_matching_model : string prop;
-      (** attribute_matching_model *)
   email_address : string prop list option; [@option]
-      (** email_address *)
   phone_number : string prop list option; [@option]
-      (** phone_number *)
 }
-[@@deriving yojson_of]
-(** rule_based_matching__attribute_types_selector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_based_matching__attribute_types_selector) -> ()
+
+let yojson_of_rule_based_matching__attribute_types_selector =
+  (function
+   | {
+       address = v_address;
+       attribute_matching_model = v_attribute_matching_model;
+       email_address = v_email_address;
+       phone_number = v_phone_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_phone_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "phone_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_attribute_matching_model
+         in
+         ("attribute_matching_model", arg) :: bnds
+       in
+       let bnds =
+         match v_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "address", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule_based_matching__attribute_types_selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_based_matching__attribute_types_selector
+
+[@@@deriving.end]
 
 type rule_based_matching__conflict_resolution = {
   conflict_resolving_model : string prop;
-      (** conflict_resolving_model *)
-  source_name : string prop option; [@option]  (** source_name *)
+  source_name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** rule_based_matching__conflict_resolution *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_based_matching__conflict_resolution) -> ()
+
+let yojson_of_rule_based_matching__conflict_resolution =
+  (function
+   | {
+       conflict_resolving_model = v_conflict_resolving_model;
+       source_name = v_source_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_conflict_resolving_model
+         in
+         ("conflict_resolving_model", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_based_matching__conflict_resolution ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_based_matching__conflict_resolution
+
+[@@@deriving.end]
 
 type rule_based_matching__exporting_config__s3_exporting = {
-  s3_bucket_name : string prop;  (** s3_bucket_name *)
-  s3_key_name : string prop option; [@option]  (** s3_key_name *)
+  s3_bucket_name : string prop;
+  s3_key_name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** rule_based_matching__exporting_config__s3_exporting *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : rule_based_matching__exporting_config__s3_exporting) -> ()
+
+let yojson_of_rule_based_matching__exporting_config__s3_exporting =
+  (function
+   | {
+       s3_bucket_name = v_s3_bucket_name;
+       s3_key_name = v_s3_key_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_s3_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_s3_bucket_name
+         in
+         ("s3_bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_based_matching__exporting_config__s3_exporting ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_based_matching__exporting_config__s3_exporting
+
+[@@@deriving.end]
 
 type rule_based_matching__exporting_config = {
   s3_exporting :
     rule_based_matching__exporting_config__s3_exporting list;
 }
-[@@deriving yojson_of]
-(** rule_based_matching__exporting_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_based_matching__exporting_config) -> ()
+
+let yojson_of_rule_based_matching__exporting_config =
+  (function
+   | { s3_exporting = v_s3_exporting } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule_based_matching__exporting_config__s3_exporting
+             v_s3_exporting
+         in
+         ("s3_exporting", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_based_matching__exporting_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_based_matching__exporting_config
+
+[@@@deriving.end]
 
 type rule_based_matching__matching_rules = {
-  rule : string prop list;  (** rule *)
+  rule : string prop list;
 }
-[@@deriving yojson_of]
-(** rule_based_matching__matching_rules *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_based_matching__matching_rules) -> ()
+
+let yojson_of_rule_based_matching__matching_rules =
+  (function
+   | { rule = v_rule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_rule
+         in
+         ("rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_based_matching__matching_rules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_based_matching__matching_rules
+
+[@@@deriving.end]
 
 type rule_based_matching = {
-  enabled : bool prop;  (** enabled *)
+  enabled : bool prop;
   max_allowed_rule_level_for_matching : float prop option; [@option]
-      (** max_allowed_rule_level_for_matching *)
   max_allowed_rule_level_for_merging : float prop option; [@option]
-      (** max_allowed_rule_level_for_merging *)
-  status : string prop option; [@option]  (** status *)
+  status : string prop option; [@option]
   attribute_types_selector :
     rule_based_matching__attribute_types_selector list;
   conflict_resolution :
@@ -112,26 +495,209 @@ type rule_based_matching = {
   exporting_config : rule_based_matching__exporting_config list;
   matching_rules : rule_based_matching__matching_rules list;
 }
-[@@deriving yojson_of]
-(** rule_based_matching *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_based_matching) -> ()
+
+let yojson_of_rule_based_matching =
+  (function
+   | {
+       enabled = v_enabled;
+       max_allowed_rule_level_for_matching =
+         v_max_allowed_rule_level_for_matching;
+       max_allowed_rule_level_for_merging =
+         v_max_allowed_rule_level_for_merging;
+       status = v_status;
+       attribute_types_selector = v_attribute_types_selector;
+       conflict_resolution = v_conflict_resolution;
+       exporting_config = v_exporting_config;
+       matching_rules = v_matching_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule_based_matching__matching_rules
+             v_matching_rules
+         in
+         ("matching_rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule_based_matching__exporting_config
+             v_exporting_config
+         in
+         ("exporting_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule_based_matching__conflict_resolution
+             v_conflict_resolution
+         in
+         ("conflict_resolution", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule_based_matching__attribute_types_selector
+             v_attribute_types_selector
+         in
+         ("attribute_types_selector", arg) :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_allowed_rule_level_for_merging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_allowed_rule_level_for_merging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_allowed_rule_level_for_matching with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_allowed_rule_level_for_matching", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_based_matching -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_based_matching
+
+[@@@deriving.end]
 
 type aws_customerprofiles_domain = {
   dead_letter_queue_url : string prop option; [@option]
-      (** dead_letter_queue_url *)
   default_encryption_key : string prop option; [@option]
-      (** default_encryption_key *)
   default_expiration_days : float prop;
-      (** default_expiration_days *)
-  domain_name : string prop;  (** domain_name *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  domain_name : string prop;
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   matching : matching list;
   rule_based_matching : rule_based_matching list;
 }
-[@@deriving yojson_of]
-(** aws_customerprofiles_domain *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_customerprofiles_domain) -> ()
+
+let yojson_of_aws_customerprofiles_domain =
+  (function
+   | {
+       dead_letter_queue_url = v_dead_letter_queue_url;
+       default_encryption_key = v_default_encryption_key;
+       default_expiration_days = v_default_expiration_days;
+       domain_name = v_domain_name;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       matching = v_matching;
+       rule_based_matching = v_rule_based_matching;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule_based_matching
+             v_rule_based_matching
+         in
+         ("rule_based_matching", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_matching v_matching in
+         ("matching", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_default_expiration_days
+         in
+         ("default_expiration_days", arg) :: bnds
+       in
+       let bnds =
+         match v_default_encryption_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_encryption_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dead_letter_queue_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dead_letter_queue_url", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_customerprofiles_domain ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_customerprofiles_domain
+
+[@@@deriving.end]
 
 let matching__auto_merging__conflict_resolution ?source_name
     ~conflict_resolving_model () :

@@ -3,15 +3,68 @@
 open! Tf_core
 
 type hcloud_network_subnet = {
-  id : string prop option; [@option]  (** id *)
-  ip_range : string prop;  (** ip_range *)
-  network_id : float prop;  (** network_id *)
-  network_zone : string prop;  (** network_zone *)
-  type_ : string prop; [@key "type"]  (** type *)
-  vswitch_id : float prop option; [@option]  (** vswitch_id *)
+  id : string prop option; [@option]
+  ip_range : string prop;
+  network_id : float prop;
+  network_zone : string prop;
+  type_ : string prop; [@key "type"]
+  vswitch_id : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** hcloud_network_subnet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_network_subnet) -> ()
+
+let yojson_of_hcloud_network_subnet =
+  (function
+   | {
+       id = v_id;
+       ip_range = v_ip_range;
+       network_id = v_network_id;
+       network_zone = v_network_zone;
+       type_ = v_type_;
+       vswitch_id = v_vswitch_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vswitch_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "vswitch_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network_zone in
+         ("network_zone", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_network_id in
+         ("network_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_range in
+         ("ip_range", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hcloud_network_subnet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_network_subnet
+
+[@@@deriving.end]
 
 let hcloud_network_subnet ?id ?vswitch_id ~ip_range ~network_id
     ~network_zone ~type_ () : hcloud_network_subnet =

@@ -4,43 +4,202 @@ open! Tf_core
 
 type cloudflare_device_settings_policy = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   allow_mode_switch : bool prop option; [@option]
-      (** Whether to allow mode switch for this policy. *)
   allow_updates : bool prop option; [@option]
-      (** Whether to allow updates under this policy. *)
   allowed_to_leave : bool prop option; [@option]
-      (** Whether to allow devices to leave the organization. Defaults to `true`. *)
   auto_connect : float prop option; [@option]
-      (** The amount of time in seconds to reconnect after having been disabled. *)
   captive_portal : float prop option; [@option]
-      (** The captive portal value for this policy. Defaults to `180`. *)
   default : bool prop option; [@option]
-      (** Whether the policy refers to the default account policy. *)
-  description : string prop;  (** Description of Policy. *)
+  description : string prop;
   disable_auto_fallback : bool prop option; [@option]
-      (** Whether to disable auto fallback for this policy. *)
   enabled : bool prop option; [@option]
-      (** Whether the policy is enabled (cannot be set for default policies). Defaults to `true`. *)
   exclude_office_ips : bool prop option; [@option]
-      (** Whether to add Microsoft IPs to split tunnel exclusions. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   match_ : string prop option; [@option] [@key "match"]
-      (** Wirefilter expression to match a device against when evaluating whether this policy should take effect for that device. *)
-  name : string prop;  (** Name of the policy. *)
+  name : string prop;
   precedence : float prop option; [@option]
-      (** The precedence of the policy. Lower values indicate higher precedence. *)
   service_mode_v2_mode : string prop option; [@option]
-      (** The service mode. Available values: `1dot1`, `warp`, `proxy`, `posture_only`, `warp_tunnel_only`. Defaults to `warp`. *)
   service_mode_v2_port : float prop option; [@option]
-      (** The port to use for the proxy service mode. Required when using `service_mode_v2_mode`. *)
   support_url : string prop option; [@option]
-      (** The support URL that will be opened when sending feedback. *)
   switch_locked : bool prop option; [@option]
-      (** Enablement of the ZT client switch lock. *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Device Settings Policy resource. Device policies configure settings applied to WARP devices. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_device_settings_policy) -> ()
+
+let yojson_of_cloudflare_device_settings_policy =
+  (function
+   | {
+       account_id = v_account_id;
+       allow_mode_switch = v_allow_mode_switch;
+       allow_updates = v_allow_updates;
+       allowed_to_leave = v_allowed_to_leave;
+       auto_connect = v_auto_connect;
+       captive_portal = v_captive_portal;
+       default = v_default;
+       description = v_description;
+       disable_auto_fallback = v_disable_auto_fallback;
+       enabled = v_enabled;
+       exclude_office_ips = v_exclude_office_ips;
+       id = v_id;
+       match_ = v_match_;
+       name = v_name;
+       precedence = v_precedence;
+       service_mode_v2_mode = v_service_mode_v2_mode;
+       service_mode_v2_port = v_service_mode_v2_port;
+       support_url = v_support_url;
+       switch_locked = v_switch_locked;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_switch_locked with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "switch_locked", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_support_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "support_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_mode_v2_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "service_mode_v2_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_mode_v2_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_mode_v2_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_precedence with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "precedence", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_match_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exclude_office_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "exclude_office_ips", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_auto_fallback with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_auto_fallback", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       let bnds =
+         match v_default with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "default", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_captive_portal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "captive_portal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_connect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "auto_connect", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_to_leave with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allowed_to_leave", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_updates with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_updates", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_mode_switch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_mode_switch", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_device_settings_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_device_settings_policy
+
+[@@@deriving.end]
 
 let cloudflare_device_settings_policy ?allow_mode_switch
     ?allow_updates ?allowed_to_leave ?auto_connect ?captive_portal

@@ -2,37 +2,173 @@
 
 open! Tf_core
 
-type parameters = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
-}
-[@@deriving yojson_of]
-(** parameters *)
+type parameters = { name : string prop; value : string prop }
+[@@deriving_inline yojson_of]
 
-type timeouts = {
-  create : string prop option; [@option]  (** create *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+let _ = fun (_ : parameters) -> ()
+
+let yojson_of_parameters =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_parameters
+
+[@@@deriving.end]
+
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_redshiftdata_statement = {
   cluster_identifier : string prop option; [@option]
-      (** cluster_identifier *)
-  database : string prop;  (** database *)
-  db_user : string prop option; [@option]  (** db_user *)
-  id : string prop option; [@option]  (** id *)
-  secret_arn : string prop option; [@option]  (** secret_arn *)
-  sql : string prop;  (** sql *)
+  database : string prop;
+  db_user : string prop option; [@option]
+  id : string prop option; [@option]
+  secret_arn : string prop option; [@option]
+  sql : string prop;
   statement_name : string prop option; [@option]
-      (** statement_name *)
-  with_event : bool prop option; [@option]  (** with_event *)
+  with_event : bool prop option; [@option]
   workgroup_name : string prop option; [@option]
-      (** workgroup_name *)
   parameters : parameters list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_redshiftdata_statement *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshiftdata_statement) -> ()
+
+let yojson_of_aws_redshiftdata_statement =
+  (function
+   | {
+       cluster_identifier = v_cluster_identifier;
+       database = v_database;
+       db_user = v_db_user;
+       id = v_id;
+       secret_arn = v_secret_arn;
+       sql = v_sql;
+       statement_name = v_statement_name;
+       with_event = v_with_event;
+       workgroup_name = v_workgroup_name;
+       parameters = v_parameters;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_parameters v_parameters
+         in
+         ("parameters", arg) :: bnds
+       in
+       let bnds =
+         match v_workgroup_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "workgroup_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_with_event with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "with_event", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_statement_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "statement_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sql in
+         ("sql", arg) :: bnds
+       in
+       let bnds =
+         match v_secret_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_db_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "db_user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database in
+         ("database", arg) :: bnds
+       in
+       let bnds =
+         match v_cluster_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cluster_identifier", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_redshiftdata_statement -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshiftdata_statement
+
+[@@@deriving.end]
 
 let parameters ~name ~value () : parameters = { name; value }
 let timeouts ?create () : timeouts = { create }

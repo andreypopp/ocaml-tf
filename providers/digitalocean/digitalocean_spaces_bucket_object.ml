@@ -3,32 +3,191 @@
 open! Tf_core
 
 type digitalocean_spaces_bucket_object = {
-  acl : string prop option; [@option]  (** acl *)
-  bucket : string prop;  (** bucket *)
-  cache_control : string prop option; [@option]  (** cache_control *)
-  content : string prop option; [@option]  (** content *)
+  acl : string prop option; [@option]
+  bucket : string prop;
+  cache_control : string prop option; [@option]
+  content : string prop option; [@option]
   content_base64 : string prop option; [@option]
-      (** content_base64 *)
   content_disposition : string prop option; [@option]
-      (** content_disposition *)
   content_encoding : string prop option; [@option]
-      (** content_encoding *)
   content_language : string prop option; [@option]
-      (** content_language *)
-  content_type : string prop option; [@option]  (** content_type *)
-  etag : string prop option; [@option]  (** etag *)
-  force_destroy : bool prop option; [@option]  (** force_destroy *)
-  id : string prop option; [@option]  (** id *)
-  key : string prop;  (** key *)
+  content_type : string prop option; [@option]
+  etag : string prop option; [@option]
+  force_destroy : bool prop option; [@option]
+  id : string prop option; [@option]
+  key : string prop;
   metadata : (string * string prop) list option; [@option]
-      (** metadata *)
-  region : string prop;  (** region *)
-  source : string prop option; [@option]  (** source *)
+  region : string prop;
+  source : string prop option; [@option]
   website_redirect : string prop option; [@option]
-      (** website_redirect *)
 }
-[@@deriving yojson_of]
-(** digitalocean_spaces_bucket_object *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_spaces_bucket_object) -> ()
+
+let yojson_of_digitalocean_spaces_bucket_object =
+  (function
+   | {
+       acl = v_acl;
+       bucket = v_bucket;
+       cache_control = v_cache_control;
+       content = v_content;
+       content_base64 = v_content_base64;
+       content_disposition = v_content_disposition;
+       content_encoding = v_content_encoding;
+       content_language = v_content_language;
+       content_type = v_content_type;
+       etag = v_etag;
+       force_destroy = v_force_destroy;
+       id = v_id;
+       key = v_key;
+       metadata = v_metadata;
+       region = v_region;
+       source = v_source;
+       website_redirect = v_website_redirect;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_website_redirect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "website_redirect", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_etag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "etag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_language with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_language", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_encoding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_disposition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_disposition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_base64 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_base64", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cache_control with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cache_control", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       let bnds =
+         match v_acl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "acl", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_spaces_bucket_object ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_spaces_bucket_object
+
+[@@@deriving.end]
 
 let digitalocean_spaces_bucket_object ?acl ?cache_control ?content
     ?content_base64 ?content_disposition ?content_encoding

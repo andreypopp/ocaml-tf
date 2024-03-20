@@ -4,76 +4,346 @@ open! Tf_core
 
 type custom_actions__include_skaffold_modules__git = {
   path : string prop option; [@option]
-      (** Relative path from the repository root to the Skaffold file. *)
   ref : string prop option; [@option]
-      (** Git ref the package should be cloned from. *)
   repo : string prop;
-      (** Git repository the package should be cloned from. *)
 }
-[@@deriving yojson_of]
-(** Remote git repository containing the Skaffold Config modules. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_actions__include_skaffold_modules__git) -> ()
+
+let yojson_of_custom_actions__include_skaffold_modules__git =
+  (function
+   | { path = v_path; ref = v_ref; repo = v_repo } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_repo in
+         ("repo", arg) :: bnds
+       in
+       let bnds =
+         match v_ref with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ref", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_actions__include_skaffold_modules__git ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_actions__include_skaffold_modules__git
+
+[@@@deriving.end]
 
 type custom_actions__include_skaffold_modules__google_cloud_storage = {
   path : string prop option; [@option]
-      (** Relative path from the source to the Skaffold file. *)
   source : string prop;
-      (** Cloud Storage source paths to copy recursively. For example, providing 'gs://my-bucket/dir/configs/*' will result in Skaffold copying all files within the 'dir/configs' directory in the bucket 'my-bucket'. *)
 }
-[@@deriving yojson_of]
-(** Cloud Storage bucket containing Skaffold Config modules. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       custom_actions__include_skaffold_modules__google_cloud_storage) ->
+  ()
+
+let yojson_of_custom_actions__include_skaffold_modules__google_cloud_storage
+    =
+  (function
+   | { path = v_path; source = v_source } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_actions__include_skaffold_modules__google_cloud_storage ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_custom_actions__include_skaffold_modules__google_cloud_storage
+
+[@@@deriving.end]
 
 type custom_actions__include_skaffold_modules = {
   configs : string prop list option; [@option]
-      (** The Skaffold Config modules to use from the specified source. *)
   git : custom_actions__include_skaffold_modules__git list;
   google_cloud_storage :
     custom_actions__include_skaffold_modules__google_cloud_storage
     list;
 }
-[@@deriving yojson_of]
-(** List of Skaffold modules Cloud Deploy will include in the Skaffold Config as required before performing diagnose. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_actions__include_skaffold_modules) -> ()
+
+let yojson_of_custom_actions__include_skaffold_modules =
+  (function
+   | {
+       configs = v_configs;
+       git = v_git;
+       google_cloud_storage = v_google_cloud_storage;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_custom_actions__include_skaffold_modules__google_cloud_storage
+             v_google_cloud_storage
+         in
+         ("google_cloud_storage", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_custom_actions__include_skaffold_modules__git
+             v_git
+         in
+         ("git", arg) :: bnds
+       in
+       let bnds =
+         match v_configs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "configs", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_actions__include_skaffold_modules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_actions__include_skaffold_modules
+
+[@@@deriving.end]
 
 type custom_actions = {
   deploy_action : string prop;
-      (** The Skaffold custom action responsible for deploy operations. *)
   render_action : string prop option; [@option]
-      (** The Skaffold custom action responsible for render operations. If not provided then Cloud Deploy will perform the render operations via 'skaffold render'. *)
   include_skaffold_modules :
     custom_actions__include_skaffold_modules list;
 }
-[@@deriving yojson_of]
-(** Configures render and deploy for the 'CustomTargetType' using Skaffold custom actions. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_actions) -> ()
+
+let yojson_of_custom_actions =
+  (function
+   | {
+       deploy_action = v_deploy_action;
+       render_action = v_render_action;
+       include_skaffold_modules = v_include_skaffold_modules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_custom_actions__include_skaffold_modules
+             v_include_skaffold_modules
+         in
+         ("include_skaffold_modules", arg) :: bnds
+       in
+       let bnds =
+         match v_render_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "render_action", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_deploy_action in
+         ("deploy_action", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_actions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_actions
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_clouddeploy_custom_target_type = {
   annotations : (string * string prop) list option; [@option]
-      (** User annotations. These attributes can only be set and used by the user, and not by Cloud Deploy. See https://google.aip.dev/128#annotations for more details such as format and size limitations.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
   description : string prop option; [@option]
-      (** Description of the 'CustomTargetType'. Max length is 255 characters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels are attributes that can be set and used by both the user and by Cloud Deploy. Labels must meet the following constraints: * Keys and values can contain only lowercase letters, numeric characters, underscores, and dashes. * All characters must use UTF-8 encoding, and international characters are allowed. * Keys must start with a lowercase letter or international character. * Each resource is limited to a maximum of 64 labels. Both keys and values are additionally constrained to be <= 128 bytes.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The location of the source. *)
-  name : string prop;  (** Name of the 'CustomTargetType'. *)
-  project : string prop option; [@option]  (** project *)
+  location : string prop;
+  name : string prop;
+  project : string prop option; [@option]
   custom_actions : custom_actions list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_clouddeploy_custom_target_type *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_clouddeploy_custom_target_type) -> ()
+
+let yojson_of_google_clouddeploy_custom_target_type =
+  (function
+   | {
+       annotations = v_annotations;
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       custom_actions = v_custom_actions;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_actions v_custom_actions
+         in
+         ("custom_actions", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_clouddeploy_custom_target_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_clouddeploy_custom_target_type
+
+[@@@deriving.end]
 
 let custom_actions__include_skaffold_modules__git ?path ?ref ~repo ()
     : custom_actions__include_skaffold_modules__git =

@@ -3,33 +3,33 @@
 open! Tf_core
 
 type schedule__schedule_frequency__refresh_on_day = {
-  day_of_month: string  prop option; [@option] (** day_of_month *)
-  day_of_week: string  prop option; [@option] (** day_of_week *)
-} [@@deriving yojson_of]
-(** schedule__schedule_frequency__refresh_on_day *)
+  day_of_month: string  prop option; [@option]
+  day_of_week: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type schedule__schedule_frequency = {
-  interval: string prop;  (** interval *)
-  time_of_the_day: string  prop option; [@option] (** time_of_the_day *)
-  timezone: string  prop option; [@option] (** timezone *)
+  interval: string prop; 
+  time_of_the_day: string  prop option; [@option]
+  timezone: string  prop option; [@option]
   refresh_on_day: schedule__schedule_frequency__refresh_on_day list;
-} [@@deriving yojson_of]
-(** schedule__schedule_frequency *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type schedule = {
-  refresh_type: string prop;  (** refresh_type *)
-  start_after_date_time: string  prop option; [@option] (** start_after_date_time *)
+  refresh_type: string prop; 
+  start_after_date_time: string  prop option; [@option]
   schedule_frequency: schedule__schedule_frequency list;
-} [@@deriving yojson_of]
-(** schedule *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type aws_quicksight_refresh_schedule = {
-  aws_account_id: string  prop option; [@option] (** aws_account_id *)
-  data_set_id: string prop;  (** data_set_id *)
-  schedule_id: string prop;  (** schedule_id *)
+  aws_account_id: string  prop option; [@option]
+  data_set_id: string prop; 
+  schedule_id: string prop; 
   schedule: schedule list;
-} [@@deriving yojson_of]
-(** aws_quicksight_refresh_schedule *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let schedule__schedule_frequency__refresh_on_day ?day_of_month ?day_of_week () =
   ({

@@ -2,51 +2,237 @@
 
 open! Tf_core
 
-type runtime = {
-  name : string prop;  (** name *)
-  runtime_version : string prop;  (** runtime_version *)
-}
-[@@deriving yojson_of]
-(** runtime *)
+type runtime = { name : string prop; runtime_version : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : runtime) -> ()
+
+let yojson_of_runtime =
+  (function
+   | { name = v_name; runtime_version = v_runtime_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_runtime_version
+         in
+         ("runtime_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : runtime -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_runtime
+
+[@@@deriving.end]
 
 type sync_config__lambda_conflict_handler_config = {
   lambda_conflict_handler_arn : string prop option; [@option]
-      (** lambda_conflict_handler_arn *)
 }
-[@@deriving yojson_of]
-(** sync_config__lambda_conflict_handler_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sync_config__lambda_conflict_handler_config) -> ()
+
+let yojson_of_sync_config__lambda_conflict_handler_config =
+  (function
+   | { lambda_conflict_handler_arn = v_lambda_conflict_handler_arn }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_lambda_conflict_handler_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lambda_conflict_handler_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sync_config__lambda_conflict_handler_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sync_config__lambda_conflict_handler_config
+
+[@@@deriving.end]
 
 type sync_config = {
   conflict_detection : string prop option; [@option]
-      (** conflict_detection *)
   conflict_handler : string prop option; [@option]
-      (** conflict_handler *)
   lambda_conflict_handler_config :
     sync_config__lambda_conflict_handler_config list;
 }
-[@@deriving yojson_of]
-(** sync_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sync_config) -> ()
+
+let yojson_of_sync_config =
+  (function
+   | {
+       conflict_detection = v_conflict_detection;
+       conflict_handler = v_conflict_handler;
+       lambda_conflict_handler_config =
+         v_lambda_conflict_handler_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_sync_config__lambda_conflict_handler_config
+             v_lambda_conflict_handler_config
+         in
+         ("lambda_conflict_handler_config", arg) :: bnds
+       in
+       let bnds =
+         match v_conflict_handler with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "conflict_handler", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_conflict_detection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "conflict_detection", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sync_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sync_config
+
+[@@@deriving.end]
 
 type aws_appsync_function = {
-  api_id : string prop;  (** api_id *)
-  code : string prop option; [@option]  (** code *)
-  data_source : string prop;  (** data_source *)
-  description : string prop option; [@option]  (** description *)
+  api_id : string prop;
+  code : string prop option; [@option]
+  data_source : string prop;
+  description : string prop option; [@option]
   function_version : string prop option; [@option]
-      (** function_version *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   max_batch_size : float prop option; [@option]
-      (** max_batch_size *)
-  name : string prop;  (** name *)
+  name : string prop;
   request_mapping_template : string prop option; [@option]
-      (** request_mapping_template *)
   response_mapping_template : string prop option; [@option]
-      (** response_mapping_template *)
   runtime : runtime list;
   sync_config : sync_config list;
 }
-[@@deriving yojson_of]
-(** aws_appsync_function *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appsync_function) -> ()
+
+let yojson_of_aws_appsync_function =
+  (function
+   | {
+       api_id = v_api_id;
+       code = v_code;
+       data_source = v_data_source;
+       description = v_description;
+       function_version = v_function_version;
+       id = v_id;
+       max_batch_size = v_max_batch_size;
+       name = v_name;
+       request_mapping_template = v_request_mapping_template;
+       response_mapping_template = v_response_mapping_template;
+       runtime = v_runtime;
+       sync_config = v_sync_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sync_config v_sync_config
+         in
+         ("sync_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_runtime v_runtime in
+         ("runtime", arg) :: bnds
+       in
+       let bnds =
+         match v_response_mapping_template with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "response_mapping_template", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_request_mapping_template with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "request_mapping_template", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_max_batch_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_batch_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_function_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "function_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_data_source in
+         ("data_source", arg) :: bnds
+       in
+       let bnds =
+         match v_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_id in
+         ("api_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_appsync_function -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appsync_function
+
+[@@@deriving.end]
 
 let runtime ~name ~runtime_version () : runtime =
   { name; runtime_version }

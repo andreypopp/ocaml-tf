@@ -9,6 +9,8 @@ type external_ids = {
   issuer : string prop;  (** issuer *)
 }
 
+[@@@deriving.end]
+
 type addresses
 
 val addresses :

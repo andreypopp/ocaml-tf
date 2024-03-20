@@ -3,15 +3,73 @@
 open! Tf_core
 
 type aws_redshiftserverless_usage_limit = {
-  amount : float prop;  (** amount *)
-  breach_action : string prop option; [@option]  (** breach_action *)
-  id : string prop option; [@option]  (** id *)
-  period : string prop option; [@option]  (** period *)
-  resource_arn : string prop;  (** resource_arn *)
-  usage_type : string prop;  (** usage_type *)
+  amount : float prop;
+  breach_action : string prop option; [@option]
+  id : string prop option; [@option]
+  period : string prop option; [@option]
+  resource_arn : string prop;
+  usage_type : string prop;
 }
-[@@deriving yojson_of]
-(** aws_redshiftserverless_usage_limit *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshiftserverless_usage_limit) -> ()
+
+let yojson_of_aws_redshiftserverless_usage_limit =
+  (function
+   | {
+       amount = v_amount;
+       breach_action = v_breach_action;
+       id = v_id;
+       period = v_period;
+       resource_arn = v_resource_arn;
+       usage_type = v_usage_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_usage_type in
+         ("usage_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_arn in
+         ("resource_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_breach_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "breach_action", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_amount in
+         ("amount", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_redshiftserverless_usage_limit ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshiftserverless_usage_limit
+
+[@@@deriving.end]
 
 let aws_redshiftserverless_usage_limit ?breach_action ?id ?period
     ~amount ~resource_arn ~usage_type () :

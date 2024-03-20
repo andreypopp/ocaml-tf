@@ -2,33 +2,165 @@
 
 open! Tf_core
 
-type timeouts = {
-  create : string prop option; [@option]  (** create *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_security_group_rule = {
   cidr_blocks : string prop list option; [@option]
-      (** cidr_blocks *)
-  description : string prop option; [@option]  (** description *)
-  from_port : float prop;  (** from_port *)
-  id : string prop option; [@option]  (** id *)
+  description : string prop option; [@option]
+  from_port : float prop;
+  id : string prop option; [@option]
   ipv6_cidr_blocks : string prop list option; [@option]
-      (** ipv6_cidr_blocks *)
   prefix_list_ids : string prop list option; [@option]
-      (** prefix_list_ids *)
-  protocol : string prop;  (** protocol *)
-  security_group_id : string prop;  (** security_group_id *)
-  self : bool prop option; [@option]  (** self *)
+  protocol : string prop;
+  security_group_id : string prop;
+  self : bool prop option; [@option]
   source_security_group_id : string prop option; [@option]
-      (** source_security_group_id *)
-  to_port : float prop;  (** to_port *)
-  type_ : string prop; [@key "type"]  (** type *)
+  to_port : float prop;
+  type_ : string prop; [@key "type"]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_security_group_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_security_group_rule) -> ()
+
+let yojson_of_aws_security_group_rule =
+  (function
+   | {
+       cidr_blocks = v_cidr_blocks;
+       description = v_description;
+       from_port = v_from_port;
+       id = v_id;
+       ipv6_cidr_blocks = v_ipv6_cidr_blocks;
+       prefix_list_ids = v_prefix_list_ids;
+       protocol = v_protocol;
+       security_group_id = v_security_group_id;
+       self = v_self;
+       source_security_group_id = v_source_security_group_id;
+       to_port = v_to_port;
+       type_ = v_type_;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_to_port in
+         ("to_port", arg) :: bnds
+       in
+       let bnds =
+         match v_source_security_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_security_group_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_self with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "self", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_security_group_id
+         in
+         ("security_group_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         match v_prefix_list_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "prefix_list_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_cidr_blocks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ipv6_cidr_blocks", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_from_port in
+         ("from_port", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cidr_blocks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "cidr_blocks", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_security_group_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_security_group_rule
+
+[@@@deriving.end]
 
 let timeouts ?create () : timeouts = { create }
 

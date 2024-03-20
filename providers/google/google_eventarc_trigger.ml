@@ -4,109 +4,479 @@ open! Tf_core
 
 type destination__cloud_run_service = {
   path : string prop option; [@option]
-      (** Optional. The relative path on the Cloud Run service the events should be sent to. The value must conform to the definition of URI path segment (section 3.3 of RFC2396). Examples: /route, route, route/subroute. *)
   region : string prop option; [@option]
-      (** Required. The region the Cloud Run service is deployed in. *)
   service : string prop;
-      (** Required. The name of the Cloud Run service being addressed. See https://cloud.google.com/run/docs/reference/rest/v1/namespaces.services. Only services located in the same project of the trigger object can be addressed. *)
 }
-[@@deriving yojson_of]
-(** Cloud Run fully-managed service that receives the events. The service should be running in the same project of the trigger. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : destination__cloud_run_service) -> ()
+
+let yojson_of_destination__cloud_run_service =
+  (function
+   | { path = v_path; region = v_region; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : destination__cloud_run_service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination__cloud_run_service
+
+[@@@deriving.end]
 
 type destination__gke = {
   cluster : string prop;
-      (** Required. The name of the cluster the GKE service is running in. The cluster must be running in the same project as the trigger being created. *)
   location : string prop;
-      (** Required. The name of the Google Compute Engine in which the cluster resides, which can either be compute zone (for example, us-central1-a) for the zonal clusters or region (for example, us-central1) for regional clusters. *)
   namespace : string prop;
-      (** Required. The namespace the GKE service is running in. *)
   path : string prop option; [@option]
-      (** Optional. The relative path on the GKE service the events should be sent to. The value must conform to the definition of a URI path segment (section 3.3 of RFC2396). Examples: /route, route, route/subroute. *)
-  service : string prop;  (** Required. Name of the GKE service. *)
+  service : string prop;
 }
-[@@deriving yojson_of]
-(** A GKE service capable of receiving events. The service should be running in the same project as the trigger. *)
+[@@deriving_inline yojson_of]
 
-type destination__http_endpoint = {
-  uri : string prop;
-      (** Required. The URI of the HTTP enpdoint. The value must be a RFC2396 URI string. Examples: `http://10.10.10.8:80/route`, `http://svc.us-central1.p.local:8080/`. Only HTTP and HTTPS protocols are supported. The host can be either a static IP addressable from the VPC specified by the network config, or an internal DNS hostname of the service resolvable via Cloud DNS. *)
-}
-[@@deriving yojson_of]
-(** An HTTP endpoint destination described by an URI. *)
+let _ = fun (_ : destination__gke) -> ()
+
+let yojson_of_destination__gke =
+  (function
+   | {
+       cluster = v_cluster;
+       location = v_location;
+       namespace = v_namespace;
+       path = v_path;
+       service = v_service;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace in
+         ("namespace", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster in
+         ("cluster", arg) :: bnds
+       in
+       `Assoc bnds
+    : destination__gke -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination__gke
+
+[@@@deriving.end]
+
+type destination__http_endpoint = { uri : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : destination__http_endpoint) -> ()
+
+let yojson_of_destination__http_endpoint =
+  (function
+   | { uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : destination__http_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination__http_endpoint
+
+[@@@deriving.end]
 
 type destination__network_config = {
   network_attachment : string prop;
-      (** Required. Name of the NetworkAttachment that allows access to the destination VPC. Format: `projects/{PROJECT_ID}/regions/{REGION}/networkAttachments/{NETWORK_ATTACHMENT_NAME}` *)
 }
-[@@deriving yojson_of]
-(** Optional. Network config is used to configure how Eventarc resolves and connect to a destination. This should only be used with HttpEndpoint destination type. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : destination__network_config) -> ()
+
+let yojson_of_destination__network_config =
+  (function
+   | { network_attachment = v_network_attachment } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_network_attachment
+         in
+         ("network_attachment", arg) :: bnds
+       in
+       `Assoc bnds
+    : destination__network_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination__network_config
+
+[@@@deriving.end]
 
 type destination = {
   workflow : string prop option; [@option]
-      (** The resource name of the Workflow whose Executions are triggered by the events. The Workflow resource should be deployed in the same project as the trigger. Format: `projects/{project}/locations/{location}/workflows/{workflow}` *)
   cloud_run_service : destination__cloud_run_service list;
   gke : destination__gke list;
   http_endpoint : destination__http_endpoint list;
   network_config : destination__network_config list;
 }
-[@@deriving yojson_of]
-(** Required. Destination specifies where the events should be sent to. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : destination) -> ()
+
+let yojson_of_destination =
+  (function
+   | {
+       workflow = v_workflow;
+       cloud_run_service = v_cloud_run_service;
+       gke = v_gke;
+       http_endpoint = v_http_endpoint;
+       network_config = v_network_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destination__network_config
+             v_network_config
+         in
+         ("network_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destination__http_endpoint
+             v_http_endpoint
+         in
+         ("http_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_destination__gke v_gke in
+         ("gke", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destination__cloud_run_service
+             v_cloud_run_service
+         in
+         ("cloud_run_service", arg) :: bnds
+       in
+       let bnds =
+         match v_workflow with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "workflow", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination
+
+[@@@deriving.end]
 
 type matching_criteria = {
   attribute : string prop;
-      (** Required. The name of a CloudEvents attribute. Currently, only a subset of attributes are supported for filtering. All triggers MUST provide a filter for the 'type' attribute. *)
   operator : string prop option; [@option]
-      (** Optional. The operator used for matching the events with the value of the filter. If not specified, only events that have an exact key-value pair specified in the filter are matched. The only allowed value is `match-path-pattern`. *)
   value : string prop;
-      (** Required. The value for the attribute. See https://cloud.google.com/eventarc/docs/creating-triggers#trigger-gcloud for available values. *)
 }
-[@@deriving yojson_of]
-(** Required. null The list of filters that applies to event attributes. Only events that match all the provided filters will be sent to the destination. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : matching_criteria) -> ()
+
+let yojson_of_matching_criteria =
+  (function
+   | {
+       attribute = v_attribute;
+       operator = v_operator;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_attribute in
+         ("attribute", arg) :: bnds
+       in
+       `Assoc bnds
+    : matching_criteria -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_matching_criteria
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type transport__pubsub = {
-  topic : string prop option; [@option]
-      (** Optional. The name of the Pub/Sub topic created and managed by Eventarc system as a transport for the event delivery. Format: `projects/{PROJECT_ID}/topics/{TOPIC_NAME}. You may set an existing topic for triggers of the type google.cloud.pubsub.topic.v1.messagePublished` only. The topic you provide here will not be deleted by Eventarc at trigger deletion. *)
-}
-[@@deriving yojson_of]
-(** The Pub/Sub topic and subscription used by Eventarc as delivery intermediary. *)
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type transport__pubsub = { topic : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : transport__pubsub) -> ()
+
+let yojson_of_transport__pubsub =
+  (function
+   | { topic = v_topic } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_topic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "topic", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : transport__pubsub -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_transport__pubsub
+
+[@@@deriving.end]
 
 type transport = { pubsub : transport__pubsub list }
-[@@deriving yojson_of]
-(** Optional. In order to deliver messages, Eventarc may use other GCP products as transport intermediary. This field contains a reference to that transport intermediary. This information can be used for debugging purposes. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : transport) -> ()
+
+let yojson_of_transport =
+  (function
+   | { pubsub = v_pubsub } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_transport__pubsub v_pubsub
+         in
+         ("pubsub", arg) :: bnds
+       in
+       `Assoc bnds
+    : transport -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_transport
+
+[@@@deriving.end]
 
 type google_eventarc_trigger = {
   channel : string prop option; [@option]
-      (** Optional. The name of the channel associated with the trigger in `projects/{project}/locations/{location}/channels/{channel}` format. You must provide a channel to receive events from Eventarc SaaS partners. *)
   event_data_content_type : string prop option; [@option]
-      (** Optional. EventDataContentType specifies the type of payload in MIME format that is expected from the CloudEvent data field. This is set to `application/json` if the value is not defined. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Optional. User labels attached to the triggers that can be used to group resources.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field `effective_labels` for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
+  location : string prop;
   name : string prop;
-      (** Required. The resource name of the trigger. Must be unique within the location on the project. *)
   project : string prop option; [@option]
-      (** The project for the resource *)
   service_account : string prop option; [@option]
-      (** Optional. The IAM service account email associated with the trigger. The service account represents the identity of the trigger. The principal who calls this API must have `iam.serviceAccounts.actAs` permission in the service account. See https://cloud.google.com/iam/docs/understanding-service-accounts#sa_common for more information. For Cloud Run destinations, this service account is used to generate identity tokens when invoking the service. See https://cloud.google.com/run/docs/triggering/pubsub-push#create-service-account for information on how to invoke authenticated Cloud Run services. In order to create Audit Log triggers, the service account should also have `roles/eventarc.eventReceiver` IAM role. *)
   destination : destination list;
   matching_criteria : matching_criteria list;
   timeouts : timeouts option;
   transport : transport list;
 }
-[@@deriving yojson_of]
-(** google_eventarc_trigger *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_eventarc_trigger) -> ()
+
+let yojson_of_google_eventarc_trigger =
+  (function
+   | {
+       channel = v_channel;
+       event_data_content_type = v_event_data_content_type;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       service_account = v_service_account;
+       destination = v_destination;
+       matching_criteria = v_matching_criteria;
+       timeouts = v_timeouts;
+       transport = v_transport;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_transport v_transport in
+         ("transport", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_matching_criteria
+             v_matching_criteria
+         in
+         ("matching_criteria", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destination v_destination
+         in
+         ("destination", arg) :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event_data_content_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "event_data_content_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_channel with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "channel", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_eventarc_trigger -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_eventarc_trigger
+
+[@@@deriving.end]
 
 let destination__cloud_run_service ?path ?region ~service () :
     destination__cloud_run_service =

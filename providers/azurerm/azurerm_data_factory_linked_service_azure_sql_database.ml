@@ -3,57 +3,325 @@
 open! Tf_core
 
 type key_vault_connection_string = {
-  linked_service_name : string prop;  (** linked_service_name *)
-  secret_name : string prop;  (** secret_name *)
+  linked_service_name : string prop;
+  secret_name : string prop;
 }
-[@@deriving yojson_of]
-(** key_vault_connection_string *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : key_vault_connection_string) -> ()
+
+let yojson_of_key_vault_connection_string =
+  (function
+   | {
+       linked_service_name = v_linked_service_name;
+       secret_name = v_secret_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_name in
+         ("secret_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_linked_service_name
+         in
+         ("linked_service_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : key_vault_connection_string ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_key_vault_connection_string
+
+[@@@deriving.end]
 
 type key_vault_password = {
-  linked_service_name : string prop;  (** linked_service_name *)
-  secret_name : string prop;  (** secret_name *)
+  linked_service_name : string prop;
+  secret_name : string prop;
 }
-[@@deriving yojson_of]
-(** key_vault_password *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : key_vault_password) -> ()
+
+let yojson_of_key_vault_password =
+  (function
+   | {
+       linked_service_name = v_linked_service_name;
+       secret_name = v_secret_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_name in
+         ("secret_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_linked_service_name
+         in
+         ("linked_service_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : key_vault_password -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_key_vault_password
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_data_factory_linked_service_azure_sql_database = {
   additional_properties : (string * string prop) list option;
       [@option]
-      (** additional_properties *)
   annotations : string prop list option; [@option]
-      (** annotations *)
   connection_string : string prop option; [@option]
-      (** connection_string *)
-  data_factory_id : string prop;  (** data_factory_id *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
+  data_factory_id : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
   integration_runtime_name : string prop option; [@option]
-      (** integration_runtime_name *)
-  name : string prop;  (** name *)
+  name : string prop;
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
   service_principal_id : string prop option; [@option]
-      (** service_principal_id *)
   service_principal_key : string prop option; [@option]
-      (** service_principal_key *)
-  tenant_id : string prop option; [@option]  (** tenant_id *)
+  tenant_id : string prop option; [@option]
   use_managed_identity : bool prop option; [@option]
-      (** use_managed_identity *)
   key_vault_connection_string : key_vault_connection_string list;
   key_vault_password : key_vault_password list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_data_factory_linked_service_azure_sql_database *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : azurerm_data_factory_linked_service_azure_sql_database) ->
+  ()
+
+let yojson_of_azurerm_data_factory_linked_service_azure_sql_database
+    =
+  (function
+   | {
+       additional_properties = v_additional_properties;
+       annotations = v_annotations;
+       connection_string = v_connection_string;
+       data_factory_id = v_data_factory_id;
+       description = v_description;
+       id = v_id;
+       integration_runtime_name = v_integration_runtime_name;
+       name = v_name;
+       parameters = v_parameters;
+       service_principal_id = v_service_principal_id;
+       service_principal_key = v_service_principal_key;
+       tenant_id = v_tenant_id;
+       use_managed_identity = v_use_managed_identity;
+       key_vault_connection_string = v_key_vault_connection_string;
+       key_vault_password = v_key_vault_password;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_key_vault_password
+             v_key_vault_password
+         in
+         ("key_vault_password", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_key_vault_connection_string
+             v_key_vault_connection_string
+         in
+         ("key_vault_connection_string", arg) :: bnds
+       in
+       let bnds =
+         match v_use_managed_identity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_managed_identity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tenant_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tenant_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_principal_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_principal_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_principal_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_principal_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_integration_runtime_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "integration_runtime_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_factory_id
+         in
+         ("data_factory_id", arg) :: bnds
+       in
+       let bnds =
+         match v_connection_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_additional_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "additional_properties", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_data_factory_linked_service_azure_sql_database ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_azurerm_data_factory_linked_service_azure_sql_database
+
+[@@@deriving.end]
 
 let key_vault_connection_string ~linked_service_name ~secret_name ()
     : key_vault_connection_string =

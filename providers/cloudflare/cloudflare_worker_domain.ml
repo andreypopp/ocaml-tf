@@ -4,18 +4,67 @@ open! Tf_core
 
 type cloudflare_worker_domain = {
   account_id : string prop;
-      (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   environment : string prop option; [@option]
-      (** The name of the Worker environment. Defaults to `production`. *)
-  hostname : string prop;  (** Hostname of the Worker Domain. *)
-  id : string prop option; [@option]  (** id *)
+  hostname : string prop;
+  id : string prop option; [@option]
   service : string prop;
-      (** Name of worker script to attach the domain to. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Creates a Worker Custom Domain. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_worker_domain) -> ()
+
+let yojson_of_cloudflare_worker_domain =
+  (function
+   | {
+       account_id = v_account_id;
+       environment = v_environment;
+       hostname = v_hostname;
+       id = v_id;
+       service = v_service;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_hostname in
+         ("hostname", arg) :: bnds
+       in
+       let bnds =
+         match v_environment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "environment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_worker_domain -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_worker_domain
+
+[@@@deriving.end]
 
 let cloudflare_worker_domain ?environment ?id ~account_id ~hostname
     ~service ~zone_id () : cloudflare_worker_domain =

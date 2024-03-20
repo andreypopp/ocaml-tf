@@ -2,20 +2,85 @@
 
 open! Tf_core
 
-type timeouts = {
-  update : string prop option; [@option]  (** update *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+type timeouts = { update : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_networkmanager_core_network_policy_attachment = {
-  core_network_id : string prop;  (** core_network_id *)
-  id : string prop option; [@option]  (** id *)
-  policy_document : string prop;  (** policy_document *)
+  core_network_id : string prop;
+  id : string prop option; [@option]
+  policy_document : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_networkmanager_core_network_policy_attachment *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_networkmanager_core_network_policy_attachment) -> ()
+
+let yojson_of_aws_networkmanager_core_network_policy_attachment =
+  (function
+   | {
+       core_network_id = v_core_network_id;
+       id = v_id;
+       policy_document = v_policy_document;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_policy_document
+         in
+         ("policy_document", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_core_network_id
+         in
+         ("core_network_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_networkmanager_core_network_policy_attachment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_networkmanager_core_network_policy_attachment
+
+[@@@deriving.end]
 
 let timeouts ?update () : timeouts = { update }
 

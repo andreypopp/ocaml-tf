@@ -3,117 +3,614 @@
 open! Tf_core
 
 type additional_location__virtual_network_configuration = {
-  subnet_id : string prop;  (** subnet_id *)
+  subnet_id : string prop;
 }
-[@@deriving yojson_of]
-(** additional_location__virtual_network_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : additional_location__virtual_network_configuration) -> ()
+
+let yojson_of_additional_location__virtual_network_configuration =
+  (function
+   | { subnet_id = v_subnet_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : additional_location__virtual_network_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_additional_location__virtual_network_configuration
+
+[@@@deriving.end]
 
 type additional_location = {
-  capacity : float prop option; [@option]  (** capacity *)
+  capacity : float prop option; [@option]
   gateway_disabled : bool prop option; [@option]
-      (** gateway_disabled *)
-  location : string prop;  (** location *)
+  location : string prop;
   public_ip_address_id : string prop option; [@option]
-      (** public_ip_address_id *)
-  zones : string prop list option; [@option]  (** zones *)
+  zones : string prop list option; [@option]
   virtual_network_configuration :
     additional_location__virtual_network_configuration list;
 }
-[@@deriving yojson_of]
-(** additional_location *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : additional_location) -> ()
+
+let yojson_of_additional_location =
+  (function
+   | {
+       capacity = v_capacity;
+       gateway_disabled = v_gateway_disabled;
+       location = v_location;
+       public_ip_address_id = v_public_ip_address_id;
+       zones = v_zones;
+       virtual_network_configuration =
+         v_virtual_network_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_additional_location__virtual_network_configuration
+             v_virtual_network_configuration
+         in
+         ("virtual_network_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_zones with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "zones", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_ip_address_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "public_ip_address_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_gateway_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "gateway_disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "capacity", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : additional_location -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_additional_location
+
+[@@@deriving.end]
 
 type certificate = {
   certificate_password : string prop option; [@option]
-      (** certificate_password *)
-  encoded_certificate : string prop;  (** encoded_certificate *)
-  store_name : string prop;  (** store_name *)
+  encoded_certificate : string prop;
+  store_name : string prop;
 }
-[@@deriving yojson_of]
-(** certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certificate) -> ()
+
+let yojson_of_certificate =
+  (function
+   | {
+       certificate_password = v_certificate_password;
+       encoded_certificate = v_encoded_certificate;
+       store_name = v_store_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_store_name in
+         ("store_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_encoded_certificate
+         in
+         ("encoded_certificate", arg) :: bnds
+       in
+       let bnds =
+         match v_certificate_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_password", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certificate
+
+[@@@deriving.end]
 
 type delegation = {
   subscriptions_enabled : bool prop option; [@option]
-      (** subscriptions_enabled *)
-  url : string prop option; [@option]  (** url *)
+  url : string prop option; [@option]
   user_registration_enabled : bool prop option; [@option]
-      (** user_registration_enabled *)
   validation_key : string prop option; [@option]
-      (** validation_key *)
 }
-[@@deriving yojson_of]
-(** delegation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : delegation) -> ()
+
+let yojson_of_delegation =
+  (function
+   | {
+       subscriptions_enabled = v_subscriptions_enabled;
+       url = v_url;
+       user_registration_enabled = v_user_registration_enabled;
+       validation_key = v_validation_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_validation_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "validation_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_user_registration_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "user_registration_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subscriptions_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "subscriptions_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : delegation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_delegation
+
+[@@@deriving.end]
 
 type hostname_configuration__developer_portal = {
-  certificate : string prop option; [@option]  (** certificate *)
+  certificate : string prop option; [@option]
   certificate_password : string prop option; [@option]
-      (** certificate_password *)
-  host_name : string prop;  (** host_name *)
-  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  host_name : string prop;
+  key_vault_id : string prop option; [@option]
   negotiate_client_certificate : bool prop option; [@option]
-      (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
-      (** ssl_keyvault_identity_client_id *)
 }
-[@@deriving yojson_of]
-(** hostname_configuration__developer_portal *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hostname_configuration__developer_portal) -> ()
+
+let yojson_of_hostname_configuration__developer_portal =
+  (function
+   | {
+       certificate = v_certificate;
+       certificate_password = v_certificate_password;
+       host_name = v_host_name;
+       key_vault_id = v_key_vault_id;
+       negotiate_client_certificate = v_negotiate_client_certificate;
+       ssl_keyvault_identity_client_id =
+         v_ssl_keyvault_identity_client_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ssl_keyvault_identity_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_keyvault_identity_client_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_negotiate_client_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "negotiate_client_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_vault_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host_name in
+         ("host_name", arg) :: bnds
+       in
+       let bnds =
+         match v_certificate_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hostname_configuration__developer_portal ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hostname_configuration__developer_portal
+
+[@@@deriving.end]
 
 type hostname_configuration__management = {
-  certificate : string prop option; [@option]  (** certificate *)
+  certificate : string prop option; [@option]
   certificate_password : string prop option; [@option]
-      (** certificate_password *)
-  host_name : string prop;  (** host_name *)
-  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  host_name : string prop;
+  key_vault_id : string prop option; [@option]
   negotiate_client_certificate : bool prop option; [@option]
-      (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
-      (** ssl_keyvault_identity_client_id *)
 }
-[@@deriving yojson_of]
-(** hostname_configuration__management *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hostname_configuration__management) -> ()
+
+let yojson_of_hostname_configuration__management =
+  (function
+   | {
+       certificate = v_certificate;
+       certificate_password = v_certificate_password;
+       host_name = v_host_name;
+       key_vault_id = v_key_vault_id;
+       negotiate_client_certificate = v_negotiate_client_certificate;
+       ssl_keyvault_identity_client_id =
+         v_ssl_keyvault_identity_client_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ssl_keyvault_identity_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_keyvault_identity_client_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_negotiate_client_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "negotiate_client_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_vault_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host_name in
+         ("host_name", arg) :: bnds
+       in
+       let bnds =
+         match v_certificate_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hostname_configuration__management ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hostname_configuration__management
+
+[@@@deriving.end]
 
 type hostname_configuration__portal = {
-  certificate : string prop option; [@option]  (** certificate *)
+  certificate : string prop option; [@option]
   certificate_password : string prop option; [@option]
-      (** certificate_password *)
-  host_name : string prop;  (** host_name *)
-  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  host_name : string prop;
+  key_vault_id : string prop option; [@option]
   negotiate_client_certificate : bool prop option; [@option]
-      (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
-      (** ssl_keyvault_identity_client_id *)
 }
-[@@deriving yojson_of]
-(** hostname_configuration__portal *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hostname_configuration__portal) -> ()
+
+let yojson_of_hostname_configuration__portal =
+  (function
+   | {
+       certificate = v_certificate;
+       certificate_password = v_certificate_password;
+       host_name = v_host_name;
+       key_vault_id = v_key_vault_id;
+       negotiate_client_certificate = v_negotiate_client_certificate;
+       ssl_keyvault_identity_client_id =
+         v_ssl_keyvault_identity_client_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ssl_keyvault_identity_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_keyvault_identity_client_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_negotiate_client_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "negotiate_client_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_vault_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host_name in
+         ("host_name", arg) :: bnds
+       in
+       let bnds =
+         match v_certificate_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hostname_configuration__portal ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hostname_configuration__portal
+
+[@@@deriving.end]
 
 type hostname_configuration__proxy = {
-  certificate : string prop option; [@option]  (** certificate *)
+  certificate : string prop option; [@option]
   certificate_password : string prop option; [@option]
-      (** certificate_password *)
   default_ssl_binding : bool prop option; [@option]
-      (** default_ssl_binding *)
-  host_name : string prop;  (** host_name *)
-  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  host_name : string prop;
+  key_vault_id : string prop option; [@option]
   negotiate_client_certificate : bool prop option; [@option]
-      (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
-      (** ssl_keyvault_identity_client_id *)
 }
-[@@deriving yojson_of]
-(** hostname_configuration__proxy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hostname_configuration__proxy) -> ()
+
+let yojson_of_hostname_configuration__proxy =
+  (function
+   | {
+       certificate = v_certificate;
+       certificate_password = v_certificate_password;
+       default_ssl_binding = v_default_ssl_binding;
+       host_name = v_host_name;
+       key_vault_id = v_key_vault_id;
+       negotiate_client_certificate = v_negotiate_client_certificate;
+       ssl_keyvault_identity_client_id =
+         v_ssl_keyvault_identity_client_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ssl_keyvault_identity_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_keyvault_identity_client_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_negotiate_client_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "negotiate_client_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_vault_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host_name in
+         ("host_name", arg) :: bnds
+       in
+       let bnds =
+         match v_default_ssl_binding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "default_ssl_binding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hostname_configuration__proxy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hostname_configuration__proxy
+
+[@@@deriving.end]
 
 type hostname_configuration__scm = {
-  certificate : string prop option; [@option]  (** certificate *)
+  certificate : string prop option; [@option]
   certificate_password : string prop option; [@option]
-      (** certificate_password *)
-  host_name : string prop;  (** host_name *)
-  key_vault_id : string prop option; [@option]  (** key_vault_id *)
+  host_name : string prop;
+  key_vault_id : string prop option; [@option]
   negotiate_client_certificate : bool prop option; [@option]
-      (** negotiate_client_certificate *)
   ssl_keyvault_identity_client_id : string prop option; [@option]
-      (** ssl_keyvault_identity_client_id *)
 }
-[@@deriving yojson_of]
-(** hostname_configuration__scm *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hostname_configuration__scm) -> ()
+
+let yojson_of_hostname_configuration__scm =
+  (function
+   | {
+       certificate = v_certificate;
+       certificate_password = v_certificate_password;
+       host_name = v_host_name;
+       key_vault_id = v_key_vault_id;
+       negotiate_client_certificate = v_negotiate_client_certificate;
+       ssl_keyvault_identity_client_id =
+         v_ssl_keyvault_identity_client_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ssl_keyvault_identity_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_keyvault_identity_client_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_negotiate_client_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "negotiate_client_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_vault_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host_name in
+         ("host_name", arg) :: bnds
+       in
+       let bnds =
+         match v_certificate_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hostname_configuration__scm ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hostname_configuration__scm
+
+[@@@deriving.end]
 
 type hostname_configuration = {
   developer_portal : hostname_configuration__developer_portal list;
@@ -122,145 +619,619 @@ type hostname_configuration = {
   proxy : hostname_configuration__proxy list;
   scm : hostname_configuration__scm list;
 }
-[@@deriving yojson_of]
-(** hostname_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hostname_configuration) -> ()
+
+let yojson_of_hostname_configuration =
+  (function
+   | {
+       developer_portal = v_developer_portal;
+       management = v_management;
+       portal = v_portal;
+       proxy = v_proxy;
+       scm = v_scm;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_hostname_configuration__scm v_scm
+         in
+         ("scm", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_hostname_configuration__proxy
+             v_proxy
+         in
+         ("proxy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_hostname_configuration__portal
+             v_portal
+         in
+         ("portal", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_hostname_configuration__management
+             v_management
+         in
+         ("management", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_hostname_configuration__developer_portal
+             v_developer_portal
+         in
+         ("developer_portal", arg) :: bnds
+       in
+       `Assoc bnds
+    : hostname_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hostname_configuration
+
+[@@@deriving.end]
 
 type identity = {
   identity_ids : string prop list option; [@option]
-      (** identity_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity *)
+[@@deriving_inline yojson_of]
 
-type protocols = {
-  enable_http2 : bool prop option; [@option]  (** enable_http2 *)
-}
-[@@deriving yojson_of]
-(** protocols *)
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
+
+type protocols = { enable_http2 : bool prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : protocols) -> ()
+
+let yojson_of_protocols =
+  (function
+   | { enable_http2 = v_enable_http2 } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enable_http2 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_http2", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : protocols -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_protocols
+
+[@@@deriving.end]
 
 type security = {
   enable_backend_ssl30 : bool prop option; [@option]
-      (** enable_backend_ssl30 *)
   enable_backend_tls10 : bool prop option; [@option]
-      (** enable_backend_tls10 *)
   enable_backend_tls11 : bool prop option; [@option]
-      (** enable_backend_tls11 *)
   enable_frontend_ssl30 : bool prop option; [@option]
-      (** enable_frontend_ssl30 *)
   enable_frontend_tls10 : bool prop option; [@option]
-      (** enable_frontend_tls10 *)
   enable_frontend_tls11 : bool prop option; [@option]
-      (** enable_frontend_tls11 *)
   tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled :
     bool prop option;
       [@option]
-      (** tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled *)
   tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled :
     bool prop option;
       [@option]
-      (** tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled *)
   tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled :
     bool prop option;
       [@option]
-      (** tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled *)
   tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled :
     bool prop option;
       [@option]
-      (** tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled *)
   tls_rsa_with_aes128_cbc_sha256_ciphers_enabled : bool prop option;
       [@option]
-      (** tls_rsa_with_aes128_cbc_sha256_ciphers_enabled *)
   tls_rsa_with_aes128_cbc_sha_ciphers_enabled : bool prop option;
       [@option]
-      (** tls_rsa_with_aes128_cbc_sha_ciphers_enabled *)
   tls_rsa_with_aes128_gcm_sha256_ciphers_enabled : bool prop option;
       [@option]
-      (** tls_rsa_with_aes128_gcm_sha256_ciphers_enabled *)
   tls_rsa_with_aes256_cbc_sha256_ciphers_enabled : bool prop option;
       [@option]
-      (** tls_rsa_with_aes256_cbc_sha256_ciphers_enabled *)
   tls_rsa_with_aes256_cbc_sha_ciphers_enabled : bool prop option;
       [@option]
-      (** tls_rsa_with_aes256_cbc_sha_ciphers_enabled *)
   tls_rsa_with_aes256_gcm_sha384_ciphers_enabled : bool prop option;
       [@option]
-      (** tls_rsa_with_aes256_gcm_sha384_ciphers_enabled *)
   triple_des_ciphers_enabled : bool prop option; [@option]
-      (** triple_des_ciphers_enabled *)
 }
-[@@deriving yojson_of]
-(** security *)
+[@@deriving_inline yojson_of]
 
-type sign_in = { enabled : bool prop  (** enabled *) }
-[@@deriving yojson_of]
-(** sign_in *)
+let _ = fun (_ : security) -> ()
+
+let yojson_of_security =
+  (function
+   | {
+       enable_backend_ssl30 = v_enable_backend_ssl30;
+       enable_backend_tls10 = v_enable_backend_tls10;
+       enable_backend_tls11 = v_enable_backend_tls11;
+       enable_frontend_ssl30 = v_enable_frontend_ssl30;
+       enable_frontend_tls10 = v_enable_frontend_tls10;
+       enable_frontend_tls11 = v_enable_frontend_tls11;
+       tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled =
+         v_tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled;
+       tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled =
+         v_tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled;
+       tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled =
+         v_tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled;
+       tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled =
+         v_tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled;
+       tls_rsa_with_aes128_cbc_sha256_ciphers_enabled =
+         v_tls_rsa_with_aes128_cbc_sha256_ciphers_enabled;
+       tls_rsa_with_aes128_cbc_sha_ciphers_enabled =
+         v_tls_rsa_with_aes128_cbc_sha_ciphers_enabled;
+       tls_rsa_with_aes128_gcm_sha256_ciphers_enabled =
+         v_tls_rsa_with_aes128_gcm_sha256_ciphers_enabled;
+       tls_rsa_with_aes256_cbc_sha256_ciphers_enabled =
+         v_tls_rsa_with_aes256_cbc_sha256_ciphers_enabled;
+       tls_rsa_with_aes256_cbc_sha_ciphers_enabled =
+         v_tls_rsa_with_aes256_cbc_sha_ciphers_enabled;
+       tls_rsa_with_aes256_gcm_sha384_ciphers_enabled =
+         v_tls_rsa_with_aes256_gcm_sha384_ciphers_enabled;
+       triple_des_ciphers_enabled = v_triple_des_ciphers_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_triple_des_ciphers_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "triple_des_ciphers_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tls_rsa_with_aes256_gcm_sha384_ciphers_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "tls_rsa_with_aes256_gcm_sha384_ciphers_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tls_rsa_with_aes256_cbc_sha_ciphers_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "tls_rsa_with_aes256_cbc_sha_ciphers_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tls_rsa_with_aes256_cbc_sha256_ciphers_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "tls_rsa_with_aes256_cbc_sha256_ciphers_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tls_rsa_with_aes128_gcm_sha256_ciphers_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "tls_rsa_with_aes128_gcm_sha256_ciphers_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tls_rsa_with_aes128_cbc_sha_ciphers_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "tls_rsa_with_aes128_cbc_sha_ciphers_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tls_rsa_with_aes128_cbc_sha256_ciphers_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "tls_rsa_with_aes128_cbc_sha256_ciphers_enabled", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               ( "tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               ( "tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               ( "tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               ( "tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_frontend_tls11 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_frontend_tls11", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_frontend_tls10 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_frontend_tls10", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_frontend_ssl30 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_frontend_ssl30", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_backend_tls11 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_backend_tls11", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_backend_tls10 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_backend_tls10", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_backend_ssl30 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_backend_ssl30", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : security -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security
+
+[@@@deriving.end]
+
+type sign_in = { enabled : bool prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in) -> ()
+
+let yojson_of_sign_in =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : sign_in -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in
+
+[@@@deriving.end]
 
 type sign_up__terms_of_service = {
-  consent_required : bool prop;  (** consent_required *)
-  enabled : bool prop;  (** enabled *)
-  text : string prop option; [@option]  (** text *)
+  consent_required : bool prop;
+  enabled : bool prop;
+  text : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** sign_up__terms_of_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_up__terms_of_service) -> ()
+
+let yojson_of_sign_up__terms_of_service =
+  (function
+   | {
+       consent_required = v_consent_required;
+       enabled = v_enabled;
+       text = v_text;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "text", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_consent_required
+         in
+         ("consent_required", arg) :: bnds
+       in
+       `Assoc bnds
+    : sign_up__terms_of_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_up__terms_of_service
+
+[@@@deriving.end]
 
 type sign_up = {
-  enabled : bool prop;  (** enabled *)
+  enabled : bool prop;
   terms_of_service : sign_up__terms_of_service list;
 }
-[@@deriving yojson_of]
-(** sign_up *)
+[@@deriving_inline yojson_of]
 
-type tenant_access = { enabled : bool prop  (** enabled *) }
-[@@deriving yojson_of]
-(** tenant_access *)
+let _ = fun (_ : sign_up) -> ()
+
+let yojson_of_sign_up =
+  (function
+   | { enabled = v_enabled; terms_of_service = v_terms_of_service }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sign_up__terms_of_service
+             v_terms_of_service
+         in
+         ("terms_of_service", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : sign_up -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_up
+
+[@@@deriving.end]
+
+type tenant_access = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tenant_access) -> ()
+
+let yojson_of_tenant_access =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : tenant_access -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tenant_access
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type virtual_network_configuration = {
-  subnet_id : string prop;  (** subnet_id *)
-}
-[@@deriving yojson_of]
-(** virtual_network_configuration *)
+let _ = fun (_ : timeouts) -> ()
 
-type policy = {
-  xml_content : string prop;  (** xml_content *)
-  xml_link : string prop;  (** xml_link *)
-}
-[@@deriving yojson_of]
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type virtual_network_configuration = { subnet_id : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : virtual_network_configuration) -> ()
+
+let yojson_of_virtual_network_configuration =
+  (function
+   | { subnet_id = v_subnet_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : virtual_network_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_virtual_network_configuration
+
+[@@@deriving.end]
+
+type policy = { xml_content : string prop; xml_link : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : policy) -> ()
+
+let yojson_of_policy =
+  (function
+   | { xml_content = v_xml_content; xml_link = v_xml_link } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_xml_link in
+         ("xml_link", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_xml_content in
+         ("xml_content", arg) :: bnds
+       in
+       `Assoc bnds
+    : policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policy
+
+[@@@deriving.end]
 
 type azurerm_api_management = {
   client_certificate_enabled : bool prop option; [@option]
-      (** client_certificate_enabled *)
   gateway_disabled : bool prop option; [@option]
-      (** gateway_disabled *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
+  id : string prop option; [@option]
+  location : string prop;
   min_api_version : string prop option; [@option]
-      (** min_api_version *)
-  name : string prop;  (** name *)
+  name : string prop;
   notification_sender_email : string prop option; [@option]
-      (** notification_sender_email *)
-  policy : policy list option; [@option]  (** policy *)
+  policy : policy list option; [@option]
   public_ip_address_id : string prop option; [@option]
-      (** public_ip_address_id *)
   public_network_access_enabled : bool prop option; [@option]
-      (** public_network_access_enabled *)
-  publisher_email : string prop;  (** publisher_email *)
-  publisher_name : string prop;  (** publisher_name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  sku_name : string prop;  (** sku_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  publisher_email : string prop;
+  publisher_name : string prop;
+  resource_group_name : string prop;
+  sku_name : string prop;
+  tags : (string * string prop) list option; [@option]
   virtual_network_type : string prop option; [@option]
-      (** virtual_network_type *)
-  zones : string prop list option; [@option]  (** zones *)
+  zones : string prop list option; [@option]
   additional_location : additional_location list;
   certificate : certificate list;
   delegation : delegation list;
@@ -274,8 +1245,245 @@ type azurerm_api_management = {
   timeouts : timeouts option;
   virtual_network_configuration : virtual_network_configuration list;
 }
-[@@deriving yojson_of]
-(** azurerm_api_management *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_api_management) -> ()
+
+let yojson_of_azurerm_api_management =
+  (function
+   | {
+       client_certificate_enabled = v_client_certificate_enabled;
+       gateway_disabled = v_gateway_disabled;
+       id = v_id;
+       location = v_location;
+       min_api_version = v_min_api_version;
+       name = v_name;
+       notification_sender_email = v_notification_sender_email;
+       policy = v_policy;
+       public_ip_address_id = v_public_ip_address_id;
+       public_network_access_enabled =
+         v_public_network_access_enabled;
+       publisher_email = v_publisher_email;
+       publisher_name = v_publisher_name;
+       resource_group_name = v_resource_group_name;
+       sku_name = v_sku_name;
+       tags = v_tags;
+       virtual_network_type = v_virtual_network_type;
+       zones = v_zones;
+       additional_location = v_additional_location;
+       certificate = v_certificate;
+       delegation = v_delegation;
+       hostname_configuration = v_hostname_configuration;
+       identity = v_identity;
+       protocols = v_protocols;
+       security = v_security;
+       sign_in = v_sign_in;
+       sign_up = v_sign_up;
+       tenant_access = v_tenant_access;
+       timeouts = v_timeouts;
+       virtual_network_configuration =
+         v_virtual_network_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_virtual_network_configuration
+             v_virtual_network_configuration
+         in
+         ("virtual_network_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_tenant_access v_tenant_access
+         in
+         ("tenant_access", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sign_up v_sign_up in
+         ("sign_up", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sign_in v_sign_in in
+         ("sign_in", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_security v_security in
+         ("security", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_protocols v_protocols in
+         ("protocols", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity v_identity in
+         ("identity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_hostname_configuration
+             v_hostname_configuration
+         in
+         ("hostname_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_delegation v_delegation
+         in
+         ("delegation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_certificate v_certificate
+         in
+         ("certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_additional_location
+             v_additional_location
+         in
+         ("additional_location", arg) :: bnds
+       in
+       let bnds =
+         match v_zones with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "zones", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_virtual_network_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "virtual_network_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sku_name in
+         ("sku_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_publisher_name
+         in
+         ("publisher_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_publisher_email
+         in
+         ("publisher_email", arg) :: bnds
+       in
+       let bnds =
+         match v_public_network_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "public_network_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_ip_address_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "public_ip_address_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_list yojson_of_policy v in
+             let bnd = "policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notification_sender_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_sender_email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_min_api_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_api_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gateway_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "gateway_disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_certificate_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "client_certificate_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_api_management -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_api_management
+
+[@@@deriving.end]
 
 let additional_location__virtual_network_configuration ~subnet_id ()
     : additional_location__virtual_network_configuration =

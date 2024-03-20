@@ -3,26 +3,150 @@
 open! Tf_core
 
 type output_config = {
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
-  s3_output_location : string prop;  (** s3_output_location *)
+  kms_key_id : string prop option; [@option]
+  s3_output_location : string prop;
 }
-[@@deriving yojson_of]
-(** output_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : output_config) -> ()
+
+let yojson_of_output_config =
+  (function
+   | {
+       kms_key_id = v_kms_key_id;
+       s3_output_location = v_s3_output_location;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_s3_output_location
+         in
+         ("s3_output_location", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : output_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_output_config
+
+[@@@deriving.end]
 
 type aws_sagemaker_device_fleet = {
-  description : string prop option; [@option]  (** description *)
-  device_fleet_name : string prop;  (** device_fleet_name *)
+  description : string prop option; [@option]
+  device_fleet_name : string prop;
   enable_iot_role_alias : bool prop option; [@option]
-      (** enable_iot_role_alias *)
-  id : string prop option; [@option]  (** id *)
-  role_arn : string prop;  (** role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  role_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   output_config : output_config list;
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_device_fleet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sagemaker_device_fleet) -> ()
+
+let yojson_of_aws_sagemaker_device_fleet =
+  (function
+   | {
+       description = v_description;
+       device_fleet_name = v_device_fleet_name;
+       enable_iot_role_alias = v_enable_iot_role_alias;
+       id = v_id;
+       role_arn = v_role_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       output_config = v_output_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_output_config v_output_config
+         in
+         ("output_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_iot_role_alias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_iot_role_alias", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_device_fleet_name
+         in
+         ("device_fleet_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_device_fleet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sagemaker_device_fleet
+
+[@@@deriving.end]
 
 let output_config ?kms_key_id ~s3_output_location () : output_config
     =

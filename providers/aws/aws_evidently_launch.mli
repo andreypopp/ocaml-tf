@@ -9,6 +9,8 @@ type execution = {
   started_time : string prop;  (** started_time *)
 }
 
+[@@@deriving.end]
+
 type groups
 
 val groups :

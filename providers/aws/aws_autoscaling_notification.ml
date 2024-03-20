@@ -3,13 +3,61 @@
 open! Tf_core
 
 type aws_autoscaling_notification = {
-  group_names : string prop list;  (** group_names *)
-  id : string prop option; [@option]  (** id *)
-  notifications : string prop list;  (** notifications *)
-  topic_arn : string prop;  (** topic_arn *)
+  group_names : string prop list;
+  id : string prop option; [@option]
+  notifications : string prop list;
+  topic_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_autoscaling_notification *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_autoscaling_notification) -> ()
+
+let yojson_of_aws_autoscaling_notification =
+  (function
+   | {
+       group_names = v_group_names;
+       id = v_id;
+       notifications = v_notifications;
+       topic_arn = v_topic_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic_arn in
+         ("topic_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_notifications
+         in
+         ("notifications", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_group_names
+         in
+         ("group_names", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_autoscaling_notification ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_autoscaling_notification
+
+[@@@deriving.end]
 
 let aws_autoscaling_notification ?id ~group_names ~notifications
     ~topic_arn () : aws_autoscaling_notification =

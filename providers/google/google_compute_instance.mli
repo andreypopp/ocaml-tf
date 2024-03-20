@@ -9,6 +9,8 @@ type guest_accelerator = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+[@@@deriving.end]
+
 type advanced_machine_features
 
 val advanced_machine_features :

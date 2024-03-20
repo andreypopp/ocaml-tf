@@ -3,14 +3,59 @@
 open! Tf_core
 
 type aws_cloudwatch_query_definition = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   log_group_names : string prop list option; [@option]
-      (** log_group_names *)
-  name : string prop;  (** name *)
-  query_string : string prop;  (** query_string *)
+  name : string prop;
+  query_string : string prop;
 }
-[@@deriving yojson_of]
-(** aws_cloudwatch_query_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudwatch_query_definition) -> ()
+
+let yojson_of_aws_cloudwatch_query_definition =
+  (function
+   | {
+       id = v_id;
+       log_group_names = v_log_group_names;
+       name = v_name;
+       query_string = v_query_string;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_query_string in
+         ("query_string", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_log_group_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "log_group_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudwatch_query_definition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudwatch_query_definition
+
+[@@@deriving.end]
 
 let aws_cloudwatch_query_definition ?id ?log_group_names ~name
     ~query_string () : aws_cloudwatch_query_definition =

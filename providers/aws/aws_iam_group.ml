@@ -3,12 +3,46 @@
 open! Tf_core
 
 type aws_iam_group = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  path : string prop option; [@option]  (** path *)
+  id : string prop option; [@option]
+  name : string prop;
+  path : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_iam_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_group) -> ()
+
+let yojson_of_aws_iam_group =
+  (function
+   | { id = v_id; name = v_name; path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_group
+
+[@@@deriving.end]
 
 let aws_iam_group ?id ?path ~name () : aws_iam_group =
   { id; name; path }

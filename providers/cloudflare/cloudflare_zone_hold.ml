@@ -3,19 +3,66 @@
 open! Tf_core
 
 type cloudflare_zone_hold = {
-  hold : bool prop;  (** Enablement status of the zone hold. *)
+  hold : bool prop;
   hold_after : string prop option; [@option]
-      (** The RFC3339 compatible timestamp when to automatically re-enable the zone hold. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   include_subdomains : bool prop option; [@option]
-      (** Whether to extend to block any subdomain of the given zone. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Zone Hold resource that prevents adding
-the hostname to another account for use.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_zone_hold) -> ()
+
+let yojson_of_cloudflare_zone_hold =
+  (function
+   | {
+       hold = v_hold;
+       hold_after = v_hold_after;
+       id = v_id;
+       include_subdomains = v_include_subdomains;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_include_subdomains with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_subdomains", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hold_after with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "hold_after", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_hold in
+         ("hold", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_zone_hold -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_zone_hold
+
+[@@@deriving.end]
 
 let cloudflare_zone_hold ?hold_after ?id ?include_subdomains ~hold
     ~zone_id () : cloudflare_zone_hold =

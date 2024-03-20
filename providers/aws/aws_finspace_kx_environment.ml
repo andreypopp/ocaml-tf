@@ -3,39 +3,162 @@
 open! Tf_core
 
 type custom_dns_configuration = {
-  custom_dns_server_ip : string prop;  (** custom_dns_server_ip *)
-  custom_dns_server_name : string prop;  (** custom_dns_server_name *)
+  custom_dns_server_ip : string prop;
+  custom_dns_server_name : string prop;
 }
-[@@deriving yojson_of]
-(** custom_dns_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_dns_configuration) -> ()
+
+let yojson_of_custom_dns_configuration =
+  (function
+   | {
+       custom_dns_server_ip = v_custom_dns_server_ip;
+       custom_dns_server_name = v_custom_dns_server_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_custom_dns_server_name
+         in
+         ("custom_dns_server_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_custom_dns_server_ip
+         in
+         ("custom_dns_server_ip", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_dns_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_dns_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code = {
-  code : float prop;  (** code *)
-  type_ : float prop; [@key "type"]  (** type *)
+  code : float prop;
+  type_ : float prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code) ->
+  ()
+
+let yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code
+    =
+  (function
+   | { code = v_code; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_code in
+         ("code", arg) :: bnds
+       in
+       `Assoc bnds
+    : transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code
+
+[@@@deriving.end]
 
 type transit_gateway_configuration__attachment_network_acl_configuration__port_range = {
-  from : float prop;  (** from *)
-  to_ : float prop; [@key "to"]  (** to *)
+  from : float prop;
+  to_ : float prop; [@key "to"]
 }
-[@@deriving yojson_of]
-(** transit_gateway_configuration__attachment_network_acl_configuration__port_range *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       transit_gateway_configuration__attachment_network_acl_configuration__port_range) ->
+  ()
+
+let yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__port_range
+    =
+  (function
+   | { from = v_from; to_ = v_to_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_to_ in
+         ("to", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_from in
+         ("from", arg) :: bnds
+       in
+       `Assoc bnds
+    : transit_gateway_configuration__attachment_network_acl_configuration__port_range ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__port_range
+
+[@@@deriving.end]
 
 type transit_gateway_configuration__attachment_network_acl_configuration = {
-  cidr_block : string prop;  (** cidr_block *)
-  protocol : string prop;  (** protocol *)
-  rule_action : string prop;  (** rule_action *)
-  rule_number : float prop;  (** rule_number *)
+  cidr_block : string prop;
+  protocol : string prop;
+  rule_action : string prop;
+  rule_number : float prop;
   icmp_type_code :
     transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code
     list;
@@ -43,32 +166,221 @@ type transit_gateway_configuration__attachment_network_acl_configuration = {
     transit_gateway_configuration__attachment_network_acl_configuration__port_range
     list;
 }
-[@@deriving yojson_of]
-(** transit_gateway_configuration__attachment_network_acl_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       transit_gateway_configuration__attachment_network_acl_configuration) ->
+  ()
+
+let yojson_of_transit_gateway_configuration__attachment_network_acl_configuration
+    =
+  (function
+   | {
+       cidr_block = v_cidr_block;
+       protocol = v_protocol;
+       rule_action = v_rule_action;
+       rule_number = v_rule_number;
+       icmp_type_code = v_icmp_type_code;
+       port_range = v_port_range;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__port_range
+             v_port_range
+         in
+         ("port_range", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transit_gateway_configuration__attachment_network_acl_configuration__icmp_type_code
+             v_icmp_type_code
+         in
+         ("icmp_type_code", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_rule_number in
+         ("rule_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule_action in
+         ("rule_action", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cidr_block in
+         ("cidr_block", arg) :: bnds
+       in
+       `Assoc bnds
+    : transit_gateway_configuration__attachment_network_acl_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_transit_gateway_configuration__attachment_network_acl_configuration
+
+[@@@deriving.end]
 
 type transit_gateway_configuration = {
-  routable_cidr_space : string prop;  (** routable_cidr_space *)
-  transit_gateway_id : string prop;  (** transit_gateway_id *)
+  routable_cidr_space : string prop;
+  transit_gateway_id : string prop;
   attachment_network_acl_configuration :
     transit_gateway_configuration__attachment_network_acl_configuration
     list;
 }
-[@@deriving yojson_of]
-(** transit_gateway_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : transit_gateway_configuration) -> ()
+
+let yojson_of_transit_gateway_configuration =
+  (function
+   | {
+       routable_cidr_space = v_routable_cidr_space;
+       transit_gateway_id = v_transit_gateway_id;
+       attachment_network_acl_configuration =
+         v_attachment_network_acl_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_transit_gateway_configuration__attachment_network_acl_configuration
+             v_attachment_network_acl_configuration
+         in
+         ("attachment_network_acl_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_transit_gateway_id
+         in
+         ("transit_gateway_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_routable_cidr_space
+         in
+         ("routable_cidr_space", arg) :: bnds
+       in
+       `Assoc bnds
+    : transit_gateway_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_transit_gateway_configuration
+
+[@@@deriving.end]
 
 type aws_finspace_kx_environment = {
-  description : string prop option; [@option]  (** description *)
-  kms_key_id : string prop;  (** kms_key_id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  kms_key_id : string prop;
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   custom_dns_configuration : custom_dns_configuration list;
   timeouts : timeouts option;
   transit_gateway_configuration : transit_gateway_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_finspace_kx_environment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_finspace_kx_environment) -> ()
+
+let yojson_of_aws_finspace_kx_environment =
+  (function
+   | {
+       description = v_description;
+       kms_key_id = v_kms_key_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       custom_dns_configuration = v_custom_dns_configuration;
+       timeouts = v_timeouts;
+       transit_gateway_configuration =
+         v_transit_gateway_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_transit_gateway_configuration
+             v_transit_gateway_configuration
+         in
+         ("transit_gateway_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_dns_configuration
+             v_custom_dns_configuration
+         in
+         ("custom_dns_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_id in
+         ("kms_key_id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_finspace_kx_environment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_finspace_kx_environment
+
+[@@@deriving.end]
 
 let custom_dns_configuration ~custom_dns_server_ip
     ~custom_dns_server_name () : custom_dns_configuration =

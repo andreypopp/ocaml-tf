@@ -3,62 +3,385 @@
 open! Tf_core
 
 type override_provider__default_tags = {
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
 }
-[@@deriving yojson_of]
-(** override_provider__default_tags *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : override_provider__default_tags) -> ()
+
+let yojson_of_override_provider__default_tags =
+  (function
+   | { tags = v_tags } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : override_provider__default_tags ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_override_provider__default_tags
+
+[@@@deriving.end]
 
 type override_provider = {
   default_tags : override_provider__default_tags list;
 }
-[@@deriving yojson_of]
-(** override_provider *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : override_provider) -> ()
+
+let yojson_of_override_provider =
+  (function
+   | { default_tags = v_default_tags } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_override_provider__default_tags
+             v_default_tags
+         in
+         ("default_tags", arg) :: bnds
+       in
+       `Assoc bnds
+    : override_provider -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_override_provider
+
+[@@@deriving.end]
 
 type aws_s3_object = {
-  acl : string prop option; [@option]  (** acl *)
-  bucket : string prop;  (** bucket *)
+  acl : string prop option; [@option]
+  bucket : string prop;
   bucket_key_enabled : bool prop option; [@option]
-      (** bucket_key_enabled *)
-  cache_control : string prop option; [@option]  (** cache_control *)
+  cache_control : string prop option; [@option]
   checksum_algorithm : string prop option; [@option]
-      (** checksum_algorithm *)
-  content : string prop option; [@option]  (** content *)
+  content : string prop option; [@option]
   content_base64 : string prop option; [@option]
-      (** content_base64 *)
   content_disposition : string prop option; [@option]
-      (** content_disposition *)
   content_encoding : string prop option; [@option]
-      (** content_encoding *)
   content_language : string prop option; [@option]
-      (** content_language *)
-  content_type : string prop option; [@option]  (** content_type *)
-  etag : string prop option; [@option]  (** etag *)
-  force_destroy : bool prop option; [@option]  (** force_destroy *)
-  id : string prop option; [@option]  (** id *)
-  key : string prop;  (** key *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  content_type : string prop option; [@option]
+  etag : string prop option; [@option]
+  force_destroy : bool prop option; [@option]
+  id : string prop option; [@option]
+  key : string prop;
+  kms_key_id : string prop option; [@option]
   metadata : (string * string prop) list option; [@option]
-      (** metadata *)
   object_lock_legal_hold_status : string prop option; [@option]
-      (** object_lock_legal_hold_status *)
   object_lock_mode : string prop option; [@option]
-      (** object_lock_mode *)
   object_lock_retain_until_date : string prop option; [@option]
-      (** object_lock_retain_until_date *)
   server_side_encryption : string prop option; [@option]
-      (** server_side_encryption *)
-  source : string prop option; [@option]  (** source *)
-  source_hash : string prop option; [@option]  (** source_hash *)
-  storage_class : string prop option; [@option]  (** storage_class *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  source : string prop option; [@option]
+  source_hash : string prop option; [@option]
+  storage_class : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   website_redirect : string prop option; [@option]
-      (** website_redirect *)
   override_provider : override_provider list;
 }
-[@@deriving yojson_of]
-(** aws_s3_object *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_s3_object) -> ()
+
+let yojson_of_aws_s3_object =
+  (function
+   | {
+       acl = v_acl;
+       bucket = v_bucket;
+       bucket_key_enabled = v_bucket_key_enabled;
+       cache_control = v_cache_control;
+       checksum_algorithm = v_checksum_algorithm;
+       content = v_content;
+       content_base64 = v_content_base64;
+       content_disposition = v_content_disposition;
+       content_encoding = v_content_encoding;
+       content_language = v_content_language;
+       content_type = v_content_type;
+       etag = v_etag;
+       force_destroy = v_force_destroy;
+       id = v_id;
+       key = v_key;
+       kms_key_id = v_kms_key_id;
+       metadata = v_metadata;
+       object_lock_legal_hold_status =
+         v_object_lock_legal_hold_status;
+       object_lock_mode = v_object_lock_mode;
+       object_lock_retain_until_date =
+         v_object_lock_retain_until_date;
+       server_side_encryption = v_server_side_encryption;
+       source = v_source;
+       source_hash = v_source_hash;
+       storage_class = v_storage_class;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       website_redirect = v_website_redirect;
+       override_provider = v_override_provider;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_override_provider
+             v_override_provider
+         in
+         ("override_provider", arg) :: bnds
+       in
+       let bnds =
+         match v_website_redirect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "website_redirect", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_hash with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_hash", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_server_side_encryption with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "server_side_encryption", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_object_lock_retain_until_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_lock_retain_until_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_object_lock_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_lock_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_object_lock_legal_hold_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_lock_legal_hold_status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_etag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "etag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_language with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_language", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_encoding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_disposition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_disposition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_base64 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_base64", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_checksum_algorithm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "checksum_algorithm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cache_control with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cache_control", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bucket_key_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bucket_key_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       let bnds =
+         match v_acl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "acl", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_s3_object -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3_object
+
+[@@@deriving.end]
 
 let override_provider__default_tags ?tags () :
     override_provider__default_tags =

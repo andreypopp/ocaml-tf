@@ -12,10 +12,14 @@ type status__conditions = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+[@@@deriving.end]
+
 type status = {
   conditions : status__conditions list;  (** conditions *)
   error_message : string prop;  (** error_message *)
 }
+
+[@@@deriving.end]
 
 type node_pool_config__node_configs
 

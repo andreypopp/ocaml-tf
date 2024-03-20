@@ -4,52 +4,261 @@ open! Tf_core
 
 type allowed_topologies__match_label_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   values : string prop list option; [@option]
-      (** An array of string values. One value must match the label to be selected. *)
 }
-[@@deriving yojson_of]
-(** A list of topology selector requirements by labels. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : allowed_topologies__match_label_expressions) -> ()
+
+let yojson_of_allowed_topologies__match_label_expressions =
+  (function
+   | { key = v_key; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : allowed_topologies__match_label_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_allowed_topologies__match_label_expressions
+
+[@@@deriving.end]
 
 type allowed_topologies = {
   match_label_expressions :
     allowed_topologies__match_label_expressions list;
 }
-[@@deriving yojson_of]
-(** Restrict the node topologies where volumes can be dynamically provisioned. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : allowed_topologies) -> ()
+
+let yojson_of_allowed_topologies =
+  (function
+   | { match_label_expressions = v_match_label_expressions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_allowed_topologies__match_label_expressions
+             v_match_label_expressions
+         in
+         ("match_label_expressions", arg) :: bnds
+       in
+       `Assoc bnds
+    : allowed_topologies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_allowed_topologies
+
+[@@@deriving.end]
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the storage class that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the storage class. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the storage class, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Standard storage class's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type kubernetes_storage_class = {
   allow_volume_expansion : bool prop option; [@option]
-      (** Indicates whether the storage class allow volume expand *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   mount_options : string prop list option; [@option]
-      (** Persistent Volumes that are dynamically created by a storage class will have the mount options specified *)
   parameters : (string * string prop) list option; [@option]
-      (** The parameters for the provisioner that should create volumes of this storage class *)
   reclaim_policy : string prop option; [@option]
-      (** Indicates the type of the reclaim policy *)
   storage_provisioner : string prop;
-      (** Indicates the type of the provisioner *)
   volume_binding_mode : string prop option; [@option]
-      (** Indicates when volume binding and dynamic provisioning should occur *)
   allowed_topologies : allowed_topologies list;
   metadata : metadata list;
 }
-[@@deriving yojson_of]
-(** kubernetes_storage_class *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_storage_class) -> ()
+
+let yojson_of_kubernetes_storage_class =
+  (function
+   | {
+       allow_volume_expansion = v_allow_volume_expansion;
+       id = v_id;
+       mount_options = v_mount_options;
+       parameters = v_parameters;
+       reclaim_policy = v_reclaim_policy;
+       storage_provisioner = v_storage_provisioner;
+       volume_binding_mode = v_volume_binding_mode;
+       allowed_topologies = v_allowed_topologies;
+       metadata = v_metadata;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_allowed_topologies
+             v_allowed_topologies
+         in
+         ("allowed_topologies", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_binding_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_binding_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_storage_provisioner
+         in
+         ("storage_provisioner", arg) :: bnds
+       in
+       let bnds =
+         match v_reclaim_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "reclaim_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mount_options with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "mount_options", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_volume_expansion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_volume_expansion", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_storage_class -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_storage_class
+
+[@@@deriving.end]
 
 let allowed_topologies__match_label_expressions ?key ?values () :
     allowed_topologies__match_label_expressions =

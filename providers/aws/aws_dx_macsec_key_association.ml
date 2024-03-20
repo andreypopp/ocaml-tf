@@ -3,14 +3,71 @@
 open! Tf_core
 
 type aws_dx_macsec_key_association = {
-  cak : string prop option; [@option]  (** cak *)
-  ckn : string prop option; [@option]  (** ckn *)
-  connection_id : string prop;  (** connection_id *)
-  id : string prop option; [@option]  (** id *)
-  secret_arn : string prop option; [@option]  (** secret_arn *)
+  cak : string prop option; [@option]
+  ckn : string prop option; [@option]
+  connection_id : string prop;
+  id : string prop option; [@option]
+  secret_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_dx_macsec_key_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dx_macsec_key_association) -> ()
+
+let yojson_of_aws_dx_macsec_key_association =
+  (function
+   | {
+       cak = v_cak;
+       ckn = v_ckn;
+       connection_id = v_connection_id;
+       id = v_id;
+       secret_arn = v_secret_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_secret_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_connection_id in
+         ("connection_id", arg) :: bnds
+       in
+       let bnds =
+         match v_ckn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ckn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cak with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cak", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_dx_macsec_key_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dx_macsec_key_association
+
+[@@@deriving.end]
 
 let aws_dx_macsec_key_association ?cak ?ckn ?id ?secret_arn
     ~connection_id () : aws_dx_macsec_key_association =

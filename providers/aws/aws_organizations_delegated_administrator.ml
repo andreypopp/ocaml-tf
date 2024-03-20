@@ -3,12 +3,49 @@
 open! Tf_core
 
 type aws_organizations_delegated_administrator = {
-  account_id : string prop;  (** account_id *)
-  id : string prop option; [@option]  (** id *)
-  service_principal : string prop;  (** service_principal *)
+  account_id : string prop;
+  id : string prop option; [@option]
+  service_principal : string prop;
 }
-[@@deriving yojson_of]
-(** aws_organizations_delegated_administrator *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_organizations_delegated_administrator) -> ()
+
+let yojson_of_aws_organizations_delegated_administrator =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       service_principal = v_service_principal;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_principal
+         in
+         ("service_principal", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_organizations_delegated_administrator ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_organizations_delegated_administrator
+
+[@@@deriving.end]
 
 let aws_organizations_delegated_administrator ?id ~account_id
     ~service_principal () : aws_organizations_delegated_administrator

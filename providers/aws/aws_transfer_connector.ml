@@ -3,42 +3,234 @@
 open! Tf_core
 
 type as2_config = {
-  compression : string prop;  (** compression *)
-  encryption_algorithm : string prop;  (** encryption_algorithm *)
-  local_profile_id : string prop;  (** local_profile_id *)
-  mdn_response : string prop;  (** mdn_response *)
+  compression : string prop;
+  encryption_algorithm : string prop;
+  local_profile_id : string prop;
+  mdn_response : string prop;
   mdn_signing_algorithm : string prop option; [@option]
-      (** mdn_signing_algorithm *)
   message_subject : string prop option; [@option]
-      (** message_subject *)
-  partner_profile_id : string prop;  (** partner_profile_id *)
-  signing_algorithm : string prop;  (** signing_algorithm *)
+  partner_profile_id : string prop;
+  signing_algorithm : string prop;
 }
-[@@deriving yojson_of]
-(** as2_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : as2_config) -> ()
+
+let yojson_of_as2_config =
+  (function
+   | {
+       compression = v_compression;
+       encryption_algorithm = v_encryption_algorithm;
+       local_profile_id = v_local_profile_id;
+       mdn_response = v_mdn_response;
+       mdn_signing_algorithm = v_mdn_signing_algorithm;
+       message_subject = v_message_subject;
+       partner_profile_id = v_partner_profile_id;
+       signing_algorithm = v_signing_algorithm;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_signing_algorithm
+         in
+         ("signing_algorithm", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_partner_profile_id
+         in
+         ("partner_profile_id", arg) :: bnds
+       in
+       let bnds =
+         match v_message_subject with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "message_subject", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mdn_signing_algorithm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mdn_signing_algorithm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mdn_response in
+         ("mdn_response", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_local_profile_id
+         in
+         ("local_profile_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_encryption_algorithm
+         in
+         ("encryption_algorithm", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_compression in
+         ("compression", arg) :: bnds
+       in
+       `Assoc bnds
+    : as2_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_as2_config
+
+[@@@deriving.end]
 
 type sftp_config = {
   trusted_host_keys : string prop list option; [@option]
-      (** trusted_host_keys *)
   user_secret_id : string prop option; [@option]
-      (** user_secret_id *)
 }
-[@@deriving yojson_of]
-(** sftp_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sftp_config) -> ()
+
+let yojson_of_sftp_config =
+  (function
+   | {
+       trusted_host_keys = v_trusted_host_keys;
+       user_secret_id = v_user_secret_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user_secret_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_secret_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_trusted_host_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "trusted_host_keys", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sftp_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sftp_config
+
+[@@@deriving.end]
 
 type aws_transfer_connector = {
-  access_role : string prop;  (** access_role *)
-  id : string prop option; [@option]  (** id *)
-  logging_role : string prop option; [@option]  (** logging_role *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  access_role : string prop;
+  id : string prop option; [@option]
+  logging_role : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  url : string prop;  (** url *)
+  url : string prop;
   as2_config : as2_config list;
   sftp_config : sftp_config list;
 }
-[@@deriving yojson_of]
-(** aws_transfer_connector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_transfer_connector) -> ()
+
+let yojson_of_aws_transfer_connector =
+  (function
+   | {
+       access_role = v_access_role;
+       id = v_id;
+       logging_role = v_logging_role;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       url = v_url;
+       as2_config = v_as2_config;
+       sftp_config = v_sftp_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sftp_config v_sftp_config
+         in
+         ("sftp_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_as2_config v_as2_config
+         in
+         ("as2_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_logging_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "logging_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_access_role in
+         ("access_role", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_transfer_connector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_transfer_connector
+
+[@@@deriving.end]
 
 let as2_config ?mdn_signing_algorithm ?message_subject ~compression
     ~encryption_algorithm ~local_profile_id ~mdn_response

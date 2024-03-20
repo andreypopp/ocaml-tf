@@ -3,20 +3,20 @@
 open! Tf_core
 
 type regular_expression = {
-  regex_string: string prop;  (** regex_string *)
-} [@@deriving yojson_of]
-(** regular_expression *)
+  regex_string: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type aws_wafv2_regex_pattern_set = {
-  description: string  prop option; [@option] (** description *)
-  id: string  prop option; [@option] (** id *)
-  name: string prop;  (** name *)
-  scope: string prop;  (** scope *)
-  tags: (string * string   prop) list option; [@option] (** tags *)
-  tags_all: (string * string   prop) list option; [@option] (** tags_all *)
+  description: string  prop option; [@option]
+  id: string  prop option; [@option]
+  name: string prop; 
+  scope: string prop; 
+  tags: (string * string   prop) list option; [@option]
+  tags_all: (string * string   prop) list option; [@option]
   regular_expression: regular_expression list;
-} [@@deriving yojson_of]
-(** aws_wafv2_regex_pattern_set *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let regular_expression ~regex_string () =
   ({

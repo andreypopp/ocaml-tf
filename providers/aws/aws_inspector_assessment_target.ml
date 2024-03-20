@@ -3,13 +3,51 @@
 open! Tf_core
 
 type aws_inspector_assessment_target = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   resource_group_arn : string prop option; [@option]
-      (** resource_group_arn *)
 }
-[@@deriving yojson_of]
-(** aws_inspector_assessment_target *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_inspector_assessment_target) -> ()
+
+let yojson_of_aws_inspector_assessment_target =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       resource_group_arn = v_resource_group_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_resource_group_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_group_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_inspector_assessment_target ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_inspector_assessment_target
+
+[@@@deriving.end]
 
 let aws_inspector_assessment_target ?id ?resource_group_arn ~name ()
     : aws_inspector_assessment_target =

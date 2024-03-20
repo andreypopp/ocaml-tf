@@ -12,6 +12,8 @@ type circuit = {
   secondary_subnet_cidr : string prop;  (** secondary_subnet_cidr *)
 }
 
+[@@@deriving.end]
+
 type management_cluster
 
 val management_cluster :

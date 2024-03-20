@@ -10,10 +10,14 @@ type hls_ingest__ingest_endpoints = {
   username : string prop;  (** username *)
 }
 
+[@@@deriving.end]
+
 type hls_ingest = {
   ingest_endpoints : hls_ingest__ingest_endpoints list;
       (** ingest_endpoints *)
 }
+
+[@@@deriving.end]
 
 type aws_media_package_channel
 

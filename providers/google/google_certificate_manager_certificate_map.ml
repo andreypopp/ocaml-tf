@@ -3,44 +3,207 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type gclb_targets__ip_configs = {
-  ip_address : string prop;  (** ip_address *)
-  ports : float prop list;  (** ports *)
+  ip_address : string prop;
+  ports : float prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : gclb_targets__ip_configs) -> ()
+
+let yojson_of_gclb_targets__ip_configs =
+  (function
+   | { ip_address = v_ip_address; ports = v_ports } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_float) v_ports
+         in
+         ("ports", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_address in
+         ("ip_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : gclb_targets__ip_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gclb_targets__ip_configs
+
+[@@@deriving.end]
 
 type gclb_targets = {
-  ip_configs : gclb_targets__ip_configs list;  (** ip_configs *)
-  target_https_proxy : string prop;  (** target_https_proxy *)
-  target_ssl_proxy : string prop;  (** target_ssl_proxy *)
+  ip_configs : gclb_targets__ip_configs list;
+  target_https_proxy : string prop;
+  target_ssl_proxy : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : gclb_targets) -> ()
+
+let yojson_of_gclb_targets =
+  (function
+   | {
+       ip_configs = v_ip_configs;
+       target_https_proxy = v_target_https_proxy;
+       target_ssl_proxy = v_target_ssl_proxy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_ssl_proxy
+         in
+         ("target_ssl_proxy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_https_proxy
+         in
+         ("target_https_proxy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_gclb_targets__ip_configs
+             v_ip_configs
+         in
+         ("ip_configs", arg) :: bnds
+       in
+       `Assoc bnds
+    : gclb_targets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gclb_targets
+
+[@@@deriving.end]
 
 type google_certificate_manager_certificate_map = {
   description : string prop option; [@option]
-      (** A human-readable description of the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Set of labels associated with a Certificate Map resource.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** A user-defined name of the Certificate Map. Certificate Map names must be unique
-globally and match the pattern 'projects/*/locations/*/certificateMaps/*'. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_certificate_manager_certificate_map *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_certificate_manager_certificate_map) -> ()
+
+let yojson_of_google_certificate_manager_certificate_map =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_certificate_manager_certificate_map ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_certificate_manager_certificate_map
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

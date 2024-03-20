@@ -3,32 +3,154 @@
 open! Tf_core
 
 type exclude_map = {
-  account : string prop list option; [@option]  (** account *)
-  orgunit : string prop list option; [@option]  (** orgunit *)
+  account : string prop list option; [@option]
+  orgunit : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** exclude_map *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude_map) -> ()
+
+let yojson_of_exclude_map =
+  (function
+   | { account = v_account; orgunit = v_orgunit } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_orgunit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "orgunit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "account", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : exclude_map -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude_map
+
+[@@@deriving.end]
 
 type include_map = {
-  account : string prop list option; [@option]  (** account *)
-  orgunit : string prop list option; [@option]  (** orgunit *)
+  account : string prop list option; [@option]
+  orgunit : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** include_map *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include_map) -> ()
+
+let yojson_of_include_map =
+  (function
+   | { account = v_account; orgunit = v_orgunit } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_orgunit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "orgunit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "account", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : include_map -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include_map
+
+[@@@deriving.end]
 
 type security_service_policy_data__policy_option__network_firewall_policy = {
   firewall_deployment_model : string prop option; [@option]
-      (** firewall_deployment_model *)
 }
-[@@deriving yojson_of]
-(** security_service_policy_data__policy_option__network_firewall_policy *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       security_service_policy_data__policy_option__network_firewall_policy) ->
+  ()
+
+let yojson_of_security_service_policy_data__policy_option__network_firewall_policy
+    =
+  (function
+   | { firewall_deployment_model = v_firewall_deployment_model } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_firewall_deployment_model with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "firewall_deployment_model", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : security_service_policy_data__policy_option__network_firewall_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_security_service_policy_data__policy_option__network_firewall_policy
+
+[@@@deriving.end]
 
 type security_service_policy_data__policy_option__third_party_firewall_policy = {
   firewall_deployment_model : string prop option; [@option]
-      (** firewall_deployment_model *)
 }
-[@@deriving yojson_of]
-(** security_service_policy_data__policy_option__third_party_firewall_policy *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       security_service_policy_data__policy_option__third_party_firewall_policy) ->
+  ()
+
+let yojson_of_security_service_policy_data__policy_option__third_party_firewall_policy
+    =
+  (function
+   | { firewall_deployment_model = v_firewall_deployment_model } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_firewall_deployment_model with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "firewall_deployment_model", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : security_service_policy_data__policy_option__third_party_firewall_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_security_service_policy_data__policy_option__third_party_firewall_policy
+
+[@@@deriving.end]
 
 type security_service_policy_data__policy_option = {
   network_firewall_policy :
@@ -38,43 +160,275 @@ type security_service_policy_data__policy_option = {
     security_service_policy_data__policy_option__third_party_firewall_policy
     list;
 }
-[@@deriving yojson_of]
-(** security_service_policy_data__policy_option *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : security_service_policy_data__policy_option) -> ()
+
+let yojson_of_security_service_policy_data__policy_option =
+  (function
+   | {
+       network_firewall_policy = v_network_firewall_policy;
+       third_party_firewall_policy = v_third_party_firewall_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_security_service_policy_data__policy_option__third_party_firewall_policy
+             v_third_party_firewall_policy
+         in
+         ("third_party_firewall_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_security_service_policy_data__policy_option__network_firewall_policy
+             v_network_firewall_policy
+         in
+         ("network_firewall_policy", arg) :: bnds
+       in
+       `Assoc bnds
+    : security_service_policy_data__policy_option ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_service_policy_data__policy_option
+
+[@@@deriving.end]
 
 type security_service_policy_data = {
   managed_service_data : string prop option; [@option]
-      (** managed_service_data *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
   policy_option : security_service_policy_data__policy_option list;
 }
-[@@deriving yojson_of]
-(** security_service_policy_data *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : security_service_policy_data) -> ()
+
+let yojson_of_security_service_policy_data =
+  (function
+   | {
+       managed_service_data = v_managed_service_data;
+       type_ = v_type_;
+       policy_option = v_policy_option;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_security_service_policy_data__policy_option
+             v_policy_option
+         in
+         ("policy_option", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_managed_service_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_service_data", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : security_service_policy_data ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_service_policy_data
+
+[@@@deriving.end]
 
 type aws_fms_policy = {
   delete_all_policy_resources : bool prop option; [@option]
-      (** delete_all_policy_resources *)
   delete_unused_fm_managed_resources : bool prop option; [@option]
-      (** delete_unused_fm_managed_resources *)
-  description : string prop option; [@option]  (** description *)
-  exclude_resource_tags : bool prop;  (** exclude_resource_tags *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  description : string prop option; [@option]
+  exclude_resource_tags : bool prop;
+  id : string prop option; [@option]
+  name : string prop;
   remediation_enabled : bool prop option; [@option]
-      (** remediation_enabled *)
   resource_tags : (string * string prop) list option; [@option]
-      (** resource_tags *)
-  resource_type : string prop option; [@option]  (** resource_type *)
+  resource_type : string prop option; [@option]
   resource_type_list : string prop list option; [@option]
-      (** resource_type_list *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   exclude_map : exclude_map list;
   include_map : include_map list;
   security_service_policy_data : security_service_policy_data list;
 }
-[@@deriving yojson_of]
-(** aws_fms_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_fms_policy) -> ()
+
+let yojson_of_aws_fms_policy =
+  (function
+   | {
+       delete_all_policy_resources = v_delete_all_policy_resources;
+       delete_unused_fm_managed_resources =
+         v_delete_unused_fm_managed_resources;
+       description = v_description;
+       exclude_resource_tags = v_exclude_resource_tags;
+       id = v_id;
+       name = v_name;
+       remediation_enabled = v_remediation_enabled;
+       resource_tags = v_resource_tags;
+       resource_type = v_resource_type;
+       resource_type_list = v_resource_type_list;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       exclude_map = v_exclude_map;
+       include_map = v_include_map;
+       security_service_policy_data = v_security_service_policy_data;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_security_service_policy_data
+             v_security_service_policy_data
+         in
+         ("security_service_policy_data", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_include_map v_include_map
+         in
+         ("include_map", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_exclude_map v_exclude_map
+         in
+         ("exclude_map", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_type_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resource_type_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "resource_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_remediation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "remediation_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_exclude_resource_tags
+         in
+         ("exclude_resource_tags", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_unused_fm_managed_resources with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete_unused_fm_managed_resources", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_all_policy_resources with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete_all_policy_resources", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_fms_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_fms_policy
+
+[@@@deriving.end]
 
 let exclude_map ?account ?orgunit () : exclude_map =
   { account; orgunit }

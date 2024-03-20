@@ -4,43 +4,169 @@ open! Tf_core
 
 type network_endpoints = {
   instance : string prop option; [@option]
-      (** The name for a specific VM instance that the IP address belongs to.
-This is required for network endpoints of type GCE_VM_IP_PORT.
-The instance must be in the same zone as the network endpoint group. *)
   ip_address : string prop;
-      (** IPv4 address of network endpoint. The IP address must belong
-to a VM in GCE (either the primary IP or as part of an aliased IP
-range). *)
   port : float prop option; [@option]
-      (** Port number of network endpoint.
-**Note** 'port' is required unless the Network Endpoint Group is created
-with the type of 'GCE_VM_IP' *)
 }
-[@@deriving yojson_of]
-(** The network endpoints to be added to the enclosing network endpoint group
-(NEG). Each endpoint specifies an IP address and port, along with
-additional information depending on the NEG type. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_endpoints) -> ()
+
+let yojson_of_network_endpoints =
+  (function
+   | {
+       instance = v_instance;
+       ip_address = v_ip_address;
+       port = v_port;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_address in
+         ("ip_address", arg) :: bnds
+       in
+       let bnds =
+         match v_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_endpoints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_endpoints
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_network_endpoints = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   network_endpoint_group : string prop;
-      (** The network endpoint group these endpoints are part of. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   zone : string prop option; [@option]
-      (** Zone where the containing network endpoint group is located. *)
   network_endpoints : network_endpoints list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_network_endpoints *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_network_endpoints) -> ()
+
+let yojson_of_google_compute_network_endpoints =
+  (function
+   | {
+       id = v_id;
+       network_endpoint_group = v_network_endpoint_group;
+       project = v_project;
+       zone = v_zone;
+       network_endpoints = v_network_endpoints;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_endpoints
+             v_network_endpoints
+         in
+         ("network_endpoints", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_network_endpoint_group
+         in
+         ("network_endpoint_group", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_network_endpoints ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_network_endpoints
+
+[@@@deriving.end]
 
 let network_endpoints ?instance ?port ~ip_address () :
     network_endpoints =

@@ -3,18 +3,94 @@
 open! Tf_core
 
 type aws_lambda_invocation = {
-  function_name : string prop;  (** function_name *)
-  id : string prop option; [@option]  (** id *)
-  input : string prop;  (** input *)
+  function_name : string prop;
+  id : string prop option; [@option]
+  input : string prop;
   lifecycle_scope : string prop option; [@option]
-      (** lifecycle_scope *)
-  qualifier : string prop option; [@option]  (** qualifier *)
-  terraform_key : string prop option; [@option]  (** terraform_key *)
+  qualifier : string prop option; [@option]
+  terraform_key : string prop option; [@option]
   triggers : (string * string prop) list option; [@option]
-      (** triggers *)
 }
-[@@deriving yojson_of]
-(** aws_lambda_invocation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lambda_invocation) -> ()
+
+let yojson_of_aws_lambda_invocation =
+  (function
+   | {
+       function_name = v_function_name;
+       id = v_id;
+       input = v_input;
+       lifecycle_scope = v_lifecycle_scope;
+       qualifier = v_qualifier;
+       terraform_key = v_terraform_key;
+       triggers = v_triggers;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_triggers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "triggers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_terraform_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "terraform_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_qualifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "qualifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lifecycle_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lifecycle_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_input in
+         ("input", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_function_name in
+         ("function_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lambda_invocation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lambda_invocation
+
+[@@@deriving.end]
 
 let aws_lambda_invocation ?id ?lifecycle_scope ?qualifier
     ?terraform_key ?triggers ~function_name ~input () :

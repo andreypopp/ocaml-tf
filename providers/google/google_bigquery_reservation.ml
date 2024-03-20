@@ -2,48 +2,192 @@
 
 open! Tf_core
 
-type autoscale = {
-  max_slots : float prop option; [@option]
-      (** Number of slots to be scaled when needed. *)
-}
-[@@deriving yojson_of]
-(** The configuration parameters for the auto scaling feature. *)
+type autoscale = { max_slots : float prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoscale) -> ()
+
+let yojson_of_autoscale =
+  (function
+   | { max_slots = v_max_slots } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_slots with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_slots", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : autoscale -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscale
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigquery_reservation = {
   concurrency : float prop option; [@option]
-      (** Maximum number of queries that are allowed to run concurrently in this reservation. This is a soft limit due to asynchronous nature of the system and various optimizations for small queries. Default value is 0 which means that concurrency will be automatically set based on the reservation size. *)
   edition : string prop option; [@option]
-      (** The edition type. Valid values are STANDARD, ENTERPRISE, ENTERPRISE_PLUS *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ignore_idle_slots : bool prop option; [@option]
-      (** If false, any query using this reservation will use idle slots from other reservations within
-the same admin project. If true, a query using this reservation will execute with the slot
-capacity specified above at most. *)
   location : string prop option; [@option]
-      (** The geographic location where the transfer config should reside.
-Examples: US, EU, asia-northeast1. The default value is US. *)
   multi_region_auxiliary : bool prop option; [@option]
-      (** Applicable only for reservations located within one of the BigQuery multi-regions (US or EU).
-If set to true, this reservation is placed in the organization's secondary region which is designated for disaster recovery purposes. If false, this reservation is placed in the organization's default region. *)
   name : string prop;
-      (** The name of the reservation. This field must only contain alphanumeric characters or dash. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   slot_capacity : float prop;
-      (** Minimum slots available to this reservation. A slot is a unit of computational power in BigQuery, and serves as the
-unit of parallelism. Queries using this reservation might use more slots during runtime if ignoreIdleSlots is set to false. *)
   autoscale : autoscale list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigquery_reservation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigquery_reservation) -> ()
+
+let yojson_of_google_bigquery_reservation =
+  (function
+   | {
+       concurrency = v_concurrency;
+       edition = v_edition;
+       id = v_id;
+       ignore_idle_slots = v_ignore_idle_slots;
+       location = v_location;
+       multi_region_auxiliary = v_multi_region_auxiliary;
+       name = v_name;
+       project = v_project;
+       slot_capacity = v_slot_capacity;
+       autoscale = v_autoscale;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_autoscale v_autoscale in
+         ("autoscale", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_slot_capacity in
+         ("slot_capacity", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_multi_region_auxiliary with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "multi_region_auxiliary", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_idle_slots with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_idle_slots", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_edition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "edition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_concurrency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "concurrency", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_bigquery_reservation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigquery_reservation
+
+[@@@deriving.end]
 
 let autoscale ?max_slots () : autoscale = { max_slots }
 

@@ -4,12 +4,33 @@ open! Tf_core
 
 type cloudflare_email_routing_address = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  email : string prop;  (** The contact email address of the user. *)
+  email : string prop;
 }
-[@@deriving yojson_of]
-(** The [Email Routing Address](https://developers.cloudflare.com/email-routing/setup/email-routing-addresses/#destination-addresses) resource allows you to manage Cloudflare Email Routing Destination Addresses.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_email_routing_address) -> ()
+
+let yojson_of_cloudflare_email_routing_address =
+  (function
+   | { account_id = v_account_id; email = v_email } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email in
+         ("email", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_email_routing_address ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_email_routing_address
+
+[@@@deriving.end]
 
 let cloudflare_email_routing_address ~account_id ~email () :
     cloudflare_email_routing_address =

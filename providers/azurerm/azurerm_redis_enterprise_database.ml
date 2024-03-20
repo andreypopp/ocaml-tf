@@ -3,43 +3,229 @@
 open! Tf_core
 
 type module_ = {
-  args : string prop option; [@option]  (** args *)
-  name : string prop;  (** name *)
+  args : string prop option; [@option]
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** module *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : module_) -> ()
+
+let yojson_of_module_ =
+  (function
+   | { args = v_args; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : module_ -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_module_
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_redis_enterprise_database = {
   client_protocol : string prop option; [@option]
-      (** client_protocol *)
-  cluster_id : string prop;  (** cluster_id *)
+  cluster_id : string prop;
   clustering_policy : string prop option; [@option]
-      (** clustering_policy *)
   eviction_policy : string prop option; [@option]
-      (** eviction_policy *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   linked_database_group_nickname : string prop option; [@option]
-      (** linked_database_group_nickname *)
   linked_database_id : string prop list option; [@option]
-      (** linked_database_id *)
-  name : string prop option; [@option]  (** name *)
-  port : float prop option; [@option]  (** port *)
+  name : string prop option; [@option]
+  port : float prop option; [@option]
   resource_group_name : string prop option; [@option]
-      (** resource_group_name *)
   module_ : module_ list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_redis_enterprise_database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_redis_enterprise_database) -> ()
+
+let yojson_of_azurerm_redis_enterprise_database =
+  (function
+   | {
+       client_protocol = v_client_protocol;
+       cluster_id = v_cluster_id;
+       clustering_policy = v_clustering_policy;
+       eviction_policy = v_eviction_policy;
+       id = v_id;
+       linked_database_group_nickname =
+         v_linked_database_group_nickname;
+       linked_database_id = v_linked_database_id;
+       name = v_name;
+       port = v_port;
+       resource_group_name = v_resource_group_name;
+       module_ = v_module_;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_module_ v_module_ in
+         ("module_", arg) :: bnds
+       in
+       let bnds =
+         match v_resource_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_linked_database_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "linked_database_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_linked_database_group_nickname with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "linked_database_group_nickname", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_eviction_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "eviction_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_clustering_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "clustering_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       let bnds =
+         match v_client_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_protocol", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_redis_enterprise_database ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_redis_enterprise_database
+
+[@@@deriving.end]
 
 let module_ ?args ~name () : module_ = { args; name }
 

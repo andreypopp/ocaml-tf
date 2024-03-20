@@ -3,24 +3,101 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_kms_secret_ciphertext = {
   additional_authenticated_data : string prop option; [@option]
-      (** The additional authenticated data used for integrity checks during encryption and decryption. *)
   crypto_key : string prop;
-      (** The full name of the CryptoKey that will be used to encrypt the provided plaintext.
-Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}/cryptoKeys/{{cryptoKey}}'' *)
-  id : string prop option; [@option]  (** id *)
-  plaintext : string prop;  (** The plaintext to be encrypted. *)
+  id : string prop option; [@option]
+  plaintext : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_kms_secret_ciphertext *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_kms_secret_ciphertext) -> ()
+
+let yojson_of_google_kms_secret_ciphertext =
+  (function
+   | {
+       additional_authenticated_data =
+         v_additional_authenticated_data;
+       crypto_key = v_crypto_key;
+       id = v_id;
+       plaintext = v_plaintext;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_plaintext in
+         ("plaintext", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_crypto_key in
+         ("crypto_key", arg) :: bnds
+       in
+       let bnds =
+         match v_additional_authenticated_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "additional_authenticated_data", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_kms_secret_ciphertext ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_kms_secret_ciphertext
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

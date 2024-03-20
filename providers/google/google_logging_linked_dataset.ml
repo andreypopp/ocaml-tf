@@ -2,31 +2,142 @@
 
 open! Tf_core
 
-type bigquery_dataset = unit [@@deriving yojson_of]
+type bigquery_dataset = unit [@@deriving_inline yojson_of]
+
+let _ = fun (_ : bigquery_dataset) -> ()
+
+let yojson_of_bigquery_dataset =
+  (yojson_of_unit
+    : bigquery_dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bigquery_dataset
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_logging_linked_dataset = {
   bucket : string prop;
-      (** The bucket to which the linked dataset is attached. *)
   description : string prop option; [@option]
-      (** Describes this link. The maximum length of the description is 8000 characters. *)
-  id : string prop option; [@option]  (** id *)
-  link_id : string prop;  (** The id of the linked dataset. *)
+  id : string prop option; [@option]
+  link_id : string prop;
   location : string prop option; [@option]
-      (** The location of the linked dataset. *)
   parent : string prop option; [@option]
-      (** The parent of the linked dataset. *)
   bigquery_dataset : bigquery_dataset list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_logging_linked_dataset *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_logging_linked_dataset) -> ()
+
+let yojson_of_google_logging_linked_dataset =
+  (function
+   | {
+       bucket = v_bucket;
+       description = v_description;
+       id = v_id;
+       link_id = v_link_id;
+       location = v_location;
+       parent = v_parent;
+       bigquery_dataset = v_bigquery_dataset;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bigquery_dataset
+             v_bigquery_dataset
+         in
+         ("bigquery_dataset", arg) :: bnds
+       in
+       let bnds =
+         match v_parent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_link_id in
+         ("link_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_logging_linked_dataset ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_logging_linked_dataset
+
+[@@@deriving.end]
 
 let bigquery_dataset () = ()
 let timeouts ?create ?delete () : timeouts = { create; delete }

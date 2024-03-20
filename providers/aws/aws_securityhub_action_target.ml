@@ -3,13 +3,53 @@
 open! Tf_core
 
 type aws_securityhub_action_target = {
-  description : string prop;  (** description *)
-  id : string prop option; [@option]  (** id *)
-  identifier : string prop;  (** identifier *)
-  name : string prop;  (** name *)
+  description : string prop;
+  id : string prop option; [@option]
+  identifier : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_securityhub_action_target *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securityhub_action_target) -> ()
+
+let yojson_of_aws_securityhub_action_target =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       identifier = v_identifier;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_identifier in
+         ("identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_securityhub_action_target ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securityhub_action_target
+
+[@@@deriving.end]
 
 let aws_securityhub_action_target ?id ~description ~identifier ~name
     () : aws_securityhub_action_target =

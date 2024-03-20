@@ -4,23 +4,86 @@ open! Tf_core
 
 type cloudflare_access_custom_page = {
   account_id : string prop option; [@option]
-      (** The account identifier to target for the resource. Conflicts with `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
   app_count : float prop option; [@option]
-      (** Number of apps to display on the custom page. *)
   custom_html : string prop option; [@option]
-      (** Custom HTML to display on the custom page. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Friendly name of the Access Custom Page configuration. *)
   type_ : string prop; [@key "type"]
-      (** Type of Access custom page to create. Available values: `identity_denied`, `forbidden`. *)
   zone_id : string prop option; [@option]
-      (** The zone identifier to target for the resource. Conflicts with `account_id`. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a resource to customize the pages your end users will see
-when trying to reach applications behind Cloudflare Access.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_access_custom_page) -> ()
+
+let yojson_of_cloudflare_access_custom_page =
+  (function
+   | {
+       account_id = v_account_id;
+       app_count = v_app_count;
+       custom_html = v_custom_html;
+       id = v_id;
+       name = v_name;
+       type_ = v_type_;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_html with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_html", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_app_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "app_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_access_custom_page ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_access_custom_page
+
+[@@@deriving.end]
 
 let cloudflare_access_custom_page ?account_id ?app_count ?custom_html
     ?id ?zone_id ~name ~type_ () : cloudflare_access_custom_page =

@@ -4,309 +4,1535 @@ open! Tf_core
 
 type custom_error_response = {
   error_caching_min_ttl : float prop option; [@option]
-      (** error_caching_min_ttl *)
-  error_code : float prop;  (** error_code *)
-  response_code : float prop option; [@option]  (** response_code *)
+  error_code : float prop;
+  response_code : float prop option; [@option]
   response_page_path : string prop option; [@option]
-      (** response_page_path *)
 }
-[@@deriving yojson_of]
-(** custom_error_response *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_error_response) -> ()
+
+let yojson_of_custom_error_response =
+  (function
+   | {
+       error_caching_min_ttl = v_error_caching_min_ttl;
+       error_code = v_error_code;
+       response_code = v_response_code;
+       response_page_path = v_response_page_path;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_response_page_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "response_page_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_response_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "response_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_error_code in
+         ("error_code", arg) :: bnds
+       in
+       let bnds =
+         match v_error_caching_min_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "error_caching_min_ttl", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_error_response -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_error_response
+
+[@@@deriving.end]
 
 type default_cache_behavior__forwarded_values__cookies = {
-  forward : string prop;  (** forward *)
+  forward : string prop;
   whitelisted_names : string prop list option; [@option]
-      (** whitelisted_names *)
 }
-[@@deriving yojson_of]
-(** default_cache_behavior__forwarded_values__cookies *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : default_cache_behavior__forwarded_values__cookies) -> ()
+
+let yojson_of_default_cache_behavior__forwarded_values__cookies =
+  (function
+   | { forward = v_forward; whitelisted_names = v_whitelisted_names }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_whitelisted_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "whitelisted_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_forward in
+         ("forward", arg) :: bnds
+       in
+       `Assoc bnds
+    : default_cache_behavior__forwarded_values__cookies ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_cache_behavior__forwarded_values__cookies
+
+[@@@deriving.end]
 
 type default_cache_behavior__forwarded_values = {
-  headers : string prop list option; [@option]  (** headers *)
-  query_string : bool prop;  (** query_string *)
+  headers : string prop list option; [@option]
+  query_string : bool prop;
   query_string_cache_keys : string prop list option; [@option]
-      (** query_string_cache_keys *)
   cookies : default_cache_behavior__forwarded_values__cookies list;
 }
-[@@deriving yojson_of]
-(** default_cache_behavior__forwarded_values *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : default_cache_behavior__forwarded_values) -> ()
+
+let yojson_of_default_cache_behavior__forwarded_values =
+  (function
+   | {
+       headers = v_headers;
+       query_string = v_query_string;
+       query_string_cache_keys = v_query_string_cache_keys;
+       cookies = v_cookies;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_default_cache_behavior__forwarded_values__cookies
+             v_cookies
+         in
+         ("cookies", arg) :: bnds
+       in
+       let bnds =
+         match v_query_string_cache_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "query_string_cache_keys", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_query_string in
+         ("query_string", arg) :: bnds
+       in
+       let bnds =
+         match v_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "headers", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : default_cache_behavior__forwarded_values ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_cache_behavior__forwarded_values
+
+[@@@deriving.end]
 
 type default_cache_behavior__function_association = {
-  event_type : string prop;  (** event_type *)
-  function_arn : string prop;  (** function_arn *)
+  event_type : string prop;
+  function_arn : string prop;
 }
-[@@deriving yojson_of]
-(** default_cache_behavior__function_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : default_cache_behavior__function_association) -> ()
+
+let yojson_of_default_cache_behavior__function_association =
+  (function
+   | { event_type = v_event_type; function_arn = v_function_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_function_arn in
+         ("function_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_event_type in
+         ("event_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : default_cache_behavior__function_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_cache_behavior__function_association
+
+[@@@deriving.end]
 
 type default_cache_behavior__lambda_function_association = {
-  event_type : string prop;  (** event_type *)
-  include_body : bool prop option; [@option]  (** include_body *)
-  lambda_arn : string prop;  (** lambda_arn *)
+  event_type : string prop;
+  include_body : bool prop option; [@option]
+  lambda_arn : string prop;
 }
-[@@deriving yojson_of]
-(** default_cache_behavior__lambda_function_association *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : default_cache_behavior__lambda_function_association) -> ()
+
+let yojson_of_default_cache_behavior__lambda_function_association =
+  (function
+   | {
+       event_type = v_event_type;
+       include_body = v_include_body;
+       lambda_arn = v_lambda_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_lambda_arn in
+         ("lambda_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_include_body with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_body", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_event_type in
+         ("event_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : default_cache_behavior__lambda_function_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_cache_behavior__lambda_function_association
+
+[@@@deriving.end]
 
 type default_cache_behavior = {
-  allowed_methods : string prop list;  (** allowed_methods *)
+  allowed_methods : string prop list;
   cache_policy_id : string prop option; [@option]
-      (** cache_policy_id *)
-  cached_methods : string prop list;  (** cached_methods *)
-  compress : bool prop option; [@option]  (** compress *)
-  default_ttl : float prop option; [@option]  (** default_ttl *)
+  cached_methods : string prop list;
+  compress : bool prop option; [@option]
+  default_ttl : float prop option; [@option]
   field_level_encryption_id : string prop option; [@option]
-      (** field_level_encryption_id *)
-  max_ttl : float prop option; [@option]  (** max_ttl *)
-  min_ttl : float prop option; [@option]  (** min_ttl *)
+  max_ttl : float prop option; [@option]
+  min_ttl : float prop option; [@option]
   origin_request_policy_id : string prop option; [@option]
-      (** origin_request_policy_id *)
   realtime_log_config_arn : string prop option; [@option]
-      (** realtime_log_config_arn *)
   response_headers_policy_id : string prop option; [@option]
-      (** response_headers_policy_id *)
   smooth_streaming : bool prop option; [@option]
-      (** smooth_streaming *)
-  target_origin_id : string prop;  (** target_origin_id *)
+  target_origin_id : string prop;
   trusted_key_groups : string prop list option; [@option]
-      (** trusted_key_groups *)
   trusted_signers : string prop list option; [@option]
-      (** trusted_signers *)
   viewer_protocol_policy : string prop;
-      (** viewer_protocol_policy *)
   forwarded_values : default_cache_behavior__forwarded_values list;
   function_association :
     default_cache_behavior__function_association list;
   lambda_function_association :
     default_cache_behavior__lambda_function_association list;
 }
-[@@deriving yojson_of]
-(** default_cache_behavior *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : default_cache_behavior) -> ()
+
+let yojson_of_default_cache_behavior =
+  (function
+   | {
+       allowed_methods = v_allowed_methods;
+       cache_policy_id = v_cache_policy_id;
+       cached_methods = v_cached_methods;
+       compress = v_compress;
+       default_ttl = v_default_ttl;
+       field_level_encryption_id = v_field_level_encryption_id;
+       max_ttl = v_max_ttl;
+       min_ttl = v_min_ttl;
+       origin_request_policy_id = v_origin_request_policy_id;
+       realtime_log_config_arn = v_realtime_log_config_arn;
+       response_headers_policy_id = v_response_headers_policy_id;
+       smooth_streaming = v_smooth_streaming;
+       target_origin_id = v_target_origin_id;
+       trusted_key_groups = v_trusted_key_groups;
+       trusted_signers = v_trusted_signers;
+       viewer_protocol_policy = v_viewer_protocol_policy;
+       forwarded_values = v_forwarded_values;
+       function_association = v_function_association;
+       lambda_function_association = v_lambda_function_association;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_default_cache_behavior__lambda_function_association
+             v_lambda_function_association
+         in
+         ("lambda_function_association", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_default_cache_behavior__function_association
+             v_function_association
+         in
+         ("function_association", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_default_cache_behavior__forwarded_values
+             v_forwarded_values
+         in
+         ("forwarded_values", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_viewer_protocol_policy
+         in
+         ("viewer_protocol_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_trusted_signers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "trusted_signers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_trusted_key_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "trusted_key_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_origin_id
+         in
+         ("target_origin_id", arg) :: bnds
+       in
+       let bnds =
+         match v_smooth_streaming with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "smooth_streaming", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_response_headers_policy_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "response_headers_policy_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_realtime_log_config_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "realtime_log_config_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_origin_request_policy_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "origin_request_policy_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_field_level_encryption_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_level_encryption_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compress with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "compress", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_cached_methods
+         in
+         ("cached_methods", arg) :: bnds
+       in
+       let bnds =
+         match v_cache_policy_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cache_policy_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_methods
+         in
+         ("allowed_methods", arg) :: bnds
+       in
+       `Assoc bnds
+    : default_cache_behavior -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_cache_behavior
+
+[@@@deriving.end]
 
 type logging_config = {
-  bucket : string prop;  (** bucket *)
+  bucket : string prop;
   include_cookies : bool prop option; [@option]
-      (** include_cookies *)
-  prefix : string prop option; [@option]  (** prefix *)
+  prefix : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logging_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_config) -> ()
+
+let yojson_of_logging_config =
+  (function
+   | {
+       bucket = v_bucket;
+       include_cookies = v_include_cookies;
+       prefix = v_prefix;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_cookies with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_cookies", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_config
+
+[@@@deriving.end]
 
 type ordered_cache_behavior__forwarded_values__cookies = {
-  forward : string prop;  (** forward *)
+  forward : string prop;
   whitelisted_names : string prop list option; [@option]
-      (** whitelisted_names *)
 }
-[@@deriving yojson_of]
-(** ordered_cache_behavior__forwarded_values__cookies *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : ordered_cache_behavior__forwarded_values__cookies) -> ()
+
+let yojson_of_ordered_cache_behavior__forwarded_values__cookies =
+  (function
+   | { forward = v_forward; whitelisted_names = v_whitelisted_names }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_whitelisted_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "whitelisted_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_forward in
+         ("forward", arg) :: bnds
+       in
+       `Assoc bnds
+    : ordered_cache_behavior__forwarded_values__cookies ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ordered_cache_behavior__forwarded_values__cookies
+
+[@@@deriving.end]
 
 type ordered_cache_behavior__forwarded_values = {
-  headers : string prop list option; [@option]  (** headers *)
-  query_string : bool prop;  (** query_string *)
+  headers : string prop list option; [@option]
+  query_string : bool prop;
   query_string_cache_keys : string prop list option; [@option]
-      (** query_string_cache_keys *)
   cookies : ordered_cache_behavior__forwarded_values__cookies list;
 }
-[@@deriving yojson_of]
-(** ordered_cache_behavior__forwarded_values *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ordered_cache_behavior__forwarded_values) -> ()
+
+let yojson_of_ordered_cache_behavior__forwarded_values =
+  (function
+   | {
+       headers = v_headers;
+       query_string = v_query_string;
+       query_string_cache_keys = v_query_string_cache_keys;
+       cookies = v_cookies;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_ordered_cache_behavior__forwarded_values__cookies
+             v_cookies
+         in
+         ("cookies", arg) :: bnds
+       in
+       let bnds =
+         match v_query_string_cache_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "query_string_cache_keys", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_query_string in
+         ("query_string", arg) :: bnds
+       in
+       let bnds =
+         match v_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "headers", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ordered_cache_behavior__forwarded_values ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ordered_cache_behavior__forwarded_values
+
+[@@@deriving.end]
 
 type ordered_cache_behavior__function_association = {
-  event_type : string prop;  (** event_type *)
-  function_arn : string prop;  (** function_arn *)
+  event_type : string prop;
+  function_arn : string prop;
 }
-[@@deriving yojson_of]
-(** ordered_cache_behavior__function_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ordered_cache_behavior__function_association) -> ()
+
+let yojson_of_ordered_cache_behavior__function_association =
+  (function
+   | { event_type = v_event_type; function_arn = v_function_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_function_arn in
+         ("function_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_event_type in
+         ("event_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : ordered_cache_behavior__function_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ordered_cache_behavior__function_association
+
+[@@@deriving.end]
 
 type ordered_cache_behavior__lambda_function_association = {
-  event_type : string prop;  (** event_type *)
-  include_body : bool prop option; [@option]  (** include_body *)
-  lambda_arn : string prop;  (** lambda_arn *)
+  event_type : string prop;
+  include_body : bool prop option; [@option]
+  lambda_arn : string prop;
 }
-[@@deriving yojson_of]
-(** ordered_cache_behavior__lambda_function_association *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : ordered_cache_behavior__lambda_function_association) -> ()
+
+let yojson_of_ordered_cache_behavior__lambda_function_association =
+  (function
+   | {
+       event_type = v_event_type;
+       include_body = v_include_body;
+       lambda_arn = v_lambda_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_lambda_arn in
+         ("lambda_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_include_body with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_body", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_event_type in
+         ("event_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : ordered_cache_behavior__lambda_function_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ordered_cache_behavior__lambda_function_association
+
+[@@@deriving.end]
 
 type ordered_cache_behavior = {
-  allowed_methods : string prop list;  (** allowed_methods *)
+  allowed_methods : string prop list;
   cache_policy_id : string prop option; [@option]
-      (** cache_policy_id *)
-  cached_methods : string prop list;  (** cached_methods *)
-  compress : bool prop option; [@option]  (** compress *)
-  default_ttl : float prop option; [@option]  (** default_ttl *)
+  cached_methods : string prop list;
+  compress : bool prop option; [@option]
+  default_ttl : float prop option; [@option]
   field_level_encryption_id : string prop option; [@option]
-      (** field_level_encryption_id *)
-  max_ttl : float prop option; [@option]  (** max_ttl *)
-  min_ttl : float prop option; [@option]  (** min_ttl *)
+  max_ttl : float prop option; [@option]
+  min_ttl : float prop option; [@option]
   origin_request_policy_id : string prop option; [@option]
-      (** origin_request_policy_id *)
-  path_pattern : string prop;  (** path_pattern *)
+  path_pattern : string prop;
   realtime_log_config_arn : string prop option; [@option]
-      (** realtime_log_config_arn *)
   response_headers_policy_id : string prop option; [@option]
-      (** response_headers_policy_id *)
   smooth_streaming : bool prop option; [@option]
-      (** smooth_streaming *)
-  target_origin_id : string prop;  (** target_origin_id *)
+  target_origin_id : string prop;
   trusted_key_groups : string prop list option; [@option]
-      (** trusted_key_groups *)
   trusted_signers : string prop list option; [@option]
-      (** trusted_signers *)
   viewer_protocol_policy : string prop;
-      (** viewer_protocol_policy *)
   forwarded_values : ordered_cache_behavior__forwarded_values list;
   function_association :
     ordered_cache_behavior__function_association list;
   lambda_function_association :
     ordered_cache_behavior__lambda_function_association list;
 }
-[@@deriving yojson_of]
-(** ordered_cache_behavior *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ordered_cache_behavior) -> ()
+
+let yojson_of_ordered_cache_behavior =
+  (function
+   | {
+       allowed_methods = v_allowed_methods;
+       cache_policy_id = v_cache_policy_id;
+       cached_methods = v_cached_methods;
+       compress = v_compress;
+       default_ttl = v_default_ttl;
+       field_level_encryption_id = v_field_level_encryption_id;
+       max_ttl = v_max_ttl;
+       min_ttl = v_min_ttl;
+       origin_request_policy_id = v_origin_request_policy_id;
+       path_pattern = v_path_pattern;
+       realtime_log_config_arn = v_realtime_log_config_arn;
+       response_headers_policy_id = v_response_headers_policy_id;
+       smooth_streaming = v_smooth_streaming;
+       target_origin_id = v_target_origin_id;
+       trusted_key_groups = v_trusted_key_groups;
+       trusted_signers = v_trusted_signers;
+       viewer_protocol_policy = v_viewer_protocol_policy;
+       forwarded_values = v_forwarded_values;
+       function_association = v_function_association;
+       lambda_function_association = v_lambda_function_association;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_ordered_cache_behavior__lambda_function_association
+             v_lambda_function_association
+         in
+         ("lambda_function_association", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_ordered_cache_behavior__function_association
+             v_function_association
+         in
+         ("function_association", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_ordered_cache_behavior__forwarded_values
+             v_forwarded_values
+         in
+         ("forwarded_values", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_viewer_protocol_policy
+         in
+         ("viewer_protocol_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_trusted_signers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "trusted_signers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_trusted_key_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "trusted_key_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_origin_id
+         in
+         ("target_origin_id", arg) :: bnds
+       in
+       let bnds =
+         match v_smooth_streaming with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "smooth_streaming", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_response_headers_policy_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "response_headers_policy_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_realtime_log_config_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "realtime_log_config_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path_pattern in
+         ("path_pattern", arg) :: bnds
+       in
+       let bnds =
+         match v_origin_request_policy_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "origin_request_policy_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_field_level_encryption_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_level_encryption_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compress with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "compress", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_cached_methods
+         in
+         ("cached_methods", arg) :: bnds
+       in
+       let bnds =
+         match v_cache_policy_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cache_policy_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_methods
+         in
+         ("allowed_methods", arg) :: bnds
+       in
+       `Assoc bnds
+    : ordered_cache_behavior -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ordered_cache_behavior
+
+[@@@deriving.end]
 
 type origin__custom_header = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** origin__custom_header *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin__custom_header) -> ()
+
+let yojson_of_origin__custom_header =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin__custom_header -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin__custom_header
+
+[@@@deriving.end]
 
 type origin__custom_origin_config = {
-  http_port : float prop;  (** http_port *)
-  https_port : float prop;  (** https_port *)
+  http_port : float prop;
+  https_port : float prop;
   origin_keepalive_timeout : float prop option; [@option]
-      (** origin_keepalive_timeout *)
   origin_protocol_policy : string prop;
-      (** origin_protocol_policy *)
   origin_read_timeout : float prop option; [@option]
-      (** origin_read_timeout *)
   origin_ssl_protocols : string prop list;
-      (** origin_ssl_protocols *)
 }
-[@@deriving yojson_of]
-(** origin__custom_origin_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin__custom_origin_config) -> ()
+
+let yojson_of_origin__custom_origin_config =
+  (function
+   | {
+       http_port = v_http_port;
+       https_port = v_https_port;
+       origin_keepalive_timeout = v_origin_keepalive_timeout;
+       origin_protocol_policy = v_origin_protocol_policy;
+       origin_read_timeout = v_origin_read_timeout;
+       origin_ssl_protocols = v_origin_ssl_protocols;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_origin_ssl_protocols
+         in
+         ("origin_ssl_protocols", arg) :: bnds
+       in
+       let bnds =
+         match v_origin_read_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "origin_read_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_origin_protocol_policy
+         in
+         ("origin_protocol_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_origin_keepalive_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "origin_keepalive_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_https_port in
+         ("https_port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_http_port in
+         ("http_port", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin__custom_origin_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin__custom_origin_config
+
+[@@@deriving.end]
 
 type origin__origin_shield = {
-  enabled : bool prop;  (** enabled *)
+  enabled : bool prop;
   origin_shield_region : string prop option; [@option]
-      (** origin_shield_region *)
 }
-[@@deriving yojson_of]
-(** origin__origin_shield *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin__origin_shield) -> ()
+
+let yojson_of_origin__origin_shield =
+  (function
+   | {
+       enabled = v_enabled;
+       origin_shield_region = v_origin_shield_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_origin_shield_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "origin_shield_region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin__origin_shield -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin__origin_shield
+
+[@@@deriving.end]
 
 type origin__s3_origin_config = {
-  origin_access_identity : string prop;  (** origin_access_identity *)
+  origin_access_identity : string prop;
 }
-[@@deriving yojson_of]
-(** origin__s3_origin_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin__s3_origin_config) -> ()
+
+let yojson_of_origin__s3_origin_config =
+  (function
+   | { origin_access_identity = v_origin_access_identity } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_origin_access_identity
+         in
+         ("origin_access_identity", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin__s3_origin_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin__s3_origin_config
+
+[@@@deriving.end]
 
 type origin = {
   connection_attempts : float prop option; [@option]
-      (** connection_attempts *)
   connection_timeout : float prop option; [@option]
-      (** connection_timeout *)
-  domain_name : string prop;  (** domain_name *)
+  domain_name : string prop;
   origin_access_control_id : string prop option; [@option]
-      (** origin_access_control_id *)
-  origin_id : string prop;  (** origin_id *)
-  origin_path : string prop option; [@option]  (** origin_path *)
+  origin_id : string prop;
+  origin_path : string prop option; [@option]
   custom_header : origin__custom_header list;
   custom_origin_config : origin__custom_origin_config list;
   origin_shield : origin__origin_shield list;
   s3_origin_config : origin__s3_origin_config list;
 }
-[@@deriving yojson_of]
-(** origin *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin) -> ()
+
+let yojson_of_origin =
+  (function
+   | {
+       connection_attempts = v_connection_attempts;
+       connection_timeout = v_connection_timeout;
+       domain_name = v_domain_name;
+       origin_access_control_id = v_origin_access_control_id;
+       origin_id = v_origin_id;
+       origin_path = v_origin_path;
+       custom_header = v_custom_header;
+       custom_origin_config = v_custom_origin_config;
+       origin_shield = v_origin_shield;
+       s3_origin_config = v_s3_origin_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin__s3_origin_config
+             v_s3_origin_config
+         in
+         ("s3_origin_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin__origin_shield
+             v_origin_shield
+         in
+         ("origin_shield", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin__custom_origin_config
+             v_custom_origin_config
+         in
+         ("custom_origin_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin__custom_header
+             v_custom_header
+         in
+         ("custom_header", arg) :: bnds
+       in
+       let bnds =
+         match v_origin_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "origin_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_origin_id in
+         ("origin_id", arg) :: bnds
+       in
+       let bnds =
+         match v_origin_access_control_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "origin_access_control_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       let bnds =
+         match v_connection_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "connection_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connection_attempts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "connection_attempts", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : origin -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin
+
+[@@@deriving.end]
 
 type origin_group__failover_criteria = {
-  status_codes : float prop list;  (** status_codes *)
+  status_codes : float prop list;
 }
-[@@deriving yojson_of]
-(** origin_group__failover_criteria *)
+[@@deriving_inline yojson_of]
 
-type origin_group__member = {
-  origin_id : string prop;  (** origin_id *)
-}
-[@@deriving yojson_of]
-(** origin_group__member *)
+let _ = fun (_ : origin_group__failover_criteria) -> ()
+
+let yojson_of_origin_group__failover_criteria =
+  (function
+   | { status_codes = v_status_codes } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_float)
+             v_status_codes
+         in
+         ("status_codes", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin_group__failover_criteria ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin_group__failover_criteria
+
+[@@@deriving.end]
+
+type origin_group__member = { origin_id : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin_group__member) -> ()
+
+let yojson_of_origin_group__member =
+  (function
+   | { origin_id = v_origin_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_origin_id in
+         ("origin_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin_group__member -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin_group__member
+
+[@@@deriving.end]
 
 type origin_group = {
-  origin_id : string prop;  (** origin_id *)
+  origin_id : string prop;
   failover_criteria : origin_group__failover_criteria list;
   member : origin_group__member list;
 }
-[@@deriving yojson_of]
-(** origin_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : origin_group) -> ()
+
+let yojson_of_origin_group =
+  (function
+   | {
+       origin_id = v_origin_id;
+       failover_criteria = v_failover_criteria;
+       member = v_member;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin_group__member v_member
+         in
+         ("member", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin_group__failover_criteria
+             v_failover_criteria
+         in
+         ("failover_criteria", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_origin_id in
+         ("origin_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : origin_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_origin_group
+
+[@@@deriving.end]
 
 type restrictions__geo_restriction = {
-  locations : string prop list option; [@option]  (** locations *)
-  restriction_type : string prop;  (** restriction_type *)
+  locations : string prop list option; [@option]
+  restriction_type : string prop;
 }
-[@@deriving yojson_of]
-(** restrictions__geo_restriction *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restrictions__geo_restriction) -> ()
+
+let yojson_of_restrictions__geo_restriction =
+  (function
+   | {
+       locations = v_locations;
+       restriction_type = v_restriction_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_restriction_type
+         in
+         ("restriction_type", arg) :: bnds
+       in
+       let bnds =
+         match v_locations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "locations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : restrictions__geo_restriction ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restrictions__geo_restriction
+
+[@@@deriving.end]
 
 type restrictions = {
   geo_restriction : restrictions__geo_restriction list;
 }
-[@@deriving yojson_of]
-(** restrictions *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restrictions) -> ()
+
+let yojson_of_restrictions =
+  (function
+   | { geo_restriction = v_geo_restriction } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_restrictions__geo_restriction
+             v_geo_restriction
+         in
+         ("geo_restriction", arg) :: bnds
+       in
+       `Assoc bnds
+    : restrictions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restrictions
+
+[@@@deriving.end]
 
 type viewer_certificate = {
   acm_certificate_arn : string prop option; [@option]
-      (** acm_certificate_arn *)
   cloudfront_default_certificate : bool prop option; [@option]
-      (** cloudfront_default_certificate *)
   iam_certificate_id : string prop option; [@option]
-      (** iam_certificate_id *)
   minimum_protocol_version : string prop option; [@option]
-      (** minimum_protocol_version *)
   ssl_support_method : string prop option; [@option]
-      (** ssl_support_method *)
 }
-[@@deriving yojson_of]
-(** viewer_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : viewer_certificate) -> ()
+
+let yojson_of_viewer_certificate =
+  (function
+   | {
+       acm_certificate_arn = v_acm_certificate_arn;
+       cloudfront_default_certificate =
+         v_cloudfront_default_certificate;
+       iam_certificate_id = v_iam_certificate_id;
+       minimum_protocol_version = v_minimum_protocol_version;
+       ssl_support_method = v_ssl_support_method;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ssl_support_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_support_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minimum_protocol_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "minimum_protocol_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iam_certificate_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "iam_certificate_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cloudfront_default_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cloudfront_default_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_acm_certificate_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "acm_certificate_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : viewer_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_viewer_certificate
+
+[@@@deriving.end]
 
 type trusted_key_groups__items = {
-  key_group_id : string prop;  (** key_group_id *)
-  key_pair_ids : string prop list;  (** key_pair_ids *)
+  key_group_id : string prop;
+  key_pair_ids : string prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trusted_key_groups__items) -> ()
+
+let yojson_of_trusted_key_groups__items =
+  (function
+   | { key_group_id = v_key_group_id; key_pair_ids = v_key_pair_ids }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_key_pair_ids
+         in
+         ("key_pair_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_group_id in
+         ("key_group_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : trusted_key_groups__items -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trusted_key_groups__items
+
+[@@@deriving.end]
 
 type trusted_key_groups = {
-  enabled : bool prop;  (** enabled *)
-  items : trusted_key_groups__items list;  (** items *)
+  enabled : bool prop;
+  items : trusted_key_groups__items list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trusted_key_groups) -> ()
+
+let yojson_of_trusted_key_groups =
+  (function
+   | { enabled = v_enabled; items = v_items } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_trusted_key_groups__items v_items
+         in
+         ("items", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : trusted_key_groups -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trusted_key_groups
+
+[@@@deriving.end]
 
 type trusted_signers__items = {
-  aws_account_number : string prop;  (** aws_account_number *)
-  key_pair_ids : string prop list;  (** key_pair_ids *)
+  aws_account_number : string prop;
+  key_pair_ids : string prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trusted_signers__items) -> ()
+
+let yojson_of_trusted_signers__items =
+  (function
+   | {
+       aws_account_number = v_aws_account_number;
+       key_pair_ids = v_key_pair_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_key_pair_ids
+         in
+         ("key_pair_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_aws_account_number
+         in
+         ("aws_account_number", arg) :: bnds
+       in
+       `Assoc bnds
+    : trusted_signers__items -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trusted_signers__items
+
+[@@@deriving.end]
 
 type trusted_signers = {
-  enabled : bool prop;  (** enabled *)
-  items : trusted_signers__items list;  (** items *)
+  enabled : bool prop;
+  items : trusted_signers__items list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trusted_signers) -> ()
+
+let yojson_of_trusted_signers =
+  (function
+   | { enabled = v_enabled; items = v_items } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_trusted_signers__items v_items
+         in
+         ("items", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : trusted_signers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trusted_signers
+
+[@@@deriving.end]
 
 type aws_cloudfront_distribution = {
-  aliases : string prop list option; [@option]  (** aliases *)
-  comment : string prop option; [@option]  (** comment *)
+  aliases : string prop list option; [@option]
+  comment : string prop option; [@option]
   continuous_deployment_policy_id : string prop option; [@option]
-      (** continuous_deployment_policy_id *)
   default_root_object : string prop option; [@option]
-      (** default_root_object *)
-  enabled : bool prop;  (** enabled *)
-  http_version : string prop option; [@option]  (** http_version *)
-  id : string prop option; [@option]  (** id *)
+  enabled : bool prop;
+  http_version : string prop option; [@option]
+  id : string prop option; [@option]
   is_ipv6_enabled : bool prop option; [@option]
-      (** is_ipv6_enabled *)
-  price_class : string prop option; [@option]  (** price_class *)
+  price_class : string prop option; [@option]
   retain_on_delete : bool prop option; [@option]
-      (** retain_on_delete *)
-  staging : bool prop option; [@option]  (** staging *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  staging : bool prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   wait_for_deployment : bool prop option; [@option]
-      (** wait_for_deployment *)
-  web_acl_id : string prop option; [@option]  (** web_acl_id *)
+  web_acl_id : string prop option; [@option]
   custom_error_response : custom_error_response list;
   default_cache_behavior : default_cache_behavior list;
   logging_config : logging_config list;
@@ -316,8 +1542,232 @@ type aws_cloudfront_distribution = {
   restrictions : restrictions list;
   viewer_certificate : viewer_certificate list;
 }
-[@@deriving yojson_of]
-(** aws_cloudfront_distribution *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudfront_distribution) -> ()
+
+let yojson_of_aws_cloudfront_distribution =
+  (function
+   | {
+       aliases = v_aliases;
+       comment = v_comment;
+       continuous_deployment_policy_id =
+         v_continuous_deployment_policy_id;
+       default_root_object = v_default_root_object;
+       enabled = v_enabled;
+       http_version = v_http_version;
+       id = v_id;
+       is_ipv6_enabled = v_is_ipv6_enabled;
+       price_class = v_price_class;
+       retain_on_delete = v_retain_on_delete;
+       staging = v_staging;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       wait_for_deployment = v_wait_for_deployment;
+       web_acl_id = v_web_acl_id;
+       custom_error_response = v_custom_error_response;
+       default_cache_behavior = v_default_cache_behavior;
+       logging_config = v_logging_config;
+       ordered_cache_behavior = v_ordered_cache_behavior;
+       origin = v_origin;
+       origin_group = v_origin_group;
+       restrictions = v_restrictions;
+       viewer_certificate = v_viewer_certificate;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_viewer_certificate
+             v_viewer_certificate
+         in
+         ("viewer_certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_restrictions v_restrictions
+         in
+         ("restrictions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_origin_group v_origin_group
+         in
+         ("origin_group", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_origin v_origin in
+         ("origin", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ordered_cache_behavior
+             v_ordered_cache_behavior
+         in
+         ("ordered_cache_behavior", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logging_config v_logging_config
+         in
+         ("logging_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_default_cache_behavior
+             v_default_cache_behavior
+         in
+         ("default_cache_behavior", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_error_response
+             v_custom_error_response
+         in
+         ("custom_error_response", arg) :: bnds
+       in
+       let bnds =
+         match v_web_acl_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "web_acl_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_wait_for_deployment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "wait_for_deployment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_staging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "staging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_retain_on_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "retain_on_delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_price_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "price_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_ipv6_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_ipv6_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "http_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         match v_default_root_object with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_root_object", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_continuous_deployment_policy_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "continuous_deployment_policy_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_aliases with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "aliases", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudfront_distribution ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudfront_distribution
+
+[@@@deriving.end]
 
 let custom_error_response ?error_caching_min_ttl ?response_code
     ?response_page_path ~error_code () : custom_error_response =

@@ -2,16 +2,67 @@
 
 open! Tf_core
 
-type validation_settings = { mode : string prop  (** mode *) }
-[@@deriving yojson_of]
-(** validation_settings *)
+type validation_settings = { mode : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : validation_settings) -> ()
+
+let yojson_of_validation_settings =
+  (function
+   | { mode = v_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : validation_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_validation_settings
+
+[@@@deriving.end]
 
 type aws_verifiedpermissions_policy_store = {
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   validation_settings : validation_settings list;
 }
-[@@deriving yojson_of]
-(** aws_verifiedpermissions_policy_store *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_verifiedpermissions_policy_store) -> ()
+
+let yojson_of_aws_verifiedpermissions_policy_store =
+  (function
+   | {
+       description = v_description;
+       validation_settings = v_validation_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_validation_settings
+             v_validation_settings
+         in
+         ("validation_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_verifiedpermissions_policy_store ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_verifiedpermissions_policy_store
+
+[@@@deriving.end]
 
 let validation_settings ~mode () : validation_settings = { mode }
 

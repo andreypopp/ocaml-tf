@@ -4,307 +4,1434 @@ open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the horizontal pod autoscaler that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the horizontal pod autoscaler. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the horizontal pod autoscaler, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Namespace defines the space within which name of the horizontal pod autoscaler must be unique. *)
 }
-[@@deriving yojson_of]
-(** Standard horizontal pod autoscaler's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+       namespace = v_namespace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type spec__behavior__scale_down__policy = {
   period_seconds : float prop;
-      (** Period specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min). *)
   type_ : string prop; [@key "type"]
-      (** Type is used to specify the scaling policy: Percent or Pods *)
   value : float prop;
-      (** Value contains the amount of change which is permitted by the policy. It must be greater than zero. *)
 }
-[@@deriving yojson_of]
-(** List of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the scaling rule will be discarded as invalid. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__behavior__scale_down__policy) -> ()
+
+let yojson_of_spec__behavior__scale_down__policy =
+  (function
+   | {
+       period_seconds = v_period_seconds;
+       type_ = v_type_;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_period_seconds in
+         ("period_seconds", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__behavior__scale_down__policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__behavior__scale_down__policy
+
+[@@@deriving.end]
 
 type spec__behavior__scale_down = {
   select_policy : string prop option; [@option]
-      (** Used to specify which policy should be used. If not set, the default value Max is used. *)
   stabilization_window_seconds : float prop option; [@option]
-      (** Number of seconds for which past recommendations should be considered while scaling up or scaling down. This value must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long). *)
   policy : spec__behavior__scale_down__policy list;
 }
-[@@deriving yojson_of]
-(** Scaling policy for scaling Down *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__behavior__scale_down) -> ()
+
+let yojson_of_spec__behavior__scale_down =
+  (function
+   | {
+       select_policy = v_select_policy;
+       stabilization_window_seconds = v_stabilization_window_seconds;
+       policy = v_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__behavior__scale_down__policy v_policy
+         in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         match v_stabilization_window_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "stabilization_window_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_select_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "select_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__behavior__scale_down -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__behavior__scale_down
+
+[@@@deriving.end]
 
 type spec__behavior__scale_up__policy = {
   period_seconds : float prop;
-      (** Period specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min). *)
   type_ : string prop; [@key "type"]
-      (** Type is used to specify the scaling policy: Percent or Pods *)
   value : float prop;
-      (** Value contains the amount of change which is permitted by the policy. It must be greater than zero. *)
 }
-[@@deriving yojson_of]
-(** List of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the scaling rule will be discarded as invalid. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__behavior__scale_up__policy) -> ()
+
+let yojson_of_spec__behavior__scale_up__policy =
+  (function
+   | {
+       period_seconds = v_period_seconds;
+       type_ = v_type_;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_period_seconds in
+         ("period_seconds", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__behavior__scale_up__policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__behavior__scale_up__policy
+
+[@@@deriving.end]
 
 type spec__behavior__scale_up = {
   select_policy : string prop option; [@option]
-      (** Used to specify which policy should be used. If not set, the default value Max is used. *)
   stabilization_window_seconds : float prop option; [@option]
-      (** Number of seconds for which past recommendations should be considered while scaling up or scaling down. This value must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long). *)
   policy : spec__behavior__scale_up__policy list;
 }
-[@@deriving yojson_of]
-(** Scaling policy for scaling Up *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__behavior__scale_up) -> ()
+
+let yojson_of_spec__behavior__scale_up =
+  (function
+   | {
+       select_policy = v_select_policy;
+       stabilization_window_seconds = v_stabilization_window_seconds;
+       policy = v_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__behavior__scale_up__policy
+             v_policy
+         in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         match v_stabilization_window_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "stabilization_window_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_select_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "select_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__behavior__scale_up -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__behavior__scale_up
+
+[@@@deriving.end]
 
 type spec__behavior = {
   scale_down : spec__behavior__scale_down list;
   scale_up : spec__behavior__scale_up list;
 }
-[@@deriving yojson_of]
-(** Behavior configures the scaling behavior of the target in both Up and Down directions (`scale_up` and `scale_down` fields respectively). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__behavior) -> ()
+
+let yojson_of_spec__behavior =
+  (function
+   | { scale_down = v_scale_down; scale_up = v_scale_up } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__behavior__scale_up
+             v_scale_up
+         in
+         ("scale_up", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__behavior__scale_down
+             v_scale_down
+         in
+         ("scale_down", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__behavior -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__behavior
+
+[@@@deriving.end]
 
 type spec__metric__container_resource__target = {
   average_utilization : float prop option; [@option]
-      (** averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type *)
   average_value : string prop option; [@option]
-      (** averageValue is the target value of the average of the metric across all relevant pods (as a quantity) *)
   type_ : string prop; [@key "type"]
-      (** type represents whether the metric type is Utilization, Value, or AverageValue *)
   value : string prop option; [@option]
-      (** value is the target value of the metric (as a quantity). *)
 }
-[@@deriving yojson_of]
-(** target specifies the target value for the given metric *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__container_resource__target) -> ()
+
+let yojson_of_spec__metric__container_resource__target =
+  (function
+   | {
+       average_utilization = v_average_utilization;
+       average_value = v_average_value;
+       type_ = v_type_;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_average_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "average_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_average_utilization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "average_utilization", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__container_resource__target ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__container_resource__target
+
+[@@@deriving.end]
 
 type spec__metric__container_resource = {
   container : string prop;
-      (** name of the container in the pods of the scaling target *)
-  name : string prop;  (** name of the resource in question *)
+  name : string prop;
   target : spec__metric__container_resource__target list;
 }
-[@@deriving yojson_of]
-(** spec__metric__container_resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__container_resource) -> ()
+
+let yojson_of_spec__metric__container_resource =
+  (function
+   | { container = v_container; name = v_name; target = v_target } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__metric__container_resource__target
+             v_target
+         in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_container in
+         ("container", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__container_resource ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__container_resource
+
+[@@@deriving.end]
 
 type spec__metric__external__metric__selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__metric__external__metric__selector__match_expressions) ->
+  ()
+
+let yojson_of_spec__metric__external__metric__selector__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__external__metric__selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__metric__external__metric__selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__metric__external__metric__selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     spec__metric__external__metric__selector__match_expressions list;
 }
-[@@deriving yojson_of]
-(** selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__external__metric__selector) -> ()
+
+let yojson_of_spec__metric__external__metric__selector =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__metric__external__metric__selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__external__metric__selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__external__metric__selector
+
+[@@@deriving.end]
 
 type spec__metric__external__metric = {
-  name : string prop;  (** name is the name of the given metric *)
+  name : string prop;
   selector : spec__metric__external__metric__selector list;
 }
-[@@deriving yojson_of]
-(** metric identifies the target metric by name and selector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__external__metric) -> ()
+
+let yojson_of_spec__metric__external__metric =
+  (function
+   | { name = v_name; selector = v_selector } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__metric__external__metric__selector
+             v_selector
+         in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__external__metric ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__external__metric
+
+[@@@deriving.end]
 
 type spec__metric__external__target = {
   average_utilization : float prop option; [@option]
-      (** averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type *)
   average_value : string prop option; [@option]
-      (** averageValue is the target value of the average of the metric across all relevant pods (as a quantity) *)
   type_ : string prop; [@key "type"]
-      (** type represents whether the metric type is Utilization, Value, or AverageValue *)
   value : string prop option; [@option]
-      (** value is the target value of the metric (as a quantity). *)
 }
-[@@deriving yojson_of]
-(** target specifies the target value for the given metric *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__external__target) -> ()
+
+let yojson_of_spec__metric__external__target =
+  (function
+   | {
+       average_utilization = v_average_utilization;
+       average_value = v_average_value;
+       type_ = v_type_;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_average_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "average_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_average_utilization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "average_utilization", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__external__target ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__external__target
+
+[@@@deriving.end]
 
 type spec__metric__external = {
   metric : spec__metric__external__metric list;
   target : spec__metric__external__target list;
 }
-[@@deriving yojson_of]
-(** spec__metric__external *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__external) -> ()
+
+let yojson_of_spec__metric__external =
+  (function
+   | { metric = v_metric; target = v_target } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__external__target
+             v_target
+         in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__external__metric
+             v_metric
+         in
+         ("metric", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__external -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__external
+
+[@@@deriving.end]
 
 type spec__metric__object__described_object = {
-  api_version : string prop;  (** API version of the referent *)
+  api_version : string prop;
   kind : string prop;
-      (** Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds *)
   name : string prop;
-      (** Name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** spec__metric__object__described_object *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__object__described_object) -> ()
+
+let yojson_of_spec__metric__object__described_object =
+  (function
+   | { api_version = v_api_version; kind = v_kind; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_version in
+         ("api_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__object__described_object ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__object__described_object
+
+[@@@deriving.end]
 
 type spec__metric__object__metric__selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__metric__object__metric__selector__match_expressions) ->
+  ()
+
+let yojson_of_spec__metric__object__metric__selector__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__object__metric__selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__metric__object__metric__selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__metric__object__metric__selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     spec__metric__object__metric__selector__match_expressions list;
 }
-[@@deriving yojson_of]
-(** selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__object__metric__selector) -> ()
+
+let yojson_of_spec__metric__object__metric__selector =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__metric__object__metric__selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__object__metric__selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__object__metric__selector
+
+[@@@deriving.end]
 
 type spec__metric__object__metric = {
-  name : string prop;  (** name is the name of the given metric *)
+  name : string prop;
   selector : spec__metric__object__metric__selector list;
 }
-[@@deriving yojson_of]
-(** metric identifies the target metric by name and selector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__object__metric) -> ()
+
+let yojson_of_spec__metric__object__metric =
+  (function
+   | { name = v_name; selector = v_selector } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__metric__object__metric__selector
+             v_selector
+         in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__object__metric ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__object__metric
+
+[@@@deriving.end]
 
 type spec__metric__object__target = {
   average_utilization : float prop option; [@option]
-      (** averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type *)
   average_value : string prop option; [@option]
-      (** averageValue is the target value of the average of the metric across all relevant pods (as a quantity) *)
   type_ : string prop; [@key "type"]
-      (** type represents whether the metric type is Utilization, Value, or AverageValue *)
   value : string prop option; [@option]
-      (** value is the target value of the metric (as a quantity). *)
 }
-[@@deriving yojson_of]
-(** target specifies the target value for the given metric *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__object__target) -> ()
+
+let yojson_of_spec__metric__object__target =
+  (function
+   | {
+       average_utilization = v_average_utilization;
+       average_value = v_average_value;
+       type_ = v_type_;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_average_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "average_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_average_utilization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "average_utilization", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__object__target ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__object__target
+
+[@@@deriving.end]
 
 type spec__metric__object = {
   described_object : spec__metric__object__described_object list;
   metric : spec__metric__object__metric list;
   target : spec__metric__object__target list;
 }
-[@@deriving yojson_of]
-(** spec__metric__object *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__object) -> ()
+
+let yojson_of_spec__metric__object =
+  (function
+   | {
+       described_object = v_described_object;
+       metric = v_metric;
+       target = v_target;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__object__target
+             v_target
+         in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__object__metric
+             v_metric
+         in
+         ("metric", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__metric__object__described_object
+             v_described_object
+         in
+         ("described_object", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__object -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__object
+
+[@@@deriving.end]
 
 type spec__metric__pods__metric__selector__match_expressions = {
   key : string prop option; [@option]
-      (** The label key that the selector applies to. *)
   operator : string prop option; [@option]
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists` and `DoesNotExist`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of label selector requirements. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__metric__pods__metric__selector__match_expressions) ->
+  ()
+
+let yojson_of_spec__metric__pods__metric__selector__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__pods__metric__selector__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__metric__pods__metric__selector__match_expressions
+
+[@@@deriving.end]
 
 type spec__metric__pods__metric__selector = {
   match_labels : (string * string prop) list option; [@option]
-      (** A map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of `match_expressions`, whose key field is key, the operator is In, and the values array contains only value. The requirements are ANDed. *)
   match_expressions :
     spec__metric__pods__metric__selector__match_expressions list;
 }
-[@@deriving yojson_of]
-(** selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__pods__metric__selector) -> ()
+
+let yojson_of_spec__metric__pods__metric__selector =
+  (function
+   | {
+       match_labels = v_match_labels;
+       match_expressions = v_match_expressions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__metric__pods__metric__selector__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       let bnds =
+         match v_match_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "match_labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__pods__metric__selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__pods__metric__selector
+
+[@@@deriving.end]
 
 type spec__metric__pods__metric = {
-  name : string prop;  (** name is the name of the given metric *)
+  name : string prop;
   selector : spec__metric__pods__metric__selector list;
 }
-[@@deriving yojson_of]
-(** metric identifies the target metric by name and selector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__pods__metric) -> ()
+
+let yojson_of_spec__metric__pods__metric =
+  (function
+   | { name = v_name; selector = v_selector } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__metric__pods__metric__selector
+             v_selector
+         in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__pods__metric -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__pods__metric
+
+[@@@deriving.end]
 
 type spec__metric__pods__target = {
   average_utilization : float prop option; [@option]
-      (** averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type *)
   average_value : string prop option; [@option]
-      (** averageValue is the target value of the average of the metric across all relevant pods (as a quantity) *)
   type_ : string prop; [@key "type"]
-      (** type represents whether the metric type is Utilization, Value, or AverageValue *)
   value : string prop option; [@option]
-      (** value is the target value of the metric (as a quantity). *)
 }
-[@@deriving yojson_of]
-(** target specifies the target value for the given metric *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__pods__target) -> ()
+
+let yojson_of_spec__metric__pods__target =
+  (function
+   | {
+       average_utilization = v_average_utilization;
+       average_value = v_average_value;
+       type_ = v_type_;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_average_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "average_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_average_utilization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "average_utilization", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__pods__target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__pods__target
+
+[@@@deriving.end]
 
 type spec__metric__pods = {
   metric : spec__metric__pods__metric list;
   target : spec__metric__pods__target list;
 }
-[@@deriving yojson_of]
-(** spec__metric__pods *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__pods) -> ()
+
+let yojson_of_spec__metric__pods =
+  (function
+   | { metric = v_metric; target = v_target } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__pods__target
+             v_target
+         in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__pods__metric
+             v_metric
+         in
+         ("metric", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__pods -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__pods
+
+[@@@deriving.end]
 
 type spec__metric__resource__target = {
   average_utilization : float prop option; [@option]
-      (** averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type *)
   average_value : string prop option; [@option]
-      (** averageValue is the target value of the average of the metric across all relevant pods (as a quantity) *)
   type_ : string prop; [@key "type"]
-      (** type represents whether the metric type is Utilization, Value, or AverageValue *)
   value : string prop option; [@option]
-      (** value is the target value of the metric (as a quantity). *)
 }
-[@@deriving yojson_of]
-(** Target specifies the target value for the given metric *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__resource__target) -> ()
+
+let yojson_of_spec__metric__resource__target =
+  (function
+   | {
+       average_utilization = v_average_utilization;
+       average_value = v_average_value;
+       type_ = v_type_;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_average_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "average_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_average_utilization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "average_utilization", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__resource__target ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__resource__target
+
+[@@@deriving.end]
 
 type spec__metric__resource = {
   name : string prop;
-      (** name is the name of the resource in question. *)
   target : spec__metric__resource__target list;
 }
-[@@deriving yojson_of]
-(** spec__metric__resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric__resource) -> ()
+
+let yojson_of_spec__metric__resource =
+  (function
+   | { name = v_name; target = v_target } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__resource__target
+             v_target
+         in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric__resource -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric__resource
+
+[@@@deriving.end]
 
 type spec__metric = {
   type_ : string prop; [@key "type"]
-      (** type is the type of metric source. It should be one of ContainerResource, External, Object, Pods or Resource, each mapping to a matching field in the object. Note: ContainerResource type is available on when the feature-gate HPAContainerMetrics is enabled *)
   container_resource : spec__metric__container_resource list;
   external_ : spec__metric__external list;
   object_ : spec__metric__object list;
   pods : spec__metric__pods list;
   resource : spec__metric__resource list;
 }
-[@@deriving yojson_of]
-(** The specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used). The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods. Ergo, metrics used must decrease as the pod count is increased, and vice-versa. See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__metric) -> ()
+
+let yojson_of_spec__metric =
+  (function
+   | {
+       type_ = v_type_;
+       container_resource = v_container_resource;
+       external_ = v_external_;
+       object_ = v_object_;
+       pods = v_pods;
+       resource = v_resource;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__resource v_resource
+         in
+         ("resource", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__pods v_pods
+         in
+         ("pods", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__object v_object_
+         in
+         ("object_", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__external
+             v_external_
+         in
+         ("external_", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__metric__container_resource
+             v_container_resource
+         in
+         ("container_resource", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__metric -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__metric
+
+[@@@deriving.end]
 
 type spec__scale_target_ref = {
   api_version : string prop option; [@option]
-      (** API version of the referent *)
   kind : string prop;
-      (** Kind of the referent. e.g. `ReplicationController`. More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#types-kinds *)
   name : string prop;
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Reference to scaled resource. e.g. Replication Controller *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__scale_target_ref) -> ()
+
+let yojson_of_spec__scale_target_ref =
+  (function
+   | { api_version = v_api_version; kind = v_kind; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         match v_api_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__scale_target_ref -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__scale_target_ref
+
+[@@@deriving.end]
 
 type spec = {
   max_replicas : float prop;
-      (** Upper limit for the number of pods that can be set by the autoscaler. *)
   min_replicas : float prop option; [@option]
-      (** Lower limit for the number of pods that can be set by the autoscaler, defaults to `1`. *)
   target_cpu_utilization_percentage : float prop option; [@option]
-      (** Target average CPU utilization (represented as a percentage of requested CPU) over all the pods. If not specified the default autoscaling policy will be used. *)
   behavior : spec__behavior list;
   metric : spec__metric list;
   scale_target_ref : spec__scale_target_ref list;
 }
-[@@deriving yojson_of]
-(** Behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       max_replicas = v_max_replicas;
+       min_replicas = v_min_replicas;
+       target_cpu_utilization_percentage =
+         v_target_cpu_utilization_percentage;
+       behavior = v_behavior;
+       metric = v_metric;
+       scale_target_ref = v_scale_target_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__scale_target_ref
+             v_scale_target_ref
+         in
+         ("scale_target_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec__metric v_metric in
+         ("metric", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__behavior v_behavior
+         in
+         ("behavior", arg) :: bnds
+       in
+       let bnds =
+         match v_target_cpu_utilization_percentage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_cpu_utilization_percentage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_replicas with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_replicas", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_replicas in
+         ("max_replicas", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type kubernetes_horizontal_pod_autoscaler = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   metadata : metadata list;
   spec : spec list;
 }
-[@@deriving yojson_of]
-(** kubernetes_horizontal_pod_autoscaler *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_horizontal_pod_autoscaler) -> ()
+
+let yojson_of_kubernetes_horizontal_pod_autoscaler =
+  (function
+   | { id = v_id; metadata = v_metadata; spec = v_spec } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_horizontal_pod_autoscaler ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_horizontal_pod_autoscaler
+
+[@@@deriving.end]
 
 let metadata ?annotations ?generate_name ?labels ?name ?namespace ()
     : metadata =

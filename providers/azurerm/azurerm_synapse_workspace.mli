@@ -10,11 +10,15 @@ type aad_admin = {
   tenant_id : string prop;  (** tenant_id *)
 }
 
+[@@@deriving.end]
+
 type sql_aad_admin = {
   login : string prop;  (** login *)
   object_id : string prop;  (** object_id *)
   tenant_id : string prop;  (** tenant_id *)
 }
+
+[@@@deriving.end]
 
 type azure_devops_repo
 

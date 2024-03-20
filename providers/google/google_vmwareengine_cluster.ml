@@ -4,38 +4,149 @@ open! Tf_core
 
 type node_type_configs = {
   custom_core_count : float prop option; [@option]
-      (** Customized number of cores available to each node of the type.
-This number must always be one of 'nodeType.availableCustomCoreCounts'.
-If zero is provided max value from 'nodeType.availableCustomCoreCounts' will be used.
-Once the customer is created then corecount cannot be changed. *)
   node_count : float prop;
-      (** The number of nodes of this type in the cluster. *)
-  node_type_id : string prop;  (** node_type_id *)
+  node_type_id : string prop;
 }
-[@@deriving yojson_of]
-(** The map of cluster node types in this cluster,
-where the key is canonical identifier of the node type (corresponds to the NodeType). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_type_configs) -> ()
+
+let yojson_of_node_type_configs =
+  (function
+   | {
+       custom_core_count = v_custom_core_count;
+       node_count = v_node_count;
+       node_type_id = v_node_type_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_node_type_id in
+         ("node_type_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_node_count in
+         ("node_count", arg) :: bnds
+       in
+       let bnds =
+         match v_custom_core_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "custom_core_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_type_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_type_configs
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_vmwareengine_cluster = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The ID of the Cluster. *)
+  id : string prop option; [@option]
+  name : string prop;
   parent : string prop;
-      (** The resource name of the private cloud to create a new cluster in.
-Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
-For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)
   node_type_configs : node_type_configs list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vmwareengine_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_vmwareengine_cluster) -> ()
+
+let yojson_of_google_vmwareengine_cluster =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       parent = v_parent;
+       node_type_configs = v_node_type_configs;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_type_configs
+             v_node_type_configs
+         in
+         ("node_type_configs", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_vmwareengine_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vmwareengine_cluster
+
+[@@@deriving.end]
 
 let node_type_configs ?custom_core_count ~node_count ~node_type_id ()
     : node_type_configs =

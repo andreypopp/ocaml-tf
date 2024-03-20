@@ -8,10 +8,14 @@ type connector_version_infra_config = {
   ratelimit_threshold : string prop;  (** ratelimit_threshold *)
 }
 
+[@@@deriving.end]
+
 type eventing_runtime_data__status = {
   description : string prop;  (** description *)
   state : string prop;  (** state *)
 }
+
+[@@@deriving.end]
 
 type eventing_runtime_data = {
   events_listener_endpoint : string prop;
@@ -19,11 +23,15 @@ type eventing_runtime_data = {
   status : eventing_runtime_data__status list;  (** status *)
 }
 
+[@@@deriving.end]
+
 type status = {
   description : string prop;  (** description *)
   state : string prop;  (** state *)
   status : string prop;  (** status *)
 }
+
+[@@@deriving.end]
 
 type auth_config__additional_variable__encryption_key_value
 

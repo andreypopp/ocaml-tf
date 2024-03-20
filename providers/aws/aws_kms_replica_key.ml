@@ -4,20 +4,128 @@ open! Tf_core
 
 type aws_kms_replica_key = {
   bypass_policy_lockout_safety_check : bool prop option; [@option]
-      (** bypass_policy_lockout_safety_check *)
   deletion_window_in_days : float prop option; [@option]
-      (** deletion_window_in_days *)
-  description : string prop option; [@option]  (** description *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  policy : string prop option; [@option]  (** policy *)
-  primary_key_arn : string prop;  (** primary_key_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  policy : string prop option; [@option]
+  primary_key_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_kms_replica_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_kms_replica_key) -> ()
+
+let yojson_of_aws_kms_replica_key =
+  (function
+   | {
+       bypass_policy_lockout_safety_check =
+         v_bypass_policy_lockout_safety_check;
+       deletion_window_in_days = v_deletion_window_in_days;
+       description = v_description;
+       enabled = v_enabled;
+       id = v_id;
+       policy = v_policy;
+       primary_key_arn = v_primary_key_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_primary_key_arn
+         in
+         ("primary_key_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_window_in_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "deletion_window_in_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bypass_policy_lockout_safety_check with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bypass_policy_lockout_safety_check", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_kms_replica_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_kms_replica_key
+
+[@@@deriving.end]
 
 let aws_kms_replica_key ?bypass_policy_lockout_safety_check
     ?deletion_window_in_days ?description ?enabled ?id ?policy ?tags

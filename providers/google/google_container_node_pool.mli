@@ -57,15 +57,21 @@ type node_config__effective_taints = {
   value : string prop;  (** value *)
 }
 
+[@@@deriving.end]
+
 type node_config__guest_accelerator__gpu_sharing_config = {
   gpu_sharing_strategy : string prop;  (** gpu_sharing_strategy *)
   max_shared_clients_per_gpu : float prop;
       (** max_shared_clients_per_gpu *)
 }
 
+[@@@deriving.end]
+
 type node_config__guest_accelerator__gpu_driver_installation_config = {
   gpu_driver_version : string prop;  (** gpu_driver_version *)
 }
+
+[@@@deriving.end]
 
 type node_config__guest_accelerator = {
   count : float prop;  (** count *)
@@ -79,6 +85,8 @@ type node_config__guest_accelerator = {
       (** gpu_sharing_config *)
   type_ : string prop; [@key "type"]  (** type *)
 }
+
+[@@@deriving.end]
 
 type node_config__advanced_machine_features
 

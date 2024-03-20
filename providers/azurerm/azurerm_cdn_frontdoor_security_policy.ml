@@ -4,50 +4,244 @@ open! Tf_core
 
 type security_policies__firewall__association__domain = {
   cdn_frontdoor_domain_id : string prop;
-      (** cdn_frontdoor_domain_id *)
 }
-[@@deriving yojson_of]
-(** security_policies__firewall__association__domain *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : security_policies__firewall__association__domain) -> ()
+
+let yojson_of_security_policies__firewall__association__domain =
+  (function
+   | { cdn_frontdoor_domain_id = v_cdn_frontdoor_domain_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cdn_frontdoor_domain_id
+         in
+         ("cdn_frontdoor_domain_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : security_policies__firewall__association__domain ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_policies__firewall__association__domain
+
+[@@@deriving.end]
 
 type security_policies__firewall__association = {
-  patterns_to_match : string prop list;  (** patterns_to_match *)
+  patterns_to_match : string prop list;
   domain : security_policies__firewall__association__domain list;
 }
-[@@deriving yojson_of]
-(** security_policies__firewall__association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : security_policies__firewall__association) -> ()
+
+let yojson_of_security_policies__firewall__association =
+  (function
+   | { patterns_to_match = v_patterns_to_match; domain = v_domain }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_security_policies__firewall__association__domain
+             v_domain
+         in
+         ("domain", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_patterns_to_match
+         in
+         ("patterns_to_match", arg) :: bnds
+       in
+       `Assoc bnds
+    : security_policies__firewall__association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_policies__firewall__association
+
+[@@@deriving.end]
 
 type security_policies__firewall = {
   cdn_frontdoor_firewall_policy_id : string prop;
-      (** cdn_frontdoor_firewall_policy_id *)
   association : security_policies__firewall__association list;
 }
-[@@deriving yojson_of]
-(** security_policies__firewall *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : security_policies__firewall) -> ()
+
+let yojson_of_security_policies__firewall =
+  (function
+   | {
+       cdn_frontdoor_firewall_policy_id =
+         v_cdn_frontdoor_firewall_policy_id;
+       association = v_association;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_security_policies__firewall__association
+             v_association
+         in
+         ("association", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_cdn_frontdoor_firewall_policy_id
+         in
+         ("cdn_frontdoor_firewall_policy_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : security_policies__firewall ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_policies__firewall
+
+[@@@deriving.end]
 
 type security_policies = {
   firewall : security_policies__firewall list;
 }
-[@@deriving yojson_of]
-(** security_policies *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : security_policies) -> ()
+
+let yojson_of_security_policies =
+  (function
+   | { firewall = v_firewall } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_security_policies__firewall
+             v_firewall
+         in
+         ("firewall", arg) :: bnds
+       in
+       `Assoc bnds
+    : security_policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_policies
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; read = v_read } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_cdn_frontdoor_security_policy = {
   cdn_frontdoor_profile_id : string prop;
-      (** cdn_frontdoor_profile_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   security_policies : security_policies list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_cdn_frontdoor_security_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_cdn_frontdoor_security_policy) -> ()
+
+let yojson_of_azurerm_cdn_frontdoor_security_policy =
+  (function
+   | {
+       cdn_frontdoor_profile_id = v_cdn_frontdoor_profile_id;
+       id = v_id;
+       name = v_name;
+       security_policies = v_security_policies;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_security_policies
+             v_security_policies
+         in
+         ("security_policies", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cdn_frontdoor_profile_id
+         in
+         ("cdn_frontdoor_profile_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_cdn_frontdoor_security_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_cdn_frontdoor_security_policy
+
+[@@@deriving.end]
 
 let security_policies__firewall__association__domain
     ~cdn_frontdoor_domain_id () :

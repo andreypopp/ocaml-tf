@@ -3,35 +3,153 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_active_directory_domain_trust = {
   domain : string prop;
-      (** The fully qualified domain name. e.g. mydomain.myorganization.com, with the restrictions,
-https://cloud.google.com/managed-microsoft-ad/reference/rest/v1/projects.locations.global.domains. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   selective_authentication : bool prop option; [@option]
-      (** Whether the trusted side has forest/domain wide access or selective access to an approved set of resources. *)
   target_dns_ip_addresses : string prop list;
-      (** The target DNS server IP addresses which can resolve the remote domain involved in the trust. *)
   target_domain_name : string prop;
-      (** The fully qualified target domain name which will be in trust with the current domain. *)
   trust_direction : string prop;
-      (** The trust direction, which decides if the current domain is trusted, trusting, or both. Possible values: [INBOUND, OUTBOUND, BIDIRECTIONAL] *)
   trust_handshake_secret : string prop;
-      (** The trust secret used for the handshake with the target domain. This will not be stored. *)
   trust_type : string prop;
-      (** The type of trust represented by the trust resource. Possible values: [FOREST, EXTERNAL] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_active_directory_domain_trust *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_active_directory_domain_trust) -> ()
+
+let yojson_of_google_active_directory_domain_trust =
+  (function
+   | {
+       domain = v_domain;
+       id = v_id;
+       project = v_project;
+       selective_authentication = v_selective_authentication;
+       target_dns_ip_addresses = v_target_dns_ip_addresses;
+       target_domain_name = v_target_domain_name;
+       trust_direction = v_trust_direction;
+       trust_handshake_secret = v_trust_handshake_secret;
+       trust_type = v_trust_type;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_trust_type in
+         ("trust_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_trust_handshake_secret
+         in
+         ("trust_handshake_secret", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_trust_direction
+         in
+         ("trust_direction", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_domain_name
+         in
+         ("target_domain_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_target_dns_ip_addresses
+         in
+         ("target_dns_ip_addresses", arg) :: bnds
+       in
+       let bnds =
+         match v_selective_authentication with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "selective_authentication", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_active_directory_domain_trust ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_active_directory_domain_trust
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

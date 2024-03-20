@@ -22,6 +22,8 @@ type route = {
       (** vpc_peering_connection_id *)
 }
 
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

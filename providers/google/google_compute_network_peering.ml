@@ -3,33 +3,157 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_network_peering = {
   export_custom_routes : bool prop option; [@option]
-      (** Whether to export the custom routes to the peer network. Defaults to false. *)
   export_subnet_routes_with_public_ip : bool prop option; [@option]
-      (** export_subnet_routes_with_public_ip *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   import_custom_routes : bool prop option; [@option]
-      (** Whether to export the custom routes from the peer network. Defaults to false. *)
   import_subnet_routes_with_public_ip : bool prop option; [@option]
-      (** import_subnet_routes_with_public_ip *)
-  name : string prop;  (** Name of the peering. *)
-  network : string prop;  (** The primary network of the peering. *)
+  name : string prop;
+  network : string prop;
   peer_network : string prop;
-      (** The peer network in the peering. The peer network may belong to a different project. *)
   stack_type : string prop option; [@option]
-      (** Which IP version(s) of traffic and routes are allowed to be imported or exported between peer networks. The default value is IPV4_ONLY. Possible values: [IPV4_ONLY, IPV4_IPV6] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_network_peering *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_network_peering) -> ()
+
+let yojson_of_google_compute_network_peering =
+  (function
+   | {
+       export_custom_routes = v_export_custom_routes;
+       export_subnet_routes_with_public_ip =
+         v_export_subnet_routes_with_public_ip;
+       id = v_id;
+       import_custom_routes = v_import_custom_routes;
+       import_subnet_routes_with_public_ip =
+         v_import_subnet_routes_with_public_ip;
+       name = v_name;
+       network = v_network;
+       peer_network = v_peer_network;
+       stack_type = v_stack_type;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_stack_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stack_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_peer_network in
+         ("peer_network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_import_subnet_routes_with_public_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "import_subnet_routes_with_public_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_import_custom_routes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "import_custom_routes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_export_subnet_routes_with_public_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "export_subnet_routes_with_public_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_export_custom_routes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "export_custom_routes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_network_peering ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_network_peering
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

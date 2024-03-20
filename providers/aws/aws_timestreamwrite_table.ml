@@ -3,72 +3,368 @@
 open! Tf_core
 
 type magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration = {
-  bucket_name : string prop option; [@option]  (** bucket_name *)
+  bucket_name : string prop option; [@option]
   encryption_option : string prop option; [@option]
-      (** encryption_option *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]
   object_key_prefix : string prop option; [@option]
-      (** object_key_prefix *)
 }
-[@@deriving yojson_of]
-(** magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration) ->
+  ()
+
+let yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
+    =
+  (function
+   | {
+       bucket_name = v_bucket_name;
+       encryption_option = v_encryption_option;
+       kms_key_id = v_kms_key_id;
+       object_key_prefix = v_object_key_prefix;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_object_key_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_key_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_option with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption_option", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bucket_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
+
+[@@@deriving.end]
 
 type magnetic_store_write_properties__magnetic_store_rejected_data_location = {
   s3_configuration :
     magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
     list;
 }
-[@@deriving yojson_of]
-(** magnetic_store_write_properties__magnetic_store_rejected_data_location *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       magnetic_store_write_properties__magnetic_store_rejected_data_location) ->
+  ()
+
+let yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location
+    =
+  (function
+   | { s3_configuration = v_s3_configuration } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
+             v_s3_configuration
+         in
+         ("s3_configuration", arg) :: bnds
+       in
+       `Assoc bnds
+    : magnetic_store_write_properties__magnetic_store_rejected_data_location ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location
+
+[@@@deriving.end]
 
 type magnetic_store_write_properties = {
   enable_magnetic_store_writes : bool prop option; [@option]
-      (** enable_magnetic_store_writes *)
   magnetic_store_rejected_data_location :
     magnetic_store_write_properties__magnetic_store_rejected_data_location
     list;
 }
-[@@deriving yojson_of]
-(** magnetic_store_write_properties *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : magnetic_store_write_properties) -> ()
+
+let yojson_of_magnetic_store_write_properties =
+  (function
+   | {
+       enable_magnetic_store_writes = v_enable_magnetic_store_writes;
+       magnetic_store_rejected_data_location =
+         v_magnetic_store_rejected_data_location;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_magnetic_store_write_properties__magnetic_store_rejected_data_location
+             v_magnetic_store_rejected_data_location
+         in
+         ("magnetic_store_rejected_data_location", arg) :: bnds
+       in
+       let bnds =
+         match v_enable_magnetic_store_writes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_magnetic_store_writes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : magnetic_store_write_properties ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_magnetic_store_write_properties
+
+[@@@deriving.end]
 
 type retention_properties = {
   magnetic_store_retention_period_in_days : float prop;
-      (** magnetic_store_retention_period_in_days *)
   memory_store_retention_period_in_hours : float prop;
-      (** memory_store_retention_period_in_hours *)
 }
-[@@deriving yojson_of]
-(** retention_properties *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : retention_properties) -> ()
+
+let yojson_of_retention_properties =
+  (function
+   | {
+       magnetic_store_retention_period_in_days =
+         v_magnetic_store_retention_period_in_days;
+       memory_store_retention_period_in_hours =
+         v_memory_store_retention_period_in_hours;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_memory_store_retention_period_in_hours
+         in
+         ("memory_store_retention_period_in_hours", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_magnetic_store_retention_period_in_days
+         in
+         ("magnetic_store_retention_period_in_days", arg) :: bnds
+       in
+       `Assoc bnds
+    : retention_properties -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retention_properties
+
+[@@@deriving.end]
 
 type schema__composite_partition_key = {
   enforcement_in_record : string prop option; [@option]
-      (** enforcement_in_record *)
-  name : string prop option; [@option]  (** name *)
-  type_ : string prop; [@key "type"]  (** type *)
+  name : string prop option; [@option]
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** schema__composite_partition_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schema__composite_partition_key) -> ()
+
+let yojson_of_schema__composite_partition_key =
+  (function
+   | {
+       enforcement_in_record = v_enforcement_in_record;
+       name = v_name;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enforcement_in_record with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "enforcement_in_record", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : schema__composite_partition_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schema__composite_partition_key
+
+[@@@deriving.end]
 
 type schema = {
   composite_partition_key : schema__composite_partition_key list;
 }
-[@@deriving yojson_of]
-(** schema *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schema) -> ()
+
+let yojson_of_schema =
+  (function
+   | { composite_partition_key = v_composite_partition_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_schema__composite_partition_key
+             v_composite_partition_key
+         in
+         ("composite_partition_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : schema -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schema
+
+[@@@deriving.end]
 
 type aws_timestreamwrite_table = {
-  database_name : string prop;  (** database_name *)
-  id : string prop option; [@option]  (** id *)
-  table_name : string prop;  (** table_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  database_name : string prop;
+  id : string prop option; [@option]
+  table_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   magnetic_store_write_properties :
     magnetic_store_write_properties list;
   retention_properties : retention_properties list;
   schema : schema list;
 }
-[@@deriving yojson_of]
-(** aws_timestreamwrite_table *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_timestreamwrite_table) -> ()
+
+let yojson_of_aws_timestreamwrite_table =
+  (function
+   | {
+       database_name = v_database_name;
+       id = v_id;
+       table_name = v_table_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       magnetic_store_write_properties =
+         v_magnetic_store_write_properties;
+       retention_properties = v_retention_properties;
+       schema = v_schema;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_schema v_schema in
+         ("schema", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retention_properties
+             v_retention_properties
+         in
+         ("retention_properties", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_magnetic_store_write_properties
+             v_magnetic_store_write_properties
+         in
+         ("magnetic_store_write_properties", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_name in
+         ("table_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_name in
+         ("database_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_timestreamwrite_table -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_timestreamwrite_table
+
+[@@@deriving.end]
 
 let magnetic_store_write_properties__magnetic_store_rejected_data_location__s3_configuration
     ?bucket_name ?encryption_option ?kms_key_id ?object_key_prefix ()

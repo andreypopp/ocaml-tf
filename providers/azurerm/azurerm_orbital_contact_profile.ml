@@ -3,64 +3,356 @@
 open! Tf_core
 
 type links__channels__end_point = {
-  end_point_name : string prop;  (** end_point_name *)
-  ip_address : string prop option; [@option]  (** ip_address *)
-  port : string prop;  (** port *)
-  protocol : string prop;  (** protocol *)
+  end_point_name : string prop;
+  ip_address : string prop option; [@option]
+  port : string prop;
+  protocol : string prop;
 }
-[@@deriving yojson_of]
-(** links__channels__end_point *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : links__channels__end_point) -> ()
+
+let yojson_of_links__channels__end_point =
+  (function
+   | {
+       end_point_name = v_end_point_name;
+       ip_address = v_ip_address;
+       port = v_port;
+       protocol = v_protocol;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         match v_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_end_point_name
+         in
+         ("end_point_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : links__channels__end_point -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_links__channels__end_point
+
+[@@@deriving.end]
 
 type links__channels = {
-  bandwidth_mhz : float prop;  (** bandwidth_mhz *)
-  center_frequency_mhz : float prop;  (** center_frequency_mhz *)
+  bandwidth_mhz : float prop;
+  center_frequency_mhz : float prop;
   demodulation_configuration : string prop option; [@option]
-      (** demodulation_configuration *)
   modulation_configuration : string prop option; [@option]
-      (** modulation_configuration *)
-  name : string prop;  (** name *)
+  name : string prop;
   end_point : links__channels__end_point list;
 }
-[@@deriving yojson_of]
-(** links__channels *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : links__channels) -> ()
+
+let yojson_of_links__channels =
+  (function
+   | {
+       bandwidth_mhz = v_bandwidth_mhz;
+       center_frequency_mhz = v_center_frequency_mhz;
+       demodulation_configuration = v_demodulation_configuration;
+       modulation_configuration = v_modulation_configuration;
+       name = v_name;
+       end_point = v_end_point;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_links__channels__end_point
+             v_end_point
+         in
+         ("end_point", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_modulation_configuration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "modulation_configuration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_demodulation_configuration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "demodulation_configuration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_center_frequency_mhz
+         in
+         ("center_frequency_mhz", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_bandwidth_mhz in
+         ("bandwidth_mhz", arg) :: bnds
+       in
+       `Assoc bnds
+    : links__channels -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_links__channels
+
+[@@@deriving.end]
 
 type links = {
-  direction : string prop;  (** direction *)
-  name : string prop;  (** name *)
-  polarization : string prop;  (** polarization *)
+  direction : string prop;
+  name : string prop;
+  polarization : string prop;
   channels : links__channels list;
 }
-[@@deriving yojson_of]
-(** links *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : links) -> ()
+
+let yojson_of_links =
+  (function
+   | {
+       direction = v_direction;
+       name = v_name;
+       polarization = v_polarization;
+       channels = v_channels;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_links__channels v_channels
+         in
+         ("channels", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_polarization in
+         ("polarization", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_direction in
+         ("direction", arg) :: bnds
+       in
+       `Assoc bnds
+    : links -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_links
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_orbital_contact_profile = {
-  auto_tracking : string prop;  (** auto_tracking *)
-  event_hub_uri : string prop option; [@option]  (** event_hub_uri *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
+  auto_tracking : string prop;
+  event_hub_uri : string prop option; [@option]
+  id : string prop option; [@option]
+  location : string prop;
   minimum_elevation_degrees : float prop option; [@option]
-      (** minimum_elevation_degrees *)
   minimum_variable_contact_duration : string prop;
-      (** minimum_variable_contact_duration *)
-  name : string prop;  (** name *)
+  name : string prop;
   network_configuration_subnet_id : string prop;
-      (** network_configuration_subnet_id *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   links : links list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_orbital_contact_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_orbital_contact_profile) -> ()
+
+let yojson_of_azurerm_orbital_contact_profile =
+  (function
+   | {
+       auto_tracking = v_auto_tracking;
+       event_hub_uri = v_event_hub_uri;
+       id = v_id;
+       location = v_location;
+       minimum_elevation_degrees = v_minimum_elevation_degrees;
+       minimum_variable_contact_duration =
+         v_minimum_variable_contact_duration;
+       name = v_name;
+       network_configuration_subnet_id =
+         v_network_configuration_subnet_id;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       links = v_links;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_links v_links in
+         ("links", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_network_configuration_subnet_id
+         in
+         ("network_configuration_subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_minimum_variable_contact_duration
+         in
+         ("minimum_variable_contact_duration", arg) :: bnds
+       in
+       let bnds =
+         match v_minimum_elevation_degrees with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minimum_elevation_degrees", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event_hub_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "event_hub_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_auto_tracking in
+         ("auto_tracking", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_orbital_contact_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_orbital_contact_profile
+
+[@@@deriving.end]
 
 let links__channels__end_point ?ip_address ~end_point_name ~port
     ~protocol () : links__channels__end_point =

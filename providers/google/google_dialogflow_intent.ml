@@ -3,63 +3,245 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type followup_intent_info = {
-  followup_intent_name : string prop;  (** followup_intent_name *)
+  followup_intent_name : string prop;
   parent_followup_intent_name : string prop;
-      (** parent_followup_intent_name *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : followup_intent_info) -> ()
+
+let yojson_of_followup_intent_info =
+  (function
+   | {
+       followup_intent_name = v_followup_intent_name;
+       parent_followup_intent_name = v_parent_followup_intent_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_parent_followup_intent_name
+         in
+         ("parent_followup_intent_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_followup_intent_name
+         in
+         ("followup_intent_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : followup_intent_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_followup_intent_info
+
+[@@@deriving.end]
 
 type google_dialogflow_intent = {
   action : string prop option; [@option]
-      (** The name of the action associated with the intent.
-Note: The action name must not contain whitespaces. *)
   default_response_platforms : string prop list option; [@option]
-      (** The list of platforms for which the first responses will be copied from the messages in PLATFORM_UNSPECIFIED
-(i.e. default platform). Possible values: [FACEBOOK, SLACK, TELEGRAM, KIK, SKYPE, LINE, VIBER, ACTIONS_ON_GOOGLE, GOOGLE_HANGOUTS] *)
   display_name : string prop;
-      (** The name of this intent to be displayed on the console. *)
   events : string prop list option; [@option]
-      (** The collection of event names that trigger the intent. If the collection of input contexts is not empty, all of
-the contexts must be present in the active user session for an event to trigger this intent. See the
-[events reference](https://cloud.google.com/dialogflow/docs/events-overview) for more details. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   input_context_names : string prop list option; [@option]
-      (** The list of context names required for this intent to be triggered.
-Format: projects/<Project ID>/agent/sessions/-/contexts/<Context ID>. *)
   is_fallback : bool prop option; [@option]
-      (** Indicates whether this is a fallback intent. *)
   ml_disabled : bool prop option; [@option]
-      (** Indicates whether Machine Learning is disabled for the intent.
-Note: If mlDisabled setting is set to true, then this intent is not taken into account during inference in ML
-ONLY match mode. Also, auto-markup in the UI is turned off. *)
   parent_followup_intent_name : string prop option; [@option]
-      (** The unique identifier of the parent intent in the chain of followup intents.
-Format: projects/<Project ID>/agent/intents/<Intent ID>. *)
   priority : float prop option; [@option]
-      (** The priority of this intent. Higher numbers represent higher priorities.
-  - If the supplied value is unspecified or 0, the service translates the value to 500,000, which corresponds
-  to the Normal priority in the console.
-  - If the supplied value is negative, the intent is ignored in runtime detect intent requests. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   reset_contexts : bool prop option; [@option]
-      (** Indicates whether to delete all contexts in the current session when this intent is matched. *)
   webhook_state : string prop option; [@option]
-      (** Indicates whether webhooks are enabled for the intent.
-* WEBHOOK_STATE_ENABLED: Webhook is enabled in the agent and in the intent.
-* WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING: Webhook is enabled in the agent and in the intent. Also, each slot
-filling prompt is forwarded to the webhook. Possible values: [WEBHOOK_STATE_ENABLED, WEBHOOK_STATE_ENABLED_FOR_SLOT_FILLING] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dialogflow_intent *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dialogflow_intent) -> ()
+
+let yojson_of_google_dialogflow_intent =
+  (function
+   | {
+       action = v_action;
+       default_response_platforms = v_default_response_platforms;
+       display_name = v_display_name;
+       events = v_events;
+       id = v_id;
+       input_context_names = v_input_context_names;
+       is_fallback = v_is_fallback;
+       ml_disabled = v_ml_disabled;
+       parent_followup_intent_name = v_parent_followup_intent_name;
+       priority = v_priority;
+       project = v_project;
+       reset_contexts = v_reset_contexts;
+       webhook_state = v_webhook_state;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_webhook_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "webhook_state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_reset_contexts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "reset_contexts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parent_followup_intent_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parent_followup_intent_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ml_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ml_disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_fallback with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_fallback", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_input_context_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "input_context_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_events with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "events", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_default_response_platforms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "default_response_platforms", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "action", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dialogflow_intent -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dialogflow_intent
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

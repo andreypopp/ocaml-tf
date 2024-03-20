@@ -4,259 +4,938 @@ open! Tf_core
 
 type contact_settings__admin_contact__postal_address = {
   address_lines : string prop list option; [@option]
-      (** Unstructured address lines describing the lower levels of an address.
-Because values in addressLines do not have type information and may sometimes contain multiple values in a single
-field (e.g. Austin, TX), it is important that the line order is clear. The order of address lines should be
-envelope order for the country/region of the address. In places where this can vary (e.g. Japan), address_language
-is used to make it explicit (e.g. ja for large-to-small ordering and ja-Latn or en for small-to-large). This way,
-the most specific line of an address can be selected based on the language. *)
   administrative_area : string prop option; [@option]
-      (** Highest administrative subdivision which is used for postal addresses of a country or region. For example, this can be a state,
-a province, an oblast, or a prefecture. Specifically, for Spain this is the province and not the autonomous community
-(e.g. Barcelona and not Catalonia). Many countries don't use an administrative area in postal addresses. E.g. in Switzerland
-this should be left unpopulated. *)
   locality : string prop option; [@option]
-      (** Generally refers to the city/town portion of the address. Examples: US city, IT comune, UK post town. In regions of the world
-where localities are not well defined or do not fit into this structure well, leave locality empty and use addressLines. *)
   organization : string prop option; [@option]
-      (** The name of the organization at the address. *)
   postal_code : string prop option; [@option]
-      (** Postal code of the address. Not all countries use or require postal codes to be present, but where they are used,
-they may trigger additional validation with other parts of the address (e.g. state/zip validation in the U.S.A.). *)
   recipients : string prop list option; [@option]
-      (** The recipient at the address. This field may, under certain circumstances, contain multiline information. For example,
-it might contain care of information. *)
   region_code : string prop;
-      (** Required. CLDR region code of the country/region of the address. This is never inferred and it is up to the user to
-ensure the value is correct. See https://cldr.unicode.org/ and
-https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html for details. Example: CH for Switzerland. *)
 }
-[@@deriving yojson_of]
-(** Required. Postal address of the contact. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : contact_settings__admin_contact__postal_address) -> ()
+
+let yojson_of_contact_settings__admin_contact__postal_address =
+  (function
+   | {
+       address_lines = v_address_lines;
+       administrative_area = v_administrative_area;
+       locality = v_locality;
+       organization = v_organization;
+       postal_code = v_postal_code;
+       recipients = v_recipients;
+       region_code = v_region_code;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region_code in
+         ("region_code", arg) :: bnds
+       in
+       let bnds =
+         match v_recipients with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "recipients", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_postal_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "postal_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_organization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "organization", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_locality with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "locality", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_administrative_area with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "administrative_area", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_lines with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "address_lines", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : contact_settings__admin_contact__postal_address ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_contact_settings__admin_contact__postal_address
+
+[@@@deriving.end]
 
 type contact_settings__admin_contact = {
   email : string prop;
-      (** Required. Email address of the contact. *)
   fax_number : string prop option; [@option]
-      (** Fax number of the contact in international format. For example, +1-800-555-0123. *)
   phone_number : string prop;
-      (** Required. Phone number of the contact in international format. For example, +1-800-555-0123. *)
   postal_address :
     contact_settings__admin_contact__postal_address list;
 }
-[@@deriving yojson_of]
-(** Caution: Anyone with access to this email address, phone number, and/or postal address can take control of the domain.
+[@@deriving_inline yojson_of]
 
-Warning: For new Registrations, the registrant receives an email confirmation that they must complete within 15 days to
-avoid domain suspension. *)
+let _ = fun (_ : contact_settings__admin_contact) -> ()
+
+let yojson_of_contact_settings__admin_contact =
+  (function
+   | {
+       email = v_email;
+       fax_number = v_fax_number;
+       phone_number = v_phone_number;
+       postal_address = v_postal_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_contact_settings__admin_contact__postal_address
+             v_postal_address
+         in
+         ("postal_address", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_phone_number in
+         ("phone_number", arg) :: bnds
+       in
+       let bnds =
+         match v_fax_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fax_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email in
+         ("email", arg) :: bnds
+       in
+       `Assoc bnds
+    : contact_settings__admin_contact ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_contact_settings__admin_contact
+
+[@@@deriving.end]
 
 type contact_settings__registrant_contact__postal_address = {
   address_lines : string prop list option; [@option]
-      (** Unstructured address lines describing the lower levels of an address.
-Because values in addressLines do not have type information and may sometimes contain multiple values in a single
-field (e.g. Austin, TX), it is important that the line order is clear. The order of address lines should be
-envelope order for the country/region of the address. In places where this can vary (e.g. Japan), address_language
-is used to make it explicit (e.g. ja for large-to-small ordering and ja-Latn or en for small-to-large). This way,
-the most specific line of an address can be selected based on the language. *)
   administrative_area : string prop option; [@option]
-      (** Highest administrative subdivision which is used for postal addresses of a country or region. For example, this can be a state,
-a province, an oblast, or a prefecture. Specifically, for Spain this is the province and not the autonomous community
-(e.g. Barcelona and not Catalonia). Many countries don't use an administrative area in postal addresses. E.g. in Switzerland
-this should be left unpopulated. *)
   locality : string prop option; [@option]
-      (** Generally refers to the city/town portion of the address. Examples: US city, IT comune, UK post town. In regions of the world
-where localities are not well defined or do not fit into this structure well, leave locality empty and use addressLines. *)
   organization : string prop option; [@option]
-      (** The name of the organization at the address. *)
   postal_code : string prop option; [@option]
-      (** Postal code of the address. Not all countries use or require postal codes to be present, but where they are used,
-they may trigger additional validation with other parts of the address (e.g. state/zip validation in the U.S.A.). *)
   recipients : string prop list option; [@option]
-      (** The recipient at the address. This field may, under certain circumstances, contain multiline information. For example,
-it might contain care of information. *)
   region_code : string prop;
-      (** Required. CLDR region code of the country/region of the address. This is never inferred and it is up to the user to
-ensure the value is correct. See https://cldr.unicode.org/ and
-https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html for details. Example: CH for Switzerland. *)
 }
-[@@deriving yojson_of]
-(** Required. Postal address of the contact. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : contact_settings__registrant_contact__postal_address) -> ()
+
+let yojson_of_contact_settings__registrant_contact__postal_address =
+  (function
+   | {
+       address_lines = v_address_lines;
+       administrative_area = v_administrative_area;
+       locality = v_locality;
+       organization = v_organization;
+       postal_code = v_postal_code;
+       recipients = v_recipients;
+       region_code = v_region_code;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region_code in
+         ("region_code", arg) :: bnds
+       in
+       let bnds =
+         match v_recipients with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "recipients", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_postal_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "postal_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_organization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "organization", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_locality with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "locality", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_administrative_area with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "administrative_area", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_lines with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "address_lines", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : contact_settings__registrant_contact__postal_address ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_contact_settings__registrant_contact__postal_address
+
+[@@@deriving.end]
 
 type contact_settings__registrant_contact = {
   email : string prop;
-      (** Required. Email address of the contact. *)
   fax_number : string prop option; [@option]
-      (** Fax number of the contact in international format. For example, +1-800-555-0123. *)
   phone_number : string prop;
-      (** Required. Phone number of the contact in international format. For example, +1-800-555-0123. *)
   postal_address :
     contact_settings__registrant_contact__postal_address list;
 }
-[@@deriving yojson_of]
-(** Caution: Anyone with access to this email address, phone number, and/or postal address can take control of the domain.
+[@@deriving_inline yojson_of]
 
-Warning: For new Registrations, the registrant receives an email confirmation that they must complete within 15 days to
-avoid domain suspension. *)
+let _ = fun (_ : contact_settings__registrant_contact) -> ()
+
+let yojson_of_contact_settings__registrant_contact =
+  (function
+   | {
+       email = v_email;
+       fax_number = v_fax_number;
+       phone_number = v_phone_number;
+       postal_address = v_postal_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_contact_settings__registrant_contact__postal_address
+             v_postal_address
+         in
+         ("postal_address", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_phone_number in
+         ("phone_number", arg) :: bnds
+       in
+       let bnds =
+         match v_fax_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fax_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email in
+         ("email", arg) :: bnds
+       in
+       `Assoc bnds
+    : contact_settings__registrant_contact ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_contact_settings__registrant_contact
+
+[@@@deriving.end]
 
 type contact_settings__technical_contact__postal_address = {
   address_lines : string prop list option; [@option]
-      (** Unstructured address lines describing the lower levels of an address.
-Because values in addressLines do not have type information and may sometimes contain multiple values in a single
-field (e.g. Austin, TX), it is important that the line order is clear. The order of address lines should be
-envelope order for the country/region of the address. In places where this can vary (e.g. Japan), address_language
-is used to make it explicit (e.g. ja for large-to-small ordering and ja-Latn or en for small-to-large). This way,
-the most specific line of an address can be selected based on the language. *)
   administrative_area : string prop option; [@option]
-      (** Highest administrative subdivision which is used for postal addresses of a country or region. For example, this can be a state,
-a province, an oblast, or a prefecture. Specifically, for Spain this is the province and not the autonomous community
-(e.g. Barcelona and not Catalonia). Many countries don't use an administrative area in postal addresses. E.g. in Switzerland
-this should be left unpopulated. *)
   locality : string prop option; [@option]
-      (** Generally refers to the city/town portion of the address. Examples: US city, IT comune, UK post town. In regions of the world
-where localities are not well defined or do not fit into this structure well, leave locality empty and use addressLines. *)
   organization : string prop option; [@option]
-      (** The name of the organization at the address. *)
   postal_code : string prop option; [@option]
-      (** Postal code of the address. Not all countries use or require postal codes to be present, but where they are used,
-they may trigger additional validation with other parts of the address (e.g. state/zip validation in the U.S.A.). *)
   recipients : string prop list option; [@option]
-      (** The recipient at the address. This field may, under certain circumstances, contain multiline information. For example,
-it might contain care of information. *)
   region_code : string prop;
-      (** Required. CLDR region code of the country/region of the address. This is never inferred and it is up to the user to
-ensure the value is correct. See https://cldr.unicode.org/ and
-https://www.unicode.org/cldr/charts/30/supplemental/territory_information.html for details. Example: CH for Switzerland. *)
 }
-[@@deriving yojson_of]
-(** Required. Postal address of the contact. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : contact_settings__technical_contact__postal_address) -> ()
+
+let yojson_of_contact_settings__technical_contact__postal_address =
+  (function
+   | {
+       address_lines = v_address_lines;
+       administrative_area = v_administrative_area;
+       locality = v_locality;
+       organization = v_organization;
+       postal_code = v_postal_code;
+       recipients = v_recipients;
+       region_code = v_region_code;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region_code in
+         ("region_code", arg) :: bnds
+       in
+       let bnds =
+         match v_recipients with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "recipients", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_postal_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "postal_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_organization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "organization", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_locality with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "locality", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_administrative_area with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "administrative_area", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_lines with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "address_lines", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : contact_settings__technical_contact__postal_address ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_contact_settings__technical_contact__postal_address
+
+[@@@deriving.end]
 
 type contact_settings__technical_contact = {
   email : string prop;
-      (** Required. Email address of the contact. *)
   fax_number : string prop option; [@option]
-      (** Fax number of the contact in international format. For example, +1-800-555-0123. *)
   phone_number : string prop;
-      (** Required. Phone number of the contact in international format. For example, +1-800-555-0123. *)
   postal_address :
     contact_settings__technical_contact__postal_address list;
 }
-[@@deriving yojson_of]
-(** Caution: Anyone with access to this email address, phone number, and/or postal address can take control of the domain.
+[@@deriving_inline yojson_of]
 
-Warning: For new Registrations, the registrant receives an email confirmation that they must complete within 15 days to
-avoid domain suspension. *)
+let _ = fun (_ : contact_settings__technical_contact) -> ()
+
+let yojson_of_contact_settings__technical_contact =
+  (function
+   | {
+       email = v_email;
+       fax_number = v_fax_number;
+       phone_number = v_phone_number;
+       postal_address = v_postal_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_contact_settings__technical_contact__postal_address
+             v_postal_address
+         in
+         ("postal_address", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_phone_number in
+         ("phone_number", arg) :: bnds
+       in
+       let bnds =
+         match v_fax_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fax_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email in
+         ("email", arg) :: bnds
+       in
+       `Assoc bnds
+    : contact_settings__technical_contact ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_contact_settings__technical_contact
+
+[@@@deriving.end]
 
 type contact_settings = {
   privacy : string prop;
-      (** Required. Privacy setting for the contacts associated with the Registration.
-Values are PUBLIC_CONTACT_DATA, PRIVATE_CONTACT_DATA, and REDACTED_CONTACT_DATA *)
   admin_contact : contact_settings__admin_contact list;
   registrant_contact : contact_settings__registrant_contact list;
   technical_contact : contact_settings__technical_contact list;
 }
-[@@deriving yojson_of]
-(** Required. Settings for contact information linked to the Registration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : contact_settings) -> ()
+
+let yojson_of_contact_settings =
+  (function
+   | {
+       privacy = v_privacy;
+       admin_contact = v_admin_contact;
+       registrant_contact = v_registrant_contact;
+       technical_contact = v_technical_contact;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_contact_settings__technical_contact
+             v_technical_contact
+         in
+         ("technical_contact", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_contact_settings__registrant_contact
+             v_registrant_contact
+         in
+         ("registrant_contact", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_contact_settings__admin_contact
+             v_admin_contact
+         in
+         ("admin_contact", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_privacy in
+         ("privacy", arg) :: bnds
+       in
+       `Assoc bnds
+    : contact_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_contact_settings
+
+[@@@deriving.end]
 
 type dns_settings__custom_dns__ds_records = {
   algorithm : string prop option; [@option]
-      (** The algorithm used to generate the referenced DNSKEY. *)
   digest : string prop option; [@option]
-      (** The digest generated from the referenced DNSKEY. *)
   digest_type : string prop option; [@option]
-      (** The hash function used to generate the digest of the referenced DNSKEY. *)
   key_tag : float prop option; [@option]
-      (** The key tag of the record. Must be set in range 0 -- 65535. *)
 }
-[@@deriving yojson_of]
-(** The list of DS records for this domain, which are used to enable DNSSEC. The domain's DNS provider can provide
-the values to set here. If this field is empty, DNSSEC is disabled. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dns_settings__custom_dns__ds_records) -> ()
+
+let yojson_of_dns_settings__custom_dns__ds_records =
+  (function
+   | {
+       algorithm = v_algorithm;
+       digest = v_digest;
+       digest_type = v_digest_type;
+       key_tag = v_key_tag;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_key_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "key_tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_digest_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "digest_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_digest with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "digest", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_algorithm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "algorithm", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : dns_settings__custom_dns__ds_records ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dns_settings__custom_dns__ds_records
+
+[@@@deriving.end]
 
 type dns_settings__custom_dns = {
   name_servers : string prop list;
-      (** Required. A list of name servers that store the DNS zone for this domain. Each name server is a domain
-name, with Unicode domain names expressed in Punycode format. *)
   ds_records : dns_settings__custom_dns__ds_records list;
 }
-[@@deriving yojson_of]
-(** Configuration for an arbitrary DNS provider. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dns_settings__custom_dns) -> ()
+
+let yojson_of_dns_settings__custom_dns =
+  (function
+   | { name_servers = v_name_servers; ds_records = v_ds_records } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_dns_settings__custom_dns__ds_records
+             v_ds_records
+         in
+         ("ds_records", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_name_servers
+         in
+         ("name_servers", arg) :: bnds
+       in
+       `Assoc bnds
+    : dns_settings__custom_dns -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dns_settings__custom_dns
+
+[@@@deriving.end]
 
 type dns_settings__glue_records = {
   host_name : string prop;
-      (** Required. Domain name of the host in Punycode format. *)
   ipv4_addresses : string prop list option; [@option]
-      (** List of IPv4 addresses corresponding to this host in the standard decimal format (e.g. 198.51.100.1).
-At least one of ipv4_address and ipv6_address must be set. *)
   ipv6_addresses : string prop list option; [@option]
-      (** List of IPv4 addresses corresponding to this host in the standard decimal format (e.g. 198.51.100.1).
-At least one of ipv4_address and ipv6_address must be set. *)
 }
-[@@deriving yojson_of]
-(** The list of glue records for this Registration. Commonly empty. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dns_settings__glue_records) -> ()
+
+let yojson_of_dns_settings__glue_records =
+  (function
+   | {
+       host_name = v_host_name;
+       ipv4_addresses = v_ipv4_addresses;
+       ipv6_addresses = v_ipv6_addresses;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ipv6_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ipv6_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv4_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ipv4_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host_name in
+         ("host_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : dns_settings__glue_records -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dns_settings__glue_records
+
+[@@@deriving.end]
 
 type dns_settings = {
   custom_dns : dns_settings__custom_dns list;
   glue_records : dns_settings__glue_records list;
 }
-[@@deriving yojson_of]
-(** Settings controlling the DNS configuration of the Registration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dns_settings) -> ()
+
+let yojson_of_dns_settings =
+  (function
+   | { custom_dns = v_custom_dns; glue_records = v_glue_records } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dns_settings__glue_records
+             v_glue_records
+         in
+         ("glue_records", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dns_settings__custom_dns
+             v_custom_dns
+         in
+         ("custom_dns", arg) :: bnds
+       in
+       `Assoc bnds
+    : dns_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dns_settings
+
+[@@@deriving.end]
 
 type management_settings = {
   preferred_renewal_method : string prop option; [@option]
-      (** The desired renewal method for this Registration. The actual renewalMethod is automatically updated to reflect this choice.
-If unset or equal to RENEWAL_METHOD_UNSPECIFIED, the actual renewalMethod is treated as if it were set to AUTOMATIC_RENEWAL.
-You cannot use RENEWAL_DISABLED during resource creation, and you can update the renewal status only when the Registration
-resource has state ACTIVE or SUSPENDED.
-
-When preferredRenewalMethod is set to AUTOMATIC_RENEWAL, the actual renewalMethod can be set to RENEWAL_DISABLED in case of
-problems with the billing account or reported domain abuse. In such cases, check the issues field on the Registration. After
-the problem is resolved, the renewalMethod is automatically updated to preferredRenewalMethod in a few hours. *)
   transfer_lock_state : string prop option; [@option]
-      (** Controls whether the domain can be transferred to another registrar. Values are UNLOCKED or LOCKED. *)
 }
-[@@deriving yojson_of]
-(** Settings for management of the Registration, including renewal, billing, and transfer *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : management_settings) -> ()
+
+let yojson_of_management_settings =
+  (function
+   | {
+       preferred_renewal_method = v_preferred_renewal_method;
+       transfer_lock_state = v_transfer_lock_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_transfer_lock_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transfer_lock_state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preferred_renewal_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preferred_renewal_method", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : management_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_management_settings
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type yearly_price = {
   currency_code : string prop option; [@option]
-      (** The three-letter currency code defined in ISO 4217. *)
   units : string prop option; [@option]
-      (** The whole units of the amount. For example if currencyCode is USD, then 1 unit is one US dollar. *)
 }
-[@@deriving yojson_of]
-(** Required. Yearly price to register or renew the domain. The value that should be put here can be obtained from
-registrations.retrieveRegisterParameters or registrations.searchDomains calls. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : yearly_price) -> ()
+
+let yojson_of_yearly_price =
+  (function
+   | { currency_code = v_currency_code; units = v_units } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_currency_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "currency_code", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : yearly_price -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_yearly_price
+
+[@@@deriving.end]
 
 type google_clouddomains_registration = {
   contact_notices : string prop list option; [@option]
-      (** The list of contact notices that the caller acknowledges. Possible value is PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT *)
   domain_name : string prop;
-      (** Required. The domain name. Unicode domain names must be expressed in Punycode format. *)
   domain_notices : string prop list option; [@option]
-      (** The list of domain notices that you acknowledge. Possible value is HSTS_PRELOADED *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Set of labels associated with the Registration.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
-  project : string prop option; [@option]  (** project *)
+  location : string prop;
+  project : string prop option; [@option]
   contact_settings : contact_settings list;
   dns_settings : dns_settings list;
   management_settings : management_settings list;
   timeouts : timeouts option;
   yearly_price : yearly_price list;
 }
-[@@deriving yojson_of]
-(** google_clouddomains_registration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_clouddomains_registration) -> ()
+
+let yojson_of_google_clouddomains_registration =
+  (function
+   | {
+       contact_notices = v_contact_notices;
+       domain_name = v_domain_name;
+       domain_notices = v_domain_notices;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       project = v_project;
+       contact_settings = v_contact_settings;
+       dns_settings = v_dns_settings;
+       management_settings = v_management_settings;
+       timeouts = v_timeouts;
+       yearly_price = v_yearly_price;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_yearly_price v_yearly_price
+         in
+         ("yearly_price", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_management_settings
+             v_management_settings
+         in
+         ("management_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dns_settings v_dns_settings
+         in
+         ("dns_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_contact_settings
+             v_contact_settings
+         in
+         ("contact_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domain_notices with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "domain_notices", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       let bnds =
+         match v_contact_notices with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "contact_notices", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_clouddomains_registration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_clouddomains_registration
+
+[@@@deriving.end]
 
 let contact_settings__admin_contact__postal_address ?address_lines
     ?administrative_area ?locality ?organization ?postal_code

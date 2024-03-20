@@ -4,29 +4,111 @@ open! Tf_core
 
 type tunnels = {
   address : string prop option; [@option]
-      (** The address for the tunnel. *)
   description : string prop option; [@option]
-      (** A description for the tunnel. *)
   host : string prop option; [@option]
-      (** The domain name for the tunnel. *)
 }
-[@@deriving yojson_of]
-(** The value of the tunnel attributes. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tunnels) -> ()
+
+let yojson_of_tunnels =
+  (function
+   | {
+       address = v_address;
+       description = v_description;
+       host = v_host;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : tunnels -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tunnels
+
+[@@@deriving.end]
 
 type cloudflare_split_tunnel = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   mode : string prop;
-      (** The mode of the split tunnel policy. Available values: `include`, `exclude`. *)
   policy_id : string prop option; [@option]
-      (** The settings policy for which to configure this split tunnel policy. *)
   tunnels : tunnels list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Split Tunnel resource. Split tunnels are used to either
-include or exclude lists of routes from the WARP client's tunnel.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_split_tunnel) -> ()
+
+let yojson_of_cloudflare_split_tunnel =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       mode = v_mode;
+       policy_id = v_policy_id;
+       tunnels = v_tunnels;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_tunnels v_tunnels in
+         ("tunnels", arg) :: bnds
+       in
+       let bnds =
+         match v_policy_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_split_tunnel -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_split_tunnel
+
+[@@@deriving.end]
 
 let tunnels ?address ?description ?host () : tunnels =
   { address; description; host }

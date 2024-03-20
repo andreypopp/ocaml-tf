@@ -3,42 +3,163 @@
 open! Tf_core
 
 type entry__pattern = {
-  regex : string prop;  (** The regex that defines the pattern. *)
+  regex : string prop;
   validation : string prop option; [@option]
-      (** The validation algorithm to apply with this pattern. *)
 }
-[@@deriving yojson_of]
-(** entry__pattern *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : entry__pattern) -> ()
+
+let yojson_of_entry__pattern =
+  (function
+   | { regex = v_regex; validation = v_validation } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_validation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "validation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_regex in
+         ("regex", arg) :: bnds
+       in
+       `Assoc bnds
+    : entry__pattern -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_entry__pattern
+
+[@@@deriving.end]
 
 type entry = {
   enabled : bool prop option; [@option]
-      (** Whether the entry is active. Defaults to `false`. *)
-  id : string prop option; [@option]  (** Unique entry identifier. *)
-  name : string prop;  (** Name of the entry to deploy. *)
+  id : string prop option; [@option]
+  name : string prop;
   pattern : entry__pattern list;
 }
-[@@deriving yojson_of]
-(** List of entries to apply to the profile. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : entry) -> ()
+
+let yojson_of_entry =
+  (function
+   | {
+       enabled = v_enabled;
+       id = v_id;
+       name = v_name;
+       pattern = v_pattern;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_entry__pattern v_pattern
+         in
+         ("pattern", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : entry -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_entry
+
+[@@@deriving.end]
 
 type cloudflare_dlp_profile = {
   account_id : string prop;
-      (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   allowed_match_count : float prop;
-      (** Related DLP policies will trigger when the match count exceeds the number set. *)
   description : string prop option; [@option]
-      (** Brief summary of the profile and its intended use. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Name of the profile. **Modifying this attribute will force creation of a new resource.** *)
   type_ : string prop; [@key "type"]
-      (** The type of the profile. Available values: `custom`, `predefined`. **Modifying this attribute will force creation of a new resource.** *)
   entry : entry list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare DLP Profile resource. Data Loss Prevention profiles
-are a set of entries that can be matched in HTTP bodies or files.
-They are referenced in Zero Trust Gateway rules.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_dlp_profile) -> ()
+
+let yojson_of_cloudflare_dlp_profile =
+  (function
+   | {
+       account_id = v_account_id;
+       allowed_match_count = v_allowed_match_count;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       type_ = v_type_;
+       entry = v_entry;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_entry v_entry in
+         ("entry", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_allowed_match_count
+         in
+         ("allowed_match_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_dlp_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_dlp_profile
+
+[@@@deriving.end]
 
 let entry__pattern ?validation ~regex () : entry__pattern =
   { regex; validation }

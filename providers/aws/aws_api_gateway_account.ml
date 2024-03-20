@@ -3,18 +3,70 @@
 open! Tf_core
 
 type throttle_settings = {
-  burst_limit : float prop;  (** burst_limit *)
-  rate_limit : float prop;  (** rate_limit *)
+  burst_limit : float prop;
+  rate_limit : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : throttle_settings) -> ()
+
+let yojson_of_throttle_settings =
+  (function
+   | { burst_limit = v_burst_limit; rate_limit = v_rate_limit } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_rate_limit in
+         ("rate_limit", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_burst_limit in
+         ("burst_limit", arg) :: bnds
+       in
+       `Assoc bnds
+    : throttle_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_throttle_settings
+
+[@@@deriving.end]
 
 type aws_api_gateway_account = {
   cloudwatch_role_arn : string prop option; [@option]
-      (** cloudwatch_role_arn *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_api_gateway_account *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_api_gateway_account) -> ()
+
+let yojson_of_aws_api_gateway_account =
+  (function
+   | { cloudwatch_role_arn = v_cloudwatch_role_arn; id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cloudwatch_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloudwatch_role_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_api_gateway_account -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_api_gateway_account
+
+[@@@deriving.end]
 
 let aws_api_gateway_account ?cloudwatch_role_arn ?id () :
     aws_api_gateway_account =

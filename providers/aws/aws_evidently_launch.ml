@@ -3,84 +3,470 @@
 open! Tf_core
 
 type groups = {
-  description : string prop option; [@option]  (** description *)
-  feature : string prop;  (** feature *)
-  name : string prop;  (** name *)
-  variation : string prop;  (** variation *)
+  description : string prop option; [@option]
+  feature : string prop;
+  name : string prop;
+  variation : string prop;
 }
-[@@deriving yojson_of]
-(** groups *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : groups) -> ()
+
+let yojson_of_groups =
+  (function
+   | {
+       description = v_description;
+       feature = v_feature;
+       name = v_name;
+       variation = v_variation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_variation in
+         ("variation", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_feature in
+         ("feature", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : groups -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_groups
+
+[@@@deriving.end]
 
 type metric_monitors__metric_definition = {
-  entity_id_key : string prop;  (** entity_id_key *)
-  event_pattern : string prop option; [@option]  (** event_pattern *)
-  name : string prop;  (** name *)
-  unit_label : string prop option; [@option]  (** unit_label *)
-  value_key : string prop;  (** value_key *)
+  entity_id_key : string prop;
+  event_pattern : string prop option; [@option]
+  name : string prop;
+  unit_label : string prop option; [@option]
+  value_key : string prop;
 }
-[@@deriving yojson_of]
-(** metric_monitors__metric_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metric_monitors__metric_definition) -> ()
+
+let yojson_of_metric_monitors__metric_definition =
+  (function
+   | {
+       entity_id_key = v_entity_id_key;
+       event_pattern = v_event_pattern;
+       name = v_name;
+       unit_label = v_unit_label;
+       value_key = v_value_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value_key in
+         ("value_key", arg) :: bnds
+       in
+       let bnds =
+         match v_unit_label with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "unit_label", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_event_pattern with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "event_pattern", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_entity_id_key in
+         ("entity_id_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : metric_monitors__metric_definition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metric_monitors__metric_definition
+
+[@@@deriving.end]
 
 type metric_monitors = {
   metric_definition : metric_monitors__metric_definition list;
 }
-[@@deriving yojson_of]
-(** metric_monitors *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metric_monitors) -> ()
+
+let yojson_of_metric_monitors =
+  (function
+   | { metric_definition = v_metric_definition } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_metric_monitors__metric_definition
+             v_metric_definition
+         in
+         ("metric_definition", arg) :: bnds
+       in
+       `Assoc bnds
+    : metric_monitors -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metric_monitors
+
+[@@@deriving.end]
 
 type scheduled_splits_config__steps__segment_overrides = {
-  evaluation_order : float prop;  (** evaluation_order *)
-  segment : string prop;  (** segment *)
-  weights : (string * float prop) list;  (** weights *)
+  evaluation_order : float prop;
+  segment : string prop;
+  weights : (string * float prop) list;
 }
-[@@deriving yojson_of]
-(** scheduled_splits_config__steps__segment_overrides *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : scheduled_splits_config__steps__segment_overrides) -> ()
+
+let yojson_of_scheduled_splits_config__steps__segment_overrides =
+  (function
+   | {
+       evaluation_order = v_evaluation_order;
+       segment = v_segment;
+       weights = v_weights;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_float v1 in
+                   `List [ v0; v1 ])
+             v_weights
+         in
+         ("weights", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_segment in
+         ("segment", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_evaluation_order
+         in
+         ("evaluation_order", arg) :: bnds
+       in
+       `Assoc bnds
+    : scheduled_splits_config__steps__segment_overrides ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduled_splits_config__steps__segment_overrides
+
+[@@@deriving.end]
 
 type scheduled_splits_config__steps = {
-  group_weights : (string * float prop) list;  (** group_weights *)
-  start_time : string prop;  (** start_time *)
+  group_weights : (string * float prop) list;
+  start_time : string prop;
   segment_overrides :
     scheduled_splits_config__steps__segment_overrides list;
 }
-[@@deriving yojson_of]
-(** scheduled_splits_config__steps *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scheduled_splits_config__steps) -> ()
+
+let yojson_of_scheduled_splits_config__steps =
+  (function
+   | {
+       group_weights = v_group_weights;
+       start_time = v_start_time;
+       segment_overrides = v_segment_overrides;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_scheduled_splits_config__steps__segment_overrides
+             v_segment_overrides
+         in
+         ("segment_overrides", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_start_time in
+         ("start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_float v1 in
+                   `List [ v0; v1 ])
+             v_group_weights
+         in
+         ("group_weights", arg) :: bnds
+       in
+       `Assoc bnds
+    : scheduled_splits_config__steps ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduled_splits_config__steps
+
+[@@@deriving.end]
 
 type scheduled_splits_config = {
   steps : scheduled_splits_config__steps list;
 }
-[@@deriving yojson_of]
-(** scheduled_splits_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scheduled_splits_config) -> ()
+
+let yojson_of_scheduled_splits_config =
+  (function
+   | { steps = v_steps } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_scheduled_splits_config__steps
+             v_steps
+         in
+         ("steps", arg) :: bnds
+       in
+       `Assoc bnds
+    : scheduled_splits_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduled_splits_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type execution = {
-  ended_time : string prop;  (** ended_time *)
-  started_time : string prop;  (** started_time *)
+  ended_time : string prop;
+  started_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution) -> ()
+
+let yojson_of_execution =
+  (function
+   | { ended_time = v_ended_time; started_time = v_started_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_started_time in
+         ("started_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ended_time in
+         ("ended_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : execution -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution
+
+[@@@deriving.end]
 
 type aws_evidently_launch = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  project : string prop;  (** project *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  project : string prop;
   randomization_salt : string prop option; [@option]
-      (** randomization_salt *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   groups : groups list;
   metric_monitors : metric_monitors list;
   scheduled_splits_config : scheduled_splits_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_evidently_launch *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_evidently_launch) -> ()
+
+let yojson_of_aws_evidently_launch =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       randomization_salt = v_randomization_salt;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       groups = v_groups;
+       metric_monitors = v_metric_monitors;
+       scheduled_splits_config = v_scheduled_splits_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_scheduled_splits_config
+             v_scheduled_splits_config
+         in
+         ("scheduled_splits_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_metric_monitors v_metric_monitors
+         in
+         ("metric_monitors", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_groups v_groups in
+         ("groups", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_randomization_salt with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "randomization_salt", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project in
+         ("project", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_evidently_launch -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_evidently_launch
+
+[@@@deriving.end]
 
 let groups ?description ~feature ~name ~variation () : groups =
   { description; feature; name; variation }

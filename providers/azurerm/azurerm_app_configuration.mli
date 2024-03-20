@@ -10,11 +10,15 @@ type primary_read_key = {
   secret : string prop;  (** secret *)
 }
 
+[@@@deriving.end]
+
 type primary_write_key = {
   connection_string : string prop;  (** connection_string *)
   id : string prop;  (** id *)
   secret : string prop;  (** secret *)
 }
+
+[@@@deriving.end]
 
 type secondary_read_key = {
   connection_string : string prop;  (** connection_string *)
@@ -22,11 +26,15 @@ type secondary_read_key = {
   secret : string prop;  (** secret *)
 }
 
+[@@@deriving.end]
+
 type secondary_write_key = {
   connection_string : string prop;  (** connection_string *)
   id : string prop;  (** id *)
   secret : string prop;  (** secret *)
 }
+
+[@@@deriving.end]
 
 type encryption
 

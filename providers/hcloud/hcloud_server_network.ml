@@ -3,15 +3,82 @@
 open! Tf_core
 
 type hcloud_server_network = {
-  alias_ips : string prop list option; [@option]  (** alias_ips *)
-  id : string prop option; [@option]  (** id *)
-  ip : string prop option; [@option]  (** ip *)
-  network_id : float prop option; [@option]  (** network_id *)
-  server_id : float prop;  (** server_id *)
-  subnet_id : string prop option; [@option]  (** subnet_id *)
+  alias_ips : string prop list option; [@option]
+  id : string prop option; [@option]
+  ip : string prop option; [@option]
+  network_id : float prop option; [@option]
+  server_id : float prop;
+  subnet_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** hcloud_server_network *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_server_network) -> ()
+
+let yojson_of_hcloud_server_network =
+  (function
+   | {
+       alias_ips = v_alias_ips;
+       id = v_id;
+       ip = v_ip;
+       network_id = v_network_id;
+       server_id = v_server_id;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_server_id in
+         ("server_id", arg) :: bnds
+       in
+       let bnds =
+         match v_network_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "network_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_alias_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "alias_ips", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hcloud_server_network -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_server_network
+
+[@@@deriving.end]
 
 let hcloud_server_network ?alias_ips ?id ?ip ?network_id ?subnet_id
     ~server_id () : hcloud_server_network =

@@ -3,12 +3,49 @@
 open! Tf_core
 
 type aws_s3control_access_point_policy = {
-  access_point_arn : string prop;  (** access_point_arn *)
-  id : string prop option; [@option]  (** id *)
-  policy : string prop;  (** policy *)
+  access_point_arn : string prop;
+  id : string prop option; [@option]
+  policy : string prop;
 }
-[@@deriving yojson_of]
-(** aws_s3control_access_point_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_s3control_access_point_policy) -> ()
+
+let yojson_of_aws_s3control_access_point_policy =
+  (function
+   | {
+       access_point_arn = v_access_point_arn;
+       id = v_id;
+       policy = v_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_access_point_arn
+         in
+         ("access_point_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_s3control_access_point_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3control_access_point_policy
+
+[@@@deriving.end]
 
 let aws_s3control_access_point_policy ?id ~access_point_arn ~policy
     () : aws_s3control_access_point_policy =

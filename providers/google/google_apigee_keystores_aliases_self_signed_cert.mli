@@ -19,9 +19,13 @@ type certs_info__cert_info = {
   version : float prop;  (** version *)
 }
 
+[@@@deriving.end]
+
 type certs_info = {
   cert_info : certs_info__cert_info list;  (** cert_info *)
 }
+
+[@@@deriving.end]
 
 type subject
 

@@ -4,18 +4,107 @@ open! Tf_core
 
 type hcloud_floating_ip = {
   delete_protection : bool prop option; [@option]
-      (** delete_protection *)
-  description : string prop option; [@option]  (** description *)
-  home_location : string prop option; [@option]  (** home_location *)
-  id : string prop option; [@option]  (** id *)
+  description : string prop option; [@option]
+  home_location : string prop option; [@option]
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** labels *)
-  name : string prop option; [@option]  (** name *)
-  server_id : float prop option; [@option]  (** server_id *)
-  type_ : string prop; [@key "type"]  (** type *)
+  name : string prop option; [@option]
+  server_id : float prop option; [@option]
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** hcloud_floating_ip *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_floating_ip) -> ()
+
+let yojson_of_hcloud_floating_ip =
+  (function
+   | {
+       delete_protection = v_delete_protection;
+       description = v_description;
+       home_location = v_home_location;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       server_id = v_server_id;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_server_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "server_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_home_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "home_location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete_protection", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hcloud_floating_ip -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_floating_ip
+
+[@@@deriving.end]
 
 let hcloud_floating_ip ?delete_protection ?description ?home_location
     ?id ?labels ?name ?server_id ~type_ () : hcloud_floating_ip =

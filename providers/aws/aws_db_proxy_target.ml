@@ -4,15 +4,67 @@ open! Tf_core
 
 type aws_db_proxy_target = {
   db_cluster_identifier : string prop option; [@option]
-      (** db_cluster_identifier *)
   db_instance_identifier : string prop option; [@option]
-      (** db_instance_identifier *)
-  db_proxy_name : string prop;  (** db_proxy_name *)
-  id : string prop option; [@option]  (** id *)
-  target_group_name : string prop;  (** target_group_name *)
+  db_proxy_name : string prop;
+  id : string prop option; [@option]
+  target_group_name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_db_proxy_target *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_db_proxy_target) -> ()
+
+let yojson_of_aws_db_proxy_target =
+  (function
+   | {
+       db_cluster_identifier = v_db_cluster_identifier;
+       db_instance_identifier = v_db_instance_identifier;
+       db_proxy_name = v_db_proxy_name;
+       id = v_id;
+       target_group_name = v_target_group_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_group_name
+         in
+         ("target_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_db_proxy_name in
+         ("db_proxy_name", arg) :: bnds
+       in
+       let bnds =
+         match v_db_instance_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "db_instance_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_db_cluster_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "db_cluster_identifier", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_db_proxy_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_db_proxy_target
+
+[@@@deriving.end]
 
 let aws_db_proxy_target ?db_cluster_identifier
     ?db_instance_identifier ?id ~db_proxy_name ~target_group_name ()

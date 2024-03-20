@@ -3,51 +3,267 @@
 open! Tf_core
 
 type rules__filter = {
-  blob_types : string prop list;  (** blob_types *)
+  blob_types : string prop list;
   exclude_prefixes : string prop list option; [@option]
-      (** exclude_prefixes *)
   include_blob_versions : bool prop option; [@option]
-      (** include_blob_versions *)
   include_deleted : bool prop option; [@option]
-      (** include_deleted *)
   include_snapshots : bool prop option; [@option]
-      (** include_snapshots *)
   prefix_match : string prop list option; [@option]
-      (** prefix_match *)
 }
-[@@deriving yojson_of]
-(** rules__filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules__filter) -> ()
+
+let yojson_of_rules__filter =
+  (function
+   | {
+       blob_types = v_blob_types;
+       exclude_prefixes = v_exclude_prefixes;
+       include_blob_versions = v_include_blob_versions;
+       include_deleted = v_include_deleted;
+       include_snapshots = v_include_snapshots;
+       prefix_match = v_prefix_match;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_prefix_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "prefix_match", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_snapshots with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_snapshots", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_deleted with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_deleted", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_blob_versions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_blob_versions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exclude_prefixes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exclude_prefixes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_blob_types
+         in
+         ("blob_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : rules__filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules__filter
+
+[@@@deriving.end]
 
 type rules = {
-  format : string prop;  (** format *)
-  name : string prop;  (** name *)
-  schedule : string prop;  (** schedule *)
-  schema_fields : string prop list;  (** schema_fields *)
-  scope : string prop;  (** scope *)
+  format : string prop;
+  name : string prop;
+  schedule : string prop;
+  schema_fields : string prop list;
+  scope : string prop;
   storage_container_name : string prop;
-      (** storage_container_name *)
   filter : rules__filter list;
 }
-[@@deriving yojson_of]
-(** rules *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules) -> ()
+
+let yojson_of_rules =
+  (function
+   | {
+       format = v_format;
+       name = v_name;
+       schedule = v_schedule;
+       schema_fields = v_schema_fields;
+       scope = v_scope;
+       storage_container_name = v_storage_container_name;
+       filter = v_filter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rules__filter v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_storage_container_name
+         in
+         ("storage_container_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_scope in
+         ("scope", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_schema_fields
+         in
+         ("schema_fields", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schedule in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_format in
+         ("format", arg) :: bnds
+       in
+       `Assoc bnds
+    : rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_storage_blob_inventory_policy = {
-  id : string prop option; [@option]  (** id *)
-  storage_account_id : string prop;  (** storage_account_id *)
+  id : string prop option; [@option]
+  storage_account_id : string prop;
   rules : rules list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_storage_blob_inventory_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_storage_blob_inventory_policy) -> ()
+
+let yojson_of_azurerm_storage_blob_inventory_policy =
+  (function
+   | {
+       id = v_id;
+       storage_account_id = v_storage_account_id;
+       rules = v_rules;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rules v_rules in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_storage_account_id
+         in
+         ("storage_account_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_storage_blob_inventory_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_storage_blob_inventory_policy
+
+[@@@deriving.end]
 
 let rules__filter ?exclude_prefixes ?include_blob_versions
     ?include_deleted ?include_snapshots ?prefix_match ~blob_types ()

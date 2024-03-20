@@ -3,36 +3,138 @@
 open! Tf_core
 
 type deployment_config__auto_rollback_configuration__alarms = {
-  alarm_name : string prop;  (** alarm_name *)
+  alarm_name : string prop;
 }
-[@@deriving yojson_of]
-(** deployment_config__auto_rollback_configuration__alarms *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : deployment_config__auto_rollback_configuration__alarms) ->
+  ()
+
+let yojson_of_deployment_config__auto_rollback_configuration__alarms
+    =
+  (function
+   | { alarm_name = v_alarm_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alarm_name in
+         ("alarm_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment_config__auto_rollback_configuration__alarms ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deployment_config__auto_rollback_configuration__alarms
+
+[@@@deriving.end]
 
 type deployment_config__auto_rollback_configuration = {
   alarms :
     deployment_config__auto_rollback_configuration__alarms list;
 }
-[@@deriving yojson_of]
-(** deployment_config__auto_rollback_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : deployment_config__auto_rollback_configuration) -> ()
+
+let yojson_of_deployment_config__auto_rollback_configuration =
+  (function
+   | { alarms = v_alarms } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployment_config__auto_rollback_configuration__alarms
+             v_alarms
+         in
+         ("alarms", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment_config__auto_rollback_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployment_config__auto_rollback_configuration
+
+[@@@deriving.end]
 
 type deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size = {
-  type_ : string prop; [@key "type"]  (** type *)
-  value : float prop;  (** value *)
+  type_ : string prop; [@key "type"]
+  value : float prop;
 }
-[@@deriving yojson_of]
-(** deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size) ->
+  ()
+
+let yojson_of_deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size
+    =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size
+
+[@@@deriving.end]
 
 type deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size = {
-  type_ : string prop; [@key "type"]  (** type *)
-  value : float prop;  (** value *)
+  type_ : string prop; [@key "type"]
+  value : float prop;
 }
-[@@deriving yojson_of]
-(** deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size) ->
+  ()
+
+let yojson_of_deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size
+    =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size
+
+[@@@deriving.end]
 
 type deployment_config__blue_green_update_policy__traffic_routing_configuration = {
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
   wait_interval_in_seconds : float prop;
-      (** wait_interval_in_seconds *)
   canary_size :
     deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size
     list;
@@ -40,48 +142,247 @@ type deployment_config__blue_green_update_policy__traffic_routing_configuration 
     deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size
     list;
 }
-[@@deriving yojson_of]
-(** deployment_config__blue_green_update_policy__traffic_routing_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deployment_config__blue_green_update_policy__traffic_routing_configuration) ->
+  ()
+
+let yojson_of_deployment_config__blue_green_update_policy__traffic_routing_configuration
+    =
+  (function
+   | {
+       type_ = v_type_;
+       wait_interval_in_seconds = v_wait_interval_in_seconds;
+       canary_size = v_canary_size;
+       linear_step_size = v_linear_step_size;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployment_config__blue_green_update_policy__traffic_routing_configuration__linear_step_size
+             v_linear_step_size
+         in
+         ("linear_step_size", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployment_config__blue_green_update_policy__traffic_routing_configuration__canary_size
+             v_canary_size
+         in
+         ("canary_size", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_wait_interval_in_seconds
+         in
+         ("wait_interval_in_seconds", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment_config__blue_green_update_policy__traffic_routing_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deployment_config__blue_green_update_policy__traffic_routing_configuration
+
+[@@@deriving.end]
 
 type deployment_config__blue_green_update_policy = {
   maximum_execution_timeout_in_seconds : float prop option; [@option]
-      (** maximum_execution_timeout_in_seconds *)
   termination_wait_in_seconds : float prop option; [@option]
-      (** termination_wait_in_seconds *)
   traffic_routing_configuration :
     deployment_config__blue_green_update_policy__traffic_routing_configuration
     list;
 }
-[@@deriving yojson_of]
-(** deployment_config__blue_green_update_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployment_config__blue_green_update_policy) -> ()
+
+let yojson_of_deployment_config__blue_green_update_policy =
+  (function
+   | {
+       maximum_execution_timeout_in_seconds =
+         v_maximum_execution_timeout_in_seconds;
+       termination_wait_in_seconds = v_termination_wait_in_seconds;
+       traffic_routing_configuration =
+         v_traffic_routing_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployment_config__blue_green_update_policy__traffic_routing_configuration
+             v_traffic_routing_configuration
+         in
+         ("traffic_routing_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_termination_wait_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "termination_wait_in_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maximum_execution_timeout_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_execution_timeout_in_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deployment_config__blue_green_update_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployment_config__blue_green_update_policy
+
+[@@@deriving.end]
 
 type deployment_config__rolling_update_policy__maximum_batch_size = {
-  type_ : string prop; [@key "type"]  (** type *)
-  value : float prop;  (** value *)
+  type_ : string prop; [@key "type"]
+  value : float prop;
 }
-[@@deriving yojson_of]
-(** deployment_config__rolling_update_policy__maximum_batch_size *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deployment_config__rolling_update_policy__maximum_batch_size) ->
+  ()
+
+let yojson_of_deployment_config__rolling_update_policy__maximum_batch_size
+    =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment_config__rolling_update_policy__maximum_batch_size ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deployment_config__rolling_update_policy__maximum_batch_size
+
+[@@@deriving.end]
 
 type deployment_config__rolling_update_policy__rollback_maximum_batch_size = {
-  type_ : string prop; [@key "type"]  (** type *)
-  value : float prop;  (** value *)
+  type_ : string prop; [@key "type"]
+  value : float prop;
 }
-[@@deriving yojson_of]
-(** deployment_config__rolling_update_policy__rollback_maximum_batch_size *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       deployment_config__rolling_update_policy__rollback_maximum_batch_size) ->
+  ()
+
+let yojson_of_deployment_config__rolling_update_policy__rollback_maximum_batch_size
+    =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment_config__rolling_update_policy__rollback_maximum_batch_size ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_deployment_config__rolling_update_policy__rollback_maximum_batch_size
+
+[@@@deriving.end]
 
 type deployment_config__rolling_update_policy = {
   maximum_execution_timeout_in_seconds : float prop option; [@option]
-      (** maximum_execution_timeout_in_seconds *)
   wait_interval_in_seconds : float prop;
-      (** wait_interval_in_seconds *)
   maximum_batch_size :
     deployment_config__rolling_update_policy__maximum_batch_size list;
   rollback_maximum_batch_size :
     deployment_config__rolling_update_policy__rollback_maximum_batch_size
     list;
 }
-[@@deriving yojson_of]
-(** deployment_config__rolling_update_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployment_config__rolling_update_policy) -> ()
+
+let yojson_of_deployment_config__rolling_update_policy =
+  (function
+   | {
+       maximum_execution_timeout_in_seconds =
+         v_maximum_execution_timeout_in_seconds;
+       wait_interval_in_seconds = v_wait_interval_in_seconds;
+       maximum_batch_size = v_maximum_batch_size;
+       rollback_maximum_batch_size = v_rollback_maximum_batch_size;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployment_config__rolling_update_policy__rollback_maximum_batch_size
+             v_rollback_maximum_batch_size
+         in
+         ("rollback_maximum_batch_size", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployment_config__rolling_update_policy__maximum_batch_size
+             v_maximum_batch_size
+         in
+         ("maximum_batch_size", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_wait_interval_in_seconds
+         in
+         ("wait_interval_in_seconds", arg) :: bnds
+       in
+       let bnds =
+         match v_maximum_execution_timeout_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_execution_timeout_in_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deployment_config__rolling_update_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployment_config__rolling_update_policy
+
+[@@@deriving.end]
 
 type deployment_config = {
   auto_rollback_configuration :
@@ -91,20 +392,143 @@ type deployment_config = {
   rolling_update_policy :
     deployment_config__rolling_update_policy list;
 }
-[@@deriving yojson_of]
-(** deployment_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployment_config) -> ()
+
+let yojson_of_deployment_config =
+  (function
+   | {
+       auto_rollback_configuration = v_auto_rollback_configuration;
+       blue_green_update_policy = v_blue_green_update_policy;
+       rolling_update_policy = v_rolling_update_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployment_config__rolling_update_policy
+             v_rolling_update_policy
+         in
+         ("rolling_update_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployment_config__blue_green_update_policy
+             v_blue_green_update_policy
+         in
+         ("blue_green_update_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_deployment_config__auto_rollback_configuration
+             v_auto_rollback_configuration
+         in
+         ("auto_rollback_configuration", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployment_config
+
+[@@@deriving.end]
 
 type aws_sagemaker_endpoint = {
-  endpoint_config_name : string prop;  (** endpoint_config_name *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  endpoint_config_name : string prop;
+  id : string prop option; [@option]
+  name : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   deployment_config : deployment_config list;
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sagemaker_endpoint) -> ()
+
+let yojson_of_aws_sagemaker_endpoint =
+  (function
+   | {
+       endpoint_config_name = v_endpoint_config_name;
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       deployment_config = v_deployment_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_deployment_config
+             v_deployment_config
+         in
+         ("deployment_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_endpoint_config_name
+         in
+         ("endpoint_config_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sagemaker_endpoint
+
+[@@@deriving.end]
 
 let deployment_config__auto_rollback_configuration__alarms
     ~alarm_name () :

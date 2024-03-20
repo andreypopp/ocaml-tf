@@ -3,13 +3,52 @@
 open! Tf_core
 
 type aws_ec2_tag = {
-  id : string prop option; [@option]  (** id *)
-  key : string prop;  (** key *)
-  resource_id : string prop;  (** resource_id *)
-  value : string prop;  (** value *)
+  id : string prop option; [@option]
+  key : string prop;
+  resource_id : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** aws_ec2_tag *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_tag) -> ()
+
+let yojson_of_aws_ec2_tag =
+  (function
+   | {
+       id = v_id;
+       key = v_key;
+       resource_id = v_resource_id;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_id in
+         ("resource_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_tag -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_tag
+
+[@@@deriving.end]
 
 let aws_ec2_tag ?id ~key ~resource_id ~value () : aws_ec2_tag =
   { id; key; resource_id; value }

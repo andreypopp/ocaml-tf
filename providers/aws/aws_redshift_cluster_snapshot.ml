@@ -3,17 +3,98 @@
 open! Tf_core
 
 type aws_redshift_cluster_snapshot = {
-  cluster_identifier : string prop;  (** cluster_identifier *)
-  id : string prop option; [@option]  (** id *)
+  cluster_identifier : string prop;
+  id : string prop option; [@option]
   manual_snapshot_retention_period : float prop option; [@option]
-      (** manual_snapshot_retention_period *)
-  snapshot_identifier : string prop;  (** snapshot_identifier *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  snapshot_identifier : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_redshift_cluster_snapshot *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshift_cluster_snapshot) -> ()
+
+let yojson_of_aws_redshift_cluster_snapshot =
+  (function
+   | {
+       cluster_identifier = v_cluster_identifier;
+       id = v_id;
+       manual_snapshot_retention_period =
+         v_manual_snapshot_retention_period;
+       snapshot_identifier = v_snapshot_identifier;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_snapshot_identifier
+         in
+         ("snapshot_identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_manual_snapshot_retention_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "manual_snapshot_retention_period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cluster_identifier
+         in
+         ("cluster_identifier", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_redshift_cluster_snapshot ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshift_cluster_snapshot
+
+[@@@deriving.end]
 
 let aws_redshift_cluster_snapshot ?id
     ?manual_snapshot_retention_period ?tags ?tags_all

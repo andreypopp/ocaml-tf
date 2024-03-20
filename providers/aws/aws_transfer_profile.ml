@@ -3,17 +3,94 @@
 open! Tf_core
 
 type aws_transfer_profile = {
-  as2_id : string prop;  (** as2_id *)
+  as2_id : string prop;
   certificate_ids : string prop list option; [@option]
-      (** certificate_ids *)
-  id : string prop option; [@option]  (** id *)
-  profile_type : string prop;  (** profile_type *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  profile_type : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_transfer_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_transfer_profile) -> ()
+
+let yojson_of_aws_transfer_profile =
+  (function
+   | {
+       as2_id = v_as2_id;
+       certificate_ids = v_certificate_ids;
+       id = v_id;
+       profile_type = v_profile_type;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_profile_type in
+         ("profile_type", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "certificate_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_as2_id in
+         ("as2_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_transfer_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_transfer_profile
+
+[@@@deriving.end]
 
 let aws_transfer_profile ?certificate_ids ?id ?tags ?tags_all ~as2_id
     ~profile_type () : aws_transfer_profile =

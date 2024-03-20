@@ -4,98 +4,442 @@ open! Tf_core
 
 type autoscaling = {
   max_node_count : float prop;
-      (** Maximum number of nodes in the node pool. Must be >= min_node_count. *)
   min_node_count : float prop;
-      (** Minimum number of nodes in the node pool. Must be >= 1 and <= max_node_count. *)
 }
-[@@deriving yojson_of]
-(** Autoscaler configuration for this node pool. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoscaling) -> ()
+
+let yojson_of_autoscaling =
+  (function
+   | {
+       max_node_count = v_max_node_count;
+       min_node_count = v_min_node_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_node_count in
+         ("min_node_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_node_count in
+         ("max_node_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : autoscaling -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling
+
+[@@@deriving.end]
 
 type config__proxy_config = {
   resource_group_id : string prop;
-      (** The ARM ID the of the resource group containing proxy keyvault. Resource group ids are formatted as `/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>` *)
   secret_id : string prop;
-      (** The URL the of the proxy setting secret with its version. Secret ids are formatted as `https:<key-vault-name>.vault.azure.net/secrets/<secret-name>/<secret-version>`. *)
 }
-[@@deriving yojson_of]
-(** Proxy configuration for outbound HTTP(S) traffic. *)
+[@@deriving_inline yojson_of]
 
-type config__root_volume = {
-  size_gib : float prop option; [@option]
-      (** Optional. The size of the disk, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource. *)
-}
-[@@deriving yojson_of]
-(** Optional. Configuration related to the root volume provisioned for each node pool machine. When unspecified, it defaults to a 32-GiB Azure Disk. *)
+let _ = fun (_ : config__proxy_config) -> ()
 
-type config__ssh_config = {
-  authorized_key : string prop;
-      (** The SSH public key data for VMs managed by Anthos. This accepts the authorized_keys file format used in OpenSSH according to the sshd(8) manual page. *)
-}
-[@@deriving yojson_of]
-(** SSH configuration for how to access the node pool machines. *)
+let yojson_of_config__proxy_config =
+  (function
+   | {
+       resource_group_id = v_resource_group_id;
+       secret_id = v_secret_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_id in
+         ("secret_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_id
+         in
+         ("resource_group_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__proxy_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__proxy_config
+
+[@@@deriving.end]
+
+type config__root_volume = { size_gib : float prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__root_volume) -> ()
+
+let yojson_of_config__root_volume =
+  (function
+   | { size_gib = v_size_gib } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_size_gib with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "size_gib", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__root_volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__root_volume
+
+[@@@deriving.end]
+
+type config__ssh_config = { authorized_key : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__ssh_config) -> ()
+
+let yojson_of_config__ssh_config =
+  (function
+   | { authorized_key = v_authorized_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_authorized_key
+         in
+         ("authorized_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__ssh_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__ssh_config
+
+[@@@deriving.end]
 
 type config = {
   labels : (string * string prop) list option; [@option]
-      (** Optional. The initial labels assigned to nodes of this node pool. An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   tags : (string * string prop) list option; [@option]
-      (** Optional. A set of tags to apply to all underlying Azure resources for this node pool. This currently only includes Virtual Machine Scale Sets. Specify at most 50 pairs containing alphanumerics, spaces, and symbols (.+-=_:@/). Keys can be up to 127 Unicode characters. Values can be up to 255 Unicode characters. *)
   vm_size : string prop option; [@option]
-      (** Optional. The Azure VM size name. Example: `Standard_DS2_v2`. See (/anthos/clusters/docs/azure/reference/supported-vms) for options. When unspecified, it defaults to `Standard_DS2_v2`. *)
   proxy_config : config__proxy_config list;
   root_volume : config__root_volume list;
   ssh_config : config__ssh_config list;
 }
-[@@deriving yojson_of]
-(** The node configuration of the node pool. *)
+[@@deriving_inline yojson_of]
 
-type management = {
-  auto_repair : bool prop option; [@option]
-      (** Optional. Whether or not the nodes will be automatically repaired. *)
-}
-[@@deriving yojson_of]
-(** The Management configuration for this node pool. *)
+let _ = fun (_ : config) -> ()
 
-type max_pods_constraint = {
-  max_pods_per_node : float prop;
-      (** The maximum number of pods to schedule on a single node. *)
-}
-[@@deriving yojson_of]
-(** The constraint on the maximum number of pods that can be run simultaneously on a node in the node pool. *)
+let yojson_of_config =
+  (function
+   | {
+       labels = v_labels;
+       tags = v_tags;
+       vm_size = v_vm_size;
+       proxy_config = v_proxy_config;
+       root_volume = v_root_volume;
+       ssh_config = v_ssh_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__ssh_config v_ssh_config
+         in
+         ("ssh_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__root_volume v_root_volume
+         in
+         ("root_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__proxy_config
+             v_proxy_config
+         in
+         ("proxy_config", arg) :: bnds
+       in
+       let bnds =
+         match v_vm_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vm_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config
+
+[@@@deriving.end]
+
+type management = { auto_repair : bool prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : management) -> ()
+
+let yojson_of_management =
+  (function
+   | { auto_repair = v_auto_repair } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_auto_repair with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_repair", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : management -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_management
+
+[@@@deriving.end]
+
+type max_pods_constraint = { max_pods_per_node : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : max_pods_constraint) -> ()
+
+let yojson_of_max_pods_constraint =
+  (function
+   | { max_pods_per_node = v_max_pods_per_node } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_pods_per_node
+         in
+         ("max_pods_per_node", arg) :: bnds
+       in
+       `Assoc bnds
+    : max_pods_constraint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_max_pods_constraint
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_container_azure_node_pool = {
   annotations : (string * string prop) list option; [@option]
-      (** Optional. Annotations on the node pool. This field has the same restrictions as Kubernetes annotations. The total size of all keys and values combined is limited to 256k. Keys can have 2 segments: prefix (optional) and name (required), separated by a slash (/). Prefix must be a DNS subdomain. Name must be 63 characters or less, begin and end with alphanumerics, with dashes (-), underscores (_), dots (.), and alphanumerics between.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
   azure_availability_zone : string prop option; [@option]
-      (** Optional. The Azure availability zone of the nodes in this nodepool. When unspecified, it defaults to `1`. *)
-  cluster : string prop;  (** The azureCluster for the resource *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location for the resource *)
-  name : string prop;  (** The name of this resource. *)
+  cluster : string prop;
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
   project : string prop option; [@option]
-      (** The project for the resource *)
   subnet_id : string prop;
-      (** The ARM ID of the subnet where the node pool VMs run. Make sure it's a subnet under the virtual network in the cluster configuration. *)
   version : string prop;
-      (** The Kubernetes version (e.g. `1.19.10-gke.1000`) running on this node pool. *)
   autoscaling : autoscaling list;
   config : config list;
   management : management list;
   max_pods_constraint : max_pods_constraint list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_container_azure_node_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_container_azure_node_pool) -> ()
+
+let yojson_of_google_container_azure_node_pool =
+  (function
+   | {
+       annotations = v_annotations;
+       azure_availability_zone = v_azure_availability_zone;
+       cluster = v_cluster;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       subnet_id = v_subnet_id;
+       version = v_version;
+       autoscaling = v_autoscaling;
+       config = v_config;
+       management = v_management;
+       max_pods_constraint = v_max_pods_constraint;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_max_pods_constraint
+             v_max_pods_constraint
+         in
+         ("max_pods_constraint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_management v_management
+         in
+         ("management", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_config v_config in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_autoscaling v_autoscaling
+         in
+         ("autoscaling", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster in
+         ("cluster", arg) :: bnds
+       in
+       let bnds =
+         match v_azure_availability_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "azure_availability_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_container_azure_node_pool ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_container_azure_node_pool
+
+[@@@deriving.end]
 
 let autoscaling ~max_node_count ~min_node_count () : autoscaling =
   { max_node_count; min_node_count }

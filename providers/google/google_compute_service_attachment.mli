@@ -9,6 +9,8 @@ type connected_endpoints = {
   status : string prop;  (** status *)
 }
 
+[@@@deriving.end]
+
 type consumer_accept_lists
 
 val consumer_accept_lists :

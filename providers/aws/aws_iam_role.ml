@@ -3,34 +3,205 @@
 open! Tf_core
 
 type inline_policy = {
-  name : string prop option; [@option]  (** name *)
-  policy : string prop option; [@option]  (** policy *)
+  name : string prop option; [@option]
+  policy : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** inline_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inline_policy) -> ()
+
+let yojson_of_inline_policy =
+  (function
+   | { name = v_name; policy = v_policy } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inline_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inline_policy
+
+[@@@deriving.end]
 
 type aws_iam_role = {
-  assume_role_policy : string prop;  (** assume_role_policy *)
-  description : string prop option; [@option]  (** description *)
+  assume_role_policy : string prop;
+  description : string prop option; [@option]
   force_detach_policies : bool prop option; [@option]
-      (** force_detach_policies *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   managed_policy_arns : string prop list option; [@option]
-      (** managed_policy_arns *)
   max_session_duration : float prop option; [@option]
-      (** max_session_duration *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  path : string prop option; [@option]  (** path *)
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  path : string prop option; [@option]
   permissions_boundary : string prop option; [@option]
-      (** permissions_boundary *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   inline_policy : inline_policy list;
 }
-[@@deriving yojson_of]
-(** aws_iam_role *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_role) -> ()
+
+let yojson_of_aws_iam_role =
+  (function
+   | {
+       assume_role_policy = v_assume_role_policy;
+       description = v_description;
+       force_detach_policies = v_force_detach_policies;
+       id = v_id;
+       managed_policy_arns = v_managed_policy_arns;
+       max_session_duration = v_max_session_duration;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       path = v_path;
+       permissions_boundary = v_permissions_boundary;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       inline_policy = v_inline_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_inline_policy v_inline_policy
+         in
+         ("inline_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_permissions_boundary with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "permissions_boundary", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_session_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_session_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_managed_policy_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "managed_policy_arns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_detach_policies with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_detach_policies", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_assume_role_policy
+         in
+         ("assume_role_policy", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_role -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_role
+
+[@@@deriving.end]
 
 let inline_policy ?name ?policy () : inline_policy = { name; policy }
 

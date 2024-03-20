@@ -3,26 +3,115 @@
 open! Tf_core
 
 type validity = {
-  type_ : string prop; [@key "type"]  (** type *)
-  value : string prop;  (** value *)
+  type_ : string prop; [@key "type"]
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** validity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : validity) -> ()
+
+let yojson_of_validity =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : validity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_validity
+
+[@@@deriving.end]
 
 type aws_acmpca_certificate = {
   api_passthrough : string prop option; [@option]
-      (** api_passthrough *)
   certificate_authority_arn : string prop;
-      (** certificate_authority_arn *)
   certificate_signing_request : string prop;
-      (** certificate_signing_request *)
-  id : string prop option; [@option]  (** id *)
-  signing_algorithm : string prop;  (** signing_algorithm *)
-  template_arn : string prop option; [@option]  (** template_arn *)
+  id : string prop option; [@option]
+  signing_algorithm : string prop;
+  template_arn : string prop option; [@option]
   validity : validity list;
 }
-[@@deriving yojson_of]
-(** aws_acmpca_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_acmpca_certificate) -> ()
+
+let yojson_of_aws_acmpca_certificate =
+  (function
+   | {
+       api_passthrough = v_api_passthrough;
+       certificate_authority_arn = v_certificate_authority_arn;
+       certificate_signing_request = v_certificate_signing_request;
+       id = v_id;
+       signing_algorithm = v_signing_algorithm;
+       template_arn = v_template_arn;
+       validity = v_validity;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_validity v_validity in
+         ("validity", arg) :: bnds
+       in
+       let bnds =
+         match v_template_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "template_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_signing_algorithm
+         in
+         ("signing_algorithm", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_certificate_signing_request
+         in
+         ("certificate_signing_request", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_certificate_authority_arn
+         in
+         ("certificate_authority_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_api_passthrough with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_passthrough", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_acmpca_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_acmpca_certificate
+
+[@@@deriving.end]
 
 let validity ~type_ ~value () : validity = { type_; value }
 

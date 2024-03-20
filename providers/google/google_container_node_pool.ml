@@ -4,258 +4,962 @@ open! Tf_core
 
 type autoscaling = {
   location_policy : string prop option; [@option]
-      (** Location policy specifies the algorithm used when scaling-up the node pool. BALANCED - Is a best effort policy that aims to balance the sizes of available zones. ANY - Instructs the cluster autoscaler to prioritize utilization of unused reservations, and reduces preemption risk for Spot VMs. *)
   max_node_count : float prop option; [@option]
-      (** Maximum number of nodes per zone in the node pool. Must be >= min_node_count. Cannot be used with total limits. *)
   min_node_count : float prop option; [@option]
-      (** Minimum number of nodes per zone in the node pool. Must be >=0 and <= max_node_count. Cannot be used with total limits. *)
   total_max_node_count : float prop option; [@option]
-      (** Maximum number of all nodes in the node pool. Must be >= total_min_node_count. Cannot be used with per zone limits. *)
   total_min_node_count : float prop option; [@option]
-      (** Minimum number of all nodes in the node pool. Must be >=0 and <= total_max_node_count. Cannot be used with per zone limits. *)
 }
-[@@deriving yojson_of]
-(** Configuration required by cluster autoscaler to adjust the size of the node pool to the current cluster usage. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoscaling) -> ()
+
+let yojson_of_autoscaling =
+  (function
+   | {
+       location_policy = v_location_policy;
+       max_node_count = v_max_node_count;
+       min_node_count = v_min_node_count;
+       total_max_node_count = v_total_max_node_count;
+       total_min_node_count = v_total_min_node_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_total_min_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "total_min_node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_total_max_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "total_max_node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : autoscaling -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling
+
+[@@@deriving.end]
 
 type management = {
   auto_repair : bool prop option; [@option]
-      (** Whether the nodes will be automatically repaired. Enabled by default. *)
   auto_upgrade : bool prop option; [@option]
-      (** Whether the nodes will be automatically upgraded. Enabled by default. *)
 }
-[@@deriving yojson_of]
-(** Node management configuration, wherein auto-repair and auto-upgrade is configured. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : management) -> ()
+
+let yojson_of_management =
+  (function
+   | { auto_repair = v_auto_repair; auto_upgrade = v_auto_upgrade }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_auto_upgrade with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_upgrade", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_repair with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_repair", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : management -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_management
+
+[@@@deriving.end]
 
 type network_config__network_performance_config = {
   total_egress_bandwidth_tier : string prop;
-      (** Specifies the total network bandwidth tier for the NodePool. *)
 }
-[@@deriving yojson_of]
-(** Network bandwidth tier configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_config__network_performance_config) -> ()
+
+let yojson_of_network_config__network_performance_config =
+  (function
+   | { total_egress_bandwidth_tier = v_total_egress_bandwidth_tier }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_total_egress_bandwidth_tier
+         in
+         ("total_egress_bandwidth_tier", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_config__network_performance_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_config__network_performance_config
+
+[@@@deriving.end]
 
 type network_config__pod_cidr_overprovision_config = {
-  disabled : bool prop;  (** disabled *)
+  disabled : bool prop;
 }
-[@@deriving yojson_of]
-(** Configuration for node-pool level pod cidr overprovision. If not set, the cluster level setting will be inherited *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_config__pod_cidr_overprovision_config) -> ()
+
+let yojson_of_network_config__pod_cidr_overprovision_config =
+  (function
+   | { disabled = v_disabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_disabled in
+         ("disabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_config__pod_cidr_overprovision_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_config__pod_cidr_overprovision_config
+
+[@@@deriving.end]
 
 type network_config = {
   create_pod_range : bool prop option; [@option]
-      (** Whether to create a new range for pod IPs in this node pool. Defaults are provided for pod_range and pod_ipv4_cidr_block if they are not specified. *)
   enable_private_nodes : bool prop option; [@option]
-      (** Whether nodes have internal IP addresses only. *)
   pod_ipv4_cidr_block : string prop option; [@option]
-      (** The IP address range for pod IPs in this node pool. Only applicable if create_pod_range is true. Set to blank to have a range chosen with the default size. Set to /netmask (e.g. /14) to have a range chosen with a specific netmask. Set to a CIDR notation (e.g. 10.96.0.0/14) to pick a specific range to use. *)
   pod_range : string prop option; [@option]
-      (** The ID of the secondary range for pod IPs. If create_pod_range is true, this ID is used for the new range. If create_pod_range is false, uses an existing secondary range with this ID. *)
   network_performance_config :
     network_config__network_performance_config list;
   pod_cidr_overprovision_config :
     network_config__pod_cidr_overprovision_config list;
 }
-[@@deriving yojson_of]
-(** Networking configuration for this NodePool. If specified, it overrides the cluster-level defaults. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_config) -> ()
+
+let yojson_of_network_config =
+  (function
+   | {
+       create_pod_range = v_create_pod_range;
+       enable_private_nodes = v_enable_private_nodes;
+       pod_ipv4_cidr_block = v_pod_ipv4_cidr_block;
+       pod_range = v_pod_range;
+       network_performance_config = v_network_performance_config;
+       pod_cidr_overprovision_config =
+         v_pod_cidr_overprovision_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_network_config__pod_cidr_overprovision_config
+             v_pod_cidr_overprovision_config
+         in
+         ("pod_cidr_overprovision_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_network_config__network_performance_config
+             v_network_performance_config
+         in
+         ("network_performance_config", arg) :: bnds
+       in
+       let bnds =
+         match v_pod_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pod_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pod_ipv4_cidr_block with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pod_ipv4_cidr_block", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_private_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_private_nodes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create_pod_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "create_pod_range", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_config
+
+[@@@deriving.end]
 
 type node_config__advanced_machine_features = {
   threads_per_core : float prop;
-      (** The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed. *)
 }
-[@@deriving yojson_of]
-(** Specifies options for controlling advanced machine features. *)
+[@@deriving_inline yojson_of]
 
-type node_config__confidential_nodes = {
-  enabled : bool prop;
-      (** Whether Confidential Nodes feature is enabled for all nodes in this pool. *)
-}
-[@@deriving yojson_of]
-(** Configuration for the confidential nodes feature, which makes nodes run on confidential VMs. Warning: This configuration can't be changed (or added/removed) after pool creation without deleting and recreating the entire pool. *)
+let _ = fun (_ : node_config__advanced_machine_features) -> ()
+
+let yojson_of_node_config__advanced_machine_features =
+  (function
+   | { threads_per_core = v_threads_per_core } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_threads_per_core
+         in
+         ("threads_per_core", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__advanced_machine_features ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__advanced_machine_features
+
+[@@@deriving.end]
+
+type node_config__confidential_nodes = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__confidential_nodes) -> ()
+
+let yojson_of_node_config__confidential_nodes =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__confidential_nodes ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__confidential_nodes
+
+[@@@deriving.end]
 
 type node_config__ephemeral_storage_local_ssd_config = {
   local_ssd_count : float prop;
-      (** Number of local SSDs to use to back ephemeral storage. Uses NVMe interfaces. Each local SSD must be 375 or 3000 GB in size, and all local SSDs must share the same size. *)
 }
-[@@deriving yojson_of]
-(** Parameters for the ephemeral storage filesystem. If unspecified, ephemeral storage is backed by the boot disk. *)
+[@@deriving_inline yojson_of]
 
-type node_config__fast_socket = {
-  enabled : bool prop;
-      (** Whether or not NCCL Fast Socket is enabled *)
-}
-[@@deriving yojson_of]
-(** Enable or disable NCCL Fast Socket in the node pool. *)
+let _ =
+ fun (_ : node_config__ephemeral_storage_local_ssd_config) -> ()
 
-type node_config__gcfs_config = {
-  enabled : bool prop;  (** Whether or not GCFS is enabled *)
-}
-[@@deriving yojson_of]
-(** GCFS configuration for this node. *)
+let yojson_of_node_config__ephemeral_storage_local_ssd_config =
+  (function
+   | { local_ssd_count = v_local_ssd_count } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_local_ssd_count
+         in
+         ("local_ssd_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__ephemeral_storage_local_ssd_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-type node_config__gvnic = {
-  enabled : bool prop;  (** Whether or not gvnic is enabled *)
-}
-[@@deriving yojson_of]
-(** Enable or disable gvnic in the node pool. *)
+let _ = yojson_of_node_config__ephemeral_storage_local_ssd_config
+
+[@@@deriving.end]
+
+type node_config__fast_socket = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__fast_socket) -> ()
+
+let yojson_of_node_config__fast_socket =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__fast_socket -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__fast_socket
+
+[@@@deriving.end]
+
+type node_config__gcfs_config = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__gcfs_config) -> ()
+
+let yojson_of_node_config__gcfs_config =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__gcfs_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__gcfs_config
+
+[@@@deriving.end]
+
+type node_config__gvnic = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__gvnic) -> ()
+
+let yojson_of_node_config__gvnic =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__gvnic -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__gvnic
+
+[@@@deriving.end]
 
 type node_config__host_maintenance_policy = {
-  maintenance_interval : string prop;  (** . *)
+  maintenance_interval : string prop;
 }
-[@@deriving yojson_of]
-(** The maintenance policy for the hosts on which the GKE VMs run on. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__host_maintenance_policy) -> ()
+
+let yojson_of_node_config__host_maintenance_policy =
+  (function
+   | { maintenance_interval = v_maintenance_interval } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_maintenance_interval
+         in
+         ("maintenance_interval", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__host_maintenance_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__host_maintenance_policy
+
+[@@@deriving.end]
 
 type node_config__kubelet_config = {
   cpu_cfs_quota : bool prop option; [@option]
-      (** Enable CPU CFS quota enforcement for containers that specify CPU limits. *)
   cpu_cfs_quota_period : string prop option; [@option]
-      (** Set the CPU CFS quota period value 'cpu.cfs_period_us'. *)
   cpu_manager_policy : string prop;
-      (** Control the CPU management policy on the node. *)
   pod_pids_limit : float prop option; [@option]
-      (** Controls the maximum number of processes allowed to run in a pod. *)
 }
-[@@deriving yojson_of]
-(** Node kubelet configs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__kubelet_config) -> ()
+
+let yojson_of_node_config__kubelet_config =
+  (function
+   | {
+       cpu_cfs_quota = v_cpu_cfs_quota;
+       cpu_cfs_quota_period = v_cpu_cfs_quota_period;
+       cpu_manager_policy = v_cpu_manager_policy;
+       pod_pids_limit = v_pod_pids_limit;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_pod_pids_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "pod_pids_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cpu_manager_policy
+         in
+         ("cpu_manager_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_cpu_cfs_quota_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cpu_cfs_quota_period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cpu_cfs_quota with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cpu_cfs_quota", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_config__kubelet_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__kubelet_config
+
+[@@@deriving.end]
 
 type node_config__linux_node_config = {
   cgroup_mode : string prop option; [@option]
-      (** cgroupMode specifies the cgroup mode to be used on the node. *)
   sysctls : (string * string prop) list option; [@option]
-      (** The Linux kernel parameters to be applied to the nodes and all pods running on the nodes. *)
 }
-[@@deriving yojson_of]
-(** Parameters that can be configured on Linux nodes. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__linux_node_config) -> ()
+
+let yojson_of_node_config__linux_node_config =
+  (function
+   | { cgroup_mode = v_cgroup_mode; sysctls = v_sysctls } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sysctls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "sysctls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cgroup_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cgroup_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_config__linux_node_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__linux_node_config
+
+[@@@deriving.end]
 
 type node_config__local_nvme_ssd_block_config = {
   local_ssd_count : float prop;
-      (** Number of raw-block local NVMe SSD disks to be attached to the node. Each local SSD is 375 GB in size. *)
 }
-[@@deriving yojson_of]
-(** Parameters for raw-block local NVMe SSDs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__local_nvme_ssd_block_config) -> ()
+
+let yojson_of_node_config__local_nvme_ssd_block_config =
+  (function
+   | { local_ssd_count = v_local_ssd_count } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_local_ssd_count
+         in
+         ("local_ssd_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__local_nvme_ssd_block_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__local_nvme_ssd_block_config
+
+[@@@deriving.end]
 
 type node_config__reservation_affinity = {
   consume_reservation_type : string prop;
-      (** Corresponds to the type of reservation consumption. *)
   key : string prop option; [@option]
-      (** The label key of a reservation resource. *)
   values : string prop list option; [@option]
-      (** The label values of the reservation resource. *)
 }
-[@@deriving yojson_of]
-(** The reservation affinity configuration for the node pool. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__reservation_affinity) -> ()
+
+let yojson_of_node_config__reservation_affinity =
+  (function
+   | {
+       consume_reservation_type = v_consume_reservation_type;
+       key = v_key;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_consume_reservation_type
+         in
+         ("consume_reservation_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__reservation_affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__reservation_affinity
+
+[@@@deriving.end]
 
 type node_config__shielded_instance_config = {
   enable_integrity_monitoring : bool prop option; [@option]
-      (** Defines whether the instance has integrity monitoring enabled. *)
   enable_secure_boot : bool prop option; [@option]
-      (** Defines whether the instance has Secure Boot enabled. *)
 }
-[@@deriving yojson_of]
-(** Shielded Instance options. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__shielded_instance_config) -> ()
+
+let yojson_of_node_config__shielded_instance_config =
+  (function
+   | {
+       enable_integrity_monitoring = v_enable_integrity_monitoring;
+       enable_secure_boot = v_enable_secure_boot;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enable_secure_boot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_secure_boot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_integrity_monitoring with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_integrity_monitoring", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_config__shielded_instance_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__shielded_instance_config
+
+[@@@deriving.end]
 
 type node_config__sole_tenant_config__node_affinity = {
-  key : string prop;  (** . *)
-  operator : string prop;  (** . *)
-  values : string prop list;  (** . *)
+  key : string prop;
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** . *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : node_config__sole_tenant_config__node_affinity) -> ()
+
+let yojson_of_node_config__sole_tenant_config__node_affinity =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__sole_tenant_config__node_affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__sole_tenant_config__node_affinity
+
+[@@@deriving.end]
 
 type node_config__sole_tenant_config = {
   node_affinity : node_config__sole_tenant_config__node_affinity list;
 }
-[@@deriving yojson_of]
-(** Node affinity options for sole tenant node pools. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__sole_tenant_config) -> ()
+
+let yojson_of_node_config__sole_tenant_config =
+  (function
+   | { node_affinity = v_node_affinity } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_node_config__sole_tenant_config__node_affinity
+             v_node_affinity
+         in
+         ("node_affinity", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__sole_tenant_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__sole_tenant_config
+
+[@@@deriving.end]
 
 type node_config__taint = {
-  effect : string prop;  (** Effect for taint. *)
-  key : string prop;  (** Key for taint. *)
-  value : string prop;  (** Value for taint. *)
+  effect : string prop;
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** List of Kubernetes taints to be applied to each node. *)
+[@@deriving_inline yojson_of]
 
-type node_config__workload_metadata_config = {
-  mode : string prop;
-      (** Mode is the configuration for how to expose metadata to workloads running on the node. *)
-}
-[@@deriving yojson_of]
-(** The workload metadata configuration for this node. *)
+let _ = fun (_ : node_config__taint) -> ()
+
+let yojson_of_node_config__taint =
+  (function
+   | { effect = v_effect; key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_effect in
+         ("effect", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__taint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__taint
+
+[@@@deriving.end]
+
+type node_config__workload_metadata_config = { mode : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__workload_metadata_config) -> ()
+
+let yojson_of_node_config__workload_metadata_config =
+  (function
+   | { mode = v_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__workload_metadata_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__workload_metadata_config
+
+[@@@deriving.end]
 
 type node_config__effective_taints = {
-  effect : string prop;  (** effect *)
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
+  effect : string prop;
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__effective_taints) -> ()
+
+let yojson_of_node_config__effective_taints =
+  (function
+   | { effect = v_effect; key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_effect in
+         ("effect", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__effective_taints ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__effective_taints
+
+[@@@deriving.end]
 
 type node_config__guest_accelerator__gpu_sharing_config = {
-  gpu_sharing_strategy : string prop;  (** gpu_sharing_strategy *)
+  gpu_sharing_strategy : string prop;
   max_shared_clients_per_gpu : float prop;
-      (** max_shared_clients_per_gpu *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : node_config__guest_accelerator__gpu_sharing_config) -> ()
+
+let yojson_of_node_config__guest_accelerator__gpu_sharing_config =
+  (function
+   | {
+       gpu_sharing_strategy = v_gpu_sharing_strategy;
+       max_shared_clients_per_gpu = v_max_shared_clients_per_gpu;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_max_shared_clients_per_gpu
+         in
+         ("max_shared_clients_per_gpu", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gpu_sharing_strategy
+         in
+         ("gpu_sharing_strategy", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__guest_accelerator__gpu_sharing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__guest_accelerator__gpu_sharing_config
+
+[@@@deriving.end]
 
 type node_config__guest_accelerator__gpu_driver_installation_config = {
-  gpu_driver_version : string prop;  (** gpu_driver_version *)
+  gpu_driver_version : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       node_config__guest_accelerator__gpu_driver_installation_config) ->
+  ()
+
+let yojson_of_node_config__guest_accelerator__gpu_driver_installation_config
+    =
+  (function
+   | { gpu_driver_version = v_gpu_driver_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gpu_driver_version
+         in
+         ("gpu_driver_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__guest_accelerator__gpu_driver_installation_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_node_config__guest_accelerator__gpu_driver_installation_config
+
+[@@@deriving.end]
 
 type node_config__guest_accelerator = {
-  count : float prop;  (** count *)
+  count : float prop;
   gpu_driver_installation_config :
     node_config__guest_accelerator__gpu_driver_installation_config
     list;
-      (** gpu_driver_installation_config *)
-  gpu_partition_size : string prop;  (** gpu_partition_size *)
+  gpu_partition_size : string prop;
   gpu_sharing_config :
     node_config__guest_accelerator__gpu_sharing_config list;
-      (** gpu_sharing_config *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config__guest_accelerator) -> ()
+
+let yojson_of_node_config__guest_accelerator =
+  (function
+   | {
+       count = v_count;
+       gpu_driver_installation_config =
+         v_gpu_driver_installation_config;
+       gpu_partition_size = v_gpu_partition_size;
+       gpu_sharing_config = v_gpu_sharing_config;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_node_config__guest_accelerator__gpu_sharing_config
+             v_gpu_sharing_config
+         in
+         ("gpu_sharing_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gpu_partition_size
+         in
+         ("gpu_partition_size", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_node_config__guest_accelerator__gpu_driver_installation_config
+             v_gpu_driver_installation_config
+         in
+         ("gpu_driver_installation_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_count in
+         ("count", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_config__guest_accelerator ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config__guest_accelerator
+
+[@@@deriving.end]
 
 type node_config = {
   boot_disk_kms_key : string prop option; [@option]
-      (** The Customer Managed Encryption Key used to encrypt the boot disk attached to each node in the node pool. *)
   disk_size_gb : float prop option; [@option]
-      (** Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. *)
   disk_type : string prop option; [@option]
-      (** Type of the disk attached to each node. Such as pd-standard, pd-balanced or pd-ssd *)
   enable_confidential_storage : bool prop option; [@option]
-      (** If enabled boot disks are configured with confidential mode. *)
   guest_accelerator : node_config__guest_accelerator list option;
       [@option]
-      (** List of the type and count of accelerator cards attached to the instance. *)
   image_type : string prop option; [@option]
-      (** The image type to use for this node. Note that for a given image type, the latest version of it will be used. *)
   labels : (string * string prop) list option; [@option]
-      (** The map of Kubernetes labels (key/value pairs) to be applied to each node. These will added in addition to any default label(s) that Kubernetes may apply to the node. *)
   local_ssd_count : float prop option; [@option]
-      (** The number of local SSD disks to be attached to the node. *)
   logging_variant : string prop option; [@option]
-      (** Type of logging agent that is used as the default value for node pools in the cluster. Valid values include DEFAULT and MAX_THROUGHPUT. *)
   machine_type : string prop option; [@option]
-      (** The name of a Google Compute Engine machine type. *)
   metadata : (string * string prop) list option; [@option]
-      (** The metadata key/value pairs assigned to instances in the cluster. *)
   min_cpu_platform : string prop option; [@option]
-      (** Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or newer CPU platform. *)
   node_group : string prop option; [@option]
-      (** Setting this field will assign instances of this pool to run on the specified node group. This is useful for running workloads on sole tenant nodes. *)
   oauth_scopes : string prop list option; [@option]
-      (** The set of Google API scopes to be made available on all of the node VMs. *)
   preemptible : bool prop option; [@option]
-      (** Whether the nodes are created as preemptible VM instances. *)
   resource_labels : (string * string prop) list option; [@option]
-      (** The GCE resource labels (a map of key/value pairs) to be applied to the node pool. *)
   resource_manager_tags : (string * string prop) list option;
       [@option]
-      (** A map of resource manager tags. Resource manager tag keys and values have the same definition as resource manager tags. Keys must be in the format tagKeys/{tag_key_id}, and values are in the format tagValues/456. The field is ignored (both PUT & PATCH) when empty. *)
   service_account : string prop option; [@option]
-      (** The Google Cloud Platform Service Account to be used by the node VMs. *)
   spot : bool prop option; [@option]
-      (** Whether the nodes are created as spot VM instances. *)
   tags : string prop list option; [@option]
-      (** The list of instance tags applied to all nodes. *)
   advanced_machine_features :
     node_config__advanced_machine_features list;
   confidential_nodes : node_config__confidential_nodes list;
@@ -278,83 +982,631 @@ type node_config = {
   workload_metadata_config :
     node_config__workload_metadata_config list;
 }
-[@@deriving yojson_of]
-(** The configuration of the nodepool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config) -> ()
+
+let yojson_of_node_config =
+  (function
+   | {
+       boot_disk_kms_key = v_boot_disk_kms_key;
+       disk_size_gb = v_disk_size_gb;
+       disk_type = v_disk_type;
+       enable_confidential_storage = v_enable_confidential_storage;
+       guest_accelerator = v_guest_accelerator;
+       image_type = v_image_type;
+       labels = v_labels;
+       local_ssd_count = v_local_ssd_count;
+       logging_variant = v_logging_variant;
+       machine_type = v_machine_type;
+       metadata = v_metadata;
+       min_cpu_platform = v_min_cpu_platform;
+       node_group = v_node_group;
+       oauth_scopes = v_oauth_scopes;
+       preemptible = v_preemptible;
+       resource_labels = v_resource_labels;
+       resource_manager_tags = v_resource_manager_tags;
+       service_account = v_service_account;
+       spot = v_spot;
+       tags = v_tags;
+       advanced_machine_features = v_advanced_machine_features;
+       confidential_nodes = v_confidential_nodes;
+       ephemeral_storage_local_ssd_config =
+         v_ephemeral_storage_local_ssd_config;
+       fast_socket = v_fast_socket;
+       gcfs_config = v_gcfs_config;
+       gvnic = v_gvnic;
+       host_maintenance_policy = v_host_maintenance_policy;
+       kubelet_config = v_kubelet_config;
+       linux_node_config = v_linux_node_config;
+       local_nvme_ssd_block_config = v_local_nvme_ssd_block_config;
+       reservation_affinity = v_reservation_affinity;
+       shielded_instance_config = v_shielded_instance_config;
+       sole_tenant_config = v_sole_tenant_config;
+       taint = v_taint;
+       workload_metadata_config = v_workload_metadata_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_node_config__workload_metadata_config
+             v_workload_metadata_config
+         in
+         ("workload_metadata_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config__taint v_taint
+         in
+         ("taint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config__sole_tenant_config
+             v_sole_tenant_config
+         in
+         ("sole_tenant_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_node_config__shielded_instance_config
+             v_shielded_instance_config
+         in
+         ("shielded_instance_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config__reservation_affinity
+             v_reservation_affinity
+         in
+         ("reservation_affinity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_node_config__local_nvme_ssd_block_config
+             v_local_nvme_ssd_block_config
+         in
+         ("local_nvme_ssd_block_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config__linux_node_config
+             v_linux_node_config
+         in
+         ("linux_node_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config__kubelet_config
+             v_kubelet_config
+         in
+         ("kubelet_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_node_config__host_maintenance_policy
+             v_host_maintenance_policy
+         in
+         ("host_maintenance_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config__gvnic v_gvnic
+         in
+         ("gvnic", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config__gcfs_config
+             v_gcfs_config
+         in
+         ("gcfs_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config__fast_socket
+             v_fast_socket
+         in
+         ("fast_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_node_config__ephemeral_storage_local_ssd_config
+             v_ephemeral_storage_local_ssd_config
+         in
+         ("ephemeral_storage_local_ssd_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config__confidential_nodes
+             v_confidential_nodes
+         in
+         ("confidential_nodes", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_node_config__advanced_machine_features
+             v_advanced_machine_features
+         in
+         ("advanced_machine_features", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_spot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "spot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_manager_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "resource_manager_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "resource_labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preemptible with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "preemptible", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_oauth_scopes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "oauth_scopes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_logging_variant with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "logging_variant", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_local_ssd_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "local_ssd_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_guest_accelerator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 yojson_of_node_config__guest_accelerator v
+             in
+             let bnd = "guest_accelerator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_confidential_storage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_confidential_storage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "disk_size_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_kms_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "boot_disk_kms_key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config
+
+[@@@deriving.end]
 
 type placement_policy = {
   policy_name : string prop option; [@option]
-      (** If set, refers to the name of a custom resource policy supplied by the user. The resource policy must be in the same project and region as the node pool. If not found, InvalidArgument error is returned. *)
   tpu_topology : string prop option; [@option]
-      (** TPU placement topology for pod slice node pool. https://cloud.google.com/tpu/docs/types-topologies#tpu_topologies *)
   type_ : string prop; [@key "type"]
-      (** Type defines the type of placement policy *)
 }
-[@@deriving yojson_of]
-(** Specifies the node placement policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : placement_policy) -> ()
+
+let yojson_of_placement_policy =
+  (function
+   | {
+       policy_name = v_policy_name;
+       tpu_topology = v_tpu_topology;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_tpu_topology with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tpu_topology", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policy_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type upgrade_settings__blue_green_settings__standard_rollout_policy = {
   batch_node_count : float prop option; [@option]
-      (** Number of blue nodes to drain in a batch. *)
   batch_percentage : float prop option; [@option]
-      (** Percentage of the blue pool nodes to drain in a batch. *)
   batch_soak_duration : string prop option; [@option]
-      (** Soak time after each batch gets drained. *)
 }
-[@@deriving yojson_of]
-(** Standard rollout policy is the default policy for blue-green. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       upgrade_settings__blue_green_settings__standard_rollout_policy) ->
+  ()
+
+let yojson_of_upgrade_settings__blue_green_settings__standard_rollout_policy
+    =
+  (function
+   | {
+       batch_node_count = v_batch_node_count;
+       batch_percentage = v_batch_percentage;
+       batch_soak_duration = v_batch_soak_duration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_batch_soak_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "batch_soak_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_batch_percentage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "batch_percentage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_batch_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "batch_node_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : upgrade_settings__blue_green_settings__standard_rollout_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_upgrade_settings__blue_green_settings__standard_rollout_policy
+
+[@@@deriving.end]
 
 type upgrade_settings__blue_green_settings = {
   node_pool_soak_duration : string prop option; [@option]
-      (** Time needed after draining entire blue pool. After this period, blue pool will be cleaned up. *)
   standard_rollout_policy :
     upgrade_settings__blue_green_settings__standard_rollout_policy
     list;
 }
-[@@deriving yojson_of]
-(** Settings for BlueGreen node pool upgrade. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : upgrade_settings__blue_green_settings) -> ()
+
+let yojson_of_upgrade_settings__blue_green_settings =
+  (function
+   | {
+       node_pool_soak_duration = v_node_pool_soak_duration;
+       standard_rollout_policy = v_standard_rollout_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_upgrade_settings__blue_green_settings__standard_rollout_policy
+             v_standard_rollout_policy
+         in
+         ("standard_rollout_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_node_pool_soak_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_pool_soak_duration", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : upgrade_settings__blue_green_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_upgrade_settings__blue_green_settings
+
+[@@@deriving.end]
 
 type upgrade_settings = {
   max_surge : float prop option; [@option]
-      (** The number of additional nodes that can be added to the node pool during an upgrade. Increasing max_surge raises the number of nodes that can be upgraded simultaneously. Can be set to 0 or greater. *)
   max_unavailable : float prop option; [@option]
-      (** The number of nodes that can be simultaneously unavailable during an upgrade. Increasing max_unavailable raises the number of nodes that can be upgraded in parallel. Can be set to 0 or greater. *)
   strategy : string prop option; [@option]
-      (** Update strategy for the given nodepool. *)
   blue_green_settings : upgrade_settings__blue_green_settings list;
 }
-[@@deriving yojson_of]
-(** Specify node upgrade settings to change how many nodes GKE attempts to upgrade at once. The number of nodes upgraded simultaneously is the sum of max_surge and max_unavailable. The maximum number of nodes upgraded simultaneously is limited to 20. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : upgrade_settings) -> ()
+
+let yojson_of_upgrade_settings =
+  (function
+   | {
+       max_surge = v_max_surge;
+       max_unavailable = v_max_unavailable;
+       strategy = v_strategy;
+       blue_green_settings = v_blue_green_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_upgrade_settings__blue_green_settings
+             v_blue_green_settings
+         in
+         ("blue_green_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_strategy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "strategy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_unavailable with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_unavailable", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_surge with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_surge", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : upgrade_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_upgrade_settings
+
+[@@@deriving.end]
 
 type google_container_node_pool = {
   cluster : string prop;
-      (** The cluster to create the node pool for. Cluster must be present in location provided for zonal clusters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   initial_node_count : float prop option; [@option]
-      (** The initial number of nodes for the pool. In regional or multi-zonal clusters, this is the number of nodes per zone. Changing this will force recreation of the resource. *)
   location : string prop option; [@option]
-      (** The location (region or zone) of the cluster. *)
   max_pods_per_node : float prop option; [@option]
-      (** The maximum number of pods per node in this node pool. Note that this does not work on node pools which are route-based - that is, node pools belonging to clusters that do not have IP Aliasing enabled. *)
   name : string prop option; [@option]
-      (** The name of the node pool. If left blank, Terraform will auto-generate a unique name. *)
   name_prefix : string prop option; [@option]
-      (** Creates a unique name for the node pool beginning with the specified prefix. Conflicts with name. *)
   node_count : float prop option; [@option]
-      (** The number of nodes per instance group. This field can be used to update the number of nodes per instance group but should not be used alongside autoscaling. *)
   node_locations : string prop list option; [@option]
-      (** The list of zones in which the node pool's nodes should be located. Nodes must be in the region of their regional cluster or in the same region as their cluster's zone for zonal clusters. If unspecified, the cluster-level node_locations will be used. *)
   project : string prop option; [@option]
-      (** The ID of the project in which to create the node pool. If blank, the provider-configured project will be used. *)
   version : string prop option; [@option]
-      (** The Kubernetes version for the nodes in this pool. Note that if this field and auto_upgrade are both specified, they will fight each other for what the node version should be, so setting both is highly discouraged. While a fuzzy version can be specified, it's recommended that you specify explicit versions as Terraform will see spurious diffs when fuzzy versions are used. See the google_container_engine_versions data source's version_prefix field to approximate fuzzy versions in a Terraform-compatible way. *)
   autoscaling : autoscaling list;
   management : management list;
   network_config : network_config list;
@@ -363,8 +1615,169 @@ type google_container_node_pool = {
   timeouts : timeouts option;
   upgrade_settings : upgrade_settings list;
 }
-[@@deriving yojson_of]
-(** google_container_node_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_container_node_pool) -> ()
+
+let yojson_of_google_container_node_pool =
+  (function
+   | {
+       cluster = v_cluster;
+       id = v_id;
+       initial_node_count = v_initial_node_count;
+       location = v_location;
+       max_pods_per_node = v_max_pods_per_node;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       node_count = v_node_count;
+       node_locations = v_node_locations;
+       project = v_project;
+       version = v_version;
+       autoscaling = v_autoscaling;
+       management = v_management;
+       network_config = v_network_config;
+       node_config = v_node_config;
+       placement_policy = v_placement_policy;
+       timeouts = v_timeouts;
+       upgrade_settings = v_upgrade_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_upgrade_settings
+             v_upgrade_settings
+         in
+         ("upgrade_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_placement_policy
+             v_placement_policy
+         in
+         ("placement_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config v_node_config
+         in
+         ("node_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_config v_network_config
+         in
+         ("network_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_management v_management
+         in
+         ("management", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_autoscaling v_autoscaling
+         in
+         ("autoscaling", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_locations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "node_locations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_pods_per_node with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_pods_per_node", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster in
+         ("cluster", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_container_node_pool -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_container_node_pool
+
+[@@@deriving.end]
 
 let autoscaling ?location_policy ?max_node_count ?min_node_count
     ?total_max_node_count ?total_min_node_count () : autoscaling =

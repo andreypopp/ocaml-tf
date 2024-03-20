@@ -4,75 +4,260 @@ open! Tf_core
 
 type license_resource = {
   amount : string prop option; [@option]
-      (** The number of licenses purchased. *)
   cores_per_license : string prop option; [@option]
-      (** Specifies the core range of the instance for which this license applies. *)
-  license : string prop;  (** Any applicable license URI. *)
+  license : string prop;
 }
-[@@deriving yojson_of]
-(** The license specification required as part of a license commitment. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : license_resource) -> ()
+
+let yojson_of_license_resource =
+  (function
+   | {
+       amount = v_amount;
+       cores_per_license = v_cores_per_license;
+       license = v_license;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_license in
+         ("license", arg) :: bnds
+       in
+       let bnds =
+         match v_cores_per_license with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cores_per_license", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_amount with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "amount", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : license_resource -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_license_resource
+
+[@@@deriving.end]
 
 type resources = {
   accelerator_type : string prop option; [@option]
-      (** Name of the accelerator type resource. Applicable only when the type is ACCELERATOR. *)
   amount : string prop option; [@option]
-      (** The amount of the resource purchased (in a type-dependent unit,
-such as bytes). For vCPUs, this can just be an integer. For memory,
-this must be provided in MB. Memory must be a multiple of 256 MB,
-with up to 6.5GB of memory per every vCPU. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Type of resource for which this commitment applies.
-Possible values are VCPU, MEMORY, LOCAL_SSD, and ACCELERATOR. *)
 }
-[@@deriving yojson_of]
-(** A list of commitment amounts for particular resources.
-Note that VCPU and MEMORY resource commitments must occur together. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : resources) -> ()
+
+let yojson_of_resources =
+  (function
+   | {
+       accelerator_type = v_accelerator_type;
+       amount = v_amount;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_amount with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "amount", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accelerator_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "accelerator_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : resources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_resources
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_region_commitment = {
   auto_renew : bool prop option; [@option]
-      (** Specifies whether to enable automatic renewal for the commitment.
-The default value is false if not specified.
-If the field is set to true, the commitment will be automatically renewed for either
-one or three years according to the terms of the existing commitment. *)
   category : string prop option; [@option]
-      (** The category of the commitment. Category MACHINE specifies commitments composed of
-machine resources such as VCPU or MEMORY, listed in resources. Category LICENSE
-specifies commitments composed of software licenses, listed in licenseResources.
-Note that only MACHINE commitments should have a Type specified. Possible values: [LICENSE, MACHINE] *)
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Name of the resource. The name must be 1-63 characters long and match
-the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
-first character must be a lowercase letter, and all following
-characters must be a dash, lowercase letter, or digit, except the last
-character, which cannot be a dash. *)
   plan : string prop;
-      (** The plan for this commitment, which determines duration and discount rate.
-The currently supported plans are TWELVE_MONTH (1 year), and THIRTY_SIX_MONTH (3 years). Possible values: [TWELVE_MONTH, THIRTY_SIX_MONTH] *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** URL of the region where this commitment may be used. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The type of commitment, which affects the discount rate and the eligible resources.
-The type could be one of the following value: 'MEMORY_OPTIMIZED', 'ACCELERATOR_OPTIMIZED',
-'GENERAL_PURPOSE_N1', 'GENERAL_PURPOSE_N2', 'GENERAL_PURPOSE_N2D', 'GENERAL_PURPOSE_E2',
-'GENERAL_PURPOSE_T2D', 'GENERAL_PURPOSE_C3', 'COMPUTE_OPTIMIZED_C2', 'COMPUTE_OPTIMIZED_C2D' and
-'GRAPHICS_OPTIMIZED_G2' *)
   license_resource : license_resource list;
   resources : resources list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_region_commitment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_region_commitment) -> ()
+
+let yojson_of_google_compute_region_commitment =
+  (function
+   | {
+       auto_renew = v_auto_renew;
+       category = v_category;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       plan = v_plan;
+       project = v_project;
+       region = v_region;
+       type_ = v_type_;
+       license_resource = v_license_resource;
+       resources = v_resources;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_resources v_resources in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_license_resource
+             v_license_resource
+         in
+         ("license_resource", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_plan in
+         ("plan", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_category with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "category", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_renew with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_renew", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_region_commitment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_region_commitment
+
+[@@@deriving.end]
 
 let license_resource ?amount ?cores_per_license ~license () :
     license_resource =

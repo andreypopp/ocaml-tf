@@ -4,170 +4,770 @@ open! Tf_core
 
 type export_policy__rules = {
   access_type : string prop option; [@option]
-      (** Defines the access type for clients matching the 'allowedClients' specification. Possible values: [READ_ONLY, READ_WRITE, READ_NONE] *)
   allowed_clients : string prop option; [@option]
-      (** Defines the client ingress specification (allowed clients) as a comma seperated list with IPv4 CIDRs or IPv4 host addresses. *)
   has_root_access : string prop option; [@option]
-      (** If enabled, the root user (UID = 0) of the specified clients doesn't get mapped to nobody (UID = 65534). This is also known as no_root_squash. *)
   kerberos5_read_only : bool prop option; [@option]
-      (** If enabled (true) the rule defines a read only access for clients matching the 'allowedClients' specification. It enables nfs clients to mount using 'authentication' kerberos security mode. *)
   kerberos5_read_write : bool prop option; [@option]
-      (** If enabled (true) the rule defines read and write access for clients matching the 'allowedClients' specification. It enables nfs clients to mount using 'authentication' kerberos security mode. The 'kerberos5ReadOnly' value is ignored if this is enabled. *)
   kerberos5i_read_only : bool prop option; [@option]
-      (** If enabled (true) the rule defines a read only access for clients matching the 'allowedClients' specification. It enables nfs clients to mount using 'integrity' kerberos security mode. *)
   kerberos5i_read_write : bool prop option; [@option]
-      (** If enabled (true) the rule defines read and write access for clients matching the 'allowedClients' specification. It enables nfs clients to mount using 'integrity' kerberos security mode. The 'kerberos5iReadOnly' value is ignored if this is enabled. *)
   kerberos5p_read_only : bool prop option; [@option]
-      (** If enabled (true) the rule defines a read only access for clients matching the 'allowedClients' specification. It enables nfs clients to mount using 'privacy' kerberos security mode. *)
   kerberos5p_read_write : bool prop option; [@option]
-      (** If enabled (true) the rule defines read and write access for clients matching the 'allowedClients' specification. It enables nfs clients to mount using 'privacy' kerberos security mode. The 'kerberos5pReadOnly' value is ignored if this is enabled. *)
   nfsv3 : bool prop option; [@option]
-      (** Enable to apply the export rule to NFSV3 clients. *)
   nfsv4 : bool prop option; [@option]
-      (** Enable to apply the export rule to NFSV4.1 clients. *)
 }
-[@@deriving yojson_of]
-(** Export rules (up to 5) control NFS volume access. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : export_policy__rules) -> ()
+
+let yojson_of_export_policy__rules =
+  (function
+   | {
+       access_type = v_access_type;
+       allowed_clients = v_allowed_clients;
+       has_root_access = v_has_root_access;
+       kerberos5_read_only = v_kerberos5_read_only;
+       kerberos5_read_write = v_kerberos5_read_write;
+       kerberos5i_read_only = v_kerberos5i_read_only;
+       kerberos5i_read_write = v_kerberos5i_read_write;
+       kerberos5p_read_only = v_kerberos5p_read_only;
+       kerberos5p_read_write = v_kerberos5p_read_write;
+       nfsv3 = v_nfsv3;
+       nfsv4 = v_nfsv4;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_nfsv4 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "nfsv4", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nfsv3 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "nfsv3", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos5p_read_write with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos5p_read_write", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos5p_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos5p_read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos5i_read_write with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos5i_read_write", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos5i_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos5i_read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos5_read_write with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos5_read_write", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos5_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos5_read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_has_root_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "has_root_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_clients with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "allowed_clients", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : export_policy__rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_export_policy__rules
+
+[@@@deriving.end]
 
 type export_policy = { rules : export_policy__rules list }
-[@@deriving yojson_of]
-(** Export policy of the volume for NFSV3 and/or NFSV4.1 access. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : export_policy) -> ()
+
+let yojson_of_export_policy =
+  (function
+   | { rules = v_rules } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_export_policy__rules v_rules
+         in
+         ("rules", arg) :: bnds
+       in
+       `Assoc bnds
+    : export_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_export_policy
+
+[@@@deriving.end]
 
 type restore_parameters = {
   source_backup : string prop option; [@option]
-      (** Full name of the snapshot to use for creating this volume.
-'source_snapshot' and 'source_backup' cannot be used simultaneously.
-Format: 'projects/{{project}}/locations/{{location}}/backupVaults/{{backupVaultId}}/backups/{{backup}}'. *)
   source_snapshot : string prop option; [@option]
-      (** Full name of the snapshot to use for creating this volume.
-'source_snapshot' and 'source_backup' cannot be used simultaneously.
-Format: 'projects/{{project}}/locations/{{location}}/volumes/{{volume}}/snapshots/{{snapshot}}'. *)
 }
-[@@deriving yojson_of]
-(** Used to create this volume from a snapshot (= cloning) or an backup. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restore_parameters) -> ()
+
+let yojson_of_restore_parameters =
+  (function
+   | {
+       source_backup = v_source_backup;
+       source_snapshot = v_source_snapshot;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source_snapshot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_snapshot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_backup with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_backup", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : restore_parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restore_parameters
+
+[@@@deriving.end]
 
 type snapshot_policy__daily_schedule = {
   hour : float prop option; [@option]
-      (** Set the hour to create the snapshot (0-23), defaults to midnight (0). *)
   minute : float prop option; [@option]
-      (** Set the minute of the hour to create the snapshot (0-59), defaults to the top of the hour (0). *)
   snapshots_to_keep : float prop;
-      (** The maximum number of snapshots to keep for the daily schedule. *)
 }
-[@@deriving yojson_of]
-(** Daily schedule policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_policy__daily_schedule) -> ()
+
+let yojson_of_snapshot_policy__daily_schedule =
+  (function
+   | {
+       hour = v_hour;
+       minute = v_minute;
+       snapshots_to_keep = v_snapshots_to_keep;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_snapshots_to_keep
+         in
+         ("snapshots_to_keep", arg) :: bnds
+       in
+       let bnds =
+         match v_minute with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minute", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hour with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hour", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snapshot_policy__daily_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_policy__daily_schedule
+
+[@@@deriving.end]
 
 type snapshot_policy__hourly_schedule = {
   minute : float prop option; [@option]
-      (** Set the minute of the hour to create the snapshot (0-59), defaults to the top of the hour (0). *)
   snapshots_to_keep : float prop;
-      (** The maximum number of snapshots to keep for the hourly schedule. *)
 }
-[@@deriving yojson_of]
-(** Hourly schedule policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_policy__hourly_schedule) -> ()
+
+let yojson_of_snapshot_policy__hourly_schedule =
+  (function
+   | { minute = v_minute; snapshots_to_keep = v_snapshots_to_keep }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_snapshots_to_keep
+         in
+         ("snapshots_to_keep", arg) :: bnds
+       in
+       let bnds =
+         match v_minute with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minute", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snapshot_policy__hourly_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_policy__hourly_schedule
+
+[@@@deriving.end]
 
 type snapshot_policy__monthly_schedule = {
   days_of_month : string prop option; [@option]
-      (** Set the day or days of the month to make a snapshot (1-31). Accepts a comma separated number of days. Defaults to '1'. *)
   hour : float prop option; [@option]
-      (** Set the hour to create the snapshot (0-23), defaults to midnight (0). *)
   minute : float prop option; [@option]
-      (** Set the minute of the hour to create the snapshot (0-59), defaults to the top of the hour (0). *)
   snapshots_to_keep : float prop;
-      (** The maximum number of snapshots to keep for the monthly schedule *)
 }
-[@@deriving yojson_of]
-(** Monthly schedule policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_policy__monthly_schedule) -> ()
+
+let yojson_of_snapshot_policy__monthly_schedule =
+  (function
+   | {
+       days_of_month = v_days_of_month;
+       hour = v_hour;
+       minute = v_minute;
+       snapshots_to_keep = v_snapshots_to_keep;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_snapshots_to_keep
+         in
+         ("snapshots_to_keep", arg) :: bnds
+       in
+       let bnds =
+         match v_minute with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minute", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hour with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hour", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_days_of_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "days_of_month", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snapshot_policy__monthly_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_policy__monthly_schedule
+
+[@@@deriving.end]
 
 type snapshot_policy__weekly_schedule = {
   day : string prop option; [@option]
-      (** Set the day or days of the week to make a snapshot. Accepts a comma separated days of the week. Defaults to 'Sunday'. *)
   hour : float prop option; [@option]
-      (** Set the hour to create the snapshot (0-23), defaults to midnight (0). *)
   minute : float prop option; [@option]
-      (** Set the minute of the hour to create the snapshot (0-59), defaults to the top of the hour (0). *)
   snapshots_to_keep : float prop;
-      (** The maximum number of snapshots to keep for the weekly schedule. *)
 }
-[@@deriving yojson_of]
-(** Weekly schedule policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_policy__weekly_schedule) -> ()
+
+let yojson_of_snapshot_policy__weekly_schedule =
+  (function
+   | {
+       day = v_day;
+       hour = v_hour;
+       minute = v_minute;
+       snapshots_to_keep = v_snapshots_to_keep;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_snapshots_to_keep
+         in
+         ("snapshots_to_keep", arg) :: bnds
+       in
+       let bnds =
+         match v_minute with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minute", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hour with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "hour", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snapshot_policy__weekly_schedule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_policy__weekly_schedule
+
+[@@@deriving.end]
 
 type snapshot_policy = {
   enabled : bool prop option; [@option]
-      (** Enables automated snapshot creation according to defined schedule. Default is false.
-To disable automatic snapshot creation you have to remove the whole snapshot_policy block. *)
   daily_schedule : snapshot_policy__daily_schedule list;
   hourly_schedule : snapshot_policy__hourly_schedule list;
   monthly_schedule : snapshot_policy__monthly_schedule list;
   weekly_schedule : snapshot_policy__weekly_schedule list;
 }
-[@@deriving yojson_of]
-(** Snapshot policy defines the schedule for automatic snapshot creation.
-To disable automatic snapshot creation you have to remove the whole snapshot_policy block. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_policy) -> ()
+
+let yojson_of_snapshot_policy =
+  (function
+   | {
+       enabled = v_enabled;
+       daily_schedule = v_daily_schedule;
+       hourly_schedule = v_hourly_schedule;
+       monthly_schedule = v_monthly_schedule;
+       weekly_schedule = v_weekly_schedule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_snapshot_policy__weekly_schedule
+             v_weekly_schedule
+         in
+         ("weekly_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_snapshot_policy__monthly_schedule
+             v_monthly_schedule
+         in
+         ("monthly_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_snapshot_policy__hourly_schedule
+             v_hourly_schedule
+         in
+         ("hourly_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_snapshot_policy__daily_schedule
+             v_daily_schedule
+         in
+         ("daily_schedule", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snapshot_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type mount_options = {
-  export : string prop;  (** export *)
-  export_full : string prop;  (** export_full *)
-  instructions : string prop;  (** instructions *)
-  protocol : string prop;  (** protocol *)
+  export : string prop;
+  export_full : string prop;
+  instructions : string prop;
+  protocol : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mount_options) -> ()
+
+let yojson_of_mount_options =
+  (function
+   | {
+       export = v_export;
+       export_full = v_export_full;
+       instructions = v_instructions;
+       protocol = v_protocol;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instructions in
+         ("instructions", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_export_full in
+         ("export_full", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_export in
+         ("export", arg) :: bnds
+       in
+       `Assoc bnds
+    : mount_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mount_options
+
+[@@@deriving.end]
 
 type google_netapp_volume = {
   capacity_gib : string prop;
-      (** Capacity of the volume (in GiB). *)
   deletion_policy : string prop option; [@option]
-      (** Policy to determine if the volume should be deleted forcefully.
-Volumes may have nested snapshot resources. Deleting such a volume will fail.
-Setting this parameter to FORCE will delete volumes including nested snapshots. *)
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kerberos_enabled : bool prop option; [@option]
-      (** Flag indicating if the volume is a kerberos volume or not, export policy rules control kerberos security modes (krb5, krb5i, krb5p). *)
   labels : (string * string prop) list option; [@option]
-      (** Labels as key value pairs. Example: '{ owner: Bob, department: finance, purpose: testing }'.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop;
-      (** Name of the pool location. Usually a region name, expect for some STANDARD service level pools which require a zone name. *)
   name : string prop;
-      (** The name of the volume. Needs to be unique per location. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   protocols : string prop list;
-      (** The protocol of the volume. Allowed combinations are '['NFSV3']', '['NFSV4']', '['SMB']', '['NFSV3', 'NFSV4']', '['SMB', 'NFSV3']' and '['SMB', 'NFSV4']'. Possible values: [NFSV3, NFSV4, SMB] *)
   restricted_actions : string prop list option; [@option]
-      (** List of actions that are restricted on this volume. Possible values: [DELETE] *)
   security_style : string prop option; [@option]
-      (** Security Style of the Volume. Use UNIX to use UNIX or NFSV4 ACLs for file permissions.
-Use NTFS to use NTFS ACLs for file permissions. Can only be set for volumes which use SMB together with NFS as protocol. Possible values: [NTFS, UNIX] *)
   share_name : string prop;
-      (** Share name (SMB) or export path (NFS) of the volume. Needs to be unique per location. *)
   smb_settings : string prop list option; [@option]
-      (** Settings for volumes with SMB access. Possible values: [ENCRYPT_DATA, BROWSABLE, CHANGE_NOTIFY, NON_BROWSABLE, OPLOCKS, SHOW_SNAPSHOT, SHOW_PREVIOUS_VERSIONS, ACCESS_BASED_ENUMERATION, CONTINUOUSLY_AVAILABLE] *)
   snapshot_directory : bool prop option; [@option]
-      (** If enabled, a NFS volume will contain a read-only .snapshot directory which provides access to each of the volume's snapshots. Will enable Previous Versions support for SMB. *)
   storage_pool : string prop;
-      (** Name of the storage pool to create the volume in. Pool needs enough spare capacity to accomodate the volume. *)
   unix_permissions : string prop option; [@option]
-      (** Unix permission the mount point will be created with. Default is 0770. Applicable for UNIX security style volumes only. *)
   export_policy : export_policy list;
   restore_parameters : restore_parameters list;
   snapshot_policy : snapshot_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_netapp_volume *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_netapp_volume) -> ()
+
+let yojson_of_google_netapp_volume =
+  (function
+   | {
+       capacity_gib = v_capacity_gib;
+       deletion_policy = v_deletion_policy;
+       description = v_description;
+       id = v_id;
+       kerberos_enabled = v_kerberos_enabled;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       protocols = v_protocols;
+       restricted_actions = v_restricted_actions;
+       security_style = v_security_style;
+       share_name = v_share_name;
+       smb_settings = v_smb_settings;
+       snapshot_directory = v_snapshot_directory;
+       storage_pool = v_storage_pool;
+       unix_permissions = v_unix_permissions;
+       export_policy = v_export_policy;
+       restore_parameters = v_restore_parameters;
+       snapshot_policy = v_snapshot_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_snapshot_policy v_snapshot_policy
+         in
+         ("snapshot_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_restore_parameters
+             v_restore_parameters
+         in
+         ("restore_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_export_policy v_export_policy
+         in
+         ("export_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_unix_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "unix_permissions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_storage_pool in
+         ("storage_pool", arg) :: bnds
+       in
+       let bnds =
+         match v_snapshot_directory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "snapshot_directory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_smb_settings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "smb_settings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_share_name in
+         ("share_name", arg) :: bnds
+       in
+       let bnds =
+         match v_security_style with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_style", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_restricted_actions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "restricted_actions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_protocols
+         in
+         ("protocols", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kerberos_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kerberos_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deletion_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_capacity_gib in
+         ("capacity_gib", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_netapp_volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_netapp_volume
+
+[@@@deriving.end]
 
 let export_policy__rules ?access_type ?allowed_clients
     ?has_root_access ?kerberos5_read_only ?kerberos5_read_write

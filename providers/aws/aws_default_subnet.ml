@@ -3,43 +3,242 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_default_subnet = {
   assign_ipv6_address_on_creation : bool prop option; [@option]
-      (** assign_ipv6_address_on_creation *)
-  availability_zone : string prop;  (** availability_zone *)
+  availability_zone : string prop;
   customer_owned_ipv4_pool : string prop option; [@option]
-      (** customer_owned_ipv4_pool *)
-  enable_dns64 : bool prop option; [@option]  (** enable_dns64 *)
+  enable_dns64 : bool prop option; [@option]
   enable_resource_name_dns_a_record_on_launch : bool prop option;
       [@option]
-      (** enable_resource_name_dns_a_record_on_launch *)
   enable_resource_name_dns_aaaa_record_on_launch : bool prop option;
       [@option]
-      (** enable_resource_name_dns_aaaa_record_on_launch *)
-  force_destroy : bool prop option; [@option]  (** force_destroy *)
-  id : string prop option; [@option]  (** id *)
+  force_destroy : bool prop option; [@option]
+  id : string prop option; [@option]
   ipv6_cidr_block : string prop option; [@option]
-      (** ipv6_cidr_block *)
-  ipv6_native : bool prop option; [@option]  (** ipv6_native *)
+  ipv6_native : bool prop option; [@option]
   map_customer_owned_ip_on_launch : bool prop option; [@option]
-      (** map_customer_owned_ip_on_launch *)
   map_public_ip_on_launch : bool prop option; [@option]
-      (** map_public_ip_on_launch *)
   private_dns_hostname_type_on_launch : string prop option; [@option]
-      (** private_dns_hostname_type_on_launch *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_default_subnet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_default_subnet) -> ()
+
+let yojson_of_aws_default_subnet =
+  (function
+   | {
+       assign_ipv6_address_on_creation =
+         v_assign_ipv6_address_on_creation;
+       availability_zone = v_availability_zone;
+       customer_owned_ipv4_pool = v_customer_owned_ipv4_pool;
+       enable_dns64 = v_enable_dns64;
+       enable_resource_name_dns_a_record_on_launch =
+         v_enable_resource_name_dns_a_record_on_launch;
+       enable_resource_name_dns_aaaa_record_on_launch =
+         v_enable_resource_name_dns_aaaa_record_on_launch;
+       force_destroy = v_force_destroy;
+       id = v_id;
+       ipv6_cidr_block = v_ipv6_cidr_block;
+       ipv6_native = v_ipv6_native;
+       map_customer_owned_ip_on_launch =
+         v_map_customer_owned_ip_on_launch;
+       map_public_ip_on_launch = v_map_public_ip_on_launch;
+       private_dns_hostname_type_on_launch =
+         v_private_dns_hostname_type_on_launch;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_dns_hostname_type_on_launch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_dns_hostname_type_on_launch", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_map_public_ip_on_launch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "map_public_ip_on_launch", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_map_customer_owned_ip_on_launch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "map_customer_owned_ip_on_launch", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_native with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ipv6_native", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_cidr_block with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_cidr_block", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_resource_name_dns_aaaa_record_on_launch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "enable_resource_name_dns_aaaa_record_on_launch", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_resource_name_dns_a_record_on_launch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "enable_resource_name_dns_a_record_on_launch", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_dns64 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_dns64", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_customer_owned_ipv4_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "customer_owned_ipv4_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_availability_zone
+         in
+         ("availability_zone", arg) :: bnds
+       in
+       let bnds =
+         match v_assign_ipv6_address_on_creation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "assign_ipv6_address_on_creation", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_default_subnet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_default_subnet
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

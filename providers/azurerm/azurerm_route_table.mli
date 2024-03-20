@@ -12,6 +12,8 @@ type route = {
   next_hop_type : string prop;  (** next_hop_type *)
 }
 
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

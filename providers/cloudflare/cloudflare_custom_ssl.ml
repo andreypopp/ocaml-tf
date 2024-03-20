@@ -4,35 +4,164 @@ open! Tf_core
 
 type custom_ssl_options = {
   bundle_method : string prop option; [@option]
-      (** Method of building intermediate certificate chain. A ubiquitous bundle has the highest probability of being verified everywhere, even by clients using outdated or unusual trust stores. An optimal bundle uses the shortest chain and newest intermediates. And the force bundle verifies the chain, but does not otherwise modify it. Available values: `ubiquitous`, `optimal`, `force`. *)
   certificate : string prop option; [@option]
-      (** Certificate certificate and the intermediate(s). *)
   geo_restrictions : string prop option; [@option]
-      (** Specifies the region where your private key can be held locally. Available values: `us`, `eu`, `highest_security`. *)
   private_key : string prop option; [@option]
-      (** Certificate's private key. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Whether to enable support for legacy clients which do not include SNI in the TLS handshake. Available values: `legacy_custom`, `sni_custom`. *)
 }
-[@@deriving yojson_of]
-(** The certificate associated parameters. **Modifying this attribute will force creation of a new resource.** *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_ssl_options) -> ()
+
+let yojson_of_custom_ssl_options =
+  (function
+   | {
+       bundle_method = v_bundle_method;
+       certificate = v_certificate;
+       geo_restrictions = v_geo_restrictions;
+       private_key = v_private_key;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_geo_restrictions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "geo_restrictions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bundle_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bundle_method", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_ssl_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_ssl_options
+
+[@@@deriving.end]
 
 type custom_ssl_priority = {
-  id : string prop option; [@option]  (** id *)
-  priority : float prop option; [@option]  (** priority *)
+  id : string prop option; [@option]
+  priority : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** custom_ssl_priority *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_ssl_priority) -> ()
+
+let yojson_of_custom_ssl_priority =
+  (function
+   | { id = v_id; priority = v_priority } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_ssl_priority -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_ssl_priority
+
+[@@@deriving.end]
 
 type cloudflare_custom_ssl = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   zone_id : string prop;
-      (** The zone identifier to target for the resource. *)
   custom_ssl_options : custom_ssl_options list;
   custom_ssl_priority : custom_ssl_priority list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare custom SSL resource. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_custom_ssl) -> ()
+
+let yojson_of_cloudflare_custom_ssl =
+  (function
+   | {
+       id = v_id;
+       zone_id = v_zone_id;
+       custom_ssl_options = v_custom_ssl_options;
+       custom_ssl_priority = v_custom_ssl_priority;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_ssl_priority
+             v_custom_ssl_priority
+         in
+         ("custom_ssl_priority", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_ssl_options
+             v_custom_ssl_options
+         in
+         ("custom_ssl_options", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_custom_ssl -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_custom_ssl
+
+[@@@deriving.end]
 
 let custom_ssl_options ?bundle_method ?certificate ?geo_restrictions
     ?private_key ?type_ () : custom_ssl_options =

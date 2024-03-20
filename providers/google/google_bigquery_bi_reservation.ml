@@ -4,34 +4,171 @@ open! Tf_core
 
 type preferred_tables = {
   dataset_id : string prop option; [@option]
-      (** The ID of the dataset in the above project. *)
   project_id : string prop option; [@option]
-      (** The assigned project ID of the project. *)
   table_id : string prop option; [@option]
-      (** The ID of the table in the above dataset. *)
 }
-[@@deriving yojson_of]
-(** Preferred tables to use BI capacity for. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : preferred_tables) -> ()
+
+let yojson_of_preferred_tables =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       table_id = v_table_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_table_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "table_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dataset_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dataset_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : preferred_tables -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_preferred_tables
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigquery_bi_reservation = {
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** LOCATION_DESCRIPTION *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  location : string prop;
+  project : string prop option; [@option]
   size : float prop option; [@option]
-      (** Size of a reservation, in bytes. *)
   preferred_tables : preferred_tables list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigquery_bi_reservation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigquery_bi_reservation) -> ()
+
+let yojson_of_google_bigquery_bi_reservation =
+  (function
+   | {
+       id = v_id;
+       location = v_location;
+       project = v_project;
+       size = v_size;
+       preferred_tables = v_preferred_tables;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_preferred_tables
+             v_preferred_tables
+         in
+         ("preferred_tables", arg) :: bnds
+       in
+       let bnds =
+         match v_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_bigquery_bi_reservation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigquery_bi_reservation
+
+[@@@deriving.end]
 
 let preferred_tables ?dataset_id ?project_id ?table_id () :
     preferred_tables =

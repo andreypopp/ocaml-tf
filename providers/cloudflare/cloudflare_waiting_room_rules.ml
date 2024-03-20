@@ -4,27 +4,106 @@ open! Tf_core
 
 type rules = {
   action : string prop;
-      (** Action to perform in the ruleset rule. Available values: `bypass_waiting_room`. *)
   description : string prop option; [@option]
-      (** Brief summary of the waiting room rule and its intended use. *)
   expression : string prop;
-      (** Criteria for an HTTP request to trigger the waiting room rule action. Uses the Firewall Rules expression language based on Wireshark display filters. Refer to the [Waiting Room Rules Docs](https://developers.cloudflare.com/waiting-room/additional-options/waiting-room-rules/bypass-rules/). *)
   status : string prop option; [@option]
-      (** Whether the rule is enabled or disabled. Available values: `enabled`, `disabled`. *)
 }
-[@@deriving yojson_of]
-(** List of rules to apply to the ruleset. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules) -> ()
+
+let yojson_of_rules =
+  (function
+   | {
+       action = v_action;
+       description = v_description;
+       expression = v_expression;
+       status = v_status;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules
+
+[@@@deriving.end]
 
 type cloudflare_waiting_room_rules = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   waiting_room_id : string prop;
-      (** The Waiting Room ID the rules should apply to. **Modifying this attribute will force creation of a new resource.** *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   rules : rules list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Waiting Room Rules resource. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_waiting_room_rules) -> ()
+
+let yojson_of_cloudflare_waiting_room_rules =
+  (function
+   | {
+       id = v_id;
+       waiting_room_id = v_waiting_room_id;
+       zone_id = v_zone_id;
+       rules = v_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rules v_rules in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_waiting_room_id
+         in
+         ("waiting_room_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_waiting_room_rules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_waiting_room_rules
+
+[@@@deriving.end]
 
 let rules ?description ?status ~action ~expression () : rules =
   { action; description; expression; status }

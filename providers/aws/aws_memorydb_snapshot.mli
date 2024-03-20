@@ -21,6 +21,8 @@ type cluster_configuration = {
   vpc_id : string prop;  (** vpc_id *)
 }
 
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

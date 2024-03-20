@@ -4,27 +4,157 @@ open! Tf_core
 
 type aws_dms_replication_task = {
   cdc_start_position : string prop option; [@option]
-      (** cdc_start_position *)
   cdc_start_time : string prop option; [@option]
-      (** cdc_start_time *)
-  id : string prop option; [@option]  (** id *)
-  migration_type : string prop;  (** migration_type *)
+  id : string prop option; [@option]
+  migration_type : string prop;
   replication_instance_arn : string prop;
-      (** replication_instance_arn *)
-  replication_task_id : string prop;  (** replication_task_id *)
+  replication_task_id : string prop;
   replication_task_settings : string prop option; [@option]
-      (** replication_task_settings *)
-  source_endpoint_arn : string prop;  (** source_endpoint_arn *)
+  source_endpoint_arn : string prop;
   start_replication_task : bool prop option; [@option]
-      (** start_replication_task *)
-  table_mappings : string prop;  (** table_mappings *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  table_mappings : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  target_endpoint_arn : string prop;  (** target_endpoint_arn *)
+  target_endpoint_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_dms_replication_task *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dms_replication_task) -> ()
+
+let yojson_of_aws_dms_replication_task =
+  (function
+   | {
+       cdc_start_position = v_cdc_start_position;
+       cdc_start_time = v_cdc_start_time;
+       id = v_id;
+       migration_type = v_migration_type;
+       replication_instance_arn = v_replication_instance_arn;
+       replication_task_id = v_replication_task_id;
+       replication_task_settings = v_replication_task_settings;
+       source_endpoint_arn = v_source_endpoint_arn;
+       start_replication_task = v_start_replication_task;
+       table_mappings = v_table_mappings;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       target_endpoint_arn = v_target_endpoint_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_endpoint_arn
+         in
+         ("target_endpoint_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_table_mappings
+         in
+         ("table_mappings", arg) :: bnds
+       in
+       let bnds =
+         match v_start_replication_task with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "start_replication_task", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_endpoint_arn
+         in
+         ("source_endpoint_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_replication_task_settings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "replication_task_settings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_replication_task_id
+         in
+         ("replication_task_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_replication_instance_arn
+         in
+         ("replication_instance_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_migration_type
+         in
+         ("migration_type", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cdc_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cdc_start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cdc_start_position with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cdc_start_position", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_dms_replication_task -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dms_replication_task
+
+[@@@deriving.end]
 
 let aws_dms_replication_task ?cdc_start_position ?cdc_start_time ?id
     ?replication_task_settings ?start_replication_task ?tags

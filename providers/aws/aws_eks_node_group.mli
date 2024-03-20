@@ -8,12 +8,16 @@ type resources__autoscaling_groups = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type resources = {
   autoscaling_groups : resources__autoscaling_groups list;
       (** autoscaling_groups *)
   remote_access_security_group_id : string prop;
       (** remote_access_security_group_id *)
 }
+
+[@@@deriving.end]
 
 type launch_template
 

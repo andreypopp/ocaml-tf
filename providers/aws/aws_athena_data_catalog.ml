@@ -3,17 +3,102 @@
 open! Tf_core
 
 type aws_athena_data_catalog = {
-  description : string prop;  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  parameters : (string * string prop) list;  (** parameters *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  parameters : (string * string prop) list;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** aws_athena_data_catalog *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_athena_data_catalog) -> ()
+
+let yojson_of_aws_athena_data_catalog =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       parameters = v_parameters;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_parameters
+         in
+         ("parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_athena_data_catalog -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_athena_data_catalog
+
+[@@@deriving.end]
 
 let aws_athena_data_catalog ?id ?tags ?tags_all ~description ~name
     ~parameters ~type_ () : aws_athena_data_catalog =

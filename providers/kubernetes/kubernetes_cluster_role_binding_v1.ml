@@ -4,45 +4,214 @@ open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the clusterRoleBinding that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   generate_name : string prop option; [@option]
-      (** Prefix, used by the server, to generate a unique name ONLY IF the `name` field has not been provided. This value will also be combined with a unique suffix. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#idempotency *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the clusterRoleBinding. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the clusterRoleBinding, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Standard clusterRoleBinding's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       generate_name = v_generate_name;
+       labels = v_labels;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_generate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "generate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type role_ref = {
   api_group : string prop;
-      (** The API group of the user. The only value possible at the moment is `rbac.authorization.k8s.io`. *)
-  kind : string prop;  (** The kind of resource. *)
-  name : string prop;  (** The name of the User to bind to. *)
+  kind : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** RoleRef references the Cluster Role for this binding *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : role_ref) -> ()
+
+let yojson_of_role_ref =
+  (function
+   | { api_group = v_api_group; kind = v_kind; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_group in
+         ("api_group", arg) :: bnds
+       in
+       `Assoc bnds
+    : role_ref -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_role_ref
+
+[@@@deriving.end]
 
 type subject = {
   api_group : string prop option; [@option]
-      (** The API group of the subject resource. *)
-  kind : string prop;  (** The kind of resource. *)
-  name : string prop;  (** The name of the resource to bind to. *)
+  kind : string prop;
+  name : string prop;
   namespace : string prop option; [@option]
-      (** The Namespace of the subject resource. *)
 }
-[@@deriving yojson_of]
-(** Subjects defines the entities to bind a ClusterRole to. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subject) -> ()
+
+let yojson_of_subject =
+  (function
+   | {
+       api_group = v_api_group;
+       kind = v_kind;
+       name = v_name;
+       namespace = v_namespace;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         match v_api_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_group", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : subject -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subject
+
+[@@@deriving.end]
 
 type kubernetes_cluster_role_binding_v1 = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   metadata : metadata list;
   role_ref : role_ref list;
   subject : subject list;
 }
-[@@deriving yojson_of]
-(** kubernetes_cluster_role_binding_v1 *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_cluster_role_binding_v1) -> ()
+
+let yojson_of_kubernetes_cluster_role_binding_v1 =
+  (function
+   | {
+       id = v_id;
+       metadata = v_metadata;
+       role_ref = v_role_ref;
+       subject = v_subject;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_subject v_subject in
+         ("subject", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_role_ref v_role_ref in
+         ("role_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_cluster_role_binding_v1 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_cluster_role_binding_v1
+
+[@@@deriving.end]
 
 let metadata ?annotations ?generate_name ?labels ?name () : metadata
     =

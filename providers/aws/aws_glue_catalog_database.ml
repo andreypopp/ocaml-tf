@@ -4,53 +4,305 @@ open! Tf_core
 
 type create_table_default_permission__principal = {
   data_lake_principal_identifier : string prop option; [@option]
-      (** data_lake_principal_identifier *)
 }
-[@@deriving yojson_of]
-(** create_table_default_permission__principal *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : create_table_default_permission__principal) -> ()
+
+let yojson_of_create_table_default_permission__principal =
+  (function
+   | {
+       data_lake_principal_identifier =
+         v_data_lake_principal_identifier;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_data_lake_principal_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "data_lake_principal_identifier", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : create_table_default_permission__principal ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_create_table_default_permission__principal
+
+[@@@deriving.end]
 
 type create_table_default_permission = {
   permissions : string prop list option; [@option]
-      (** permissions *)
   principal : create_table_default_permission__principal list;
 }
-[@@deriving yojson_of]
-(** create_table_default_permission *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : create_table_default_permission) -> ()
+
+let yojson_of_create_table_default_permission =
+  (function
+   | { permissions = v_permissions; principal = v_principal } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_create_table_default_permission__principal
+             v_principal
+         in
+         ("principal", arg) :: bnds
+       in
+       let bnds =
+         match v_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "permissions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : create_table_default_permission ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_create_table_default_permission
+
+[@@@deriving.end]
 
 type federated_database = {
   connection_name : string prop option; [@option]
-      (** connection_name *)
-  identifier : string prop option; [@option]  (** identifier *)
+  identifier : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** federated_database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : federated_database) -> ()
+
+let yojson_of_federated_database =
+  (function
+   | {
+       connection_name = v_connection_name;
+       identifier = v_identifier;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connection_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connection_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : federated_database -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_federated_database
+
+[@@@deriving.end]
 
 type target_database = {
-  catalog_id : string prop;  (** catalog_id *)
-  database_name : string prop;  (** database_name *)
-  region : string prop option; [@option]  (** region *)
+  catalog_id : string prop;
+  database_name : string prop;
+  region : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** target_database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target_database) -> ()
+
+let yojson_of_target_database =
+  (function
+   | {
+       catalog_id = v_catalog_id;
+       database_name = v_database_name;
+       region = v_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_name in
+         ("database_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_catalog_id in
+         ("catalog_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : target_database -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target_database
+
+[@@@deriving.end]
 
 type aws_glue_catalog_database = {
-  catalog_id : string prop option; [@option]  (** catalog_id *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  location_uri : string prop option; [@option]  (** location_uri *)
-  name : string prop;  (** name *)
+  catalog_id : string prop option; [@option]
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  location_uri : string prop option; [@option]
+  name : string prop;
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   create_table_default_permission :
     create_table_default_permission list;
   federated_database : federated_database list;
   target_database : target_database list;
 }
-[@@deriving yojson_of]
-(** aws_glue_catalog_database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_glue_catalog_database) -> ()
+
+let yojson_of_aws_glue_catalog_database =
+  (function
+   | {
+       catalog_id = v_catalog_id;
+       description = v_description;
+       id = v_id;
+       location_uri = v_location_uri;
+       name = v_name;
+       parameters = v_parameters;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       create_table_default_permission =
+         v_create_table_default_permission;
+       federated_database = v_federated_database;
+       target_database = v_target_database;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_target_database v_target_database
+         in
+         ("target_database", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_federated_database
+             v_federated_database
+         in
+         ("federated_database", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_create_table_default_permission
+             v_create_table_default_permission
+         in
+         ("create_table_default_permission", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_location_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_catalog_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "catalog_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_glue_catalog_database -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_glue_catalog_database
+
+[@@@deriving.end]
 
 let create_table_default_permission__principal
     ?data_lake_principal_identifier () :

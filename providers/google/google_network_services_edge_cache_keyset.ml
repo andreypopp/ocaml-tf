@@ -4,68 +4,213 @@ open! Tf_core
 
 type public_key = {
   id : string prop;
-      (** The ID of the public key. The ID must be 1-63 characters long, and comply with RFC1035.
-The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]*
-which means the first character must be a letter, and all following characters must be a dash, underscore, letter or digit. *)
   managed : bool prop option; [@option]
-      (** Set to true to have the CDN automatically manage this public key value. *)
   value : string prop option; [@option]
-      (** The base64-encoded value of the Ed25519 public key. The base64 encoding can be padded (44 bytes) or unpadded (43 bytes).
-Representations or encodings of the public key other than this will be rejected with an error. *)
 }
-[@@deriving yojson_of]
-(** An ordered list of Ed25519 public keys to use for validating signed requests.
-You must specify 'public_keys' or 'validation_shared_keys' (or both). The keys in 'public_keys' are checked first.
-You may specify no more than one Google-managed public key.
-If you specify 'public_keys', you must specify at least one (1) key and may specify up to three (3) keys.
+[@@deriving_inline yojson_of]
 
-Ed25519 public keys are not secret, and only allow Google to validate a request was signed by your corresponding private key.
-Ensure that the private key is kept secret, and that only authorized users can add public keys to a keyset. *)
+let _ = fun (_ : public_key) -> ()
+
+let yojson_of_public_key =
+  (function
+   | { id = v_id; managed = v_managed; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_managed with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "managed", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : public_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_public_key
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type validation_shared_keys = {
-  secret_version : string prop;
-      (** The name of the secret version in Secret Manager.
+let _ = fun (_ : timeouts) -> ()
 
-The resource name of the secret version must be in the format 'projects/*/secrets/*/versions/*' where the '*' values are replaced by the secrets themselves.
-The secrets must be at least 16 bytes large.  The recommended secret size depends on the signature algorithm you are using.
-* If you are using HMAC-SHA1, we suggest 20-byte secrets.
-* If you are using HMAC-SHA256, we suggest 32-byte secrets.
-See RFC 2104, Section 3 for more details on these recommendations. *)
-}
-[@@deriving yojson_of]
-(** An ordered list of shared keys to use for validating signed requests.
-Shared keys are secret.  Ensure that only authorized users can add 'validation_shared_keys' to a keyset.
-You can rotate keys by appending (pushing) a new key to the list of 'validation_shared_keys' and removing any superseded keys.
-You must specify 'public_keys' or 'validation_shared_keys' (or both). The keys in 'public_keys' are checked first. *)
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type validation_shared_keys = { secret_version : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : validation_shared_keys) -> ()
+
+let yojson_of_validation_shared_keys =
+  (function
+   | { secret_version = v_secret_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_secret_version
+         in
+         ("secret_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : validation_shared_keys -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_validation_shared_keys
+
+[@@@deriving.end]
 
 type google_network_services_edge_cache_keyset = {
   description : string prop option; [@option]
-      (** A human-readable description of the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Set of label tags associated with the EdgeCache resource.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** Name of the resource; provided by the client when the resource is created.
-The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which means the first character must be a letter,
-and all following characters must be a dash, underscore, letter or digit. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   public_key : public_key list;
   timeouts : timeouts option;
   validation_shared_keys : validation_shared_keys list;
 }
-[@@deriving yojson_of]
-(** google_network_services_edge_cache_keyset *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_network_services_edge_cache_keyset) -> ()
+
+let yojson_of_google_network_services_edge_cache_keyset =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       public_key = v_public_key;
+       timeouts = v_timeouts;
+       validation_shared_keys = v_validation_shared_keys;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_validation_shared_keys
+             v_validation_shared_keys
+         in
+         ("validation_shared_keys", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_public_key v_public_key
+         in
+         ("public_key", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_network_services_edge_cache_keyset ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_network_services_edge_cache_keyset
+
+[@@@deriving.end]
 
 let public_key ?managed ?value ~id () : public_key =
   { id; managed; value }

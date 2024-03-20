@@ -4,70 +4,405 @@ open! Tf_core
 
 type rule__action__request_header = {
   header_action_type : string prop option; [@option]
-      (** header_action_type *)
-  header_name : string prop option; [@option]  (** header_name *)
-  value : string prop option; [@option]  (** value *)
+  header_name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** rule__action__request_header *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__action__request_header) -> ()
+
+let yojson_of_rule__action__request_header =
+  (function
+   | {
+       header_action_type = v_header_action_type;
+       header_name = v_header_name;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_header_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "header_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_header_action_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "header_action_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__action__request_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__action__request_header
+
+[@@@deriving.end]
 
 type rule__action__response_header = {
   header_action_type : string prop option; [@option]
-      (** header_action_type *)
-  header_name : string prop option; [@option]  (** header_name *)
-  value : string prop option; [@option]  (** value *)
+  header_name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** rule__action__response_header *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__action__response_header) -> ()
+
+let yojson_of_rule__action__response_header =
+  (function
+   | {
+       header_action_type = v_header_action_type;
+       header_name = v_header_name;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_header_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "header_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_header_action_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "header_action_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__action__response_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__action__response_header
+
+[@@@deriving.end]
 
 type rule__action = {
   request_header : rule__action__request_header list;
   response_header : rule__action__response_header list;
 }
-[@@deriving yojson_of]
-(** rule__action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__action) -> ()
+
+let yojson_of_rule__action =
+  (function
+   | {
+       request_header = v_request_header;
+       response_header = v_response_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__action__response_header
+             v_response_header
+         in
+         ("response_header", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__action__request_header
+             v_request_header
+         in
+         ("request_header", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule__action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__action
+
+[@@@deriving.end]
 
 type rule__match_condition = {
   negate_condition : bool prop option; [@option]
-      (** negate_condition *)
-  operator : string prop;  (** operator *)
-  selector : string prop option; [@option]  (** selector *)
-  transform : string prop list option; [@option]  (** transform *)
-  value : string prop list option; [@option]  (** value *)
-  variable : string prop option; [@option]  (** variable *)
+  operator : string prop;
+  selector : string prop option; [@option]
+  transform : string prop list option; [@option]
+  value : string prop list option; [@option]
+  variable : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** rule__match_condition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__match_condition) -> ()
+
+let yojson_of_rule__match_condition =
+  (function
+   | {
+       negate_condition = v_negate_condition;
+       operator = v_operator;
+       selector = v_selector;
+       transform = v_transform;
+       value = v_value;
+       variable = v_variable;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_variable with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "variable", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_transform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "transform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_selector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "selector", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         match v_negate_condition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "negate_condition", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__match_condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__match_condition
+
+[@@@deriving.end]
 
 type rule = {
-  name : string prop;  (** name *)
-  priority : float prop;  (** priority *)
+  name : string prop;
+  priority : float prop;
   action : rule__action list;
   match_condition : rule__match_condition list;
 }
-[@@deriving yojson_of]
-(** rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule) -> ()
+
+let yojson_of_rule =
+  (function
+   | {
+       name = v_name;
+       priority = v_priority;
+       action = v_action;
+       match_condition = v_match_condition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule__match_condition
+             v_match_condition
+         in
+         ("match_condition", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rule__action v_action in
+         ("action", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_priority in
+         ("priority", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_frontdoor_rules_engine = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  frontdoor_name : string prop;  (** frontdoor_name *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  enabled : bool prop option; [@option]
+  frontdoor_name : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
   rule : rule list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_frontdoor_rules_engine *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_frontdoor_rules_engine) -> ()
+
+let yojson_of_azurerm_frontdoor_rules_engine =
+  (function
+   | {
+       enabled = v_enabled;
+       frontdoor_name = v_frontdoor_name;
+       id = v_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       rule = v_rule;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rule v_rule in
+         ("rule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_frontdoor_name
+         in
+         ("frontdoor_name", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_frontdoor_rules_engine ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_frontdoor_rules_engine
+
+[@@@deriving.end]
 
 let rule__action__request_header ?header_action_type ?header_name
     ?value () : rule__action__request_header =

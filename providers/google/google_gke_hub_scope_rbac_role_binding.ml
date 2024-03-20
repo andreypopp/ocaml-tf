@@ -2,50 +2,204 @@
 
 open! Tf_core
 
-type role = {
-  predefined_role : string prop option; [@option]
-      (** PredefinedRole is an ENUM representation of the default Kubernetes Roles Possible values: [UNKNOWN, ADMIN, EDIT, VIEW] *)
-}
-[@@deriving yojson_of]
-(** Role to bind to the principal. *)
+type role = { predefined_role : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : role) -> ()
+
+let yojson_of_role =
+  (function
+   | { predefined_role = v_predefined_role } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_predefined_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "predefined_role", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : role -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_role
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type state = { code : string prop  (** code *) }
-[@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type state = { code : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : state) -> ()
+
+let yojson_of_state =
+  (function
+   | { code = v_code } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_code in
+         ("code", arg) :: bnds
+       in
+       `Assoc bnds
+    : state -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_state
+
+[@@@deriving.end]
 
 type google_gke_hub_scope_rbac_role_binding = {
   group : string prop option; [@option]
-      (** Principal that is be authorized in the cluster (at least of one the oneof
-is required). Updating one will unset the other automatically.
-group is the group, as seen by the kubernetes cluster. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels for this ScopeRBACRoleBinding.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  project : string prop option; [@option]  (** project *)
-  scope_id : string prop;  (** Id of the scope *)
+  project : string prop option; [@option]
+  scope_id : string prop;
   scope_rbac_role_binding_id : string prop;
-      (** The client-provided identifier of the RBAC Role Binding. *)
   user : string prop option; [@option]
-      (** Principal that is be authorized in the cluster (at least of one the oneof
-is required). Updating one will unset the other automatically.
-user is the name of the user as seen by the kubernetes cluster, example
-alice or alice@domain.tld *)
   role : role list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_gke_hub_scope_rbac_role_binding *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_gke_hub_scope_rbac_role_binding) -> ()
+
+let yojson_of_google_gke_hub_scope_rbac_role_binding =
+  (function
+   | {
+       group = v_group;
+       id = v_id;
+       labels = v_labels;
+       project = v_project;
+       scope_id = v_scope_id;
+       scope_rbac_role_binding_id = v_scope_rbac_role_binding_id;
+       user = v_user;
+       role = v_role;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_role v_role in
+         ("role", arg) :: bnds
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_scope_rbac_role_binding_id
+         in
+         ("scope_rbac_role_binding_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_scope_id in
+         ("scope_id", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_gke_hub_scope_rbac_role_binding ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_gke_hub_scope_rbac_role_binding
+
+[@@@deriving.end]
 
 let role ?predefined_role () : role = { predefined_role }
 

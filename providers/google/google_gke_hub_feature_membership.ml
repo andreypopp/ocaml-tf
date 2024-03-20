@@ -4,135 +4,652 @@ open! Tf_core
 
 type configmanagement__binauthz = {
   enabled : bool prop option; [@option]
-      (** Whether binauthz is enabled in this cluster. *)
 }
-[@@deriving yojson_of]
-(** **DEPRECATED** Binauthz configuration for the cluster. This field will be ignored and should not be set. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configmanagement__binauthz) -> ()
+
+let yojson_of_configmanagement__binauthz =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configmanagement__binauthz -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configmanagement__binauthz
+
+[@@@deriving.end]
 
 type configmanagement__config_sync__git = {
   gcp_service_account_email : string prop option; [@option]
-      (** The GCP Service Account Email used for auth when secretType is gcpServiceAccount. *)
   https_proxy : string prop option; [@option]
-      (** URL for the HTTPS proxy to be used when communicating with the Git repo. *)
   policy_dir : string prop option; [@option]
-      (** The path within the Git repository that represents the top level of the repo to sync. Default: the root directory of the repository. *)
   secret_type : string prop option; [@option]
-      (** Type of secret configured for access to the Git repo. Must be one of ssh, cookiefile, gcenode, token, gcpserviceaccount or none. The validation of this is case-sensitive. *)
   sync_branch : string prop option; [@option]
-      (** The branch of the repository to sync from. Default: master. *)
   sync_repo : string prop option; [@option]
-      (** The URL of the Git repository to use as the source of truth. *)
   sync_rev : string prop option; [@option]
-      (** Git revision (tag or hash) to check out. Default HEAD. *)
   sync_wait_secs : string prop option; [@option]
-      (** Period in seconds between consecutive syncs. Default: 15. *)
 }
-[@@deriving yojson_of]
-(** configmanagement__config_sync__git *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configmanagement__config_sync__git) -> ()
+
+let yojson_of_configmanagement__config_sync__git =
+  (function
+   | {
+       gcp_service_account_email = v_gcp_service_account_email;
+       https_proxy = v_https_proxy;
+       policy_dir = v_policy_dir;
+       secret_type = v_secret_type;
+       sync_branch = v_sync_branch;
+       sync_repo = v_sync_repo;
+       sync_rev = v_sync_rev;
+       sync_wait_secs = v_sync_wait_secs;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sync_wait_secs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sync_wait_secs", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sync_rev with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sync_rev", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sync_repo with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sync_repo", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sync_branch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sync_branch", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policy_dir with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy_dir", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_https_proxy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "https_proxy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gcp_service_account_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gcp_service_account_email", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configmanagement__config_sync__git ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configmanagement__config_sync__git
+
+[@@@deriving.end]
 
 type configmanagement__config_sync__oci = {
   gcp_service_account_email : string prop option; [@option]
-      (** The GCP Service Account Email used for auth when secret_type is gcpserviceaccount.  *)
   policy_dir : string prop option; [@option]
-      (** The absolute path of the directory that contains the local resources. Default: the root directory of the image. *)
   secret_type : string prop option; [@option]
-      (** Type of secret configured for access to the OCI Image. Must be one of gcenode, gcpserviceaccount or none. The validation of this is case-sensitive. *)
   sync_repo : string prop option; [@option]
-      (** The OCI image repository URL for the package to sync from. e.g. LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_NAME/PACKAGE_NAME. *)
   sync_wait_secs : string prop option; [@option]
-      (** Period in seconds(int64 format) between consecutive syncs. Default: 15. *)
 }
-[@@deriving yojson_of]
-(** configmanagement__config_sync__oci *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configmanagement__config_sync__oci) -> ()
+
+let yojson_of_configmanagement__config_sync__oci =
+  (function
+   | {
+       gcp_service_account_email = v_gcp_service_account_email;
+       policy_dir = v_policy_dir;
+       secret_type = v_secret_type;
+       sync_repo = v_sync_repo;
+       sync_wait_secs = v_sync_wait_secs;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sync_wait_secs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sync_wait_secs", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sync_repo with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sync_repo", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policy_dir with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy_dir", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gcp_service_account_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gcp_service_account_email", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configmanagement__config_sync__oci ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configmanagement__config_sync__oci
+
+[@@@deriving.end]
 
 type configmanagement__config_sync = {
   metrics_gcp_service_account_email : string prop option; [@option]
-      (** The Email of the Google Cloud Service Account (GSA) used for exporting Config Sync metrics to Cloud Monitoring. The GSA should have the Monitoring Metric Writer(roles/monitoring.metricWriter) IAM role. The Kubernetes ServiceAccount `default` in the namespace `config-management-monitoring` should be bound to the GSA. *)
   prevent_drift : bool prop option; [@option]
-      (** Set to true to enable the Config Sync admission webhook to prevent drifts. If set to `false`, disables the Config Sync admission webhook and does not prevent drifts. *)
   source_format : string prop option; [@option]
-      (** Specifies whether the Config Sync Repo is in hierarchical or unstructured mode. *)
   git : configmanagement__config_sync__git list;
   oci : configmanagement__config_sync__oci list;
 }
-[@@deriving yojson_of]
-(** Config Sync configuration for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configmanagement__config_sync) -> ()
+
+let yojson_of_configmanagement__config_sync =
+  (function
+   | {
+       metrics_gcp_service_account_email =
+         v_metrics_gcp_service_account_email;
+       prevent_drift = v_prevent_drift;
+       source_format = v_source_format;
+       git = v_git;
+       oci = v_oci;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_configmanagement__config_sync__oci v_oci
+         in
+         ("oci", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_configmanagement__config_sync__git v_git
+         in
+         ("git", arg) :: bnds
+       in
+       let bnds =
+         match v_source_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prevent_drift with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "prevent_drift", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metrics_gcp_service_account_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metrics_gcp_service_account_email", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configmanagement__config_sync ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configmanagement__config_sync
+
+[@@@deriving.end]
 
 type configmanagement__hierarchy_controller = {
   enable_hierarchical_resource_quota : bool prop option; [@option]
-      (** Whether hierarchical resource quota is enabled in this cluster. *)
   enable_pod_tree_labels : bool prop option; [@option]
-      (** Whether pod tree labels are enabled in this cluster. *)
   enabled : bool prop option; [@option]
-      (** Whether Hierarchy Controller is enabled in this cluster. *)
 }
-[@@deriving yojson_of]
-(** Hierarchy Controller configuration for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configmanagement__hierarchy_controller) -> ()
+
+let yojson_of_configmanagement__hierarchy_controller =
+  (function
+   | {
+       enable_hierarchical_resource_quota =
+         v_enable_hierarchical_resource_quota;
+       enable_pod_tree_labels = v_enable_pod_tree_labels;
+       enabled = v_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_pod_tree_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_pod_tree_labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_hierarchical_resource_quota with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_hierarchical_resource_quota", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configmanagement__hierarchy_controller ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configmanagement__hierarchy_controller
+
+[@@@deriving.end]
 
 type configmanagement__policy_controller__monitoring = {
   backends : string prop list option; [@option]
-      (**  Specifies the list of backends Policy Controller will export to. Specifying an empty value `[]` disables metrics export. *)
 }
-[@@deriving yojson_of]
-(** Specifies the backends Policy Controller should export metrics to. For example, to specify metrics should be exported to Cloud Monitoring and Prometheus, specify backends: [cloudmonitoring, prometheus]. Default: [cloudmonitoring, prometheus] *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : configmanagement__policy_controller__monitoring) -> ()
+
+let yojson_of_configmanagement__policy_controller__monitoring =
+  (function
+   | { backends = v_backends } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_backends with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "backends", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configmanagement__policy_controller__monitoring ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configmanagement__policy_controller__monitoring
+
+[@@@deriving.end]
 
 type configmanagement__policy_controller = {
   audit_interval_seconds : string prop option; [@option]
-      (** Sets the interval for Policy Controller Audit Scans (in seconds). When set to 0, this disables audit functionality altogether. *)
   enabled : bool prop option; [@option]
-      (** Enables the installation of Policy Controller. If false, the rest of PolicyController fields take no effect. *)
   exemptable_namespaces : string prop list option; [@option]
-      (** The set of namespaces that are excluded from Policy Controller checks. Namespaces do not need to currently exist on the cluster. *)
   log_denies_enabled : bool prop option; [@option]
-      (** Logs all denies and dry run failures. *)
   mutation_enabled : bool prop option; [@option]
-      (** Enable or disable mutation in policy controller. If true, mutation CRDs, webhook and controller deployment will be deployed to the cluster. *)
   referential_rules_enabled : bool prop option; [@option]
-      (** Enables the ability to use Constraint Templates that reference to objects other than the object currently being evaluated. *)
   template_library_installed : bool prop option; [@option]
-      (** Installs the default template library along with Policy Controller. *)
   monitoring : configmanagement__policy_controller__monitoring list;
 }
-[@@deriving yojson_of]
-(** Policy Controller configuration for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configmanagement__policy_controller) -> ()
+
+let yojson_of_configmanagement__policy_controller =
+  (function
+   | {
+       audit_interval_seconds = v_audit_interval_seconds;
+       enabled = v_enabled;
+       exemptable_namespaces = v_exemptable_namespaces;
+       log_denies_enabled = v_log_denies_enabled;
+       mutation_enabled = v_mutation_enabled;
+       referential_rules_enabled = v_referential_rules_enabled;
+       template_library_installed = v_template_library_installed;
+       monitoring = v_monitoring;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_configmanagement__policy_controller__monitoring
+             v_monitoring
+         in
+         ("monitoring", arg) :: bnds
+       in
+       let bnds =
+         match v_template_library_installed with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "template_library_installed", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_referential_rules_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "referential_rules_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mutation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "mutation_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_log_denies_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "log_denies_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exemptable_namespaces with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exemptable_namespaces", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_audit_interval_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "audit_interval_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configmanagement__policy_controller ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configmanagement__policy_controller
+
+[@@@deriving.end]
 
 type configmanagement = {
   version : string prop option; [@option]
-      (** Optional. Version of ACM to install. Defaults to the latest version. *)
   binauthz : configmanagement__binauthz list;
   config_sync : configmanagement__config_sync list;
   hierarchy_controller : configmanagement__hierarchy_controller list;
   policy_controller : configmanagement__policy_controller list;
 }
-[@@deriving yojson_of]
-(** Config Management-specific spec. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configmanagement) -> ()
+
+let yojson_of_configmanagement =
+  (function
+   | {
+       version = v_version;
+       binauthz = v_binauthz;
+       config_sync = v_config_sync;
+       hierarchy_controller = v_hierarchy_controller;
+       policy_controller = v_policy_controller;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_configmanagement__policy_controller
+             v_policy_controller
+         in
+         ("policy_controller", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_configmanagement__hierarchy_controller
+             v_hierarchy_controller
+         in
+         ("hierarchy_controller", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configmanagement__config_sync
+             v_config_sync
+         in
+         ("config_sync", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configmanagement__binauthz
+             v_binauthz
+         in
+         ("binauthz", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configmanagement -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configmanagement
+
+[@@@deriving.end]
 
 type mesh = {
   control_plane : string prop option; [@option]
-      (** **DEPRECATED** Whether to automatically manage Service Mesh control planes. Possible values: CONTROL_PLANE_MANAGEMENT_UNSPECIFIED, AUTOMATIC, MANUAL *)
   management : string prop option; [@option]
-      (** Whether to automatically manage Service Mesh. Possible values: MANAGEMENT_UNSPECIFIED, MANAGEMENT_AUTOMATIC, MANAGEMENT_MANUAL *)
 }
-[@@deriving yojson_of]
-(** Manage Mesh Features *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mesh) -> ()
+
+let yojson_of_mesh =
+  (function
+   | { control_plane = v_control_plane; management = v_management }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_management with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "management", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_control_plane with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "control_plane", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : mesh -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mesh
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits = {
   cpu : string prop option; [@option]
-      (** CPU requirement expressed in Kubernetes resource units. *)
   memory : string prop option; [@option]
-      (** Memory requirement expressed in Kubernetes resource units. *)
 }
-[@@deriving yojson_of]
-(** Limits describes the maximum amount of compute resources allowed for use by the running container. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits) ->
+  ()
+
+let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
+    =
+  (function
+   | { cpu = v_cpu; memory = v_memory } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_memory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "memory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cpu with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cpu", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests = {
   cpu : string prop option; [@option]
-      (** CPU requirement expressed in Kubernetes resource units. *)
   memory : string prop option; [@option]
-      (** Memory requirement expressed in Kubernetes resource units. *)
 }
-[@@deriving yojson_of]
-(** Requests describes the amount of compute resources reserved for the container by the kube-scheduler. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests) ->
+  ()
+
+let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
+    =
+  (function
+   | { cpu = v_cpu; memory = v_memory } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_memory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "memory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cpu with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cpu", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__deployment_configs__container_resources = {
   limits :
@@ -142,28 +659,115 @@ type policycontroller__policy_controller_hub_config__deployment_configs__contain
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
     list;
 }
-[@@deriving yojson_of]
-(** Container resource requirements. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policycontroller__policy_controller_hub_config__deployment_configs__container_resources) ->
+  ()
+
+let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources
+    =
+  (function
+   | { limits = v_limits; requests = v_requests } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__requests
+             v_requests
+         in
+         ("requests", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources__limits
+             v_limits
+         in
+         ("limits", arg) :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config__deployment_configs__container_resources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations = {
   effect : string prop option; [@option]
-      (** Matches a taint effect. *)
   key : string prop option; [@option]
-      (** Matches a taint key (not necessarily unique). *)
   operator : string prop option; [@option]
-      (** Matches a taint operator. *)
-  value : string prop option; [@option]  (** Matches a taint value. *)
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Pod tolerations of node taints. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations) ->
+  ()
+
+let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
+    =
+  (function
+   | {
+       effect = v_effect;
+       key = v_key;
+       operator = v_operator;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_operator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_effect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "effect", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__deployment_configs = {
   component_name : string prop;
-      (** The name for the key in the map for which this object is mapped to in the API *)
   pod_affinity : string prop option; [@option]
-      (** Pod affinity configuration. Possible values: AFFINITY_UNSPECIFIED, NO_AFFINITY, ANTI_AFFINITY *)
   replica_count : float prop option; [@option]
-      (** Pod replica count. *)
   container_resources :
     policycontroller__policy_controller_hub_config__deployment_configs__container_resources
     list;
@@ -171,31 +775,185 @@ type policycontroller__policy_controller_hub_config__deployment_configs = {
     policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
     list;
 }
-[@@deriving yojson_of]
-(** Map of deployment configs to deployments (admission, audit, mutation). *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policycontroller__policy_controller_hub_config__deployment_configs) ->
+  ()
+
+let yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
+    =
+  (function
+   | {
+       component_name = v_component_name;
+       pod_affinity = v_pod_affinity;
+       replica_count = v_replica_count;
+       container_resources = v_container_resources;
+       pod_tolerations = v_pod_tolerations;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__pod_tolerations
+             v_pod_tolerations
+         in
+         ("pod_tolerations", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs__container_resources
+             v_container_resources
+         in
+         ("container_resources", arg) :: bnds
+       in
+       let bnds =
+         match v_replica_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "replica_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pod_affinity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pod_affinity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_component_name
+         in
+         ("component_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config__deployment_configs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__monitoring = {
   backends : string prop list option; [@option]
-      (**  Specifies the list of backends Policy Controller will export to. Specifying an empty value `[]` disables metrics export. *)
 }
-[@@deriving yojson_of]
-(** Specifies the backends Policy Controller should export metrics to. For example, to specify metrics should be exported to Cloud Monitoring and Prometheus, specify backends: [cloudmonitoring, prometheus]. Default: [cloudmonitoring, prometheus] *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : policycontroller__policy_controller_hub_config__monitoring) ->
+  ()
+
+let yojson_of_policycontroller__policy_controller_hub_config__monitoring
+    =
+  (function
+   | { backends = v_backends } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_backends with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "backends", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config__monitoring ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policycontroller__policy_controller_hub_config__monitoring
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__policy_content__bundles = {
   bundle_name : string prop;
-      (** The name for the key in the map for which this object is mapped to in the API *)
   exempted_namespaces : string prop list option; [@option]
-      (** The set of namespaces to be exempted from the bundle. *)
 }
-[@@deriving yojson_of]
-(** map of bundle name to BundleInstallSpec. The bundle name maps to the `bundleName` key in the `policycontroller.gke.io/constraintData` annotation on a constraint. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policycontroller__policy_controller_hub_config__policy_content__bundles) ->
+  ()
+
+let yojson_of_policycontroller__policy_controller_hub_config__policy_content__bundles
+    =
+  (function
+   | {
+       bundle_name = v_bundle_name;
+       exempted_namespaces = v_exempted_namespaces;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_exempted_namespaces with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exempted_namespaces", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bundle_name in
+         ("bundle_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config__policy_content__bundles ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policycontroller__policy_controller_hub_config__policy_content__bundles
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__policy_content__template_library = {
   installation : string prop option; [@option]
-      (** Configures the manner in which the template library is installed on the cluster. Possible values: INSTALLATION_UNSPECIFIED, NOT_INSTALLED, ALL *)
 }
-[@@deriving yojson_of]
-(** Configures the installation of the Template Library. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policycontroller__policy_controller_hub_config__policy_content__template_library) ->
+  ()
+
+let yojson_of_policycontroller__policy_controller_hub_config__policy_content__template_library
+    =
+  (function
+   | { installation = v_installation } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_installation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "installation", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config__policy_content__template_library ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policycontroller__policy_controller_hub_config__policy_content__template_library
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config__policy_content = {
   bundles :
@@ -205,24 +963,54 @@ type policycontroller__policy_controller_hub_config__policy_content = {
     policycontroller__policy_controller_hub_config__policy_content__template_library
     list;
 }
-[@@deriving yojson_of]
-(** Specifies the desired policy content on the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policycontroller__policy_controller_hub_config__policy_content) ->
+  ()
+
+let yojson_of_policycontroller__policy_controller_hub_config__policy_content
+    =
+  (function
+   | { bundles = v_bundles; template_library = v_template_library }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config__policy_content__template_library
+             v_template_library
+         in
+         ("template_library", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config__policy_content__bundles
+             v_bundles
+         in
+         ("bundles", arg) :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config__policy_content ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policycontroller__policy_controller_hub_config__policy_content
+
+[@@@deriving.end]
 
 type policycontroller__policy_controller_hub_config = {
   audit_interval_seconds : float prop option; [@option]
-      (** Sets the interval for Policy Controller Audit Scans (in seconds). When set to 0, this disables audit functionality altogether. *)
   constraint_violation_limit : float prop option; [@option]
-      (** The maximum number of audit violations to be stored in a constraint. If not set, the internal default of 20 will be used. *)
   exemptable_namespaces : string prop list option; [@option]
-      (** The set of namespaces that are excluded from Policy Controller checks. Namespaces do not need to currently exist on the cluster. *)
   install_spec : string prop option; [@option]
-      (** Configures the mode of the Policy Controller installation. Possible values: INSTALL_SPEC_UNSPECIFIED, INSTALL_SPEC_NOT_INSTALLED, INSTALL_SPEC_ENABLED, INSTALL_SPEC_SUSPENDED, INSTALL_SPEC_DETACHED *)
   log_denies_enabled : bool prop option; [@option]
-      (** Logs all denies and dry run failures. *)
   mutation_enabled : bool prop option; [@option]
-      (** Enables the ability to mutate resources using Policy Controller. *)
   referential_rules_enabled : bool prop option; [@option]
-      (** Enables the ability to use Constraint Templates that reference to objects other than the object currently being evaluated. *)
   deployment_configs :
     policycontroller__policy_controller_hub_config__deployment_configs
     list;
@@ -232,42 +1020,303 @@ type policycontroller__policy_controller_hub_config = {
     policycontroller__policy_controller_hub_config__policy_content
     list;
 }
-[@@deriving yojson_of]
-(** Policy Controller configuration for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : policycontroller__policy_controller_hub_config) -> ()
+
+let yojson_of_policycontroller__policy_controller_hub_config =
+  (function
+   | {
+       audit_interval_seconds = v_audit_interval_seconds;
+       constraint_violation_limit = v_constraint_violation_limit;
+       exemptable_namespaces = v_exemptable_namespaces;
+       install_spec = v_install_spec;
+       log_denies_enabled = v_log_denies_enabled;
+       mutation_enabled = v_mutation_enabled;
+       referential_rules_enabled = v_referential_rules_enabled;
+       deployment_configs = v_deployment_configs;
+       monitoring = v_monitoring;
+       policy_content = v_policy_content;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config__policy_content
+             v_policy_content
+         in
+         ("policy_content", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config__monitoring
+             v_monitoring
+         in
+         ("monitoring", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config__deployment_configs
+             v_deployment_configs
+         in
+         ("deployment_configs", arg) :: bnds
+       in
+       let bnds =
+         match v_referential_rules_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "referential_rules_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mutation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "mutation_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_log_denies_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "log_denies_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_install_spec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "install_spec", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exemptable_namespaces with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exemptable_namespaces", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_constraint_violation_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "constraint_violation_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_audit_interval_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "audit_interval_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policycontroller__policy_controller_hub_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policycontroller__policy_controller_hub_config
+
+[@@@deriving.end]
 
 type policycontroller = {
   version : string prop option; [@option]
-      (** Optional. Version of Policy Controller to install. Defaults to the latest version. *)
   policy_controller_hub_config :
     policycontroller__policy_controller_hub_config list;
 }
-[@@deriving yojson_of]
-(** Policy Controller-specific spec. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : policycontroller) -> ()
+
+let yojson_of_policycontroller =
+  (function
+   | {
+       version = v_version;
+       policy_controller_hub_config = v_policy_controller_hub_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policycontroller__policy_controller_hub_config
+             v_policy_controller_hub_config
+         in
+         ("policy_controller_hub_config", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policycontroller -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policycontroller
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_gke_hub_feature_membership = {
-  feature : string prop;  (** The name of the feature *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location of the feature *)
-  membership : string prop;  (** The name of the membership *)
+  feature : string prop;
+  id : string prop option; [@option]
+  location : string prop;
+  membership : string prop;
   membership_location : string prop option; [@option]
-      (** The location of the membership *)
   project : string prop option; [@option]
-      (** The project of the feature *)
   configmanagement : configmanagement list;
   mesh : mesh list;
   policycontroller : policycontroller list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_gke_hub_feature_membership *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_gke_hub_feature_membership) -> ()
+
+let yojson_of_google_gke_hub_feature_membership =
+  (function
+   | {
+       feature = v_feature;
+       id = v_id;
+       location = v_location;
+       membership = v_membership;
+       membership_location = v_membership_location;
+       project = v_project;
+       configmanagement = v_configmanagement;
+       mesh = v_mesh;
+       policycontroller = v_policycontroller;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_policycontroller
+             v_policycontroller
+         in
+         ("policycontroller", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_mesh v_mesh in
+         ("mesh", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configmanagement
+             v_configmanagement
+         in
+         ("configmanagement", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_membership_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "membership_location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_membership in
+         ("membership", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_feature in
+         ("feature", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_gke_hub_feature_membership ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_gke_hub_feature_membership
+
+[@@@deriving.end]
 
 let configmanagement__binauthz ?enabled () :
     configmanagement__binauthz =

@@ -3,77 +3,412 @@
 open! Tf_core
 
 type maintenance_start_time = {
-  day_of_month : string prop option; [@option]  (** day_of_month *)
-  day_of_week : string prop option; [@option]  (** day_of_week *)
-  hour_of_day : float prop;  (** hour_of_day *)
-  minute_of_hour : float prop option; [@option]  (** minute_of_hour *)
+  day_of_month : string prop option; [@option]
+  day_of_week : string prop option; [@option]
+  hour_of_day : float prop;
+  minute_of_hour : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** maintenance_start_time *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_start_time) -> ()
+
+let yojson_of_maintenance_start_time =
+  (function
+   | {
+       day_of_month = v_day_of_month;
+       day_of_week = v_day_of_week;
+       hour_of_day = v_hour_of_day;
+       minute_of_hour = v_minute_of_hour;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_minute_of_hour with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minute_of_hour", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_hour_of_day in
+         ("hour_of_day", arg) :: bnds
+       in
+       let bnds =
+         match v_day_of_week with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_week", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_month with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "day_of_month", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : maintenance_start_time -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_start_time
+
+[@@@deriving.end]
 
 type smb_active_directory_settings = {
   domain_controllers : string prop list option; [@option]
-      (** domain_controllers *)
-  domain_name : string prop;  (** domain_name *)
+  domain_name : string prop;
   organizational_unit : string prop option; [@option]
-      (** organizational_unit *)
-  password : string prop;  (** password *)
+  password : string prop;
   timeout_in_seconds : float prop option; [@option]
-      (** timeout_in_seconds *)
-  username : string prop;  (** username *)
+  username : string prop;
 }
-[@@deriving yojson_of]
-(** smb_active_directory_settings *)
+[@@deriving_inline yojson_of]
 
-type timeouts = {
-  create : string prop option; [@option]  (** create *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+let _ = fun (_ : smb_active_directory_settings) -> ()
 
-type gateway_network_interface = {
-  ipv4_address : string prop;  (** ipv4_address *)
-}
-[@@deriving yojson_of]
+let yojson_of_smb_active_directory_settings =
+  (function
+   | {
+       domain_controllers = v_domain_controllers;
+       domain_name = v_domain_name;
+       organizational_unit = v_organizational_unit;
+       password = v_password;
+       timeout_in_seconds = v_timeout_in_seconds;
+       username = v_username;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_in_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       let bnds =
+         match v_organizational_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "organizational_unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       let bnds =
+         match v_domain_controllers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "domain_controllers", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : smb_active_directory_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_smb_active_directory_settings
+
+[@@@deriving.end]
+
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type gateway_network_interface = { ipv4_address : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : gateway_network_interface) -> ()
+
+let yojson_of_gateway_network_interface =
+  (function
+   | { ipv4_address = v_ipv4_address } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ipv4_address in
+         ("ipv4_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : gateway_network_interface -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gateway_network_interface
+
+[@@@deriving.end]
 
 type aws_storagegateway_gateway = {
   activation_key : string prop option; [@option]
-      (** activation_key *)
   average_download_rate_limit_in_bits_per_sec : float prop option;
       [@option]
-      (** average_download_rate_limit_in_bits_per_sec *)
   average_upload_rate_limit_in_bits_per_sec : float prop option;
       [@option]
-      (** average_upload_rate_limit_in_bits_per_sec *)
   cloudwatch_log_group_arn : string prop option; [@option]
-      (** cloudwatch_log_group_arn *)
   gateway_ip_address : string prop option; [@option]
-      (** gateway_ip_address *)
-  gateway_name : string prop;  (** gateway_name *)
-  gateway_timezone : string prop;  (** gateway_timezone *)
-  gateway_type : string prop option; [@option]  (** gateway_type *)
+  gateway_name : string prop;
+  gateway_timezone : string prop;
+  gateway_type : string prop option; [@option]
   gateway_vpc_endpoint : string prop option; [@option]
-      (** gateway_vpc_endpoint *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   medium_changer_type : string prop option; [@option]
-      (** medium_changer_type *)
   smb_file_share_visibility : bool prop option; [@option]
-      (** smb_file_share_visibility *)
   smb_guest_password : string prop option; [@option]
-      (** smb_guest_password *)
   smb_security_strategy : string prop option; [@option]
-      (** smb_security_strategy *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   tape_drive_type : string prop option; [@option]
-      (** tape_drive_type *)
   maintenance_start_time : maintenance_start_time list;
   smb_active_directory_settings : smb_active_directory_settings list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_storagegateway_gateway *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_storagegateway_gateway) -> ()
+
+let yojson_of_aws_storagegateway_gateway =
+  (function
+   | {
+       activation_key = v_activation_key;
+       average_download_rate_limit_in_bits_per_sec =
+         v_average_download_rate_limit_in_bits_per_sec;
+       average_upload_rate_limit_in_bits_per_sec =
+         v_average_upload_rate_limit_in_bits_per_sec;
+       cloudwatch_log_group_arn = v_cloudwatch_log_group_arn;
+       gateway_ip_address = v_gateway_ip_address;
+       gateway_name = v_gateway_name;
+       gateway_timezone = v_gateway_timezone;
+       gateway_type = v_gateway_type;
+       gateway_vpc_endpoint = v_gateway_vpc_endpoint;
+       id = v_id;
+       medium_changer_type = v_medium_changer_type;
+       smb_file_share_visibility = v_smb_file_share_visibility;
+       smb_guest_password = v_smb_guest_password;
+       smb_security_strategy = v_smb_security_strategy;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       tape_drive_type = v_tape_drive_type;
+       maintenance_start_time = v_maintenance_start_time;
+       smb_active_directory_settings =
+         v_smb_active_directory_settings;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_smb_active_directory_settings
+             v_smb_active_directory_settings
+         in
+         ("smb_active_directory_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_start_time
+             v_maintenance_start_time
+         in
+         ("maintenance_start_time", arg) :: bnds
+       in
+       let bnds =
+         match v_tape_drive_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tape_drive_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_smb_security_strategy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "smb_security_strategy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_smb_guest_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "smb_guest_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_smb_file_share_visibility with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "smb_file_share_visibility", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_medium_changer_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "medium_changer_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gateway_vpc_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gateway_vpc_endpoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gateway_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gateway_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gateway_timezone
+         in
+         ("gateway_timezone", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_gateway_name in
+         ("gateway_name", arg) :: bnds
+       in
+       let bnds =
+         match v_gateway_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gateway_ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cloudwatch_log_group_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloudwatch_log_group_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_average_upload_rate_limit_in_bits_per_sec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "average_upload_rate_limit_in_bits_per_sec", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_average_download_rate_limit_in_bits_per_sec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "average_download_rate_limit_in_bits_per_sec", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_activation_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "activation_key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_storagegateway_gateway -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_storagegateway_gateway
+
+[@@@deriving.end]
 
 let maintenance_start_time ?day_of_month ?day_of_week ?minute_of_hour
     ~hour_of_day () : maintenance_start_time =

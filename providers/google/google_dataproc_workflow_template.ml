@@ -4,238 +4,1239 @@ open! Tf_core
 
 type jobs__hadoop_job__logging_config = {
   driver_log_levels : (string * string prop) list option; [@option]
-      (** The per-package log levels for the driver. This may include root package name to configure rootLogger. Examples: 'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG' *)
 }
-[@@deriving yojson_of]
-(** Optional. The runtime log config for job execution. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__hadoop_job__logging_config) -> ()
+
+let yojson_of_jobs__hadoop_job__logging_config =
+  (function
+   | { driver_log_levels = v_driver_log_levels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_driver_log_levels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "driver_log_levels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__hadoop_job__logging_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__hadoop_job__logging_config
+
+[@@@deriving.end]
 
 type jobs__hadoop_job = {
   archive_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of archives to be extracted in the working directory of Hadoop drivers and tasks. Supported file types: .jar, .tar, .tar.gz, .tgz, or .zip. *)
   args : string prop list option; [@option]
-      (** Optional. The arguments to pass to the driver. Do not include arguments, such as `-libjars` or `-Dfoo=bar`, that can be set as job properties, since a collision may occur that causes an incorrect job submission. *)
   file_uris : string prop list option; [@option]
-      (** Optional. HCFS (Hadoop Compatible Filesystem) URIs of files to be copied to the working directory of Hadoop drivers and distributed tasks. Useful for naively parallel tasks. *)
   jar_file_uris : string prop list option; [@option]
-      (** Optional. Jar file URIs to add to the CLASSPATHs of the Hadoop driver and tasks. *)
   main_class : string prop option; [@option]
-      (** The name of the driver's main class. The jar file containing the class must be in the default CLASSPATH or specified in `jar_file_uris`. *)
   main_jar_file_uri : string prop option; [@option]
-      (** The HCFS URI of the jar file containing the main class. Examples: 'gs://foo-bucket/analytics-binaries/extract-useful-metrics-mr.jar' 'hdfs:/tmp/test-samples/custom-wordcount.jar' 'file:///home/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar' *)
   properties : (string * string prop) list option; [@option]
-      (** Optional. A mapping of property names to values, used to configure Hadoop. Properties that conflict with values set by the Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site and classes in user code. *)
   logging_config : jobs__hadoop_job__logging_config list;
 }
-[@@deriving yojson_of]
-(** Optional. Job is a Hadoop job. *)
+[@@deriving_inline yojson_of]
 
-type jobs__hive_job__query_list = {
-  queries : string prop list;
-      (** Required. The queries to execute. You do not need to end a query expression with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of a Dataproc API snippet that uses a QueryList to specify a HiveJob: hiveJob: { queryList: { queries: [ query1, query2, query3;query4, ] } } *)
-}
-[@@deriving yojson_of]
-(** A list of queries. *)
+let _ = fun (_ : jobs__hadoop_job) -> ()
+
+let yojson_of_jobs__hadoop_job =
+  (function
+   | {
+       archive_uris = v_archive_uris;
+       args = v_args;
+       file_uris = v_file_uris;
+       jar_file_uris = v_jar_file_uris;
+       main_class = v_main_class;
+       main_jar_file_uri = v_main_jar_file_uri;
+       properties = v_properties;
+       logging_config = v_logging_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__hadoop_job__logging_config
+             v_logging_config
+         in
+         ("logging_config", arg) :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_main_jar_file_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "main_jar_file_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_main_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "main_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jar_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jar_file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_archive_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "archive_uris", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__hadoop_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__hadoop_job
+
+[@@@deriving.end]
+
+type jobs__hive_job__query_list = { queries : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__hive_job__query_list) -> ()
+
+let yojson_of_jobs__hive_job__query_list =
+  (function
+   | { queries = v_queries } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_queries
+         in
+         ("queries", arg) :: bnds
+       in
+       `Assoc bnds
+    : jobs__hive_job__query_list -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__hive_job__query_list
+
+[@@@deriving.end]
 
 type jobs__hive_job = {
   continue_on_failure : bool prop option; [@option]
-      (** Optional. Whether to continue executing queries if a query fails. The default value is `false`. Setting to `true` can be useful when executing independent parallel queries. *)
   jar_file_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of jar files to add to the CLASSPATH of the Hive server and Hadoop MapReduce (MR) tasks. Can contain Hive SerDes and UDFs. *)
   properties : (string * string prop) list option; [@option]
-      (** Optional. A mapping of property names and values, used to configure Hive. Properties that conflict with values set by the Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml, /etc/hive/conf/hive-site.xml, and classes in user code. *)
   query_file_uri : string prop option; [@option]
-      (** The HCFS URI of the script that contains Hive queries. *)
   script_variables : (string * string prop) list option; [@option]
-      (** Optional. Mapping of query variable names to values (equivalent to the Hive command: `SET name=value;`). *)
   query_list : jobs__hive_job__query_list list;
 }
-[@@deriving yojson_of]
-(** Optional. Job is a Hive job. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__hive_job) -> ()
+
+let yojson_of_jobs__hive_job =
+  (function
+   | {
+       continue_on_failure = v_continue_on_failure;
+       jar_file_uris = v_jar_file_uris;
+       properties = v_properties;
+       query_file_uri = v_query_file_uri;
+       script_variables = v_script_variables;
+       query_list = v_query_list;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__hive_job__query_list
+             v_query_list
+         in
+         ("query_list", arg) :: bnds
+       in
+       let bnds =
+         match v_script_variables with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "script_variables", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_query_file_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "query_file_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jar_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jar_file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_continue_on_failure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "continue_on_failure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__hive_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__hive_job
+
+[@@@deriving.end]
 
 type jobs__pig_job__logging_config = {
   driver_log_levels : (string * string prop) list option; [@option]
-      (** The per-package log levels for the driver. This may include root package name to configure rootLogger. Examples: 'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG' *)
 }
-[@@deriving yojson_of]
-(** Optional. The runtime log config for job execution. *)
+[@@deriving_inline yojson_of]
 
-type jobs__pig_job__query_list = {
-  queries : string prop list;
-      (** Required. The queries to execute. You do not need to end a query expression with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of a Dataproc API snippet that uses a QueryList to specify a HiveJob: hiveJob: { queryList: { queries: [ query1, query2, query3;query4, ] } } *)
-}
-[@@deriving yojson_of]
-(** A list of queries. *)
+let _ = fun (_ : jobs__pig_job__logging_config) -> ()
+
+let yojson_of_jobs__pig_job__logging_config =
+  (function
+   | { driver_log_levels = v_driver_log_levels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_driver_log_levels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "driver_log_levels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__pig_job__logging_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__pig_job__logging_config
+
+[@@@deriving.end]
+
+type jobs__pig_job__query_list = { queries : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__pig_job__query_list) -> ()
+
+let yojson_of_jobs__pig_job__query_list =
+  (function
+   | { queries = v_queries } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_queries
+         in
+         ("queries", arg) :: bnds
+       in
+       `Assoc bnds
+    : jobs__pig_job__query_list -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__pig_job__query_list
+
+[@@@deriving.end]
 
 type jobs__pig_job = {
   continue_on_failure : bool prop option; [@option]
-      (** Optional. Whether to continue executing queries if a query fails. The default value is `false`. Setting to `true` can be useful when executing independent parallel queries. *)
   jar_file_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of jar files to add to the CLASSPATH of the Pig Client and Hadoop MapReduce (MR) tasks. Can contain Pig UDFs. *)
   properties : (string * string prop) list option; [@option]
-      (** Optional. A mapping of property names to values, used to configure Pig. Properties that conflict with values set by the Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml, /etc/pig/conf/pig.properties, and classes in user code. *)
   query_file_uri : string prop option; [@option]
-      (** The HCFS URI of the script that contains the Pig queries. *)
   script_variables : (string * string prop) list option; [@option]
-      (** Optional. Mapping of query variable names to values (equivalent to the Pig command: `name=[value]`). *)
   logging_config : jobs__pig_job__logging_config list;
   query_list : jobs__pig_job__query_list list;
 }
-[@@deriving yojson_of]
-(** Optional. Job is a Pig job. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__pig_job) -> ()
+
+let yojson_of_jobs__pig_job =
+  (function
+   | {
+       continue_on_failure = v_continue_on_failure;
+       jar_file_uris = v_jar_file_uris;
+       properties = v_properties;
+       query_file_uri = v_query_file_uri;
+       script_variables = v_script_variables;
+       logging_config = v_logging_config;
+       query_list = v_query_list;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__pig_job__query_list
+             v_query_list
+         in
+         ("query_list", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__pig_job__logging_config
+             v_logging_config
+         in
+         ("logging_config", arg) :: bnds
+       in
+       let bnds =
+         match v_script_variables with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "script_variables", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_query_file_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "query_file_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jar_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jar_file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_continue_on_failure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "continue_on_failure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__pig_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__pig_job
+
+[@@@deriving.end]
 
 type jobs__presto_job__logging_config = {
   driver_log_levels : (string * string prop) list option; [@option]
-      (** The per-package log levels for the driver. This may include root package name to configure rootLogger. Examples: 'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG' *)
 }
-[@@deriving yojson_of]
-(** Optional. The runtime log config for job execution. *)
+[@@deriving_inline yojson_of]
 
-type jobs__presto_job__query_list = {
-  queries : string prop list;
-      (** Required. The queries to execute. You do not need to end a query expression with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of a Dataproc API snippet that uses a QueryList to specify a HiveJob: hiveJob: { queryList: { queries: [ query1, query2, query3;query4, ] } } *)
-}
-[@@deriving yojson_of]
-(** A list of queries. *)
+let _ = fun (_ : jobs__presto_job__logging_config) -> ()
+
+let yojson_of_jobs__presto_job__logging_config =
+  (function
+   | { driver_log_levels = v_driver_log_levels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_driver_log_levels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "driver_log_levels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__presto_job__logging_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__presto_job__logging_config
+
+[@@@deriving.end]
+
+type jobs__presto_job__query_list = { queries : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__presto_job__query_list) -> ()
+
+let yojson_of_jobs__presto_job__query_list =
+  (function
+   | { queries = v_queries } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_queries
+         in
+         ("queries", arg) :: bnds
+       in
+       `Assoc bnds
+    : jobs__presto_job__query_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__presto_job__query_list
+
+[@@@deriving.end]
 
 type jobs__presto_job = {
   client_tags : string prop list option; [@option]
-      (** Optional. Presto client tags to attach to this query *)
   continue_on_failure : bool prop option; [@option]
-      (** Optional. Whether to continue executing queries if a query fails. The default value is `false`. Setting to `true` can be useful when executing independent parallel queries. *)
   output_format : string prop option; [@option]
-      (** Optional. The format in which query output will be displayed. See the Presto documentation for supported output formats *)
   properties : (string * string prop) list option; [@option]
-      (** Optional. A mapping of property names to values. Used to set Presto [session properties](https://prestodb.io/docs/current/sql/set-session.html) Equivalent to using the --session flag in the Presto CLI *)
   query_file_uri : string prop option; [@option]
-      (** The HCFS URI of the script that contains SQL queries. *)
   logging_config : jobs__presto_job__logging_config list;
   query_list : jobs__presto_job__query_list list;
 }
-[@@deriving yojson_of]
-(** Optional. Job is a Presto job. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__presto_job) -> ()
+
+let yojson_of_jobs__presto_job =
+  (function
+   | {
+       client_tags = v_client_tags;
+       continue_on_failure = v_continue_on_failure;
+       output_format = v_output_format;
+       properties = v_properties;
+       query_file_uri = v_query_file_uri;
+       logging_config = v_logging_config;
+       query_list = v_query_list;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__presto_job__query_list
+             v_query_list
+         in
+         ("query_list", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__presto_job__logging_config
+             v_logging_config
+         in
+         ("logging_config", arg) :: bnds
+       in
+       let bnds =
+         match v_query_file_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "query_file_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_output_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_continue_on_failure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "continue_on_failure", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "client_tags", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__presto_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__presto_job
+
+[@@@deriving.end]
 
 type jobs__pyspark_job__logging_config = {
   driver_log_levels : (string * string prop) list option; [@option]
-      (** The per-package log levels for the driver. This may include root package name to configure rootLogger. Examples: 'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG' *)
 }
-[@@deriving yojson_of]
-(** Optional. The runtime log config for job execution. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__pyspark_job__logging_config) -> ()
+
+let yojson_of_jobs__pyspark_job__logging_config =
+  (function
+   | { driver_log_levels = v_driver_log_levels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_driver_log_levels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "driver_log_levels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__pyspark_job__logging_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__pyspark_job__logging_config
+
+[@@@deriving.end]
 
 type jobs__pyspark_job = {
   archive_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of archives to be extracted into the working directory of each executor. Supported file types: .jar, .tar, .tar.gz, .tgz, and .zip. *)
   args : string prop list option; [@option]
-      (** Optional. The arguments to pass to the driver. Do not include arguments, such as `--conf`, that can be set as job properties, since a collision may occur that causes an incorrect job submission. *)
   file_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of files to be placed in the working directory of each executor. Useful for naively parallel tasks. *)
   jar_file_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of jar files to add to the CLASSPATHs of the Python driver and tasks. *)
   main_python_file_uri : string prop;
-      (** Required. The HCFS URI of the main Python file to use as the driver. Must be a .py file. *)
   properties : (string * string prop) list option; [@option]
-      (** Optional. A mapping of property names to values, used to configure PySpark. Properties that conflict with values set by the Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf and classes in user code. *)
   python_file_uris : string prop list option; [@option]
-      (** Optional. HCFS file URIs of Python files to pass to the PySpark framework. Supported file types: .py, .egg, and .zip. *)
   logging_config : jobs__pyspark_job__logging_config list;
 }
-[@@deriving yojson_of]
-(** Optional. Job is a PySpark job. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__pyspark_job) -> ()
+
+let yojson_of_jobs__pyspark_job =
+  (function
+   | {
+       archive_uris = v_archive_uris;
+       args = v_args;
+       file_uris = v_file_uris;
+       jar_file_uris = v_jar_file_uris;
+       main_python_file_uri = v_main_python_file_uri;
+       properties = v_properties;
+       python_file_uris = v_python_file_uris;
+       logging_config = v_logging_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__pyspark_job__logging_config
+             v_logging_config
+         in
+         ("logging_config", arg) :: bnds
+       in
+       let bnds =
+         match v_python_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "python_file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_main_python_file_uri
+         in
+         ("main_python_file_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_jar_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jar_file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_archive_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "archive_uris", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__pyspark_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__pyspark_job
+
+[@@@deriving.end]
 
 type jobs__scheduling = {
   max_failures_per_hour : float prop option; [@option]
-      (** Optional. Maximum number of times per hour a driver may be restarted as a result of driver exiting with non-zero code before job is reported failed. A job may be reported as thrashing if driver exits with non-zero code 4 times within 10 minute window. Maximum value is 10. *)
   max_failures_total : float prop option; [@option]
-      (** Optional. Maximum number of times in total a driver may be restarted as a result of driver exiting with non-zero code before job is reported failed. Maximum value is 240. *)
 }
-[@@deriving yojson_of]
-(** Optional. Job scheduling configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__scheduling) -> ()
+
+let yojson_of_jobs__scheduling =
+  (function
+   | {
+       max_failures_per_hour = v_max_failures_per_hour;
+       max_failures_total = v_max_failures_total;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_failures_total with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_failures_total", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_failures_per_hour with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_failures_per_hour", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__scheduling -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__scheduling
+
+[@@@deriving.end]
 
 type jobs__spark_job__logging_config = {
   driver_log_levels : (string * string prop) list option; [@option]
-      (** The per-package log levels for the driver. This may include root package name to configure rootLogger. Examples: 'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG' *)
 }
-[@@deriving yojson_of]
-(** Optional. The runtime log config for job execution. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__spark_job__logging_config) -> ()
+
+let yojson_of_jobs__spark_job__logging_config =
+  (function
+   | { driver_log_levels = v_driver_log_levels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_driver_log_levels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "driver_log_levels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__spark_job__logging_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__spark_job__logging_config
+
+[@@@deriving.end]
 
 type jobs__spark_job = {
   archive_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of archives to be extracted into the working directory of each executor. Supported file types: .jar, .tar, .tar.gz, .tgz, and .zip. *)
   args : string prop list option; [@option]
-      (** Optional. The arguments to pass to the driver. Do not include arguments, such as `--conf`, that can be set as job properties, since a collision may occur that causes an incorrect job submission. *)
   file_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of files to be placed in the working directory of each executor. Useful for naively parallel tasks. *)
   jar_file_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of jar files to add to the CLASSPATHs of the Spark driver and tasks. *)
   main_class : string prop option; [@option]
-      (** The name of the driver's main class. The jar file that contains the class must be in the default CLASSPATH or specified in `jar_file_uris`. *)
   main_jar_file_uri : string prop option; [@option]
-      (** The HCFS URI of the jar file that contains the main class. *)
   properties : (string * string prop) list option; [@option]
-      (** Optional. A mapping of property names to values, used to configure Spark. Properties that conflict with values set by the Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf and classes in user code. *)
   logging_config : jobs__spark_job__logging_config list;
 }
-[@@deriving yojson_of]
-(** Optional. Job is a Spark job. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__spark_job) -> ()
+
+let yojson_of_jobs__spark_job =
+  (function
+   | {
+       archive_uris = v_archive_uris;
+       args = v_args;
+       file_uris = v_file_uris;
+       jar_file_uris = v_jar_file_uris;
+       main_class = v_main_class;
+       main_jar_file_uri = v_main_jar_file_uri;
+       properties = v_properties;
+       logging_config = v_logging_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__spark_job__logging_config
+             v_logging_config
+         in
+         ("logging_config", arg) :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_main_jar_file_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "main_jar_file_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_main_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "main_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jar_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jar_file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_archive_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "archive_uris", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__spark_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__spark_job
+
+[@@@deriving.end]
 
 type jobs__spark_r_job__logging_config = {
   driver_log_levels : (string * string prop) list option; [@option]
-      (** The per-package log levels for the driver. This may include root package name to configure rootLogger. Examples: 'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG' *)
 }
-[@@deriving yojson_of]
-(** Optional. The runtime log config for job execution. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__spark_r_job__logging_config) -> ()
+
+let yojson_of_jobs__spark_r_job__logging_config =
+  (function
+   | { driver_log_levels = v_driver_log_levels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_driver_log_levels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "driver_log_levels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__spark_r_job__logging_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__spark_r_job__logging_config
+
+[@@@deriving.end]
 
 type jobs__spark_r_job = {
   archive_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of archives to be extracted into the working directory of each executor. Supported file types: .jar, .tar, .tar.gz, .tgz, and .zip. *)
   args : string prop list option; [@option]
-      (** Optional. The arguments to pass to the driver. Do not include arguments, such as `--conf`, that can be set as job properties, since a collision may occur that causes an incorrect job submission. *)
   file_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of files to be placed in the working directory of each executor. Useful for naively parallel tasks. *)
   main_r_file_uri : string prop;
-      (** Required. The HCFS URI of the main R file to use as the driver. Must be a .R file. *)
   properties : (string * string prop) list option; [@option]
-      (** Optional. A mapping of property names to values, used to configure SparkR. Properties that conflict with values set by the Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf and classes in user code. *)
   logging_config : jobs__spark_r_job__logging_config list;
 }
-[@@deriving yojson_of]
-(** Optional. Job is a SparkR job. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__spark_r_job) -> ()
+
+let yojson_of_jobs__spark_r_job =
+  (function
+   | {
+       archive_uris = v_archive_uris;
+       args = v_args;
+       file_uris = v_file_uris;
+       main_r_file_uri = v_main_r_file_uri;
+       properties = v_properties;
+       logging_config = v_logging_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__spark_r_job__logging_config
+             v_logging_config
+         in
+         ("logging_config", arg) :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_main_r_file_uri
+         in
+         ("main_r_file_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_archive_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "archive_uris", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__spark_r_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__spark_r_job
+
+[@@@deriving.end]
 
 type jobs__spark_sql_job__logging_config = {
   driver_log_levels : (string * string prop) list option; [@option]
-      (** The per-package log levels for the driver. This may include root package name to configure rootLogger. Examples: 'com.google = FATAL', 'root = INFO', 'org.apache = DEBUG' *)
 }
-[@@deriving yojson_of]
-(** Optional. The runtime log config for job execution. *)
+[@@deriving_inline yojson_of]
 
-type jobs__spark_sql_job__query_list = {
-  queries : string prop list;
-      (** Required. The queries to execute. You do not need to end a query expression with a semicolon. Multiple queries can be specified in one string by separating each with a semicolon. Here is an example of a Dataproc API snippet that uses a QueryList to specify a HiveJob: hiveJob: { queryList: { queries: [ query1, query2, query3;query4, ] } } *)
-}
-[@@deriving yojson_of]
-(** A list of queries. *)
+let _ = fun (_ : jobs__spark_sql_job__logging_config) -> ()
+
+let yojson_of_jobs__spark_sql_job__logging_config =
+  (function
+   | { driver_log_levels = v_driver_log_levels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_driver_log_levels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "driver_log_levels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__spark_sql_job__logging_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__spark_sql_job__logging_config
+
+[@@@deriving.end]
+
+type jobs__spark_sql_job__query_list = { queries : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__spark_sql_job__query_list) -> ()
+
+let yojson_of_jobs__spark_sql_job__query_list =
+  (function
+   | { queries = v_queries } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_queries
+         in
+         ("queries", arg) :: bnds
+       in
+       `Assoc bnds
+    : jobs__spark_sql_job__query_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__spark_sql_job__query_list
+
+[@@@deriving.end]
 
 type jobs__spark_sql_job = {
   jar_file_uris : string prop list option; [@option]
-      (** Optional. HCFS URIs of jar files to be added to the Spark CLASSPATH. *)
   properties : (string * string prop) list option; [@option]
-      (** Optional. A mapping of property names to values, used to configure Spark SQL's SparkConf. Properties that conflict with values set by the Dataproc API may be overwritten. *)
   query_file_uri : string prop option; [@option]
-      (** The HCFS URI of the script that contains SQL queries. *)
   script_variables : (string * string prop) list option; [@option]
-      (** Optional. Mapping of query variable names to values (equivalent to the Spark SQL command: SET `name=value;`). *)
   logging_config : jobs__spark_sql_job__logging_config list;
   query_list : jobs__spark_sql_job__query_list list;
 }
-[@@deriving yojson_of]
-(** Optional. Job is a SparkSql job. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : jobs__spark_sql_job) -> ()
+
+let yojson_of_jobs__spark_sql_job =
+  (function
+   | {
+       jar_file_uris = v_jar_file_uris;
+       properties = v_properties;
+       query_file_uri = v_query_file_uri;
+       script_variables = v_script_variables;
+       logging_config = v_logging_config;
+       query_list = v_query_list;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__spark_sql_job__query_list
+             v_query_list
+         in
+         ("query_list", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_jobs__spark_sql_job__logging_config
+             v_logging_config
+         in
+         ("logging_config", arg) :: bnds
+       in
+       let bnds =
+         match v_script_variables with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "script_variables", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_query_file_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "query_file_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jar_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jar_file_uris", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs__spark_sql_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs__spark_sql_job
+
+[@@@deriving.end]
 
 type jobs = {
   labels : (string * string prop) list option; [@option]
-      (** Optional. The labels to associate with this job. Label keys must be between 1 and 63 characters long, and must conform to the following regular expression: p{Ll}p{Lo}{0,62} Label values must be between 1 and 63 characters long, and must conform to the following regular expression: [p{Ll}p{Lo}p{N}_-]{0,63} No more than 32 labels can be associated with a given job. *)
   prerequisite_step_ids : string prop list option; [@option]
-      (** Optional. The optional list of prerequisite job step_ids. If not specified, the job will start at the beginning of workflow. *)
   step_id : string prop;
-      (** Required. The step id. The id must be unique among all jobs within the template. The step id is used as prefix for job id, as job `goog-dataproc-workflow-step-id` label, and in prerequisiteStepIds field from other steps. The id must contain only letters (a-z, A-Z), numbers (0-9), underscores (_), and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of between 3 and 50 characters. *)
   hadoop_job : jobs__hadoop_job list;
   hive_job : jobs__hive_job list;
   pig_job : jobs__pig_job list;
@@ -246,120 +1247,550 @@ type jobs = {
   spark_r_job : jobs__spark_r_job list;
   spark_sql_job : jobs__spark_sql_job list;
 }
-[@@deriving yojson_of]
-(** Required. The Directed Acyclic Graph of Jobs to submit. *)
+[@@deriving_inline yojson_of]
 
-type parameters__validation__regex = {
-  regexes : string prop list;
-      (** Required. RE2 regular expressions used to validate the parameter's value. The value must match the regex in its entirety (substring matches are not sufficient). *)
-}
-[@@deriving yojson_of]
-(** Validation based on regular expressions. *)
+let _ = fun (_ : jobs) -> ()
 
-type parameters__validation__values = {
-  values : string prop list;
-      (** Required. List of allowed values for the parameter. *)
-}
-[@@deriving yojson_of]
-(** Validation based on a list of allowed values. *)
+let yojson_of_jobs =
+  (function
+   | {
+       labels = v_labels;
+       prerequisite_step_ids = v_prerequisite_step_ids;
+       step_id = v_step_id;
+       hadoop_job = v_hadoop_job;
+       hive_job = v_hive_job;
+       pig_job = v_pig_job;
+       presto_job = v_presto_job;
+       pyspark_job = v_pyspark_job;
+       scheduling = v_scheduling;
+       spark_job = v_spark_job;
+       spark_r_job = v_spark_r_job;
+       spark_sql_job = v_spark_sql_job;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__spark_sql_job
+             v_spark_sql_job
+         in
+         ("spark_sql_job", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__spark_r_job v_spark_r_job
+         in
+         ("spark_r_job", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__spark_job v_spark_job
+         in
+         ("spark_job", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__scheduling v_scheduling
+         in
+         ("scheduling", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__pyspark_job v_pyspark_job
+         in
+         ("pyspark_job", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__presto_job v_presto_job
+         in
+         ("presto_job", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__pig_job v_pig_job
+         in
+         ("pig_job", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__hive_job v_hive_job
+         in
+         ("hive_job", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_jobs__hadoop_job v_hadoop_job
+         in
+         ("hadoop_job", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_step_id in
+         ("step_id", arg) :: bnds
+       in
+       let bnds =
+         match v_prerequisite_step_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "prerequisite_step_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : jobs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_jobs
+
+[@@@deriving.end]
+
+type parameters__validation__regex = { regexes : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : parameters__validation__regex) -> ()
+
+let yojson_of_parameters__validation__regex =
+  (function
+   | { regexes = v_regexes } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_regexes
+         in
+         ("regexes", arg) :: bnds
+       in
+       `Assoc bnds
+    : parameters__validation__regex ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_parameters__validation__regex
+
+[@@@deriving.end]
+
+type parameters__validation__values = { values : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : parameters__validation__values) -> ()
+
+let yojson_of_parameters__validation__values =
+  (function
+   | { values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       `Assoc bnds
+    : parameters__validation__values ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_parameters__validation__values
+
+[@@@deriving.end]
 
 type parameters__validation = {
   regex : parameters__validation__regex list;
   values : parameters__validation__values list;
 }
-[@@deriving yojson_of]
-(** Optional. Validation rules to be applied to this parameter's value. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : parameters__validation) -> ()
+
+let yojson_of_parameters__validation =
+  (function
+   | { regex = v_regex; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_parameters__validation__values
+             v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_parameters__validation__regex
+             v_regex
+         in
+         ("regex", arg) :: bnds
+       in
+       `Assoc bnds
+    : parameters__validation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_parameters__validation
+
+[@@@deriving.end]
 
 type parameters = {
   description : string prop option; [@option]
-      (** Optional. Brief description of the parameter. Must not exceed 1024 characters. *)
   fields : string prop list;
-      (** Required. Paths to all fields that the parameter replaces. A field is allowed to appear in at most one parameter's list of field paths. A field path is similar in syntax to a google.protobuf.FieldMask. For example, a field path that references the zone field of a workflow template's cluster selector would be specified as `placement.clusterSelector.zone`. Also, field paths can reference fields using the following syntax: * Values in maps can be referenced by key: * labels['key'] * placement.clusterSelector.clusterLabels['key'] * placement.managedCluster.labels['key'] * placement.clusterSelector.clusterLabels['key'] * jobs['step-id'].labels['key'] * Jobs in the jobs list can be referenced by step-id: * jobs['step-id'].hadoopJob.mainJarFileUri * jobs['step-id'].hiveJob.queryFileUri * jobs['step-id'].pySparkJob.mainPythonFileUri * jobs['step-id'].hadoopJob.jarFileUris[0] * jobs['step-id'].hadoopJob.archiveUris[0] * jobs['step-id'].hadoopJob.fileUris[0] * jobs['step-id'].pySparkJob.pythonFileUris[0] * Items in repeated fields can be referenced by a zero-based index: * jobs['step-id'].sparkJob.args[0] * Other examples: * jobs['step-id'].hadoopJob.properties['key'] * jobs['step-id'].hadoopJob.args[0] * jobs['step-id'].hiveJob.scriptVariables['key'] * jobs['step-id'].hadoopJob.mainJarFileUri * placement.clusterSelector.zone It may not be possible to parameterize maps and repeated fields in their entirety since only individual map values and individual items in repeated fields can be referenced. For example, the following field paths are invalid: - placement.clusterSelector.clusterLabels - jobs['step-id'].sparkJob.args *)
   name : string prop;
-      (** Required. Parameter name. The parameter name is used as the key, and paired with the parameter value, which are passed to the template when the template is instantiated. The name must contain only capital letters (A-Z), numbers (0-9), and underscores (_), and must not start with a number. The maximum length is 40 characters. *)
   validation : parameters__validation list;
 }
-[@@deriving yojson_of]
-(** Optional. Template parameters whose values are substituted into the template. Values for parameters must be provided when the template is instantiated. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : parameters) -> ()
+
+let yojson_of_parameters =
+  (function
+   | {
+       description = v_description;
+       fields = v_fields;
+       name = v_name;
+       validation = v_validation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_parameters__validation
+             v_validation
+         in
+         ("validation", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_fields
+         in
+         ("fields", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_parameters
+
+[@@@deriving.end]
 
 type placement__cluster_selector = {
   cluster_labels : (string * string prop) list;
-      (** Required. The cluster labels. Cluster must have all labels to match. *)
   zone : string prop option; [@option]
-      (** Optional. The zone where workflow process executes. This parameter does not affect the selection of the cluster. If unspecified, the zone of the first cluster matching the selector is used. *)
 }
-[@@deriving yojson_of]
-(** Optional. A selector that chooses target cluster for jobs based on metadata. The selector is evaluated at the time each job is submitted. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : placement__cluster_selector) -> ()
+
+let yojson_of_placement__cluster_selector =
+  (function
+   | { cluster_labels = v_cluster_labels; zone = v_zone } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_cluster_labels
+         in
+         ("cluster_labels", arg) :: bnds
+       in
+       `Assoc bnds
+    : placement__cluster_selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement__cluster_selector
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__autoscaling_config = {
   policy : string prop option; [@option]
-      (** Optional. The autoscaling policy used by the cluster. Only resource names including projectid and location (region) are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/locations/[dataproc_region]/autoscalingPolicies/[policy_id]` * `projects/[project_id]/locations/[dataproc_region]/autoscalingPolicies/[policy_id]` Note that the policy must be in the same project and Dataproc region. *)
 }
-[@@deriving yojson_of]
-(** Optional. Autoscaling config for the policy associated with the cluster. Cluster does not autoscale if this field is unset. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__autoscaling_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__autoscaling_config
+    =
+  (function
+   | { policy = v_policy } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__autoscaling_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__autoscaling_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__encryption_config = {
   gce_pd_kms_key_name : string prop option; [@option]
-      (** Optional. The Cloud KMS key name to use for PD disk encryption for all instances in the cluster. *)
 }
-[@@deriving yojson_of]
-(** Optional. Encryption settings for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__encryption_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__encryption_config =
+  (function
+   | { gce_pd_kms_key_name = v_gce_pd_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_gce_pd_kms_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gce_pd_kms_key_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__encryption_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__encryption_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__endpoint_config = {
   enable_http_port_access : bool prop option; [@option]
-      (** Optional. If true, enable http access to specific ports on the cluster from external sources. Defaults to false. *)
 }
-[@@deriving yojson_of]
-(** Optional. Port/endpoint configuration for this cluster *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__endpoint_config) -> ()
+
+let yojson_of_placement__managed_cluster__config__endpoint_config =
+  (function
+   | { enable_http_port_access = v_enable_http_port_access } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enable_http_port_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_http_port_access", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__endpoint_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement__managed_cluster__config__endpoint_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__gce_cluster_config__node_group_affinity = {
   node_group : string prop;
-      (** Required. The URI of a sole-tenant [node group resource](https://cloud.google.com/compute/docs/reference/rest/v1/nodeGroups) that the cluster will be created on. A full URL, partial URI, or node group name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-central1-a/nodeGroups/node-group-1` * `projects/[project_id]/zones/us-central1-a/nodeGroups/node-group-1` * `node-group-1` *)
 }
-[@@deriving yojson_of]
-(** Optional. Node Group Affinity for sole-tenant clusters. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__gce_cluster_config__node_group_affinity) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__gce_cluster_config__node_group_affinity
+    =
+  (function
+   | { node_group = v_node_group } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_node_group in
+         ("node_group", arg) :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__gce_cluster_config__node_group_affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__gce_cluster_config__node_group_affinity
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__gce_cluster_config__reservation_affinity = {
   consume_reservation_type : string prop option; [@option]
-      (** Optional. Type of reservation to consume Possible values: TYPE_UNSPECIFIED, NO_RESERVATION, ANY_RESERVATION, SPECIFIC_RESERVATION *)
   key : string prop option; [@option]
-      (** Optional. Corresponds to the label key of reservation resource. *)
   values : string prop list option; [@option]
-      (** Optional. Corresponds to the label values of reservation resource. *)
 }
-[@@deriving yojson_of]
-(** Optional. Reservation Affinity for consuming Zonal reservation. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__gce_cluster_config__reservation_affinity) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__gce_cluster_config__reservation_affinity
+    =
+  (function
+   | {
+       consume_reservation_type = v_consume_reservation_type;
+       key = v_key;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_consume_reservation_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "consume_reservation_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__gce_cluster_config__reservation_affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__gce_cluster_config__reservation_affinity
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__gce_cluster_config__shielded_instance_config = {
   enable_integrity_monitoring : bool prop option; [@option]
-      (** Optional. Defines whether instances have integrity monitoring enabled. Integrity monitoring compares the most recent boot measurements to the integrity policy baseline and returns a pair of pass/fail results depending on whether they match or not. *)
   enable_secure_boot : bool prop option; [@option]
-      (** Optional. Defines whether the instances have Secure Boot enabled. Secure Boot helps ensure that the system only runs authentic software by verifying the digital signature of all boot components, and halting the boot process if signature verification fails. *)
   enable_vtpm : bool prop option; [@option]
-      (** Optional. Defines whether the instance have the vTPM enabled. Virtual Trusted Platform Module protects objects like keys, certificates and enables Measured Boot by performing the measurements needed to create a known good boot baseline, called the integrity policy baseline. *)
 }
-[@@deriving yojson_of]
-(** Optional. Shielded Instance Config for clusters using Compute Engine Shielded VMs. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__gce_cluster_config__shielded_instance_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__gce_cluster_config__shielded_instance_config
+    =
+  (function
+   | {
+       enable_integrity_monitoring = v_enable_integrity_monitoring;
+       enable_secure_boot = v_enable_secure_boot;
+       enable_vtpm = v_enable_vtpm;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enable_vtpm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_vtpm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_secure_boot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_secure_boot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_integrity_monitoring with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_integrity_monitoring", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__gce_cluster_config__shielded_instance_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__gce_cluster_config__shielded_instance_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__gce_cluster_config = {
   internal_ip_only : bool prop option; [@option]
-      (** Optional. If true, all instances in the cluster will only have internal IP addresses. By default, clusters are not restricted to internal IP addresses, and will have ephemeral external IP addresses assigned to each instance. This `internal_ip_only` restriction can only be enabled for subnetwork enabled networks, and all off-cluster dependencies must be configured to be accessible without external IP addresses. *)
   metadata : (string * string prop) list option; [@option]
-      (** The Compute Engine metadata entries to add to all instances (see [Project and instance metadata](https://cloud.google.com/compute/docs/storing-retrieving-metadata#project_and_instance_metadata)). *)
   network : string prop option; [@option]
-      (** Optional. The Compute Engine network to be used for machine communications. Cannot be specified with subnetwork_uri. If neither `network_uri` nor `subnetwork_uri` is specified, the default network of the project is used, if it exists. Cannot be a Custom Subnet Network (see [Using Subnetworks](https://cloud.google.com/compute/docs/subnetworks) for more information). A full URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/regions/global/default` * `projects/[project_id]/regions/global/default` * `default` *)
   private_ipv6_google_access : string prop option; [@option]
-      (** Optional. The type of IPv6 access for a cluster. Possible values: PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED, INHERIT_FROM_SUBNETWORK, OUTBOUND, BIDIRECTIONAL *)
   service_account : string prop option; [@option]
-      (** Optional. The [Dataproc service account](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/service-accounts#service_accounts_in_dataproc) (also see [VM Data Plane identity](https://cloud.google.com/dataproc/docs/concepts/iam/dataproc-principals#vm_service_account_data_plane_identity)) used by Dataproc cluster VM instances to access Google Cloud Platform services. If not specified, the [Compute Engine default service account](https://cloud.google.com/compute/docs/access/service-accounts#default_service_account) is used. *)
   service_account_scopes : string prop list option; [@option]
-      (** Optional. The URIs of service account scopes to be included in Compute Engine instances. The following base set of scopes is always included: * https://www.googleapis.com/auth/cloud.useraccounts.readonly * https://www.googleapis.com/auth/devstorage.read_write * https://www.googleapis.com/auth/logging.write If no scopes are specified, the following defaults are also provided: * https://www.googleapis.com/auth/bigquery * https://www.googleapis.com/auth/bigtable.admin.table * https://www.googleapis.com/auth/bigtable.data * https://www.googleapis.com/auth/devstorage.full_control *)
   subnetwork : string prop option; [@option]
-      (** Optional. The Compute Engine subnetwork to be used for machine communications. Cannot be specified with network_uri. A full URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/regions/us-east1/subnetworks/sub0` * `projects/[project_id]/regions/us-east1/subnetworks/sub0` * `sub0` *)
   tags : string prop list option; [@option]
-      (** The Compute Engine tags to add to all instances (see [Tagging instances](https://cloud.google.com/compute/docs/label-or-tag-resources#tags)). *)
   zone : string prop option; [@option]
-      (** Optional. The zone where the Compute Engine cluster will be located. On a create request, it is required in the global region. If omitted in a non-global Dataproc region, the service will pick a zone in the corresponding Compute Engine region. On a get request, zone will always be present. A full URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/[zone]` * `projects/[project_id]/zones/[zone]` * `us-central1-f` *)
   node_group_affinity :
     placement__managed_cluster__config__gce_cluster_config__node_group_affinity
     list;
@@ -370,67 +1801,398 @@ type placement__managed_cluster__config__gce_cluster_config = {
     placement__managed_cluster__config__gce_cluster_config__shielded_instance_config
     list;
 }
-[@@deriving yojson_of]
-(** Optional. The shared Compute Engine config settings for all instances in a cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__gce_cluster_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__gce_cluster_config
+    =
+  (function
+   | {
+       internal_ip_only = v_internal_ip_only;
+       metadata = v_metadata;
+       network = v_network;
+       private_ipv6_google_access = v_private_ipv6_google_access;
+       service_account = v_service_account;
+       service_account_scopes = v_service_account_scopes;
+       subnetwork = v_subnetwork;
+       tags = v_tags;
+       zone = v_zone;
+       node_group_affinity = v_node_group_affinity;
+       reservation_affinity = v_reservation_affinity;
+       shielded_instance_config = v_shielded_instance_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__gce_cluster_config__shielded_instance_config
+             v_shielded_instance_config
+         in
+         ("shielded_instance_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__gce_cluster_config__reservation_affinity
+             v_reservation_affinity
+         in
+         ("reservation_affinity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__gce_cluster_config__node_group_affinity
+             v_node_group_affinity
+         in
+         ("node_group_affinity", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnetwork with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account_scopes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "service_account_scopes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_ipv6_google_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ipv6_google_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_internal_ip_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "internal_ip_only", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__gce_cluster_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__gce_cluster_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__initialization_actions = {
   executable_file : string prop option; [@option]
-      (** Required. Cloud Storage URI of executable file. *)
   execution_timeout : string prop option; [@option]
-      (** Optional. Amount of time executable has to complete. Default is 10 minutes (see JSON representation of [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)). Cluster creation fails with an explanatory error message (the name of the executable that caused the error and the exceeded timeout period) if the executable is not completed at end of the timeout period. *)
 }
-[@@deriving yojson_of]
-(** Optional. Commands to execute on each node after config is completed. By default, executables are run on master and all worker nodes. You can test a node's `role` metadata to run an executable on a master or worker node, as shown below using `curl` (you can also use `wget`): ROLE=$(curl -H Metadata-Flavor:Google http://metadata/computeMetadata/v1/instance/attributes/dataproc-role) if [[ ${ROLE} == 'Master' ]]; then ... master specific actions ... else ... worker specific actions ... fi *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__initialization_actions) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__initialization_actions
+    =
+  (function
+   | {
+       executable_file = v_executable_file;
+       execution_timeout = v_execution_timeout;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_execution_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "execution_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_executable_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "executable_file", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__initialization_actions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__initialization_actions
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__lifecycle_config = {
   auto_delete_time : string prop option; [@option]
-      (** Optional. The time when cluster will be auto-deleted (see JSON representation of [Timestamp](https://developers.google.com/protocol-buffers/docs/proto3#json)). *)
   auto_delete_ttl : string prop option; [@option]
-      (** Optional. The lifetime duration of cluster. The cluster will be auto-deleted at the end of this period. Minimum value is 10 minutes; maximum value is 14 days (see JSON representation of [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)). *)
   idle_delete_ttl : string prop option; [@option]
-      (** Optional. The duration to keep the cluster alive while idling (when no jobs are running). Passing this threshold will cause the cluster to be deleted. Minimum value is 5 minutes; maximum value is 14 days (see JSON representation of [Duration](https://developers.google.com/protocol-buffers/docs/proto3#json)). *)
 }
-[@@deriving yojson_of]
-(** Optional. Lifecycle setting for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__lifecycle_config) -> ()
+
+let yojson_of_placement__managed_cluster__config__lifecycle_config =
+  (function
+   | {
+       auto_delete_time = v_auto_delete_time;
+       auto_delete_ttl = v_auto_delete_ttl;
+       idle_delete_ttl = v_idle_delete_ttl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_idle_delete_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "idle_delete_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_delete_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auto_delete_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_delete_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auto_delete_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__lifecycle_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__lifecycle_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__master_config__accelerators = {
   accelerator_count : float prop option; [@option]
-      (** The number of the accelerator cards of this type exposed to this instance. *)
   accelerator_type : string prop option; [@option]
-      (** Full URL, partial URI, or short name of the accelerator type resource to expose to this instance. See [Compute Engine AcceleratorTypes](https://cloud.google.com/compute/docs/reference/beta/acceleratorTypes). Examples: * `https://www.googleapis.com/compute/beta/projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80` * `projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80` * `nvidia-tesla-k80` **Auto Zone Exception**: If you are using the Dataproc [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement) feature, you must use the short name of the accelerator type resource, for example, `nvidia-tesla-k80`. *)
 }
-[@@deriving yojson_of]
-(** Optional. The Compute Engine accelerator configuration for these instances. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__master_config__accelerators) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__master_config__accelerators
+    =
+  (function
+   | {
+       accelerator_count = v_accelerator_count;
+       accelerator_type = v_accelerator_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_accelerator_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "accelerator_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accelerator_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "accelerator_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__master_config__accelerators ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__master_config__accelerators
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__master_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
-      (** Optional. Size in GB of the boot disk (default is 500GB). *)
   boot_disk_type : string prop option; [@option]
-      (** Optional. Type of the boot disk (default is pd-standard). Valid values: pd-balanced (Persistent Disk Balanced Solid State Drive), pd-ssd (Persistent Disk Solid State Drive), or pd-standard (Persistent Disk Hard Disk Drive). See [Disk types](https://cloud.google.com/compute/docs/disks#disk-types). *)
   num_local_ssds : float prop option; [@option]
-      (** Optional. Number of attached SSDs, from 0 to 4 (default is 0). If SSDs are not attached, the boot disk is used to store runtime logs and [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html) data. If one or more SSDs are attached, this runtime bulk data is spread across them, and the boot disk contains only basic config and installed binaries. *)
 }
-[@@deriving yojson_of]
-(** Optional. Disk option config settings. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__master_config__disk_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__master_config__disk_config
+    =
+  (function
+   | {
+       boot_disk_size_gb = v_boot_disk_size_gb;
+       boot_disk_type = v_boot_disk_type;
+       num_local_ssds = v_num_local_ssds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_num_local_ssds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "boot_disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "boot_disk_size_gb", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__master_config__disk_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__master_config__disk_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__master_config__managed_group_config = {
   instance_group_manager_name : string prop;
-      (** instance_group_manager_name *)
-  instance_template_name : string prop;  (** instance_template_name *)
+  instance_template_name : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__master_config__managed_group_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__master_config__managed_group_config
+    =
+  (function
+   | {
+       instance_group_manager_name = v_instance_group_manager_name;
+       instance_template_name = v_instance_template_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_instance_template_name
+         in
+         ("instance_template_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_instance_group_manager_name
+         in
+         ("instance_group_manager_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__master_config__managed_group_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__master_config__managed_group_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__master_config = {
   image : string prop option; [@option]
-      (** Optional. The Compute Engine image resource used for cluster instances. The URI can represent an image or image family. Image examples: * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/[image-id]` * `projects/[project_id]/global/images/[image-id]` * `image-id` Image family examples. Dataproc will use the most recent image from the family: * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/family/[custom-image-family-name]` * `projects/[project_id]/global/images/family/[custom-image-family-name]` If the URI is unspecified, it will be inferred from `SoftwareConfig.image_version` or the system default. *)
   machine_type : string prop option; [@option]
-      (** Optional. The Compute Engine machine type used for cluster instances. A full URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2` * `projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2` * `n1-standard-2` **Auto Zone Exception**: If you are using the Dataproc [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement) feature, you must use the short name of the machine type resource, for example, `n1-standard-2`. *)
   min_cpu_platform : string prop option; [@option]
-      (** Optional. Specifies the minimum cpu platform for the Instance Group. See [Dataproc -> Minimum CPU Platform](https://cloud.google.com/dataproc/docs/concepts/compute/dataproc-min-cpu). *)
   num_instances : float prop option; [@option]
-      (** Optional. The number of VM instances in the instance group. For [HA cluster](/dataproc/docs/concepts/configuring-clusters/high-availability) [master_config](#FIELDS.master_config) groups, **must be set to 3**. For standard cluster [master_config](#FIELDS.master_config) groups, **must be set to 1**. *)
   preemptibility : string prop option; [@option]
-      (** Optional. Specifies the preemptibility of the instance group. The default value for master and worker groups is `NON_PREEMPTIBLE`. This default cannot be changed. The default value for secondary instances is `PREEMPTIBLE`. Possible values: PREEMPTIBILITY_UNSPECIFIED, NON_PREEMPTIBLE, PREEMPTIBLE *)
   accelerators :
     placement__managed_cluster__config__master_config__accelerators
     list;
@@ -438,47 +2200,240 @@ type placement__managed_cluster__config__master_config = {
     placement__managed_cluster__config__master_config__disk_config
     list;
 }
-[@@deriving yojson_of]
-(** Optional. The Compute Engine config settings for the master instance in a cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__master_config) -> ()
+
+let yojson_of_placement__managed_cluster__config__master_config =
+  (function
+   | {
+       image = v_image;
+       machine_type = v_machine_type;
+       min_cpu_platform = v_min_cpu_platform;
+       num_instances = v_num_instances;
+       preemptibility = v_preemptibility;
+       accelerators = v_accelerators;
+       disk_config = v_disk_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__master_config__disk_config
+             v_disk_config
+         in
+         ("disk_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__master_config__accelerators
+             v_accelerators
+         in
+         ("accelerators", arg) :: bnds
+       in
+       let bnds =
+         match v_preemptibility with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preemptibility", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__master_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement__managed_cluster__config__master_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__secondary_worker_config__accelerators = {
   accelerator_count : float prop option; [@option]
-      (** The number of the accelerator cards of this type exposed to this instance. *)
   accelerator_type : string prop option; [@option]
-      (** Full URL, partial URI, or short name of the accelerator type resource to expose to this instance. See [Compute Engine AcceleratorTypes](https://cloud.google.com/compute/docs/reference/beta/acceleratorTypes). Examples: * `https://www.googleapis.com/compute/beta/projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80` * `projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80` * `nvidia-tesla-k80` **Auto Zone Exception**: If you are using the Dataproc [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement) feature, you must use the short name of the accelerator type resource, for example, `nvidia-tesla-k80`. *)
 }
-[@@deriving yojson_of]
-(** Optional. The Compute Engine accelerator configuration for these instances. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__secondary_worker_config__accelerators) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__secondary_worker_config__accelerators
+    =
+  (function
+   | {
+       accelerator_count = v_accelerator_count;
+       accelerator_type = v_accelerator_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_accelerator_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "accelerator_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accelerator_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "accelerator_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__secondary_worker_config__accelerators ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__secondary_worker_config__accelerators
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__secondary_worker_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
-      (** Optional. Size in GB of the boot disk (default is 500GB). *)
   boot_disk_type : string prop option; [@option]
-      (** Optional. Type of the boot disk (default is pd-standard). Valid values: pd-balanced (Persistent Disk Balanced Solid State Drive), pd-ssd (Persistent Disk Solid State Drive), or pd-standard (Persistent Disk Hard Disk Drive). See [Disk types](https://cloud.google.com/compute/docs/disks#disk-types). *)
   num_local_ssds : float prop option; [@option]
-      (** Optional. Number of attached SSDs, from 0 to 4 (default is 0). If SSDs are not attached, the boot disk is used to store runtime logs and [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html) data. If one or more SSDs are attached, this runtime bulk data is spread across them, and the boot disk contains only basic config and installed binaries. *)
 }
-[@@deriving yojson_of]
-(** Optional. Disk option config settings. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__secondary_worker_config__disk_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__secondary_worker_config__disk_config
+    =
+  (function
+   | {
+       boot_disk_size_gb = v_boot_disk_size_gb;
+       boot_disk_type = v_boot_disk_type;
+       num_local_ssds = v_num_local_ssds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_num_local_ssds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "boot_disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "boot_disk_size_gb", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__secondary_worker_config__disk_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__secondary_worker_config__disk_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__secondary_worker_config__managed_group_config = {
   instance_group_manager_name : string prop;
-      (** instance_group_manager_name *)
-  instance_template_name : string prop;  (** instance_template_name *)
+  instance_template_name : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__secondary_worker_config__managed_group_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__secondary_worker_config__managed_group_config
+    =
+  (function
+   | {
+       instance_group_manager_name = v_instance_group_manager_name;
+       instance_template_name = v_instance_template_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_instance_template_name
+         in
+         ("instance_template_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_instance_group_manager_name
+         in
+         ("instance_group_manager_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__secondary_worker_config__managed_group_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__secondary_worker_config__managed_group_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__secondary_worker_config = {
   image : string prop option; [@option]
-      (** Optional. The Compute Engine image resource used for cluster instances. The URI can represent an image or image family. Image examples: * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/[image-id]` * `projects/[project_id]/global/images/[image-id]` * `image-id` Image family examples. Dataproc will use the most recent image from the family: * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/family/[custom-image-family-name]` * `projects/[project_id]/global/images/family/[custom-image-family-name]` If the URI is unspecified, it will be inferred from `SoftwareConfig.image_version` or the system default. *)
   machine_type : string prop option; [@option]
-      (** Optional. The Compute Engine machine type used for cluster instances. A full URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2` * `projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2` * `n1-standard-2` **Auto Zone Exception**: If you are using the Dataproc [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement) feature, you must use the short name of the machine type resource, for example, `n1-standard-2`. *)
   min_cpu_platform : string prop option; [@option]
-      (** Optional. Specifies the minimum cpu platform for the Instance Group. See [Dataproc -> Minimum CPU Platform](https://cloud.google.com/dataproc/docs/concepts/compute/dataproc-min-cpu). *)
   num_instances : float prop option; [@option]
-      (** Optional. The number of VM instances in the instance group. For [HA cluster](/dataproc/docs/concepts/configuring-clusters/high-availability) [master_config](#FIELDS.master_config) groups, **must be set to 3**. For standard cluster [master_config](#FIELDS.master_config) groups, **must be set to 1**. *)
   preemptibility : string prop option; [@option]
-      (** Optional. Specifies the preemptibility of the instance group. The default value for master and worker groups is `NON_PREEMPTIBLE`. This default cannot be changed. The default value for secondary instances is `PREEMPTIBLE`. Possible values: PREEMPTIBILITY_UNSPECIFIED, NON_PREEMPTIBLE, PREEMPTIBLE *)
   accelerators :
     placement__managed_cluster__config__secondary_worker_config__accelerators
     list;
@@ -486,101 +2441,516 @@ type placement__managed_cluster__config__secondary_worker_config = {
     placement__managed_cluster__config__secondary_worker_config__disk_config
     list;
 }
-[@@deriving yojson_of]
-(** Optional. The Compute Engine config settings for additional worker instances in a cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__secondary_worker_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__secondary_worker_config
+    =
+  (function
+   | {
+       image = v_image;
+       machine_type = v_machine_type;
+       min_cpu_platform = v_min_cpu_platform;
+       num_instances = v_num_instances;
+       preemptibility = v_preemptibility;
+       accelerators = v_accelerators;
+       disk_config = v_disk_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__secondary_worker_config__disk_config
+             v_disk_config
+         in
+         ("disk_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__secondary_worker_config__accelerators
+             v_accelerators
+         in
+         ("accelerators", arg) :: bnds
+       in
+       let bnds =
+         match v_preemptibility with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preemptibility", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__secondary_worker_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__secondary_worker_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__security_config__kerberos_config = {
   cross_realm_trust_admin_server : string prop option; [@option]
-      (** Optional. The admin server (IP or hostname) for the remote trusted realm in a cross realm trust relationship. *)
   cross_realm_trust_kdc : string prop option; [@option]
-      (** Optional. The KDC (IP or hostname) for the remote trusted realm in a cross realm trust relationship. *)
   cross_realm_trust_realm : string prop option; [@option]
-      (** Optional. The remote realm the Dataproc on-cluster KDC will trust, should the user enable cross realm trust. *)
   cross_realm_trust_shared_password : string prop option; [@option]
-      (** Optional. The Cloud Storage URI of a KMS encrypted file containing the shared password between the on-cluster Kerberos realm and the remote trusted realm, in a cross realm trust relationship. *)
   enable_kerberos : bool prop option; [@option]
-      (** Optional. Flag to indicate whether to Kerberize the cluster (default: false). Set this field to true to enable Kerberos on a cluster. *)
   kdc_db_key : string prop option; [@option]
-      (** Optional. The Cloud Storage URI of a KMS encrypted file containing the master key of the KDC database. *)
   key_password : string prop option; [@option]
-      (** Optional. The Cloud Storage URI of a KMS encrypted file containing the password to the user provided key. For the self-signed certificate, this password is generated by Dataproc. *)
   keystore : string prop option; [@option]
-      (** Optional. The Cloud Storage URI of the keystore file used for SSL encryption. If not provided, Dataproc will provide a self-signed certificate. *)
   keystore_password : string prop option; [@option]
-      (** Optional. The Cloud Storage URI of a KMS encrypted file containing the password to the user provided keystore. For the self-signed certificate, this password is generated by Dataproc. *)
   kms_key : string prop option; [@option]
-      (** Optional. The uri of the KMS key used to encrypt various sensitive files. *)
   realm : string prop option; [@option]
-      (** Optional. The name of the on-cluster Kerberos realm. If not specified, the uppercased domain of hostnames will be the realm. *)
   root_principal_password : string prop option; [@option]
-      (** Optional. The Cloud Storage URI of a KMS encrypted file containing the root principal password. *)
   tgt_lifetime_hours : float prop option; [@option]
-      (** Optional. The lifetime of the ticket granting ticket, in hours. If not specified, or user specifies 0, then default value 10 will be used. *)
   truststore : string prop option; [@option]
-      (** Optional. The Cloud Storage URI of the truststore file used for SSL encryption. If not provided, Dataproc will provide a self-signed certificate. *)
   truststore_password : string prop option; [@option]
-      (** Optional. The Cloud Storage URI of a KMS encrypted file containing the password to the user provided truststore. For the self-signed certificate, this password is generated by Dataproc. *)
 }
-[@@deriving yojson_of]
-(** Optional. Kerberos related configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__security_config__kerberos_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__security_config__kerberos_config
+    =
+  (function
+   | {
+       cross_realm_trust_admin_server =
+         v_cross_realm_trust_admin_server;
+       cross_realm_trust_kdc = v_cross_realm_trust_kdc;
+       cross_realm_trust_realm = v_cross_realm_trust_realm;
+       cross_realm_trust_shared_password =
+         v_cross_realm_trust_shared_password;
+       enable_kerberos = v_enable_kerberos;
+       kdc_db_key = v_kdc_db_key;
+       key_password = v_key_password;
+       keystore = v_keystore;
+       keystore_password = v_keystore_password;
+       kms_key = v_kms_key;
+       realm = v_realm;
+       root_principal_password = v_root_principal_password;
+       tgt_lifetime_hours = v_tgt_lifetime_hours;
+       truststore = v_truststore;
+       truststore_password = v_truststore_password;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_truststore_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "truststore_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_truststore with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "truststore", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tgt_lifetime_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "tgt_lifetime_hours", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_root_principal_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "root_principal_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_realm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "realm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keystore_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keystore_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keystore with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keystore", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kdc_db_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kdc_db_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_kerberos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_kerberos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cross_realm_trust_shared_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cross_realm_trust_shared_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cross_realm_trust_realm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cross_realm_trust_realm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cross_realm_trust_kdc with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cross_realm_trust_kdc", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cross_realm_trust_admin_server with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cross_realm_trust_admin_server", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__security_config__kerberos_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__security_config__kerberos_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__security_config = {
   kerberos_config :
     placement__managed_cluster__config__security_config__kerberos_config
     list;
 }
-[@@deriving yojson_of]
-(** Optional. Security settings for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__security_config) -> ()
+
+let yojson_of_placement__managed_cluster__config__security_config =
+  (function
+   | { kerberos_config = v_kerberos_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__security_config__kerberos_config
+             v_kerberos_config
+         in
+         ("kerberos_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__security_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement__managed_cluster__config__security_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__software_config = {
   image_version : string prop option; [@option]
-      (** Optional. The version of software inside the cluster. It must be one of the supported [Dataproc Versions](https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#supported_dataproc_versions), such as 1.2 (including a subminor version, such as 1.2.29), or the [preview version](https://cloud.google.com/dataproc/docs/concepts/versioning/dataproc-versions#other_versions). If unspecified, it defaults to the latest Debian version. *)
   optional_components : string prop list option; [@option]
-      (** Optional. The set of components to activate on the cluster. *)
   properties : (string * string prop) list option; [@option]
-      (** Optional. The properties to set on daemon config files. Property keys are specified in `prefix:property` format, for example `core:hadoop.tmp.dir`. The following are supported prefixes and their mappings: * capacity-scheduler: `capacity-scheduler.xml` * core: `core-site.xml` * distcp: `distcp-default.xml` * hdfs: `hdfs-site.xml` * hive: `hive-site.xml` * mapred: `mapred-site.xml` * pig: `pig.properties` * spark: `spark-defaults.conf` * yarn: `yarn-site.xml` For more information, see [Cluster properties](https://cloud.google.com/dataproc/docs/concepts/cluster-properties). *)
 }
-[@@deriving yojson_of]
-(** Optional. The config settings for software inside the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__software_config) -> ()
+
+let yojson_of_placement__managed_cluster__config__software_config =
+  (function
+   | {
+       image_version = v_image_version;
+       optional_components = v_optional_components;
+       properties = v_properties;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_optional_components with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "optional_components", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__software_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement__managed_cluster__config__software_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__worker_config__accelerators = {
   accelerator_count : float prop option; [@option]
-      (** The number of the accelerator cards of this type exposed to this instance. *)
   accelerator_type : string prop option; [@option]
-      (** Full URL, partial URI, or short name of the accelerator type resource to expose to this instance. See [Compute Engine AcceleratorTypes](https://cloud.google.com/compute/docs/reference/beta/acceleratorTypes). Examples: * `https://www.googleapis.com/compute/beta/projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80` * `projects/[project_id]/zones/us-east1-a/acceleratorTypes/nvidia-tesla-k80` * `nvidia-tesla-k80` **Auto Zone Exception**: If you are using the Dataproc [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement) feature, you must use the short name of the accelerator type resource, for example, `nvidia-tesla-k80`. *)
 }
-[@@deriving yojson_of]
-(** Optional. The Compute Engine accelerator configuration for these instances. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__worker_config__accelerators) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__worker_config__accelerators
+    =
+  (function
+   | {
+       accelerator_count = v_accelerator_count;
+       accelerator_type = v_accelerator_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_accelerator_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "accelerator_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accelerator_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "accelerator_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__worker_config__accelerators ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__worker_config__accelerators
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__worker_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
-      (** Optional. Size in GB of the boot disk (default is 500GB). *)
   boot_disk_type : string prop option; [@option]
-      (** Optional. Type of the boot disk (default is pd-standard). Valid values: pd-balanced (Persistent Disk Balanced Solid State Drive), pd-ssd (Persistent Disk Solid State Drive), or pd-standard (Persistent Disk Hard Disk Drive). See [Disk types](https://cloud.google.com/compute/docs/disks#disk-types). *)
   num_local_ssds : float prop option; [@option]
-      (** Optional. Number of attached SSDs, from 0 to 4 (default is 0). If SSDs are not attached, the boot disk is used to store runtime logs and [HDFS](https://hadoop.apache.org/docs/r1.2.1/hdfs_user_guide.html) data. If one or more SSDs are attached, this runtime bulk data is spread across them, and the boot disk contains only basic config and installed binaries. *)
 }
-[@@deriving yojson_of]
-(** Optional. Disk option config settings. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__worker_config__disk_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__worker_config__disk_config
+    =
+  (function
+   | {
+       boot_disk_size_gb = v_boot_disk_size_gb;
+       boot_disk_type = v_boot_disk_type;
+       num_local_ssds = v_num_local_ssds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_num_local_ssds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "boot_disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "boot_disk_size_gb", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__worker_config__disk_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__worker_config__disk_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__worker_config__managed_group_config = {
   instance_group_manager_name : string prop;
-      (** instance_group_manager_name *)
-  instance_template_name : string prop;  (** instance_template_name *)
+  instance_template_name : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       placement__managed_cluster__config__worker_config__managed_group_config) ->
+  ()
+
+let yojson_of_placement__managed_cluster__config__worker_config__managed_group_config
+    =
+  (function
+   | {
+       instance_group_manager_name = v_instance_group_manager_name;
+       instance_template_name = v_instance_template_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_instance_template_name
+         in
+         ("instance_template_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_instance_group_manager_name
+         in
+         ("instance_group_manager_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__worker_config__managed_group_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_placement__managed_cluster__config__worker_config__managed_group_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config__worker_config = {
   image : string prop option; [@option]
-      (** Optional. The Compute Engine image resource used for cluster instances. The URI can represent an image or image family. Image examples: * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/[image-id]` * `projects/[project_id]/global/images/[image-id]` * `image-id` Image family examples. Dataproc will use the most recent image from the family: * `https://www.googleapis.com/compute/beta/projects/[project_id]/global/images/family/[custom-image-family-name]` * `projects/[project_id]/global/images/family/[custom-image-family-name]` If the URI is unspecified, it will be inferred from `SoftwareConfig.image_version` or the system default. *)
   machine_type : string prop option; [@option]
-      (** Optional. The Compute Engine machine type used for cluster instances. A full URL, partial URI, or short name are valid. Examples: * `https://www.googleapis.com/compute/v1/projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2` * `projects/[project_id]/zones/us-east1-a/machineTypes/n1-standard-2` * `n1-standard-2` **Auto Zone Exception**: If you are using the Dataproc [Auto Zone Placement](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/auto-zone#using_auto_zone_placement) feature, you must use the short name of the machine type resource, for example, `n1-standard-2`. *)
   min_cpu_platform : string prop option; [@option]
-      (** Optional. Specifies the minimum cpu platform for the Instance Group. See [Dataproc -> Minimum CPU Platform](https://cloud.google.com/dataproc/docs/concepts/compute/dataproc-min-cpu). *)
   num_instances : float prop option; [@option]
-      (** Optional. The number of VM instances in the instance group. For [HA cluster](/dataproc/docs/concepts/configuring-clusters/high-availability) [master_config](#FIELDS.master_config) groups, **must be set to 3**. For standard cluster [master_config](#FIELDS.master_config) groups, **must be set to 1**. *)
   preemptibility : string prop option; [@option]
-      (** Optional. Specifies the preemptibility of the instance group. The default value for master and worker groups is `NON_PREEMPTIBLE`. This default cannot be changed. The default value for secondary instances is `PREEMPTIBLE`. Possible values: PREEMPTIBILITY_UNSPECIFIED, NON_PREEMPTIBLE, PREEMPTIBLE *)
   accelerators :
     placement__managed_cluster__config__worker_config__accelerators
     list;
@@ -588,14 +2958,92 @@ type placement__managed_cluster__config__worker_config = {
     placement__managed_cluster__config__worker_config__disk_config
     list;
 }
-[@@deriving yojson_of]
-(** Optional. The Compute Engine config settings for worker instances in a cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : placement__managed_cluster__config__worker_config) -> ()
+
+let yojson_of_placement__managed_cluster__config__worker_config =
+  (function
+   | {
+       image = v_image;
+       machine_type = v_machine_type;
+       min_cpu_platform = v_min_cpu_platform;
+       num_instances = v_num_instances;
+       preemptibility = v_preemptibility;
+       accelerators = v_accelerators;
+       disk_config = v_disk_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__worker_config__disk_config
+             v_disk_config
+         in
+         ("disk_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__worker_config__accelerators
+             v_accelerators
+         in
+         ("accelerators", arg) :: bnds
+       in
+       let bnds =
+         match v_preemptibility with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preemptibility", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config__worker_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement__managed_cluster__config__worker_config
+
+[@@@deriving.end]
 
 type placement__managed_cluster__config = {
   staging_bucket : string prop option; [@option]
-      (** Optional. A Cloud Storage bucket used to stage job dependencies, config files, and job driver console output. If you do not specify a staging bucket, Cloud Dataproc will determine a Cloud Storage location (US, ASIA, or EU) for your cluster's staging bucket according to the Compute Engine zone where your cluster is deployed, and then create and manage this project-level, per-location bucket (see [Dataproc staging bucket](https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/staging-bucket)). **This field requires a Cloud Storage bucket name, not a URI to a Cloud Storage bucket.** *)
   temp_bucket : string prop option; [@option]
-      (** Optional. A Cloud Storage bucket used to store ephemeral cluster and jobs data, such as Spark and MapReduce history files. If you do not specify a temp bucket, Dataproc will determine a Cloud Storage location (US, ASIA, or EU) for your cluster's temp bucket according to the Compute Engine zone where your cluster is deployed, and then create and manage this project-level, per-location bucket. The default bucket has a TTL of 90 days, but you can use any TTL (or none) if you specify a bucket. **This field requires a Cloud Storage bucket name, not a URI to a Cloud Storage bucket.** *)
   autoscaling_config :
     placement__managed_cluster__config__autoscaling_config list;
   encryption_config :
@@ -619,57 +3067,395 @@ type placement__managed_cluster__config = {
   worker_config :
     placement__managed_cluster__config__worker_config list;
 }
-[@@deriving yojson_of]
-(** Required. The cluster configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : placement__managed_cluster__config) -> ()
+
+let yojson_of_placement__managed_cluster__config =
+  (function
+   | {
+       staging_bucket = v_staging_bucket;
+       temp_bucket = v_temp_bucket;
+       autoscaling_config = v_autoscaling_config;
+       encryption_config = v_encryption_config;
+       endpoint_config = v_endpoint_config;
+       gce_cluster_config = v_gce_cluster_config;
+       initialization_actions = v_initialization_actions;
+       lifecycle_config = v_lifecycle_config;
+       master_config = v_master_config;
+       secondary_worker_config = v_secondary_worker_config;
+       security_config = v_security_config;
+       software_config = v_software_config;
+       worker_config = v_worker_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__worker_config
+             v_worker_config
+         in
+         ("worker_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__software_config
+             v_software_config
+         in
+         ("software_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__security_config
+             v_security_config
+         in
+         ("security_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__secondary_worker_config
+             v_secondary_worker_config
+         in
+         ("secondary_worker_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__master_config
+             v_master_config
+         in
+         ("master_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__lifecycle_config
+             v_lifecycle_config
+         in
+         ("lifecycle_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__initialization_actions
+             v_initialization_actions
+         in
+         ("initialization_actions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__gce_cluster_config
+             v_gce_cluster_config
+         in
+         ("gce_cluster_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__endpoint_config
+             v_endpoint_config
+         in
+         ("endpoint_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__encryption_config
+             v_encryption_config
+         in
+         ("encryption_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config__autoscaling_config
+             v_autoscaling_config
+         in
+         ("autoscaling_config", arg) :: bnds
+       in
+       let bnds =
+         match v_temp_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "temp_bucket", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_staging_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "staging_bucket", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster__config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement__managed_cluster__config
+
+[@@@deriving.end]
 
 type placement__managed_cluster = {
   cluster_name : string prop;
-      (** Required. The cluster name prefix. A unique cluster name will be formed by appending a random suffix. The name must contain only lower-case letters (a-z), numbers (0-9), and hyphens (-). Must begin with a letter. Cannot begin or end with hyphen. Must consist of between 2 and 35 characters. *)
   labels : (string * string prop) list option; [@option]
-      (** Optional. The labels to associate with this cluster. Label keys must be between 1 and 63 characters long, and must conform to the following PCRE regular expression: p{Ll}p{Lo}{0,62} Label values must be between 1 and 63 characters long, and must conform to the following PCRE regular expression: [p{Ll}p{Lo}p{N}_-]{0,63} No more than 32 labels can be associated with a given cluster. *)
   config : placement__managed_cluster__config list;
 }
-[@@deriving yojson_of]
-(** A cluster that is managed by the workflow. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : placement__managed_cluster) -> ()
+
+let yojson_of_placement__managed_cluster =
+  (function
+   | {
+       cluster_name = v_cluster_name;
+       labels = v_labels;
+       config = v_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_placement__managed_cluster__config v_config
+         in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_name in
+         ("cluster_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : placement__managed_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement__managed_cluster
+
+[@@@deriving.end]
 
 type placement = {
   cluster_selector : placement__cluster_selector list;
   managed_cluster : placement__managed_cluster list;
 }
-[@@deriving yojson_of]
-(** Required. WorkflowTemplate scheduling information. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : placement) -> ()
+
+let yojson_of_placement =
+  (function
+   | {
+       cluster_selector = v_cluster_selector;
+       managed_cluster = v_managed_cluster;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_placement__managed_cluster
+             v_managed_cluster
+         in
+         ("managed_cluster", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_placement__cluster_selector
+             v_cluster_selector
+         in
+         ("cluster_selector", arg) :: bnds
+       in
+       `Assoc bnds
+    : placement -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_dataproc_workflow_template = {
   dag_timeout : string prop option; [@option]
-      (** Optional. Timeout duration for the DAG of jobs, expressed in seconds (see [JSON representation of duration](https://developers.google.com/protocol-buffers/docs/proto3#json)). The timeout duration must be from 10 minutes (600s) to 24 hours (86400s). The timer begins when the first job is submitted. If the workflow is running at the end of the timeout period, any remaining jobs are cancelled, the workflow is ended, and if the workflow was running on a [managed cluster](/dataproc/docs/concepts/workflows/using-workflows#configuring_or_selecting_a_cluster), the cluster is deleted. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Optional. The labels to associate with this template. These labels will be propagated to all jobs and clusters created by the workflow instance. Label **keys** must contain 1 to 63 characters, and must conform to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt). Label **values** may be empty, but, if present, must contain 1 to 63 characters, and must conform to [RFC 1035](https://www.ietf.org/rfc/rfc1035.txt). No more than 32 labels can be associated with a template.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field `effective_labels` for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
+  location : string prop;
   name : string prop;
-      (** Output only. The resource name of the workflow template, as described in https://cloud.google.com/apis/design/resource_names. * For `projects.regions.workflowTemplates`, the resource name of the template has the following format: `projects/{project_id}/regions/{region}/workflowTemplates/{template_id}` * For `projects.locations.workflowTemplates`, the resource name of the template has the following format: `projects/{project_id}/locations/{location}/workflowTemplates/{template_id}` *)
   project : string prop option; [@option]
-      (** The project for the resource *)
   version : float prop option; [@option]
-      (** Output only. The current version of this workflow template. *)
   jobs : jobs list;
   parameters : parameters list;
   placement : placement list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dataproc_workflow_template *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dataproc_workflow_template) -> ()
+
+let yojson_of_google_dataproc_workflow_template =
+  (function
+   | {
+       dag_timeout = v_dag_timeout;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       version = v_version;
+       jobs = v_jobs;
+       parameters = v_parameters;
+       placement = v_placement;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_placement v_placement in
+         ("placement", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_parameters v_parameters
+         in
+         ("parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_jobs v_jobs in
+         ("jobs", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dag_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dag_timeout", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dataproc_workflow_template ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dataproc_workflow_template
+
+[@@@deriving.end]
 
 let jobs__hadoop_job__logging_config ?driver_log_levels () :
     jobs__hadoop_job__logging_config =

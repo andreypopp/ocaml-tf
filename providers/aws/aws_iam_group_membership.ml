@@ -3,13 +3,50 @@
 open! Tf_core
 
 type aws_iam_group_membership = {
-  group : string prop;  (** group *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  users : string prop list;  (** users *)
+  group : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  users : string prop list;
 }
-[@@deriving yojson_of]
-(** aws_iam_group_membership *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_group_membership) -> ()
+
+let yojson_of_aws_iam_group_membership =
+  (function
+   | { group = v_group; id = v_id; name = v_name; users = v_users }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_users
+         in
+         ("users", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group in
+         ("group", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_group_membership -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_group_membership
+
+[@@@deriving.end]
 
 let aws_iam_group_membership ?id ~group ~name ~users () :
     aws_iam_group_membership =

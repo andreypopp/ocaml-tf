@@ -3,38 +3,173 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_edgenetwork_subnet = {
   description : string prop option; [@option]
-      (** A free-text description of the resource. Max length 1024 characters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ipv4_cidr : string prop list option; [@option]
-      (** The ranges of ipv4 addresses that are owned by this subnetwork, in CIDR format. *)
   ipv6_cidr : string prop list option; [@option]
-      (** The ranges of ipv6 addresses that are owned by this subnetwork, in CIDR format. *)
   labels : (string * string prop) list option; [@option]
-      (** Labels associated with this resource. *)
   location : string prop;
-      (** The Google Cloud region to which the target Distributed Cloud Edge zone belongs. *)
   network : string prop;
-      (** The ID of the network to which this router belongs.
-Must be of the form: 'projects/{{project}}/locations/{{location}}/zones/{{zone}}/networks/{{network_id}}' *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   subnet_id : string prop;
-      (** A unique ID that identifies this subnet. *)
   vlan_id : float prop option; [@option]
-      (** VLAN ID for this subnetwork. If not specified, one is assigned automatically. *)
   zone : string prop;
-      (** The name of the target Distributed Cloud Edge zone. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_edgenetwork_subnet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_edgenetwork_subnet) -> ()
+
+let yojson_of_google_edgenetwork_subnet =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       ipv4_cidr = v_ipv4_cidr;
+       ipv6_cidr = v_ipv6_cidr;
+       labels = v_labels;
+       location = v_location;
+       network = v_network;
+       project = v_project;
+       subnet_id = v_subnet_id;
+       vlan_id = v_vlan_id;
+       zone = v_zone;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone in
+         ("zone", arg) :: bnds
+       in
+       let bnds =
+         match v_vlan_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "vlan_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_cidr with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ipv6_cidr", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv4_cidr with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ipv4_cidr", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_edgenetwork_subnet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_edgenetwork_subnet
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

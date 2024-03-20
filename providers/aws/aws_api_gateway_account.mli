@@ -9,6 +9,8 @@ type throttle_settings = {
   rate_limit : float prop;  (** rate_limit *)
 }
 
+[@@@deriving.end]
+
 type aws_api_gateway_account
 
 val aws_api_gateway_account :

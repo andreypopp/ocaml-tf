@@ -2,27 +2,130 @@
 
 open! Tf_core
 
-type control_sets__controls = { id : string prop  (** id *) }
-[@@deriving yojson_of]
-(** control_sets__controls *)
+type control_sets__controls = { id : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_sets__controls) -> ()
+
+let yojson_of_control_sets__controls =
+  (function
+   | { id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_sets__controls -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_sets__controls
+
+[@@@deriving.end]
 
 type control_sets = {
-  name : string prop;  (** name *)
+  name : string prop;
   controls : control_sets__controls list;
 }
-[@@deriving yojson_of]
-(** control_sets *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_sets) -> ()
+
+let yojson_of_control_sets =
+  (function
+   | { name = v_name; controls = v_controls } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_sets__controls v_controls
+         in
+         ("controls", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_sets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_sets
+
+[@@@deriving.end]
 
 type aws_auditmanager_framework = {
   compliance_type : string prop option; [@option]
-      (** compliance_type *)
-  description : string prop option; [@option]  (** description *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   control_sets : control_sets list;
 }
-[@@deriving yojson_of]
-(** aws_auditmanager_framework *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_auditmanager_framework) -> ()
+
+let yojson_of_aws_auditmanager_framework =
+  (function
+   | {
+       compliance_type = v_compliance_type;
+       description = v_description;
+       name = v_name;
+       tags = v_tags;
+       control_sets = v_control_sets;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_sets v_control_sets
+         in
+         ("control_sets", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compliance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compliance_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_auditmanager_framework -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_auditmanager_framework
+
+[@@@deriving.end]
 
 let control_sets__controls ~id () : control_sets__controls = { id }
 

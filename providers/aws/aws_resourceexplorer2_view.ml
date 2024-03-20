@@ -2,23 +2,118 @@
 
 open! Tf_core
 
-type filters = { filter_string : string prop  (** filter_string *) }
-[@@deriving yojson_of]
-(** filters *)
+type filters = { filter_string : string prop }
+[@@deriving_inline yojson_of]
 
-type included_property = { name : string prop  (** name *) }
-[@@deriving yojson_of]
-(** included_property *)
+let _ = fun (_ : filters) -> ()
+
+let yojson_of_filters =
+  (function
+   | { filter_string = v_filter_string } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter_string in
+         ("filter_string", arg) :: bnds
+       in
+       `Assoc bnds
+    : filters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filters
+
+[@@@deriving.end]
+
+type included_property = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : included_property) -> ()
+
+let yojson_of_included_property =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : included_property -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_included_property
+
+[@@@deriving.end]
 
 type aws_resourceexplorer2_view = {
-  default_view : bool prop option; [@option]  (** default_view *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  default_view : bool prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   filters : filters list;
   included_property : included_property list;
 }
-[@@deriving yojson_of]
-(** aws_resourceexplorer2_view *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_resourceexplorer2_view) -> ()
+
+let yojson_of_aws_resourceexplorer2_view =
+  (function
+   | {
+       default_view = v_default_view;
+       name = v_name;
+       tags = v_tags;
+       filters = v_filters;
+       included_property = v_included_property;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_included_property
+             v_included_property
+         in
+         ("included_property", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_filters v_filters in
+         ("filters", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_default_view with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "default_view", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_resourceexplorer2_view -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_resourceexplorer2_view
+
+[@@@deriving.end]
 
 let filters ~filter_string () : filters = { filter_string }
 let included_property ~name () : included_property = { name }

@@ -4,11 +4,44 @@ open! Tf_core
 
 type aws_backup_global_settings = {
   global_settings : (string * string prop) list;
-      (** global_settings *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_backup_global_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_backup_global_settings) -> ()
+
+let yojson_of_aws_backup_global_settings =
+  (function
+   | { global_settings = v_global_settings; id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_global_settings
+         in
+         ("global_settings", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_backup_global_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_backup_global_settings
+
+[@@@deriving.end]
 
 let aws_backup_global_settings ?id ~global_settings () :
     aws_backup_global_settings =

@@ -4,22 +4,131 @@ open! Tf_core
 
 type aws_organizations_account = {
   close_on_deletion : bool prop option; [@option]
-      (** close_on_deletion *)
   create_govcloud : bool prop option; [@option]
-      (** create_govcloud *)
-  email : string prop;  (** email *)
+  email : string prop;
   iam_user_access_to_billing : string prop option; [@option]
-      (** iam_user_access_to_billing *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  parent_id : string prop option; [@option]  (** parent_id *)
-  role_name : string prop option; [@option]  (** role_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  name : string prop;
+  parent_id : string prop option; [@option]
+  role_name : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_organizations_account *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_organizations_account) -> ()
+
+let yojson_of_aws_organizations_account =
+  (function
+   | {
+       close_on_deletion = v_close_on_deletion;
+       create_govcloud = v_create_govcloud;
+       email = v_email;
+       iam_user_access_to_billing = v_iam_user_access_to_billing;
+       id = v_id;
+       name = v_name;
+       parent_id = v_parent_id;
+       role_name = v_role_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parent_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parent_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iam_user_access_to_billing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "iam_user_access_to_billing", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email in
+         ("email", arg) :: bnds
+       in
+       let bnds =
+         match v_create_govcloud with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "create_govcloud", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_close_on_deletion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "close_on_deletion", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_organizations_account -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_organizations_account
+
+[@@@deriving.end]
 
 let aws_organizations_account ?close_on_deletion ?create_govcloud
     ?iam_user_access_to_billing ?id ?parent_id ?role_name ?tags

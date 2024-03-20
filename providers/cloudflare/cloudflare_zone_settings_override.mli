@@ -12,17 +12,23 @@ type initial_settings__security_header = {
   preload : bool prop;  (** preload *)
 }
 
+[@@@deriving.end]
+
 type initial_settings__mobile_redirect = {
   mobile_subdomain : string prop;  (** mobile_subdomain *)
   status : string prop;  (** status *)
   strip_uri : bool prop;  (** strip_uri *)
 }
 
+[@@@deriving.end]
+
 type initial_settings__minify = {
   css : string prop;  (** css *)
   html : string prop;  (** html *)
   js : string prop;  (** js *)
 }
+
+[@@@deriving.end]
 
 type initial_settings = {
   always_online : string prop;  (** always_online *)
@@ -90,6 +96,8 @@ type initial_settings = {
   websockets : string prop;  (** websockets *)
   zero_rtt : string prop;  (** zero_rtt *)
 }
+
+[@@@deriving.end]
 
 type settings__minify
 

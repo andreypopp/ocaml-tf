@@ -3,24 +3,24 @@
 open! Tf_core
 
 type timeouts = {
-  create: string  prop option; [@option] (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-  delete: string  prop option; [@option] (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
-  update: string  prop option; [@option] (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-} [@@deriving yojson_of]
-(** timeouts *)
+  create: string  prop option; [@option]
+  delete: string  prop option; [@option]
+  update: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type aws_quicksight_vpc_connection = {
-  aws_account_id: string  prop option; [@option] (** aws_account_id *)
-  dns_resolvers: string   prop list option; [@option] (** dns_resolvers *)
-  name: string prop;  (** name *)
-  role_arn: string prop;  (** role_arn *)
-  security_group_ids: string  prop list;  (** security_group_ids *)
-  subnet_ids: string  prop list;  (** subnet_ids *)
-  tags: (string * string   prop) list option; [@option] (** tags *)
-  vpc_connection_id: string prop;  (** vpc_connection_id *)
+  aws_account_id: string  prop option; [@option]
+  dns_resolvers: string   prop list option; [@option]
+  name: string prop; 
+  role_arn: string prop; 
+  security_group_ids: string  prop list; 
+  subnet_ids: string  prop list; 
+  tags: (string * string   prop) list option; [@option]
+  vpc_connection_id: string prop; 
   timeouts: timeouts option;
-} [@@deriving yojson_of]
-(** aws_quicksight_vpc_connection *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () =
   ({

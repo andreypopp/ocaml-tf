@@ -3,13 +3,61 @@
 open! Tf_core
 
 type aws_worklink_website_certificate_authority_association = {
-  certificate : string prop;  (** certificate *)
-  display_name : string prop option; [@option]  (** display_name *)
-  fleet_arn : string prop;  (** fleet_arn *)
-  id : string prop option; [@option]  (** id *)
+  certificate : string prop;
+  display_name : string prop option; [@option]
+  fleet_arn : string prop;
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_worklink_website_certificate_authority_association *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_worklink_website_certificate_authority_association) ->
+  ()
+
+let yojson_of_aws_worklink_website_certificate_authority_association
+    =
+  (function
+   | {
+       certificate = v_certificate;
+       display_name = v_display_name;
+       fleet_arn = v_fleet_arn;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_fleet_arn in
+         ("fleet_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_certificate in
+         ("certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_worklink_website_certificate_authority_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_aws_worklink_website_certificate_authority_association
+
+[@@@deriving.end]
 
 let aws_worklink_website_certificate_authority_association
     ?display_name ?id ~certificate ~fleet_arn () :

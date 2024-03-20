@@ -4,30 +4,136 @@ open! Tf_core
 
 type rule__apply_server_side_encryption_by_default = {
   kms_master_key_id : string prop option; [@option]
-      (** kms_master_key_id *)
-  sse_algorithm : string prop;  (** sse_algorithm *)
+  sse_algorithm : string prop;
 }
-[@@deriving yojson_of]
-(** rule__apply_server_side_encryption_by_default *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule__apply_server_side_encryption_by_default) -> ()
+
+let yojson_of_rule__apply_server_side_encryption_by_default =
+  (function
+   | {
+       kms_master_key_id = v_kms_master_key_id;
+       sse_algorithm = v_sse_algorithm;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sse_algorithm in
+         ("sse_algorithm", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_master_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_master_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule__apply_server_side_encryption_by_default ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule__apply_server_side_encryption_by_default
+
+[@@@deriving.end]
 
 type rule = {
   bucket_key_enabled : bool prop option; [@option]
-      (** bucket_key_enabled *)
   apply_server_side_encryption_by_default :
     rule__apply_server_side_encryption_by_default list;
 }
-[@@deriving yojson_of]
-(** rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule) -> ()
+
+let yojson_of_rule =
+  (function
+   | {
+       bucket_key_enabled = v_bucket_key_enabled;
+       apply_server_side_encryption_by_default =
+         v_apply_server_side_encryption_by_default;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rule__apply_server_side_encryption_by_default
+             v_apply_server_side_encryption_by_default
+         in
+         ("apply_server_side_encryption_by_default", arg) :: bnds
+       in
+       let bnds =
+         match v_bucket_key_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bucket_key_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule
+
+[@@@deriving.end]
 
 type aws_s3_bucket_server_side_encryption_configuration = {
-  bucket : string prop;  (** bucket *)
+  bucket : string prop;
   expected_bucket_owner : string prop option; [@option]
-      (** expected_bucket_owner *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   rule : rule list;
 }
-[@@deriving yojson_of]
-(** aws_s3_bucket_server_side_encryption_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_s3_bucket_server_side_encryption_configuration) -> ()
+
+let yojson_of_aws_s3_bucket_server_side_encryption_configuration =
+  (function
+   | {
+       bucket = v_bucket;
+       expected_bucket_owner = v_expected_bucket_owner;
+       id = v_id;
+       rule = v_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rule v_rule in
+         ("rule", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expected_bucket_owner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expected_bucket_owner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_s3_bucket_server_side_encryption_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3_bucket_server_side_encryption_configuration
+
+[@@@deriving.end]
 
 let rule__apply_server_side_encryption_by_default ?kms_master_key_id
     ~sse_algorithm () : rule__apply_server_side_encryption_by_default

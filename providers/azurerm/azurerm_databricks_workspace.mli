@@ -10,11 +10,15 @@ type managed_disk_identity = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+[@@@deriving.end]
+
 type storage_account_identity = {
   principal_id : string prop;  (** principal_id *)
   tenant_id : string prop;  (** tenant_id *)
   type_ : string prop; [@key "type"]  (** type *)
 }
+
+[@@@deriving.end]
 
 type custom_parameters
 

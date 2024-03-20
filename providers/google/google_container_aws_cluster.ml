@@ -2,116 +2,402 @@
 
 open! Tf_core
 
-type authorization__admin_groups = {
-  group : string prop;
-      (** The name of the group, e.g. `my-group@domain.com`. *)
-}
-[@@deriving yojson_of]
-(** Groups of users that can perform operations as a cluster admin. A managed ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole to the groups. Up to ten admin groups can be provided. For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles *)
+type authorization__admin_groups = { group : string prop }
+[@@deriving_inline yojson_of]
 
-type authorization__admin_users = {
-  username : string prop;
-      (** The name of the user, e.g. `my-gcp-id@gmail.com`. *)
-}
-[@@deriving yojson_of]
-(** Users to perform operations as a cluster admin. A managed ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole to the users. Up to ten admin users can be provided. For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles *)
+let _ = fun (_ : authorization__admin_groups) -> ()
+
+let yojson_of_authorization__admin_groups =
+  (function
+   | { group = v_group } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group in
+         ("group", arg) :: bnds
+       in
+       `Assoc bnds
+    : authorization__admin_groups ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authorization__admin_groups
+
+[@@@deriving.end]
+
+type authorization__admin_users = { username : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : authorization__admin_users) -> ()
+
+let yojson_of_authorization__admin_users =
+  (function
+   | { username = v_username } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       `Assoc bnds
+    : authorization__admin_users -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authorization__admin_users
+
+[@@@deriving.end]
 
 type authorization = {
   admin_groups : authorization__admin_groups list;
   admin_users : authorization__admin_users list;
 }
-[@@deriving yojson_of]
-(** Configuration related to the cluster RBAC settings. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : authorization) -> ()
+
+let yojson_of_authorization =
+  (function
+   | { admin_groups = v_admin_groups; admin_users = v_admin_users }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authorization__admin_users
+             v_admin_users
+         in
+         ("admin_users", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authorization__admin_groups
+             v_admin_groups
+         in
+         ("admin_groups", arg) :: bnds
+       in
+       `Assoc bnds
+    : authorization -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authorization
+
+[@@@deriving.end]
 
 type binary_authorization = {
   evaluation_mode : string prop option; [@option]
-      (** Mode of operation for Binary Authorization policy evaluation. Possible values: DISABLED, PROJECT_SINGLETON_POLICY_ENFORCE *)
 }
-[@@deriving yojson_of]
-(** Configuration options for the Binary Authorization feature. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : binary_authorization) -> ()
+
+let yojson_of_binary_authorization =
+  (function
+   | { evaluation_mode = v_evaluation_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_evaluation_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "evaluation_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : binary_authorization -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_binary_authorization
+
+[@@@deriving.end]
 
 type control_plane__aws_services_authentication = {
   role_arn : string prop;
-      (** The Amazon Resource Name (ARN) of the role that the Anthos Multi-Cloud API will assume when managing AWS resources on your account. *)
   role_session_name : string prop option; [@option]
-      (** Optional. An identifier for the assumed role session. When unspecified, it defaults to `multicloud-service-agent`. *)
 }
-[@@deriving yojson_of]
-(** Authentication configuration for management of AWS resources. *)
+[@@deriving_inline yojson_of]
 
-type control_plane__config_encryption = {
-  kms_key_arn : string prop;
-      (** The ARN of the AWS KMS key used to encrypt cluster configuration. *)
-}
-[@@deriving yojson_of]
-(** The ARN of the AWS KMS key used to encrypt cluster configuration. *)
+let _ = fun (_ : control_plane__aws_services_authentication) -> ()
+
+let yojson_of_control_plane__aws_services_authentication =
+  (function
+   | {
+       role_arn = v_role_arn;
+       role_session_name = v_role_session_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_role_session_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_session_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__aws_services_authentication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__aws_services_authentication
+
+[@@@deriving.end]
+
+type control_plane__config_encryption = { kms_key_arn : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__config_encryption) -> ()
+
+let yojson_of_control_plane__config_encryption =
+  (function
+   | { kms_key_arn = v_kms_key_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_arn in
+         ("kms_key_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__config_encryption ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__config_encryption
+
+[@@@deriving.end]
 
 type control_plane__database_encryption = {
   kms_key_arn : string prop;
-      (** The ARN of the AWS KMS key used to encrypt cluster secrets. *)
 }
-[@@deriving yojson_of]
-(** The ARN of the AWS KMS key used to encrypt cluster secrets. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__database_encryption) -> ()
+
+let yojson_of_control_plane__database_encryption =
+  (function
+   | { kms_key_arn = v_kms_key_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_arn in
+         ("kms_key_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__database_encryption ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__database_encryption
+
+[@@@deriving.end]
 
 type control_plane__main_volume = {
   iops : float prop option; [@option]
-      (** Optional. The number of I/O operations per second (IOPS) to provision for GP3 volume. *)
   kms_key_arn : string prop option; [@option]
-      (** Optional. The Amazon Resource Name (ARN) of the Customer Managed Key (CMK) used to encrypt AWS EBS volumes. If not specified, the default Amazon managed key associated to the AWS region where this cluster runs will be used. *)
   size_gib : float prop option; [@option]
-      (** Optional. The size of the volume, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource. *)
   throughput : float prop option; [@option]
-      (** Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3. If volume type is gp3 and throughput is not specified, the throughput will defaults to 125. *)
   volume_type : string prop option; [@option]
-      (** Optional. Type of the EBS volume. When unspecified, it defaults to GP2 volume. Possible values: VOLUME_TYPE_UNSPECIFIED, GP2, GP3 *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration related to the main volume provisioned for each control plane replica. The main volume is in charge of storing all of the cluster's etcd state. Volumes will be provisioned in the availability zone associated with the corresponding subnet. When unspecified, it defaults to 8 GiB with the GP2 volume type. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__main_volume) -> ()
+
+let yojson_of_control_plane__main_volume =
+  (function
+   | {
+       iops = v_iops;
+       kms_key_arn = v_kms_key_arn;
+       size_gib = v_size_gib;
+       throughput = v_throughput;
+       volume_type = v_volume_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_volume_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_throughput with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "throughput", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_size_gib with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "size_gib", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iops with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "iops", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane__main_volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__main_volume
+
+[@@@deriving.end]
 
 type control_plane__proxy_config = {
   secret_arn : string prop;
-      (** The ARN of the AWS Secret Manager secret that contains the HTTP(S) proxy configuration. *)
   secret_version : string prop;
-      (** The version string of the AWS Secret Manager secret that contains the HTTP(S) proxy configuration. *)
 }
-[@@deriving yojson_of]
-(** Proxy configuration for outbound HTTP(S) traffic. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__proxy_config) -> ()
+
+let yojson_of_control_plane__proxy_config =
+  (function
+   | { secret_arn = v_secret_arn; secret_version = v_secret_version }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_secret_version
+         in
+         ("secret_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_arn in
+         ("secret_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__proxy_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__proxy_config
+
+[@@@deriving.end]
 
 type control_plane__root_volume = {
   iops : float prop option; [@option]
-      (** Optional. The number of I/O operations per second (IOPS) to provision for GP3 volume. *)
   kms_key_arn : string prop option; [@option]
-      (** Optional. The Amazon Resource Name (ARN) of the Customer Managed Key (CMK) used to encrypt AWS EBS volumes. If not specified, the default Amazon managed key associated to the AWS region where this cluster runs will be used. *)
   size_gib : float prop option; [@option]
-      (** Optional. The size of the volume, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource. *)
   throughput : float prop option; [@option]
-      (** Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3. If volume type is gp3 and throughput is not specified, the throughput will defaults to 125. *)
   volume_type : string prop option; [@option]
-      (** Optional. Type of the EBS volume. When unspecified, it defaults to GP2 volume. Possible values: VOLUME_TYPE_UNSPECIFIED, GP2, GP3 *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration related to the root volume provisioned for each control plane replica. Volumes will be provisioned in the availability zone associated with the corresponding subnet. When unspecified, it defaults to 32 GiB with the GP2 volume type. *)
+[@@deriving_inline yojson_of]
 
-type control_plane__ssh_config = {
-  ec2_key_pair : string prop;
-      (** The name of the EC2 key pair used to login into cluster machines. *)
-}
-[@@deriving yojson_of]
-(** Optional. SSH configuration for how to access the underlying control plane machines. *)
+let _ = fun (_ : control_plane__root_volume) -> ()
+
+let yojson_of_control_plane__root_volume =
+  (function
+   | {
+       iops = v_iops;
+       kms_key_arn = v_kms_key_arn;
+       size_gib = v_size_gib;
+       throughput = v_throughput;
+       volume_type = v_volume_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_volume_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_throughput with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "throughput", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_size_gib with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "size_gib", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iops with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "iops", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane__root_volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__root_volume
+
+[@@@deriving.end]
+
+type control_plane__ssh_config = { ec2_key_pair : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__ssh_config) -> ()
+
+let yojson_of_control_plane__ssh_config =
+  (function
+   | { ec2_key_pair = v_ec2_key_pair } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ec2_key_pair in
+         ("ec2_key_pair", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__ssh_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__ssh_config
+
+[@@@deriving.end]
 
 type control_plane = {
   iam_instance_profile : string prop;
-      (** The name of the AWS IAM instance pofile to assign to each control plane replica. *)
   instance_type : string prop option; [@option]
-      (** Optional. The AWS instance type. When unspecified, it defaults to `m5.large`. *)
   security_group_ids : string prop list option; [@option]
-      (** Optional. The IDs of additional security groups to add to control plane replicas. The Anthos Multi-Cloud API will automatically create and manage security groups with the minimum rules needed for a functioning cluster. *)
   subnet_ids : string prop list;
-      (** The list of subnets where control plane replicas will run. A replica will be provisioned on each subnet and up to three values can be provided. Each subnet must be in a different AWS Availability Zone (AZ). *)
   tags : (string * string prop) list option; [@option]
-      (** Optional. A set of AWS resource tags to propagate to all underlying managed AWS resources. Specify at most 50 pairs containing alphanumerics, spaces, and symbols (.+-=_:@/). Keys can be up to 127 Unicode characters. Values can be up to 255 Unicode characters. *)
   version : string prop;
-      (** The Kubernetes version to run on control plane replicas (e.g. `1.19.10-gke.1000`). You can list all supported versions on a given Google Cloud region by calling . *)
   aws_services_authentication :
     control_plane__aws_services_authentication list;
   config_encryption : control_plane__config_encryption list;
@@ -121,59 +407,317 @@ type control_plane = {
   root_volume : control_plane__root_volume list;
   ssh_config : control_plane__ssh_config list;
 }
-[@@deriving yojson_of]
-(** Configuration related to the cluster control plane. *)
+[@@deriving_inline yojson_of]
 
-type fleet = {
-  project : string prop option; [@option]
-      (** The number of the Fleet host project where this cluster will be registered. *)
-}
-[@@deriving yojson_of]
-(** Fleet configuration. *)
+let _ = fun (_ : control_plane) -> ()
+
+let yojson_of_control_plane =
+  (function
+   | {
+       iam_instance_profile = v_iam_instance_profile;
+       instance_type = v_instance_type;
+       security_group_ids = v_security_group_ids;
+       subnet_ids = v_subnet_ids;
+       tags = v_tags;
+       version = v_version;
+       aws_services_authentication = v_aws_services_authentication;
+       config_encryption = v_config_encryption;
+       database_encryption = v_database_encryption;
+       main_volume = v_main_volume;
+       proxy_config = v_proxy_config;
+       root_volume = v_root_volume;
+       ssh_config = v_ssh_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__ssh_config
+             v_ssh_config
+         in
+         ("ssh_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__root_volume
+             v_root_volume
+         in
+         ("root_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__proxy_config
+             v_proxy_config
+         in
+         ("proxy_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__main_volume
+             v_main_volume
+         in
+         ("main_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_control_plane__database_encryption
+             v_database_encryption
+         in
+         ("database_encryption", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__config_encryption
+             v_config_encryption
+         in
+         ("config_encryption", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_control_plane__aws_services_authentication
+             v_aws_services_authentication
+         in
+         ("aws_services_authentication", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_iam_instance_profile
+         in
+         ("iam_instance_profile", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane
+
+[@@@deriving.end]
+
+type fleet = { project : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fleet) -> ()
+
+let yojson_of_fleet =
+  (function
+   | { project = v_project } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : fleet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fleet
+
+[@@@deriving.end]
 
 type networking = {
   per_node_pool_sg_rules_disabled : bool prop option; [@option]
-      (** Disable the per node pool subnet security group rules on the control plane security group. When set to true, you must also provide one or more security groups that ensure node pools are able to send requests to the control plane on TCP/443 and TCP/8132. Failure to do so may result in unavailable node pools. *)
   pod_address_cidr_blocks : string prop list;
-      (** All pods in the cluster are assigned an RFC1918 IPv4 address from these ranges. Only a single range is supported. This field cannot be changed after creation. *)
   service_address_cidr_blocks : string prop list;
-      (** All services in the cluster are assigned an RFC1918 IPv4 address from these ranges. Only a single range is supported. This field cannot be changed after creation. *)
   vpc_id : string prop;
-      (** The VPC associated with the cluster. All component clusters (i.e. control plane and node pools) run on a single VPC. This field cannot be changed after creation. *)
 }
-[@@deriving yojson_of]
-(** Cluster-wide networking configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : networking) -> ()
+
+let yojson_of_networking =
+  (function
+   | {
+       per_node_pool_sg_rules_disabled =
+         v_per_node_pool_sg_rules_disabled;
+       pod_address_cidr_blocks = v_pod_address_cidr_blocks;
+       service_address_cidr_blocks = v_service_address_cidr_blocks;
+       vpc_id = v_vpc_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_service_address_cidr_blocks
+         in
+         ("service_address_cidr_blocks", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_pod_address_cidr_blocks
+         in
+         ("pod_address_cidr_blocks", arg) :: bnds
+       in
+       let bnds =
+         match v_per_node_pool_sg_rules_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "per_node_pool_sg_rules_disabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : networking -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_networking
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type workload_identity_config = {
-  identity_provider : string prop;  (** identity_provider *)
-  issuer_uri : string prop;  (** issuer_uri *)
-  workload_pool : string prop;  (** workload_pool *)
+  identity_provider : string prop;
+  issuer_uri : string prop;
+  workload_pool : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : workload_identity_config) -> ()
+
+let yojson_of_workload_identity_config =
+  (function
+   | {
+       identity_provider = v_identity_provider;
+       issuer_uri = v_issuer_uri;
+       workload_pool = v_workload_pool;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workload_pool in
+         ("workload_pool", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_issuer_uri in
+         ("issuer_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_identity_provider
+         in
+         ("identity_provider", arg) :: bnds
+       in
+       `Assoc bnds
+    : workload_identity_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_workload_identity_config
+
+[@@@deriving.end]
 
 type google_container_aws_cluster = {
   annotations : (string * string prop) list option; [@option]
-      (** Optional. Annotations on the cluster. This field has the same restrictions as Kubernetes annotations. The total size of all keys and values combined is limited to 256k. Key can have 2 segments: prefix (optional) and name (required), separated by a slash (/). Prefix must be a DNS subdomain. Name must be 63 characters or less, begin and end with alphanumerics, with dashes (-), underscores (_), dots (.), and alphanumerics between.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
   aws_region : string prop;
-      (** The AWS region where the cluster runs. Each Google Cloud region supports a subset of nearby AWS regions. You can call to list all supported AWS regions within a given Google Cloud region. *)
   description : string prop option; [@option]
-      (** Optional. A human readable description of this cluster. Cannot be longer than 255 UTF-8 encoded bytes. *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location for the resource *)
-  name : string prop;  (** The name of this resource. *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
   project : string prop option; [@option]
-      (** The project for the resource *)
   authorization : authorization list;
   binary_authorization : binary_authorization list;
   control_plane : control_plane list;
@@ -181,8 +725,122 @@ Please refer to the field `effective_annotations` for all of the annotations pre
   networking : networking list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_container_aws_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_container_aws_cluster) -> ()
+
+let yojson_of_google_container_aws_cluster =
+  (function
+   | {
+       annotations = v_annotations;
+       aws_region = v_aws_region;
+       description = v_description;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       authorization = v_authorization;
+       binary_authorization = v_binary_authorization;
+       control_plane = v_control_plane;
+       fleet = v_fleet;
+       networking = v_networking;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_networking v_networking
+         in
+         ("networking", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_fleet v_fleet in
+         ("fleet", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane v_control_plane
+         in
+         ("control_plane", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_binary_authorization
+             v_binary_authorization
+         in
+         ("binary_authorization", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authorization v_authorization
+         in
+         ("authorization", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_aws_region in
+         ("aws_region", arg) :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_container_aws_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_container_aws_cluster
+
+[@@@deriving.end]
 
 let authorization__admin_groups ~group () :
     authorization__admin_groups =

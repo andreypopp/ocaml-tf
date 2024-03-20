@@ -5,7 +5,11 @@ build fmt:
 	dune $@
 
 .PHONY: gen
-gen: \
+gen: gen0
+	dune build @lint --auto-promote
+
+.PHONY: gen0
+gen0: \
 	gen_digitialocean_provider \
 	gen_aws_provider \
 	gen_azurerm_provider \

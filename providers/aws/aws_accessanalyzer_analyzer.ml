@@ -4,28 +4,150 @@ open! Tf_core
 
 type configuration__unused_access = {
   unused_access_age : float prop option; [@option]
-      (** unused_access_age *)
 }
-[@@deriving yojson_of]
-(** configuration__unused_access *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration__unused_access) -> ()
+
+let yojson_of_configuration__unused_access =
+  (function
+   | { unused_access_age = v_unused_access_age } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_unused_access_age with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "unused_access_age", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : configuration__unused_access ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__unused_access
+
+[@@@deriving.end]
 
 type configuration = {
   unused_access : configuration__unused_access list;
 }
-[@@deriving yojson_of]
-(** configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration) -> ()
+
+let yojson_of_configuration =
+  (function
+   | { unused_access = v_unused_access } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configuration__unused_access
+             v_unused_access
+         in
+         ("unused_access", arg) :: bnds
+       in
+       `Assoc bnds
+    : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration
+
+[@@@deriving.end]
 
 type aws_accessanalyzer_analyzer = {
-  analyzer_name : string prop;  (** analyzer_name *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  analyzer_name : string prop;
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]
   configuration : configuration list;
 }
-[@@deriving yojson_of]
-(** aws_accessanalyzer_analyzer *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_accessanalyzer_analyzer) -> ()
+
+let yojson_of_aws_accessanalyzer_analyzer =
+  (function
+   | {
+       analyzer_name = v_analyzer_name;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       type_ = v_type_;
+       configuration = v_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configuration v_configuration
+         in
+         ("configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_analyzer_name in
+         ("analyzer_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_accessanalyzer_analyzer ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_accessanalyzer_analyzer
+
+[@@@deriving.end]
 
 let configuration__unused_access ?unused_access_age () :
     configuration__unused_access =

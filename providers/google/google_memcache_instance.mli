@@ -11,6 +11,8 @@ type maintenance_schedule = {
   start_time : string prop;  (** start_time *)
 }
 
+[@@@deriving.end]
+
 type memcache_nodes = {
   host : string prop;  (** host *)
   node_id : string prop;  (** node_id *)
@@ -18,6 +20,8 @@ type memcache_nodes = {
   state : string prop;  (** state *)
   zone : string prop;  (** zone *)
 }
+
+[@@@deriving.end]
 
 type maintenance_policy__weekly_maintenance_window__start_time
 

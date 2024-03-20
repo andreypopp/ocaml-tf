@@ -9,11 +9,15 @@ type last_updated__error = {
   error_message : string prop;  (** error_message *)
 }
 
+[@@@deriving.end]
+
 type last_updated = {
   created_at : string prop;  (** created_at *)
   error : last_updated__error list;  (** error *)
   status : string prop;  (** status *)
 }
+
+[@@@deriving.end]
 
 type logging_configuration__dag_processing_logs
 

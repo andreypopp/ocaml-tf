@@ -2,54 +2,303 @@
 
 open! Tf_core
 
-type bgp_options = {
-  peer_asn : float prop option; [@option]  (** peer_asn *)
-}
-[@@deriving yojson_of]
-(** bgp_options *)
+type bgp_options = { peer_asn : float prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bgp_options) -> ()
+
+let yojson_of_bgp_options =
+  (function
+   | { peer_asn = v_peer_asn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_peer_asn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "peer_asn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : bgp_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bgp_options
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type configuration__bgp_configurations = {
-  core_network_address : string prop;  (** core_network_address *)
-  core_network_asn : float prop;  (** core_network_asn *)
-  peer_address : string prop;  (** peer_address *)
-  peer_asn : float prop;  (** peer_asn *)
+  core_network_address : string prop;
+  core_network_asn : float prop;
+  peer_address : string prop;
+  peer_asn : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration__bgp_configurations) -> ()
+
+let yojson_of_configuration__bgp_configurations =
+  (function
+   | {
+       core_network_address = v_core_network_address;
+       core_network_asn = v_core_network_asn;
+       peer_address = v_peer_address;
+       peer_asn = v_peer_asn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_peer_asn in
+         ("peer_asn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_peer_address in
+         ("peer_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_core_network_asn
+         in
+         ("core_network_asn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_core_network_address
+         in
+         ("core_network_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : configuration__bgp_configurations ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration__bgp_configurations
+
+[@@@deriving.end]
 
 type configuration = {
   bgp_configurations : configuration__bgp_configurations list;
-      (** bgp_configurations *)
-  core_network_address : string prop;  (** core_network_address *)
-  inside_cidr_blocks : string prop list;  (** inside_cidr_blocks *)
-  peer_address : string prop;  (** peer_address *)
-  protocol : string prop;  (** protocol *)
+  core_network_address : string prop;
+  inside_cidr_blocks : string prop list;
+  peer_address : string prop;
+  protocol : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration) -> ()
+
+let yojson_of_configuration =
+  (function
+   | {
+       bgp_configurations = v_bgp_configurations;
+       core_network_address = v_core_network_address;
+       inside_cidr_blocks = v_inside_cidr_blocks;
+       peer_address = v_peer_address;
+       protocol = v_protocol;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_peer_address in
+         ("peer_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_inside_cidr_blocks
+         in
+         ("inside_cidr_blocks", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_core_network_address
+         in
+         ("core_network_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configuration__bgp_configurations
+             v_bgp_configurations
+         in
+         ("bgp_configurations", arg) :: bnds
+       in
+       `Assoc bnds
+    : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration
+
+[@@@deriving.end]
 
 type aws_networkmanager_connect_peer = {
-  connect_attachment_id : string prop;  (** connect_attachment_id *)
+  connect_attachment_id : string prop;
   core_network_address : string prop option; [@option]
-      (** core_network_address *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   inside_cidr_blocks : string prop list option; [@option]
-      (** inside_cidr_blocks *)
-  peer_address : string prop;  (** peer_address *)
-  subnet_arn : string prop option; [@option]  (** subnet_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  peer_address : string prop;
+  subnet_arn : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   bgp_options : bgp_options list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_networkmanager_connect_peer *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_networkmanager_connect_peer) -> ()
+
+let yojson_of_aws_networkmanager_connect_peer =
+  (function
+   | {
+       connect_attachment_id = v_connect_attachment_id;
+       core_network_address = v_core_network_address;
+       id = v_id;
+       inside_cidr_blocks = v_inside_cidr_blocks;
+       peer_address = v_peer_address;
+       subnet_arn = v_subnet_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       bgp_options = v_bgp_options;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bgp_options v_bgp_options
+         in
+         ("bgp_options", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_peer_address in
+         ("peer_address", arg) :: bnds
+       in
+       let bnds =
+         match v_inside_cidr_blocks with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "inside_cidr_blocks", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_core_network_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "core_network_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_connect_attachment_id
+         in
+         ("connect_attachment_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_networkmanager_connect_peer ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_networkmanager_connect_peer
+
+[@@@deriving.end]
 
 let bgp_options ?peer_asn () : bgp_options = { peer_asn }
 let timeouts ?create ?delete () : timeouts = { create; delete }

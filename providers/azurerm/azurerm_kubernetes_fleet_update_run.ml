@@ -3,62 +3,305 @@
 open! Tf_core
 
 type managed_cluster_update__node_image_selection = {
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** managed_cluster_update__node_image_selection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_cluster_update__node_image_selection) -> ()
+
+let yojson_of_managed_cluster_update__node_image_selection =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_cluster_update__node_image_selection ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_cluster_update__node_image_selection
+
+[@@@deriving.end]
 
 type managed_cluster_update__upgrade = {
   kubernetes_version : string prop option; [@option]
-      (** kubernetes_version *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** managed_cluster_update__upgrade *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_cluster_update__upgrade) -> ()
+
+let yojson_of_managed_cluster_update__upgrade =
+  (function
+   | { kubernetes_version = v_kubernetes_version; type_ = v_type_ }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_kubernetes_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kubernetes_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : managed_cluster_update__upgrade ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_cluster_update__upgrade
+
+[@@@deriving.end]
 
 type managed_cluster_update = {
   node_image_selection :
     managed_cluster_update__node_image_selection list;
   upgrade : managed_cluster_update__upgrade list;
 }
-[@@deriving yojson_of]
-(** managed_cluster_update *)
+[@@deriving_inline yojson_of]
 
-type stage__group = { name : string prop  (** name *) }
-[@@deriving yojson_of]
-(** stage__group *)
+let _ = fun (_ : managed_cluster_update) -> ()
+
+let yojson_of_managed_cluster_update =
+  (function
+   | {
+       node_image_selection = v_node_image_selection;
+       upgrade = v_upgrade;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_managed_cluster_update__upgrade
+             v_upgrade
+         in
+         ("upgrade", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_managed_cluster_update__node_image_selection
+             v_node_image_selection
+         in
+         ("node_image_selection", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_cluster_update -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_cluster_update
+
+[@@@deriving.end]
+
+type stage__group = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : stage__group) -> ()
+
+let yojson_of_stage__group =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : stage__group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_stage__group
+
+[@@@deriving.end]
 
 type stage = {
   after_stage_wait_in_seconds : float prop option; [@option]
-      (** after_stage_wait_in_seconds *)
-  name : string prop;  (** name *)
+  name : string prop;
   group : stage__group list;
 }
-[@@deriving yojson_of]
-(** stage *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : stage) -> ()
+
+let yojson_of_stage =
+  (function
+   | {
+       after_stage_wait_in_seconds = v_after_stage_wait_in_seconds;
+       name = v_name;
+       group = v_group;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_stage__group v_group in
+         ("group", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_after_stage_wait_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "after_stage_wait_in_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : stage -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_stage
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_kubernetes_fleet_update_run = {
   fleet_update_strategy_id : string prop option; [@option]
-      (** fleet_update_strategy_id *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kubernetes_fleet_manager_id : string prop;
-      (** kubernetes_fleet_manager_id *)
-  name : string prop;  (** name *)
+  name : string prop;
   managed_cluster_update : managed_cluster_update list;
   stage : stage list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_kubernetes_fleet_update_run *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_kubernetes_fleet_update_run) -> ()
+
+let yojson_of_azurerm_kubernetes_fleet_update_run =
+  (function
+   | {
+       fleet_update_strategy_id = v_fleet_update_strategy_id;
+       id = v_id;
+       kubernetes_fleet_manager_id = v_kubernetes_fleet_manager_id;
+       name = v_name;
+       managed_cluster_update = v_managed_cluster_update;
+       stage = v_stage;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_stage v_stage in
+         ("stage", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_managed_cluster_update
+             v_managed_cluster_update
+         in
+         ("managed_cluster_update", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_kubernetes_fleet_manager_id
+         in
+         ("kubernetes_fleet_manager_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fleet_update_strategy_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fleet_update_strategy_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_kubernetes_fleet_update_run ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_kubernetes_fleet_update_run
+
+[@@@deriving.end]
 
 let managed_cluster_update__node_image_selection ~type_ () :
     managed_cluster_update__node_image_selection =

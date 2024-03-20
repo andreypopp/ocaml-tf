@@ -4,63 +4,389 @@ open! Tf_core
 
 type cache_attributes = {
   cache_stale_timeout_in_seconds : float prop option; [@option]
-      (** cache_stale_timeout_in_seconds *)
 }
-[@@deriving yojson_of]
-(** cache_attributes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cache_attributes) -> ()
+
+let yojson_of_cache_attributes =
+  (function
+   | {
+       cache_stale_timeout_in_seconds =
+         v_cache_stale_timeout_in_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_cache_stale_timeout_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cache_stale_timeout_in_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cache_attributes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cache_attributes
+
+[@@@deriving.end]
 
 type nfs_file_share_defaults = {
   directory_mode : string prop option; [@option]
-      (** directory_mode *)
-  file_mode : string prop option; [@option]  (** file_mode *)
-  group_id : string prop option; [@option]  (** group_id *)
-  owner_id : string prop option; [@option]  (** owner_id *)
+  file_mode : string prop option; [@option]
+  group_id : string prop option; [@option]
+  owner_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** nfs_file_share_defaults *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : nfs_file_share_defaults) -> ()
+
+let yojson_of_nfs_file_share_defaults =
+  (function
+   | {
+       directory_mode = v_directory_mode;
+       file_mode = v_file_mode;
+       group_id = v_group_id;
+       owner_id = v_owner_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_owner_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "owner_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "file_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_directory_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "directory_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : nfs_file_share_defaults -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_nfs_file_share_defaults
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_storagegateway_nfs_file_share = {
   audit_destination_arn : string prop option; [@option]
-      (** audit_destination_arn *)
-  bucket_region : string prop option; [@option]  (** bucket_region *)
-  client_list : string prop list;  (** client_list *)
+  bucket_region : string prop option; [@option]
+  client_list : string prop list;
   default_storage_class : string prop option; [@option]
-      (** default_storage_class *)
   file_share_name : string prop option; [@option]
-      (** file_share_name *)
-  gateway_arn : string prop;  (** gateway_arn *)
+  gateway_arn : string prop;
   guess_mime_type_enabled : bool prop option; [@option]
-      (** guess_mime_type_enabled *)
-  id : string prop option; [@option]  (** id *)
-  kms_encrypted : bool prop option; [@option]  (** kms_encrypted *)
-  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
-  location_arn : string prop;  (** location_arn *)
+  id : string prop option; [@option]
+  kms_encrypted : bool prop option; [@option]
+  kms_key_arn : string prop option; [@option]
+  location_arn : string prop;
   notification_policy : string prop option; [@option]
-      (** notification_policy *)
-  object_acl : string prop option; [@option]  (** object_acl *)
-  read_only : bool prop option; [@option]  (** read_only *)
-  requester_pays : bool prop option; [@option]  (** requester_pays *)
-  role_arn : string prop;  (** role_arn *)
-  squash : string prop option; [@option]  (** squash *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  object_acl : string prop option; [@option]
+  read_only : bool prop option; [@option]
+  requester_pays : bool prop option; [@option]
+  role_arn : string prop;
+  squash : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   vpc_endpoint_dns_name : string prop option; [@option]
-      (** vpc_endpoint_dns_name *)
   cache_attributes : cache_attributes list;
   nfs_file_share_defaults : nfs_file_share_defaults list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_storagegateway_nfs_file_share *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_storagegateway_nfs_file_share) -> ()
+
+let yojson_of_aws_storagegateway_nfs_file_share =
+  (function
+   | {
+       audit_destination_arn = v_audit_destination_arn;
+       bucket_region = v_bucket_region;
+       client_list = v_client_list;
+       default_storage_class = v_default_storage_class;
+       file_share_name = v_file_share_name;
+       gateway_arn = v_gateway_arn;
+       guess_mime_type_enabled = v_guess_mime_type_enabled;
+       id = v_id;
+       kms_encrypted = v_kms_encrypted;
+       kms_key_arn = v_kms_key_arn;
+       location_arn = v_location_arn;
+       notification_policy = v_notification_policy;
+       object_acl = v_object_acl;
+       read_only = v_read_only;
+       requester_pays = v_requester_pays;
+       role_arn = v_role_arn;
+       squash = v_squash;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       vpc_endpoint_dns_name = v_vpc_endpoint_dns_name;
+       cache_attributes = v_cache_attributes;
+       nfs_file_share_defaults = v_nfs_file_share_defaults;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_nfs_file_share_defaults
+             v_nfs_file_share_defaults
+         in
+         ("nfs_file_share_defaults", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cache_attributes
+             v_cache_attributes
+         in
+         ("cache_attributes", arg) :: bnds
+       in
+       let bnds =
+         match v_vpc_endpoint_dns_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vpc_endpoint_dns_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_squash with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "squash", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_requester_pays with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "requester_pays", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_object_acl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_acl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notification_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location_arn in
+         ("location_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_encrypted with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "kms_encrypted", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_guess_mime_type_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "guess_mime_type_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_gateway_arn in
+         ("gateway_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_file_share_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "file_share_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_storage_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_storage_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_client_list
+         in
+         ("client_list", arg) :: bnds
+       in
+       let bnds =
+         match v_bucket_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket_region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_audit_destination_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "audit_destination_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_storagegateway_nfs_file_share ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_storagegateway_nfs_file_share
+
+[@@@deriving.end]
 
 let cache_attributes ?cache_stale_timeout_in_seconds () :
     cache_attributes =

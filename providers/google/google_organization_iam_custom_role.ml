@@ -4,19 +4,82 @@ open! Tf_core
 
 type google_organization_iam_custom_role = {
   description : string prop option; [@option]
-      (** A human-readable description for the role. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   org_id : string prop;
-      (** The numeric ID of the organization in which you want to create a custom role. *)
   permissions : string prop list;
-      (** The names of the permissions this role grants when bound in an IAM policy. At least one permission must be specified. *)
-  role_id : string prop;  (** The role id to use for this role. *)
+  role_id : string prop;
   stage : string prop option; [@option]
-      (** The current launch stage of the role. Defaults to GA. *)
-  title : string prop;  (** A human-readable title for the role. *)
+  title : string prop;
 }
-[@@deriving yojson_of]
-(** google_organization_iam_custom_role *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_organization_iam_custom_role) -> ()
+
+let yojson_of_google_organization_iam_custom_role =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       org_id = v_org_id;
+       permissions = v_permissions;
+       role_id = v_role_id;
+       stage = v_stage;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_title in
+         ("title", arg) :: bnds
+       in
+       let bnds =
+         match v_stage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_id in
+         ("role_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_permissions
+         in
+         ("permissions", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_org_id in
+         ("org_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_organization_iam_custom_role ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_organization_iam_custom_role
+
+[@@@deriving.end]
 
 let google_organization_iam_custom_role ?description ?id ?stage
     ~org_id ~permissions ~role_id ~title () :

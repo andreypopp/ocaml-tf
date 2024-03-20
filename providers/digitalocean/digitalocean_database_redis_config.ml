@@ -4,28 +4,151 @@ open! Tf_core
 
 type digitalocean_database_redis_config = {
   acl_channels_default : string prop option; [@option]
-      (** acl_channels_default *)
-  cluster_id : string prop;  (** cluster_id *)
-  id : string prop option; [@option]  (** id *)
-  io_threads : float prop option; [@option]  (** io_threads *)
+  cluster_id : string prop;
+  id : string prop option; [@option]
+  io_threads : float prop option; [@option]
   lfu_decay_time : float prop option; [@option]
-      (** lfu_decay_time *)
   lfu_log_factor : float prop option; [@option]
-      (** lfu_log_factor *)
   maxmemory_policy : string prop option; [@option]
-      (** maxmemory_policy *)
   notify_keyspace_events : string prop option; [@option]
-      (** notify_keyspace_events *)
   number_of_databases : float prop option; [@option]
-      (** number_of_databases *)
-  persistence : string prop option; [@option]  (** persistence *)
+  persistence : string prop option; [@option]
   pubsub_client_output_buffer_limit : float prop option; [@option]
-      (** pubsub_client_output_buffer_limit *)
-  ssl : bool prop option; [@option]  (** ssl *)
-  timeout : float prop option; [@option]  (** timeout *)
+  ssl : bool prop option; [@option]
+  timeout : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** digitalocean_database_redis_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_database_redis_config) -> ()
+
+let yojson_of_digitalocean_database_redis_config =
+  (function
+   | {
+       acl_channels_default = v_acl_channels_default;
+       cluster_id = v_cluster_id;
+       id = v_id;
+       io_threads = v_io_threads;
+       lfu_decay_time = v_lfu_decay_time;
+       lfu_log_factor = v_lfu_log_factor;
+       maxmemory_policy = v_maxmemory_policy;
+       notify_keyspace_events = v_notify_keyspace_events;
+       number_of_databases = v_number_of_databases;
+       persistence = v_persistence;
+       pubsub_client_output_buffer_limit =
+         v_pubsub_client_output_buffer_limit;
+       ssl = v_ssl;
+       timeout = v_timeout;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ssl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ssl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pubsub_client_output_buffer_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "pubsub_client_output_buffer_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_persistence with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "persistence", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_of_databases with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_of_databases", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notify_keyspace_events with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notify_keyspace_events", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maxmemory_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "maxmemory_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lfu_log_factor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "lfu_log_factor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lfu_decay_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "lfu_decay_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_io_threads with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "io_threads", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       let bnds =
+         match v_acl_channels_default with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "acl_channels_default", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_database_redis_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_database_redis_config
+
+[@@@deriving.end]
 
 let digitalocean_database_redis_config ?acl_channels_default ?id
     ?io_threads ?lfu_decay_time ?lfu_log_factor ?maxmemory_policy

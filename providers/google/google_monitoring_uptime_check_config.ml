@@ -4,154 +4,565 @@ open! Tf_core
 
 type content_matchers__json_path_matcher = {
   json_matcher : string prop option; [@option]
-      (** Options to perform JSONPath content matching. Default value: EXACT_MATCH Possible values: [EXACT_MATCH, REGEX_MATCH] *)
   json_path : string prop;
-      (** JSONPath within the response output pointing to the expected 'ContentMatcher::content' to match against. *)
 }
-[@@deriving yojson_of]
-(** Information needed to perform a JSONPath content match. Used for 'ContentMatcherOption::MATCHES_JSON_PATH' and 'ContentMatcherOption::NOT_MATCHES_JSON_PATH'. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : content_matchers__json_path_matcher) -> ()
+
+let yojson_of_content_matchers__json_path_matcher =
+  (function
+   | { json_matcher = v_json_matcher; json_path = v_json_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_json_path in
+         ("json_path", arg) :: bnds
+       in
+       let bnds =
+         match v_json_matcher with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "json_matcher", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : content_matchers__json_path_matcher ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_content_matchers__json_path_matcher
+
+[@@@deriving.end]
 
 type content_matchers = {
   content : string prop;
-      (** String or regex content to match (max 1024 bytes) *)
   matcher : string prop option; [@option]
-      (** The type of content matcher that will be applied to the server output, compared to the content string when the check is run. Default value: CONTAINS_STRING Possible values: [CONTAINS_STRING, NOT_CONTAINS_STRING, MATCHES_REGEX, NOT_MATCHES_REGEX, MATCHES_JSON_PATH, NOT_MATCHES_JSON_PATH] *)
   json_path_matcher : content_matchers__json_path_matcher list;
 }
-[@@deriving yojson_of]
-(** The expected content on the page the check is run against. Currently, only the first entry in the list is supported, and other entries will be ignored. The server will look for an exact match of the string in the page response's content. This field is optional and should only be specified if a content match is required. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : content_matchers) -> ()
+
+let yojson_of_content_matchers =
+  (function
+   | {
+       content = v_content;
+       matcher = v_matcher;
+       json_path_matcher = v_json_path_matcher;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_content_matchers__json_path_matcher
+             v_json_path_matcher
+         in
+         ("json_path_matcher", arg) :: bnds
+       in
+       let bnds =
+         match v_matcher with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "matcher", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : content_matchers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_content_matchers
+
+[@@@deriving.end]
 
 type http_check__accepted_response_status_codes = {
   status_class : string prop option; [@option]
-      (** A class of status codes to accept. Possible values: [STATUS_CLASS_1XX, STATUS_CLASS_2XX, STATUS_CLASS_3XX, STATUS_CLASS_4XX, STATUS_CLASS_5XX, STATUS_CLASS_ANY] *)
   status_value : float prop option; [@option]
-      (** A status code to accept. *)
 }
-[@@deriving yojson_of]
-(** If present, the check will only pass if the HTTP response status code is in this set of status codes. If empty, the HTTP status code will only pass if the HTTP status code is 200-299. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : http_check__accepted_response_status_codes) -> ()
+
+let yojson_of_http_check__accepted_response_status_codes =
+  (function
+   | { status_class = v_status_class; status_value = v_status_value }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_status_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "status_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status_class", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : http_check__accepted_response_status_codes ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_http_check__accepted_response_status_codes
+
+[@@@deriving.end]
 
 type http_check__auth_info = {
-  password : string prop;  (** The password to authenticate. *)
-  username : string prop;  (** The username to authenticate. *)
+  password : string prop;
+  username : string prop;
 }
-[@@deriving yojson_of]
-(** The authentication information. Optional when creating an HTTP check; defaults to empty. *)
+[@@deriving_inline yojson_of]
 
-type http_check__ping_config = {
-  pings_count : float prop;
-      (** Number of ICMP pings. A maximum of 3 ICMP pings is currently supported. *)
-}
-[@@deriving yojson_of]
-(** Contains information needed to add pings to an HTTP check. *)
+let _ = fun (_ : http_check__auth_info) -> ()
+
+let yojson_of_http_check__auth_info =
+  (function
+   | { password = v_password; username = v_username } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       `Assoc bnds
+    : http_check__auth_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_http_check__auth_info
+
+[@@@deriving.end]
+
+type http_check__ping_config = { pings_count : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : http_check__ping_config) -> ()
+
+let yojson_of_http_check__ping_config =
+  (function
+   | { pings_count = v_pings_count } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_pings_count in
+         ("pings_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : http_check__ping_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_http_check__ping_config
+
+[@@@deriving.end]
 
 type http_check = {
   body : string prop option; [@option]
-      (** The request body associated with the HTTP POST request. If 'content_type' is 'URL_ENCODED', the body passed in must be URL-encoded. Users can provide a 'Content-Length' header via the 'headers' field or the API will do so. If the 'request_method' is 'GET' and 'body' is not empty, the API will return an error. The maximum byte size is 1 megabyte. Note - As with all bytes fields JSON representations are base64 encoded. e.g. 'foo=bar' in URL-encoded form is 'foo%3Dbar' and in base64 encoding is 'Zm9vJTI1M0RiYXI='. *)
   content_type : string prop option; [@option]
-      (** The content type to use for the check. Possible values: [TYPE_UNSPECIFIED, URL_ENCODED, USER_PROVIDED] *)
   custom_content_type : string prop option; [@option]
-      (** A user provided content type header to use for the check. The invalid configurations outlined in the 'content_type' field apply to custom_content_type', as well as the following 1. 'content_type' is 'URL_ENCODED' and 'custom_content_type' is set. 2. 'content_type' is 'USER_PROVIDED' and 'custom_content_type' is not set. *)
   headers : (string * string prop) list option; [@option]
-      (** The list of headers to send as part of the uptime check request. If two headers have the same key and different values, they should be entered as a single header, with the value being a comma-separated list of all the desired values as described in [RFC 2616 (page 31)](https://www.w3.org/Protocols/rfc2616/rfc2616.txt). Entering two separate headers with the same key in a Create call will cause the first to be overwritten by the second. The maximum number of headers allowed is 100. *)
   mask_headers : bool prop option; [@option]
-      (** Boolean specifying whether to encrypt the header information. Encryption should be specified for any headers related to authentication that you do not wish to be seen when retrieving the configuration. The server will be responsible for encrypting the headers. On Get/List calls, if 'mask_headers' is set to 'true' then the headers will be obscured with '******'. *)
   path : string prop option; [@option]
-      (** The path to the page to run the check against. Will be combined with the host (specified within the MonitoredResource) and port to construct the full URL. If the provided path does not begin with '/', a '/' will be prepended automatically. Optional (defaults to '/'). *)
   port : float prop option; [@option]
-      (** The port to the page to run the check against. Will be combined with 'host' (specified within the ['monitored_resource'](#nested_monitored_resource)) and path to construct the full URL. Optional (defaults to 80 without SSL, or 443 with SSL). *)
   request_method : string prop option; [@option]
-      (** The HTTP request method to use for the check. If set to 'METHOD_UNSPECIFIED' then 'request_method' defaults to 'GET'. Default value: GET Possible values: [METHOD_UNSPECIFIED, GET, POST] *)
   use_ssl : bool prop option; [@option]
-      (** If true, use HTTPS instead of HTTP to run the check. *)
   validate_ssl : bool prop option; [@option]
-      (** Boolean specifying whether to include SSL certificate validation as a part of the Uptime check. Only applies to checks where 'monitored_resource' is set to 'uptime_url'. If 'use_ssl' is 'false', setting 'validate_ssl' to 'true' has no effect. *)
   accepted_response_status_codes :
     http_check__accepted_response_status_codes list;
   auth_info : http_check__auth_info list;
   ping_config : http_check__ping_config list;
 }
-[@@deriving yojson_of]
-(** Contains information needed to make an HTTP or HTTPS check. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : http_check) -> ()
+
+let yojson_of_http_check =
+  (function
+   | {
+       body = v_body;
+       content_type = v_content_type;
+       custom_content_type = v_custom_content_type;
+       headers = v_headers;
+       mask_headers = v_mask_headers;
+       path = v_path;
+       port = v_port;
+       request_method = v_request_method;
+       use_ssl = v_use_ssl;
+       validate_ssl = v_validate_ssl;
+       accepted_response_status_codes =
+         v_accepted_response_status_codes;
+       auth_info = v_auth_info;
+       ping_config = v_ping_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_http_check__ping_config
+             v_ping_config
+         in
+         ("ping_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_http_check__auth_info v_auth_info
+         in
+         ("auth_info", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_http_check__accepted_response_status_codes
+             v_accepted_response_status_codes
+         in
+         ("accepted_response_status_codes", arg) :: bnds
+       in
+       let bnds =
+         match v_validate_ssl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "validate_ssl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_use_ssl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_ssl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_request_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "request_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mask_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "mask_headers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "headers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_content_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_content_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_body with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "body", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : http_check -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_http_check
+
+[@@@deriving.end]
 
 type monitored_resource = {
   labels : (string * string prop) list;
-      (** Values for all of the labels listed in the associated monitored resource descriptor. For example, Compute Engine VM instances use the labels 'project_id', 'instance_id', and 'zone'. *)
   type_ : string prop; [@key "type"]
-      (** The monitored resource type. This field must match the type field of a ['MonitoredResourceDescriptor'](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.monitoredResourceDescriptors#MonitoredResourceDescriptor) object. For example, the type of a Compute Engine VM instance is 'gce_instance'. For a list of types, see [Monitoring resource types](https://cloud.google.com/monitoring/api/resources) and [Logging resource types](https://cloud.google.com/logging/docs/api/v2/resource-list). *)
 }
-[@@deriving yojson_of]
-(** The [monitored resource]
-(https://cloud.google.com/monitoring/api/resources) associated with the
-configuration. The following monitored resource types are supported for
-uptime checks:
-* 'aws_ec2_instance'
-* 'aws_elb_load_balancer'
-* 'gae_app
-* 'gce_instance'
-* 'k8s_service'
-* 'servicedirectory_service'
-* 'uptime_url' *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : monitored_resource) -> ()
+
+let yojson_of_monitored_resource =
+  (function
+   | { labels = v_labels; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_labels
+         in
+         ("labels", arg) :: bnds
+       in
+       `Assoc bnds
+    : monitored_resource -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_monitored_resource
+
+[@@@deriving.end]
 
 type resource_group = {
   group_id : string prop option; [@option]
-      (** The group of resources being monitored. Should be the 'name' of a group *)
   resource_type : string prop option; [@option]
-      (** The resource type of the group members. Possible values: [RESOURCE_TYPE_UNSPECIFIED, INSTANCE, AWS_ELB_LOAD_BALANCER] *)
 }
-[@@deriving yojson_of]
-(** The group resource associated with the configuration. *)
+[@@deriving_inline yojson_of]
 
-type synthetic_monitor__cloud_function_v2 = {
-  name : string prop;
-      (** The fully qualified name of the cloud function resource. *)
-}
-[@@deriving yojson_of]
-(** Target a Synthetic Monitor GCFv2 Instance *)
+let _ = fun (_ : resource_group) -> ()
+
+let yojson_of_resource_group =
+  (function
+   | { group_id = v_group_id; resource_type = v_resource_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_resource_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : resource_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_resource_group
+
+[@@@deriving.end]
+
+type synthetic_monitor__cloud_function_v2 = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : synthetic_monitor__cloud_function_v2) -> ()
+
+let yojson_of_synthetic_monitor__cloud_function_v2 =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : synthetic_monitor__cloud_function_v2 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_synthetic_monitor__cloud_function_v2
+
+[@@@deriving.end]
 
 type synthetic_monitor = {
   cloud_function_v2 : synthetic_monitor__cloud_function_v2 list;
 }
-[@@deriving yojson_of]
-(** A Synthetic Monitor deployed to a Cloud Functions V2 instance. *)
+[@@deriving_inline yojson_of]
 
-type tcp_check__ping_config = {
-  pings_count : float prop;
-      (** Number of ICMP pings. A maximum of 3 ICMP pings is currently supported. *)
-}
-[@@deriving yojson_of]
-(** Contains information needed to add pings to a TCP check. *)
+let _ = fun (_ : synthetic_monitor) -> ()
+
+let yojson_of_synthetic_monitor =
+  (function
+   | { cloud_function_v2 = v_cloud_function_v2 } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_synthetic_monitor__cloud_function_v2
+             v_cloud_function_v2
+         in
+         ("cloud_function_v2", arg) :: bnds
+       in
+       `Assoc bnds
+    : synthetic_monitor -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_synthetic_monitor
+
+[@@@deriving.end]
+
+type tcp_check__ping_config = { pings_count : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tcp_check__ping_config) -> ()
+
+let yojson_of_tcp_check__ping_config =
+  (function
+   | { pings_count = v_pings_count } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_pings_count in
+         ("pings_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : tcp_check__ping_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tcp_check__ping_config
+
+[@@@deriving.end]
 
 type tcp_check = {
   port : float prop;
-      (** The port to the page to run the check against. Will be combined with host (specified within the 'monitored_resource') to construct the full URL. *)
   ping_config : tcp_check__ping_config list;
 }
-[@@deriving yojson_of]
-(** Contains information needed to make a TCP check. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tcp_check) -> ()
+
+let yojson_of_tcp_check =
+  (function
+   | { port = v_port; ping_config = v_ping_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_tcp_check__ping_config
+             v_ping_config
+         in
+         ("ping_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : tcp_check -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tcp_check
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_monitoring_uptime_check_config = {
   checker_type : string prop option; [@option]
-      (** The checker type to use for the check. If the monitored resource type is 'servicedirectory_service', 'checker_type' must be set to 'VPC_CHECKERS'. Possible values: [STATIC_IP_CHECKERS, VPC_CHECKERS] *)
   display_name : string prop;
-      (** A human-friendly name for the uptime check configuration. The display name should be unique within a Stackdriver Workspace in order to make it easier to identify; however, uniqueness is not enforced. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   period : string prop option; [@option]
-      (** How often, in seconds, the uptime check is performed. Currently, the only supported values are 60s (1 minute), 300s (5 minutes), 600s (10 minutes), and 900s (15 minutes). Optional, defaults to 300s. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   selected_regions : string prop list option; [@option]
-      (** The list of regions from which the check will be run. Some regions contain one location, and others contain more than one. If this field is specified, enough regions to include a minimum of 3 locations must be provided, or an error message is returned. Not specifying this field will result in uptime checks running from all regions. *)
   timeout : string prop;
-      (** The maximum amount of time to wait for the request to complete (must be between 1 and 60 seconds). [See the accepted formats]( https://developers.google.com/protocol-buffers/docs/reference/google.protobuf#google.protobuf.Duration) *)
   user_labels : (string * string prop) list option; [@option]
-      (** User-supplied key/value data to be used for organizing and identifying the 'UptimeCheckConfig' objects. The field can contain up to 64 entries. Each key and value is limited to 63 Unicode characters or 128 bytes, whichever is smaller. Labels and values can contain only lowercase letters, numerals, underscores, and dashes. Keys must begin with a letter. *)
   content_matchers : content_matchers list;
   http_check : http_check list;
   monitored_resource : monitored_resource list;
@@ -160,8 +571,146 @@ type google_monitoring_uptime_check_config = {
   tcp_check : tcp_check list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_monitoring_uptime_check_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_monitoring_uptime_check_config) -> ()
+
+let yojson_of_google_monitoring_uptime_check_config =
+  (function
+   | {
+       checker_type = v_checker_type;
+       display_name = v_display_name;
+       id = v_id;
+       period = v_period;
+       project = v_project;
+       selected_regions = v_selected_regions;
+       timeout = v_timeout;
+       user_labels = v_user_labels;
+       content_matchers = v_content_matchers;
+       http_check = v_http_check;
+       monitored_resource = v_monitored_resource;
+       resource_group = v_resource_group;
+       synthetic_monitor = v_synthetic_monitor;
+       tcp_check = v_tcp_check;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_tcp_check v_tcp_check in
+         ("tcp_check", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_synthetic_monitor
+             v_synthetic_monitor
+         in
+         ("synthetic_monitor", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_resource_group v_resource_group
+         in
+         ("resource_group", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_monitored_resource
+             v_monitored_resource
+         in
+         ("monitored_resource", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_http_check v_http_check
+         in
+         ("http_check", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_content_matchers
+             v_content_matchers
+         in
+         ("content_matchers", arg) :: bnds
+       in
+       let bnds =
+         match v_user_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "user_labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_timeout in
+         ("timeout", arg) :: bnds
+       in
+       let bnds =
+         match v_selected_regions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "selected_regions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_checker_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "checker_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_monitoring_uptime_check_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_monitoring_uptime_check_config
+
+[@@@deriving.end]
 
 let content_matchers__json_path_matcher ?json_matcher ~json_path () :
     content_matchers__json_path_matcher =

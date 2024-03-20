@@ -3,39 +3,231 @@
 open! Tf_core
 
 type finding_criteria__criterion = {
-  equals : string prop list option; [@option]  (** equals *)
-  field : string prop;  (** field *)
-  greater_than : string prop option; [@option]  (** greater_than *)
+  equals : string prop list option; [@option]
+  field : string prop;
+  greater_than : string prop option; [@option]
   greater_than_or_equal : string prop option; [@option]
-      (** greater_than_or_equal *)
-  less_than : string prop option; [@option]  (** less_than *)
+  less_than : string prop option; [@option]
   less_than_or_equal : string prop option; [@option]
-      (** less_than_or_equal *)
-  not_equals : string prop list option; [@option]  (** not_equals *)
+  not_equals : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** finding_criteria__criterion *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : finding_criteria__criterion) -> ()
+
+let yojson_of_finding_criteria__criterion =
+  (function
+   | {
+       equals = v_equals;
+       field = v_field;
+       greater_than = v_greater_than;
+       greater_than_or_equal = v_greater_than_or_equal;
+       less_than = v_less_than;
+       less_than_or_equal = v_less_than_or_equal;
+       not_equals = v_not_equals;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_not_equals with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "not_equals", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_less_than_or_equal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "less_than_or_equal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_less_than with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "less_than", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_greater_than_or_equal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "greater_than_or_equal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_greater_than with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "greater_than", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_field in
+         ("field", arg) :: bnds
+       in
+       let bnds =
+         match v_equals with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "equals", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : finding_criteria__criterion ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_finding_criteria__criterion
+
+[@@@deriving.end]
 
 type finding_criteria = {
   criterion : finding_criteria__criterion list;
 }
-[@@deriving yojson_of]
-(** finding_criteria *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : finding_criteria) -> ()
+
+let yojson_of_finding_criteria =
+  (function
+   | { criterion = v_criterion } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_finding_criteria__criterion
+             v_criterion
+         in
+         ("criterion", arg) :: bnds
+       in
+       `Assoc bnds
+    : finding_criteria -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_finding_criteria
+
+[@@@deriving.end]
 
 type aws_guardduty_filter = {
-  action : string prop;  (** action *)
-  description : string prop option; [@option]  (** description *)
-  detector_id : string prop;  (** detector_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  rank : float prop;  (** rank *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  action : string prop;
+  description : string prop option; [@option]
+  detector_id : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  rank : float prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   finding_criteria : finding_criteria list;
 }
-[@@deriving yojson_of]
-(** aws_guardduty_filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_guardduty_filter) -> ()
+
+let yojson_of_aws_guardduty_filter =
+  (function
+   | {
+       action = v_action;
+       description = v_description;
+       detector_id = v_detector_id;
+       id = v_id;
+       name = v_name;
+       rank = v_rank;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       finding_criteria = v_finding_criteria;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_finding_criteria
+             v_finding_criteria
+         in
+         ("finding_criteria", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_rank in
+         ("rank", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_detector_id in
+         ("detector_id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_guardduty_filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_guardduty_filter
+
+[@@@deriving.end]
 
 let finding_criteria__criterion ?equals ?greater_than
     ?greater_than_or_equal ?less_than ?less_than_or_equal ?not_equals

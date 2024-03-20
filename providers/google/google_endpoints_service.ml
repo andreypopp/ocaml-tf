@@ -3,51 +3,248 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type apis__methods = {
-  name : string prop;  (** name *)
-  request_type : string prop;  (** request_type *)
-  response_type : string prop;  (** response_type *)
-  syntax : string prop;  (** syntax *)
+  name : string prop;
+  request_type : string prop;
+  response_type : string prop;
+  syntax : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : apis__methods) -> ()
+
+let yojson_of_apis__methods =
+  (function
+   | {
+       name = v_name;
+       request_type = v_request_type;
+       response_type = v_response_type;
+       syntax = v_syntax;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_syntax in
+         ("syntax", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_response_type in
+         ("response_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_request_type in
+         ("request_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : apis__methods -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_apis__methods
+
+[@@@deriving.end]
 
 type apis = {
-  methods : apis__methods list;  (** methods *)
-  name : string prop;  (** name *)
-  syntax : string prop;  (** syntax *)
-  version : string prop;  (** version *)
+  methods : apis__methods list;
+  name : string prop;
+  syntax : string prop;
+  version : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
 
-type endpoints = {
-  address : string prop;  (** address *)
-  name : string prop;  (** name *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : apis) -> ()
+
+let yojson_of_apis =
+  (function
+   | {
+       methods = v_methods;
+       name = v_name;
+       syntax = v_syntax;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_syntax in
+         ("syntax", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_apis__methods v_methods
+         in
+         ("methods", arg) :: bnds
+       in
+       `Assoc bnds
+    : apis -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_apis
+
+[@@@deriving.end]
+
+type endpoints = { address : string prop; name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoints) -> ()
+
+let yojson_of_endpoints =
+  (function
+   | { address = v_address; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_address in
+         ("address", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoints
+
+[@@@deriving.end]
 
 type google_endpoints_service = {
   grpc_config : string prop option; [@option]
-      (** The full text of the Service Config YAML file (Example located here). If provided, must also provide protoc_output_base64. open_api config must not be provided. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   openapi_config : string prop option; [@option]
-      (** The full text of the OpenAPI YAML configuration as described here. Either this, or both of grpc_config and protoc_output_base64 must be specified. *)
   project : string prop option; [@option]
-      (** The project ID that the service belongs to. If not provided, provider project is used. *)
   protoc_output_base64 : string prop option; [@option]
-      (** The full contents of the Service Descriptor File generated by protoc. This should be a compiled .pb file, base64-encoded. *)
   service_name : string prop;
-      (** The name of the service. Usually of the form $apiname.endpoints.$projectid.cloud.goog. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_endpoints_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_endpoints_service) -> ()
+
+let yojson_of_google_endpoints_service =
+  (function
+   | {
+       grpc_config = v_grpc_config;
+       id = v_id;
+       openapi_config = v_openapi_config;
+       project = v_project;
+       protoc_output_base64 = v_protoc_output_base64;
+       service_name = v_service_name;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_name in
+         ("service_name", arg) :: bnds
+       in
+       let bnds =
+         match v_protoc_output_base64 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protoc_output_base64", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_openapi_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "openapi_config", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_grpc_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "grpc_config", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_endpoints_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_endpoints_service
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

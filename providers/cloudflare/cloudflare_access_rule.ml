@@ -2,32 +2,105 @@
 
 open! Tf_core
 
-type configuration = {
-  target : string prop;
-      (** The request property to target. Available values: `ip`, `ip6`, `ip_range`, `asn`, `country`. **Modifying this attribute will force creation of a new resource.** *)
-  value : string prop;
-      (** The value to target. Depends on target's type. **Modifying this attribute will force creation of a new resource.** *)
-}
-[@@deriving yojson_of]
-(** Rule configuration to apply to a matched request. **Modifying this attribute will force creation of a new resource.** *)
+type configuration = { target : string prop; value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration) -> ()
+
+let yojson_of_configuration =
+  (function
+   | { target = v_target; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target in
+         ("target", arg) :: bnds
+       in
+       `Assoc bnds
+    : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration
+
+[@@@deriving.end]
 
 type cloudflare_access_rule = {
   account_id : string prop option; [@option]
-      (** The account identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   mode : string prop;
-      (** The action to apply to a matched request. Available values: `block`, `challenge`, `whitelist`, `js_challenge`, `managed_challenge`. *)
   notes : string prop option; [@option]
-      (** A personal note about the rule. Typically used as a reminder or explanation for the rule. *)
   zone_id : string prop option; [@option]
-      (** The zone identifier to target for the resource. Must provide only one of `account_id`, `zone_id`. **Modifying this attribute will force creation of a new resource.** *)
   configuration : configuration list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare IP Firewall Access Rule resource. Access
-control can be applied on basis of IP addresses, IP ranges, AS
-numbers or countries.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_access_rule) -> ()
+
+let yojson_of_cloudflare_access_rule =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       mode = v_mode;
+       notes = v_notes;
+       zone_id = v_zone_id;
+       configuration = v_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configuration v_configuration
+         in
+         ("configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_notes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_access_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_access_rule
+
+[@@@deriving.end]
 
 let configuration ~target ~value () : configuration =
   { target; value }

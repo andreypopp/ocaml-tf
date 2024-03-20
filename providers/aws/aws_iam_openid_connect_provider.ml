@@ -3,16 +3,97 @@
 open! Tf_core
 
 type aws_iam_openid_connect_provider = {
-  client_id_list : string prop list;  (** client_id_list *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  client_id_list : string prop list;
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  thumbprint_list : string prop list;  (** thumbprint_list *)
-  url : string prop;  (** url *)
+  thumbprint_list : string prop list;
+  url : string prop;
 }
-[@@deriving yojson_of]
-(** aws_iam_openid_connect_provider *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_openid_connect_provider) -> ()
+
+let yojson_of_aws_iam_openid_connect_provider =
+  (function
+   | {
+       client_id_list = v_client_id_list;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       thumbprint_list = v_thumbprint_list;
+       url = v_url;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_thumbprint_list
+         in
+         ("thumbprint_list", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_client_id_list
+         in
+         ("client_id_list", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_openid_connect_provider ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_openid_connect_provider
+
+[@@@deriving.end]
 
 let aws_iam_openid_connect_provider ?id ?tags ?tags_all
     ~client_id_list ~thumbprint_list ~url () :

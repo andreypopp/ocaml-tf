@@ -4,44 +4,194 @@ open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the persistent volume that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the persistent volume. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the persistent volume, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Standard persistent volume's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       labels = v_labels;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type spec__claim_ref = {
-  name : string prop;  (** The name of the PersistentVolumeClaim *)
+  name : string prop;
   namespace : string prop option; [@option]
-      (** The namespace of the PersistentVolumeClaim. Uses 'default' namespace if none is specified. *)
 }
-[@@deriving yojson_of]
-(** A reference to the persistent volume claim details for statically managed PVs. More Info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#binding *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__claim_ref) -> ()
+
+let yojson_of_spec__claim_ref =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__claim_ref -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__claim_ref
+
+[@@@deriving.end]
 
 type spec__node_affinity__required__node_selector_term__match_expressions = {
   key : string prop;
-      (** The label key that the selector applies to. *)
   operator : string prop;
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, and `Lt`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of node selector requirements by node's labels. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__node_affinity__required__node_selector_term__match_expressions) ->
+  ()
+
+let yojson_of_spec__node_affinity__required__node_selector_term__match_expressions
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__node_affinity__required__node_selector_term__match_expressions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__node_affinity__required__node_selector_term__match_expressions
+
+[@@@deriving.end]
 
 type spec__node_affinity__required__node_selector_term__match_fields = {
   key : string prop;
-      (** The label key that the selector applies to. *)
   operator : string prop;
-      (** A key's relationship to a set of values. Valid operators ard `In`, `NotIn`, `Exists`, `DoesNotExist`, `Gt`, and `Lt`. *)
   values : string prop list option; [@option]
-      (** An array of string values. If the operator is `In` or `NotIn`, the values array must be non-empty. If the operator is `Exists` or `DoesNotExist`, the values array must be empty. This array is replaced during a strategic merge patch. *)
 }
-[@@deriving yojson_of]
-(** A list of node selector requirements by node's fields. The requirements are ANDed. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__node_affinity__required__node_selector_term__match_fields) ->
+  ()
+
+let yojson_of_spec__node_affinity__required__node_selector_term__match_fields
+    =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__node_affinity__required__node_selector_term__match_fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__node_affinity__required__node_selector_term__match_fields
+
+[@@@deriving.end]
 
 type spec__node_affinity__required__node_selector_term = {
   match_expressions :
@@ -51,148 +201,629 @@ type spec__node_affinity__required__node_selector_term = {
     spec__node_affinity__required__node_selector_term__match_fields
     list;
 }
-[@@deriving yojson_of]
-(** spec__node_affinity__required__node_selector_term *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__node_affinity__required__node_selector_term) -> ()
+
+let yojson_of_spec__node_affinity__required__node_selector_term =
+  (function
+   | {
+       match_expressions = v_match_expressions;
+       match_fields = v_match_fields;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__node_affinity__required__node_selector_term__match_fields
+             v_match_fields
+         in
+         ("match_fields", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__node_affinity__required__node_selector_term__match_expressions
+             v_match_expressions
+         in
+         ("match_expressions", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__node_affinity__required__node_selector_term ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__node_affinity__required__node_selector_term
+
+[@@@deriving.end]
 
 type spec__node_affinity__required = {
   node_selector_term :
     spec__node_affinity__required__node_selector_term list;
 }
-[@@deriving yojson_of]
-(** spec__node_affinity__required *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__node_affinity__required) -> ()
+
+let yojson_of_spec__node_affinity__required =
+  (function
+   | { node_selector_term = v_node_selector_term } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__node_affinity__required__node_selector_term
+             v_node_selector_term
+         in
+         ("node_selector_term", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__node_affinity__required ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__node_affinity__required
+
+[@@@deriving.end]
 
 type spec__node_affinity = {
   required : spec__node_affinity__required list;
 }
-[@@deriving yojson_of]
-(** A description of the persistent volume's node affinity. More info: https://kubernetes.io/docs/concepts/storage/volumes/#local *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__node_affinity) -> ()
+
+let yojson_of_spec__node_affinity =
+  (function
+   | { required = v_required } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__node_affinity__required
+             v_required
+         in
+         ("required", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__node_affinity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__node_affinity
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__aws_elastic_block_store = {
   fs_type : string prop option; [@option]
-      (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
   partition : float prop option; [@option]
-      (** The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as 1. Similarly, the volume partition for /dev/sda is 0 (or you can leave the property empty). *)
   read_only : bool prop option; [@option]
-      (** Whether to set the read-only property in VolumeMounts to true. If omitted, the default is false. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
   volume_id : string prop;
-      (** Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
 }
-[@@deriving yojson_of]
-(** Represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__persistent_volume_source__aws_elastic_block_store) ->
+  ()
+
+let yojson_of_spec__persistent_volume_source__aws_elastic_block_store
+    =
+  (function
+   | {
+       fs_type = v_fs_type;
+       partition = v_partition;
+       read_only = v_read_only;
+       volume_id = v_volume_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_id in
+         ("volume_id", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_partition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "partition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__aws_elastic_block_store ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__persistent_volume_source__aws_elastic_block_store
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__azure_disk = {
   caching_mode : string prop;
-      (** Host Caching mode: None, Read Only, Read Write. *)
   data_disk_uri : string prop;
-      (** The URI the data disk in the blob storage *)
   disk_name : string prop;
-      (** The Name of the data disk in the blob storage *)
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   kind : string prop option; [@option]
-      (** The type for the data disk. Expected values: Shared, Dedicated, Managed. Defaults to Shared *)
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). *)
 }
-[@@deriving yojson_of]
-(** Represents an Azure Data Disk mount on the host and bind mount to the pod. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__azure_disk) -> ()
+
+let yojson_of_spec__persistent_volume_source__azure_disk =
+  (function
+   | {
+       caching_mode = v_caching_mode;
+       data_disk_uri = v_data_disk_uri;
+       disk_name = v_disk_name;
+       fs_type = v_fs_type;
+       kind = v_kind;
+       read_only = v_read_only;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kind with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kind", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_disk_name in
+         ("disk_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_data_disk_uri in
+         ("data_disk_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_caching_mode in
+         ("caching_mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__azure_disk ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__azure_disk
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__azure_file = {
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). *)
   secret_name : string prop;
-      (** The name of secret that contains Azure Storage Account Name and Key *)
   secret_namespace : string prop option; [@option]
-      (** The namespace of the secret that contains Azure Storage Account Name and Key. For Kubernetes up to 1.18.x the default is the same as the Pod. For Kubernetes 1.19.x and later the default is default namespace. *)
-  share_name : string prop;  (** Share Name *)
+  share_name : string prop;
 }
-[@@deriving yojson_of]
-(** Represents an Azure File Service mount on the host and bind mount to the pod. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__azure_file) -> ()
+
+let yojson_of_spec__persistent_volume_source__azure_file =
+  (function
+   | {
+       read_only = v_read_only;
+       secret_name = v_secret_name;
+       secret_namespace = v_secret_namespace;
+       share_name = v_share_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_share_name in
+         ("share_name", arg) :: bnds
+       in
+       let bnds =
+         match v_secret_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_name in
+         ("secret_name", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__azure_file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__azure_file
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__ceph_fs__secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__persistent_volume_source__ceph_fs__secret_ref) -> ()
+
+let yojson_of_spec__persistent_volume_source__ceph_fs__secret_ref =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__ceph_fs__secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__ceph_fs__secret_ref
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__ceph_fs = {
   monitors : string prop list;
-      (** Monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   path : string prop option; [@option]
-      (** Used as the mounted root, rather than the full Ceph tree, default is / *)
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to `false` (read/write). More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   secret_file : string prop option; [@option]
-      (** The path to key ring for User, default is `/etc/ceph/user.secret`. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   user : string prop option; [@option]
-      (** User is the rados user name, default is admin. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it *)
   secret_ref :
     spec__persistent_volume_source__ceph_fs__secret_ref list;
 }
-[@@deriving yojson_of]
-(** Represents a Ceph FS mount on the host that shares a pod's lifetime *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__ceph_fs) -> ()
+
+let yojson_of_spec__persistent_volume_source__ceph_fs =
+  (function
+   | {
+       monitors = v_monitors;
+       path = v_path;
+       read_only = v_read_only;
+       secret_file = v_secret_file;
+       user = v_user;
+       secret_ref = v_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__ceph_fs__secret_ref
+             v_secret_ref
+         in
+         ("secret_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_file", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_monitors
+         in
+         ("monitors", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__ceph_fs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__ceph_fs
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__cinder = {
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
   volume_id : string prop;
-      (** Volume ID used to identify the volume in Cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
 }
-[@@deriving yojson_of]
-(** Represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__cinder) -> ()
+
+let yojson_of_spec__persistent_volume_source__cinder =
+  (function
+   | {
+       fs_type = v_fs_type;
+       read_only = v_read_only;
+       volume_id = v_volume_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_id in
+         ("volume_id", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__cinder ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__cinder
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__csi__controller_expand_secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** A reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__persistent_volume_source__csi__controller_expand_secret_ref) ->
+  ()
+
+let yojson_of_spec__persistent_volume_source__csi__controller_expand_secret_ref
+    =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__csi__controller_expand_secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__persistent_volume_source__csi__controller_expand_secret_ref
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__csi__controller_publish_secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** A reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__persistent_volume_source__csi__controller_publish_secret_ref) ->
+  ()
+
+let yojson_of_spec__persistent_volume_source__csi__controller_publish_secret_ref
+    =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__csi__controller_publish_secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__persistent_volume_source__csi__controller_publish_secret_ref
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__csi__node_publish_secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** A reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__persistent_volume_source__csi__node_publish_secret_ref) ->
+  ()
+
+let yojson_of_spec__persistent_volume_source__csi__node_publish_secret_ref
+    =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__csi__node_publish_secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__persistent_volume_source__csi__node_publish_secret_ref
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__csi__node_stage_secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** A reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__persistent_volume_source__csi__node_stage_secret_ref) ->
+  ()
+
+let yojson_of_spec__persistent_volume_source__csi__node_stage_secret_ref
+    =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__csi__node_stage_secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__persistent_volume_source__csi__node_stage_secret_ref
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__csi = {
   driver : string prop;
-      (** the name of the volume driver to use. More info: https://kubernetes.io/docs/concepts/storage/volumes/#csi *)
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   read_only : bool prop option; [@option]
-      (** Whether to set the read-only property in VolumeMounts to true. If omitted, the default is false. More info: https://kubernetes.io/docs/concepts/storage/volumes#csi *)
   volume_attributes : (string * string prop) list option; [@option]
-      (** Attributes of the volume to publish. *)
   volume_handle : string prop;
-      (** A string value that uniquely identifies the volume. More info: https://kubernetes.io/docs/concepts/storage/volumes/#csi *)
   controller_expand_secret_ref :
     spec__persistent_volume_source__csi__controller_expand_secret_ref
     list;
@@ -204,181 +835,874 @@ type spec__persistent_volume_source__csi = {
   node_stage_secret_ref :
     spec__persistent_volume_source__csi__node_stage_secret_ref list;
 }
-[@@deriving yojson_of]
-(** Represents a CSI Volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#csi *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__csi) -> ()
+
+let yojson_of_spec__persistent_volume_source__csi =
+  (function
+   | {
+       driver = v_driver;
+       fs_type = v_fs_type;
+       read_only = v_read_only;
+       volume_attributes = v_volume_attributes;
+       volume_handle = v_volume_handle;
+       controller_expand_secret_ref = v_controller_expand_secret_ref;
+       controller_publish_secret_ref =
+         v_controller_publish_secret_ref;
+       node_publish_secret_ref = v_node_publish_secret_ref;
+       node_stage_secret_ref = v_node_stage_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__csi__node_stage_secret_ref
+             v_node_stage_secret_ref
+         in
+         ("node_stage_secret_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__csi__node_publish_secret_ref
+             v_node_publish_secret_ref
+         in
+         ("node_publish_secret_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__csi__controller_publish_secret_ref
+             v_controller_publish_secret_ref
+         in
+         ("controller_publish_secret_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__csi__controller_expand_secret_ref
+             v_controller_expand_secret_ref
+         in
+         ("controller_expand_secret_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_handle in
+         ("volume_handle", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_attributes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "volume_attributes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_driver in
+         ("driver", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__csi ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__csi
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__fc = {
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
-  lun : float prop;  (** FC target lun number *)
+  lun : float prop;
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false (read/write). *)
   target_ww_ns : string prop list;
-      (** FC target worldwide names (WWNs) *)
 }
-[@@deriving yojson_of]
-(** Represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__fc) -> ()
+
+let yojson_of_spec__persistent_volume_source__fc =
+  (function
+   | {
+       fs_type = v_fs_type;
+       lun = v_lun;
+       read_only = v_read_only;
+       target_ww_ns = v_target_ww_ns;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_target_ww_ns
+         in
+         ("target_ww_ns", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_lun in
+         ("lun", arg) :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__fc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__fc
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__flex_volume__secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__persistent_volume_source__flex_volume__secret_ref) ->
+  ()
+
+let yojson_of_spec__persistent_volume_source__flex_volume__secret_ref
+    =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__flex_volume__secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__persistent_volume_source__flex_volume__secret_ref
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__flex_volume = {
   driver : string prop;
-      (** Driver is the name of the driver to use for this volume. *)
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. The default filesystem depends on FlexVolume script. *)
   options : (string * string prop) list option; [@option]
-      (** Extra command options if any. *)
   read_only : bool prop option; [@option]
-      (** Whether to force the ReadOnly setting in VolumeMounts. Defaults to false (read/write). *)
   secret_ref :
     spec__persistent_volume_source__flex_volume__secret_ref list;
 }
-[@@deriving yojson_of]
-(** Represents a generic volume resource that is provisioned/attached using an exec based plugin. This is an alpha feature and may change in future. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__flex_volume) -> ()
+
+let yojson_of_spec__persistent_volume_source__flex_volume =
+  (function
+   | {
+       driver = v_driver;
+       fs_type = v_fs_type;
+       options = v_options;
+       read_only = v_read_only;
+       secret_ref = v_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__flex_volume__secret_ref
+             v_secret_ref
+         in
+         ("secret_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_options with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "options", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_driver in
+         ("driver", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__flex_volume ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__flex_volume
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__flocker = {
   dataset_name : string prop option; [@option]
-      (** Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated *)
   dataset_uuid : string prop option; [@option]
-      (** UUID of the dataset. This is unique identifier of a Flocker dataset *)
 }
-[@@deriving yojson_of]
-(** Represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__flocker) -> ()
+
+let yojson_of_spec__persistent_volume_source__flocker =
+  (function
+   | { dataset_name = v_dataset_name; dataset_uuid = v_dataset_uuid }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_dataset_uuid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dataset_uuid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dataset_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dataset_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__flocker ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__flocker
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__gce_persistent_disk = {
   fs_type : string prop option; [@option]
-      (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
   partition : float prop option; [@option]
-      (** The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as 1. Similarly, the volume partition for /dev/sda is 0 (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
   pd_name : string prop;
-      (** Unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
   read_only : bool prop option; [@option]
-      (** Whether to force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
 }
-[@@deriving yojson_of]
-(** Represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__persistent_volume_source__gce_persistent_disk) -> ()
+
+let yojson_of_spec__persistent_volume_source__gce_persistent_disk =
+  (function
+   | {
+       fs_type = v_fs_type;
+       partition = v_partition;
+       pd_name = v_pd_name;
+       read_only = v_read_only;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pd_name in
+         ("pd_name", arg) :: bnds
+       in
+       let bnds =
+         match v_partition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "partition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__gce_persistent_disk ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__gce_persistent_disk
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__glusterfs = {
   endpoints_name : string prop;
-      (** The endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod *)
   path : string prop;
-      (** The Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod *)
   read_only : bool prop option; [@option]
-      (** Whether to force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod *)
 }
-[@@deriving yojson_of]
-(** Represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__glusterfs) -> ()
+
+let yojson_of_spec__persistent_volume_source__glusterfs =
+  (function
+   | {
+       endpoints_name = v_endpoints_name;
+       path = v_path;
+       read_only = v_read_only;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_endpoints_name
+         in
+         ("endpoints_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__glusterfs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__glusterfs
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__host_path = {
   path : string prop option; [@option]
-      (** Path of the directory on the host. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Type for HostPath volume. Allowed values are  (default), DirectoryOrCreate, Directory, FileOrCreate, File, Socket, CharDevice and BlockDevice *)
 }
-[@@deriving yojson_of]
-(** Represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__host_path) -> ()
+
+let yojson_of_spec__persistent_volume_source__host_path =
+  (function
+   | { path = v_path; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__host_path ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__host_path
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__iscsi = {
   fs_type : string prop option; [@option]
-      (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi *)
-  iqn : string prop;  (** Target iSCSI Qualified Name. *)
+  iqn : string prop;
   iscsi_interface : string prop option; [@option]
-      (** iSCSI interface name that uses an iSCSI transport. Defaults to 'default' (tcp). *)
-  lun : float prop option; [@option]  (** iSCSI target lun number. *)
+  lun : float prop option; [@option]
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false. *)
   target_portal : string prop;
-      (** iSCSI target portal. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260). *)
 }
-[@@deriving yojson_of]
-(** Represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__iscsi) -> ()
+
+let yojson_of_spec__persistent_volume_source__iscsi =
+  (function
+   | {
+       fs_type = v_fs_type;
+       iqn = v_iqn;
+       iscsi_interface = v_iscsi_interface;
+       lun = v_lun;
+       read_only = v_read_only;
+       target_portal = v_target_portal;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target_portal in
+         ("target_portal", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lun with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "lun", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iscsi_interface with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "iscsi_interface", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_iqn in
+         ("iqn", arg) :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__iscsi ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__iscsi
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__local = {
   path : string prop option; [@option]
-      (** Path of the directory on the host. More info: https://kubernetes.io/docs/concepts/storage/volumes#local *)
 }
-[@@deriving yojson_of]
-(** Represents a mounted local storage device such as a disk, partition or directory. Local volumes can only be used as a statically created PersistentVolume. Dynamic provisioning is not supported yet. More info: https://kubernetes.io/docs/concepts/storage/volumes#local *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__local) -> ()
+
+let yojson_of_spec__persistent_volume_source__local =
+  (function
+   | { path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__local ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__local
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__nfs = {
   path : string prop;
-      (** Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
   read_only : bool prop option; [@option]
-      (** Whether to force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
   server : string prop;
-      (** Server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
 }
-[@@deriving yojson_of]
-(** Represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__nfs) -> ()
+
+let yojson_of_spec__persistent_volume_source__nfs =
+  (function
+   | { path = v_path; read_only = v_read_only; server = v_server } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_server in
+         ("server", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__nfs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__nfs
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__photon_persistent_disk = {
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   pd_id : string prop;
-      (** ID that identifies Photon Controller persistent disk *)
 }
-[@@deriving yojson_of]
-(** Represents a PhotonController persistent disk attached and mounted on kubelets host machine *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__persistent_volume_source__photon_persistent_disk) ->
+  ()
+
+let yojson_of_spec__persistent_volume_source__photon_persistent_disk
+    =
+  (function
+   | { fs_type = v_fs_type; pd_id = v_pd_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pd_id in
+         ("pd_id", arg) :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__photon_persistent_disk ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__persistent_volume_source__photon_persistent_disk
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__quobyte = {
   group : string prop option; [@option]
-      (** Group to map volume access to Default is no group *)
   read_only : bool prop option; [@option]
-      (** Whether to force the Quobyte volume to be mounted with read-only permissions. Defaults to false. *)
   registry : string prop;
-      (** Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes *)
   user : string prop option; [@option]
-      (** User to map volume access to Defaults to serivceaccount user *)
   volume : string prop;
-      (** Volume is a string that references an already created Quobyte volume by name. *)
 }
-[@@deriving yojson_of]
-(** Quobyte represents a Quobyte mount on the host that shares a pod's lifetime *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__quobyte) -> ()
+
+let yojson_of_spec__persistent_volume_source__quobyte =
+  (function
+   | {
+       group = v_group;
+       read_only = v_read_only;
+       registry = v_registry;
+       user = v_user;
+       volume = v_volume;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume in
+         ("volume", arg) :: bnds
+       in
+       let bnds =
+         match v_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_registry in
+         ("registry", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__quobyte ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__quobyte
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__rbd__secret_ref = {
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   namespace : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__persistent_volume_source__rbd__secret_ref) -> ()
+
+let yojson_of_spec__persistent_volume_source__rbd__secret_ref =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__rbd__secret_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__rbd__secret_ref
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__rbd = {
   ceph_monitors : string prop list;
-      (** A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   fs_type : string prop option; [@option]
-      (** Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd *)
   keyring : string prop option; [@option]
-      (** Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   rados_user : string prop option; [@option]
-      (** The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   rbd_image : string prop;
-      (** The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   rbd_pool : string prop option; [@option]
-      (** The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it. *)
   read_only : bool prop option; [@option]
-      (** Whether to force the read-only setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it *)
   secret_ref : spec__persistent_volume_source__rbd__secret_ref list;
 }
-[@@deriving yojson_of]
-(** Represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source__rbd) -> ()
+
+let yojson_of_spec__persistent_volume_source__rbd =
+  (function
+   | {
+       ceph_monitors = v_ceph_monitors;
+       fs_type = v_fs_type;
+       keyring = v_keyring;
+       rados_user = v_rados_user;
+       rbd_image = v_rbd_image;
+       rbd_pool = v_rbd_pool;
+       read_only = v_read_only;
+       secret_ref = v_secret_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__rbd__secret_ref
+             v_secret_ref
+         in
+         ("secret_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rbd_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rbd_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rbd_image in
+         ("rbd_image", arg) :: bnds
+       in
+       let bnds =
+         match v_rados_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rados_user", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keyring with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keyring", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_ceph_monitors
+         in
+         ("ceph_monitors", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__rbd ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__rbd
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source__vsphere_volume = {
   fs_type : string prop option; [@option]
-      (** Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. ext4, xfs, ntfs. Implicitly inferred to be ext4 if unspecified. *)
   volume_path : string prop;
-      (** Path that identifies vSphere volume vmdk *)
 }
-[@@deriving yojson_of]
-(** Represents a vSphere volume attached and mounted on kubelets host machine *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__persistent_volume_source__vsphere_volume) -> ()
+
+let yojson_of_spec__persistent_volume_source__vsphere_volume =
+  (function
+   | { fs_type = v_fs_type; volume_path = v_volume_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_path in
+         ("volume_path", arg) :: bnds
+       in
+       let bnds =
+         match v_fs_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fs_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source__vsphere_volume ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source__vsphere_volume
+
+[@@@deriving.end]
 
 type spec__persistent_volume_source = {
   aws_elastic_block_store :
@@ -405,43 +1729,377 @@ type spec__persistent_volume_source = {
   vsphere_volume :
     spec__persistent_volume_source__vsphere_volume list;
 }
-[@@deriving yojson_of]
-(** The specification of a persistent volume. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__persistent_volume_source) -> ()
+
+let yojson_of_spec__persistent_volume_source =
+  (function
+   | {
+       aws_elastic_block_store = v_aws_elastic_block_store;
+       azure_disk = v_azure_disk;
+       azure_file = v_azure_file;
+       ceph_fs = v_ceph_fs;
+       cinder = v_cinder;
+       csi = v_csi;
+       fc = v_fc;
+       flex_volume = v_flex_volume;
+       flocker = v_flocker;
+       gce_persistent_disk = v_gce_persistent_disk;
+       glusterfs = v_glusterfs;
+       host_path = v_host_path;
+       iscsi = v_iscsi;
+       local = v_local;
+       nfs = v_nfs;
+       photon_persistent_disk = v_photon_persistent_disk;
+       quobyte = v_quobyte;
+       rbd = v_rbd;
+       vsphere_volume = v_vsphere_volume;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__vsphere_volume
+             v_vsphere_volume
+         in
+         ("vsphere_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__rbd v_rbd
+         in
+         ("rbd", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__quobyte
+             v_quobyte
+         in
+         ("quobyte", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__photon_persistent_disk
+             v_photon_persistent_disk
+         in
+         ("photon_persistent_disk", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__nfs v_nfs
+         in
+         ("nfs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__local v_local
+         in
+         ("local", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__iscsi v_iscsi
+         in
+         ("iscsi", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__host_path
+             v_host_path
+         in
+         ("host_path", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__glusterfs
+             v_glusterfs
+         in
+         ("glusterfs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__gce_persistent_disk
+             v_gce_persistent_disk
+         in
+         ("gce_persistent_disk", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__flocker
+             v_flocker
+         in
+         ("flocker", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__flex_volume
+             v_flex_volume
+         in
+         ("flex_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__fc v_fc
+         in
+         ("fc", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__csi v_csi
+         in
+         ("csi", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__cinder
+             v_cinder
+         in
+         ("cinder", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__ceph_fs
+             v_ceph_fs
+         in
+         ("ceph_fs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__azure_file
+             v_azure_file
+         in
+         ("azure_file", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__azure_disk
+             v_azure_disk
+         in
+         ("azure_disk", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__persistent_volume_source__aws_elastic_block_store
+             v_aws_elastic_block_store
+         in
+         ("aws_elastic_block_store", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__persistent_volume_source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__persistent_volume_source
+
+[@@@deriving.end]
 
 type spec = {
   access_modes : string prop list;
-      (** Contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes *)
   capacity : (string * string prop) list;
-      (** A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity *)
   mount_options : string prop list option; [@option]
-      (** A list of mount options, e.g. [ro, soft]. Not validated - mount will simply fail if one is invalid. *)
   persistent_volume_reclaim_policy : string prop option; [@option]
-      (** What happens to a persistent volume when released from its claim. Valid options are Retain (default) and Recycle. Recycling must be supported by the volume plugin underlying this persistent volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming *)
   storage_class_name : string prop option; [@option]
-      (** A description of the persistent volume's class. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#class *)
   volume_mode : string prop option; [@option]
-      (** Defines if a volume is intended to be used with a formatted filesystem. or to remain in raw block state. *)
   claim_ref : spec__claim_ref list;
   node_affinity : spec__node_affinity list;
   persistent_volume_source : spec__persistent_volume_source list;
 }
-[@@deriving yojson_of]
-(** Spec of the persistent volume owned by the cluster *)
+[@@deriving_inline yojson_of]
 
-type timeouts = {
-  create : string prop option; [@option]  (** create *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       access_modes = v_access_modes;
+       capacity = v_capacity;
+       mount_options = v_mount_options;
+       persistent_volume_reclaim_policy =
+         v_persistent_volume_reclaim_policy;
+       storage_class_name = v_storage_class_name;
+       volume_mode = v_volume_mode;
+       claim_ref = v_claim_ref;
+       node_affinity = v_node_affinity;
+       persistent_volume_source = v_persistent_volume_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__persistent_volume_source
+             v_persistent_volume_source
+         in
+         ("persistent_volume_source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__node_affinity
+             v_node_affinity
+         in
+         ("node_affinity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__claim_ref v_claim_ref
+         in
+         ("claim_ref", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_class_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_class_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_persistent_volume_reclaim_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "persistent_volume_reclaim_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mount_options with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "mount_options", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_capacity
+         in
+         ("capacity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_access_modes
+         in
+         ("access_modes", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
+
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type kubernetes_persistent_volume = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   metadata : metadata list;
   spec : spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** kubernetes_persistent_volume *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_persistent_volume) -> ()
+
+let yojson_of_kubernetes_persistent_volume =
+  (function
+   | {
+       id = v_id;
+       metadata = v_metadata;
+       spec = v_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_persistent_volume ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_persistent_volume
+
+[@@@deriving.end]
 
 let metadata ?annotations ?labels ?name () : metadata =
   { annotations; labels; name }

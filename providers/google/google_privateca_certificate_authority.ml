@@ -4,128 +4,563 @@ open! Tf_core
 
 type config__subject_config__subject = {
   common_name : string prop;
-      (** The common name of the distinguished name. *)
   country_code : string prop option; [@option]
-      (** The country code of the subject. *)
   locality : string prop option; [@option]
-      (** The locality or city of the subject. *)
   organization : string prop;
-      (** The organization of the subject. *)
   organizational_unit : string prop option; [@option]
-      (** The organizational unit of the subject. *)
   postal_code : string prop option; [@option]
-      (** The postal code of the subject. *)
   province : string prop option; [@option]
-      (** The province, territory, or regional state of the subject. *)
   street_address : string prop option; [@option]
-      (** The street address of the subject. *)
 }
-[@@deriving yojson_of]
-(** Contains distinguished name fields such as the location and organization. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__subject_config__subject) -> ()
+
+let yojson_of_config__subject_config__subject =
+  (function
+   | {
+       common_name = v_common_name;
+       country_code = v_country_code;
+       locality = v_locality;
+       organization = v_organization;
+       organizational_unit = v_organizational_unit;
+       postal_code = v_postal_code;
+       province = v_province;
+       street_address = v_street_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_street_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "street_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_province with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "province", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_postal_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "postal_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_organizational_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "organizational_unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_organization in
+         ("organization", arg) :: bnds
+       in
+       let bnds =
+         match v_locality with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "locality", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_country_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "country_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_common_name in
+         ("common_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__subject_config__subject ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__subject_config__subject
+
+[@@@deriving.end]
 
 type config__subject_config__subject_alt_name = {
   dns_names : string prop list option; [@option]
-      (** Contains only valid, fully-qualified host names. *)
   email_addresses : string prop list option; [@option]
-      (** Contains only valid RFC 2822 E-mail addresses. *)
   ip_addresses : string prop list option; [@option]
-      (** Contains only valid 32-bit IPv4 addresses or RFC 4291 IPv6 addresses. *)
   uris : string prop list option; [@option]
-      (** Contains only valid RFC 3986 URIs. *)
 }
-[@@deriving yojson_of]
-(** The subject alternative name fields. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__subject_config__subject_alt_name) -> ()
+
+let yojson_of_config__subject_config__subject_alt_name =
+  (function
+   | {
+       dns_names = v_dns_names;
+       email_addresses = v_email_addresses;
+       ip_addresses = v_ip_addresses;
+       uris = v_uris;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "email_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dns_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dns_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__subject_config__subject_alt_name ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__subject_config__subject_alt_name
+
+[@@@deriving.end]
 
 type config__subject_config = {
   subject : config__subject_config__subject list;
   subject_alt_name : config__subject_config__subject_alt_name list;
 }
-[@@deriving yojson_of]
-(** Specifies some of the values in a certificate that are related to the subject. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__subject_config) -> ()
+
+let yojson_of_config__subject_config =
+  (function
+   | { subject = v_subject; subject_alt_name = v_subject_alt_name }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__subject_config__subject_alt_name
+             v_subject_alt_name
+         in
+         ("subject_alt_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__subject_config__subject
+             v_subject
+         in
+         ("subject", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__subject_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__subject_config
+
+[@@@deriving.end]
 
 type config__x509_config__additional_extensions__object_id = {
   object_id_path : float prop list;
-      (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 }
-[@@deriving yojson_of]
-(** Describes values that are relevant in a CA certificate. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : config__x509_config__additional_extensions__object_id) ->
+  ()
+
+let yojson_of_config__x509_config__additional_extensions__object_id =
+  (function
+   | { object_id_path = v_object_id_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_float)
+             v_object_id_path
+         in
+         ("object_id_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config__additional_extensions__object_id ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_config__x509_config__additional_extensions__object_id
+
+[@@@deriving.end]
 
 type config__x509_config__additional_extensions = {
   critical : bool prop;
-      (** Indicates whether or not this extension is critical (i.e., if the client does not know how to
-handle this extension, the client should consider this to be an error). *)
   value : string prop;
-      (** The value of this X.509 extension. A base64-encoded string. *)
   object_id :
     config__x509_config__additional_extensions__object_id list;
 }
-[@@deriving yojson_of]
-(** Specifies an X.509 extension, which may be used in different parts of X.509 objects like certificates, CSRs, and CRLs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__x509_config__additional_extensions) -> ()
+
+let yojson_of_config__x509_config__additional_extensions =
+  (function
+   | {
+       critical = v_critical;
+       value = v_value;
+       object_id = v_object_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__x509_config__additional_extensions__object_id
+             v_object_id
+         in
+         ("object_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_critical in
+         ("critical", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config__additional_extensions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__x509_config__additional_extensions
+
+[@@@deriving.end]
 
 type config__x509_config__ca_options = {
   is_ca : bool prop;
-      (** When true, the CA in Basic Constraints extension will be set to true. *)
   max_issuer_path_length : float prop option; [@option]
-      (** Refers to the path length constraint in Basic Constraints extension. For a CA certificate, this value describes the depth of
-subordinate CA certificates that are allowed. If this value is less than 0, the request will fail. Setting the value to 0
-requires setting 'zero_max_issuer_path_length = true'. *)
   non_ca : bool prop option; [@option]
-      (** When true, the CA in Basic Constraints extension will be set to false.
-If both 'is_ca' and 'non_ca' are unset, the extension will be omitted from the CA certificate. *)
   zero_max_issuer_path_length : bool prop option; [@option]
-      (** When true, the path length constraint in Basic Constraints extension will be set to 0.
-If both 'max_issuer_path_length' and 'zero_max_issuer_path_length' are unset,
-the max path length will be omitted from the CA certificate. *)
 }
-[@@deriving yojson_of]
-(** Describes values that are relevant in a CA certificate. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__x509_config__ca_options) -> ()
+
+let yojson_of_config__x509_config__ca_options =
+  (function
+   | {
+       is_ca = v_is_ca;
+       max_issuer_path_length = v_max_issuer_path_length;
+       non_ca = v_non_ca;
+       zero_max_issuer_path_length = v_zero_max_issuer_path_length;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_zero_max_issuer_path_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "zero_max_issuer_path_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_non_ca with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "non_ca", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_issuer_path_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_issuer_path_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_is_ca in
+         ("is_ca", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config__ca_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__x509_config__ca_options
+
+[@@@deriving.end]
 
 type config__x509_config__key_usage__base_key_usage = {
   cert_sign : bool prop option; [@option]
-      (** The key may be used to sign certificates. *)
   content_commitment : bool prop option; [@option]
-      (** The key may be used for cryptographic commitments. Note that this may also be referred to as non-repudiation. *)
   crl_sign : bool prop option; [@option]
-      (** The key may be used sign certificate revocation lists. *)
   data_encipherment : bool prop option; [@option]
-      (** The key may be used to encipher data. *)
   decipher_only : bool prop option; [@option]
-      (** The key may be used to decipher only. *)
   digital_signature : bool prop option; [@option]
-      (** The key may be used for digital signatures. *)
   encipher_only : bool prop option; [@option]
-      (** The key may be used to encipher only. *)
   key_agreement : bool prop option; [@option]
-      (** The key may be used in a key agreement protocol. *)
   key_encipherment : bool prop option; [@option]
-      (** The key may be used to encipher other keys. *)
 }
-[@@deriving yojson_of]
-(** Describes high-level ways in which a key may be used. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : config__x509_config__key_usage__base_key_usage) -> ()
+
+let yojson_of_config__x509_config__key_usage__base_key_usage =
+  (function
+   | {
+       cert_sign = v_cert_sign;
+       content_commitment = v_content_commitment;
+       crl_sign = v_crl_sign;
+       data_encipherment = v_data_encipherment;
+       decipher_only = v_decipher_only;
+       digital_signature = v_digital_signature;
+       encipher_only = v_encipher_only;
+       key_agreement = v_key_agreement;
+       key_encipherment = v_key_encipherment;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_key_encipherment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "key_encipherment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_agreement with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "key_agreement", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encipher_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encipher_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_digital_signature with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "digital_signature", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_decipher_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "decipher_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_encipherment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "data_encipherment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_crl_sign with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "crl_sign", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_commitment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "content_commitment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cert_sign with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cert_sign", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config__key_usage__base_key_usage ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__x509_config__key_usage__base_key_usage
+
+[@@@deriving.end]
 
 type config__x509_config__key_usage__extended_key_usage = {
   client_auth : bool prop option; [@option]
-      (** Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially described as TLS WWW client authentication, though regularly used for non-WWW TLS. *)
   code_signing : bool prop option; [@option]
-      (** Corresponds to OID 1.3.6.1.5.5.7.3.3. Officially described as Signing of downloadable executable code client authentication. *)
   email_protection : bool prop option; [@option]
-      (** Corresponds to OID 1.3.6.1.5.5.7.3.4. Officially described as Email protection. *)
   ocsp_signing : bool prop option; [@option]
-      (** Corresponds to OID 1.3.6.1.5.5.7.3.9. Officially described as Signing OCSP responses. *)
   server_auth : bool prop option; [@option]
-      (** Corresponds to OID 1.3.6.1.5.5.7.3.1. Officially described as TLS WWW server authentication, though regularly used for non-WWW TLS. *)
   time_stamping : bool prop option; [@option]
-      (** Corresponds to OID 1.3.6.1.5.5.7.3.8. Officially described as Binding the hash of an object to a time. *)
 }
-[@@deriving yojson_of]
-(** Describes high-level ways in which a key may be used. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : config__x509_config__key_usage__extended_key_usage) -> ()
+
+let yojson_of_config__x509_config__key_usage__extended_key_usage =
+  (function
+   | {
+       client_auth = v_client_auth;
+       code_signing = v_code_signing;
+       email_protection = v_email_protection;
+       ocsp_signing = v_ocsp_signing;
+       server_auth = v_server_auth;
+       time_stamping = v_time_stamping;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_time_stamping with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "time_stamping", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_server_auth with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "server_auth", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ocsp_signing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ocsp_signing", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "email_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_code_signing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "code_signing", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_auth with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "client_auth", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config__key_usage__extended_key_usage ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__x509_config__key_usage__extended_key_usage
+
+[@@@deriving.end]
 
 type config__x509_config__key_usage__unknown_extended_key_usages = {
   object_id_path : float prop list;
-      (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 }
-[@@deriving yojson_of]
-(** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       config__x509_config__key_usage__unknown_extended_key_usages) ->
+  ()
+
+let yojson_of_config__x509_config__key_usage__unknown_extended_key_usages
+    =
+  (function
+   | { object_id_path = v_object_id_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_float)
+             v_object_id_path
+         in
+         ("object_id_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config__key_usage__unknown_extended_key_usages ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_config__x509_config__key_usage__unknown_extended_key_usages
+
+[@@@deriving.end]
 
 type config__x509_config__key_usage = {
   base_key_usage :
@@ -135,67 +570,206 @@ type config__x509_config__key_usage = {
   unknown_extended_key_usages :
     config__x509_config__key_usage__unknown_extended_key_usages list;
 }
-[@@deriving yojson_of]
-(** Indicates the intended use for keys that correspond to a certificate. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__x509_config__key_usage) -> ()
+
+let yojson_of_config__x509_config__key_usage =
+  (function
+   | {
+       base_key_usage = v_base_key_usage;
+       extended_key_usage = v_extended_key_usage;
+       unknown_extended_key_usages = v_unknown_extended_key_usages;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__x509_config__key_usage__unknown_extended_key_usages
+             v_unknown_extended_key_usages
+         in
+         ("unknown_extended_key_usages", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__x509_config__key_usage__extended_key_usage
+             v_extended_key_usage
+         in
+         ("extended_key_usage", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__x509_config__key_usage__base_key_usage
+             v_base_key_usage
+         in
+         ("base_key_usage", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config__key_usage ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__x509_config__key_usage
+
+[@@@deriving.end]
 
 type config__x509_config__name_constraints = {
   critical : bool prop;
-      (** Indicates whether or not the name constraints are marked critical. *)
   excluded_dns_names : string prop list option; [@option]
-      (** Contains excluded DNS names. Any DNS name that can be
-constructed by simply adding zero or more labels to
-the left-hand side of the name satisfies the name constraint.
-For example, 'example.com', 'www.example.com', 'www.sub.example.com'
-would satisfy 'example.com' while 'example1.com' does not. *)
   excluded_email_addresses : string prop list option; [@option]
-      (** Contains the excluded email addresses. The value can be a particular
-email address, a hostname to indicate all email addresses on that host or
-a domain with a leading period (e.g. '.example.com') to indicate
-all email addresses in that domain. *)
   excluded_ip_ranges : string prop list option; [@option]
-      (** Contains the excluded IP ranges. For IPv4 addresses, the ranges
-are expressed using CIDR notation as specified in RFC 4632.
-For IPv6 addresses, the ranges are expressed in similar encoding as IPv4
-addresses. *)
   excluded_uris : string prop list option; [@option]
-      (** Contains the excluded URIs that apply to the host part of the name.
-The value can be a hostname or a domain with a
-leading period (like '.example.com') *)
   permitted_dns_names : string prop list option; [@option]
-      (** Contains permitted DNS names. Any DNS name that can be
-constructed by simply adding zero or more labels to
-the left-hand side of the name satisfies the name constraint.
-For example, 'example.com', 'www.example.com', 'www.sub.example.com'
-would satisfy 'example.com' while 'example1.com' does not. *)
   permitted_email_addresses : string prop list option; [@option]
-      (** Contains the permitted email addresses. The value can be a particular
-email address, a hostname to indicate all email addresses on that host or
-a domain with a leading period (e.g. '.example.com') to indicate
-all email addresses in that domain. *)
   permitted_ip_ranges : string prop list option; [@option]
-      (** Contains the permitted IP ranges. For IPv4 addresses, the ranges
-are expressed using CIDR notation as specified in RFC 4632.
-For IPv6 addresses, the ranges are expressed in similar encoding as IPv4
-addresses. *)
   permitted_uris : string prop list option; [@option]
-      (** Contains the permitted URIs that apply to the host part of the name.
-The value can be a hostname or a domain with a
-leading period (like '.example.com') *)
 }
-[@@deriving yojson_of]
-(** Describes the X.509 name constraints extension. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__x509_config__name_constraints) -> ()
+
+let yojson_of_config__x509_config__name_constraints =
+  (function
+   | {
+       critical = v_critical;
+       excluded_dns_names = v_excluded_dns_names;
+       excluded_email_addresses = v_excluded_email_addresses;
+       excluded_ip_ranges = v_excluded_ip_ranges;
+       excluded_uris = v_excluded_uris;
+       permitted_dns_names = v_permitted_dns_names;
+       permitted_email_addresses = v_permitted_email_addresses;
+       permitted_ip_ranges = v_permitted_ip_ranges;
+       permitted_uris = v_permitted_uris;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_permitted_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "permitted_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_permitted_ip_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "permitted_ip_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_permitted_email_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "permitted_email_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_permitted_dns_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "permitted_dns_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_excluded_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "excluded_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_excluded_ip_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "excluded_ip_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_excluded_email_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "excluded_email_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_excluded_dns_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "excluded_dns_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_critical in
+         ("critical", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config__name_constraints ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__x509_config__name_constraints
+
+[@@@deriving.end]
 
 type config__x509_config__policy_ids = {
   object_id_path : float prop list;
-      (** An ObjectId specifies an object identifier (OID). These provide context and describe types in ASN.1 messages. *)
 }
-[@@deriving yojson_of]
-(** Describes the X.509 certificate policy object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__x509_config__policy_ids) -> ()
+
+let yojson_of_config__x509_config__policy_ids =
+  (function
+   | { object_id_path = v_object_id_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_float)
+             v_object_id_path
+         in
+         ("object_id_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config__policy_ids ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__x509_config__policy_ids
+
+[@@@deriving.end]
 
 type config__x509_config = {
   aia_ocsp_servers : string prop list option; [@option]
-      (** Describes Online Certificate Status Protocol (OCSP) endpoint addresses that appear in the
-Authority Information Access extension in the certificate. *)
   additional_extensions :
     config__x509_config__additional_extensions list;
   ca_options : config__x509_config__ca_options list;
@@ -203,121 +777,499 @@ Authority Information Access extension in the certificate. *)
   name_constraints : config__x509_config__name_constraints list;
   policy_ids : config__x509_config__policy_ids list;
 }
-[@@deriving yojson_of]
-(** Describes how some of the technical X.509 fields in a certificate should be populated. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__x509_config) -> ()
+
+let yojson_of_config__x509_config =
+  (function
+   | {
+       aia_ocsp_servers = v_aia_ocsp_servers;
+       additional_extensions = v_additional_extensions;
+       ca_options = v_ca_options;
+       key_usage = v_key_usage;
+       name_constraints = v_name_constraints;
+       policy_ids = v_policy_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__x509_config__policy_ids
+             v_policy_ids
+         in
+         ("policy_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__x509_config__name_constraints
+             v_name_constraints
+         in
+         ("name_constraints", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__x509_config__key_usage
+             v_key_usage
+         in
+         ("key_usage", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__x509_config__ca_options
+             v_ca_options
+         in
+         ("ca_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__x509_config__additional_extensions
+             v_additional_extensions
+         in
+         ("additional_extensions", arg) :: bnds
+       in
+       let bnds =
+         match v_aia_ocsp_servers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "aia_ocsp_servers", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__x509_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__x509_config
+
+[@@@deriving.end]
 
 type config = {
   subject_config : config__subject_config list;
   x509_config : config__x509_config list;
 }
-[@@deriving yojson_of]
-(** The config used to create a self-signed X.509 certificate or CSR. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config) -> ()
+
+let yojson_of_config =
+  (function
+   | {
+       subject_config = v_subject_config;
+       x509_config = v_x509_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__x509_config v_x509_config
+         in
+         ("x509_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__subject_config
+             v_subject_config
+         in
+         ("subject_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config
+
+[@@@deriving.end]
 
 type key_spec = {
   algorithm : string prop option; [@option]
-      (** The algorithm to use for creating a managed Cloud KMS key for a for a simplified
-experience. All managed keys will be have their ProtectionLevel as HSM. Possible values: [SIGN_HASH_ALGORITHM_UNSPECIFIED, RSA_PSS_2048_SHA256, RSA_PSS_3072_SHA256, RSA_PSS_4096_SHA256, RSA_PKCS1_2048_SHA256, RSA_PKCS1_3072_SHA256, RSA_PKCS1_4096_SHA256, EC_P256_SHA256, EC_P384_SHA384] *)
   cloud_kms_key_version : string prop option; [@option]
-      (** The resource name for an existing Cloud KMS CryptoKeyVersion in the format
-'projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*'. *)
 }
-[@@deriving yojson_of]
-(** Used when issuing certificates for this CertificateAuthority. If this CertificateAuthority
-is a self-signed CertificateAuthority, this key is also used to sign the self-signed CA
-certificate. Otherwise, it is used to sign a CSR. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : key_spec) -> ()
+
+let yojson_of_key_spec =
+  (function
+   | {
+       algorithm = v_algorithm;
+       cloud_kms_key_version = v_cloud_kms_key_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_cloud_kms_key_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloud_kms_key_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_algorithm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "algorithm", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : key_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_key_spec
+
+[@@@deriving.end]
 
 type subordinate_config__pem_issuer_chain = {
   pem_certificates : string prop list option; [@option]
-      (** Expected to be in leaf-to-root order according to RFC 5246. *)
 }
-[@@deriving yojson_of]
-(** Contains the PEM certificate chain for the issuers of this CertificateAuthority,
-but not pem certificate for this CA itself. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subordinate_config__pem_issuer_chain) -> ()
+
+let yojson_of_subordinate_config__pem_issuer_chain =
+  (function
+   | { pem_certificates = v_pem_certificates } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_pem_certificates with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "pem_certificates", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : subordinate_config__pem_issuer_chain ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subordinate_config__pem_issuer_chain
+
+[@@@deriving.end]
 
 type subordinate_config = {
   certificate_authority : string prop option; [@option]
-      (** This can refer to a CertificateAuthority that was used to create a
-subordinate CertificateAuthority. This field is used for information
-and usability purposes only. The resource name is in the format
-'projects/*/locations/*/caPools/*/certificateAuthorities/*'. *)
   pem_issuer_chain : subordinate_config__pem_issuer_chain list;
 }
-[@@deriving yojson_of]
-(** If this is a subordinate CertificateAuthority, this field will be set
-with the subordinate configuration, which describes its issuers. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subordinate_config) -> ()
+
+let yojson_of_subordinate_config =
+  (function
+   | {
+       certificate_authority = v_certificate_authority;
+       pem_issuer_chain = v_pem_issuer_chain;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_subordinate_config__pem_issuer_chain
+             v_pem_issuer_chain
+         in
+         ("pem_issuer_chain", arg) :: bnds
+       in
+       let bnds =
+         match v_certificate_authority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_authority", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : subordinate_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subordinate_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type access_urls = {
   ca_certificate_access_url : string prop;
-      (** ca_certificate_access_url *)
-  crl_access_urls : string prop list;  (** crl_access_urls *)
+  crl_access_urls : string prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access_urls) -> ()
+
+let yojson_of_access_urls =
+  (function
+   | {
+       ca_certificate_access_url = v_ca_certificate_access_url;
+       crl_access_urls = v_crl_access_urls;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_crl_access_urls
+         in
+         ("crl_access_urls", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_ca_certificate_access_url
+         in
+         ("ca_certificate_access_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : access_urls -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_urls
+
+[@@@deriving.end]
 
 type google_privateca_certificate_authority = {
   certificate_authority_id : string prop;
-      (** The user provided Resource ID for this Certificate Authority. *)
   deletion_protection : bool prop option; [@option]
-      (** Whether or not to allow Terraform to destroy the CertificateAuthority. Unless this field is set to false
-in Terraform state, a 'terraform destroy' or 'terraform apply' that would delete the instance will fail. *)
   desired_state : string prop option; [@option]
-      (** Desired state of the CertificateAuthority. Set this field to 'STAGED' to create a 'STAGED' root CA. *)
   gcs_bucket : string prop option; [@option]
-      (** The name of a Cloud Storage bucket where this CertificateAuthority will publish content,
-such as the CA certificate and CRLs. This must be a bucket name, without any prefixes
-(such as 'gs://') or suffixes (such as '.googleapis.com'). For example, to use a bucket named
-my-bucket, you would simply specify 'my-bucket'. If not specified, a managed bucket will be
-created. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ignore_active_certificates_on_deletion : bool prop option;
       [@option]
-      (** This field allows the CA to be deleted even if the CA has active certs. Active certs include both unrevoked and unexpired certs.
-Use with care. Defaults to 'false'. *)
   labels : (string * string prop) list option; [@option]
-      (** Labels with user-defined metadata.
-
-An object containing a list of key: value pairs. Example: { name: wrench, mass:
-1.3kg, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   lifetime : string prop option; [@option]
-      (** The desired lifetime of the CA certificate. Used to create the notBeforeTime and
-notAfterTime fields inside an X.509 certificate. A duration in seconds with up to nine
-fractional digits, terminated by 's'. Example: 3.5s. *)
   location : string prop;
-      (** Location of the CertificateAuthority. A full list of valid locations can be found by
-running 'gcloud privateca locations list'. *)
   pem_ca_certificate : string prop option; [@option]
-      (** The signed CA certificate issued from the subordinated CA's CSR. This is needed when activating the subordiante CA with a third party issuer. *)
   pool : string prop;
-      (** The name of the CaPool this Certificate Authority belongs to. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   skip_grace_period : bool prop option; [@option]
-      (** If this flag is set, the Certificate Authority will be deleted as soon as
-possible without a 30-day grace period where undeletion would have been
-allowed. If you proceed, there will be no way to recover this CA.
-Use with care. Defaults to 'false'. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The Type of this CertificateAuthority.
-
-~> **Note:** For 'SUBORDINATE' Certificate Authorities, they need to
-be activated before they can issue certificates. Default value: SELF_SIGNED Possible values: [SELF_SIGNED, SUBORDINATE] *)
   config : config list;
   key_spec : key_spec list;
   subordinate_config : subordinate_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_privateca_certificate_authority *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_privateca_certificate_authority) -> ()
+
+let yojson_of_google_privateca_certificate_authority =
+  (function
+   | {
+       certificate_authority_id = v_certificate_authority_id;
+       deletion_protection = v_deletion_protection;
+       desired_state = v_desired_state;
+       gcs_bucket = v_gcs_bucket;
+       id = v_id;
+       ignore_active_certificates_on_deletion =
+         v_ignore_active_certificates_on_deletion;
+       labels = v_labels;
+       lifetime = v_lifetime;
+       location = v_location;
+       pem_ca_certificate = v_pem_ca_certificate;
+       pool = v_pool;
+       project = v_project;
+       skip_grace_period = v_skip_grace_period;
+       type_ = v_type_;
+       config = v_config;
+       key_spec = v_key_spec;
+       subordinate_config = v_subordinate_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_subordinate_config
+             v_subordinate_config
+         in
+         ("subordinate_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_key_spec v_key_spec in
+         ("key_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_config v_config in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skip_grace_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_grace_period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pool in
+         ("pool", arg) :: bnds
+       in
+       let bnds =
+         match v_pem_ca_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pem_ca_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_lifetime with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lifetime", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_active_certificates_on_deletion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "ignore_active_certificates_on_deletion", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gcs_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gcs_bucket", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_desired_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "desired_state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deletion_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_authority_id
+         in
+         ("certificate_authority_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_privateca_certificate_authority ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_privateca_certificate_authority
+
+[@@@deriving.end]
 
 let config__subject_config__subject ?country_code ?locality
     ?organizational_unit ?postal_code ?province ?street_address

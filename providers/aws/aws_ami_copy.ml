@@ -2,38 +2,235 @@
 
 open! Tf_core
 
-type ebs_block_device = unit [@@deriving yojson_of]
-type ephemeral_block_device = unit [@@deriving yojson_of]
+type ebs_block_device = unit [@@deriving_inline yojson_of]
+
+let _ = fun (_ : ebs_block_device) -> ()
+
+let yojson_of_ebs_block_device =
+  (yojson_of_unit
+    : ebs_block_device -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ebs_block_device
+
+[@@@deriving.end]
+
+type ephemeral_block_device = unit [@@deriving_inline yojson_of]
+
+let _ = fun (_ : ephemeral_block_device) -> ()
+
+let yojson_of_ephemeral_block_device =
+  (yojson_of_unit
+    : ephemeral_block_device -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ephemeral_block_device
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_ami_copy = {
   deprecation_time : string prop option; [@option]
-      (** deprecation_time *)
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   destination_outpost_arn : string prop option; [@option]
-      (** destination_outpost_arn *)
-  encrypted : bool prop option; [@option]  (** encrypted *)
-  id : string prop option; [@option]  (** id *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
-  name : string prop;  (** name *)
-  source_ami_id : string prop;  (** source_ami_id *)
-  source_ami_region : string prop;  (** source_ami_region *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  encrypted : bool prop option; [@option]
+  id : string prop option; [@option]
+  kms_key_id : string prop option; [@option]
+  name : string prop;
+  source_ami_id : string prop;
+  source_ami_region : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   ebs_block_device : ebs_block_device list;
   ephemeral_block_device : ephemeral_block_device list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_ami_copy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ami_copy) -> ()
+
+let yojson_of_aws_ami_copy =
+  (function
+   | {
+       deprecation_time = v_deprecation_time;
+       description = v_description;
+       destination_outpost_arn = v_destination_outpost_arn;
+       encrypted = v_encrypted;
+       id = v_id;
+       kms_key_id = v_kms_key_id;
+       name = v_name;
+       source_ami_id = v_source_ami_id;
+       source_ami_region = v_source_ami_region;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       ebs_block_device = v_ebs_block_device;
+       ephemeral_block_device = v_ephemeral_block_device;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ephemeral_block_device
+             v_ephemeral_block_device
+         in
+         ("ephemeral_block_device", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ebs_block_device
+             v_ebs_block_device
+         in
+         ("ebs_block_device", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_ami_region
+         in
+         ("source_ami_region", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source_ami_id in
+         ("source_ami_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encrypted with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "encrypted", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_outpost_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "destination_outpost_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deprecation_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deprecation_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ami_copy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ami_copy
+
+[@@@deriving.end]
 
 let ebs_block_device () = ()
 let ephemeral_block_device () = ()

@@ -3,20 +3,96 @@
 open! Tf_core
 
 type aws_apigatewayv2_integration_response = {
-  api_id : string prop;  (** api_id *)
+  api_id : string prop;
   content_handling_strategy : string prop option; [@option]
-      (** content_handling_strategy *)
-  id : string prop option; [@option]  (** id *)
-  integration_id : string prop;  (** integration_id *)
+  id : string prop option; [@option]
+  integration_id : string prop;
   integration_response_key : string prop;
-      (** integration_response_key *)
   response_templates : (string * string prop) list option; [@option]
-      (** response_templates *)
   template_selection_expression : string prop option; [@option]
-      (** template_selection_expression *)
 }
-[@@deriving yojson_of]
-(** aws_apigatewayv2_integration_response *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_apigatewayv2_integration_response) -> ()
+
+let yojson_of_aws_apigatewayv2_integration_response =
+  (function
+   | {
+       api_id = v_api_id;
+       content_handling_strategy = v_content_handling_strategy;
+       id = v_id;
+       integration_id = v_integration_id;
+       integration_response_key = v_integration_response_key;
+       response_templates = v_response_templates;
+       template_selection_expression =
+         v_template_selection_expression;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_template_selection_expression with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "template_selection_expression", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_response_templates with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "response_templates", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_integration_response_key
+         in
+         ("integration_response_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_integration_id
+         in
+         ("integration_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_handling_strategy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_handling_strategy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_id in
+         ("api_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_apigatewayv2_integration_response ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_apigatewayv2_integration_response
+
+[@@@deriving.end]
 
 let aws_apigatewayv2_integration_response ?content_handling_strategy
     ?id ?response_templates ?template_selection_expression ~api_id

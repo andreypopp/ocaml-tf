@@ -3,13 +3,60 @@
 open! Tf_core
 
 type aws_securityhub_member = {
-  account_id : string prop;  (** account_id *)
-  email : string prop option; [@option]  (** email *)
-  id : string prop option; [@option]  (** id *)
-  invite : bool prop option; [@option]  (** invite *)
+  account_id : string prop;
+  email : string prop option; [@option]
+  id : string prop option; [@option]
+  invite : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_securityhub_member *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securityhub_member) -> ()
+
+let yojson_of_aws_securityhub_member =
+  (function
+   | {
+       account_id = v_account_id;
+       email = v_email;
+       id = v_id;
+       invite = v_invite;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_invite with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "invite", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_securityhub_member -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securityhub_member
+
+[@@@deriving.end]
 
 let aws_securityhub_member ?email ?id ?invite ~account_id () :
     aws_securityhub_member =

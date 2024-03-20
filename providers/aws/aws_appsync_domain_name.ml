@@ -3,13 +3,58 @@
 open! Tf_core
 
 type aws_appsync_domain_name = {
-  certificate_arn : string prop;  (** certificate_arn *)
-  description : string prop option; [@option]  (** description *)
-  domain_name : string prop;  (** domain_name *)
-  id : string prop option; [@option]  (** id *)
+  certificate_arn : string prop;
+  description : string prop option; [@option]
+  domain_name : string prop;
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_appsync_domain_name *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appsync_domain_name) -> ()
+
+let yojson_of_aws_appsync_domain_name =
+  (function
+   | {
+       certificate_arn = v_certificate_arn;
+       description = v_description;
+       domain_name = v_domain_name;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_arn
+         in
+         ("certificate_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_appsync_domain_name -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appsync_domain_name
+
+[@@@deriving.end]
 
 let aws_appsync_domain_name ?description ?id ~certificate_arn
     ~domain_name () : aws_appsync_domain_name =

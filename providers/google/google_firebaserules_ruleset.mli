@@ -5,6 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type metadata = { services : string prop list  (** services *) }
+
+[@@@deriving.end]
+
 type source__files
 
 val source__files :

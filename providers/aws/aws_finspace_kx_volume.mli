@@ -10,6 +10,8 @@ type attached_clusters = {
   cluster_type : string prop;  (** cluster_type *)
 }
 
+[@@@deriving.end]
+
 type nas1_configuration
 
 val nas1_configuration :

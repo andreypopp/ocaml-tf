@@ -4,35 +4,193 @@ open! Tf_core
 
 type kinesis_configuration = {
   aggregation_enabled : bool prop option; [@option]
-      (** aggregation_enabled *)
-  stream_arn : string prop;  (** stream_arn *)
+  stream_arn : string prop;
 }
-[@@deriving yojson_of]
-(** kinesis_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kinesis_configuration) -> ()
+
+let yojson_of_kinesis_configuration =
+  (function
+   | {
+       aggregation_enabled = v_aggregation_enabled;
+       stream_arn = v_stream_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stream_arn in
+         ("stream_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_aggregation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "aggregation_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kinesis_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kinesis_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_qldb_stream = {
   exclusive_end_time : string prop option; [@option]
-      (** exclusive_end_time *)
-  id : string prop option; [@option]  (** id *)
-  inclusive_start_time : string prop;  (** inclusive_start_time *)
-  ledger_name : string prop;  (** ledger_name *)
-  role_arn : string prop;  (** role_arn *)
-  stream_name : string prop;  (** stream_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  inclusive_start_time : string prop;
+  ledger_name : string prop;
+  role_arn : string prop;
+  stream_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   kinesis_configuration : kinesis_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_qldb_stream *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_qldb_stream) -> ()
+
+let yojson_of_aws_qldb_stream =
+  (function
+   | {
+       exclusive_end_time = v_exclusive_end_time;
+       id = v_id;
+       inclusive_start_time = v_inclusive_start_time;
+       ledger_name = v_ledger_name;
+       role_arn = v_role_arn;
+       stream_name = v_stream_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       kinesis_configuration = v_kinesis_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_kinesis_configuration
+             v_kinesis_configuration
+         in
+         ("kinesis_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stream_name in
+         ("stream_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ledger_name in
+         ("ledger_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_inclusive_start_time
+         in
+         ("inclusive_start_time", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exclusive_end_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "exclusive_end_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_qldb_stream -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_qldb_stream
+
+[@@@deriving.end]
 
 let kinesis_configuration ?aggregation_enabled ~stream_arn () :
     kinesis_configuration =

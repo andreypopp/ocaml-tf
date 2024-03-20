@@ -3,78 +3,360 @@
 open! Tf_core
 
 type add_header_action = {
-  header_name : string prop;  (** header_name *)
-  header_value : string prop;  (** header_value *)
-  position : float prop;  (** position *)
+  header_name : string prop;
+  header_value : string prop;
+  position : float prop;
 }
-[@@deriving yojson_of]
-(** add_header_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : add_header_action) -> ()
+
+let yojson_of_add_header_action =
+  (function
+   | {
+       header_name = v_header_name;
+       header_value = v_header_value;
+       position = v_position;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_position in
+         ("position", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_value in
+         ("header_value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header_name in
+         ("header_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : add_header_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_add_header_action
+
+[@@@deriving.end]
 
 type bounce_action = {
-  message : string prop;  (** message *)
-  position : float prop;  (** position *)
-  sender : string prop;  (** sender *)
-  smtp_reply_code : string prop;  (** smtp_reply_code *)
-  status_code : string prop option; [@option]  (** status_code *)
-  topic_arn : string prop option; [@option]  (** topic_arn *)
+  message : string prop;
+  position : float prop;
+  sender : string prop;
+  smtp_reply_code : string prop;
+  status_code : string prop option; [@option]
+  topic_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** bounce_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bounce_action) -> ()
+
+let yojson_of_bounce_action =
+  (function
+   | {
+       message = v_message;
+       position = v_position;
+       sender = v_sender;
+       smtp_reply_code = v_smtp_reply_code;
+       status_code = v_status_code;
+       topic_arn = v_topic_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_smtp_reply_code
+         in
+         ("smtp_reply_code", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sender in
+         ("sender", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_position in
+         ("position", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       `Assoc bnds
+    : bounce_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bounce_action
+
+[@@@deriving.end]
 
 type lambda_action = {
-  function_arn : string prop;  (** function_arn *)
+  function_arn : string prop;
   invocation_type : string prop option; [@option]
-      (** invocation_type *)
-  position : float prop;  (** position *)
-  topic_arn : string prop option; [@option]  (** topic_arn *)
+  position : float prop;
+  topic_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** lambda_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : lambda_action) -> ()
+
+let yojson_of_lambda_action =
+  (function
+   | {
+       function_arn = v_function_arn;
+       invocation_type = v_invocation_type;
+       position = v_position;
+       topic_arn = v_topic_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_position in
+         ("position", arg) :: bnds
+       in
+       let bnds =
+         match v_invocation_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "invocation_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_function_arn in
+         ("function_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : lambda_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_lambda_action
+
+[@@@deriving.end]
 
 type s3_action = {
-  bucket_name : string prop;  (** bucket_name *)
-  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  bucket_name : string prop;
+  kms_key_arn : string prop option; [@option]
   object_key_prefix : string prop option; [@option]
-      (** object_key_prefix *)
-  position : float prop;  (** position *)
-  topic_arn : string prop option; [@option]  (** topic_arn *)
+  position : float prop;
+  topic_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** s3_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : s3_action) -> ()
+
+let yojson_of_s3_action =
+  (function
+   | {
+       bucket_name = v_bucket_name;
+       kms_key_arn = v_kms_key_arn;
+       object_key_prefix = v_object_key_prefix;
+       position = v_position;
+       topic_arn = v_topic_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_position in
+         ("position", arg) :: bnds
+       in
+       let bnds =
+         match v_object_key_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "object_key_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : s3_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_s3_action
+
+[@@@deriving.end]
 
 type sns_action = {
-  encoding : string prop option; [@option]  (** encoding *)
-  position : float prop;  (** position *)
-  topic_arn : string prop;  (** topic_arn *)
+  encoding : string prop option; [@option]
+  position : float prop;
+  topic_arn : string prop;
 }
-[@@deriving yojson_of]
-(** sns_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sns_action) -> ()
+
+let yojson_of_sns_action =
+  (function
+   | {
+       encoding = v_encoding;
+       position = v_position;
+       topic_arn = v_topic_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic_arn in
+         ("topic_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_position in
+         ("position", arg) :: bnds
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sns_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sns_action
+
+[@@@deriving.end]
 
 type stop_action = {
-  position : float prop;  (** position *)
-  scope : string prop;  (** scope *)
-  topic_arn : string prop option; [@option]  (** topic_arn *)
+  position : float prop;
+  scope : string prop;
+  topic_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** stop_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : stop_action) -> ()
+
+let yojson_of_stop_action =
+  (function
+   | {
+       position = v_position;
+       scope = v_scope;
+       topic_arn = v_topic_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_scope in
+         ("scope", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_position in
+         ("position", arg) :: bnds
+       in
+       `Assoc bnds
+    : stop_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_stop_action
+
+[@@@deriving.end]
 
 type workmail_action = {
-  organization_arn : string prop;  (** organization_arn *)
-  position : float prop;  (** position *)
-  topic_arn : string prop option; [@option]  (** topic_arn *)
+  organization_arn : string prop;
+  position : float prop;
+  topic_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** workmail_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : workmail_action) -> ()
+
+let yojson_of_workmail_action =
+  (function
+   | {
+       organization_arn = v_organization_arn;
+       position = v_position;
+       topic_arn = v_topic_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_position in
+         ("position", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_organization_arn
+         in
+         ("organization_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : workmail_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_workmail_action
+
+[@@@deriving.end]
 
 type aws_ses_receipt_rule = {
-  after : string prop option; [@option]  (** after *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  recipients : string prop list option; [@option]  (** recipients *)
-  rule_set_name : string prop;  (** rule_set_name *)
-  scan_enabled : bool prop option; [@option]  (** scan_enabled *)
-  tls_policy : string prop option; [@option]  (** tls_policy *)
+  after : string prop option; [@option]
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  recipients : string prop list option; [@option]
+  rule_set_name : string prop;
+  scan_enabled : bool prop option; [@option]
+  tls_policy : string prop option; [@option]
   add_header_action : add_header_action list;
   bounce_action : bounce_action list;
   lambda_action : lambda_action list;
@@ -83,8 +365,137 @@ type aws_ses_receipt_rule = {
   stop_action : stop_action list;
   workmail_action : workmail_action list;
 }
-[@@deriving yojson_of]
-(** aws_ses_receipt_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ses_receipt_rule) -> ()
+
+let yojson_of_aws_ses_receipt_rule =
+  (function
+   | {
+       after = v_after;
+       enabled = v_enabled;
+       id = v_id;
+       name = v_name;
+       recipients = v_recipients;
+       rule_set_name = v_rule_set_name;
+       scan_enabled = v_scan_enabled;
+       tls_policy = v_tls_policy;
+       add_header_action = v_add_header_action;
+       bounce_action = v_bounce_action;
+       lambda_action = v_lambda_action;
+       s3_action = v_s3_action;
+       sns_action = v_sns_action;
+       stop_action = v_stop_action;
+       workmail_action = v_workmail_action;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_workmail_action v_workmail_action
+         in
+         ("workmail_action", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_stop_action v_stop_action
+         in
+         ("stop_action", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sns_action v_sns_action
+         in
+         ("sns_action", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_s3_action v_s3_action in
+         ("s3_action", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_lambda_action v_lambda_action
+         in
+         ("lambda_action", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bounce_action v_bounce_action
+         in
+         ("bounce_action", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_add_header_action
+             v_add_header_action
+         in
+         ("add_header_action", arg) :: bnds
+       in
+       let bnds =
+         match v_tls_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tls_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_scan_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "scan_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule_set_name in
+         ("rule_set_name", arg) :: bnds
+       in
+       let bnds =
+         match v_recipients with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "recipients", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_after with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "after", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ses_receipt_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ses_receipt_rule
+
+[@@@deriving.end]
 
 let add_header_action ~header_name ~header_value ~position () :
     add_header_action =

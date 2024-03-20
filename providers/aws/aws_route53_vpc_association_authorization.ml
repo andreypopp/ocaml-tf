@@ -3,13 +3,57 @@
 open! Tf_core
 
 type aws_route53_vpc_association_authorization = {
-  id : string prop option; [@option]  (** id *)
-  vpc_id : string prop;  (** vpc_id *)
-  vpc_region : string prop option; [@option]  (** vpc_region *)
-  zone_id : string prop;  (** zone_id *)
+  id : string prop option; [@option]
+  vpc_id : string prop;
+  vpc_region : string prop option; [@option]
+  zone_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_route53_vpc_association_authorization *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_vpc_association_authorization) -> ()
+
+let yojson_of_aws_route53_vpc_association_authorization =
+  (function
+   | {
+       id = v_id;
+       vpc_id = v_vpc_id;
+       vpc_region = v_vpc_region;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_vpc_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vpc_region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_vpc_association_authorization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_vpc_association_authorization
+
+[@@@deriving.end]
 
 let aws_route53_vpc_association_authorization ?id ?vpc_region ~vpc_id
     ~zone_id () : aws_route53_vpc_association_authorization =

@@ -3,17 +3,74 @@
 open! Tf_core
 
 type spec__backend_defaults__client_policy__tls__certificate__file = {
-  certificate_chain : string prop;  (** certificate_chain *)
-  private_key : string prop;  (** private_key *)
+  certificate_chain : string prop;
+  private_key : string prop;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__certificate__file *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__backend_defaults__client_policy__tls__certificate__file) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__certificate__file
+    =
+  (function
+   | {
+       certificate_chain = v_certificate_chain;
+       private_key = v_private_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_private_key in
+         ("private_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_chain
+         in
+         ("certificate_chain", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__certificate__file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__certificate__file
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__certificate__sds = {
-  secret_name : string prop;  (** secret_name *)
+  secret_name : string prop;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__certificate__sds *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__backend_defaults__client_policy__tls__certificate__sds) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__certificate__sds
+    =
+  (function
+   | { secret_name = v_secret_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_name in
+         ("secret_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__certificate__sds ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__certificate__sds
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__certificate = {
   file :
@@ -22,41 +79,207 @@ type spec__backend_defaults__client_policy__tls__certificate = {
   sds :
     spec__backend_defaults__client_policy__tls__certificate__sds list;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__certificate *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__backend_defaults__client_policy__tls__certificate) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__certificate
+    =
+  (function
+   | { file = v_file; sds = v_sds } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__certificate__sds
+             v_sds
+         in
+         ("sds", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__certificate__file
+             v_file
+         in
+         ("file", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__certificate
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match = {
-  exact : string prop list;  (** exact *)
+  exact : string prop list;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
+    =
+  (function
+   | { exact = v_exact } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_exact
+         in
+         ("exact", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__validation__subject_alternative_names = {
   match_ :
     spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
     list;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__validation__subject_alternative_names *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__backend_defaults__client_policy__tls__validation__subject_alternative_names) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names
+    =
+  (function
+   | { match_ = v_match_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
+             v_match_
+         in
+         ("match_", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__validation__subject_alternative_names ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__validation__trust__acm = {
   certificate_authority_arns : string prop list;
-      (** certificate_authority_arns *)
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__validation__trust__acm *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__backend_defaults__client_policy__tls__validation__trust__acm) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__acm
+    =
+  (function
+   | { certificate_authority_arns = v_certificate_authority_arns } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_certificate_authority_arns
+         in
+         ("certificate_authority_arns", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__validation__trust__acm ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__acm
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__validation__trust__file = {
-  certificate_chain : string prop;  (** certificate_chain *)
+  certificate_chain : string prop;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__validation__trust__file *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__backend_defaults__client_policy__tls__validation__trust__file) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__file
+    =
+  (function
+   | { certificate_chain = v_certificate_chain } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_chain
+         in
+         ("certificate_chain", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__validation__trust__file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__file
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__validation__trust__sds = {
-  secret_name : string prop;  (** secret_name *)
+  secret_name : string prop;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__validation__trust__sds *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__backend_defaults__client_policy__tls__validation__trust__sds) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__sds
+    =
+  (function
+   | { secret_name = v_secret_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_name in
+         ("secret_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__validation__trust__sds ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__sds
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__validation__trust = {
   acm :
@@ -69,8 +292,52 @@ type spec__backend_defaults__client_policy__tls__validation__trust = {
     spec__backend_defaults__client_policy__tls__validation__trust__sds
     list;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__validation__trust *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__backend_defaults__client_policy__tls__validation__trust) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__validation__trust
+    =
+  (function
+   | { acm = v_acm; file = v_file; sds = v_sds } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__sds
+             v_sds
+         in
+         ("sds", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__file
+             v_file
+         in
+         ("file", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__validation__trust__acm
+             v_acm
+         in
+         ("acm", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__validation__trust ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__validation__trust
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls__validation = {
   subject_alternative_names :
@@ -80,154 +347,781 @@ type spec__backend_defaults__client_policy__tls__validation = {
     spec__backend_defaults__client_policy__tls__validation__trust
     list;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls__validation *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__backend_defaults__client_policy__tls__validation) ->
+  ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls__validation
+    =
+  (function
+   | {
+       subject_alternative_names = v_subject_alternative_names;
+       trust = v_trust;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__validation__trust
+             v_trust
+         in
+         ("trust", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names
+             v_subject_alternative_names
+         in
+         ("subject_alternative_names", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls__validation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__backend_defaults__client_policy__tls__validation
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy__tls = {
-  enforce : bool prop option; [@option]  (** enforce *)
-  ports : float prop list option; [@option]  (** ports *)
+  enforce : bool prop option; [@option]
+  ports : float prop list option; [@option]
   certificate :
     spec__backend_defaults__client_policy__tls__certificate list;
   validation :
     spec__backend_defaults__client_policy__tls__validation list;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy__tls *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__backend_defaults__client_policy__tls) -> ()
+
+let yojson_of_spec__backend_defaults__client_policy__tls =
+  (function
+   | {
+       enforce = v_enforce;
+       ports = v_ports;
+       certificate = v_certificate;
+       validation = v_validation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__validation
+             v_validation
+         in
+         ("validation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls__certificate
+             v_certificate
+         in
+         ("certificate", arg) :: bnds
+       in
+       let bnds =
+         match v_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "ports", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enforce with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enforce", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy__tls ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__backend_defaults__client_policy__tls
+
+[@@@deriving.end]
 
 type spec__backend_defaults__client_policy = {
   tls : spec__backend_defaults__client_policy__tls list;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults__client_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__backend_defaults__client_policy) -> ()
+
+let yojson_of_spec__backend_defaults__client_policy =
+  (function
+   | { tls = v_tls } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy__tls
+             v_tls
+         in
+         ("tls", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults__client_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__backend_defaults__client_policy
+
+[@@@deriving.end]
 
 type spec__backend_defaults = {
   client_policy : spec__backend_defaults__client_policy list;
 }
-[@@deriving yojson_of]
-(** spec__backend_defaults *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__backend_defaults) -> ()
+
+let yojson_of_spec__backend_defaults =
+  (function
+   | { client_policy = v_client_policy } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__backend_defaults__client_policy
+             v_client_policy
+         in
+         ("client_policy", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__backend_defaults -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__backend_defaults
+
+[@@@deriving.end]
 
 type spec__listener__connection_pool__grpc = {
-  max_requests : float prop;  (** max_requests *)
+  max_requests : float prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__connection_pool__grpc *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__connection_pool__grpc) -> ()
+
+let yojson_of_spec__listener__connection_pool__grpc =
+  (function
+   | { max_requests = v_max_requests } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_requests in
+         ("max_requests", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__connection_pool__grpc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__connection_pool__grpc
+
+[@@@deriving.end]
 
 type spec__listener__connection_pool__http = {
-  max_connections : float prop;  (** max_connections *)
+  max_connections : float prop;
   max_pending_requests : float prop option; [@option]
-      (** max_pending_requests *)
 }
-[@@deriving yojson_of]
-(** spec__listener__connection_pool__http *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__connection_pool__http) -> ()
+
+let yojson_of_spec__listener__connection_pool__http =
+  (function
+   | {
+       max_connections = v_max_connections;
+       max_pending_requests = v_max_pending_requests;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_pending_requests with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_pending_requests", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_connections
+         in
+         ("max_connections", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__connection_pool__http ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__connection_pool__http
+
+[@@@deriving.end]
 
 type spec__listener__connection_pool__http2 = {
-  max_requests : float prop;  (** max_requests *)
+  max_requests : float prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__connection_pool__http2 *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__connection_pool__http2) -> ()
+
+let yojson_of_spec__listener__connection_pool__http2 =
+  (function
+   | { max_requests = v_max_requests } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_requests in
+         ("max_requests", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__connection_pool__http2 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__connection_pool__http2
+
+[@@@deriving.end]
 
 type spec__listener__connection_pool = {
   grpc : spec__listener__connection_pool__grpc list;
   http : spec__listener__connection_pool__http list;
   http2 : spec__listener__connection_pool__http2 list;
 }
-[@@deriving yojson_of]
-(** spec__listener__connection_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__connection_pool) -> ()
+
+let yojson_of_spec__listener__connection_pool =
+  (function
+   | { grpc = v_grpc; http = v_http; http2 = v_http2 } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__connection_pool__http2 v_http2
+         in
+         ("http2", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__connection_pool__http v_http
+         in
+         ("http", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__connection_pool__grpc v_grpc
+         in
+         ("grpc", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__connection_pool ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__connection_pool
+
+[@@@deriving.end]
 
 type spec__listener__health_check = {
-  healthy_threshold : float prop;  (** healthy_threshold *)
-  interval_millis : float prop;  (** interval_millis *)
-  path : string prop option; [@option]  (** path *)
-  port : float prop option; [@option]  (** port *)
-  protocol : string prop;  (** protocol *)
-  timeout_millis : float prop;  (** timeout_millis *)
-  unhealthy_threshold : float prop;  (** unhealthy_threshold *)
+  healthy_threshold : float prop;
+  interval_millis : float prop;
+  path : string prop option; [@option]
+  port : float prop option; [@option]
+  protocol : string prop;
+  timeout_millis : float prop;
+  unhealthy_threshold : float prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__health_check *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__health_check) -> ()
+
+let yojson_of_spec__listener__health_check =
+  (function
+   | {
+       healthy_threshold = v_healthy_threshold;
+       interval_millis = v_interval_millis;
+       path = v_path;
+       port = v_port;
+       protocol = v_protocol;
+       timeout_millis = v_timeout_millis;
+       unhealthy_threshold = v_unhealthy_threshold;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_unhealthy_threshold
+         in
+         ("unhealthy_threshold", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_timeout_millis in
+         ("timeout_millis", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_interval_millis
+         in
+         ("interval_millis", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_healthy_threshold
+         in
+         ("healthy_threshold", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__health_check ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__health_check
+
+[@@@deriving.end]
 
 type spec__listener__port_mapping = {
-  port : float prop;  (** port *)
-  protocol : string prop;  (** protocol *)
+  port : float prop;
+  protocol : string prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__port_mapping *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__port_mapping) -> ()
+
+let yojson_of_spec__listener__port_mapping =
+  (function
+   | { port = v_port; protocol = v_protocol } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__port_mapping ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__port_mapping
+
+[@@@deriving.end]
 
 type spec__listener__tls__certificate__acm = {
-  certificate_arn : string prop;  (** certificate_arn *)
+  certificate_arn : string prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__certificate__acm *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__tls__certificate__acm) -> ()
+
+let yojson_of_spec__listener__tls__certificate__acm =
+  (function
+   | { certificate_arn = v_certificate_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_arn
+         in
+         ("certificate_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__certificate__acm ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__tls__certificate__acm
+
+[@@@deriving.end]
 
 type spec__listener__tls__certificate__file = {
-  certificate_chain : string prop;  (** certificate_chain *)
-  private_key : string prop;  (** private_key *)
+  certificate_chain : string prop;
+  private_key : string prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__certificate__file *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__tls__certificate__file) -> ()
+
+let yojson_of_spec__listener__tls__certificate__file =
+  (function
+   | {
+       certificate_chain = v_certificate_chain;
+       private_key = v_private_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_private_key in
+         ("private_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_chain
+         in
+         ("certificate_chain", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__certificate__file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__tls__certificate__file
+
+[@@@deriving.end]
 
 type spec__listener__tls__certificate__sds = {
-  secret_name : string prop;  (** secret_name *)
+  secret_name : string prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__certificate__sds *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__tls__certificate__sds) -> ()
+
+let yojson_of_spec__listener__tls__certificate__sds =
+  (function
+   | { secret_name = v_secret_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_name in
+         ("secret_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__certificate__sds ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__tls__certificate__sds
+
+[@@@deriving.end]
 
 type spec__listener__tls__certificate = {
   acm : spec__listener__tls__certificate__acm list;
   file : spec__listener__tls__certificate__file list;
   sds : spec__listener__tls__certificate__sds list;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__tls__certificate) -> ()
+
+let yojson_of_spec__listener__tls__certificate =
+  (function
+   | { acm = v_acm; file = v_file; sds = v_sds } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__tls__certificate__sds v_sds
+         in
+         ("sds", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__tls__certificate__file v_file
+         in
+         ("file", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__tls__certificate__acm v_acm
+         in
+         ("acm", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__tls__certificate
+
+[@@@deriving.end]
 
 type spec__listener__tls__validation__subject_alternative_names__match = {
-  exact : string prop list;  (** exact *)
+  exact : string prop list;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__validation__subject_alternative_names__match *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       spec__listener__tls__validation__subject_alternative_names__match) ->
+  ()
+
+let yojson_of_spec__listener__tls__validation__subject_alternative_names__match
+    =
+  (function
+   | { exact = v_exact } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_exact
+         in
+         ("exact", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__validation__subject_alternative_names__match ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__listener__tls__validation__subject_alternative_names__match
+
+[@@@deriving.end]
 
 type spec__listener__tls__validation__subject_alternative_names = {
   match_ :
     spec__listener__tls__validation__subject_alternative_names__match
     list;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__validation__subject_alternative_names *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : spec__listener__tls__validation__subject_alternative_names) ->
+  ()
+
+let yojson_of_spec__listener__tls__validation__subject_alternative_names
+    =
+  (function
+   | { match_ = v_match_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__tls__validation__subject_alternative_names__match
+             v_match_
+         in
+         ("match_", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__validation__subject_alternative_names ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_spec__listener__tls__validation__subject_alternative_names
+
+[@@@deriving.end]
 
 type spec__listener__tls__validation__trust__file = {
-  certificate_chain : string prop;  (** certificate_chain *)
+  certificate_chain : string prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__validation__trust__file *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__tls__validation__trust__file) -> ()
+
+let yojson_of_spec__listener__tls__validation__trust__file =
+  (function
+   | { certificate_chain = v_certificate_chain } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_chain
+         in
+         ("certificate_chain", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__validation__trust__file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__tls__validation__trust__file
+
+[@@@deriving.end]
 
 type spec__listener__tls__validation__trust__sds = {
-  secret_name : string prop;  (** secret_name *)
+  secret_name : string prop;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__validation__trust__sds *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__tls__validation__trust__sds) -> ()
+
+let yojson_of_spec__listener__tls__validation__trust__sds =
+  (function
+   | { secret_name = v_secret_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_name in
+         ("secret_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__validation__trust__sds ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__tls__validation__trust__sds
+
+[@@@deriving.end]
 
 type spec__listener__tls__validation__trust = {
   file : spec__listener__tls__validation__trust__file list;
   sds : spec__listener__tls__validation__trust__sds list;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__validation__trust *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__tls__validation__trust) -> ()
+
+let yojson_of_spec__listener__tls__validation__trust =
+  (function
+   | { file = v_file; sds = v_sds } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__tls__validation__trust__sds
+             v_sds
+         in
+         ("sds", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__tls__validation__trust__file
+             v_file
+         in
+         ("file", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__validation__trust ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__tls__validation__trust
+
+[@@@deriving.end]
 
 type spec__listener__tls__validation = {
   subject_alternative_names :
     spec__listener__tls__validation__subject_alternative_names list;
   trust : spec__listener__tls__validation__trust list;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls__validation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__tls__validation) -> ()
+
+let yojson_of_spec__listener__tls__validation =
+  (function
+   | {
+       subject_alternative_names = v_subject_alternative_names;
+       trust = v_trust;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__tls__validation__trust v_trust
+         in
+         ("trust", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__listener__tls__validation__subject_alternative_names
+             v_subject_alternative_names
+         in
+         ("subject_alternative_names", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls__validation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__tls__validation
+
+[@@@deriving.end]
 
 type spec__listener__tls = {
-  mode : string prop;  (** mode *)
+  mode : string prop;
   certificate : spec__listener__tls__certificate list;
   validation : spec__listener__tls__validation list;
 }
-[@@deriving yojson_of]
-(** spec__listener__tls *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener__tls) -> ()
+
+let yojson_of_spec__listener__tls =
+  (function
+   | {
+       mode = v_mode;
+       certificate = v_certificate;
+       validation = v_validation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__listener__tls__validation
+             v_validation
+         in
+         ("validation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__listener__tls__certificate
+             v_certificate
+         in
+         ("certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener__tls -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener__tls
+
+[@@@deriving.end]
 
 type spec__listener = {
   connection_pool : spec__listener__connection_pool list;
@@ -235,60 +1129,348 @@ type spec__listener = {
   port_mapping : spec__listener__port_mapping list;
   tls : spec__listener__tls list;
 }
-[@@deriving yojson_of]
-(** spec__listener *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__listener) -> ()
+
+let yojson_of_spec__listener =
+  (function
+   | {
+       connection_pool = v_connection_pool;
+       health_check = v_health_check;
+       port_mapping = v_port_mapping;
+       tls = v_tls;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__listener__tls v_tls
+         in
+         ("tls", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__listener__port_mapping
+             v_port_mapping
+         in
+         ("port_mapping", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__listener__health_check
+             v_health_check
+         in
+         ("health_check", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__listener__connection_pool
+             v_connection_pool
+         in
+         ("connection_pool", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__listener -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__listener
+
+[@@@deriving.end]
 
 type spec__logging__access_log__file__format__json = {
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** spec__logging__access_log__file__format__json *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__logging__access_log__file__format__json) -> ()
+
+let yojson_of_spec__logging__access_log__file__format__json =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__logging__access_log__file__format__json ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__logging__access_log__file__format__json
+
+[@@@deriving.end]
 
 type spec__logging__access_log__file__format = {
-  text : string prop option; [@option]  (** text *)
+  text : string prop option; [@option]
   json : spec__logging__access_log__file__format__json list;
 }
-[@@deriving yojson_of]
-(** spec__logging__access_log__file__format *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__logging__access_log__file__format) -> ()
+
+let yojson_of_spec__logging__access_log__file__format =
+  (function
+   | { text = v_text; json = v_json } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__logging__access_log__file__format__json
+             v_json
+         in
+         ("json", arg) :: bnds
+       in
+       let bnds =
+         match v_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "text", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__logging__access_log__file__format ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__logging__access_log__file__format
+
+[@@@deriving.end]
 
 type spec__logging__access_log__file = {
-  path : string prop;  (** path *)
+  path : string prop;
   format : spec__logging__access_log__file__format list;
 }
-[@@deriving yojson_of]
-(** spec__logging__access_log__file *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__logging__access_log__file) -> ()
+
+let yojson_of_spec__logging__access_log__file =
+  (function
+   | { path = v_path; format = v_format } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spec__logging__access_log__file__format
+             v_format
+         in
+         ("format", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__logging__access_log__file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__logging__access_log__file
+
+[@@@deriving.end]
 
 type spec__logging__access_log = {
   file : spec__logging__access_log__file list;
 }
-[@@deriving yojson_of]
-(** spec__logging__access_log *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__logging__access_log) -> ()
+
+let yojson_of_spec__logging__access_log =
+  (function
+   | { file = v_file } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__logging__access_log__file
+             v_file
+         in
+         ("file", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__logging__access_log -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__logging__access_log
+
+[@@@deriving.end]
 
 type spec__logging = { access_log : spec__logging__access_log list }
-[@@deriving yojson_of]
-(** spec__logging *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__logging) -> ()
+
+let yojson_of_spec__logging =
+  (function
+   | { access_log = v_access_log } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__logging__access_log
+             v_access_log
+         in
+         ("access_log", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__logging -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__logging
+
+[@@@deriving.end]
 
 type spec = {
   backend_defaults : spec__backend_defaults list;
   listener : spec__listener list;
   logging : spec__logging list;
 }
-[@@deriving yojson_of]
-(** spec *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       backend_defaults = v_backend_defaults;
+       listener = v_listener;
+       logging = v_logging;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__logging v_logging
+         in
+         ("logging", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__listener v_listener
+         in
+         ("listener", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__backend_defaults
+             v_backend_defaults
+         in
+         ("backend_defaults", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type aws_appmesh_virtual_gateway = {
-  id : string prop option; [@option]  (** id *)
-  mesh_name : string prop;  (** mesh_name *)
-  mesh_owner : string prop option; [@option]  (** mesh_owner *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  mesh_name : string prop;
+  mesh_owner : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   spec : spec list;
 }
-[@@deriving yojson_of]
-(** aws_appmesh_virtual_gateway *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appmesh_virtual_gateway) -> ()
+
+let yojson_of_aws_appmesh_virtual_gateway =
+  (function
+   | {
+       id = v_id;
+       mesh_name = v_mesh_name;
+       mesh_owner = v_mesh_owner;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       spec = v_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mesh_owner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mesh_owner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mesh_name in
+         ("mesh_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_appmesh_virtual_gateway ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appmesh_virtual_gateway
+
+[@@@deriving.end]
 
 let spec__backend_defaults__client_policy__tls__certificate__file
     ~certificate_chain ~private_key () :

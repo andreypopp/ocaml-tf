@@ -2,19 +2,60 @@
 
 open! Tf_core
 
-type timeouts = {
-  create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+type timeouts = { create : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_apprunner_deployment = {
-  service_arn : string prop;  (** service_arn *)
+  service_arn : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_apprunner_deployment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_apprunner_deployment) -> ()
+
+let yojson_of_aws_apprunner_deployment =
+  (function
+   | { service_arn = v_service_arn; timeouts = v_timeouts } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_arn in
+         ("service_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_apprunner_deployment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_apprunner_deployment
+
+[@@@deriving.end]
 
 let timeouts ?create () : timeouts = { create }
 

@@ -3,35 +3,190 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_virtual_network_peering = {
   allow_forwarded_traffic : bool prop option; [@option]
-      (** allow_forwarded_traffic *)
   allow_gateway_transit : bool prop option; [@option]
-      (** allow_gateway_transit *)
   allow_virtual_network_access : bool prop option; [@option]
-      (** allow_virtual_network_access *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   remote_virtual_network_id : string prop;
-      (** remote_virtual_network_id *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  resource_group_name : string prop;
   triggers : (string * string prop) list option; [@option]
-      (** triggers *)
   use_remote_gateways : bool prop option; [@option]
-      (** use_remote_gateways *)
-  virtual_network_name : string prop;  (** virtual_network_name *)
+  virtual_network_name : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_virtual_network_peering *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_virtual_network_peering) -> ()
+
+let yojson_of_azurerm_virtual_network_peering =
+  (function
+   | {
+       allow_forwarded_traffic = v_allow_forwarded_traffic;
+       allow_gateway_transit = v_allow_gateway_transit;
+       allow_virtual_network_access = v_allow_virtual_network_access;
+       id = v_id;
+       name = v_name;
+       remote_virtual_network_id = v_remote_virtual_network_id;
+       resource_group_name = v_resource_group_name;
+       triggers = v_triggers;
+       use_remote_gateways = v_use_remote_gateways;
+       virtual_network_name = v_virtual_network_name;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_network_name
+         in
+         ("virtual_network_name", arg) :: bnds
+       in
+       let bnds =
+         match v_use_remote_gateways with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_remote_gateways", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_triggers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "triggers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_remote_virtual_network_id
+         in
+         ("remote_virtual_network_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_virtual_network_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_virtual_network_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_gateway_transit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_gateway_transit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_forwarded_traffic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_forwarded_traffic", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_virtual_network_peering ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_virtual_network_peering
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

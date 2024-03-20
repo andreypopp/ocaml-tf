@@ -2,24 +2,101 @@
 
 open! Tf_core
 
-type attribute__value = { source : string prop list  (** source *) }
-[@@deriving yojson_of]
-(** attribute__value *)
+type attribute__value = { source : string prop list }
+[@@deriving_inline yojson_of]
 
-type attribute = {
-  key : string prop;  (** key *)
-  value : attribute__value list;
-}
-[@@deriving yojson_of]
-(** attribute *)
+let _ = fun (_ : attribute__value) -> ()
+
+let yojson_of_attribute__value =
+  (function
+   | { source = v_source } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_source
+         in
+         ("source", arg) :: bnds
+       in
+       `Assoc bnds
+    : attribute__value -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attribute__value
+
+[@@@deriving.end]
+
+type attribute = { key : string prop; value : attribute__value list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attribute) -> ()
+
+let yojson_of_attribute =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_attribute__value v_value
+         in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : attribute -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attribute
+
+[@@@deriving.end]
 
 type aws_ssoadmin_instance_access_control_attributes = {
-  id : string prop option; [@option]  (** id *)
-  instance_arn : string prop;  (** instance_arn *)
+  id : string prop option; [@option]
+  instance_arn : string prop;
   attribute : attribute list;
 }
-[@@deriving yojson_of]
-(** aws_ssoadmin_instance_access_control_attributes *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_ssoadmin_instance_access_control_attributes) -> ()
+
+let yojson_of_aws_ssoadmin_instance_access_control_attributes =
+  (function
+   | {
+       id = v_id;
+       instance_arn = v_instance_arn;
+       attribute = v_attribute;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_attribute v_attribute in
+         ("attribute", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance_arn in
+         ("instance_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ssoadmin_instance_access_control_attributes ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ssoadmin_instance_access_control_attributes
+
+[@@@deriving.end]
 
 let attribute__value ~source () : attribute__value = { source }
 let attribute ~key ~value () : attribute = { key; value }

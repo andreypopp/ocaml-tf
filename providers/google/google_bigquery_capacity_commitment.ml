@@ -3,39 +3,161 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigquery_capacity_commitment = {
   capacity_commitment_id : string prop option; [@option]
-      (** The optional capacity commitment ID. Capacity commitment name will be generated automatically if this field is
-empty. This field must only contain lower case alphanumeric characters or dashes. The first and last character
-cannot be a dash. Max length is 64 characters. NOTE: this ID won't be kept if the capacity commitment is split
-or merged. *)
   edition : string prop option; [@option]
-      (** The edition type. Valid values are STANDARD, ENTERPRISE, ENTERPRISE_PLUS *)
   enforce_single_admin_project_per_org : string prop option;
       [@option]
-      (** If true, fail the request if another project in the organization has a capacity commitment. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location : string prop option; [@option]
-      (** The geographic location where the transfer config should reside.
-Examples: US, EU, asia-northeast1. The default value is US. *)
   plan : string prop;
-      (** Capacity commitment plan. Valid values are at https://cloud.google.com/bigquery/docs/reference/reservations/rpc/google.cloud.bigquery.reservation.v1#commitmentplan *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   renewal_plan : string prop option; [@option]
-      (** The plan this capacity commitment is converted to after commitmentEndTime passes. Once the plan is changed, committed period is extended according to commitment plan. Only applicable for some commitment plans. *)
   slot_count : float prop;
-      (** Number of slots in this commitment. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigquery_capacity_commitment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigquery_capacity_commitment) -> ()
+
+let yojson_of_google_bigquery_capacity_commitment =
+  (function
+   | {
+       capacity_commitment_id = v_capacity_commitment_id;
+       edition = v_edition;
+       enforce_single_admin_project_per_org =
+         v_enforce_single_admin_project_per_org;
+       id = v_id;
+       location = v_location;
+       plan = v_plan;
+       project = v_project;
+       renewal_plan = v_renewal_plan;
+       slot_count = v_slot_count;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_slot_count in
+         ("slot_count", arg) :: bnds
+       in
+       let bnds =
+         match v_renewal_plan with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "renewal_plan", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_plan in
+         ("plan", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enforce_single_admin_project_per_org with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "enforce_single_admin_project_per_org", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_edition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "edition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_capacity_commitment_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "capacity_commitment_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_bigquery_capacity_commitment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigquery_capacity_commitment
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

@@ -3,75 +3,307 @@
 open! Tf_core
 
 type auto_start_configuration = {
-  enabled : bool prop option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** auto_start_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auto_start_configuration) -> ()
+
+let yojson_of_auto_start_configuration =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : auto_start_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auto_start_configuration
+
+[@@@deriving.end]
 
 type auto_stop_configuration = {
-  enabled : bool prop option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]
   idle_timeout_minutes : float prop option; [@option]
-      (** idle_timeout_minutes *)
 }
-[@@deriving yojson_of]
-(** auto_stop_configuration *)
+[@@deriving_inline yojson_of]
 
-type image_configuration = {
-  image_uri : string prop;  (** image_uri *)
-}
-[@@deriving yojson_of]
-(** image_configuration *)
+let _ = fun (_ : auto_stop_configuration) -> ()
+
+let yojson_of_auto_stop_configuration =
+  (function
+   | {
+       enabled = v_enabled;
+       idle_timeout_minutes = v_idle_timeout_minutes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_idle_timeout_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "idle_timeout_minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : auto_stop_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auto_stop_configuration
+
+[@@@deriving.end]
+
+type image_configuration = { image_uri : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : image_configuration) -> ()
+
+let yojson_of_image_configuration =
+  (function
+   | { image_uri = v_image_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_image_uri in
+         ("image_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : image_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_image_configuration
+
+[@@@deriving.end]
 
 type initial_capacity__initial_capacity_config__worker_configuration = {
-  cpu : string prop;  (** cpu *)
-  disk : string prop option; [@option]  (** disk *)
-  memory : string prop;  (** memory *)
+  cpu : string prop;
+  disk : string prop option; [@option]
+  memory : string prop;
 }
-[@@deriving yojson_of]
-(** initial_capacity__initial_capacity_config__worker_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       initial_capacity__initial_capacity_config__worker_configuration) ->
+  ()
+
+let yojson_of_initial_capacity__initial_capacity_config__worker_configuration
+    =
+  (function
+   | { cpu = v_cpu; disk = v_disk; memory = v_memory } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_memory in
+         ("memory", arg) :: bnds
+       in
+       let bnds =
+         match v_disk with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disk", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cpu in
+         ("cpu", arg) :: bnds
+       in
+       `Assoc bnds
+    : initial_capacity__initial_capacity_config__worker_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_initial_capacity__initial_capacity_config__worker_configuration
+
+[@@@deriving.end]
 
 type initial_capacity__initial_capacity_config = {
-  worker_count : float prop;  (** worker_count *)
+  worker_count : float prop;
   worker_configuration :
     initial_capacity__initial_capacity_config__worker_configuration
     list;
 }
-[@@deriving yojson_of]
-(** initial_capacity__initial_capacity_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : initial_capacity__initial_capacity_config) -> ()
+
+let yojson_of_initial_capacity__initial_capacity_config =
+  (function
+   | {
+       worker_count = v_worker_count;
+       worker_configuration = v_worker_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_initial_capacity__initial_capacity_config__worker_configuration
+             v_worker_configuration
+         in
+         ("worker_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_worker_count in
+         ("worker_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : initial_capacity__initial_capacity_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_initial_capacity__initial_capacity_config
+
+[@@@deriving.end]
 
 type initial_capacity = {
-  initial_capacity_type : string prop;  (** initial_capacity_type *)
+  initial_capacity_type : string prop;
   initial_capacity_config :
     initial_capacity__initial_capacity_config list;
 }
-[@@deriving yojson_of]
-(** initial_capacity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : initial_capacity) -> ()
+
+let yojson_of_initial_capacity =
+  (function
+   | {
+       initial_capacity_type = v_initial_capacity_type;
+       initial_capacity_config = v_initial_capacity_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_initial_capacity__initial_capacity_config
+             v_initial_capacity_config
+         in
+         ("initial_capacity_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_initial_capacity_type
+         in
+         ("initial_capacity_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : initial_capacity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_initial_capacity
+
+[@@@deriving.end]
 
 type maximum_capacity = {
-  cpu : string prop;  (** cpu *)
-  disk : string prop option; [@option]  (** disk *)
-  memory : string prop;  (** memory *)
+  cpu : string prop;
+  disk : string prop option; [@option]
+  memory : string prop;
 }
-[@@deriving yojson_of]
-(** maximum_capacity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maximum_capacity) -> ()
+
+let yojson_of_maximum_capacity =
+  (function
+   | { cpu = v_cpu; disk = v_disk; memory = v_memory } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_memory in
+         ("memory", arg) :: bnds
+       in
+       let bnds =
+         match v_disk with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disk", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cpu in
+         ("cpu", arg) :: bnds
+       in
+       `Assoc bnds
+    : maximum_capacity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maximum_capacity
+
+[@@@deriving.end]
 
 type network_configuration = {
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
-  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
+  subnet_ids : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** network_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_configuration) -> ()
+
+let yojson_of_network_configuration =
+  (function
+   | {
+       security_group_ids = v_security_group_ids;
+       subnet_ids = v_subnet_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subnet_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "subnet_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_configuration
+
+[@@@deriving.end]
 
 type aws_emrserverless_application = {
-  architecture : string prop option; [@option]  (** architecture *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  release_label : string prop;  (** release_label *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  architecture : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  release_label : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
   auto_start_configuration : auto_start_configuration list;
   auto_stop_configuration : auto_stop_configuration list;
   image_configuration : image_configuration list;
@@ -79,8 +311,139 @@ type aws_emrserverless_application = {
   maximum_capacity : maximum_capacity list;
   network_configuration : network_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_emrserverless_application *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_emrserverless_application) -> ()
+
+let yojson_of_aws_emrserverless_application =
+  (function
+   | {
+       architecture = v_architecture;
+       id = v_id;
+       name = v_name;
+       release_label = v_release_label;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       type_ = v_type_;
+       auto_start_configuration = v_auto_start_configuration;
+       auto_stop_configuration = v_auto_stop_configuration;
+       image_configuration = v_image_configuration;
+       initial_capacity = v_initial_capacity;
+       maximum_capacity = v_maximum_capacity;
+       network_configuration = v_network_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_configuration
+             v_network_configuration
+         in
+         ("network_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maximum_capacity
+             v_maximum_capacity
+         in
+         ("maximum_capacity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_initial_capacity
+             v_initial_capacity
+         in
+         ("initial_capacity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_image_configuration
+             v_image_configuration
+         in
+         ("image_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auto_stop_configuration
+             v_auto_stop_configuration
+         in
+         ("auto_stop_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auto_start_configuration
+             v_auto_start_configuration
+         in
+         ("auto_start_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_release_label in
+         ("release_label", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_architecture with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "architecture", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_emrserverless_application ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_emrserverless_application
+
+[@@@deriving.end]
 
 let auto_start_configuration ?enabled () : auto_start_configuration =
   { enabled }

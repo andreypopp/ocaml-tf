@@ -3,19 +3,116 @@
 open! Tf_core
 
 type aws_transfer_agreement = {
-  access_role : string prop;  (** access_role *)
-  base_directory : string prop;  (** base_directory *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  local_profile_id : string prop;  (** local_profile_id *)
-  partner_profile_id : string prop;  (** partner_profile_id *)
-  server_id : string prop;  (** server_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  access_role : string prop;
+  base_directory : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  local_profile_id : string prop;
+  partner_profile_id : string prop;
+  server_id : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_transfer_agreement *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_transfer_agreement) -> ()
+
+let yojson_of_aws_transfer_agreement =
+  (function
+   | {
+       access_role = v_access_role;
+       base_directory = v_base_directory;
+       description = v_description;
+       id = v_id;
+       local_profile_id = v_local_profile_id;
+       partner_profile_id = v_partner_profile_id;
+       server_id = v_server_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_server_id in
+         ("server_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_partner_profile_id
+         in
+         ("partner_profile_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_local_profile_id
+         in
+         ("local_profile_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_base_directory
+         in
+         ("base_directory", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_access_role in
+         ("access_role", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_transfer_agreement -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_transfer_agreement
+
+[@@@deriving.end]
 
 let aws_transfer_agreement ?description ?id ?tags ?tags_all
     ~access_role ~base_directory ~local_profile_id

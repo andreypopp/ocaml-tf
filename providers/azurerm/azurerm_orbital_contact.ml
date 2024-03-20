@@ -3,26 +3,130 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; read = v_read } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_orbital_contact = {
-  contact_profile_id : string prop;  (** contact_profile_id *)
-  ground_station_name : string prop;  (** ground_station_name *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  reservation_end_time : string prop;  (** reservation_end_time *)
+  contact_profile_id : string prop;
+  ground_station_name : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  reservation_end_time : string prop;
   reservation_start_time : string prop;
-      (** reservation_start_time *)
-  spacecraft_id : string prop;  (** spacecraft_id *)
+  spacecraft_id : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_orbital_contact *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_orbital_contact) -> ()
+
+let yojson_of_azurerm_orbital_contact =
+  (function
+   | {
+       contact_profile_id = v_contact_profile_id;
+       ground_station_name = v_ground_station_name;
+       id = v_id;
+       name = v_name;
+       reservation_end_time = v_reservation_end_time;
+       reservation_start_time = v_reservation_start_time;
+       spacecraft_id = v_spacecraft_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_spacecraft_id in
+         ("spacecraft_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_reservation_start_time
+         in
+         ("reservation_start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_reservation_end_time
+         in
+         ("reservation_end_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ground_station_name
+         in
+         ("ground_station_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_contact_profile_id
+         in
+         ("contact_profile_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_orbital_contact -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_orbital_contact
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }

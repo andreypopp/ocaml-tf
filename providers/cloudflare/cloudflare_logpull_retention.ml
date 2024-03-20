@@ -4,13 +4,42 @@ open! Tf_core
 
 type cloudflare_logpull_retention = {
   enabled : bool prop;
-      (** Whether you wish to retain logs or not. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Allows management of the Logpull Retention settings used to control whether or not to retain HTTP request logs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_logpull_retention) -> ()
+
+let yojson_of_cloudflare_logpull_retention =
+  (function
+   | { enabled = v_enabled; id = v_id; zone_id = v_zone_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_logpull_retention ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_logpull_retention
+
+[@@@deriving.end]
 
 let cloudflare_logpull_retention ?id ~enabled ~zone_id () :
     cloudflare_logpull_retention =

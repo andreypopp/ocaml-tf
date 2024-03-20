@@ -3,84 +3,470 @@
 open! Tf_core
 
 type serverless_v2_scaling_configuration = {
-  max_capacity : float prop option; [@option]  (** max_capacity *)
-  min_capacity : float prop option; [@option]  (** min_capacity *)
+  max_capacity : float prop option; [@option]
+  min_capacity : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** serverless_v2_scaling_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : serverless_v2_scaling_configuration) -> ()
+
+let yojson_of_serverless_v2_scaling_configuration =
+  (function
+   | { max_capacity = v_max_capacity; min_capacity = v_min_capacity }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_min_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_capacity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_capacity", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serverless_v2_scaling_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_serverless_v2_scaling_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_neptune_cluster = {
   allow_major_version_upgrade : bool prop option; [@option]
-      (** allow_major_version_upgrade *)
   apply_immediately : bool prop option; [@option]
-      (** apply_immediately *)
   availability_zones : string prop list option; [@option]
-      (** availability_zones *)
   backup_retention_period : float prop option; [@option]
-      (** backup_retention_period *)
   cluster_identifier : string prop option; [@option]
-      (** cluster_identifier *)
   cluster_identifier_prefix : string prop option; [@option]
-      (** cluster_identifier_prefix *)
   copy_tags_to_snapshot : bool prop option; [@option]
-      (** copy_tags_to_snapshot *)
   deletion_protection : bool prop option; [@option]
-      (** deletion_protection *)
   enable_cloudwatch_logs_exports : string prop list option; [@option]
-      (** enable_cloudwatch_logs_exports *)
-  engine : string prop option; [@option]  (** engine *)
+  engine : string prop option; [@option]
   engine_version : string prop option; [@option]
-      (** engine_version *)
   final_snapshot_identifier : string prop option; [@option]
-      (** final_snapshot_identifier *)
   global_cluster_identifier : string prop option; [@option]
-      (** global_cluster_identifier *)
   iam_database_authentication_enabled : bool prop option; [@option]
-      (** iam_database_authentication_enabled *)
-  iam_roles : string prop list option; [@option]  (** iam_roles *)
-  id : string prop option; [@option]  (** id *)
-  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  iam_roles : string prop list option; [@option]
+  id : string prop option; [@option]
+  kms_key_arn : string prop option; [@option]
   neptune_cluster_parameter_group_name : string prop option;
       [@option]
-      (** neptune_cluster_parameter_group_name *)
   neptune_instance_parameter_group_name : string prop option;
       [@option]
-      (** neptune_instance_parameter_group_name *)
   neptune_subnet_group_name : string prop option; [@option]
-      (** neptune_subnet_group_name *)
-  port : float prop option; [@option]  (** port *)
+  port : float prop option; [@option]
   preferred_backup_window : string prop option; [@option]
-      (** preferred_backup_window *)
   preferred_maintenance_window : string prop option; [@option]
-      (** preferred_maintenance_window *)
   replication_source_identifier : string prop option; [@option]
-      (** replication_source_identifier *)
   skip_final_snapshot : bool prop option; [@option]
-      (** skip_final_snapshot *)
   snapshot_identifier : string prop option; [@option]
-      (** snapshot_identifier *)
   storage_encrypted : bool prop option; [@option]
-      (** storage_encrypted *)
-  storage_type : string prop option; [@option]  (** storage_type *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  storage_type : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   vpc_security_group_ids : string prop list option; [@option]
-      (** vpc_security_group_ids *)
   serverless_v2_scaling_configuration :
     serverless_v2_scaling_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_neptune_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_neptune_cluster) -> ()
+
+let yojson_of_aws_neptune_cluster =
+  (function
+   | {
+       allow_major_version_upgrade = v_allow_major_version_upgrade;
+       apply_immediately = v_apply_immediately;
+       availability_zones = v_availability_zones;
+       backup_retention_period = v_backup_retention_period;
+       cluster_identifier = v_cluster_identifier;
+       cluster_identifier_prefix = v_cluster_identifier_prefix;
+       copy_tags_to_snapshot = v_copy_tags_to_snapshot;
+       deletion_protection = v_deletion_protection;
+       enable_cloudwatch_logs_exports =
+         v_enable_cloudwatch_logs_exports;
+       engine = v_engine;
+       engine_version = v_engine_version;
+       final_snapshot_identifier = v_final_snapshot_identifier;
+       global_cluster_identifier = v_global_cluster_identifier;
+       iam_database_authentication_enabled =
+         v_iam_database_authentication_enabled;
+       iam_roles = v_iam_roles;
+       id = v_id;
+       kms_key_arn = v_kms_key_arn;
+       neptune_cluster_parameter_group_name =
+         v_neptune_cluster_parameter_group_name;
+       neptune_instance_parameter_group_name =
+         v_neptune_instance_parameter_group_name;
+       neptune_subnet_group_name = v_neptune_subnet_group_name;
+       port = v_port;
+       preferred_backup_window = v_preferred_backup_window;
+       preferred_maintenance_window = v_preferred_maintenance_window;
+       replication_source_identifier =
+         v_replication_source_identifier;
+       skip_final_snapshot = v_skip_final_snapshot;
+       snapshot_identifier = v_snapshot_identifier;
+       storage_encrypted = v_storage_encrypted;
+       storage_type = v_storage_type;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       vpc_security_group_ids = v_vpc_security_group_ids;
+       serverless_v2_scaling_configuration =
+         v_serverless_v2_scaling_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_serverless_v2_scaling_configuration
+             v_serverless_v2_scaling_configuration
+         in
+         ("serverless_v2_scaling_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_vpc_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "vpc_security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_encrypted with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "storage_encrypted", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "snapshot_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skip_final_snapshot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_final_snapshot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_replication_source_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "replication_source_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preferred_maintenance_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preferred_maintenance_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preferred_backup_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preferred_backup_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_neptune_subnet_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "neptune_subnet_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_neptune_instance_parameter_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "neptune_instance_parameter_group_name", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_neptune_cluster_parameter_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "neptune_cluster_parameter_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iam_roles with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "iam_roles", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iam_database_authentication_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "iam_database_authentication_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_global_cluster_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "global_cluster_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_final_snapshot_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "final_snapshot_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_engine_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_engine with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_cloudwatch_logs_exports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "enable_cloudwatch_logs_exports", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deletion_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_copy_tags_to_snapshot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "copy_tags_to_snapshot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cluster_identifier_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cluster_identifier_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cluster_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cluster_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backup_retention_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "backup_retention_period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_availability_zones with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "availability_zones", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_apply_immediately with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "apply_immediately", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_major_version_upgrade with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_major_version_upgrade", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_neptune_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_neptune_cluster
+
+[@@@deriving.end]
 
 let serverless_v2_scaling_configuration ?max_capacity ?min_capacity
     () : serverless_v2_scaling_configuration =

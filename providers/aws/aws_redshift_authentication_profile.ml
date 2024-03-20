@@ -4,13 +4,53 @@ open! Tf_core
 
 type aws_redshift_authentication_profile = {
   authentication_profile_content : string prop;
-      (** authentication_profile_content *)
   authentication_profile_name : string prop;
-      (** authentication_profile_name *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_redshift_authentication_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshift_authentication_profile) -> ()
+
+let yojson_of_aws_redshift_authentication_profile =
+  (function
+   | {
+       authentication_profile_content =
+         v_authentication_profile_content;
+       authentication_profile_name = v_authentication_profile_name;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_authentication_profile_name
+         in
+         ("authentication_profile_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_authentication_profile_content
+         in
+         ("authentication_profile_content", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_redshift_authentication_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshift_authentication_profile
+
+[@@@deriving.end]
 
 let aws_redshift_authentication_profile ?id
     ~authentication_profile_content ~authentication_profile_name () :

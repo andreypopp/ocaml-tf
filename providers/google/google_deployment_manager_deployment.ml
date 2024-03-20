@@ -3,81 +3,284 @@
 open! Tf_core
 
 type labels = {
-  key : string prop option; [@option]  (** Key for label. *)
-  value : string prop option; [@option]  (** Value of label. *)
+  key : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Key-value pairs to apply to this labels. *)
+[@@deriving_inline yojson_of]
 
-type target__config = {
-  content : string prop;
-      (** The full YAML contents of your configuration file. *)
-}
-[@@deriving yojson_of]
-(** The root configuration file to use for this deployment. *)
+let _ = fun (_ : labels) -> ()
+
+let yojson_of_labels =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : labels -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_labels
+
+[@@@deriving.end]
+
+type target__config = { content : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target__config) -> ()
+
+let yojson_of_target__config =
+  (function
+   | { content = v_content } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : target__config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target__config
+
+[@@@deriving.end]
 
 type target__imports = {
   content : string prop option; [@option]
-      (** The full contents of the template that you want to import. *)
   name : string prop option; [@option]
-      (** The name of the template to import, as declared in the YAML
-configuration. *)
 }
-[@@deriving yojson_of]
-(** Specifies import files for this configuration. This can be
-used to import templates or other files. For example, you might
-import a text file in order to use the file in a template. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target__imports) -> ()
+
+let yojson_of_target__imports =
+  (function
+   | { content = v_content; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : target__imports -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target__imports
+
+[@@@deriving.end]
 
 type target = {
   config : target__config list;
   imports : target__imports list;
 }
-[@@deriving yojson_of]
-(** Parameters that define your deployment, including the deployment
-configuration and relevant templates. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target) -> ()
+
+let yojson_of_target =
+  (function
+   | { config = v_config; imports = v_imports } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_target__imports v_imports
+         in
+         ("imports", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_target__config v_config
+         in
+         ("config", arg) :: bnds
+       in
+       `Assoc bnds
+    : target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_deployment_manager_deployment = {
   create_policy : string prop option; [@option]
-      (** Set the policy to use for creating new resources. Only used on
-create and update. Valid values are 'CREATE_OR_ACQUIRE' (default) or
-'ACQUIRE'. If set to 'ACQUIRE' and resources do not already exist,
-the deployment will fail. Note that updating this field does not
-actually affect the deployment, just how it is updated. Default value: CREATE_OR_ACQUIRE Possible values: [ACQUIRE, CREATE_OR_ACQUIRE] *)
   delete_policy : string prop option; [@option]
-      (** Set the policy to use for deleting new resources on update/delete.
-Valid values are 'DELETE' (default) or 'ABANDON'. If 'DELETE',
-resource is deleted after removal from Deployment Manager. If
-'ABANDON', the resource is only removed from Deployment Manager
-and is not actually deleted. Note that updating this field does not
-actually change the deployment, just how it is updated. Default value: DELETE Possible values: [ABANDON, DELETE] *)
   description : string prop option; [@option]
-      (** Optional user-provided description of deployment. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** Unique name for the deployment *)
+  id : string prop option; [@option]
+  name : string prop;
   preview : bool prop option; [@option]
-      (** If set to true, a deployment is created with shell resources
-that are not actually instantiated. This allows you to preview a
-deployment. It can be updated to false to actually deploy
-with real resources.
- ~>**NOTE:** Deployment Manager does not allow update
-of a deployment in preview (unless updating to preview=false). Thus,
-Terraform will force-recreate deployments if either preview is updated
-to true or if other fields are updated while preview is true. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   labels : labels list;
   target : target list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_deployment_manager_deployment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_deployment_manager_deployment) -> ()
+
+let yojson_of_google_deployment_manager_deployment =
+  (function
+   | {
+       create_policy = v_create_policy;
+       delete_policy = v_delete_policy;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       preview = v_preview;
+       project = v_project;
+       labels = v_labels;
+       target = v_target;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_target v_target in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_labels v_labels in
+         ("labels", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preview with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "preview", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_deployment_manager_deployment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_deployment_manager_deployment
+
+[@@@deriving.end]
 
 let labels ?key ?value () : labels = { key; value }
 let target__config ~content () : target__config = { content }

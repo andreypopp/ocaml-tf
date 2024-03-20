@@ -4,150 +4,482 @@ open! Tf_core
 
 type metadata = {
   annotations : (string * string prop) list option; [@option]
-      (** An unstructured key value map stored with the podsecuritypolicy that may be used to store arbitrary metadata. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ *)
   labels : (string * string prop) list option; [@option]
-      (** Map of string keys and values that can be used to organize and categorize (scope and select) the podsecuritypolicy. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ *)
   name : string prop option; [@option]
-      (** Name of the podsecuritypolicy, must be unique. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
 }
-[@@deriving yojson_of]
-(** Standard podsecuritypolicy's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata *)
+[@@deriving_inline yojson_of]
 
-type spec__allowed_flex_volumes = {
-  driver : string prop;
-      (** driver is the name of the Flexvolume driver. *)
-}
-[@@deriving yojson_of]
-(** allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the volumes field. *)
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | {
+       annotations = v_annotations;
+       labels = v_labels;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
+
+type spec__allowed_flex_volumes = { driver : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__allowed_flex_volumes) -> ()
+
+let yojson_of_spec__allowed_flex_volumes =
+  (function
+   | { driver = v_driver } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_driver in
+         ("driver", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__allowed_flex_volumes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__allowed_flex_volumes
+
+[@@@deriving.end]
 
 type spec__allowed_host_paths = {
   path_prefix : string prop;
-      (** pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
-
-Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo` *)
   read_only : bool prop option; [@option]
-      (** when set to true, will allow host volumes matching the pathPrefix only if all volume mounts are readOnly. *)
 }
-[@@deriving yojson_of]
-(** allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used. *)
+[@@deriving_inline yojson_of]
 
-type spec__fs_group__range = {
-  max : float prop;  (** max is the end of the range, inclusive. *)
-  min : float prop;  (** min is the start of the range, inclusive. *)
-}
-[@@deriving yojson_of]
-(** ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs. *)
+let _ = fun (_ : spec__allowed_host_paths) -> ()
+
+let yojson_of_spec__allowed_host_paths =
+  (function
+   | { path_prefix = v_path_prefix; read_only = v_read_only } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path_prefix in
+         ("path_prefix", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__allowed_host_paths -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__allowed_host_paths
+
+[@@@deriving.end]
+
+type spec__fs_group__range = { max : float prop; min : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__fs_group__range) -> ()
+
+let yojson_of_spec__fs_group__range =
+  (function
+   | { max = v_max; min = v_min } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min in
+         ("min", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max in
+         ("max", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__fs_group__range -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__fs_group__range
+
+[@@@deriving.end]
 
 type spec__fs_group = {
   rule : string prop;
-      (** rule is the strategy that will dictate what FSGroup is used in the SecurityContext. *)
   range : spec__fs_group__range list;
 }
-[@@deriving yojson_of]
-(** fsGroup is the strategy that will dictate what fs group is used by the SecurityContext. *)
+[@@deriving_inline yojson_of]
 
-type spec__host_ports = {
-  max : float prop;  (** max is the end of the range, inclusive. *)
-  min : float prop;  (** min is the start of the range, inclusive. *)
-}
-[@@deriving yojson_of]
-(** hostPorts determines which host port ranges are allowed to be exposed. *)
+let _ = fun (_ : spec__fs_group) -> ()
+
+let yojson_of_spec__fs_group =
+  (function
+   | { rule = v_rule; range = v_range } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__fs_group__range v_range
+         in
+         ("range", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule in
+         ("rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__fs_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__fs_group
+
+[@@@deriving.end]
+
+type spec__host_ports = { max : float prop; min : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__host_ports) -> ()
+
+let yojson_of_spec__host_ports =
+  (function
+   | { max = v_max; min = v_min } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min in
+         ("min", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max in
+         ("max", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__host_ports -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__host_ports
+
+[@@@deriving.end]
 
 type spec__run_as_group__range = {
-  max : float prop;  (** max is the end of the range, inclusive. *)
-  min : float prop;  (** min is the start of the range, inclusive. *)
+  max : float prop;
+  min : float prop;
 }
-[@@deriving yojson_of]
-(** ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__run_as_group__range) -> ()
+
+let yojson_of_spec__run_as_group__range =
+  (function
+   | { max = v_max; min = v_min } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min in
+         ("min", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max in
+         ("max", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__run_as_group__range -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__run_as_group__range
+
+[@@@deriving.end]
 
 type spec__run_as_group = {
   rule : string prop;
-      (** rule is the strategy that will dictate the allowable RunAsGroup values that may be set. *)
   range : spec__run_as_group__range list;
 }
-[@@deriving yojson_of]
-(** RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__run_as_group) -> ()
+
+let yojson_of_spec__run_as_group =
+  (function
+   | { rule = v_rule; range = v_range } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__run_as_group__range v_range
+         in
+         ("range", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule in
+         ("rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__run_as_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__run_as_group
+
+[@@@deriving.end]
 
 type spec__run_as_user__range = {
-  max : float prop;  (** max is the end of the range, inclusive. *)
-  min : float prop;  (** min is the start of the range, inclusive. *)
+  max : float prop;
+  min : float prop;
 }
-[@@deriving yojson_of]
-(** ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__run_as_user__range) -> ()
+
+let yojson_of_spec__run_as_user__range =
+  (function
+   | { max = v_max; min = v_min } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min in
+         ("min", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max in
+         ("max", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__run_as_user__range -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__run_as_user__range
+
+[@@@deriving.end]
 
 type spec__run_as_user = {
   rule : string prop;
-      (** rule is the strategy that will dictate the allowable RunAsUser values that may be set. *)
   range : spec__run_as_user__range list;
 }
-[@@deriving yojson_of]
-(** runAsUser is the strategy that will dictate the allowable RunAsUser values that may be set. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__run_as_user) -> ()
+
+let yojson_of_spec__run_as_user =
+  (function
+   | { rule = v_rule; range = v_range } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__run_as_user__range v_range
+         in
+         ("range", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule in
+         ("rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__run_as_user -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__run_as_user
+
+[@@@deriving.end]
 
 type spec__se_linux__se_linux_options = {
-  level : string prop;  (** level *)
-  role : string prop;  (** role *)
-  type_ : string prop; [@key "type"]  (** type *)
-  user : string prop;  (** user *)
+  level : string prop;
+  role : string prop;
+  type_ : string prop; [@key "type"]
+  user : string prop;
 }
-[@@deriving yojson_of]
-(** seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/ *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__se_linux__se_linux_options) -> ()
+
+let yojson_of_spec__se_linux__se_linux_options =
+  (function
+   | {
+       level = v_level;
+       role = v_role;
+       type_ = v_type_;
+       user = v_user;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user in
+         ("user", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role in
+         ("role", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_level in
+         ("level", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__se_linux__se_linux_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__se_linux__se_linux_options
+
+[@@@deriving.end]
 
 type spec__se_linux = {
   rule : string prop;
-      (** rule is the strategy that will dictate the allowable labels that may be set. *)
   se_linux_options : spec__se_linux__se_linux_options list;
 }
-[@@deriving yojson_of]
-(** seLinux is the strategy that will dictate the allowable labels that may be set. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__se_linux) -> ()
+
+let yojson_of_spec__se_linux =
+  (function
+   | { rule = v_rule; se_linux_options = v_se_linux_options } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__se_linux__se_linux_options
+             v_se_linux_options
+         in
+         ("se_linux_options", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule in
+         ("rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__se_linux -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__se_linux
+
+[@@@deriving.end]
 
 type spec__supplemental_groups__range = {
-  max : float prop;  (** max is the end of the range, inclusive. *)
-  min : float prop;  (** min is the start of the range, inclusive. *)
+  max : float prop;
+  min : float prop;
 }
-[@@deriving yojson_of]
-(** ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__supplemental_groups__range) -> ()
+
+let yojson_of_spec__supplemental_groups__range =
+  (function
+   | { max = v_max; min = v_min } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min in
+         ("min", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max in
+         ("max", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__supplemental_groups__range ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__supplemental_groups__range
+
+[@@@deriving.end]
 
 type spec__supplemental_groups = {
   rule : string prop;
-      (** rule is the strategy that will dictate what supplemental groups is used in the SecurityContext. *)
   range : spec__supplemental_groups__range list;
 }
-[@@deriving yojson_of]
-(** supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__supplemental_groups) -> ()
+
+let yojson_of_spec__supplemental_groups =
+  (function
+   | { rule = v_rule; range = v_range } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__supplemental_groups__range
+             v_range
+         in
+         ("range", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule in
+         ("rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__supplemental_groups -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__supplemental_groups
+
+[@@@deriving.end]
 
 type spec = {
   allow_privilege_escalation : bool prop option; [@option]
-      (** allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true. *)
   allowed_capabilities : string prop list option; [@option]
-      (** allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities. *)
   allowed_proc_mount_types : string prop list option; [@option]
-      (** AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled. *)
   allowed_unsafe_sysctls : string prop list option; [@option]
-      (** allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in * in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
-
-Examples: e.g. foo/* allows foo/bar, foo/baz, etc. e.g. foo.* allows foo.bar, foo.baz, etc. *)
   default_add_capabilities : string prop list option; [@option]
-      (** defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list. *)
   default_allow_privilege_escalation : bool prop option; [@option]
-      (** defaultAllowPrivilegeEscalation controls the default setting for whether a process can gain more privileges than its parent process. *)
   forbidden_sysctls : string prop list option; [@option]
-      (** forbiddenSysctls is a list of explicitly forbidden sysctls, defaults to none. Each entry is either a plain sysctl name or ends in * in which case it is considered as a prefix of forbidden sysctls. Single * means all sysctls are forbidden.
-
-Examples: e.g. foo/* forbids foo/bar, foo/baz, etc. e.g. foo.* forbids foo.bar, foo.baz, etc. *)
   host_ipc : bool prop option; [@option]
-      (** hostIPC determines if the policy allows the use of HostIPC in the pod spec. *)
   host_network : bool prop option; [@option]
-      (** hostNetwork determines if the policy allows the use of HostNetwork in the pod spec. *)
   host_pid : bool prop option; [@option]
-      (** hostPID determines if the policy allows the use of HostPID in the pod spec. *)
   privileged : bool prop option; [@option]
-      (** privileged determines if a pod can request to be run as privileged. *)
   read_only_root_filesystem : bool prop option; [@option]
-      (** readOnlyRootFilesystem when set to true will force containers to run with a read only root file system.  If the container specifically requests to run with a non-read only root file system the PSP should deny the pod. If set to false the container may run with a read only root file system if it wishes but it will not be forced to. *)
   required_drop_capabilities : string prop list option; [@option]
-      (** requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added. *)
   volumes : string prop list option; [@option]
-      (** volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'. *)
   allowed_flex_volumes : spec__allowed_flex_volumes list;
   allowed_host_paths : spec__allowed_host_paths list;
   fs_group : spec__fs_group list;
@@ -157,16 +489,262 @@ Examples: e.g. foo/* forbids foo/bar, foo/baz, etc. e.g. foo.* forbids foo.bar, 
   se_linux : spec__se_linux list;
   supplemental_groups : spec__supplemental_groups list;
 }
-[@@deriving yojson_of]
-(** spec defines the policy enforced. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       allow_privilege_escalation = v_allow_privilege_escalation;
+       allowed_capabilities = v_allowed_capabilities;
+       allowed_proc_mount_types = v_allowed_proc_mount_types;
+       allowed_unsafe_sysctls = v_allowed_unsafe_sysctls;
+       default_add_capabilities = v_default_add_capabilities;
+       default_allow_privilege_escalation =
+         v_default_allow_privilege_escalation;
+       forbidden_sysctls = v_forbidden_sysctls;
+       host_ipc = v_host_ipc;
+       host_network = v_host_network;
+       host_pid = v_host_pid;
+       privileged = v_privileged;
+       read_only_root_filesystem = v_read_only_root_filesystem;
+       required_drop_capabilities = v_required_drop_capabilities;
+       volumes = v_volumes;
+       allowed_flex_volumes = v_allowed_flex_volumes;
+       allowed_host_paths = v_allowed_host_paths;
+       fs_group = v_fs_group;
+       host_ports = v_host_ports;
+       run_as_group = v_run_as_group;
+       run_as_user = v_run_as_user;
+       se_linux = v_se_linux;
+       supplemental_groups = v_supplemental_groups;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__supplemental_groups
+             v_supplemental_groups
+         in
+         ("supplemental_groups", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__se_linux v_se_linux
+         in
+         ("se_linux", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__run_as_user v_run_as_user
+         in
+         ("run_as_user", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__run_as_group v_run_as_group
+         in
+         ("run_as_group", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__host_ports v_host_ports
+         in
+         ("host_ports", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__fs_group v_fs_group
+         in
+         ("fs_group", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__allowed_host_paths
+             v_allowed_host_paths
+         in
+         ("allowed_host_paths", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__allowed_flex_volumes
+             v_allowed_flex_volumes
+         in
+         ("allowed_flex_volumes", arg) :: bnds
+       in
+       let bnds =
+         match v_volumes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "volumes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_required_drop_capabilities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "required_drop_capabilities", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only_root_filesystem with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only_root_filesystem", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_privileged with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "privileged", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_pid with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "host_pid", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "host_network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_ipc with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "host_ipc", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_forbidden_sysctls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "forbidden_sysctls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_allow_privilege_escalation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "default_allow_privilege_escalation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_add_capabilities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "default_add_capabilities", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_unsafe_sysctls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_unsafe_sysctls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_proc_mount_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_proc_mount_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_capabilities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_capabilities", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_privilege_escalation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_privilege_escalation", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type kubernetes_pod_security_policy_v1beta1 = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   metadata : metadata list;
   spec : spec list;
 }
-[@@deriving yojson_of]
-(** kubernetes_pod_security_policy_v1beta1 *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_pod_security_policy_v1beta1) -> ()
+
+let yojson_of_kubernetes_pod_security_policy_v1beta1 =
+  (function
+   | { id = v_id; metadata = v_metadata; spec = v_spec } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_pod_security_policy_v1beta1 ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_pod_security_policy_v1beta1
+
+[@@@deriving.end]
 
 let metadata ?annotations ?labels ?name () : metadata =
   { annotations; labels; name }

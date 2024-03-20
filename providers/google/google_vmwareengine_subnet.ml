@@ -3,34 +3,136 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type dhcp_address_ranges = {
-  first_address : string prop;  (** first_address *)
-  last_address : string prop;  (** last_address *)
+  first_address : string prop;
+  last_address : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dhcp_address_ranges) -> ()
+
+let yojson_of_dhcp_address_ranges =
+  (function
+   | {
+       first_address = v_first_address;
+       last_address = v_last_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_last_address in
+         ("last_address", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_first_address in
+         ("first_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : dhcp_address_ranges -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dhcp_address_ranges
+
+[@@@deriving.end]
 
 type google_vmwareengine_subnet = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_cidr_range : string prop;
-      (** The IP address range of the subnet in CIDR format. *)
   name : string prop;
-      (** The ID of the subnet. For userDefined subnets, this name should be in the format of service-n,
-where n ranges from 1 to 5. *)
   parent : string prop;
-      (** The resource name of the private cloud to create a new subnet in.
-Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
-For example: projects/my-project/locations/us-west1-a/privateClouds/my-cloud *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vmwareengine_subnet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_vmwareengine_subnet) -> ()
+
+let yojson_of_google_vmwareengine_subnet =
+  (function
+   | {
+       id = v_id;
+       ip_cidr_range = v_ip_cidr_range;
+       name = v_name;
+       parent = v_parent;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_cidr_range in
+         ("ip_cidr_range", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_vmwareengine_subnet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vmwareengine_subnet
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

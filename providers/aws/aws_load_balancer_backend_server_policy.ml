@@ -3,14 +3,61 @@
 open! Tf_core
 
 type aws_load_balancer_backend_server_policy = {
-  id : string prop option; [@option]  (** id *)
-  instance_port : float prop;  (** instance_port *)
-  load_balancer_name : string prop;  (** load_balancer_name *)
+  id : string prop option; [@option]
+  instance_port : float prop;
+  load_balancer_name : string prop;
   policy_names : string prop list option; [@option]
-      (** policy_names *)
 }
-[@@deriving yojson_of]
-(** aws_load_balancer_backend_server_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_load_balancer_backend_server_policy) -> ()
+
+let yojson_of_aws_load_balancer_backend_server_policy =
+  (function
+   | {
+       id = v_id;
+       instance_port = v_instance_port;
+       load_balancer_name = v_load_balancer_name;
+       policy_names = v_policy_names;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_policy_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "policy_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_load_balancer_name
+         in
+         ("load_balancer_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_instance_port in
+         ("instance_port", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_load_balancer_backend_server_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_load_balancer_backend_server_policy
+
+[@@@deriving.end]
 
 let aws_load_balancer_backend_server_policy ?id ?policy_names
     ~instance_port ~load_balancer_name () :

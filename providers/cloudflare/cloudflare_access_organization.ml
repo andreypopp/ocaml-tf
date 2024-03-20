@@ -4,58 +4,265 @@ open! Tf_core
 
 type custom_pages = {
   forbidden : string prop option; [@option]
-      (** The id of the forbidden page. *)
   identity_denied : string prop option; [@option]
-      (** The id of the identity denied page. *)
 }
-[@@deriving yojson_of]
-(** Custom pages for your Zero Trust organization. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_pages) -> ()
+
+let yojson_of_custom_pages =
+  (function
+   | { forbidden = v_forbidden; identity_denied = v_identity_denied }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_identity_denied with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_denied", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_forbidden with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "forbidden", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_pages -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_pages
+
+[@@@deriving.end]
 
 type login_design = {
   background_color : string prop option; [@option]
-      (** The background color on the login page. *)
   footer_text : string prop option; [@option]
-      (** The text at the bottom of the login page. *)
   header_text : string prop option; [@option]
-      (** The text at the top of the login page. *)
   logo_path : string prop option; [@option]
-      (** The URL of the logo on the login page. *)
   text_color : string prop option; [@option]
-      (** The text color on the login page. *)
 }
-[@@deriving yojson_of]
-(** login_design *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : login_design) -> ()
+
+let yojson_of_login_design =
+  (function
+   | {
+       background_color = v_background_color;
+       footer_text = v_footer_text;
+       header_text = v_header_text;
+       logo_path = v_logo_path;
+       text_color = v_text_color;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_text_color with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "text_color", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_logo_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "logo_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_header_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "header_text", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_footer_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "footer_text", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_background_color with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "background_color", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : login_design -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_login_design
+
+[@@@deriving.end]
 
 type cloudflare_access_organization = {
   account_id : string prop option; [@option]
-      (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
   allow_authenticate_via_warp : bool prop option; [@option]
-      (** When set to true, users can authenticate via WARP for any application in your organization. Application settings will take precedence over this value. *)
   auth_domain : string prop;
-      (** The unique subdomain assigned to your Zero Trust organization. *)
   auto_redirect_to_identity : bool prop option; [@option]
-      (** When set to true, users skip the identity provider selection step during login. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   is_ui_read_only : bool prop option; [@option]
-      (** When set to true, this will disable all editing of Access resources via the Zero Trust Dashboard. *)
   name : string prop option; [@option]
-      (** The name of your Zero Trust organization. *)
   session_duration : string prop option; [@option]
-      (** How often a user will be forced to re-authorise. Must be in the format `48h` or `2h45m`. *)
   ui_read_only_toggle_reason : string prop option; [@option]
-      (** A description of the reason why the UI read only field is being toggled. *)
   user_seat_expiration_inactive_time : string prop option; [@option]
-      (** The amount of time a user seat is inactive before it expires. When the user seat exceeds the set time of inactivity, the user is removed as an active seat and no longer counts against your Teams seat count. Must be in the format `300ms` or `2h45m`. *)
   warp_auth_session_duration : string prop option; [@option]
-      (** The amount of time that tokens issued for applications will be valid. Must be in the format 30m or 2h45m. Valid time units are: m, h. *)
   zone_id : string prop option; [@option]
-      (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
   custom_pages : custom_pages list;
   login_design : login_design list;
 }
-[@@deriving yojson_of]
-(** A Zero Trust organization defines the user login experience.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_access_organization) -> ()
+
+let yojson_of_cloudflare_access_organization =
+  (function
+   | {
+       account_id = v_account_id;
+       allow_authenticate_via_warp = v_allow_authenticate_via_warp;
+       auth_domain = v_auth_domain;
+       auto_redirect_to_identity = v_auto_redirect_to_identity;
+       id = v_id;
+       is_ui_read_only = v_is_ui_read_only;
+       name = v_name;
+       session_duration = v_session_duration;
+       ui_read_only_toggle_reason = v_ui_read_only_toggle_reason;
+       user_seat_expiration_inactive_time =
+         v_user_seat_expiration_inactive_time;
+       warp_auth_session_duration = v_warp_auth_session_duration;
+       zone_id = v_zone_id;
+       custom_pages = v_custom_pages;
+       login_design = v_login_design;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_login_design v_login_design
+         in
+         ("login_design", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_pages v_custom_pages
+         in
+         ("custom_pages", arg) :: bnds
+       in
+       let bnds =
+         match v_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_warp_auth_session_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "warp_auth_session_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_user_seat_expiration_inactive_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_seat_expiration_inactive_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ui_read_only_toggle_reason with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ui_read_only_toggle_reason", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "session_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_ui_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_ui_read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_redirect_to_identity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_redirect_to_identity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_auth_domain in
+         ("auth_domain", arg) :: bnds
+       in
+       let bnds =
+         match v_allow_authenticate_via_warp with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_authenticate_via_warp", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_access_organization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_access_organization
+
+[@@@deriving.end]
 
 let custom_pages ?forbidden ?identity_denied () : custom_pages =
   { forbidden; identity_denied }

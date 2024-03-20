@@ -3,54 +3,304 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type token_body_parameter = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** token_body_parameter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : token_body_parameter) -> ()
+
+let yojson_of_token_body_parameter =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : token_body_parameter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_token_body_parameter
+
+[@@@deriving.end]
 
 type azurerm_api_management_authorization_server = {
-  api_management_name : string prop;  (** api_management_name *)
+  api_management_name : string prop;
   authorization_endpoint : string prop;
-      (** authorization_endpoint *)
   authorization_methods : string prop list;
-      (** authorization_methods *)
   bearer_token_sending_methods : string prop list option; [@option]
-      (** bearer_token_sending_methods *)
   client_authentication_method : string prop list option; [@option]
-      (** client_authentication_method *)
-  client_id : string prop;  (** client_id *)
+  client_id : string prop;
   client_registration_endpoint : string prop;
-      (** client_registration_endpoint *)
-  client_secret : string prop option; [@option]  (** client_secret *)
-  default_scope : string prop option; [@option]  (** default_scope *)
-  description : string prop option; [@option]  (** description *)
-  display_name : string prop;  (** display_name *)
-  grant_types : string prop list;  (** grant_types *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  client_secret : string prop option; [@option]
+  default_scope : string prop option; [@option]
+  description : string prop option; [@option]
+  display_name : string prop;
+  grant_types : string prop list;
+  id : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
   resource_owner_password : string prop option; [@option]
-      (** resource_owner_password *)
   resource_owner_username : string prop option; [@option]
-      (** resource_owner_username *)
-  support_state : bool prop option; [@option]  (** support_state *)
+  support_state : bool prop option; [@option]
   token_endpoint : string prop option; [@option]
-      (** token_endpoint *)
   timeouts : timeouts option;
   token_body_parameter : token_body_parameter list;
 }
-[@@deriving yojson_of]
-(** azurerm_api_management_authorization_server *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_api_management_authorization_server) -> ()
+
+let yojson_of_azurerm_api_management_authorization_server =
+  (function
+   | {
+       api_management_name = v_api_management_name;
+       authorization_endpoint = v_authorization_endpoint;
+       authorization_methods = v_authorization_methods;
+       bearer_token_sending_methods = v_bearer_token_sending_methods;
+       client_authentication_method = v_client_authentication_method;
+       client_id = v_client_id;
+       client_registration_endpoint = v_client_registration_endpoint;
+       client_secret = v_client_secret;
+       default_scope = v_default_scope;
+       description = v_description;
+       display_name = v_display_name;
+       grant_types = v_grant_types;
+       id = v_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       resource_owner_password = v_resource_owner_password;
+       resource_owner_username = v_resource_owner_username;
+       support_state = v_support_state;
+       token_endpoint = v_token_endpoint;
+       timeouts = v_timeouts;
+       token_body_parameter = v_token_body_parameter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_token_body_parameter
+             v_token_body_parameter
+         in
+         ("token_body_parameter", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_token_endpoint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "token_endpoint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_support_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "support_state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_owner_username with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_owner_username", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_owner_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_owner_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_grant_types
+         in
+         ("grant_types", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_client_registration_endpoint
+         in
+         ("client_registration_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_id in
+         ("client_id", arg) :: bnds
+       in
+       let bnds =
+         match v_client_authentication_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "client_authentication_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bearer_token_sending_methods with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "bearer_token_sending_methods", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_authorization_methods
+         in
+         ("authorization_methods", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_authorization_endpoint
+         in
+         ("authorization_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_api_management_name
+         in
+         ("api_management_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_api_management_authorization_server ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_api_management_authorization_server
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

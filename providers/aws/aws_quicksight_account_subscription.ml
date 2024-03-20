@@ -3,32 +3,32 @@
 open! Tf_core
 
 type timeouts = {
-  create: string  prop option; [@option] (** create *)
-  delete: string  prop option; [@option] (** delete *)
-  read: string  prop option; [@option] (** read *)
-} [@@deriving yojson_of]
-(** timeouts *)
+  create: string  prop option; [@option]
+  delete: string  prop option; [@option]
+  read: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type aws_quicksight_account_subscription = {
-  account_name: string prop;  (** account_name *)
-  active_directory_name: string  prop option; [@option] (** active_directory_name *)
-  admin_group: string   prop list option; [@option] (** admin_group *)
-  authentication_method: string prop;  (** authentication_method *)
-  author_group: string   prop list option; [@option] (** author_group *)
-  aws_account_id: string  prop option; [@option] (** aws_account_id *)
-  contact_number: string  prop option; [@option] (** contact_number *)
-  directory_id: string  prop option; [@option] (** directory_id *)
-  edition: string prop;  (** edition *)
-  email_address: string  prop option; [@option] (** email_address *)
-  first_name: string  prop option; [@option] (** first_name *)
-  id: string  prop option; [@option] (** id *)
-  last_name: string  prop option; [@option] (** last_name *)
-  notification_email: string prop;  (** notification_email *)
-  reader_group: string   prop list option; [@option] (** reader_group *)
-  realm: string  prop option; [@option] (** realm *)
+  account_name: string prop; 
+  active_directory_name: string  prop option; [@option]
+  admin_group: string   prop list option; [@option]
+  authentication_method: string prop; 
+  author_group: string   prop list option; [@option]
+  aws_account_id: string  prop option; [@option]
+  contact_number: string  prop option; [@option]
+  directory_id: string  prop option; [@option]
+  edition: string prop; 
+  email_address: string  prop option; [@option]
+  first_name: string  prop option; [@option]
+  id: string  prop option; [@option]
+  last_name: string  prop option; [@option]
+  notification_email: string prop; 
+  reader_group: string   prop list option; [@option]
+  realm: string  prop option; [@option]
   timeouts: timeouts option;
-} [@@deriving yojson_of]
-(** aws_quicksight_account_subscription *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read () =
   ({

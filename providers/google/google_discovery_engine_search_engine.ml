@@ -2,49 +2,227 @@
 
 open! Tf_core
 
-type common_config = {
-  company_name : string prop option; [@option]
-      (** The name of the company, business or entity that is associated with the engine. Setting this may help improve LLM related features.cd *)
-}
-[@@deriving yojson_of]
-(** Common config spec that specifies the metadata of the engine. *)
+type common_config = { company_name : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : common_config) -> ()
+
+let yojson_of_common_config =
+  (function
+   | { company_name = v_company_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_company_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "company_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : common_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_common_config
+
+[@@@deriving.end]
 
 type search_engine_config = {
   search_add_ons : string prop list option; [@option]
-      (** The add-on that this search engine enables. Possible values: [SEARCH_ADD_ON_LLM] *)
   search_tier : string prop option; [@option]
-      (** The search feature tier of this engine. Defaults to SearchTier.SEARCH_TIER_STANDARD if not specified. Default value: SEARCH_TIER_STANDARD Possible values: [SEARCH_TIER_STANDARD, SEARCH_TIER_ENTERPRISE] *)
 }
-[@@deriving yojson_of]
-(** Configurations for a Search Engine. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : search_engine_config) -> ()
+
+let yojson_of_search_engine_config =
+  (function
+   | {
+       search_add_ons = v_search_add_ons;
+       search_tier = v_search_tier;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_search_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "search_tier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_search_add_ons with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "search_add_ons", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : search_engine_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_search_engine_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_discovery_engine_search_engine = {
-  collection_id : string prop;  (** The collection ID. *)
+  collection_id : string prop;
   data_store_ids : string prop list;
-      (** The data stores associated with this engine. For SOLUTION_TYPE_SEARCH type of engines, they can only associate with at most one data store. *)
   display_name : string prop;
-      (** Required. The display name of the engine. Should be human readable. UTF-8 encoded string with limit of 1024 characters. *)
   engine_id : string prop;
-      (** Unique ID to use for Search Engine App. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   industry_vertical : string prop option; [@option]
-      (** The industry vertical that the engine registers. The restriction of the Engine industry vertical is based on DataStore: If unspecified, default to GENERIC. Vertical on Engine has to match vertical of the DataStore liniked to the engine. Default value: GENERIC Possible values: [GENERIC, MEDIA] *)
-  location : string prop;  (** Location. *)
-  project : string prop option; [@option]  (** project *)
+  location : string prop;
+  project : string prop option; [@option]
   common_config : common_config list;
   search_engine_config : search_engine_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_discovery_engine_search_engine *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_discovery_engine_search_engine) -> ()
+
+let yojson_of_google_discovery_engine_search_engine =
+  (function
+   | {
+       collection_id = v_collection_id;
+       data_store_ids = v_data_store_ids;
+       display_name = v_display_name;
+       engine_id = v_engine_id;
+       id = v_id;
+       industry_vertical = v_industry_vertical;
+       location = v_location;
+       project = v_project;
+       common_config = v_common_config;
+       search_engine_config = v_search_engine_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_search_engine_config
+             v_search_engine_config
+         in
+         ("search_engine_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_common_config v_common_config
+         in
+         ("common_config", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_industry_vertical with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "industry_vertical", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_engine_id in
+         ("engine_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_data_store_ids
+         in
+         ("data_store_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_collection_id in
+         ("collection_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_discovery_engine_search_engine ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_discovery_engine_search_engine
+
+[@@@deriving.end]
 
 let common_config ?company_name () : common_config = { company_name }
 

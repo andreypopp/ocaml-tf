@@ -3,101 +3,730 @@
 open! Tf_core
 
 type address = {
-  address_1 : string prop option; [@option]  (** address_1 *)
-  address_2 : string prop option; [@option]  (** address_2 *)
-  address_3 : string prop option; [@option]  (** address_3 *)
-  address_4 : string prop option; [@option]  (** address_4 *)
-  city : string prop option; [@option]  (** city *)
-  country : string prop option; [@option]  (** country *)
-  county : string prop option; [@option]  (** county *)
-  postal_code : string prop option; [@option]  (** postal_code *)
-  province : string prop option; [@option]  (** province *)
-  state : string prop option; [@option]  (** state *)
+  address_1 : string prop option; [@option]
+  address_2 : string prop option; [@option]
+  address_3 : string prop option; [@option]
+  address_4 : string prop option; [@option]
+  city : string prop option; [@option]
+  country : string prop option; [@option]
+  county : string prop option; [@option]
+  postal_code : string prop option; [@option]
+  province : string prop option; [@option]
+  state : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** address *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : address) -> ()
+
+let yojson_of_address =
+  (function
+   | {
+       address_1 = v_address_1;
+       address_2 = v_address_2;
+       address_3 = v_address_3;
+       address_4 = v_address_4;
+       city = v_city;
+       country = v_country;
+       county = v_county;
+       postal_code = v_postal_code;
+       province = v_province;
+       state = v_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_province with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "province", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_postal_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "postal_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_county with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "county", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_country with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "country", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_city with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "city", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_4 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_4", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_3 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_3", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_2 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_2", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_1 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_1", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : address -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_address
+
+[@@@deriving.end]
 
 type billing_address = {
-  address_1 : string prop option; [@option]  (** address_1 *)
-  address_2 : string prop option; [@option]  (** address_2 *)
-  address_3 : string prop option; [@option]  (** address_3 *)
-  address_4 : string prop option; [@option]  (** address_4 *)
-  city : string prop option; [@option]  (** city *)
-  country : string prop option; [@option]  (** country *)
-  county : string prop option; [@option]  (** county *)
-  postal_code : string prop option; [@option]  (** postal_code *)
-  province : string prop option; [@option]  (** province *)
-  state : string prop option; [@option]  (** state *)
+  address_1 : string prop option; [@option]
+  address_2 : string prop option; [@option]
+  address_3 : string prop option; [@option]
+  address_4 : string prop option; [@option]
+  city : string prop option; [@option]
+  country : string prop option; [@option]
+  county : string prop option; [@option]
+  postal_code : string prop option; [@option]
+  province : string prop option; [@option]
+  state : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** billing_address *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : billing_address) -> ()
+
+let yojson_of_billing_address =
+  (function
+   | {
+       address_1 = v_address_1;
+       address_2 = v_address_2;
+       address_3 = v_address_3;
+       address_4 = v_address_4;
+       city = v_city;
+       country = v_country;
+       county = v_county;
+       postal_code = v_postal_code;
+       province = v_province;
+       state = v_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_province with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "province", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_postal_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "postal_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_county with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "county", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_country with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "country", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_city with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "city", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_4 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_4", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_3 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_3", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_2 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_2", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_1 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_1", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : billing_address -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_billing_address
+
+[@@@deriving.end]
 
 type mailing_address = {
-  address_1 : string prop option; [@option]  (** address_1 *)
-  address_2 : string prop option; [@option]  (** address_2 *)
-  address_3 : string prop option; [@option]  (** address_3 *)
-  address_4 : string prop option; [@option]  (** address_4 *)
-  city : string prop option; [@option]  (** city *)
-  country : string prop option; [@option]  (** country *)
-  county : string prop option; [@option]  (** county *)
-  postal_code : string prop option; [@option]  (** postal_code *)
-  province : string prop option; [@option]  (** province *)
-  state : string prop option; [@option]  (** state *)
+  address_1 : string prop option; [@option]
+  address_2 : string prop option; [@option]
+  address_3 : string prop option; [@option]
+  address_4 : string prop option; [@option]
+  city : string prop option; [@option]
+  country : string prop option; [@option]
+  county : string prop option; [@option]
+  postal_code : string prop option; [@option]
+  province : string prop option; [@option]
+  state : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** mailing_address *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mailing_address) -> ()
+
+let yojson_of_mailing_address =
+  (function
+   | {
+       address_1 = v_address_1;
+       address_2 = v_address_2;
+       address_3 = v_address_3;
+       address_4 = v_address_4;
+       city = v_city;
+       country = v_country;
+       county = v_county;
+       postal_code = v_postal_code;
+       province = v_province;
+       state = v_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_province with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "province", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_postal_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "postal_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_county with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "county", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_country with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "country", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_city with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "city", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_4 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_4", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_3 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_3", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_2 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_2", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_1 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_1", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : mailing_address -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mailing_address
+
+[@@@deriving.end]
 
 type shipping_address = {
-  address_1 : string prop option; [@option]  (** address_1 *)
-  address_2 : string prop option; [@option]  (** address_2 *)
-  address_3 : string prop option; [@option]  (** address_3 *)
-  address_4 : string prop option; [@option]  (** address_4 *)
-  city : string prop option; [@option]  (** city *)
-  country : string prop option; [@option]  (** country *)
-  county : string prop option; [@option]  (** county *)
-  postal_code : string prop option; [@option]  (** postal_code *)
-  province : string prop option; [@option]  (** province *)
-  state : string prop option; [@option]  (** state *)
+  address_1 : string prop option; [@option]
+  address_2 : string prop option; [@option]
+  address_3 : string prop option; [@option]
+  address_4 : string prop option; [@option]
+  city : string prop option; [@option]
+  country : string prop option; [@option]
+  county : string prop option; [@option]
+  postal_code : string prop option; [@option]
+  province : string prop option; [@option]
+  state : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** shipping_address *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shipping_address) -> ()
+
+let yojson_of_shipping_address =
+  (function
+   | {
+       address_1 = v_address_1;
+       address_2 = v_address_2;
+       address_3 = v_address_3;
+       address_4 = v_address_4;
+       city = v_city;
+       country = v_country;
+       county = v_county;
+       postal_code = v_postal_code;
+       province = v_province;
+       state = v_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_province with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "province", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_postal_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "postal_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_county with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "county", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_country with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "country", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_city with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "city", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_4 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_4", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_3 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_3", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_2 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_2", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_address_1 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address_1", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : shipping_address -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shipping_address
+
+[@@@deriving.end]
 
 type aws_customerprofiles_profile = {
   account_number : string prop option; [@option]
-      (** account_number *)
   additional_information : string prop option; [@option]
-      (** additional_information *)
   attributes : (string * string prop) list option; [@option]
-      (** attributes *)
-  birth_date : string prop option; [@option]  (** birth_date *)
+  birth_date : string prop option; [@option]
   business_email_address : string prop option; [@option]
-      (** business_email_address *)
-  business_name : string prop option; [@option]  (** business_name *)
+  business_name : string prop option; [@option]
   business_phone_number : string prop option; [@option]
-      (** business_phone_number *)
-  domain_name : string prop;  (** domain_name *)
-  email_address : string prop option; [@option]  (** email_address *)
-  first_name : string prop option; [@option]  (** first_name *)
-  gender_string : string prop option; [@option]  (** gender_string *)
+  domain_name : string prop;
+  email_address : string prop option; [@option]
+  first_name : string prop option; [@option]
+  gender_string : string prop option; [@option]
   home_phone_number : string prop option; [@option]
-      (** home_phone_number *)
-  id : string prop option; [@option]  (** id *)
-  last_name : string prop option; [@option]  (** last_name *)
-  middle_name : string prop option; [@option]  (** middle_name *)
+  id : string prop option; [@option]
+  last_name : string prop option; [@option]
+  middle_name : string prop option; [@option]
   mobile_phone_number : string prop option; [@option]
-      (** mobile_phone_number *)
   party_type_string : string prop option; [@option]
-      (** party_type_string *)
   personal_email_address : string prop option; [@option]
-      (** personal_email_address *)
-  phone_number : string prop option; [@option]  (** phone_number *)
+  phone_number : string prop option; [@option]
   address : address list;
   billing_address : billing_address list;
   mailing_address : mailing_address list;
   shipping_address : shipping_address list;
 }
-[@@deriving yojson_of]
-(** aws_customerprofiles_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_customerprofiles_profile) -> ()
+
+let yojson_of_aws_customerprofiles_profile =
+  (function
+   | {
+       account_number = v_account_number;
+       additional_information = v_additional_information;
+       attributes = v_attributes;
+       birth_date = v_birth_date;
+       business_email_address = v_business_email_address;
+       business_name = v_business_name;
+       business_phone_number = v_business_phone_number;
+       domain_name = v_domain_name;
+       email_address = v_email_address;
+       first_name = v_first_name;
+       gender_string = v_gender_string;
+       home_phone_number = v_home_phone_number;
+       id = v_id;
+       last_name = v_last_name;
+       middle_name = v_middle_name;
+       mobile_phone_number = v_mobile_phone_number;
+       party_type_string = v_party_type_string;
+       personal_email_address = v_personal_email_address;
+       phone_number = v_phone_number;
+       address = v_address;
+       billing_address = v_billing_address;
+       mailing_address = v_mailing_address;
+       shipping_address = v_shipping_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_shipping_address
+             v_shipping_address
+         in
+         ("shipping_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_mailing_address v_mailing_address
+         in
+         ("mailing_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_billing_address v_billing_address
+         in
+         ("billing_address", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_address v_address in
+         ("address", arg) :: bnds
+       in
+       let bnds =
+         match v_phone_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "phone_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_personal_email_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "personal_email_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_party_type_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "party_type_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mobile_phone_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mobile_phone_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_middle_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "middle_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_last_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "last_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_home_phone_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "home_phone_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gender_string with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gender_string", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_first_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "first_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "email_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       let bnds =
+         match v_business_phone_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "business_phone_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_business_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "business_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_business_email_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "business_email_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_birth_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "birth_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attributes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "attributes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_additional_information with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "additional_information", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_number", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_customerprofiles_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_customerprofiles_profile
+
+[@@@deriving.end]
 
 let address ?address_1 ?address_2 ?address_3 ?address_4 ?city
     ?country ?county ?postal_code ?province ?state () : address =

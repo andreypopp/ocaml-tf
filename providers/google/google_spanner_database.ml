@@ -2,60 +2,192 @@
 
 open! Tf_core
 
-type encryption_config = {
-  kms_key_name : string prop;
-      (** Fully qualified name of the KMS key to use to encrypt this database. This key must exist
-in the same location as the Spanner Database. *)
-}
-[@@deriving yojson_of]
-(** Encryption configuration for the database *)
+type encryption_config = { kms_key_name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_config) -> ()
+
+let yojson_of_encryption_config =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_name in
+         ("kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_spanner_database = {
   database_dialect : string prop option; [@option]
-      (** The dialect of the Cloud Spanner Database.
-If it is not provided, GOOGLE_STANDARD_SQL will be used. Possible values: [GOOGLE_STANDARD_SQL, POSTGRESQL] *)
   ddl : string prop list option; [@option]
-      (** An optional list of DDL statements to run inside the newly created
-database. Statements can create tables, indexes, etc. These statements
-execute atomically with the creation of the database: if there is an
-error in any statement, the database is not created. *)
   deletion_protection : bool prop option; [@option]
-      (** Whether or not to allow Terraform to destroy the database. Defaults to true. Unless this field is set to false
-in Terraform state, a 'terraform destroy' or 'terraform apply' that would delete the database will fail. *)
   enable_drop_protection : bool prop option; [@option]
-      (** Whether drop protection is enabled for this database. Defaults to false.
-Drop protection is different from
-the deletion_protection attribute in the following ways:
-(1) deletion_protection only protects the database from deletions in Terraform.
-whereas setting “enableDropProtection” to true protects the database from deletions in all interfaces.
-(2) Setting enableDropProtection to true also prevents the deletion of the parent instance containing the database.
-deletion_protection attribute does not provide protection against the deletion of the parent instance. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   instance : string prop;
-      (** The instance to create the database on. *)
   name : string prop;
-      (** A unique identifier for the database, which cannot be changed after
-the instance is created. Values are of the form [a-z][-a-z0-9]*[a-z0-9]. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   version_retention_period : string prop option; [@option]
-      (** The retention period for the database. The retention period must be between 1 hour
-and 7 days, and can be specified in days, hours, minutes, or seconds. For example,
-the values 1d, 24h, 1440m, and 86400s are equivalent. Default value is 1h.
-If this property is used, you must avoid adding new DDL statements to 'ddl' that
-update the database's version_retention_period. *)
   encryption_config : encryption_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_spanner_database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_spanner_database) -> ()
+
+let yojson_of_google_spanner_database =
+  (function
+   | {
+       database_dialect = v_database_dialect;
+       ddl = v_ddl;
+       deletion_protection = v_deletion_protection;
+       enable_drop_protection = v_enable_drop_protection;
+       id = v_id;
+       instance = v_instance;
+       name = v_name;
+       project = v_project;
+       version_retention_period = v_version_retention_period;
+       encryption_config = v_encryption_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption_config
+             v_encryption_config
+         in
+         ("encryption_config", arg) :: bnds
+       in
+       let bnds =
+         match v_version_retention_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version_retention_period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance in
+         ("instance", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_drop_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_drop_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deletion_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ddl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ddl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_database_dialect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "database_dialect", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_spanner_database -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_spanner_database
+
+[@@@deriving.end]
 
 let encryption_config ~kms_key_name () : encryption_config =
   { kms_key_name }

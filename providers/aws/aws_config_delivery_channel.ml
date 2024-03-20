@@ -4,23 +4,120 @@ open! Tf_core
 
 type snapshot_delivery_properties = {
   delivery_frequency : string prop option; [@option]
-      (** delivery_frequency *)
 }
-[@@deriving yojson_of]
-(** snapshot_delivery_properties *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snapshot_delivery_properties) -> ()
+
+let yojson_of_snapshot_delivery_properties =
+  (function
+   | { delivery_frequency = v_delivery_frequency } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delivery_frequency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delivery_frequency", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snapshot_delivery_properties ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snapshot_delivery_properties
+
+[@@@deriving.end]
 
 type aws_config_delivery_channel = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
-  s3_bucket_name : string prop;  (** s3_bucket_name *)
-  s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
+  id : string prop option; [@option]
+  name : string prop option; [@option]
+  s3_bucket_name : string prop;
+  s3_key_prefix : string prop option; [@option]
   s3_kms_key_arn : string prop option; [@option]
-      (** s3_kms_key_arn *)
-  sns_topic_arn : string prop option; [@option]  (** sns_topic_arn *)
+  sns_topic_arn : string prop option; [@option]
   snapshot_delivery_properties : snapshot_delivery_properties list;
 }
-[@@deriving yojson_of]
-(** aws_config_delivery_channel *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_config_delivery_channel) -> ()
+
+let yojson_of_aws_config_delivery_channel =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       s3_bucket_name = v_s3_bucket_name;
+       s3_key_prefix = v_s3_key_prefix;
+       s3_kms_key_arn = v_s3_kms_key_arn;
+       sns_topic_arn = v_sns_topic_arn;
+       snapshot_delivery_properties = v_snapshot_delivery_properties;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_snapshot_delivery_properties
+             v_snapshot_delivery_properties
+         in
+         ("snapshot_delivery_properties", arg) :: bnds
+       in
+       let bnds =
+         match v_sns_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sns_topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_s3_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_s3_key_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_key_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_s3_bucket_name
+         in
+         ("s3_bucket_name", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_config_delivery_channel ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_config_delivery_channel
+
+[@@@deriving.end]
 
 let snapshot_delivery_properties ?delivery_frequency () :
     snapshot_delivery_properties =

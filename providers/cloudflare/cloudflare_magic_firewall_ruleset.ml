@@ -4,16 +4,73 @@ open! Tf_core
 
 type cloudflare_magic_firewall_ruleset = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
   name : string prop;
-      (** **Modifying this attribute will force creation of a new resource.** *)
   rules : (string * string prop) list list option; [@option]
-      (** rules *)
 }
-[@@deriving yojson_of]
-(** cloudflare_magic_firewall_ruleset *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_magic_firewall_ruleset) -> ()
+
+let yojson_of_cloudflare_magic_firewall_ruleset =
+  (function
+   | {
+       account_id = v_account_id;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       rules = v_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_rules with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (yojson_of_list (function v0, v1 ->
+                      let v0 = yojson_of_string v0
+                      and v1 = yojson_of_prop yojson_of_string v1 in
+                      `List [ v0; v1 ]))
+                 v
+             in
+             let bnd = "rules", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_magic_firewall_ruleset ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_magic_firewall_ruleset
+
+[@@@deriving.end]
 
 let cloudflare_magic_firewall_ruleset ?description ?id ?rules
     ~account_id ~name () : cloudflare_magic_firewall_ruleset =

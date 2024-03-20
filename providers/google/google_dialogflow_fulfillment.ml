@@ -2,48 +2,215 @@
 
 open! Tf_core
 
-type features = {
-  type_ : string prop; [@key "type"]
-      (** The type of the feature that enabled for fulfillment.
-* SMALLTALK: Fulfillment is enabled for SmallTalk. Possible values: [SMALLTALK] *)
-}
-[@@deriving yojson_of]
-(** The field defines whether the fulfillment is enabled for certain features. *)
+type features = { type_ : string prop [@key "type"] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : features) -> ()
+
+let yojson_of_features =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : features -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_features
+
+[@@@deriving.end]
 
 type generic_web_service = {
   password : string prop option; [@option]
-      (** The password for HTTP Basic authentication. *)
   request_headers : (string * string prop) list option; [@option]
-      (** The HTTP request headers to send together with fulfillment requests. *)
   uri : string prop;
-      (** The fulfillment URI for receiving POST requests. It must use https protocol. *)
   username : string prop option; [@option]
-      (** The user name for HTTP Basic authentication. *)
 }
-[@@deriving yojson_of]
-(** Represents configuration for a generic web service. Dialogflow supports two mechanisms for authentications: - Basic authentication with username and password. - Authentication with additional authentication headers. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : generic_web_service) -> ()
+
+let yojson_of_generic_web_service =
+  (function
+   | {
+       password = v_password;
+       request_headers = v_request_headers;
+       uri = v_uri;
+       username = v_username;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_username with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "username", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_request_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "request_headers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : generic_web_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_generic_web_service
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_dialogflow_fulfillment = {
   display_name : string prop;
-      (** The human-readable name of the fulfillment, unique within the agent. *)
   enabled : bool prop option; [@option]
-      (** Whether fulfillment is enabled. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   features : features list;
   generic_web_service : generic_web_service list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dialogflow_fulfillment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dialogflow_fulfillment) -> ()
+
+let yojson_of_google_dialogflow_fulfillment =
+  (function
+   | {
+       display_name = v_display_name;
+       enabled = v_enabled;
+       id = v_id;
+       project = v_project;
+       features = v_features;
+       generic_web_service = v_generic_web_service;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_generic_web_service
+             v_generic_web_service
+         in
+         ("generic_web_service", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_features v_features in
+         ("features", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_dialogflow_fulfillment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dialogflow_fulfillment
+
+[@@@deriving.end]
 
 let features ~type_ () : features = { type_ }
 

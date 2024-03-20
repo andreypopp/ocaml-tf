@@ -4,44 +4,178 @@ open! Tf_core
 
 type fields = {
   array_config : string prop option; [@option]
-      (** Indicates that this field supports operations on arrayValues. Only one of 'order' and 'arrayConfig' can
-be specified. Possible values: [CONTAINS] *)
   field_path : string prop option; [@option]
-      (** Name of the field. *)
   order : string prop option; [@option]
-      (** Indicates that this field supports ordering by the specified order or comparing using =, <, <=, >, >=.
-Only one of 'order' and 'arrayConfig' can be specified. Possible values: [ASCENDING, DESCENDING] *)
 }
-[@@deriving yojson_of]
-(** The fields supported by this index. The last field entry is always for
-the field path '__name__'. If, on creation, '__name__' was not
-specified as the last field, it will be added automatically with the
-same direction as that of the last field defined. If the final field
-in a composite index is not directional, the '__name__' will be
-ordered 'ASCENDING' (unless explicitly specified otherwise). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fields) -> ()
+
+let yojson_of_fields =
+  (function
+   | {
+       array_config = v_array_config;
+       field_path = v_field_path;
+       order = v_order;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_order with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "order", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_field_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_array_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "array_config", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : fields -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fields
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_firestore_index = {
   api_scope : string prop option; [@option]
-      (** The API scope at which a query is run. Default value: ANY_API Possible values: [ANY_API, DATASTORE_MODE_API] *)
-  collection : string prop;  (** The collection being indexed. *)
+  collection : string prop;
   database : string prop option; [@option]
-      (** The Firestore database id. Defaults to '(default)'. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   query_scope : string prop option; [@option]
-      (** The scope at which a query is run. Default value: COLLECTION Possible values: [COLLECTION, COLLECTION_GROUP, COLLECTION_RECURSIVE] *)
   fields : fields list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_firestore_index *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_firestore_index) -> ()
+
+let yojson_of_google_firestore_index =
+  (function
+   | {
+       api_scope = v_api_scope;
+       collection = v_collection;
+       database = v_database;
+       id = v_id;
+       project = v_project;
+       query_scope = v_query_scope;
+       fields = v_fields;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_fields v_fields in
+         ("fields", arg) :: bnds
+       in
+       let bnds =
+         match v_query_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "query_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_database with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "database", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_collection in
+         ("collection", arg) :: bnds
+       in
+       let bnds =
+         match v_api_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_scope", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_firestore_index -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_firestore_index
+
+[@@@deriving.end]
 
 let fields ?array_config ?field_path ?order () : fields =
   { array_config; field_path; order }

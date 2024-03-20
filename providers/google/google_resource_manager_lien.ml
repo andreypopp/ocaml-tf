@@ -3,36 +3,106 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_resource_manager_lien = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   origin : string prop;
-      (** A stable, user-visible/meaningful string identifying the origin
-of the Lien, intended to be inspected programmatically. Maximum length of
-200 characters. *)
   parent : string prop;
-      (** A reference to the resource this Lien is attached to.
-The server will validate the parent against those for which Liens are supported.
-Since a variety of objects can have Liens against them, you must provide the type
-prefix (e.g. projects/my-project-name). *)
   reason : string prop;
-      (** Concise user-visible strings indicating why an action cannot be performed
-on a resource. Maximum length of 200 characters. *)
   restrictions : string prop list;
-      (** The types of operations which should be blocked as a result of this Lien.
-Each value should correspond to an IAM permission. The server will validate
-the permissions against those for which Liens are supported.  An empty
-list is meaningless and will be rejected.
-e.g. ['resourcemanager.projects.delete'] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_resource_manager_lien *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_resource_manager_lien) -> ()
+
+let yojson_of_google_resource_manager_lien =
+  (function
+   | {
+       id = v_id;
+       origin = v_origin;
+       parent = v_parent;
+       reason = v_reason;
+       restrictions = v_restrictions;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_restrictions
+         in
+         ("restrictions", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_reason in
+         ("reason", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_origin in
+         ("origin", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_resource_manager_lien ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_resource_manager_lien
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

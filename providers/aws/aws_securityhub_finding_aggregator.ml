@@ -3,13 +3,53 @@
 open! Tf_core
 
 type aws_securityhub_finding_aggregator = {
-  id : string prop option; [@option]  (** id *)
-  linking_mode : string prop;  (** linking_mode *)
+  id : string prop option; [@option]
+  linking_mode : string prop;
   specified_regions : string prop list option; [@option]
-      (** specified_regions *)
 }
-[@@deriving yojson_of]
-(** aws_securityhub_finding_aggregator *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securityhub_finding_aggregator) -> ()
+
+let yojson_of_aws_securityhub_finding_aggregator =
+  (function
+   | {
+       id = v_id;
+       linking_mode = v_linking_mode;
+       specified_regions = v_specified_regions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_specified_regions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "specified_regions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_linking_mode in
+         ("linking_mode", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_securityhub_finding_aggregator ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securityhub_finding_aggregator
+
+[@@@deriving.end]
 
 let aws_securityhub_finding_aggregator ?id ?specified_regions
     ~linking_mode () : aws_securityhub_finding_aggregator =

@@ -3,19 +3,84 @@
 open! Tf_core
 
 type emergency_contact = {
-  contact_notes : string prop option; [@option]  (** contact_notes *)
-  email_address : string prop;  (** email_address *)
-  phone_number : string prop option; [@option]  (** phone_number *)
+  contact_notes : string prop option; [@option]
+  email_address : string prop;
+  phone_number : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** emergency_contact *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : emergency_contact) -> ()
+
+let yojson_of_emergency_contact =
+  (function
+   | {
+       contact_notes = v_contact_notes;
+       email_address = v_email_address;
+       phone_number = v_phone_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_phone_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "phone_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email_address in
+         ("email_address", arg) :: bnds
+       in
+       let bnds =
+         match v_contact_notes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "contact_notes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : emergency_contact -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_emergency_contact
+
+[@@@deriving.end]
 
 type aws_shield_proactive_engagement = {
-  enabled : bool prop;  (** enabled *)
+  enabled : bool prop;
   emergency_contact : emergency_contact list;
 }
-[@@deriving yojson_of]
-(** aws_shield_proactive_engagement *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_shield_proactive_engagement) -> ()
+
+let yojson_of_aws_shield_proactive_engagement =
+  (function
+   | { enabled = v_enabled; emergency_contact = v_emergency_contact }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_emergency_contact
+             v_emergency_contact
+         in
+         ("emergency_contact", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_shield_proactive_engagement ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_shield_proactive_engagement
+
+[@@@deriving.end]
 
 let emergency_contact ?contact_notes ?phone_number ~email_address ()
     : emergency_contact =

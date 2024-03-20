@@ -3,13 +3,52 @@
 open! Tf_core
 
 type hcloud_network_route = {
-  destination : string prop;  (** destination *)
-  gateway : string prop;  (** gateway *)
-  id : string prop option; [@option]  (** id *)
-  network_id : float prop;  (** network_id *)
+  destination : string prop;
+  gateway : string prop;
+  id : string prop option; [@option]
+  network_id : float prop;
 }
-[@@deriving yojson_of]
-(** hcloud_network_route *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_network_route) -> ()
+
+let yojson_of_hcloud_network_route =
+  (function
+   | {
+       destination = v_destination;
+       gateway = v_gateway;
+       id = v_id;
+       network_id = v_network_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_network_id in
+         ("network_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_gateway in
+         ("gateway", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_destination in
+         ("destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : hcloud_network_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_network_route
+
+[@@@deriving.end]
 
 let hcloud_network_route ?id ~destination ~gateway ~network_id () :
     hcloud_network_route =

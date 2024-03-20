@@ -2,67 +2,303 @@
 
 open! Tf_core
 
-type ownership_settings = {
-  owner_user_profile_name : string prop;
-      (** owner_user_profile_name *)
-}
-[@@deriving yojson_of]
-(** ownership_settings *)
+type ownership_settings = { owner_user_profile_name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ownership_settings) -> ()
+
+let yojson_of_ownership_settings =
+  (function
+   | { owner_user_profile_name = v_owner_user_profile_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_owner_user_profile_name
+         in
+         ("owner_user_profile_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : ownership_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ownership_settings
+
+[@@@deriving.end]
 
 type space_settings__code_editor_app_settings__default_resource_spec = {
-  instance_type : string prop option; [@option]  (** instance_type *)
+  instance_type : string prop option; [@option]
   lifecycle_config_arn : string prop option; [@option]
-      (** lifecycle_config_arn *)
   sagemaker_image_arn : string prop option; [@option]
-      (** sagemaker_image_arn *)
   sagemaker_image_version_alias : string prop option; [@option]
-      (** sagemaker_image_version_alias *)
   sagemaker_image_version_arn : string prop option; [@option]
-      (** sagemaker_image_version_arn *)
 }
-[@@deriving yojson_of]
-(** space_settings__code_editor_app_settings__default_resource_spec *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       space_settings__code_editor_app_settings__default_resource_spec) ->
+  ()
+
+let yojson_of_space_settings__code_editor_app_settings__default_resource_spec
+    =
+  (function
+   | {
+       instance_type = v_instance_type;
+       lifecycle_config_arn = v_lifecycle_config_arn;
+       sagemaker_image_arn = v_sagemaker_image_arn;
+       sagemaker_image_version_alias =
+         v_sagemaker_image_version_alias;
+       sagemaker_image_version_arn = v_sagemaker_image_version_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sagemaker_image_version_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_version_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sagemaker_image_version_alias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_version_alias", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sagemaker_image_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lifecycle_config_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lifecycle_config_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : space_settings__code_editor_app_settings__default_resource_spec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_space_settings__code_editor_app_settings__default_resource_spec
+
+[@@@deriving.end]
 
 type space_settings__code_editor_app_settings = {
   default_resource_spec :
     space_settings__code_editor_app_settings__default_resource_spec
     list;
 }
-[@@deriving yojson_of]
-(** space_settings__code_editor_app_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : space_settings__code_editor_app_settings) -> ()
+
+let yojson_of_space_settings__code_editor_app_settings =
+  (function
+   | { default_resource_spec = v_default_resource_spec } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__code_editor_app_settings__default_resource_spec
+             v_default_resource_spec
+         in
+         ("default_resource_spec", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_settings__code_editor_app_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_space_settings__code_editor_app_settings
+
+[@@@deriving.end]
 
 type space_settings__custom_file_system__efs_file_system = {
-  file_system_id : string prop;  (** file_system_id *)
+  file_system_id : string prop;
 }
-[@@deriving yojson_of]
-(** space_settings__custom_file_system__efs_file_system *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : space_settings__custom_file_system__efs_file_system) -> ()
+
+let yojson_of_space_settings__custom_file_system__efs_file_system =
+  (function
+   | { file_system_id = v_file_system_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_file_system_id
+         in
+         ("file_system_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_settings__custom_file_system__efs_file_system ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_space_settings__custom_file_system__efs_file_system
+
+[@@@deriving.end]
 
 type space_settings__custom_file_system = {
   efs_file_system :
     space_settings__custom_file_system__efs_file_system list;
 }
-[@@deriving yojson_of]
-(** space_settings__custom_file_system *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : space_settings__custom_file_system) -> ()
+
+let yojson_of_space_settings__custom_file_system =
+  (function
+   | { efs_file_system = v_efs_file_system } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__custom_file_system__efs_file_system
+             v_efs_file_system
+         in
+         ("efs_file_system", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_settings__custom_file_system ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_space_settings__custom_file_system
+
+[@@@deriving.end]
 
 type space_settings__jupyter_lab_app_settings__code_repository = {
-  repository_url : string prop;  (** repository_url *)
+  repository_url : string prop;
 }
-[@@deriving yojson_of]
-(** space_settings__jupyter_lab_app_settings__code_repository *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : space_settings__jupyter_lab_app_settings__code_repository) ->
+  ()
+
+let yojson_of_space_settings__jupyter_lab_app_settings__code_repository
+    =
+  (function
+   | { repository_url = v_repository_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_repository_url
+         in
+         ("repository_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_settings__jupyter_lab_app_settings__code_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_space_settings__jupyter_lab_app_settings__code_repository
+
+[@@@deriving.end]
 
 type space_settings__jupyter_lab_app_settings__default_resource_spec = {
-  instance_type : string prop option; [@option]  (** instance_type *)
+  instance_type : string prop option; [@option]
   lifecycle_config_arn : string prop option; [@option]
-      (** lifecycle_config_arn *)
   sagemaker_image_arn : string prop option; [@option]
-      (** sagemaker_image_arn *)
   sagemaker_image_version_alias : string prop option; [@option]
-      (** sagemaker_image_version_alias *)
   sagemaker_image_version_arn : string prop option; [@option]
-      (** sagemaker_image_version_arn *)
 }
-[@@deriving yojson_of]
-(** space_settings__jupyter_lab_app_settings__default_resource_spec *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       space_settings__jupyter_lab_app_settings__default_resource_spec) ->
+  ()
+
+let yojson_of_space_settings__jupyter_lab_app_settings__default_resource_spec
+    =
+  (function
+   | {
+       instance_type = v_instance_type;
+       lifecycle_config_arn = v_lifecycle_config_arn;
+       sagemaker_image_arn = v_sagemaker_image_arn;
+       sagemaker_image_version_alias =
+         v_sagemaker_image_version_alias;
+       sagemaker_image_version_arn = v_sagemaker_image_version_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sagemaker_image_version_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_version_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sagemaker_image_version_alias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_version_alias", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sagemaker_image_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lifecycle_config_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lifecycle_config_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : space_settings__jupyter_lab_app_settings__default_resource_spec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_space_settings__jupyter_lab_app_settings__default_resource_spec
+
+[@@@deriving.end]
 
 type space_settings__jupyter_lab_app_settings = {
   code_repository :
@@ -71,91 +307,454 @@ type space_settings__jupyter_lab_app_settings = {
     space_settings__jupyter_lab_app_settings__default_resource_spec
     list;
 }
-[@@deriving yojson_of]
-(** space_settings__jupyter_lab_app_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : space_settings__jupyter_lab_app_settings) -> ()
+
+let yojson_of_space_settings__jupyter_lab_app_settings =
+  (function
+   | {
+       code_repository = v_code_repository;
+       default_resource_spec = v_default_resource_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__jupyter_lab_app_settings__default_resource_spec
+             v_default_resource_spec
+         in
+         ("default_resource_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__jupyter_lab_app_settings__code_repository
+             v_code_repository
+         in
+         ("code_repository", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_settings__jupyter_lab_app_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_space_settings__jupyter_lab_app_settings
+
+[@@@deriving.end]
 
 type space_settings__jupyter_server_app_settings__code_repository = {
-  repository_url : string prop;  (** repository_url *)
+  repository_url : string prop;
 }
-[@@deriving yojson_of]
-(** space_settings__jupyter_server_app_settings__code_repository *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       space_settings__jupyter_server_app_settings__code_repository) ->
+  ()
+
+let yojson_of_space_settings__jupyter_server_app_settings__code_repository
+    =
+  (function
+   | { repository_url = v_repository_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_repository_url
+         in
+         ("repository_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_settings__jupyter_server_app_settings__code_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_space_settings__jupyter_server_app_settings__code_repository
+
+[@@@deriving.end]
 
 type space_settings__jupyter_server_app_settings__default_resource_spec = {
-  instance_type : string prop option; [@option]  (** instance_type *)
+  instance_type : string prop option; [@option]
   lifecycle_config_arn : string prop option; [@option]
-      (** lifecycle_config_arn *)
   sagemaker_image_arn : string prop option; [@option]
-      (** sagemaker_image_arn *)
   sagemaker_image_version_alias : string prop option; [@option]
-      (** sagemaker_image_version_alias *)
   sagemaker_image_version_arn : string prop option; [@option]
-      (** sagemaker_image_version_arn *)
 }
-[@@deriving yojson_of]
-(** space_settings__jupyter_server_app_settings__default_resource_spec *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       space_settings__jupyter_server_app_settings__default_resource_spec) ->
+  ()
+
+let yojson_of_space_settings__jupyter_server_app_settings__default_resource_spec
+    =
+  (function
+   | {
+       instance_type = v_instance_type;
+       lifecycle_config_arn = v_lifecycle_config_arn;
+       sagemaker_image_arn = v_sagemaker_image_arn;
+       sagemaker_image_version_alias =
+         v_sagemaker_image_version_alias;
+       sagemaker_image_version_arn = v_sagemaker_image_version_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sagemaker_image_version_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_version_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sagemaker_image_version_alias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_version_alias", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sagemaker_image_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lifecycle_config_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lifecycle_config_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : space_settings__jupyter_server_app_settings__default_resource_spec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_space_settings__jupyter_server_app_settings__default_resource_spec
+
+[@@@deriving.end]
 
 type space_settings__jupyter_server_app_settings = {
   lifecycle_config_arns : string prop list option; [@option]
-      (** lifecycle_config_arns *)
   code_repository :
     space_settings__jupyter_server_app_settings__code_repository list;
   default_resource_spec :
     space_settings__jupyter_server_app_settings__default_resource_spec
     list;
 }
-[@@deriving yojson_of]
-(** space_settings__jupyter_server_app_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : space_settings__jupyter_server_app_settings) -> ()
+
+let yojson_of_space_settings__jupyter_server_app_settings =
+  (function
+   | {
+       lifecycle_config_arns = v_lifecycle_config_arns;
+       code_repository = v_code_repository;
+       default_resource_spec = v_default_resource_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__jupyter_server_app_settings__default_resource_spec
+             v_default_resource_spec
+         in
+         ("default_resource_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__jupyter_server_app_settings__code_repository
+             v_code_repository
+         in
+         ("code_repository", arg) :: bnds
+       in
+       let bnds =
+         match v_lifecycle_config_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "lifecycle_config_arns", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : space_settings__jupyter_server_app_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_space_settings__jupyter_server_app_settings
+
+[@@@deriving.end]
 
 type space_settings__kernel_gateway_app_settings__custom_image = {
-  app_image_config_name : string prop;  (** app_image_config_name *)
-  image_name : string prop;  (** image_name *)
+  app_image_config_name : string prop;
+  image_name : string prop;
   image_version_number : float prop option; [@option]
-      (** image_version_number *)
 }
-[@@deriving yojson_of]
-(** space_settings__kernel_gateway_app_settings__custom_image *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : space_settings__kernel_gateway_app_settings__custom_image) ->
+  ()
+
+let yojson_of_space_settings__kernel_gateway_app_settings__custom_image
+    =
+  (function
+   | {
+       app_image_config_name = v_app_image_config_name;
+       image_name = v_image_name;
+       image_version_number = v_image_version_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_image_version_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "image_version_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_image_name in
+         ("image_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_app_image_config_name
+         in
+         ("app_image_config_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_settings__kernel_gateway_app_settings__custom_image ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_space_settings__kernel_gateway_app_settings__custom_image
+
+[@@@deriving.end]
 
 type space_settings__kernel_gateway_app_settings__default_resource_spec = {
-  instance_type : string prop option; [@option]  (** instance_type *)
+  instance_type : string prop option; [@option]
   lifecycle_config_arn : string prop option; [@option]
-      (** lifecycle_config_arn *)
   sagemaker_image_arn : string prop option; [@option]
-      (** sagemaker_image_arn *)
   sagemaker_image_version_alias : string prop option; [@option]
-      (** sagemaker_image_version_alias *)
   sagemaker_image_version_arn : string prop option; [@option]
-      (** sagemaker_image_version_arn *)
 }
-[@@deriving yojson_of]
-(** space_settings__kernel_gateway_app_settings__default_resource_spec *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       space_settings__kernel_gateway_app_settings__default_resource_spec) ->
+  ()
+
+let yojson_of_space_settings__kernel_gateway_app_settings__default_resource_spec
+    =
+  (function
+   | {
+       instance_type = v_instance_type;
+       lifecycle_config_arn = v_lifecycle_config_arn;
+       sagemaker_image_arn = v_sagemaker_image_arn;
+       sagemaker_image_version_alias =
+         v_sagemaker_image_version_alias;
+       sagemaker_image_version_arn = v_sagemaker_image_version_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sagemaker_image_version_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_version_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sagemaker_image_version_alias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_version_alias", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sagemaker_image_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sagemaker_image_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lifecycle_config_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lifecycle_config_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : space_settings__kernel_gateway_app_settings__default_resource_spec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_space_settings__kernel_gateway_app_settings__default_resource_spec
+
+[@@@deriving.end]
 
 type space_settings__kernel_gateway_app_settings = {
   lifecycle_config_arns : string prop list option; [@option]
-      (** lifecycle_config_arns *)
   custom_image :
     space_settings__kernel_gateway_app_settings__custom_image list;
   default_resource_spec :
     space_settings__kernel_gateway_app_settings__default_resource_spec
     list;
 }
-[@@deriving yojson_of]
-(** space_settings__kernel_gateway_app_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : space_settings__kernel_gateway_app_settings) -> ()
+
+let yojson_of_space_settings__kernel_gateway_app_settings =
+  (function
+   | {
+       lifecycle_config_arns = v_lifecycle_config_arns;
+       custom_image = v_custom_image;
+       default_resource_spec = v_default_resource_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__kernel_gateway_app_settings__default_resource_spec
+             v_default_resource_spec
+         in
+         ("default_resource_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__kernel_gateway_app_settings__custom_image
+             v_custom_image
+         in
+         ("custom_image", arg) :: bnds
+       in
+       let bnds =
+         match v_lifecycle_config_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "lifecycle_config_arns", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : space_settings__kernel_gateway_app_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_space_settings__kernel_gateway_app_settings
+
+[@@@deriving.end]
 
 type space_settings__space_storage_settings__ebs_storage_settings = {
-  ebs_volume_size_in_gb : float prop;  (** ebs_volume_size_in_gb *)
+  ebs_volume_size_in_gb : float prop;
 }
-[@@deriving yojson_of]
-(** space_settings__space_storage_settings__ebs_storage_settings *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       space_settings__space_storage_settings__ebs_storage_settings) ->
+  ()
+
+let yojson_of_space_settings__space_storage_settings__ebs_storage_settings
+    =
+  (function
+   | { ebs_volume_size_in_gb = v_ebs_volume_size_in_gb } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_ebs_volume_size_in_gb
+         in
+         ("ebs_volume_size_in_gb", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_settings__space_storage_settings__ebs_storage_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_space_settings__space_storage_settings__ebs_storage_settings
+
+[@@@deriving.end]
 
 type space_settings__space_storage_settings = {
   ebs_storage_settings :
     space_settings__space_storage_settings__ebs_storage_settings list;
 }
-[@@deriving yojson_of]
-(** space_settings__space_storage_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : space_settings__space_storage_settings) -> ()
+
+let yojson_of_space_settings__space_storage_settings =
+  (function
+   | { ebs_storage_settings = v_ebs_storage_settings } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__space_storage_settings__ebs_storage_settings
+             v_ebs_storage_settings
+         in
+         ("ebs_storage_settings", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_settings__space_storage_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_space_settings__space_storage_settings
+
+[@@@deriving.end]
 
 type space_settings = {
-  app_type : string prop option; [@option]  (** app_type *)
+  app_type : string prop option; [@option]
   code_editor_app_settings :
     space_settings__code_editor_app_settings list;
   custom_file_system : space_settings__custom_file_system list;
@@ -168,30 +767,222 @@ type space_settings = {
   space_storage_settings :
     space_settings__space_storage_settings list;
 }
-[@@deriving yojson_of]
-(** space_settings *)
+[@@deriving_inline yojson_of]
 
-type space_sharing_settings = {
-  sharing_type : string prop;  (** sharing_type *)
-}
-[@@deriving yojson_of]
-(** space_sharing_settings *)
+let _ = fun (_ : space_settings) -> ()
+
+let yojson_of_space_settings =
+  (function
+   | {
+       app_type = v_app_type;
+       code_editor_app_settings = v_code_editor_app_settings;
+       custom_file_system = v_custom_file_system;
+       jupyter_lab_app_settings = v_jupyter_lab_app_settings;
+       jupyter_server_app_settings = v_jupyter_server_app_settings;
+       kernel_gateway_app_settings = v_kernel_gateway_app_settings;
+       space_storage_settings = v_space_storage_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__space_storage_settings
+             v_space_storage_settings
+         in
+         ("space_storage_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__kernel_gateway_app_settings
+             v_kernel_gateway_app_settings
+         in
+         ("kernel_gateway_app_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__jupyter_server_app_settings
+             v_jupyter_server_app_settings
+         in
+         ("jupyter_server_app_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__jupyter_lab_app_settings
+             v_jupyter_lab_app_settings
+         in
+         ("jupyter_lab_app_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__custom_file_system
+             v_custom_file_system
+         in
+         ("custom_file_system", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_space_settings__code_editor_app_settings
+             v_code_editor_app_settings
+         in
+         ("code_editor_app_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_app_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "app_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : space_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_space_settings
+
+[@@@deriving.end]
+
+type space_sharing_settings = { sharing_type : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : space_sharing_settings) -> ()
+
+let yojson_of_space_sharing_settings =
+  (function
+   | { sharing_type = v_sharing_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sharing_type in
+         ("sharing_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : space_sharing_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_space_sharing_settings
+
+[@@@deriving.end]
 
 type aws_sagemaker_space = {
-  domain_id : string prop;  (** domain_id *)
-  id : string prop option; [@option]  (** id *)
+  domain_id : string prop;
+  id : string prop option; [@option]
   space_display_name : string prop option; [@option]
-      (** space_display_name *)
-  space_name : string prop;  (** space_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  space_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   ownership_settings : ownership_settings list;
   space_settings : space_settings list;
   space_sharing_settings : space_sharing_settings list;
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_space *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sagemaker_space) -> ()
+
+let yojson_of_aws_sagemaker_space =
+  (function
+   | {
+       domain_id = v_domain_id;
+       id = v_id;
+       space_display_name = v_space_display_name;
+       space_name = v_space_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       ownership_settings = v_ownership_settings;
+       space_settings = v_space_settings;
+       space_sharing_settings = v_space_sharing_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_space_sharing_settings
+             v_space_sharing_settings
+         in
+         ("space_sharing_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_space_settings v_space_settings
+         in
+         ("space_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ownership_settings
+             v_ownership_settings
+         in
+         ("ownership_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_space_name in
+         ("space_name", arg) :: bnds
+       in
+       let bnds =
+         match v_space_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "space_display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_id in
+         ("domain_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_space -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sagemaker_space
+
+[@@@deriving.end]
 
 let ownership_settings ~owner_user_profile_name () :
     ownership_settings =

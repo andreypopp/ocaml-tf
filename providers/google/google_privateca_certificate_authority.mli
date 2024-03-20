@@ -10,6 +10,8 @@ type access_urls = {
   crl_access_urls : string prop list;  (** crl_access_urls *)
 }
 
+[@@@deriving.end]
+
 type config__subject_config__subject
 
 val config__subject_config__subject :

@@ -3,25 +3,102 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_shared_vpc_service_project = {
   deletion_policy : string prop option; [@option]
-      (** The deletion policy for the shared VPC service. Setting ABANDON allows the resource
-				to be abandoned rather than deleted. Possible values are: ABANDON. *)
   host_project : string prop;
-      (** The ID of a host project to associate. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   service_project : string prop;
-      (** The ID of the project that will serve as a Shared VPC service project. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_shared_vpc_service_project *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_shared_vpc_service_project) -> ()
+
+let yojson_of_google_compute_shared_vpc_service_project =
+  (function
+   | {
+       deletion_policy = v_deletion_policy;
+       host_project = v_host_project;
+       id = v_id;
+       service_project = v_service_project;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_project
+         in
+         ("service_project", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host_project in
+         ("host_project", arg) :: bnds
+       in
+       let bnds =
+         match v_deletion_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deletion_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_shared_vpc_service_project ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_shared_vpc_service_project
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

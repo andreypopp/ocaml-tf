@@ -4,162 +4,784 @@ open! Tf_core
 
 type config__ingress_rule__origin_request__access = {
   aud_tag : string prop list option; [@option]
-      (** Audience tags of the access rule. *)
   required : bool prop option; [@option]
-      (** Whether the access rule is required. *)
   team_name : string prop option; [@option]
-      (** Name of the team to which the access rule applies. *)
 }
-[@@deriving yojson_of]
-(** Access rules for the ingress service. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__ingress_rule__origin_request__access) -> ()
+
+let yojson_of_config__ingress_rule__origin_request__access =
+  (function
+   | {
+       aud_tag = v_aud_tag;
+       required = v_required;
+       team_name = v_team_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_team_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "team_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_aud_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "aud_tag", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__ingress_rule__origin_request__access ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__ingress_rule__origin_request__access
+
+[@@@deriving.end]
 
 type config__ingress_rule__origin_request__ip_rules = {
   allow : bool prop option; [@option]
-      (** Whether to allow the IP prefix. *)
   ports : float prop list option; [@option]
-      (** Ports to use within the IP rule. *)
-  prefix : string prop option; [@option]  (** IP rule prefix. *)
+  prefix : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** IP rules for the proxy service. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : config__ingress_rule__origin_request__ip_rules) -> ()
+
+let yojson_of_config__ingress_rule__origin_request__ip_rules =
+  (function
+   | { allow = v_allow; ports = v_ports; prefix = v_prefix } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "ports", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__ingress_rule__origin_request__ip_rules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__ingress_rule__origin_request__ip_rules
+
+[@@@deriving.end]
 
 type config__ingress_rule__origin_request = {
   bastion_mode : bool prop option; [@option]
-      (** Runs as jump host. *)
   ca_pool : string prop option; [@option]
-      (** Path to the certificate authority (CA) for the certificate of your origin. This option should be used only if your certificate is not signed by Cloudflare. Defaults to ``. *)
   connect_timeout : string prop option; [@option]
-      (** Timeout for establishing a new TCP connection to your origin server. This excludes the time taken to establish TLS, which is controlled by `tlsTimeout`. Defaults to `30s`. *)
   disable_chunked_encoding : bool prop option; [@option]
-      (** Disables chunked transfer encoding. Useful if you are running a Web Server Gateway Interface (WSGI) server. Defaults to `false`. *)
   http2_origin : bool prop option; [@option]
-      (** Enables HTTP/2 support for the origin connection. Defaults to `false`. *)
   http_host_header : string prop option; [@option]
-      (** Sets the HTTP Host header on requests sent to the local service. Defaults to ``. *)
   keep_alive_connections : float prop option; [@option]
-      (** Maximum number of idle keepalive connections between Tunnel and your origin. This does not restrict the total number of concurrent connections. Defaults to `100`. *)
   keep_alive_timeout : string prop option; [@option]
-      (** Timeout after which an idle keepalive connection can be discarded. Defaults to `1m30s`. *)
   no_happy_eyeballs : bool prop option; [@option]
-      (** Disable the “happy eyeballs” algorithm for IPv4/IPv6 fallback if your local network has misconfigured one of the protocols. Defaults to `false`. *)
   no_tls_verify : bool prop option; [@option]
-      (** Disables TLS verification of the certificate presented by your origin. Will allow any certificate from the origin to be accepted. Defaults to `false`. *)
   origin_server_name : string prop option; [@option]
-      (** Hostname that cloudflared should expect from your origin server certificate. Defaults to ``. *)
   proxy_address : string prop option; [@option]
-      (** cloudflared starts a proxy server to translate HTTP traffic into TCP when proxying, for example, SSH or RDP. This configures the listen address for that proxy. Defaults to `127.0.0.1`. *)
   proxy_port : float prop option; [@option]
-      (** cloudflared starts a proxy server to translate HTTP traffic into TCP when proxying, for example, SSH or RDP. This configures the listen port for that proxy. If set to zero, an unused port will randomly be chosen. Defaults to `0`. *)
   proxy_type : string prop option; [@option]
-      (** cloudflared starts a proxy server to translate HTTP traffic into TCP when proxying, for example, SSH or RDP. This configures what type of proxy will be started. Available values: ``, `socks`. Defaults to ``. *)
   tcp_keep_alive : string prop option; [@option]
-      (** The timeout after which a TCP keepalive packet is sent on a connection between Tunnel and the origin server. Defaults to `30s`. *)
   tls_timeout : string prop option; [@option]
-      (** Timeout for completing a TLS handshake to your origin server, if you have chosen to connect Tunnel to an HTTPS server. Defaults to `10s`. *)
   access : config__ingress_rule__origin_request__access list;
   ip_rules : config__ingress_rule__origin_request__ip_rules list;
 }
-[@@deriving yojson_of]
-(** config__ingress_rule__origin_request *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__ingress_rule__origin_request) -> ()
+
+let yojson_of_config__ingress_rule__origin_request =
+  (function
+   | {
+       bastion_mode = v_bastion_mode;
+       ca_pool = v_ca_pool;
+       connect_timeout = v_connect_timeout;
+       disable_chunked_encoding = v_disable_chunked_encoding;
+       http2_origin = v_http2_origin;
+       http_host_header = v_http_host_header;
+       keep_alive_connections = v_keep_alive_connections;
+       keep_alive_timeout = v_keep_alive_timeout;
+       no_happy_eyeballs = v_no_happy_eyeballs;
+       no_tls_verify = v_no_tls_verify;
+       origin_server_name = v_origin_server_name;
+       proxy_address = v_proxy_address;
+       proxy_port = v_proxy_port;
+       proxy_type = v_proxy_type;
+       tcp_keep_alive = v_tcp_keep_alive;
+       tls_timeout = v_tls_timeout;
+       access = v_access;
+       ip_rules = v_ip_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__ingress_rule__origin_request__ip_rules
+             v_ip_rules
+         in
+         ("ip_rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__ingress_rule__origin_request__access
+             v_access
+         in
+         ("access", arg) :: bnds
+       in
+       let bnds =
+         match v_tls_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tls_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tcp_keep_alive with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tcp_keep_alive", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_proxy_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "proxy_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_proxy_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "proxy_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_proxy_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "proxy_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_origin_server_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "origin_server_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_no_tls_verify with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "no_tls_verify", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_no_happy_eyeballs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "no_happy_eyeballs", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keep_alive_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keep_alive_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keep_alive_connections with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "keep_alive_connections", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http_host_header with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "http_host_header", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http2_origin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "http2_origin", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_chunked_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_chunked_encoding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connect_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connect_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ca_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ca_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bastion_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bastion_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__ingress_rule__origin_request ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__ingress_rule__origin_request
+
+[@@@deriving.end]
 
 type config__ingress_rule = {
   hostname : string prop option; [@option]
-      (** Hostname to match the incoming request with. If the hostname matches, the request will be sent to the service. *)
   path : string prop option; [@option]
-      (** Path of the incoming request. If the path matches, the request will be sent to the local service. *)
   service : string prop;
-      (** Name of the service to which the request will be sent. *)
   origin_request : config__ingress_rule__origin_request list;
 }
-[@@deriving yojson_of]
-(** Each incoming request received by cloudflared causes cloudflared to send a request to a local service. This section configures the rules that determine which requests are sent to which local services. [Read more](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-guide/local/local-management/ingress/). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__ingress_rule) -> ()
+
+let yojson_of_config__ingress_rule =
+  (function
+   | {
+       hostname = v_hostname;
+       path = v_path;
+       service = v_service;
+       origin_request = v_origin_request;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__ingress_rule__origin_request
+             v_origin_request
+         in
+         ("origin_request", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hostname with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "hostname", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__ingress_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__ingress_rule
+
+[@@@deriving.end]
 
 type config__origin_request__access = {
   aud_tag : string prop list option; [@option]
-      (** Audience tags of the access rule. *)
   required : bool prop option; [@option]
-      (** Whether the access rule is required. *)
   team_name : string prop option; [@option]
-      (** Name of the team to which the access rule applies. *)
 }
-[@@deriving yojson_of]
-(** Access rules for the ingress service. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__origin_request__access) -> ()
+
+let yojson_of_config__origin_request__access =
+  (function
+   | {
+       aud_tag = v_aud_tag;
+       required = v_required;
+       team_name = v_team_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_team_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "team_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_aud_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "aud_tag", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__origin_request__access ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__origin_request__access
+
+[@@@deriving.end]
 
 type config__origin_request__ip_rules = {
   allow : bool prop option; [@option]
-      (** Whether to allow the IP prefix. *)
   ports : float prop list option; [@option]
-      (** Ports to use within the IP rule. *)
-  prefix : string prop option; [@option]  (** IP rule prefix. *)
+  prefix : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** IP rules for the proxy service. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__origin_request__ip_rules) -> ()
+
+let yojson_of_config__origin_request__ip_rules =
+  (function
+   | { allow = v_allow; ports = v_ports; prefix = v_prefix } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "ports", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__origin_request__ip_rules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__origin_request__ip_rules
+
+[@@@deriving.end]
 
 type config__origin_request = {
   bastion_mode : bool prop option; [@option]
-      (** Runs as jump host. *)
   ca_pool : string prop option; [@option]
-      (** Path to the certificate authority (CA) for the certificate of your origin. This option should be used only if your certificate is not signed by Cloudflare. Defaults to ``. *)
   connect_timeout : string prop option; [@option]
-      (** Timeout for establishing a new TCP connection to your origin server. This excludes the time taken to establish TLS, which is controlled by `tlsTimeout`. Defaults to `30s`. *)
   disable_chunked_encoding : bool prop option; [@option]
-      (** Disables chunked transfer encoding. Useful if you are running a Web Server Gateway Interface (WSGI) server. Defaults to `false`. *)
   http2_origin : bool prop option; [@option]
-      (** Enables HTTP/2 support for the origin connection. Defaults to `false`. *)
   http_host_header : string prop option; [@option]
-      (** Sets the HTTP Host header on requests sent to the local service. Defaults to ``. *)
   keep_alive_connections : float prop option; [@option]
-      (** Maximum number of idle keepalive connections between Tunnel and your origin. This does not restrict the total number of concurrent connections. Defaults to `100`. *)
   keep_alive_timeout : string prop option; [@option]
-      (** Timeout after which an idle keepalive connection can be discarded. Defaults to `1m30s`. *)
   no_happy_eyeballs : bool prop option; [@option]
-      (** Disable the “happy eyeballs” algorithm for IPv4/IPv6 fallback if your local network has misconfigured one of the protocols. Defaults to `false`. *)
   no_tls_verify : bool prop option; [@option]
-      (** Disables TLS verification of the certificate presented by your origin. Will allow any certificate from the origin to be accepted. Defaults to `false`. *)
   origin_server_name : string prop option; [@option]
-      (** Hostname that cloudflared should expect from your origin server certificate. Defaults to ``. *)
   proxy_address : string prop option; [@option]
-      (** cloudflared starts a proxy server to translate HTTP traffic into TCP when proxying, for example, SSH or RDP. This configures the listen address for that proxy. Defaults to `127.0.0.1`. *)
   proxy_port : float prop option; [@option]
-      (** cloudflared starts a proxy server to translate HTTP traffic into TCP when proxying, for example, SSH or RDP. This configures the listen port for that proxy. If set to zero, an unused port will randomly be chosen. Defaults to `0`. *)
   proxy_type : string prop option; [@option]
-      (** cloudflared starts a proxy server to translate HTTP traffic into TCP when proxying, for example, SSH or RDP. This configures what type of proxy will be started. Available values: ``, `socks`. Defaults to ``. *)
   tcp_keep_alive : string prop option; [@option]
-      (** The timeout after which a TCP keepalive packet is sent on a connection between Tunnel and the origin server. Defaults to `30s`. *)
   tls_timeout : string prop option; [@option]
-      (** Timeout for completing a TLS handshake to your origin server, if you have chosen to connect Tunnel to an HTTPS server. Defaults to `10s`. *)
   access : config__origin_request__access list;
   ip_rules : config__origin_request__ip_rules list;
 }
-[@@deriving yojson_of]
-(** config__origin_request *)
+[@@deriving_inline yojson_of]
 
-type config__warp_routing = {
-  enabled : bool prop option; [@option]
-      (** Whether WARP routing is enabled. *)
-}
-[@@deriving yojson_of]
-(** If you're exposing a [private network](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/private-net/), you need to add the `warp-routing` key and set it to `true`. *)
+let _ = fun (_ : config__origin_request) -> ()
+
+let yojson_of_config__origin_request =
+  (function
+   | {
+       bastion_mode = v_bastion_mode;
+       ca_pool = v_ca_pool;
+       connect_timeout = v_connect_timeout;
+       disable_chunked_encoding = v_disable_chunked_encoding;
+       http2_origin = v_http2_origin;
+       http_host_header = v_http_host_header;
+       keep_alive_connections = v_keep_alive_connections;
+       keep_alive_timeout = v_keep_alive_timeout;
+       no_happy_eyeballs = v_no_happy_eyeballs;
+       no_tls_verify = v_no_tls_verify;
+       origin_server_name = v_origin_server_name;
+       proxy_address = v_proxy_address;
+       proxy_port = v_proxy_port;
+       proxy_type = v_proxy_type;
+       tcp_keep_alive = v_tcp_keep_alive;
+       tls_timeout = v_tls_timeout;
+       access = v_access;
+       ip_rules = v_ip_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__origin_request__ip_rules
+             v_ip_rules
+         in
+         ("ip_rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__origin_request__access
+             v_access
+         in
+         ("access", arg) :: bnds
+       in
+       let bnds =
+         match v_tls_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tls_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tcp_keep_alive with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tcp_keep_alive", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_proxy_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "proxy_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_proxy_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "proxy_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_proxy_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "proxy_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_origin_server_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "origin_server_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_no_tls_verify with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "no_tls_verify", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_no_happy_eyeballs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "no_happy_eyeballs", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keep_alive_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keep_alive_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keep_alive_connections with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "keep_alive_connections", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http_host_header with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "http_host_header", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http2_origin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "http2_origin", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_chunked_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_chunked_encoding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connect_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connect_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ca_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ca_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bastion_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bastion_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__origin_request -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__origin_request
+
+[@@@deriving.end]
+
+type config__warp_routing = { enabled : bool prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__warp_routing) -> ()
+
+let yojson_of_config__warp_routing =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__warp_routing -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__warp_routing
+
+[@@@deriving.end]
 
 type config = {
   ingress_rule : config__ingress_rule list;
   origin_request : config__origin_request list;
   warp_routing : config__warp_routing list;
 }
-[@@deriving yojson_of]
-(** Configuration block for Tunnel Configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config) -> ()
+
+let yojson_of_config =
+  (function
+   | {
+       ingress_rule = v_ingress_rule;
+       origin_request = v_origin_request;
+       warp_routing = v_warp_routing;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__warp_routing
+             v_warp_routing
+         in
+         ("warp_routing", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__origin_request
+             v_origin_request
+         in
+         ("origin_request", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__ingress_rule
+             v_ingress_rule
+         in
+         ("ingress_rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config
+
+[@@@deriving.end]
 
 type cloudflare_tunnel_config = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   tunnel_id : string prop;
-      (** Identifier of the Tunnel to target for this configuration. *)
   config : config list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Tunnel configuration resource.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_tunnel_config) -> ()
+
+let yojson_of_cloudflare_tunnel_config =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       tunnel_id = v_tunnel_id;
+       config = v_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_config v_config in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tunnel_id in
+         ("tunnel_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_tunnel_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_tunnel_config
+
+[@@@deriving.end]
 
 let config__ingress_rule__origin_request__access ?aud_tag ?required
     ?team_name () : config__ingress_rule__origin_request__access =

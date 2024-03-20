@@ -4,76 +4,296 @@ open! Tf_core
 
 type instance_filter__exclusion_labels = {
   labels : (string * string prop) list option; [@option]
-      (** Labels are identified by key/value pairs in this map. A VM should contain all the key/value pairs specified in this map to be selected. *)
 }
-[@@deriving yojson_of]
-(** List of label sets used for VM exclusion.
-If the list has more than one label set, the VM is excluded if any of the label sets are applicable for the VM. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_filter__exclusion_labels) -> ()
+
+let yojson_of_instance_filter__exclusion_labels =
+  (function
+   | { labels = v_labels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : instance_filter__exclusion_labels ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_filter__exclusion_labels
+
+[@@@deriving.end]
 
 type instance_filter__inclusion_labels = {
   labels : (string * string prop) list option; [@option]
-      (** Labels are identified by key/value pairs in this map. A VM should contain all the key/value pairs specified in this map to be selected. *)
 }
-[@@deriving yojson_of]
-(** List of label sets used for VM inclusion.
-If the list has more than one 'LabelSet', the VM is included if any of the label sets are applicable for the VM. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_filter__inclusion_labels) -> ()
+
+let yojson_of_instance_filter__inclusion_labels =
+  (function
+   | { labels = v_labels } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : instance_filter__inclusion_labels ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_filter__inclusion_labels
+
+[@@@deriving.end]
 
 type instance_filter__inventories = {
-  os_short_name : string prop;  (** The OS short name *)
+  os_short_name : string prop;
   os_version : string prop option; [@option]
-      (** The OS version Prefix matches are supported if asterisk(\*\) is provided as the last character. For example, to match all versions with a major version of '7', specify the following value for this field '7.*' An empty string matches all OS versions. *)
 }
-[@@deriving yojson_of]
-(** List of inventories to select VMs.
-A VM is selected if its inventory data matches at least one of the following inventories. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_filter__inventories) -> ()
+
+let yojson_of_instance_filter__inventories =
+  (function
+   | { os_short_name = v_os_short_name; os_version = v_os_version }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_os_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "os_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_os_short_name in
+         ("os_short_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : instance_filter__inventories ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_filter__inventories
+
+[@@@deriving.end]
 
 type instance_filter = {
   all : bool prop option; [@option]
-      (** Target all VMs in the project. If true, no other criteria is permitted. *)
   exclusion_labels : instance_filter__exclusion_labels list;
   inclusion_labels : instance_filter__inclusion_labels list;
   inventories : instance_filter__inventories list;
 }
-[@@deriving yojson_of]
-(** Filter to select VMs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_filter) -> ()
+
+let yojson_of_instance_filter =
+  (function
+   | {
+       all = v_all;
+       exclusion_labels = v_exclusion_labels;
+       inclusion_labels = v_inclusion_labels;
+       inventories = v_inventories;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_instance_filter__inventories
+             v_inventories
+         in
+         ("inventories", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_instance_filter__inclusion_labels
+             v_inclusion_labels
+         in
+         ("inclusion_labels", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_instance_filter__exclusion_labels
+             v_exclusion_labels
+         in
+         ("exclusion_labels", arg) :: bnds
+       in
+       let bnds =
+         match v_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "all", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : instance_filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_filter
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__inventory_filters = {
-  os_short_name : string prop;  (** The OS short name *)
+  os_short_name : string prop;
   os_version : string prop option; [@option]
-      (** The OS version
-Prefix matches are supported if asterisk(\*\) is provided as the last character. For example, to match all versions with a major version of '7', specify the following value for this field '7.*'
-An empty string matches all OS versions. *)
 }
-[@@deriving yojson_of]
-(** List of inventory filters for the resource group.
-The resources in this resource group are applied to the target VM if it satisfies at least one of the following inventory filters.
-For example, to apply this resource group to VMs running either 'RHEL' or 'CentOS' operating systems, specify 2 items for the list with following values: inventory_filters[0].os_short_name='rhel' and inventory_filters[1].os_short_name='centos'
-If the list is empty, this resource group will be applied to the target VM unconditionally. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__inventory_filters) -> ()
+
+let yojson_of_os_policies__resource_groups__inventory_filters =
+  (function
+   | { os_short_name = v_os_short_name; os_version = v_os_version }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_os_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "os_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_os_short_name in
+         ("os_short_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__inventory_filters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__inventory_filters
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__exec__enforce__file__gcs = {
-  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  bucket : string prop;
   generation : float prop option; [@option]
-      (** Generation number of the Cloud Storage object. *)
   object_ : string prop; [@key "object"]
-      (** Name of the Cloud Storage object. *)
 }
-[@@deriving yojson_of]
-(** A Cloud Storage object. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__exec__enforce__file__gcs) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__exec__enforce__file__gcs
+    =
+  (function
+   | {
+       bucket = v_bucket;
+       generation = v_generation;
+       object_ = v_object_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_ in
+         ("object", arg) :: bnds
+       in
+       let bnds =
+         match v_generation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "generation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__exec__enforce__file__gcs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__exec__enforce__file__gcs
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__exec__enforce__file__remote = {
   sha256_checksum : string prop option; [@option]
-      (** SHA256 checksum of the remote file. *)
   uri : string prop;
-      (** URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'. *)
 }
-[@@deriving yojson_of]
-(** A generic remote file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__exec__enforce__file__remote) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__exec__enforce__file__remote
+    =
+  (function
+   | { sha256_checksum = v_sha256_checksum; uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_sha256_checksum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sha256_checksum", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__exec__enforce__file__remote ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__exec__enforce__file__remote
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__exec__enforce__file = {
   allow_insecure : bool prop option; [@option]
-      (** Defaults to false. When false, files are subject to validations based on the file type: Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified. *)
   local_path : string prop option; [@option]
-      (** A local path within the VM to use. *)
   gcs :
     os_policies__resource_groups__resources__exec__enforce__file__gcs
     list;
@@ -81,49 +301,230 @@ type os_policies__resource_groups__resources__exec__enforce__file = {
     os_policies__resource_groups__resources__exec__enforce__file__remote
     list;
 }
-[@@deriving yojson_of]
-(** A remote or local file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__exec__enforce__file) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__exec__enforce__file
+    =
+  (function
+   | {
+       allow_insecure = v_allow_insecure;
+       local_path = v_local_path;
+       gcs = v_gcs;
+       remote = v_remote;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__exec__enforce__file__remote
+             v_remote
+         in
+         ("remote", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__exec__enforce__file__gcs
+             v_gcs
+         in
+         ("gcs", arg) :: bnds
+       in
+       let bnds =
+         match v_local_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_insecure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_insecure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__exec__enforce__file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__exec__enforce__file
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__exec__enforce = {
   args : string prop list option; [@option]
-      (** Optional arguments to pass to the source during execution. *)
   interpreter : string prop;
-      (** The script interpreter to use. Possible values: [INTERPRETER_UNSPECIFIED, NONE, SHELL, POWERSHELL] *)
   output_file_path : string prop option; [@option]
-      (** Only recorded for enforce Exec. Path to an output file (that is created by this Exec) whose content will be recorded in OSPolicyResourceCompliance after a successful run. Absence or failure to read this file will result in this ExecResource being non-compliant. Output file size is limited to 100K bytes. *)
   script : string prop option; [@option]
-      (** An inline script. The size of the script is limited to 1024 characters. *)
   file :
     os_policies__resource_groups__resources__exec__enforce__file list;
 }
-[@@deriving yojson_of]
-(** What to run to bring this resource into the desired state. An exit code of 100 indicates success, any other exit code indicates a failure running enforce. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__exec__enforce) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__exec__enforce
+    =
+  (function
+   | {
+       args = v_args;
+       interpreter = v_interpreter;
+       output_file_path = v_output_file_path;
+       script = v_script;
+       file = v_file;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__exec__enforce__file
+             v_file
+         in
+         ("file", arg) :: bnds
+       in
+       let bnds =
+         match v_script with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "script", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_output_file_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_file_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_interpreter in
+         ("interpreter", arg) :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__exec__enforce ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__exec__enforce
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__exec__validate__file__gcs = {
-  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  bucket : string prop;
   generation : float prop option; [@option]
-      (** Generation number of the Cloud Storage object. *)
   object_ : string prop; [@key "object"]
-      (** Name of the Cloud Storage object. *)
 }
-[@@deriving yojson_of]
-(** A Cloud Storage object. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__exec__validate__file__gcs) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__exec__validate__file__gcs
+    =
+  (function
+   | {
+       bucket = v_bucket;
+       generation = v_generation;
+       object_ = v_object_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_ in
+         ("object", arg) :: bnds
+       in
+       let bnds =
+         match v_generation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "generation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__exec__validate__file__gcs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__exec__validate__file__gcs
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__exec__validate__file__remote = {
   sha256_checksum : string prop option; [@option]
-      (** SHA256 checksum of the remote file. *)
   uri : string prop;
-      (** URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'. *)
 }
-[@@deriving yojson_of]
-(** A generic remote file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__exec__validate__file__remote) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__exec__validate__file__remote
+    =
+  (function
+   | { sha256_checksum = v_sha256_checksum; uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_sha256_checksum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sha256_checksum", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__exec__validate__file__remote ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__exec__validate__file__remote
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__exec__validate__file = {
   allow_insecure : bool prop option; [@option]
-      (** Defaults to false. When false, files are subject to validations based on the file type:
-Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified. *)
   local_path : string prop option; [@option]
-      (** A local path within the VM to use. *)
   gcs :
     os_policies__resource_groups__resources__exec__validate__file__gcs
     list;
@@ -131,24 +532,140 @@ Remote: A checksum must be specified. Cloud Storage: An object generation number
     os_policies__resource_groups__resources__exec__validate__file__remote
     list;
 }
-[@@deriving yojson_of]
-(** A remote or local file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__exec__validate__file) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__exec__validate__file
+    =
+  (function
+   | {
+       allow_insecure = v_allow_insecure;
+       local_path = v_local_path;
+       gcs = v_gcs;
+       remote = v_remote;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__exec__validate__file__remote
+             v_remote
+         in
+         ("remote", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__exec__validate__file__gcs
+             v_gcs
+         in
+         ("gcs", arg) :: bnds
+       in
+       let bnds =
+         match v_local_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_insecure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_insecure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__exec__validate__file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__exec__validate__file
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__exec__validate = {
   args : string prop list option; [@option]
-      (** Optional arguments to pass to the source during execution. *)
   interpreter : string prop;
-      (** The script interpreter to use. Possible values: [INTERPRETER_UNSPECIFIED, NONE, SHELL, POWERSHELL] *)
   output_file_path : string prop option; [@option]
-      (** Only recorded for enforce Exec. Path to an output file (that is created by this Exec) whose content will be recorded in OSPolicyResourceCompliance after a successful run. Absence or failure to read this file will result in this ExecResource being non-compliant. Output file size is limited to 100K bytes. *)
   script : string prop option; [@option]
-      (** An inline script. The size of the script is limited to 1024 characters. *)
   file :
     os_policies__resource_groups__resources__exec__validate__file
     list;
 }
-[@@deriving yojson_of]
-(** What to run to validate this resource is in the desired state. An exit code of 100 indicates in desired state, and exit code of 101 indicates not in desired state. Any other exit code indicates a failure running validate. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__exec__validate) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__exec__validate
+    =
+  (function
+   | {
+       args = v_args;
+       interpreter = v_interpreter;
+       output_file_path = v_output_file_path;
+       script = v_script;
+       file = v_file;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__exec__validate__file
+             v_file
+         in
+         ("file", arg) :: bnds
+       in
+       let bnds =
+         match v_script with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "script", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_output_file_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_file_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_interpreter in
+         ("interpreter", arg) :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__exec__validate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__exec__validate
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__exec = {
   enforce :
@@ -156,84 +673,359 @@ type os_policies__resource_groups__resources__exec = {
   validate :
     os_policies__resource_groups__resources__exec__validate list;
 }
-[@@deriving yojson_of]
-(** Exec resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : os_policies__resource_groups__resources__exec) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__exec =
+  (function
+   | { enforce = v_enforce; validate = v_validate } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__exec__validate
+             v_validate
+         in
+         ("validate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__exec__enforce
+             v_enforce
+         in
+         ("enforce", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__exec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__exec
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__file__file__gcs = {
-  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  bucket : string prop;
   generation : float prop option; [@option]
-      (** Generation number of the Cloud Storage object. *)
   object_ : string prop; [@key "object"]
-      (** Name of the Cloud Storage object. *)
 }
-[@@deriving yojson_of]
-(** A Cloud Storage object. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__file__file__gcs) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__file__file__gcs
+    =
+  (function
+   | {
+       bucket = v_bucket;
+       generation = v_generation;
+       object_ = v_object_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_ in
+         ("object", arg) :: bnds
+       in
+       let bnds =
+         match v_generation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "generation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__file__file__gcs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__file__file__gcs
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__file__file__remote = {
   sha256_checksum : string prop option; [@option]
-      (** SHA256 checksum of the remote file. *)
   uri : string prop;
-      (** URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'. *)
 }
-[@@deriving yojson_of]
-(** A generic remote file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__file__file__remote) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__file__file__remote
+    =
+  (function
+   | { sha256_checksum = v_sha256_checksum; uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_sha256_checksum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sha256_checksum", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__file__file__remote ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__file__file__remote
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__file__file = {
   allow_insecure : bool prop option; [@option]
-      (** Defaults to false. When false, files are subject to validations based on the file type: Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified. *)
   local_path : string prop option; [@option]
-      (** A local path within the VM to use. *)
   gcs :
     os_policies__resource_groups__resources__file__file__gcs list;
   remote :
     os_policies__resource_groups__resources__file__file__remote list;
 }
-[@@deriving yojson_of]
-(** A remote or local source. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__file__file) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__file__file =
+  (function
+   | {
+       allow_insecure = v_allow_insecure;
+       local_path = v_local_path;
+       gcs = v_gcs;
+       remote = v_remote;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__file__file__remote
+             v_remote
+         in
+         ("remote", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__file__file__gcs
+             v_gcs
+         in
+         ("gcs", arg) :: bnds
+       in
+       let bnds =
+         match v_local_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_insecure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_insecure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__file__file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__file__file
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__file = {
   content : string prop option; [@option]
-      (** A a file with this content. The size of the content is limited to 1024 characters. *)
   path : string prop;
-      (** The absolute path of the file within the VM. *)
   state : string prop;
-      (** Desired state of the file. Possible values: [DESIRED_STATE_UNSPECIFIED, PRESENT, ABSENT, CONTENTS_MATCH] *)
   file : os_policies__resource_groups__resources__file__file list;
 }
-[@@deriving yojson_of]
-(** File resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : os_policies__resource_groups__resources__file) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__file =
+  (function
+   | {
+       content = v_content;
+       path = v_path;
+       state = v_state;
+       file = v_file;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__file__file
+             v_file
+         in
+         ("file", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_content with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__file ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__file
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__apt = {
-  name : string prop;  (** Package name. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** A package managed by Apt. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__apt) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__apt =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__apt ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__pkg__apt
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__deb__source__gcs = {
-  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  bucket : string prop;
   generation : float prop option; [@option]
-      (** Generation number of the Cloud Storage object. *)
   object_ : string prop; [@key "object"]
-      (** Name of the Cloud Storage object. *)
 }
-[@@deriving yojson_of]
-(** A Cloud Storage object. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__pkg__deb__source__gcs) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__deb__source__gcs
+    =
+  (function
+   | {
+       bucket = v_bucket;
+       generation = v_generation;
+       object_ = v_object_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_ in
+         ("object", arg) :: bnds
+       in
+       let bnds =
+         match v_generation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "generation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__deb__source__gcs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__deb__source__gcs
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__deb__source__remote = {
   sha256_checksum : string prop option; [@option]
-      (** SHA256 checksum of the remote file. *)
   uri : string prop;
-      (** URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'. *)
 }
-[@@deriving yojson_of]
-(** A generic remote file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__pkg__deb__source__remote) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__deb__source__remote
+    =
+  (function
+   | { sha256_checksum = v_sha256_checksum; uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_sha256_checksum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sha256_checksum", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__deb__source__remote ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__deb__source__remote
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__deb__source = {
   allow_insecure : bool prop option; [@option]
-      (** Defaults to false. When false, files are subject to validations based on the file type:
-Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified. *)
   local_path : string prop option; [@option]
-      (** A local path within the VM to use. *)
   gcs :
     os_policies__resource_groups__resources__pkg__deb__source__gcs
     list;
@@ -241,49 +1033,222 @@ Remote: A checksum must be specified. Cloud Storage: An object generation number
     os_policies__resource_groups__resources__pkg__deb__source__remote
     list;
 }
-[@@deriving yojson_of]
-(** A deb package. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__deb__source) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__deb__source
+    =
+  (function
+   | {
+       allow_insecure = v_allow_insecure;
+       local_path = v_local_path;
+       gcs = v_gcs;
+       remote = v_remote;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__deb__source__remote
+             v_remote
+         in
+         ("remote", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__deb__source__gcs
+             v_gcs
+         in
+         ("gcs", arg) :: bnds
+       in
+       let bnds =
+         match v_local_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_insecure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_insecure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__deb__source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__deb__source
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__deb = {
   pull_deps : bool prop option; [@option]
-      (** Whether dependencies should also be installed. - install when false: 'dpkg -i package' - install when true: 'apt-get update && apt-get -y install package.deb' *)
   source :
     os_policies__resource_groups__resources__pkg__deb__source list;
 }
-[@@deriving yojson_of]
-(** A deb package file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__deb) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__deb =
+  (function
+   | { pull_deps = v_pull_deps; source = v_source } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__deb__source
+             v_source
+         in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         match v_pull_deps with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "pull_deps", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__deb ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__pkg__deb
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__googet = {
-  name : string prop;  (** Package name. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** A package managed by GooGet. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__googet) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__googet =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__googet ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__googet
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__msi__source__gcs = {
-  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  bucket : string prop;
   generation : float prop option; [@option]
-      (** Generation number of the Cloud Storage object. *)
   object_ : string prop; [@key "object"]
-      (** Name of the Cloud Storage object. *)
 }
-[@@deriving yojson_of]
-(** A Cloud Storage object. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__pkg__msi__source__gcs) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__msi__source__gcs
+    =
+  (function
+   | {
+       bucket = v_bucket;
+       generation = v_generation;
+       object_ = v_object_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_ in
+         ("object", arg) :: bnds
+       in
+       let bnds =
+         match v_generation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "generation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__msi__source__gcs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__msi__source__gcs
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__msi__source__remote = {
   sha256_checksum : string prop option; [@option]
-      (** SHA256 checksum of the remote file. *)
   uri : string prop;
-      (** URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'. *)
 }
-[@@deriving yojson_of]
-(** A generic remote file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__pkg__msi__source__remote) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__msi__source__remote
+    =
+  (function
+   | { sha256_checksum = v_sha256_checksum; uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_sha256_checksum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sha256_checksum", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__msi__source__remote ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__msi__source__remote
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__msi__source = {
   allow_insecure : bool prop option; [@option]
-      (** Defaults to false. When false, files are subject to validations based on the file type:
-Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified. *)
   local_path : string prop option; [@option]
-      (** A local path within the VM to use. *)
   gcs :
     os_policies__resource_groups__resources__pkg__msi__source__gcs
     list;
@@ -291,43 +1256,197 @@ Remote: A checksum must be specified. Cloud Storage: An object generation number
     os_policies__resource_groups__resources__pkg__msi__source__remote
     list;
 }
-[@@deriving yojson_of]
-(** The MSI package. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__msi__source) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__msi__source
+    =
+  (function
+   | {
+       allow_insecure = v_allow_insecure;
+       local_path = v_local_path;
+       gcs = v_gcs;
+       remote = v_remote;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__msi__source__remote
+             v_remote
+         in
+         ("remote", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__msi__source__gcs
+             v_gcs
+         in
+         ("gcs", arg) :: bnds
+       in
+       let bnds =
+         match v_local_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_insecure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_insecure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__msi__source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__msi__source
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__msi = {
   properties : string prop list option; [@option]
-      (** Additional properties to use during installation. This should be in the format of Property=Setting. Appended to the defaults of 'ACTION=INSTALL REBOOT=ReallySuppress'. *)
   source :
     os_policies__resource_groups__resources__pkg__msi__source list;
 }
-[@@deriving yojson_of]
-(** An MSI package. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__msi) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__msi =
+  (function
+   | { properties = v_properties; source = v_source } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__msi__source
+             v_source
+         in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__msi ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__pkg__msi
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__rpm__source__gcs = {
-  bucket : string prop;  (** Bucket of the Cloud Storage object. *)
+  bucket : string prop;
   generation : float prop option; [@option]
-      (** Generation number of the Cloud Storage object. *)
   object_ : string prop; [@key "object"]
-      (** Name of the Cloud Storage object. *)
 }
-[@@deriving yojson_of]
-(** A Cloud Storage object. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__pkg__rpm__source__gcs) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__rpm__source__gcs
+    =
+  (function
+   | {
+       bucket = v_bucket;
+       generation = v_generation;
+       object_ = v_object_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_ in
+         ("object", arg) :: bnds
+       in
+       let bnds =
+         match v_generation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "generation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__rpm__source__gcs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__rpm__source__gcs
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__rpm__source__remote = {
   sha256_checksum : string prop option; [@option]
-      (** SHA256 checksum of the remote file. *)
   uri : string prop;
-      (** URI from which to fetch the object. It should contain both the protocol and path following the format '{protocol}://{location}'. *)
 }
-[@@deriving yojson_of]
-(** A generic remote file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__pkg__rpm__source__remote) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__rpm__source__remote
+    =
+  (function
+   | { sha256_checksum = v_sha256_checksum; uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_sha256_checksum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sha256_checksum", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__rpm__source__remote ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__rpm__source__remote
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__rpm__source = {
   allow_insecure : bool prop option; [@option]
-      (** Defaults to false. When false, files are subject to validations based on the file type:
-Remote: A checksum must be specified. Cloud Storage: An object generation number must be specified. *)
   local_path : string prop option; [@option]
-      (** A local path within the VM to use. *)
   gcs :
     os_policies__resource_groups__resources__pkg__rpm__source__gcs
     list;
@@ -335,33 +1454,160 @@ Remote: A checksum must be specified. Cloud Storage: An object generation number
     os_policies__resource_groups__resources__pkg__rpm__source__remote
     list;
 }
-[@@deriving yojson_of]
-(** An rpm package. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__rpm__source) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__rpm__source
+    =
+  (function
+   | {
+       allow_insecure = v_allow_insecure;
+       local_path = v_local_path;
+       gcs = v_gcs;
+       remote = v_remote;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__rpm__source__remote
+             v_remote
+         in
+         ("remote", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__rpm__source__gcs
+             v_gcs
+         in
+         ("gcs", arg) :: bnds
+       in
+       let bnds =
+         match v_local_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "local_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_insecure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_insecure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__rpm__source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__rpm__source
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__rpm = {
   pull_deps : bool prop option; [@option]
-      (** Whether dependencies should also be installed. - install when false: 'rpm --upgrade --replacepkgs package.rpm' - install when true: 'yum -y install package.rpm' or 'zypper -y install package.rpm' *)
   source :
     os_policies__resource_groups__resources__pkg__rpm__source list;
 }
-[@@deriving yojson_of]
-(** An rpm package file. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__rpm) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__rpm =
+  (function
+   | { pull_deps = v_pull_deps; source = v_source } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__rpm__source
+             v_source
+         in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         match v_pull_deps with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "pull_deps", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__rpm ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__pkg__rpm
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__yum = {
-  name : string prop;  (** Package name. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** A package managed by YUM. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__yum) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__yum =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__yum ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__pkg__yum
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg__zypper = {
-  name : string prop;  (** Package name. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** A package managed by Zypper. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__pkg__zypper) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg__zypper =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg__zypper ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__pkg__zypper
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__pkg = {
   desired_state : string prop;
-      (** The desired state the agent should maintain for this package. Possible values: [DESIRED_STATE_UNSPECIFIED, INSTALLED, REMOVED] *)
   apt : os_policies__resource_groups__resources__pkg__apt list;
   deb : os_policies__resource_groups__resources__pkg__deb list;
   googet : os_policies__resource_groups__resources__pkg__googet list;
@@ -370,55 +1616,308 @@ type os_policies__resource_groups__resources__pkg = {
   yum : os_policies__resource_groups__resources__pkg__yum list;
   zypper : os_policies__resource_groups__resources__pkg__zypper list;
 }
-[@@deriving yojson_of]
-(** Package resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : os_policies__resource_groups__resources__pkg) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__pkg =
+  (function
+   | {
+       desired_state = v_desired_state;
+       apt = v_apt;
+       deb = v_deb;
+       googet = v_googet;
+       msi = v_msi;
+       rpm = v_rpm;
+       yum = v_yum;
+       zypper = v_zypper;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__zypper
+             v_zypper
+         in
+         ("zypper", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__yum
+             v_yum
+         in
+         ("yum", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__rpm
+             v_rpm
+         in
+         ("rpm", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__msi
+             v_msi
+         in
+         ("msi", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__googet
+             v_googet
+         in
+         ("googet", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__deb
+             v_deb
+         in
+         ("deb", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg__apt
+             v_apt
+         in
+         ("apt", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_desired_state in
+         ("desired_state", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__pkg ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__pkg
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__repository__apt = {
   archive_type : string prop;
-      (** Type of archive files in this repository. Possible values: [ARCHIVE_TYPE_UNSPECIFIED, DEB, DEB_SRC] *)
   components : string prop list;
-      (** List of components for this repository. Must contain at least one item. *)
   distribution : string prop;
-      (** Distribution of this repository. *)
   gpg_key : string prop option; [@option]
-      (** URI of the key file for this repository. The agent maintains a keyring at '/etc/apt/trusted.gpg.d/osconfig_agent_managed.gpg'. *)
-  uri : string prop;  (** URI for this repository. *)
+  uri : string prop;
 }
-[@@deriving yojson_of]
-(** An Apt Repository. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__repository__apt) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__repository__apt
+    =
+  (function
+   | {
+       archive_type = v_archive_type;
+       components = v_components;
+       distribution = v_distribution;
+       gpg_key = v_gpg_key;
+       uri = v_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_gpg_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gpg_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_distribution in
+         ("distribution", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_components
+         in
+         ("components", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_archive_type in
+         ("archive_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__repository__apt ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__repository__apt
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__repository__goo = {
-  name : string prop;  (** The name of the repository. *)
-  url : string prop;  (** The url of the repository. *)
+  name : string prop;
+  url : string prop;
 }
-[@@deriving yojson_of]
-(** A Goo Repository. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__repository__goo) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__repository__goo
+    =
+  (function
+   | { name = v_name; url = v_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__repository__goo ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__repository__goo
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__repository__yum = {
   base_url : string prop;
-      (** The location of the repository directory. *)
   display_name : string prop option; [@option]
-      (** The display name of the repository. *)
   gpg_keys : string prop list option; [@option]
-      (** URIs of GPG keys. *)
   id : string prop;
-      (** A one word, unique name for this repository. This is the 'repo id' in the yum config file and also the 'display_name' if 'display_name' is omitted. This id is also used as the unique identifier when checking for resource conflicts. *)
 }
-[@@deriving yojson_of]
-(** A Yum Repository. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__repository__yum) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__repository__yum
+    =
+  (function
+   | {
+       base_url = v_base_url;
+       display_name = v_display_name;
+       gpg_keys = v_gpg_keys;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         match v_gpg_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "gpg_keys", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_base_url in
+         ("base_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__repository__yum ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__repository__yum
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__repository__zypper = {
   base_url : string prop;
-      (** The location of the repository directory. *)
   display_name : string prop option; [@option]
-      (** The display name of the repository. *)
   gpg_keys : string prop list option; [@option]
-      (** URIs of GPG keys. *)
   id : string prop;
-      (** A one word, unique name for this repository. This is the 'repo id' in the zypper config file and also the 'display_name' if 'display_name' is omitted. This id is also used as the unique identifier when checking for GuestPolicy conflicts. *)
 }
-[@@deriving yojson_of]
-(** A Zypper Repository. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       os_policies__resource_groups__resources__repository__zypper) ->
+  ()
+
+let yojson_of_os_policies__resource_groups__resources__repository__zypper
+    =
+  (function
+   | {
+       base_url = v_base_url;
+       display_name = v_display_name;
+       gpg_keys = v_gpg_keys;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         match v_gpg_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "gpg_keys", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_base_url in
+         ("base_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__repository__zypper ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_os_policies__resource_groups__resources__repository__zypper
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources__repository = {
   apt :
@@ -430,96 +1929,449 @@ type os_policies__resource_groups__resources__repository = {
   zypper :
     os_policies__resource_groups__resources__repository__zypper list;
 }
-[@@deriving yojson_of]
-(** Package repository resource *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : os_policies__resource_groups__resources__repository) -> ()
+
+let yojson_of_os_policies__resource_groups__resources__repository =
+  (function
+   | { apt = v_apt; goo = v_goo; yum = v_yum; zypper = v_zypper } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__repository__zypper
+             v_zypper
+         in
+         ("zypper", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__repository__yum
+             v_yum
+         in
+         ("yum", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__repository__goo
+             v_goo
+         in
+         ("goo", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__repository__apt
+             v_apt
+         in
+         ("apt", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources__repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources__repository
+
+[@@@deriving.end]
 
 type os_policies__resource_groups__resources = {
   id : string prop;
-      (** The id of the resource with the following restrictions:
-* Must contain only lowercase letters, numbers, and hyphens.
-* Must start with a letter.
-* Must be between 1-63 characters.
-* Must end with a number or a letter.
-* Must be unique within the OS policy. *)
   exec : os_policies__resource_groups__resources__exec list;
   file : os_policies__resource_groups__resources__file list;
   pkg : os_policies__resource_groups__resources__pkg list;
   repository :
     os_policies__resource_groups__resources__repository list;
 }
-[@@deriving yojson_of]
-(** List of resources configured for this resource group. The resources are executed in the exact order specified here. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : os_policies__resource_groups__resources) -> ()
+
+let yojson_of_os_policies__resource_groups__resources =
+  (function
+   | {
+       id = v_id;
+       exec = v_exec;
+       file = v_file;
+       pkg = v_pkg;
+       repository = v_repository;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__repository
+             v_repository
+         in
+         ("repository", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__pkg
+             v_pkg
+         in
+         ("pkg", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__file
+             v_file
+         in
+         ("file", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources__exec
+             v_exec
+         in
+         ("exec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups__resources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups__resources
+
+[@@@deriving.end]
 
 type os_policies__resource_groups = {
   inventory_filters :
     os_policies__resource_groups__inventory_filters list;
   resources : os_policies__resource_groups__resources list;
 }
-[@@deriving yojson_of]
-(** List of resource groups for the policy. For a particular VM, resource groups are evaluated in the order specified and the first resource group that is applicable is selected and the rest are ignored.
-If none of the resource groups are applicable for a VM, the VM is considered to be non-compliant w.r.t this policy. This behavior can be toggled by the flag 'allow_no_resource_group_match' *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : os_policies__resource_groups) -> ()
+
+let yojson_of_os_policies__resource_groups =
+  (function
+   | {
+       inventory_filters = v_inventory_filters;
+       resources = v_resources;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__resources
+             v_resources
+         in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_os_policies__resource_groups__inventory_filters
+             v_inventory_filters
+         in
+         ("inventory_filters", arg) :: bnds
+       in
+       `Assoc bnds
+    : os_policies__resource_groups ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies__resource_groups
+
+[@@@deriving.end]
 
 type os_policies = {
   allow_no_resource_group_match : bool prop option; [@option]
-      (** This flag determines the OS policy compliance status when none of the resource groups within the policy are applicable for a VM. Set this value to 'true' if the policy needs to be reported as compliant even if the policy has nothing to validate or enforce. *)
   description : string prop option; [@option]
-      (** Policy description. Length of the description is limited to 1024 characters. *)
   id : string prop;
-      (** The id of the OS policy with the following restrictions:
-* Must contain only lowercase letters, numbers, and hyphens.
-* Must start with a letter.
-* Must be between 1-63 characters.
-* Must end with a number or a letter.
-* Must be unique within the assignment. *)
   mode : string prop;
-      (** Policy mode Possible values: [MODE_UNSPECIFIED, VALIDATION, ENFORCEMENT] *)
   resource_groups : os_policies__resource_groups list;
 }
-[@@deriving yojson_of]
-(** List of OS policies to be applied to the VMs. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : os_policies) -> ()
+
+let yojson_of_os_policies =
+  (function
+   | {
+       allow_no_resource_group_match =
+         v_allow_no_resource_group_match;
+       description = v_description;
+       id = v_id;
+       mode = v_mode;
+       resource_groups = v_resource_groups;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_os_policies__resource_groups
+             v_resource_groups
+         in
+         ("resource_groups", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_no_resource_group_match with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_no_resource_group_match", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : os_policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_os_policies
+
+[@@@deriving.end]
 
 type rollout__disruption_budget = {
   fixed : float prop option; [@option]
-      (** Specifies a fixed value. *)
   percent : float prop option; [@option]
-      (** Specifies the relative value defined as a percentage, which will be multiplied by a reference value. *)
 }
-[@@deriving yojson_of]
-(** The maximum number (or percentage) of VMs per zone to disrupt at any given moment. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rollout__disruption_budget) -> ()
+
+let yojson_of_rollout__disruption_budget =
+  (function
+   | { fixed = v_fixed; percent = v_percent } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fixed with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "fixed", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rollout__disruption_budget -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rollout__disruption_budget
+
+[@@@deriving.end]
 
 type rollout = {
   min_wait_duration : string prop;
-      (** This determines the minimum duration of time to wait after the configuration changes are applied through the current rollout. A VM continues to count towards the 'disruption_budget' at least until this duration of time has passed after configuration changes are applied. *)
   disruption_budget : rollout__disruption_budget list;
 }
-[@@deriving yojson_of]
-(** Rollout to deploy the OS policy assignment. A rollout is triggered in the following situations: 1) OSPolicyAssignment is created. 2) OSPolicyAssignment is updated and the update contains changes to one of the following fields: - instance_filter - os_policies 3) OSPolicyAssignment is deleted. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rollout) -> ()
+
+let yojson_of_rollout =
+  (function
+   | {
+       min_wait_duration = v_min_wait_duration;
+       disruption_budget = v_disruption_budget;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rollout__disruption_budget
+             v_disruption_budget
+         in
+         ("disruption_budget", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_min_wait_duration
+         in
+         ("min_wait_duration", arg) :: bnds
+       in
+       `Assoc bnds
+    : rollout -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rollout
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_os_config_os_policy_assignment = {
   description : string prop option; [@option]
-      (** OS policy assignment description. Length of the description is limited to 1024 characters. *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location for the resource *)
-  name : string prop;  (** Resource name. *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
   project : string prop option; [@option]
-      (** The project for the resource *)
   skip_await_rollout : bool prop option; [@option]
-      (** Set to true to skip awaiting rollout during resource creation and update. *)
   instance_filter : instance_filter list;
   os_policies : os_policies list;
   rollout : rollout list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_os_config_os_policy_assignment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_os_config_os_policy_assignment) -> ()
+
+let yojson_of_google_os_config_os_policy_assignment =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       skip_await_rollout = v_skip_await_rollout;
+       instance_filter = v_instance_filter;
+       os_policies = v_os_policies;
+       rollout = v_rollout;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rollout v_rollout in
+         ("rollout", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_os_policies v_os_policies
+         in
+         ("os_policies", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_instance_filter v_instance_filter
+         in
+         ("instance_filter", arg) :: bnds
+       in
+       let bnds =
+         match v_skip_await_rollout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_await_rollout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_os_config_os_policy_assignment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_os_config_os_policy_assignment
+
+[@@@deriving.end]
 
 let instance_filter__exclusion_labels ?labels () :
     instance_filter__exclusion_labels =

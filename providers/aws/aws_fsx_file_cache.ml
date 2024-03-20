@@ -3,77 +3,439 @@
 open! Tf_core
 
 type data_repository_association__nfs = {
-  dns_ips : string prop list option; [@option]  (** dns_ips *)
-  version : string prop;  (** version *)
+  dns_ips : string prop list option; [@option]
+  version : string prop;
 }
-[@@deriving yojson_of]
-(** data_repository_association__nfs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_repository_association__nfs) -> ()
+
+let yojson_of_data_repository_association__nfs =
+  (function
+   | { dns_ips = v_dns_ips; version = v_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         match v_dns_ips with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dns_ips", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_repository_association__nfs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_repository_association__nfs
+
+[@@@deriving.end]
 
 type data_repository_association = {
-  data_repository_path : string prop;  (** data_repository_path *)
+  data_repository_path : string prop;
   data_repository_subdirectories : string prop list option; [@option]
-      (** data_repository_subdirectories *)
-  file_cache_path : string prop;  (** file_cache_path *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  file_cache_path : string prop;
+  tags : (string * string prop) list option; [@option]
   nfs : data_repository_association__nfs list;
 }
-[@@deriving yojson_of]
-(** data_repository_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_repository_association) -> ()
+
+let yojson_of_data_repository_association =
+  (function
+   | {
+       data_repository_path = v_data_repository_path;
+       data_repository_subdirectories =
+         v_data_repository_subdirectories;
+       file_cache_path = v_file_cache_path;
+       tags = v_tags;
+       nfs = v_nfs;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_repository_association__nfs
+             v_nfs
+         in
+         ("nfs", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_file_cache_path
+         in
+         ("file_cache_path", arg) :: bnds
+       in
+       let bnds =
+         match v_data_repository_subdirectories with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "data_repository_subdirectories", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_repository_path
+         in
+         ("data_repository_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_repository_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_repository_association
+
+[@@@deriving.end]
 
 type lustre_configuration__metadata_configuration = {
-  storage_capacity : float prop;  (** storage_capacity *)
+  storage_capacity : float prop;
 }
-[@@deriving yojson_of]
-(** lustre_configuration__metadata_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : lustre_configuration__metadata_configuration) -> ()
+
+let yojson_of_lustre_configuration__metadata_configuration =
+  (function
+   | { storage_capacity = v_storage_capacity } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_storage_capacity
+         in
+         ("storage_capacity", arg) :: bnds
+       in
+       `Assoc bnds
+    : lustre_configuration__metadata_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_lustre_configuration__metadata_configuration
+
+[@@@deriving.end]
 
 type lustre_configuration__log_configuration = {
-  destination : string prop;  (** destination *)
-  level : string prop;  (** level *)
+  destination : string prop;
+  level : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : lustre_configuration__log_configuration) -> ()
+
+let yojson_of_lustre_configuration__log_configuration =
+  (function
+   | { destination = v_destination; level = v_level } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_level in
+         ("level", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_destination in
+         ("destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : lustre_configuration__log_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_lustre_configuration__log_configuration
+
+[@@@deriving.end]
 
 type lustre_configuration = {
-  deployment_type : string prop;  (** deployment_type *)
+  deployment_type : string prop;
   per_unit_storage_throughput : float prop;
-      (** per_unit_storage_throughput *)
   weekly_maintenance_start_time : string prop option; [@option]
-      (** weekly_maintenance_start_time *)
   metadata_configuration :
     lustre_configuration__metadata_configuration list;
 }
-[@@deriving yojson_of]
-(** lustre_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : lustre_configuration) -> ()
+
+let yojson_of_lustre_configuration =
+  (function
+   | {
+       deployment_type = v_deployment_type;
+       per_unit_storage_throughput = v_per_unit_storage_throughput;
+       weekly_maintenance_start_time =
+         v_weekly_maintenance_start_time;
+       metadata_configuration = v_metadata_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_lustre_configuration__metadata_configuration
+             v_metadata_configuration
+         in
+         ("metadata_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_weekly_maintenance_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "weekly_maintenance_start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_per_unit_storage_throughput
+         in
+         ("per_unit_storage_throughput", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_deployment_type
+         in
+         ("deployment_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : lustre_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_lustre_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_fsx_file_cache = {
   copy_tags_to_data_repository_associations : bool prop option;
       [@option]
-      (** copy_tags_to_data_repository_associations *)
-  file_cache_type : string prop;  (** file_cache_type *)
+  file_cache_type : string prop;
   file_cache_type_version : string prop;
-      (** file_cache_type_version *)
-  id : string prop option; [@option]  (** id *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  id : string prop option; [@option]
+  kms_key_id : string prop option; [@option]
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
-  storage_capacity : float prop;  (** storage_capacity *)
-  subnet_ids : string prop list;  (** subnet_ids *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  storage_capacity : float prop;
+  subnet_ids : string prop list;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   data_repository_association : data_repository_association list;
   lustre_configuration : lustre_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_fsx_file_cache *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_fsx_file_cache) -> ()
+
+let yojson_of_aws_fsx_file_cache =
+  (function
+   | {
+       copy_tags_to_data_repository_associations =
+         v_copy_tags_to_data_repository_associations;
+       file_cache_type = v_file_cache_type;
+       file_cache_type_version = v_file_cache_type_version;
+       id = v_id;
+       kms_key_id = v_kms_key_id;
+       security_group_ids = v_security_group_ids;
+       storage_capacity = v_storage_capacity;
+       subnet_ids = v_subnet_ids;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       data_repository_association = v_data_repository_association;
+       lustre_configuration = v_lustre_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_lustre_configuration
+             v_lustre_configuration
+         in
+         ("lustre_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_repository_association
+             v_data_repository_association
+         in
+         ("data_repository_association", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_storage_capacity
+         in
+         ("storage_capacity", arg) :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_file_cache_type_version
+         in
+         ("file_cache_type_version", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_file_cache_type
+         in
+         ("file_cache_type", arg) :: bnds
+       in
+       let bnds =
+         match v_copy_tags_to_data_repository_associations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "copy_tags_to_data_repository_associations", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_fsx_file_cache -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_fsx_file_cache
+
+[@@@deriving.end]
 
 let data_repository_association__nfs ?dns_ips ~version () :
     data_repository_association__nfs =

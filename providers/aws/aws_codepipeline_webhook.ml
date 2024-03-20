@@ -4,33 +4,179 @@ open! Tf_core
 
 type authentication_configuration = {
   allowed_ip_range : string prop option; [@option]
-      (** allowed_ip_range *)
-  secret_token : string prop option; [@option]  (** secret_token *)
+  secret_token : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** authentication_configuration *)
+[@@deriving_inline yojson_of]
 
-type filter = {
-  json_path : string prop;  (** json_path *)
-  match_equals : string prop;  (** match_equals *)
-}
-[@@deriving yojson_of]
-(** filter *)
+let _ = fun (_ : authentication_configuration) -> ()
+
+let yojson_of_authentication_configuration =
+  (function
+   | {
+       allowed_ip_range = v_allowed_ip_range;
+       secret_token = v_secret_token;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_secret_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_ip_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "allowed_ip_range", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : authentication_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authentication_configuration
+
+[@@@deriving.end]
+
+type filter = { json_path : string prop; match_equals : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : filter) -> ()
+
+let yojson_of_filter =
+  (function
+   | { json_path = v_json_path; match_equals = v_match_equals } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_match_equals in
+         ("match_equals", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_json_path in
+         ("json_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filter
+
+[@@@deriving.end]
 
 type aws_codepipeline_webhook = {
-  authentication : string prop;  (** authentication *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  authentication : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  target_action : string prop;  (** target_action *)
-  target_pipeline : string prop;  (** target_pipeline *)
+  target_action : string prop;
+  target_pipeline : string prop;
   authentication_configuration : authentication_configuration list;
   filter : filter list;
 }
-[@@deriving yojson_of]
-(** aws_codepipeline_webhook *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_codepipeline_webhook) -> ()
+
+let yojson_of_aws_codepipeline_webhook =
+  (function
+   | {
+       authentication = v_authentication;
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       target_action = v_target_action;
+       target_pipeline = v_target_pipeline;
+       authentication_configuration = v_authentication_configuration;
+       filter = v_filter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_filter v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authentication_configuration
+             v_authentication_configuration
+         in
+         ("authentication_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_pipeline
+         in
+         ("target_pipeline", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target_action in
+         ("target_action", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_authentication
+         in
+         ("authentication", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_codepipeline_webhook -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_codepipeline_webhook
+
+[@@@deriving.end]
 
 let authentication_configuration ?allowed_ip_range ?secret_token () :
     authentication_configuration =

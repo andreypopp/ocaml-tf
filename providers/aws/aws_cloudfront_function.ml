@@ -3,15 +3,72 @@
 open! Tf_core
 
 type aws_cloudfront_function = {
-  code : string prop;  (** code *)
-  comment : string prop option; [@option]  (** comment *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  publish : bool prop option; [@option]  (** publish *)
-  runtime : string prop;  (** runtime *)
+  code : string prop;
+  comment : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  publish : bool prop option; [@option]
+  runtime : string prop;
 }
-[@@deriving yojson_of]
-(** aws_cloudfront_function *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudfront_function) -> ()
+
+let yojson_of_aws_cloudfront_function =
+  (function
+   | {
+       code = v_code;
+       comment = v_comment;
+       id = v_id;
+       name = v_name;
+       publish = v_publish;
+       runtime = v_runtime;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_runtime in
+         ("runtime", arg) :: bnds
+       in
+       let bnds =
+         match v_publish with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "publish", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_code in
+         ("code", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudfront_function -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudfront_function
+
+[@@@deriving.end]
 
 let aws_cloudfront_function ?comment ?id ?publish ~code ~name
     ~runtime () : aws_cloudfront_function =

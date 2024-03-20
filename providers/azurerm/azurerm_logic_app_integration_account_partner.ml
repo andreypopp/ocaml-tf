@@ -3,33 +3,171 @@
 open! Tf_core
 
 type business_identity = {
-  qualifier : string prop;  (** qualifier *)
-  value : string prop;  (** value *)
+  qualifier : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** business_identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : business_identity) -> ()
+
+let yojson_of_business_identity =
+  (function
+   | { qualifier = v_qualifier; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_qualifier in
+         ("qualifier", arg) :: bnds
+       in
+       `Assoc bnds
+    : business_identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_business_identity
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_logic_app_integration_account_partner = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   integration_account_name : string prop;
-      (** integration_account_name *)
-  metadata : string prop option; [@option]  (** metadata *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  metadata : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
   business_identity : business_identity list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_logic_app_integration_account_partner *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_logic_app_integration_account_partner) -> ()
+
+let yojson_of_azurerm_logic_app_integration_account_partner =
+  (function
+   | {
+       id = v_id;
+       integration_account_name = v_integration_account_name;
+       metadata = v_metadata;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       business_identity = v_business_identity;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_business_identity
+             v_business_identity
+         in
+         ("business_identity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_integration_account_name
+         in
+         ("integration_account_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_logic_app_integration_account_partner ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_logic_app_integration_account_partner
+
+[@@@deriving.end]
 
 let business_identity ~qualifier ~value () : business_identity =
   { qualifier; value }

@@ -4,18 +4,80 @@ open! Tf_core
 
 type aws_s3_bucket_public_access_block = {
   block_public_acls : bool prop option; [@option]
-      (** block_public_acls *)
   block_public_policy : bool prop option; [@option]
-      (** block_public_policy *)
-  bucket : string prop;  (** bucket *)
-  id : string prop option; [@option]  (** id *)
+  bucket : string prop;
+  id : string prop option; [@option]
   ignore_public_acls : bool prop option; [@option]
-      (** ignore_public_acls *)
   restrict_public_buckets : bool prop option; [@option]
-      (** restrict_public_buckets *)
 }
-[@@deriving yojson_of]
-(** aws_s3_bucket_public_access_block *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_s3_bucket_public_access_block) -> ()
+
+let yojson_of_aws_s3_bucket_public_access_block =
+  (function
+   | {
+       block_public_acls = v_block_public_acls;
+       block_public_policy = v_block_public_policy;
+       bucket = v_bucket;
+       id = v_id;
+       ignore_public_acls = v_ignore_public_acls;
+       restrict_public_buckets = v_restrict_public_buckets;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_restrict_public_buckets with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "restrict_public_buckets", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_public_acls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_public_acls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       let bnds =
+         match v_block_public_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "block_public_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_block_public_acls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "block_public_acls", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_s3_bucket_public_access_block ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3_bucket_public_access_block
+
+[@@@deriving.end]
 
 let aws_s3_bucket_public_access_block ?block_public_acls
     ?block_public_policy ?id ?ignore_public_acls

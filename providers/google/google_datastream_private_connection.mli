@@ -9,6 +9,8 @@ type error = {
   message : string prop;  (** message *)
 }
 
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

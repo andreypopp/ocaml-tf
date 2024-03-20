@@ -4,301 +4,1090 @@ open! Tf_core
 
 type advanced_machine_features = {
   enable_nested_virtualization : bool prop option; [@option]
-      (** Whether to enable nested virtualization or not. *)
   threads_per_core : float prop option; [@option]
-      (** The number of threads per physical core. To disable simultaneous multithreading (SMT) set this to 1. If unset, the maximum number of threads supported per core by the underlying processor is assumed. *)
   visible_core_count : float prop option; [@option]
-      (** The number of physical cores to expose to an instance. Multiply by the number of threads per core to compute the total number of virtual CPUs to expose to the instance. If unset, the number of cores is inferred from the instance\'s nominal CPU count and the underlying platform\'s SMT width. *)
 }
-[@@deriving yojson_of]
-(** Controls for advanced machine-related behavior features. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : advanced_machine_features) -> ()
+
+let yojson_of_advanced_machine_features =
+  (function
+   | {
+       enable_nested_virtualization = v_enable_nested_virtualization;
+       threads_per_core = v_threads_per_core;
+       visible_core_count = v_visible_core_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_visible_core_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "visible_core_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_threads_per_core with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "threads_per_core", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_nested_virtualization with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_nested_virtualization", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : advanced_machine_features -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_advanced_machine_features
+
+[@@@deriving.end]
 
 type confidential_instance_config = {
   enable_confidential_compute : bool prop;
-      (** Defines whether the instance should have confidential compute enabled. *)
 }
-[@@deriving yojson_of]
-(** The Confidential VM config being used by the instance. on_host_maintenance has to be set to TERMINATE or this will fail to create. *)
+[@@deriving_inline yojson_of]
 
-type disk__disk_encryption_key = {
-  kms_key_self_link : string prop;
-      (** The self link of the encryption key that is stored in Google Cloud KMS. *)
-}
-[@@deriving yojson_of]
-(** Encrypts or decrypts a disk using a customer-supplied encryption key. *)
+let _ = fun (_ : confidential_instance_config) -> ()
+
+let yojson_of_confidential_instance_config =
+  (function
+   | { enable_confidential_compute = v_enable_confidential_compute }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool
+             v_enable_confidential_compute
+         in
+         ("enable_confidential_compute", arg) :: bnds
+       in
+       `Assoc bnds
+    : confidential_instance_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_confidential_instance_config
+
+[@@@deriving.end]
+
+type disk__disk_encryption_key = { kms_key_self_link : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : disk__disk_encryption_key) -> ()
+
+let yojson_of_disk__disk_encryption_key =
+  (function
+   | { kms_key_self_link = v_kms_key_self_link } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_kms_key_self_link
+         in
+         ("kms_key_self_link", arg) :: bnds
+       in
+       `Assoc bnds
+    : disk__disk_encryption_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_disk__disk_encryption_key
+
+[@@@deriving.end]
 
 type disk__source_image_encryption_key = {
   kms_key_self_link : string prop;
-      (** The self link of the encryption key that is stored in
-Google Cloud KMS. *)
   kms_key_service_account : string prop option; [@option]
-      (** The service account being used for the encryption
-request for the given KMS key. If absent, the Compute
-Engine default service account is used. *)
 }
-[@@deriving yojson_of]
-(** The customer-supplied encryption key of the source
-image. Required if the source image is protected by a
-customer-supplied encryption key.
+[@@deriving_inline yojson_of]
 
-Instance templates do not store customer-supplied
-encryption keys, so you cannot create disks for
-instances in a managed instance group if the source
-images are encrypted with your own keys. *)
+let _ = fun (_ : disk__source_image_encryption_key) -> ()
+
+let yojson_of_disk__source_image_encryption_key =
+  (function
+   | {
+       kms_key_self_link = v_kms_key_self_link;
+       kms_key_service_account = v_kms_key_service_account;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_kms_key_self_link
+         in
+         ("kms_key_self_link", arg) :: bnds
+       in
+       `Assoc bnds
+    : disk__source_image_encryption_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_disk__source_image_encryption_key
+
+[@@@deriving.end]
 
 type disk__source_snapshot_encryption_key = {
   kms_key_self_link : string prop;
-      (** The self link of the encryption key that is stored in
-Google Cloud KMS. *)
   kms_key_service_account : string prop option; [@option]
-      (** The service account being used for the encryption
-request for the given KMS key. If absent, the Compute
-Engine default service account is used. *)
 }
-[@@deriving yojson_of]
-(** The customer-supplied encryption key of the source snapshot. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : disk__source_snapshot_encryption_key) -> ()
+
+let yojson_of_disk__source_snapshot_encryption_key =
+  (function
+   | {
+       kms_key_self_link = v_kms_key_self_link;
+       kms_key_service_account = v_kms_key_service_account;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_kms_key_self_link
+         in
+         ("kms_key_self_link", arg) :: bnds
+       in
+       `Assoc bnds
+    : disk__source_snapshot_encryption_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_disk__source_snapshot_encryption_key
+
+[@@@deriving.end]
 
 type disk = {
   auto_delete : bool prop option; [@option]
-      (** Whether or not the disk should be auto-deleted. This defaults to true. *)
   boot : bool prop option; [@option]
-      (** Indicates that this is a boot disk. *)
   device_name : string prop option; [@option]
-      (** A unique device name that is reflected into the /dev/ tree of a Linux operating system running within the instance. If not specified, the server chooses a default device name to apply to this disk. *)
   disk_name : string prop option; [@option]
-      (** Name of the disk. When not provided, this defaults to the name of the instance. *)
   disk_size_gb : float prop option; [@option]
-      (** The size of the image in gigabytes. If not specified, it will inherit the size of its base image. For SCRATCH disks, the size must be one of 375 or 3000 GB, with a default of 375 GB. *)
   disk_type : string prop option; [@option]
-      (** The Google Compute Engine disk type. Such as pd-ssd, local-ssd, pd-balanced or pd-standard. *)
   interface : string prop option; [@option]
-      (** Specifies the disk interface to use for attaching this disk. *)
   labels : (string * string prop) list option; [@option]
-      (** A set of key/value label pairs to assign to disks, *)
   mode : string prop option; [@option]
-      (** The mode in which to attach this disk, either READ_WRITE or READ_ONLY. If you are attaching or creating a boot disk, this must read-write mode. *)
   provisioned_iops : float prop option; [@option]
-      (** Indicates how many IOPS to provision for the disk. This sets the number of I/O operations per second that the disk can handle. Values must be between 10,000 and 120,000. For more details, see the [Extreme persistent disk documentation](https://cloud.google.com/compute/docs/disks/extreme-persistent-disk). *)
   resource_manager_tags : (string * string prop) list option;
       [@option]
-      (** A map of resource manager tags. Resource manager tag keys and values have the same definition as resource manager tags. Keys must be in the format tagKeys/{tag_key_id}, and values are in the format tagValues/456. The field is ignored (both PUT & PATCH) when empty. *)
   resource_policies : string prop list option; [@option]
-      (** A list (short name or id) of resource policies to attach to this disk. Currently a max of 1 resource policy is supported. *)
   source : string prop option; [@option]
-      (** The name (not self_link) of the disk (such as those managed by google_compute_disk) to attach. ~> Note: Either source or source_image is required when creating a new instance except for when creating a local SSD. *)
   source_image : string prop option; [@option]
-      (** The image from which to initialize this disk. This can be one of: the image's self_link, projects/{project}/global/images/{image}, projects/{project}/global/images/family/{family}, global/images/{image}, global/images/family/{family}, family/{family}, {project}/{family}, {project}/{image}, {family}, or {image}. ~> Note: Either source or source_image is required when creating a new instance except for when creating a local SSD. *)
   source_snapshot : string prop option; [@option]
-      (** The source snapshot to create this disk. When creating
-a new instance, one of initializeParams.sourceSnapshot,
-initializeParams.sourceImage, or disks.source is
-required except for local SSD. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The type of Google Compute Engine disk, can be either SCRATCH or PERSISTENT. *)
   disk_encryption_key : disk__disk_encryption_key list;
   source_image_encryption_key :
     disk__source_image_encryption_key list;
   source_snapshot_encryption_key :
     disk__source_snapshot_encryption_key list;
 }
-[@@deriving yojson_of]
-(** Disks to attach to instances created from this template. This can be specified multiple times for multiple disks. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : disk) -> ()
+
+let yojson_of_disk =
+  (function
+   | {
+       auto_delete = v_auto_delete;
+       boot = v_boot;
+       device_name = v_device_name;
+       disk_name = v_disk_name;
+       disk_size_gb = v_disk_size_gb;
+       disk_type = v_disk_type;
+       interface = v_interface;
+       labels = v_labels;
+       mode = v_mode;
+       provisioned_iops = v_provisioned_iops;
+       resource_manager_tags = v_resource_manager_tags;
+       resource_policies = v_resource_policies;
+       source = v_source;
+       source_image = v_source_image;
+       source_snapshot = v_source_snapshot;
+       type_ = v_type_;
+       disk_encryption_key = v_disk_encryption_key;
+       source_image_encryption_key = v_source_image_encryption_key;
+       source_snapshot_encryption_key =
+         v_source_snapshot_encryption_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_disk__source_snapshot_encryption_key
+             v_source_snapshot_encryption_key
+         in
+         ("source_snapshot_encryption_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_disk__source_image_encryption_key
+             v_source_image_encryption_key
+         in
+         ("source_image_encryption_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_disk__disk_encryption_key
+             v_disk_encryption_key
+         in
+         ("disk_encryption_key", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_snapshot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_snapshot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_image", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_policies with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resource_policies", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_manager_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "resource_manager_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_provisioned_iops with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "provisioned_iops", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_interface with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "interface", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "disk_size_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "disk_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_device_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "device_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "boot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : disk -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_disk
+
+[@@@deriving.end]
 
 type guest_accelerator = {
   count : float prop;
-      (** The number of the guest accelerator cards exposed to this instance. *)
   type_ : string prop; [@key "type"]
-      (** The accelerator type resource to expose to this instance. E.g. nvidia-tesla-k80. *)
 }
-[@@deriving yojson_of]
-(** List of the type and count of accelerator cards attached to the instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : guest_accelerator) -> ()
+
+let yojson_of_guest_accelerator =
+  (function
+   | { count = v_count; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_count in
+         ("count", arg) :: bnds
+       in
+       `Assoc bnds
+    : guest_accelerator -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_guest_accelerator
+
+[@@@deriving.end]
 
 type network_interface__access_config = {
   nat_ip : string prop option; [@option]
-      (** The IP address that will be 1:1 mapped to the instance's network ip. If not given, one will be generated. *)
   network_tier : string prop option; [@option]
-      (** The networking tier used for configuring this instance template. This field can take the following values: PREMIUM, STANDARD, FIXED_STANDARD. If this field is not specified, it is assumed to be PREMIUM. *)
 }
-[@@deriving yojson_of]
-(** Access configurations, i.e. IPs via which this instance can be accessed via the Internet. Omit to ensure that the instance is not accessible from the Internet (this means that ssh provisioners will not work unless you are running Terraform can send traffic to the instance's network (e.g. via tunnel or because it is running on another cloud instance on that network). This block can be repeated multiple times. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_interface__access_config) -> ()
+
+let yojson_of_network_interface__access_config =
+  (function
+   | { nat_ip = v_nat_ip; network_tier = v_network_tier } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_network_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_tier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nat_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "nat_ip", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_interface__access_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_interface__access_config
+
+[@@@deriving.end]
 
 type network_interface__alias_ip_range = {
   ip_cidr_range : string prop;
-      (** The IP CIDR range represented by this alias IP range. This IP CIDR range must belong to the specified subnetwork and cannot contain IP addresses reserved by system or used by other network interfaces. At the time of writing only a netmask (e.g. /24) may be supplied, with a CIDR format resulting in an API error. *)
   subnetwork_range_name : string prop option; [@option]
-      (** The subnetwork secondary range name specifying the secondary range from which to allocate the IP CIDR range for this alias IP range. If left unspecified, the primary range of the subnetwork will be used. *)
 }
-[@@deriving yojson_of]
-(** An array of alias IP ranges for this network interface. Can only be specified for network interfaces on subnet-mode networks. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_interface__alias_ip_range) -> ()
+
+let yojson_of_network_interface__alias_ip_range =
+  (function
+   | {
+       ip_cidr_range = v_ip_cidr_range;
+       subnetwork_range_name = v_subnetwork_range_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subnetwork_range_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork_range_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_cidr_range in
+         ("ip_cidr_range", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_interface__alias_ip_range ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_interface__alias_ip_range
+
+[@@@deriving.end]
 
 type network_interface__ipv6_access_config = {
   network_tier : string prop;
-      (** The service-level to be provided for IPv6 traffic when the subnet has an external subnet. Only PREMIUM tier is valid for IPv6 *)
 }
-[@@deriving yojson_of]
-(** An array of IPv6 access configurations for this interface. Currently, only one IPv6 access config, DIRECT_IPV6, is supported. If there is no ipv6AccessConfig specified, then this instance will have no external IPv6 Internet access. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_interface__ipv6_access_config) -> ()
+
+let yojson_of_network_interface__ipv6_access_config =
+  (function
+   | { network_tier = v_network_tier } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network_tier in
+         ("network_tier", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_interface__ipv6_access_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_interface__ipv6_access_config
+
+[@@@deriving.end]
 
 type network_interface = {
   internal_ipv6_prefix_length : float prop option; [@option]
-      (** The prefix length of the primary internal IPv6 range. *)
   ipv6_address : string prop option; [@option]
-      (** An IPv6 internal network address for this network interface. If not specified, Google Cloud will automatically assign an internal IPv6 address from the instance's subnetwork. *)
   network : string prop option; [@option]
-      (** The name or self_link of the network to attach this interface to. Use network attribute for Legacy or Auto subnetted networks and subnetwork for custom subnetted networks. *)
   network_ip : string prop option; [@option]
-      (** The private IP address to assign to the instance. If empty, the address will be automatically assigned. *)
   nic_type : string prop option; [@option]
-      (** The type of vNIC to be used on this interface. Possible values:GVNIC, VIRTIO_NET *)
   queue_count : float prop option; [@option]
-      (** The networking queue count that's specified by users for the network interface. Both Rx and Tx queues will be set to this number. It will be empty if not specified. *)
   stack_type : string prop option; [@option]
-      (** The stack type for this network interface to identify whether the IPv6 feature is enabled or not. If not specified, IPV4_ONLY will be used. *)
   subnetwork : string prop option; [@option]
-      (** The name of the subnetwork to attach this interface to. The subnetwork must exist in the same region this instance will be created in. Either network or subnetwork must be provided. *)
   subnetwork_project : string prop option; [@option]
-      (** The ID of the project in which the subnetwork belongs. If it is not provided, the provider project is used. *)
   access_config : network_interface__access_config list;
   alias_ip_range : network_interface__alias_ip_range list;
   ipv6_access_config : network_interface__ipv6_access_config list;
 }
-[@@deriving yojson_of]
-(** Networks to attach to instances created from this template. This can be specified multiple times for multiple networks. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_interface) -> ()
+
+let yojson_of_network_interface =
+  (function
+   | {
+       internal_ipv6_prefix_length = v_internal_ipv6_prefix_length;
+       ipv6_address = v_ipv6_address;
+       network = v_network;
+       network_ip = v_network_ip;
+       nic_type = v_nic_type;
+       queue_count = v_queue_count;
+       stack_type = v_stack_type;
+       subnetwork = v_subnetwork;
+       subnetwork_project = v_subnetwork_project;
+       access_config = v_access_config;
+       alias_ip_range = v_alias_ip_range;
+       ipv6_access_config = v_ipv6_access_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_network_interface__ipv6_access_config
+             v_ipv6_access_config
+         in
+         ("ipv6_access_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_interface__alias_ip_range
+             v_alias_ip_range
+         in
+         ("alias_ip_range", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_interface__access_config
+             v_access_config
+         in
+         ("access_config", arg) :: bnds
+       in
+       let bnds =
+         match v_subnetwork_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork_project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnetwork with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_stack_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stack_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_queue_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "queue_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nic_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "nic_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv6_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_internal_ipv6_prefix_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "internal_ipv6_prefix_length", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_interface -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_interface
+
+[@@@deriving.end]
 
 type network_performance_config = {
   total_egress_bandwidth_tier : string prop;
-      (** The egress bandwidth tier to enable. Possible values:TIER_1, DEFAULT *)
 }
-[@@deriving yojson_of]
-(** Configures network performance settings for the instance. If not specified, the instance will be created with its default network performance configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_performance_config) -> ()
+
+let yojson_of_network_performance_config =
+  (function
+   | { total_egress_bandwidth_tier = v_total_egress_bandwidth_tier }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_total_egress_bandwidth_tier
+         in
+         ("total_egress_bandwidth_tier", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_performance_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_performance_config
+
+[@@@deriving.end]
 
 type reservation_affinity__specific_reservation = {
   key : string prop;
-      (** Corresponds to the label key of a reservation resource. To target a SPECIFIC_RESERVATION by name, specify compute.googleapis.com/reservation-name as the key and specify the name of your reservation as the only value. *)
   values : string prop list;
-      (** Corresponds to the label values of a reservation resource. *)
 }
-[@@deriving yojson_of]
-(** Specifies the label selector for the reservation to use. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : reservation_affinity__specific_reservation) -> ()
+
+let yojson_of_reservation_affinity__specific_reservation =
+  (function
+   | { key = v_key; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : reservation_affinity__specific_reservation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_reservation_affinity__specific_reservation
+
+[@@@deriving.end]
 
 type reservation_affinity = {
   type_ : string prop; [@key "type"]
-      (** The type of reservation from which this instance can consume resources. *)
   specific_reservation :
     reservation_affinity__specific_reservation list;
 }
-[@@deriving yojson_of]
-(** Specifies the reservations that this instance can consume from. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : reservation_affinity) -> ()
+
+let yojson_of_reservation_affinity =
+  (function
+   | {
+       type_ = v_type_;
+       specific_reservation = v_specific_reservation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_reservation_affinity__specific_reservation
+             v_specific_reservation
+         in
+         ("specific_reservation", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : reservation_affinity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_reservation_affinity
+
+[@@@deriving.end]
 
 type scheduling__local_ssd_recovery_timeout = {
   nanos : float prop option; [@option]
-      (** Span of time that's a fraction of a second at nanosecond
-resolution. Durations less than one second are represented
-with a 0 seconds field and a positive nanos field. Must
-be from 0 to 999,999,999 inclusive. *)
   seconds : float prop;
-      (** Span of time at a resolution of a second.
-Must be from 0 to 315,576,000,000 inclusive. *)
 }
-[@@deriving yojson_of]
-(** Specifies the maximum amount of time a Local Ssd Vm should wait while
-  recovery of the Local Ssd state is attempted. Its value should be in
-  between 0 and 168 hours with hour granularity and the default value being 1
-  hour. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scheduling__local_ssd_recovery_timeout) -> ()
+
+let yojson_of_scheduling__local_ssd_recovery_timeout =
+  (function
+   | { nanos = v_nanos; seconds = v_seconds } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_seconds in
+         ("seconds", arg) :: bnds
+       in
+       let bnds =
+         match v_nanos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nanos", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scheduling__local_ssd_recovery_timeout ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduling__local_ssd_recovery_timeout
+
+[@@@deriving.end]
 
 type scheduling__node_affinities = {
-  key : string prop;  (** key *)
-  operator : string prop;  (** operator *)
-  values : string prop list;  (** values *)
+  key : string prop;
+  operator : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** Specifies node affinities or anti-affinities to determine which sole-tenant nodes your instances and managed instance groups will use as host systems. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scheduling__node_affinities) -> ()
+
+let yojson_of_scheduling__node_affinities =
+  (function
+   | { key = v_key; operator = v_operator; values = v_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : scheduling__node_affinities ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduling__node_affinities
+
+[@@@deriving.end]
 
 type scheduling = {
   automatic_restart : bool prop option; [@option]
-      (** Specifies whether the instance should be automatically restarted if it is terminated by Compute Engine (not terminated by a user). This defaults to true. *)
   instance_termination_action : string prop option; [@option]
-      (** Specifies the action GCE should take when SPOT VM is preempted. *)
   min_node_cpus : float prop option; [@option]
-      (** Minimum number of cpus for the instance. *)
   on_host_maintenance : string prop option; [@option]
-      (** Defines the maintenance behavior for this instance. *)
   preemptible : bool prop option; [@option]
-      (** Allows instance to be preempted. This defaults to false. *)
   provisioning_model : string prop option; [@option]
-      (** Whether the instance is spot. If this is set as SPOT. *)
   local_ssd_recovery_timeout :
     scheduling__local_ssd_recovery_timeout list;
   node_affinities : scheduling__node_affinities list;
 }
-[@@deriving yojson_of]
-(** The scheduling strategy to use. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scheduling) -> ()
+
+let yojson_of_scheduling =
+  (function
+   | {
+       automatic_restart = v_automatic_restart;
+       instance_termination_action = v_instance_termination_action;
+       min_node_cpus = v_min_node_cpus;
+       on_host_maintenance = v_on_host_maintenance;
+       preemptible = v_preemptible;
+       provisioning_model = v_provisioning_model;
+       local_ssd_recovery_timeout = v_local_ssd_recovery_timeout;
+       node_affinities = v_node_affinities;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_scheduling__node_affinities
+             v_node_affinities
+         in
+         ("node_affinities", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_scheduling__local_ssd_recovery_timeout
+             v_local_ssd_recovery_timeout
+         in
+         ("local_ssd_recovery_timeout", arg) :: bnds
+       in
+       let bnds =
+         match v_provisioning_model with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "provisioning_model", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preemptible with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "preemptible", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_on_host_maintenance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "on_host_maintenance", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_node_cpus with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_node_cpus", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_termination_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_termination_action", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_automatic_restart with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "automatic_restart", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scheduling -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scheduling
+
+[@@@deriving.end]
 
 type service_account = {
   email : string prop option; [@option]
-      (** The service account e-mail address. If not given, the default Google Compute Engine service account is used. *)
   scopes : string prop list;
-      (** A list of service scopes. Both OAuth2 URLs and gcloud short names are supported. To allow full access to all Cloud APIs, use the cloud-platform scope. *)
 }
-[@@deriving yojson_of]
-(** Service account to attach to the instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_account) -> ()
+
+let yojson_of_service_account =
+  (function
+   | { email = v_email; scopes = v_scopes } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_scopes
+         in
+         ("scopes", arg) :: bnds
+       in
+       let bnds =
+         match v_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "email", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : service_account -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_account
+
+[@@@deriving.end]
 
 type shielded_instance_config = {
   enable_integrity_monitoring : bool prop option; [@option]
-      (** Compare the most recent boot measurements to the integrity policy baseline and return a pair of pass/fail results depending on whether they match or not. Defaults to true. *)
   enable_secure_boot : bool prop option; [@option]
-      (** Verify the digital signature of all boot components, and halt the boot process if signature verification fails. Defaults to false. *)
   enable_vtpm : bool prop option; [@option]
-      (** Use a virtualized trusted platform module, which is a specialized computer chip you can use to encrypt objects like keys and certificates. Defaults to true. *)
 }
-[@@deriving yojson_of]
-(** Enable Shielded VM on this instance. Shielded VM provides verifiable integrity to prevent against malware and rootkits. Defaults to disabled. Note: shielded_instance_config can only be used with boot images with shielded vm support. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shielded_instance_config) -> ()
+
+let yojson_of_shielded_instance_config =
+  (function
+   | {
+       enable_integrity_monitoring = v_enable_integrity_monitoring;
+       enable_secure_boot = v_enable_secure_boot;
+       enable_vtpm = v_enable_vtpm;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enable_vtpm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_vtpm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_secure_boot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_secure_boot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_integrity_monitoring with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_integrity_monitoring", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : shielded_instance_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shielded_instance_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_instance_template = {
   can_ip_forward : bool prop option; [@option]
-      (** Whether to allow sending and receiving of packets with non-matching source or destination IPs. This defaults to false. *)
   description : string prop option; [@option]
-      (** A brief description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   instance_description : string prop option; [@option]
-      (** A description of the instance. *)
   labels : (string * string prop) list option; [@option]
-      (** A set of key/value label pairs to assign to instances created from this template.
-				
-				**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   machine_type : string prop;
-      (** The machine type to create. To create a machine with a custom type (such as extended memory), format the value like custom-VCPUS-MEM_IN_MB like custom-6-20480 for 6 vCPU and 20GB of RAM. *)
   metadata : (string * string prop) list option; [@option]
-      (** Metadata key/value pairs to make available from within instances created from this template. *)
   metadata_startup_script : string prop option; [@option]
-      (** An alternative to using the startup-script metadata key, mostly to match the compute_instance resource. This replaces the startup-script metadata key on the created instance and thus the two mechanisms are not allowed to be used simultaneously. *)
   min_cpu_platform : string prop option; [@option]
-      (** Specifies a minimum CPU platform. Applicable values are the friendly names of CPU platforms, such as Intel Haswell or Intel Skylake. *)
   name : string prop option; [@option]
-      (** The name of the instance template. If you leave this blank, Terraform will auto-generate a unique name. *)
   name_prefix : string prop option; [@option]
-      (** Creates a unique name beginning with the specified prefix. Conflicts with name. *)
   project : string prop option; [@option]
-      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   region : string prop option; [@option]
-      (** An instance template is a global resource that is not bound to a zone or a region. However, you can still specify some regional resources in an instance template, which restricts the template to the region where that resource resides. For example, a custom subnetwork resource is tied to a specific region. Defaults to the region of the Provider if no value is given. *)
   resource_manager_tags : (string * string prop) list option;
       [@option]
-      (** A map of resource manager tags.
-				Resource manager tag keys and values have the same definition as resource manager tags.
-				Keys must be in the format tagKeys/{tag_key_id}, and values are in the format tagValues/456.
-				The field is ignored (both PUT & PATCH) when empty. *)
   resource_policies : string prop list option; [@option]
-      (** A list of self_links of resource policies to attach to the instance. Currently a max of 1 resource policy is supported. *)
   tags : string prop list option; [@option]
-      (** Tags to attach to the instance. *)
   advanced_machine_features : advanced_machine_features list;
   confidential_instance_config : confidential_instance_config list;
   disk : disk list;
@@ -311,8 +1100,272 @@ type google_compute_instance_template = {
   shielded_instance_config : shielded_instance_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_instance_template *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_instance_template) -> ()
+
+let yojson_of_google_compute_instance_template =
+  (function
+   | {
+       can_ip_forward = v_can_ip_forward;
+       description = v_description;
+       id = v_id;
+       instance_description = v_instance_description;
+       labels = v_labels;
+       machine_type = v_machine_type;
+       metadata = v_metadata;
+       metadata_startup_script = v_metadata_startup_script;
+       min_cpu_platform = v_min_cpu_platform;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       project = v_project;
+       region = v_region;
+       resource_manager_tags = v_resource_manager_tags;
+       resource_policies = v_resource_policies;
+       tags = v_tags;
+       advanced_machine_features = v_advanced_machine_features;
+       confidential_instance_config = v_confidential_instance_config;
+       disk = v_disk;
+       guest_accelerator = v_guest_accelerator;
+       network_interface = v_network_interface;
+       network_performance_config = v_network_performance_config;
+       reservation_affinity = v_reservation_affinity;
+       scheduling = v_scheduling;
+       service_account = v_service_account;
+       shielded_instance_config = v_shielded_instance_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_shielded_instance_config
+             v_shielded_instance_config
+         in
+         ("shielded_instance_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_service_account v_service_account
+         in
+         ("service_account", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_scheduling v_scheduling
+         in
+         ("scheduling", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_reservation_affinity
+             v_reservation_affinity
+         in
+         ("reservation_affinity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_performance_config
+             v_network_performance_config
+         in
+         ("network_performance_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_interface
+             v_network_interface
+         in
+         ("network_interface", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_guest_accelerator
+             v_guest_accelerator
+         in
+         ("guest_accelerator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_disk v_disk in
+         ("disk", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_confidential_instance_config
+             v_confidential_instance_config
+         in
+         ("confidential_instance_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_advanced_machine_features
+             v_advanced_machine_features
+         in
+         ("advanced_machine_features", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_policies with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resource_policies", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_manager_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "resource_manager_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metadata_startup_script with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metadata_startup_script", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_machine_type in
+         ("machine_type", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_can_ip_forward with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "can_ip_forward", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_instance_template ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_instance_template
+
+[@@@deriving.end]
 
 let advanced_machine_features ?enable_nested_virtualization
     ?threads_per_core ?visible_core_count () :

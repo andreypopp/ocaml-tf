@@ -4,90 +4,426 @@ open! Tf_core
 
 type match__layer4_configs = {
   ip_protocol : string prop;
-      (** The IP protocol to which this rule applies. The protocol type is required when creating a firewall rule. This value can either be one of the following well known protocol strings (`tcp`, `udp`, `icmp`, `esp`, `ah`, `ipip`, `sctp`), or the IP protocol number. *)
   ports : string prop list option; [@option]
-      (** An optional list of ports to which this rule applies. This field is only applicable for UDP or TCP protocol. Each entry must be either an integer or a range. If not specified, this rule applies to connections through any port. Example inputs include: ``. *)
 }
-[@@deriving yojson_of]
-(** Pairs of IP protocols and ports that the rule should match. *)
+[@@deriving_inline yojson_of]
 
-type match__src_secure_tags = {
-  name : string prop;
-      (** Name of the secure tag, created with TagManager's TagValue API. @pattern tagValues/[0-9]+ *)
-}
-[@@deriving yojson_of]
-(** List of secure tag values, which should be matched at the source of the traffic. For INGRESS rule, if all the <code>srcSecureTag</code> are INEFFECTIVE, and there is no <code>srcIpRange</code>, this rule will be ignored. Maximum number of source tag values allowed is 256. *)
+let _ = fun (_ : match__layer4_configs) -> ()
+
+let yojson_of_match__layer4_configs =
+  (function
+   | { ip_protocol = v_ip_protocol; ports = v_ports } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ports", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_protocol in
+         ("ip_protocol", arg) :: bnds
+       in
+       `Assoc bnds
+    : match__layer4_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_match__layer4_configs
+
+[@@@deriving.end]
+
+type match__src_secure_tags = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : match__src_secure_tags) -> ()
+
+let yojson_of_match__src_secure_tags =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : match__src_secure_tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_match__src_secure_tags
+
+[@@@deriving.end]
 
 type match_ = {
   dest_address_groups : string prop list option; [@option]
-      (** Address groups which should be matched against the traffic destination. Maximum number of destination address groups is 10. Destination address groups is only supported in Egress rules. *)
   dest_fqdns : string prop list option; [@option]
-      (** Domain names that will be used to match against the resolved domain name of destination of traffic. Can only be specified if DIRECTION is egress. *)
   dest_ip_ranges : string prop list option; [@option]
-      (** CIDR IP address range. Maximum number of destination CIDR IP ranges allowed is 5000. *)
   dest_region_codes : string prop list option; [@option]
-      (** The Unicode country codes whose IP addresses will be used to match against the source of traffic. Can only be specified if DIRECTION is egress. *)
   dest_threat_intelligences : string prop list option; [@option]
-      (** Name of the Google Cloud Threat Intelligence list. *)
   src_address_groups : string prop list option; [@option]
-      (** Address groups which should be matched against the traffic source. Maximum number of source address groups is 10. Source address groups is only supported in Ingress rules. *)
   src_fqdns : string prop list option; [@option]
-      (** Domain names that will be used to match against the resolved domain name of source of traffic. Can only be specified if DIRECTION is ingress. *)
   src_ip_ranges : string prop list option; [@option]
-      (** CIDR IP address range. Maximum number of source CIDR IP ranges allowed is 5000. *)
   src_region_codes : string prop list option; [@option]
-      (** The Unicode country codes whose IP addresses will be used to match against the source of traffic. Can only be specified if DIRECTION is ingress. *)
   src_threat_intelligences : string prop list option; [@option]
-      (** Name of the Google Cloud Threat Intelligence list. *)
   layer4_configs : match__layer4_configs list;
   src_secure_tags : match__src_secure_tags list;
 }
-[@@deriving yojson_of]
-(** A match condition that incoming traffic is evaluated against. If it evaluates to true, the corresponding 'action' is enforced. *)
+[@@deriving_inline yojson_of]
 
-type target_secure_tags = {
-  name : string prop;
-      (** Name of the secure tag, created with TagManager's TagValue API. @pattern tagValues/[0-9]+ *)
-}
-[@@deriving yojson_of]
-(** A list of secure tags that controls which instances the firewall rule applies to. If <code>targetSecureTag</code> are specified, then the firewall rule applies only to instances in the VPC network that have one of those EFFECTIVE secure tags, if all the target_secure_tag are in INEFFECTIVE state, then this rule will be ignored. <code>targetSecureTag</code> may not be set at the same time as <code>targetServiceAccounts</code>. If neither <code>targetServiceAccounts</code> nor <code>targetSecureTag</code> are specified, the firewall rule applies to all instances on the specified network. Maximum number of target label tags allowed is 256. *)
+let _ = fun (_ : match_) -> ()
+
+let yojson_of_match_ =
+  (function
+   | {
+       dest_address_groups = v_dest_address_groups;
+       dest_fqdns = v_dest_fqdns;
+       dest_ip_ranges = v_dest_ip_ranges;
+       dest_region_codes = v_dest_region_codes;
+       dest_threat_intelligences = v_dest_threat_intelligences;
+       src_address_groups = v_src_address_groups;
+       src_fqdns = v_src_fqdns;
+       src_ip_ranges = v_src_ip_ranges;
+       src_region_codes = v_src_region_codes;
+       src_threat_intelligences = v_src_threat_intelligences;
+       layer4_configs = v_layer4_configs;
+       src_secure_tags = v_src_secure_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_match__src_secure_tags
+             v_src_secure_tags
+         in
+         ("src_secure_tags", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_match__layer4_configs
+             v_layer4_configs
+         in
+         ("layer4_configs", arg) :: bnds
+       in
+       let bnds =
+         match v_src_threat_intelligences with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "src_threat_intelligences", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_src_region_codes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "src_region_codes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_src_ip_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "src_ip_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_src_fqdns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "src_fqdns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_src_address_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "src_address_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dest_threat_intelligences with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dest_threat_intelligences", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dest_region_codes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dest_region_codes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dest_ip_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dest_ip_ranges", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dest_fqdns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dest_fqdns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dest_address_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dest_address_groups", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : match_ -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_match_
+
+[@@@deriving.end]
+
+type target_secure_tags = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : target_secure_tags) -> ()
+
+let yojson_of_target_secure_tags =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : target_secure_tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target_secure_tags
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_network_firewall_policy_rule = {
   action : string prop;
-      (** The Action to perform when the client connection triggers the rule. Valid actions are allow, deny and goto_next. *)
   description : string prop option; [@option]
-      (** An optional description for this resource. *)
   direction : string prop;
-      (** The direction in which this rule applies. Possible values: INGRESS, EGRESS *)
   disabled : bool prop option; [@option]
-      (** Denotes whether the firewall policy rule is disabled. When set to true, the firewall policy rule is not enforced and traffic behaves as if it did not exist. If this is unspecified, the firewall policy rule will be enabled. *)
   enable_logging : bool prop option; [@option]
-      (** Denotes whether to enable logging for a particular rule. If logging is enabled, logs will be exported to the configured export destination in Stackdriver. Logs may be exported to BigQuery or Pub/Sub. Note: you cannot enable logging on goto_next rules. *)
   firewall_policy : string prop;
-      (** The firewall policy of the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   priority : float prop;
-      (** An integer indicating the priority of a rule in the list. The priority must be a positive value between 0 and 2147483647. Rules are evaluated from highest to lowest priority where 0 is the highest priority and 2147483647 is the lowest prority. *)
   project : string prop option; [@option]
-      (** The project for the resource *)
   rule_name : string prop option; [@option]
-      (** An optional name for the rule. This field is not a unique identifier and can be updated. *)
   target_service_accounts : string prop list option; [@option]
-      (** A list of service accounts indicating the sets of instances that are applied with this rule. *)
   match_ : match_ list;
   target_secure_tags : target_secure_tags list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_network_firewall_policy_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_network_firewall_policy_rule) -> ()
+
+let yojson_of_google_compute_network_firewall_policy_rule =
+  (function
+   | {
+       action = v_action;
+       description = v_description;
+       direction = v_direction;
+       disabled = v_disabled;
+       enable_logging = v_enable_logging;
+       firewall_policy = v_firewall_policy;
+       id = v_id;
+       priority = v_priority;
+       project = v_project;
+       rule_name = v_rule_name;
+       target_service_accounts = v_target_service_accounts;
+       match_ = v_match_;
+       target_secure_tags = v_target_secure_tags;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_target_secure_tags
+             v_target_secure_tags
+         in
+         ("target_secure_tags", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_match_ v_match_ in
+         ("match_", arg) :: bnds
+       in
+       let bnds =
+         match v_target_service_accounts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "target_service_accounts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rule_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rule_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_priority in
+         ("priority", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_firewall_policy
+         in
+         ("firewall_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_enable_logging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_logging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_direction in
+         ("direction", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_compute_network_firewall_policy_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_network_firewall_policy_rule
+
+[@@@deriving.end]
 
 let match__layer4_configs ?ports ~ip_protocol () :
     match__layer4_configs =

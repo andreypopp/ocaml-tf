@@ -4,26 +4,147 @@ open! Tf_core
 
 type sse_configuration = {
   customer_managed_key_enabled : bool prop option; [@option]
-      (** customer_managed_key_enabled *)
-  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  kms_key_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** sse_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sse_configuration) -> ()
+
+let yojson_of_sse_configuration =
+  (function
+   | {
+       customer_managed_key_enabled = v_customer_managed_key_enabled;
+       kms_key_arn = v_kms_key_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_customer_managed_key_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "customer_managed_key_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sse_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sse_configuration
+
+[@@@deriving.end]
 
 type aws_verifiedaccess_group = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
   policy_document : string prop option; [@option]
-      (** policy_document *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   verifiedaccess_instance_id : string prop;
-      (** verifiedaccess_instance_id *)
   sse_configuration : sse_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_verifiedaccess_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_verifiedaccess_group) -> ()
+
+let yojson_of_aws_verifiedaccess_group =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       policy_document = v_policy_document;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       verifiedaccess_instance_id = v_verifiedaccess_instance_id;
+       sse_configuration = v_sse_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sse_configuration
+             v_sse_configuration
+         in
+         ("sse_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_verifiedaccess_instance_id
+         in
+         ("verifiedaccess_instance_id", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policy_document with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy_document", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_verifiedaccess_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_verifiedaccess_group
+
+[@@@deriving.end]
 
 let sse_configuration ?customer_managed_key_enabled ?kms_key_arn () :
     sse_configuration =

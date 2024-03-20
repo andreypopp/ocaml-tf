@@ -4,17 +4,59 @@ open! Tf_core
 
 type cloudflare_account = {
   enforce_twofactor : bool prop option; [@option]
-      (** Whether 2FA is enforced on the account. Defaults to `false`. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The name of the account that is displayed in the Cloudflare dashboard. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** Account type. Available values: `enterprise`, `standard`. Defaults to `standard`. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Account resource. Account is the basic resource for
-working with Cloudflare zones, teams and users.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_account) -> ()
+
+let yojson_of_cloudflare_account =
+  (function
+   | {
+       enforce_twofactor = v_enforce_twofactor;
+       id = v_id;
+       name = v_name;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enforce_twofactor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enforce_twofactor", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_account -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_account
+
+[@@@deriving.end]
 
 let cloudflare_account ?enforce_twofactor ?id ?type_ ~name () :
     cloudflare_account =

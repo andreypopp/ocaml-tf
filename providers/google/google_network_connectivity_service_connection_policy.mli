@@ -10,11 +10,15 @@ type psc_connections__error_info = {
   reason : string prop;  (** reason *)
 }
 
+[@@@deriving.end]
+
 type psc_connections__error = {
   code : float prop;  (** code *)
   details : (string * string prop) list list;  (** details *)
   message : string prop;  (** message *)
 }
+
+[@@@deriving.end]
 
 type psc_connections = {
   consumer_address : string prop;  (** consumer_address *)
@@ -29,6 +33,8 @@ type psc_connections = {
   psc_connection_id : string prop;  (** psc_connection_id *)
   state : string prop;  (** state *)
 }
+
+[@@@deriving.end]
 
 type psc_config
 

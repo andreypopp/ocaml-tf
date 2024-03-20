@@ -3,32 +3,32 @@
 open! Tf_core
 
 type permissions = {
-  actions: string  prop list;  (** actions *)
-  principal: string prop;  (** principal *)
-} [@@deriving yojson_of]
-(** permissions *)
+  actions: string  prop list; 
+  principal: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type timeouts = {
-  create: string  prop option; [@option] (** create *)
-  delete: string  prop option; [@option] (** delete *)
-  read: string  prop option; [@option] (** read *)
-  update: string  prop option; [@option] (** update *)
-} [@@deriving yojson_of]
-(** timeouts *)
+  create: string  prop option; [@option]
+  delete: string  prop option; [@option]
+  read: string  prop option; [@option]
+  update: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type aws_quicksight_folder = {
-  aws_account_id: string  prop option; [@option] (** aws_account_id *)
-  folder_id: string prop;  (** folder_id *)
-  folder_type: string  prop option; [@option] (** folder_type *)
-  id: string  prop option; [@option] (** id *)
-  name: string  prop option; [@option] (** name *)
-  parent_folder_arn: string  prop option; [@option] (** parent_folder_arn *)
-  tags: (string * string   prop) list option; [@option] (** tags *)
-  tags_all: (string * string   prop) list option; [@option] (** tags_all *)
+  aws_account_id: string  prop option; [@option]
+  folder_id: string prop; 
+  folder_type: string  prop option; [@option]
+  id: string  prop option; [@option]
+  name: string  prop option; [@option]
+  parent_folder_arn: string  prop option; [@option]
+  tags: (string * string   prop) list option; [@option]
+  tags_all: (string * string   prop) list option; [@option]
   permissions: permissions list;
   timeouts: timeouts option;
-} [@@deriving yojson_of]
-(** aws_quicksight_folder *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let permissions ~actions ~principal () =
   ({

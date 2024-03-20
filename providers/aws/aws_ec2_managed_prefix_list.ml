@@ -3,24 +3,130 @@
 open! Tf_core
 
 type entry = {
-  cidr : string prop;  (** cidr *)
-  description : string prop option; [@option]  (** description *)
+  cidr : string prop;
+  description : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** entry *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : entry) -> ()
+
+let yojson_of_entry =
+  (function
+   | { cidr = v_cidr; description = v_description } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cidr in
+         ("cidr", arg) :: bnds
+       in
+       `Assoc bnds
+    : entry -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_entry
+
+[@@@deriving.end]
 
 type aws_ec2_managed_prefix_list = {
-  address_family : string prop;  (** address_family *)
-  id : string prop option; [@option]  (** id *)
-  max_entries : float prop;  (** max_entries *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  address_family : string prop;
+  id : string prop option; [@option]
+  max_entries : float prop;
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   entry : entry list;
 }
-[@@deriving yojson_of]
-(** aws_ec2_managed_prefix_list *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_managed_prefix_list) -> ()
+
+let yojson_of_aws_ec2_managed_prefix_list =
+  (function
+   | {
+       address_family = v_address_family;
+       id = v_id;
+       max_entries = v_max_entries;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       entry = v_entry;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_entry v_entry in
+         ("entry", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_entries in
+         ("max_entries", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_address_family
+         in
+         ("address_family", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_managed_prefix_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_managed_prefix_list
+
+[@@@deriving.end]
 
 let entry ?description ~cidr () : entry = { cidr; description }
 

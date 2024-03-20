@@ -4,106 +4,390 @@ open! Tf_core
 
 type accelerators = {
   accelerator_type : string prop;
-      (** The type of an accelator for a CDF instance. Possible values: [CDC, HEALTHCARE, CCAI_INSIGHTS] *)
   state : string prop;
-      (** The type of an accelator for a CDF instance. Possible values: [ENABLED, DISABLED] *)
 }
-[@@deriving yojson_of]
-(** List of accelerators enabled for this CDF instance.
+[@@deriving_inline yojson_of]
 
-If accelerators are enabled it is possible a permadiff will be created with the Options field.
-Users will need to either manually update their state file to include these diffed options, or include the field in a [lifecycle ignore changes block](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle#ignore_changes). *)
+let _ = fun (_ : accelerators) -> ()
 
-type crypto_key_config = {
-  key_reference : string prop;
-      (** The name of the key which is used to encrypt/decrypt customer data. For key in Cloud KMS, the key should be in the format of projects/*/locations/*/keyRings/*/cryptoKeys/*. *)
-}
-[@@deriving yojson_of]
-(** The crypto key configuration. This field is used by the Customer-Managed Encryption Keys (CMEK) feature. *)
+let yojson_of_accelerators =
+  (function
+   | { accelerator_type = v_accelerator_type; state = v_state } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_accelerator_type
+         in
+         ("accelerator_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : accelerators -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_accelerators
+
+[@@@deriving.end]
+
+type crypto_key_config = { key_reference : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : crypto_key_config) -> ()
+
+let yojson_of_crypto_key_config =
+  (function
+   | { key_reference = v_key_reference } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_reference in
+         ("key_reference", arg) :: bnds
+       in
+       `Assoc bnds
+    : crypto_key_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_crypto_key_config
+
+[@@@deriving.end]
 
 type event_publish_config = {
-  enabled : bool prop;  (** Option to enable Event Publishing. *)
+  enabled : bool prop;
   topic : string prop;
-      (** The resource name of the Pub/Sub topic. Format: projects/{projectId}/topics/{topic_id} *)
 }
-[@@deriving yojson_of]
-(** Option to enable and pass metadata for event publishing. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : event_publish_config) -> ()
+
+let yojson_of_event_publish_config =
+  (function
+   | { enabled = v_enabled; topic = v_topic } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic in
+         ("topic", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : event_publish_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_event_publish_config
+
+[@@@deriving.end]
 
 type network_config = {
   ip_allocation : string prop;
-      (** The IP range in CIDR notation to use for the managed Data Fusion instance
-nodes. This range must not overlap with any other ranges used in the Data Fusion instance network. *)
   network : string prop;
-      (** Name of the network in the project with which the tenant project
-will be peered for executing pipelines. In case of shared VPC where the network resides in another host
-project the network should specified in the form of projects/{host-project-id}/global/networks/{network} *)
 }
-[@@deriving yojson_of]
-(** Network configuration options. These are required when a private Data Fusion instance is to be created. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_config) -> ()
+
+let yojson_of_network_config =
+  (function
+   | { ip_allocation = v_ip_allocation; network = v_network } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_allocation in
+         ("ip_allocation", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_data_fusion_instance = {
   dataproc_service_account : string prop option; [@option]
-      (** User-managed service account to set on Dataproc when Cloud Data Fusion creates Dataproc to run data processing pipelines. *)
   description : string prop option; [@option]
-      (** An optional description of the instance. *)
   display_name : string prop option; [@option]
-      (** Display name for an instance. *)
   enable_rbac : bool prop option; [@option]
-      (** Option to enable granular role-based access control. *)
   enable_stackdriver_logging : bool prop option; [@option]
-      (** Option to enable Stackdriver Logging. *)
   enable_stackdriver_monitoring : bool prop option; [@option]
-      (** Option to enable Stackdriver Monitoring. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** The resource labels for instance to use to annotate any related underlying resources,
-such as Compute Engine VMs.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** The ID of the instance or a fully qualified identifier for the instance. *)
   options : (string * string prop) list option; [@option]
-      (** Map of additional options used to configure the behavior of Data Fusion instance. *)
   private_instance : bool prop option; [@option]
-      (** Specifies whether the Data Fusion instance should be private. If set to
-true, all Data Fusion nodes will have private IP addresses and will not be
-able to access the public internet. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The region of the Data Fusion instance. *)
   type_ : string prop; [@key "type"]
-      (** Represents the type of Data Fusion instance. Each type is configured with
-the default settings for processing and memory.
-- BASIC: Basic Data Fusion instance. In Basic type, the user will be able to create data pipelines
-using point and click UI. However, there are certain limitations, such as fewer number
-of concurrent pipelines, no support for streaming pipelines, etc.
-- ENTERPRISE: Enterprise Data Fusion instance. In Enterprise type, the user will have more features
-available, such as support for streaming pipelines, higher number of concurrent pipelines, etc.
-- DEVELOPER: Developer Data Fusion instance. In Developer type, the user will have all features available but
-with restrictive capabilities. This is to help enterprises design and develop their data ingestion and integration
-pipelines at low cost. Possible values: [BASIC, ENTERPRISE, DEVELOPER] *)
   version : string prop option; [@option]
-      (** Current version of the Data Fusion. *)
   zone : string prop option; [@option]
-      (** Name of the zone in which the Data Fusion instance will be created. Only DEVELOPER instances use this field. *)
   accelerators : accelerators list;
   crypto_key_config : crypto_key_config list;
   event_publish_config : event_publish_config list;
   network_config : network_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_data_fusion_instance *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_data_fusion_instance) -> ()
+
+let yojson_of_google_data_fusion_instance =
+  (function
+   | {
+       dataproc_service_account = v_dataproc_service_account;
+       description = v_description;
+       display_name = v_display_name;
+       enable_rbac = v_enable_rbac;
+       enable_stackdriver_logging = v_enable_stackdriver_logging;
+       enable_stackdriver_monitoring =
+         v_enable_stackdriver_monitoring;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       options = v_options;
+       private_instance = v_private_instance;
+       project = v_project;
+       region = v_region;
+       type_ = v_type_;
+       version = v_version;
+       zone = v_zone;
+       accelerators = v_accelerators;
+       crypto_key_config = v_crypto_key_config;
+       event_publish_config = v_event_publish_config;
+       network_config = v_network_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_config v_network_config
+         in
+         ("network_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_event_publish_config
+             v_event_publish_config
+         in
+         ("event_publish_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_crypto_key_config
+             v_crypto_key_config
+         in
+         ("crypto_key_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_accelerators v_accelerators
+         in
+         ("accelerators", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "private_instance", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_options with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "options", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_stackdriver_monitoring with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_stackdriver_monitoring", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_stackdriver_logging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_stackdriver_logging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_rbac with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_rbac", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dataproc_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dataproc_service_account", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_data_fusion_instance ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_data_fusion_instance
+
+[@@@deriving.end]
 
 let accelerators ~accelerator_type ~state () : accelerators =
   { accelerator_type; state }

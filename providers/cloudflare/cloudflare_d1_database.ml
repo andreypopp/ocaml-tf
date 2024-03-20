@@ -4,12 +4,32 @@ open! Tf_core
 
 type cloudflare_d1_database = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  name : string prop;  (** The name of the D1 Database. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** The [D1 Database](https://developers.cloudflare.com/d1/) resource allows you to manage Cloudflare D1 databases.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_d1_database) -> ()
+
+let yojson_of_cloudflare_d1_database =
+  (function
+   | { account_id = v_account_id; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_d1_database -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_d1_database
+
+[@@@deriving.end]
 
 let cloudflare_d1_database ~account_id ~name () :
     cloudflare_d1_database =

@@ -4,24 +4,143 @@ open! Tf_core
 
 type aws_lambda_layer_version = {
   compatible_architectures : string prop list option; [@option]
-      (** compatible_architectures *)
   compatible_runtimes : string prop list option; [@option]
-      (** compatible_runtimes *)
-  description : string prop option; [@option]  (** description *)
-  filename : string prop option; [@option]  (** filename *)
-  id : string prop option; [@option]  (** id *)
-  layer_name : string prop;  (** layer_name *)
-  license_info : string prop option; [@option]  (** license_info *)
-  s3_bucket : string prop option; [@option]  (** s3_bucket *)
-  s3_key : string prop option; [@option]  (** s3_key *)
+  description : string prop option; [@option]
+  filename : string prop option; [@option]
+  id : string prop option; [@option]
+  layer_name : string prop;
+  license_info : string prop option; [@option]
+  s3_bucket : string prop option; [@option]
+  s3_key : string prop option; [@option]
   s3_object_version : string prop option; [@option]
-      (** s3_object_version *)
-  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  skip_destroy : bool prop option; [@option]
   source_code_hash : string prop option; [@option]
-      (** source_code_hash *)
 }
-[@@deriving yojson_of]
-(** aws_lambda_layer_version *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lambda_layer_version) -> ()
+
+let yojson_of_aws_lambda_layer_version =
+  (function
+   | {
+       compatible_architectures = v_compatible_architectures;
+       compatible_runtimes = v_compatible_runtimes;
+       description = v_description;
+       filename = v_filename;
+       id = v_id;
+       layer_name = v_layer_name;
+       license_info = v_license_info;
+       s3_bucket = v_s3_bucket;
+       s3_key = v_s3_key;
+       s3_object_version = v_s3_object_version;
+       skip_destroy = v_skip_destroy;
+       source_code_hash = v_source_code_hash;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_source_code_hash with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_code_hash", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skip_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_s3_object_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_object_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_s3_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_s3_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_bucket", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_license_info with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "license_info", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_layer_name in
+         ("layer_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_filename with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filename", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compatible_runtimes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "compatible_runtimes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compatible_architectures with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "compatible_architectures", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_lambda_layer_version -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lambda_layer_version
+
+[@@@deriving.end]
 
 let aws_lambda_layer_version ?compatible_architectures
     ?compatible_runtimes ?description ?filename ?id ?license_info

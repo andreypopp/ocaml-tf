@@ -3,11 +3,40 @@
 open! Tf_core
 
 type aws_securityhub_organization_admin_account = {
-  admin_account_id : string prop;  (** admin_account_id *)
-  id : string prop option; [@option]  (** id *)
+  admin_account_id : string prop;
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_securityhub_organization_admin_account *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securityhub_organization_admin_account) -> ()
+
+let yojson_of_aws_securityhub_organization_admin_account =
+  (function
+   | { admin_account_id = v_admin_account_id; id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_admin_account_id
+         in
+         ("admin_account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_securityhub_organization_admin_account ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securityhub_organization_admin_account
+
+[@@@deriving.end]
 
 let aws_securityhub_organization_admin_account ?id ~admin_account_id
     () : aws_securityhub_organization_admin_account =

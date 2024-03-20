@@ -4,44 +4,191 @@ open! Tf_core
 
 type condition__request_ip = {
   in_ : string prop list option; [@option] [@key "in"]
-      (** List of IP addresses or CIDR notation where the token may be used from. If not specified, the token will be valid for all IP addresses. *)
   not_in : string prop list option; [@option]
-      (** List of IP addresses or CIDR notation where the token should not be used from. *)
 }
-[@@deriving yojson_of]
-(** Request IP related conditions. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition__request_ip) -> ()
+
+let yojson_of_condition__request_ip =
+  (function
+   | { in_ = v_in_; not_in = v_not_in } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_not_in with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "not_in", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_in_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "in", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : condition__request_ip -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition__request_ip
+
+[@@@deriving.end]
 
 type condition = { request_ip : condition__request_ip list }
-[@@deriving yojson_of]
-(** Conditions under which the token should be considered valid. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition) -> ()
+
+let yojson_of_condition =
+  (function
+   | { request_ip = v_request_ip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_condition__request_ip
+             v_request_ip
+         in
+         ("request_ip", arg) :: bnds
+       in
+       `Assoc bnds
+    : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition
+
+[@@@deriving.end]
 
 type policy = {
   effect : string prop option; [@option]
-      (** Effect of the policy. Available values: `allow`, `deny`. Defaults to `allow`. *)
   permission_groups : string prop list;
-      (** List of permissions groups IDs. See [documentation](https://developers.cloudflare.com/api/tokens/create/permissions) for more information. *)
   resources : (string * string prop) list;
-      (** Describes what operations against which resources are allowed or denied. *)
 }
-[@@deriving yojson_of]
-(** Permissions policy. Multiple policy blocks can be defined. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : policy) -> ()
+
+let yojson_of_policy =
+  (function
+   | {
+       effect = v_effect;
+       permission_groups = v_permission_groups;
+       resources = v_resources;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_resources
+         in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_permission_groups
+         in
+         ("permission_groups", arg) :: bnds
+       in
+       let bnds =
+         match v_effect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "effect", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policy
+
+[@@@deriving.end]
 
 type cloudflare_api_token = {
   expires_on : string prop option; [@option]
-      (** The expiration time on or after which the token MUST NOT be accepted for processing. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** Name of the API Token. *)
+  id : string prop option; [@option]
+  name : string prop;
   not_before : string prop option; [@option]
-      (** The time before which the token MUST NOT be accepted for processing. *)
   condition : condition list;
   policy : policy list;
 }
-[@@deriving yojson_of]
-(** Provides a resource which manages Cloudflare API tokens.
+[@@deriving_inline yojson_of]
 
-Read more about permission groups and their applicable scopes in the
-[developer documentation](https://developers.cloudflare.com/api/tokens/create/permissions).
- *)
+let _ = fun (_ : cloudflare_api_token) -> ()
+
+let yojson_of_cloudflare_api_token =
+  (function
+   | {
+       expires_on = v_expires_on;
+       id = v_id;
+       name = v_name;
+       not_before = v_not_before;
+       condition = v_condition;
+       policy = v_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_policy v_policy in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_condition v_condition in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         match v_not_before with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "not_before", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expires_on with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expires_on", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_api_token -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_api_token
+
+[@@@deriving.end]
 
 let condition__request_ip ?in_ ?not_in () : condition__request_ip =
   { in_; not_in }

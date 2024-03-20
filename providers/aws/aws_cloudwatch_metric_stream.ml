@@ -4,62 +4,336 @@ open! Tf_core
 
 type exclude_filter = {
   metric_names : string prop list option; [@option]
-      (** metric_names *)
-  namespace : string prop;  (** namespace *)
+  namespace : string prop;
 }
-[@@deriving yojson_of]
-(** exclude_filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : exclude_filter) -> ()
+
+let yojson_of_exclude_filter =
+  (function
+   | { metric_names = v_metric_names; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace in
+         ("namespace", arg) :: bnds
+       in
+       let bnds =
+         match v_metric_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "metric_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : exclude_filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_exclude_filter
+
+[@@@deriving.end]
 
 type include_filter = {
   metric_names : string prop list option; [@option]
-      (** metric_names *)
-  namespace : string prop;  (** namespace *)
+  namespace : string prop;
 }
-[@@deriving yojson_of]
-(** include_filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : include_filter) -> ()
+
+let yojson_of_include_filter =
+  (function
+   | { metric_names = v_metric_names; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace in
+         ("namespace", arg) :: bnds
+       in
+       let bnds =
+         match v_metric_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "metric_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : include_filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_include_filter
+
+[@@@deriving.end]
 
 type statistics_configuration__include_metric = {
-  metric_name : string prop;  (** metric_name *)
-  namespace : string prop;  (** namespace *)
+  metric_name : string prop;
+  namespace : string prop;
 }
-[@@deriving yojson_of]
-(** statistics_configuration__include_metric *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : statistics_configuration__include_metric) -> ()
+
+let yojson_of_statistics_configuration__include_metric =
+  (function
+   | { metric_name = v_metric_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace in
+         ("namespace", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_metric_name in
+         ("metric_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : statistics_configuration__include_metric ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_statistics_configuration__include_metric
+
+[@@@deriving.end]
 
 type statistics_configuration = {
   additional_statistics : string prop list;
-      (** additional_statistics *)
   include_metric : statistics_configuration__include_metric list;
 }
-[@@deriving yojson_of]
-(** statistics_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : statistics_configuration) -> ()
+
+let yojson_of_statistics_configuration =
+  (function
+   | {
+       additional_statistics = v_additional_statistics;
+       include_metric = v_include_metric;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_statistics_configuration__include_metric
+             v_include_metric
+         in
+         ("include_metric", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_additional_statistics
+         in
+         ("additional_statistics", arg) :: bnds
+       in
+       `Assoc bnds
+    : statistics_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_statistics_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_cloudwatch_metric_stream = {
-  firehose_arn : string prop;  (** firehose_arn *)
-  id : string prop option; [@option]  (** id *)
+  firehose_arn : string prop;
+  id : string prop option; [@option]
   include_linked_accounts_metrics : bool prop option; [@option]
-      (** include_linked_accounts_metrics *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  output_format : string prop;  (** output_format *)
-  role_arn : string prop;  (** role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  output_format : string prop;
+  role_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   exclude_filter : exclude_filter list;
   include_filter : include_filter list;
   statistics_configuration : statistics_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_cloudwatch_metric_stream *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudwatch_metric_stream) -> ()
+
+let yojson_of_aws_cloudwatch_metric_stream =
+  (function
+   | {
+       firehose_arn = v_firehose_arn;
+       id = v_id;
+       include_linked_accounts_metrics =
+         v_include_linked_accounts_metrics;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       output_format = v_output_format;
+       role_arn = v_role_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       exclude_filter = v_exclude_filter;
+       include_filter = v_include_filter;
+       statistics_configuration = v_statistics_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_statistics_configuration
+             v_statistics_configuration
+         in
+         ("statistics_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_include_filter v_include_filter
+         in
+         ("include_filter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_exclude_filter v_exclude_filter
+         in
+         ("exclude_filter", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_output_format in
+         ("output_format", arg) :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_linked_accounts_metrics with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_linked_accounts_metrics", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_firehose_arn in
+         ("firehose_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudwatch_metric_stream ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudwatch_metric_stream
+
+[@@@deriving.end]
 
 let exclude_filter ?metric_names ~namespace () : exclude_filter =
   { metric_names; namespace }

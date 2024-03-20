@@ -3,47 +3,262 @@
 open! Tf_core
 
 type taint = {
-  effect : string prop;  (** effect *)
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
+  effect : string prop;
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** taint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : taint) -> ()
+
+let yojson_of_taint =
+  (function
+   | { effect = v_effect; key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_effect in
+         ("effect", arg) :: bnds
+       in
+       `Assoc bnds
+    : taint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_taint
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type nodes = {
-  created_at : string prop;  (** created_at *)
-  droplet_id : string prop;  (** droplet_id *)
-  id : string prop;  (** id *)
-  name : string prop;  (** name *)
-  status : string prop;  (** status *)
-  updated_at : string prop;  (** updated_at *)
+  created_at : string prop;
+  droplet_id : string prop;
+  id : string prop;
+  name : string prop;
+  status : string prop;
+  updated_at : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : nodes) -> ()
+
+let yojson_of_nodes =
+  (function
+   | {
+       created_at = v_created_at;
+       droplet_id = v_droplet_id;
+       id = v_id;
+       name = v_name;
+       status = v_status;
+       updated_at = v_updated_at;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_updated_at in
+         ("updated_at", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_droplet_id in
+         ("droplet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_created_at in
+         ("created_at", arg) :: bnds
+       in
+       `Assoc bnds
+    : nodes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_nodes
+
+[@@@deriving.end]
 
 type digitalocean_kubernetes_node_pool = {
-  auto_scale : bool prop option; [@option]  (** auto_scale *)
-  cluster_id : string prop;  (** cluster_id *)
-  id : string prop option; [@option]  (** id *)
+  auto_scale : bool prop option; [@option]
+  cluster_id : string prop;
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** labels *)
-  max_nodes : float prop option; [@option]  (** max_nodes *)
-  min_nodes : float prop option; [@option]  (** min_nodes *)
-  name : string prop;  (** name *)
-  node_count : float prop option; [@option]  (** node_count *)
-  size : string prop;  (** size *)
-  tags : string prop list option; [@option]  (** tags *)
+  max_nodes : float prop option; [@option]
+  min_nodes : float prop option; [@option]
+  name : string prop;
+  node_count : float prop option; [@option]
+  size : string prop;
+  tags : string prop list option; [@option]
   taint : taint list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** digitalocean_kubernetes_node_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_kubernetes_node_pool) -> ()
+
+let yojson_of_digitalocean_kubernetes_node_pool =
+  (function
+   | {
+       auto_scale = v_auto_scale;
+       cluster_id = v_cluster_id;
+       id = v_id;
+       labels = v_labels;
+       max_nodes = v_max_nodes;
+       min_nodes = v_min_nodes;
+       name = v_name;
+       node_count = v_node_count;
+       size = v_size;
+       tags = v_tags;
+       taint = v_taint;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_taint v_taint in
+         ("taint", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_size in
+         ("size", arg) :: bnds
+       in
+       let bnds =
+         match v_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_min_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_nodes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_nodes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       let bnds =
+         match v_auto_scale with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_scale", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_kubernetes_node_pool ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_kubernetes_node_pool
+
+[@@@deriving.end]
 
 let taint ~effect ~key ~value () : taint = { effect; key; value }
 let timeouts ?create ?delete () : timeouts = { create; delete }

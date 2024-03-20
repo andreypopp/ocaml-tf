@@ -3,39 +3,174 @@
 open! Tf_core
 
 type replication_configuration__rule__destination = {
-  region : string prop;  (** region *)
-  registry_id : string prop;  (** registry_id *)
+  region : string prop;
+  registry_id : string prop;
 }
-[@@deriving yojson_of]
-(** replication_configuration__rule__destination *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : replication_configuration__rule__destination) -> ()
+
+let yojson_of_replication_configuration__rule__destination =
+  (function
+   | { region = v_region; registry_id = v_registry_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_registry_id in
+         ("registry_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication_configuration__rule__destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication_configuration__rule__destination
+
+[@@@deriving.end]
 
 type replication_configuration__rule__repository_filter = {
-  filter : string prop;  (** filter *)
-  filter_type : string prop;  (** filter_type *)
+  filter : string prop;
+  filter_type : string prop;
 }
-[@@deriving yojson_of]
-(** replication_configuration__rule__repository_filter *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : replication_configuration__rule__repository_filter) -> ()
+
+let yojson_of_replication_configuration__rule__repository_filter =
+  (function
+   | { filter = v_filter; filter_type = v_filter_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter_type in
+         ("filter_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication_configuration__rule__repository_filter ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication_configuration__rule__repository_filter
+
+[@@@deriving.end]
 
 type replication_configuration__rule = {
   destination : replication_configuration__rule__destination list;
   repository_filter :
     replication_configuration__rule__repository_filter list;
 }
-[@@deriving yojson_of]
-(** replication_configuration__rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : replication_configuration__rule) -> ()
+
+let yojson_of_replication_configuration__rule =
+  (function
+   | {
+       destination = v_destination;
+       repository_filter = v_repository_filter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_replication_configuration__rule__repository_filter
+             v_repository_filter
+         in
+         ("repository_filter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_replication_configuration__rule__destination
+             v_destination
+         in
+         ("destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication_configuration__rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication_configuration__rule
+
+[@@@deriving.end]
 
 type replication_configuration = {
   rule : replication_configuration__rule list;
 }
-[@@deriving yojson_of]
-(** replication_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : replication_configuration) -> ()
+
+let yojson_of_replication_configuration =
+  (function
+   | { rule = v_rule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_replication_configuration__rule
+             v_rule
+         in
+         ("rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication_configuration
+
+[@@@deriving.end]
 
 type aws_ecr_replication_configuration = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   replication_configuration : replication_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_ecr_replication_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ecr_replication_configuration) -> ()
+
+let yojson_of_aws_ecr_replication_configuration =
+  (function
+   | {
+       id = v_id;
+       replication_configuration = v_replication_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_replication_configuration
+             v_replication_configuration
+         in
+         ("replication_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ecr_replication_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ecr_replication_configuration
+
+[@@@deriving.end]
 
 let replication_configuration__rule__destination ~region ~registry_id
     () : replication_configuration__rule__destination =

@@ -4,17 +4,58 @@ open! Tf_core
 
 type cloudflare_hostname_tls_setting = {
   hostname : string prop;
-      (** Hostname that belongs to this zone name. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   setting : string prop;
-      (** TLS setting name. **Modifying this attribute will force creation of a new resource.** *)
-  value : string prop;  (** TLS setting value. *)
+  value : string prop;
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare per-hostname TLS setting resource. Used to set TLS settings for hostnames under the specified zone.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_hostname_tls_setting) -> ()
+
+let yojson_of_cloudflare_hostname_tls_setting =
+  (function
+   | {
+       hostname = v_hostname;
+       id = v_id;
+       setting = v_setting;
+       value = v_value;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_setting in
+         ("setting", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_hostname in
+         ("hostname", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_hostname_tls_setting ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_hostname_tls_setting
+
+[@@@deriving.end]
 
 let cloudflare_hostname_tls_setting ?id ~hostname ~setting ~value
     ~zone_id () : cloudflare_hostname_tls_setting =

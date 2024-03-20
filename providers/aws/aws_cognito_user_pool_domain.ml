@@ -4,13 +4,56 @@ open! Tf_core
 
 type aws_cognito_user_pool_domain = {
   certificate_arn : string prop option; [@option]
-      (** certificate_arn *)
-  domain : string prop;  (** domain *)
-  id : string prop option; [@option]  (** id *)
-  user_pool_id : string prop;  (** user_pool_id *)
+  domain : string prop;
+  id : string prop option; [@option]
+  user_pool_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_cognito_user_pool_domain *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cognito_user_pool_domain) -> ()
+
+let yojson_of_aws_cognito_user_pool_domain =
+  (function
+   | {
+       certificate_arn = v_certificate_arn;
+       domain = v_domain;
+       id = v_id;
+       user_pool_id = v_user_pool_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_pool_id in
+         ("user_pool_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       let bnds =
+         match v_certificate_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cognito_user_pool_domain ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cognito_user_pool_domain
+
+[@@@deriving.end]
 
 let aws_cognito_user_pool_domain ?certificate_arn ?id ~domain
     ~user_pool_id () : aws_cognito_user_pool_domain =

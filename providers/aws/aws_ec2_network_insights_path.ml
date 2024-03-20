@@ -3,21 +3,119 @@
 open! Tf_core
 
 type aws_ec2_network_insights_path = {
-  destination : string prop;  (** destination *)
+  destination : string prop;
   destination_ip : string prop option; [@option]
-      (** destination_ip *)
   destination_port : float prop option; [@option]
-      (** destination_port *)
-  id : string prop option; [@option]  (** id *)
-  protocol : string prop;  (** protocol *)
-  source : string prop;  (** source *)
-  source_ip : string prop option; [@option]  (** source_ip *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  protocol : string prop;
+  source : string prop;
+  source_ip : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_ec2_network_insights_path *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_network_insights_path) -> ()
+
+let yojson_of_aws_ec2_network_insights_path =
+  (function
+   | {
+       destination = v_destination;
+       destination_ip = v_destination_ip;
+       destination_port = v_destination_port;
+       id = v_id;
+       protocol = v_protocol;
+       source = v_source;
+       source_ip = v_source_ip;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "destination_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "destination_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_destination in
+         ("destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_network_insights_path ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_network_insights_path
+
+[@@@deriving.end]
 
 let aws_ec2_network_insights_path ?destination_ip ?destination_port
     ?id ?source_ip ?tags ?tags_all ~destination ~protocol ~source ()

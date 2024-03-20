@@ -2,125 +2,446 @@
 
 open! Tf_core
 
-type bucket_options__explicit_buckets = {
-  bounds : float prop list;
-      (** The values must be monotonically increasing. *)
-}
-[@@deriving yojson_of]
-(** Specifies a set of buckets with arbitrary widths. *)
+type bucket_options__explicit_buckets = { bounds : float prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bucket_options__explicit_buckets) -> ()
+
+let yojson_of_bucket_options__explicit_buckets =
+  (function
+   | { bounds = v_bounds } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_float) v_bounds
+         in
+         ("bounds", arg) :: bnds
+       in
+       `Assoc bnds
+    : bucket_options__explicit_buckets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bucket_options__explicit_buckets
+
+[@@@deriving.end]
 
 type bucket_options__exponential_buckets = {
-  growth_factor : float prop;  (** Must be greater than 1. *)
-  num_finite_buckets : float prop;  (** Must be greater than 0. *)
-  scale : float prop;  (** Must be greater than 0. *)
+  growth_factor : float prop;
+  num_finite_buckets : float prop;
+  scale : float prop;
 }
-[@@deriving yojson_of]
-(** Specifies an exponential sequence of buckets that have a width that is proportional to the value of
-the lower bound. Each bucket represents a constant relative uncertainty on a specific value in the bucket. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bucket_options__exponential_buckets) -> ()
+
+let yojson_of_bucket_options__exponential_buckets =
+  (function
+   | {
+       growth_factor = v_growth_factor;
+       num_finite_buckets = v_num_finite_buckets;
+       scale = v_scale;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_scale in
+         ("scale", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_num_finite_buckets
+         in
+         ("num_finite_buckets", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_growth_factor in
+         ("growth_factor", arg) :: bnds
+       in
+       `Assoc bnds
+    : bucket_options__exponential_buckets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bucket_options__exponential_buckets
+
+[@@@deriving.end]
 
 type bucket_options__linear_buckets = {
-  num_finite_buckets : float prop;  (** Must be greater than 0. *)
-  offset : float prop;  (** Lower bound of the first bucket. *)
-  width : float prop;  (** Must be greater than 0. *)
+  num_finite_buckets : float prop;
+  offset : float prop;
+  width : float prop;
 }
-[@@deriving yojson_of]
-(** Specifies a linear sequence of buckets that all have the same width (except overflow and underflow).
-Each bucket represents a constant absolute uncertainty on the specific value in the bucket. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bucket_options__linear_buckets) -> ()
+
+let yojson_of_bucket_options__linear_buckets =
+  (function
+   | {
+       num_finite_buckets = v_num_finite_buckets;
+       offset = v_offset;
+       width = v_width;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_width in
+         ("width", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_offset in
+         ("offset", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_num_finite_buckets
+         in
+         ("num_finite_buckets", arg) :: bnds
+       in
+       `Assoc bnds
+    : bucket_options__linear_buckets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bucket_options__linear_buckets
+
+[@@@deriving.end]
 
 type bucket_options = {
   explicit_buckets : bucket_options__explicit_buckets list;
   exponential_buckets : bucket_options__exponential_buckets list;
   linear_buckets : bucket_options__linear_buckets list;
 }
-[@@deriving yojson_of]
-(** The bucketOptions are required when the logs-based metric is using a DISTRIBUTION value type and it
-describes the bucket boundaries used to create a histogram of the extracted values. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bucket_options) -> ()
+
+let yojson_of_bucket_options =
+  (function
+   | {
+       explicit_buckets = v_explicit_buckets;
+       exponential_buckets = v_exponential_buckets;
+       linear_buckets = v_linear_buckets;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bucket_options__linear_buckets
+             v_linear_buckets
+         in
+         ("linear_buckets", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_bucket_options__exponential_buckets
+             v_exponential_buckets
+         in
+         ("exponential_buckets", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bucket_options__explicit_buckets
+             v_explicit_buckets
+         in
+         ("explicit_buckets", arg) :: bnds
+       in
+       `Assoc bnds
+    : bucket_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bucket_options
+
+[@@@deriving.end]
 
 type metric_descriptor__labels = {
   description : string prop option; [@option]
-      (** A human-readable description for the label. *)
-  key : string prop;  (** The label key. *)
+  key : string prop;
   value_type : string prop option; [@option]
-      (** The type of data that can be assigned to the label. Default value: STRING Possible values: [BOOL, INT64, STRING] *)
 }
-[@@deriving yojson_of]
-(** The set of labels that can be used to describe a specific instance of this metric type. For
-example, the appengine.googleapis.com/http/server/response_latencies metric type has a label
-for the HTTP response code, response_code, so you can look at latencies for successful responses
-or just for responses that failed. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metric_descriptor__labels) -> ()
+
+let yojson_of_metric_descriptor__labels =
+  (function
+   | {
+       description = v_description;
+       key = v_key;
+       value_type = v_value_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metric_descriptor__labels -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metric_descriptor__labels
+
+[@@@deriving.end]
 
 type metric_descriptor = {
   display_name : string prop option; [@option]
-      (** A concise name for the metric, which can be displayed in user interfaces. Use sentence case
-without an ending period, for example Request count. This field is optional but it is
-recommended to be set for any metrics associated with user-visible concepts, such as Quota. *)
   metric_kind : string prop;
-      (** Whether the metric records instantaneous values, changes to a value, etc.
-Some combinations of metricKind and valueType might not be supported.
-For counter metrics, set this to DELTA. Possible values: [DELTA, GAUGE, CUMULATIVE] *)
   unit : string prop option; [@option]
-      (** The unit in which the metric value is reported. It is only applicable if the valueType is
-'INT64', 'DOUBLE', or 'DISTRIBUTION'. The supported units are a subset of
-[The Unified Code for Units of Measure](http://unitsofmeasure.org/ucum.html) standard *)
   value_type : string prop;
-      (** Whether the measurement is an integer, a floating-point number, etc.
-Some combinations of metricKind and valueType might not be supported.
-For counter metrics, set this to INT64. Possible values: [BOOL, INT64, DOUBLE, STRING, DISTRIBUTION, MONEY] *)
   labels : metric_descriptor__labels list;
 }
-[@@deriving yojson_of]
-(** The optional metric descriptor associated with the logs-based metric.
-If unspecified, it uses a default metric descriptor with a DELTA metric kind,
-INT64 value type, with no labels and a unit of 1. Such a metric counts the
-number of log entries matching the filter expression. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metric_descriptor) -> ()
+
+let yojson_of_metric_descriptor =
+  (function
+   | {
+       display_name = v_display_name;
+       metric_kind = v_metric_kind;
+       unit = v_unit;
+       value_type = v_value_type;
+       labels = v_labels;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_metric_descriptor__labels
+             v_labels
+         in
+         ("labels", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value_type in
+         ("value_type", arg) :: bnds
+       in
+       let bnds =
+         match v_unit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "unit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_metric_kind in
+         ("metric_kind", arg) :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : metric_descriptor -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metric_descriptor
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_logging_metric = {
   bucket_name : string prop option; [@option]
-      (** The resource name of the Log Bucket that owns the Log Metric. Only Log Buckets in projects
-are supported. The bucket has to be in the same project as the metric. *)
   description : string prop option; [@option]
-      (** A description of this metric, which is used in documentation. The maximum length of the
-description is 8000 characters. *)
   disabled : bool prop option; [@option]
-      (** If set to True, then this metric is disabled and it does not generate any points. *)
   filter : string prop;
-      (** An advanced logs filter (https://cloud.google.com/logging/docs/view/advanced-filters) which
-is used to match log entries. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   label_extractors : (string * string prop) list option; [@option]
-      (** A map from a label key string to an extractor expression which is used to extract data from a log
-entry field and assign as the label value. Each label key specified in the LabelDescriptor must
-have an associated extractor expression in this map. The syntax of the extractor expression is
-the same as for the valueExtractor field. *)
   name : string prop;
-      (** The client-assigned metric identifier. Examples - error_count, nginx/requests.
-Metric identifiers are limited to 100 characters and can include only the following
-characters A-Z, a-z, 0-9, and the special characters _-.,+!*',()%/. The forward-slash
-character (/) denotes a hierarchy of name pieces, and it cannot be the first character
-of the name. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   value_extractor : string prop option; [@option]
-      (** A valueExtractor is required when using a distribution logs-based metric to extract the values to
-record from a log entry. Two functions are supported for value extraction - EXTRACT(field) or
-REGEXP_EXTRACT(field, regex). The argument are 1. field - The name of the log entry field from which
-the value is to be extracted. 2. regex - A regular expression using the Google RE2 syntax
-(https://github.com/google/re2/wiki/Syntax) with a single capture group to extract data from the specified
-log entry field. The value of the field is converted to a string before applying the regex. It is an
-error to specify a regex that does not include exactly one capture group. *)
   bucket_options : bucket_options list;
   metric_descriptor : metric_descriptor list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_logging_metric *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_logging_metric) -> ()
+
+let yojson_of_google_logging_metric =
+  (function
+   | {
+       bucket_name = v_bucket_name;
+       description = v_description;
+       disabled = v_disabled;
+       filter = v_filter;
+       id = v_id;
+       label_extractors = v_label_extractors;
+       name = v_name;
+       project = v_project;
+       value_extractor = v_value_extractor;
+       bucket_options = v_bucket_options;
+       metric_descriptor = v_metric_descriptor;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_metric_descriptor
+             v_metric_descriptor
+         in
+         ("metric_descriptor", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bucket_options v_bucket_options
+         in
+         ("bucket_options", arg) :: bnds
+       in
+       let bnds =
+         match v_value_extractor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value_extractor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_label_extractors with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "label_extractors", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bucket_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bucket_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_logging_metric -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_logging_metric
+
+[@@@deriving.end]
 
 let bucket_options__explicit_buckets ~bounds () :
     bucket_options__explicit_buckets =

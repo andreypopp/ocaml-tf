@@ -3,64 +3,283 @@
 open! Tf_core
 
 type password_policy__status = {
-  locked : bool prop;  (** locked *)
+  locked : bool prop;
   password_expiration_time : string prop;
-      (** password_expiration_time *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : password_policy__status) -> ()
+
+let yojson_of_password_policy__status =
+  (function
+   | {
+       locked = v_locked;
+       password_expiration_time = v_password_expiration_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_password_expiration_time
+         in
+         ("password_expiration_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_locked in
+         ("locked", arg) :: bnds
+       in
+       `Assoc bnds
+    : password_policy__status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_password_policy__status
+
+[@@@deriving.end]
 
 type password_policy = {
   allowed_failed_attempts : float prop option; [@option]
-      (** Number of failed attempts allowed before the user get locked. *)
   enable_failed_attempts_check : bool prop option; [@option]
-      (** If true, the check that will lock user after too many failed login attempts will be enabled. *)
   enable_password_verification : bool prop option; [@option]
-      (** If true, the user must specify the current password before changing the password. This flag is supported only for MySQL. *)
   password_expiration_duration : string prop option; [@option]
-      (** Password expiration duration with one week grace period. *)
 }
-[@@deriving yojson_of]
-(** password_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : password_policy) -> ()
+
+let yojson_of_password_policy =
+  (function
+   | {
+       allowed_failed_attempts = v_allowed_failed_attempts;
+       enable_failed_attempts_check = v_enable_failed_attempts_check;
+       enable_password_verification = v_enable_password_verification;
+       password_expiration_duration = v_password_expiration_duration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_password_expiration_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password_expiration_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_password_verification with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_password_verification", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_failed_attempts_check with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_failed_attempts_check", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_failed_attempts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "allowed_failed_attempts", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : password_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_password_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type sql_server_user_details = {
-  disabled : bool prop;  (** disabled *)
-  server_roles : string prop list;  (** server_roles *)
+  disabled : bool prop;
+  server_roles : string prop list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sql_server_user_details) -> ()
+
+let yojson_of_sql_server_user_details =
+  (function
+   | { disabled = v_disabled; server_roles = v_server_roles } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_server_roles
+         in
+         ("server_roles", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_disabled in
+         ("disabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : sql_server_user_details -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sql_server_user_details
+
+[@@@deriving.end]
 
 type google_sql_user = {
   deletion_policy : string prop option; [@option]
-      (** The deletion policy for the user. Setting ABANDON allows the resource
-				to be abandoned rather than deleted. This is useful for Postgres, where users cannot be deleted from the API if they
-				have been granted SQL roles. Possible values are: ABANDON. *)
   host : string prop option; [@option]
-      (** The host the user can connect from. This is only supported for MySQL instances. Don't set this field for PostgreSQL instances. Can be an IP address. Changing this forces a new resource to be created. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   instance : string prop;
-      (** The name of the Cloud SQL instance. Changing this forces a new resource to be created. *)
   name : string prop;
-      (** The name of the user. Changing this forces a new resource to be created. *)
   password : string prop option; [@option]
-      (** The password for the user. Can be updated. For Postgres instances this is a Required field, unless type is set to
-                either CLOUD_IAM_USER or CLOUD_IAM_SERVICE_ACCOUNT. *)
   project : string prop option; [@option]
-      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The user type. It determines the method to authenticate the user during login.
-                The default is the database's built-in user type. Flags include BUILT_IN, CLOUD_IAM_USER, CLOUD_IAM_GROUP or CLOUD_IAM_SERVICE_ACCOUNT. *)
   password_policy : password_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_sql_user *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_sql_user) -> ()
+
+let yojson_of_google_sql_user =
+  (function
+   | {
+       deletion_policy = v_deletion_policy;
+       host = v_host;
+       id = v_id;
+       instance = v_instance;
+       name = v_name;
+       password = v_password;
+       project = v_project;
+       type_ = v_type_;
+       password_policy = v_password_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_password_policy v_password_policy
+         in
+         ("password_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance in
+         ("instance", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deletion_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_sql_user -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_sql_user
+
+[@@@deriving.end]
 
 let password_policy ?allowed_failed_attempts
     ?enable_failed_attempts_check ?enable_password_verification

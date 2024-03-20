@@ -4,72 +4,407 @@ open! Tf_core
 
 type authentication_options = {
   active_directory_id : string prop option; [@option]
-      (** active_directory_id *)
   root_certificate_chain_arn : string prop option; [@option]
-      (** root_certificate_chain_arn *)
   saml_provider_arn : string prop option; [@option]
-      (** saml_provider_arn *)
   self_service_saml_provider_arn : string prop option; [@option]
-      (** self_service_saml_provider_arn *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** authentication_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : authentication_options) -> ()
+
+let yojson_of_authentication_options =
+  (function
+   | {
+       active_directory_id = v_active_directory_id;
+       root_certificate_chain_arn = v_root_certificate_chain_arn;
+       saml_provider_arn = v_saml_provider_arn;
+       self_service_saml_provider_arn =
+         v_self_service_saml_provider_arn;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_self_service_saml_provider_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "self_service_saml_provider_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_saml_provider_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "saml_provider_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_root_certificate_chain_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "root_certificate_chain_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_active_directory_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "active_directory_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : authentication_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authentication_options
+
+[@@@deriving.end]
 
 type client_connect_options = {
-  enabled : bool prop option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]
   lambda_function_arn : string prop option; [@option]
-      (** lambda_function_arn *)
 }
-[@@deriving yojson_of]
-(** client_connect_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client_connect_options) -> ()
+
+let yojson_of_client_connect_options =
+  (function
+   | {
+       enabled = v_enabled;
+       lambda_function_arn = v_lambda_function_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_lambda_function_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lambda_function_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : client_connect_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client_connect_options
+
+[@@@deriving.end]
 
 type client_login_banner_options = {
-  banner_text : string prop option; [@option]  (** banner_text *)
-  enabled : bool prop option; [@option]  (** enabled *)
+  banner_text : string prop option; [@option]
+  enabled : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** client_login_banner_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client_login_banner_options) -> ()
+
+let yojson_of_client_login_banner_options =
+  (function
+   | { banner_text = v_banner_text; enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_banner_text with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "banner_text", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : client_login_banner_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client_login_banner_options
+
+[@@@deriving.end]
 
 type connection_log_options = {
   cloudwatch_log_group : string prop option; [@option]
-      (** cloudwatch_log_group *)
   cloudwatch_log_stream : string prop option; [@option]
-      (** cloudwatch_log_stream *)
-  enabled : bool prop;  (** enabled *)
+  enabled : bool prop;
 }
-[@@deriving yojson_of]
-(** connection_log_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : connection_log_options) -> ()
+
+let yojson_of_connection_log_options =
+  (function
+   | {
+       cloudwatch_log_group = v_cloudwatch_log_group;
+       cloudwatch_log_stream = v_cloudwatch_log_stream;
+       enabled = v_enabled;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         match v_cloudwatch_log_stream with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloudwatch_log_stream", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cloudwatch_log_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloudwatch_log_group", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : connection_log_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_connection_log_options
+
+[@@@deriving.end]
 
 type aws_ec2_client_vpn_endpoint = {
-  client_cidr_block : string prop;  (** client_cidr_block *)
-  description : string prop option; [@option]  (** description *)
+  client_cidr_block : string prop;
+  description : string prop option; [@option]
   dns_servers : string prop list option; [@option]
-      (** dns_servers *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
   self_service_portal : string prop option; [@option]
-      (** self_service_portal *)
   server_certificate_arn : string prop;
-      (** server_certificate_arn *)
   session_timeout_hours : float prop option; [@option]
-      (** session_timeout_hours *)
-  split_tunnel : bool prop option; [@option]  (** split_tunnel *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  split_tunnel : bool prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   transport_protocol : string prop option; [@option]
-      (** transport_protocol *)
-  vpc_id : string prop option; [@option]  (** vpc_id *)
-  vpn_port : float prop option; [@option]  (** vpn_port *)
+  vpc_id : string prop option; [@option]
+  vpn_port : float prop option; [@option]
   authentication_options : authentication_options list;
   client_connect_options : client_connect_options list;
   client_login_banner_options : client_login_banner_options list;
   connection_log_options : connection_log_options list;
 }
-[@@deriving yojson_of]
-(** aws_ec2_client_vpn_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_client_vpn_endpoint) -> ()
+
+let yojson_of_aws_ec2_client_vpn_endpoint =
+  (function
+   | {
+       client_cidr_block = v_client_cidr_block;
+       description = v_description;
+       dns_servers = v_dns_servers;
+       id = v_id;
+       security_group_ids = v_security_group_ids;
+       self_service_portal = v_self_service_portal;
+       server_certificate_arn = v_server_certificate_arn;
+       session_timeout_hours = v_session_timeout_hours;
+       split_tunnel = v_split_tunnel;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       transport_protocol = v_transport_protocol;
+       vpc_id = v_vpc_id;
+       vpn_port = v_vpn_port;
+       authentication_options = v_authentication_options;
+       client_connect_options = v_client_connect_options;
+       client_login_banner_options = v_client_login_banner_options;
+       connection_log_options = v_connection_log_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_connection_log_options
+             v_connection_log_options
+         in
+         ("connection_log_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_client_login_banner_options
+             v_client_login_banner_options
+         in
+         ("client_login_banner_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_client_connect_options
+             v_client_connect_options
+         in
+         ("client_connect_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authentication_options
+             v_authentication_options
+         in
+         ("authentication_options", arg) :: bnds
+       in
+       let bnds =
+         match v_vpn_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "vpn_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_vpc_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vpc_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_transport_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "transport_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_split_tunnel with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "split_tunnel", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_timeout_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "session_timeout_hours", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_server_certificate_arn
+         in
+         ("server_certificate_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_self_service_portal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "self_service_portal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dns_servers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dns_servers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_client_cidr_block
+         in
+         ("client_cidr_block", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_client_vpn_endpoint ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_client_vpn_endpoint
+
+[@@@deriving.end]
 
 let authentication_options ?active_directory_id
     ?root_certificate_chain_arn ?saml_provider_arn

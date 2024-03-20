@@ -3,16 +3,85 @@
 open! Tf_core
 
 type aws_cloudwatch_log_subscription_filter = {
-  destination_arn : string prop;  (** destination_arn *)
-  distribution : string prop option; [@option]  (** distribution *)
-  filter_pattern : string prop;  (** filter_pattern *)
-  id : string prop option; [@option]  (** id *)
-  log_group_name : string prop;  (** log_group_name *)
-  name : string prop;  (** name *)
-  role_arn : string prop option; [@option]  (** role_arn *)
+  destination_arn : string prop;
+  distribution : string prop option; [@option]
+  filter_pattern : string prop;
+  id : string prop option; [@option]
+  log_group_name : string prop;
+  name : string prop;
+  role_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_cloudwatch_log_subscription_filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudwatch_log_subscription_filter) -> ()
+
+let yojson_of_aws_cloudwatch_log_subscription_filter =
+  (function
+   | {
+       destination_arn = v_destination_arn;
+       distribution = v_distribution;
+       filter_pattern = v_filter_pattern;
+       id = v_id;
+       log_group_name = v_log_group_name;
+       name = v_name;
+       role_arn = v_role_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_log_group_name
+         in
+         ("log_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_filter_pattern
+         in
+         ("filter_pattern", arg) :: bnds
+       in
+       let bnds =
+         match v_distribution with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "distribution", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_arn
+         in
+         ("destination_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudwatch_log_subscription_filter ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudwatch_log_subscription_filter
+
+[@@@deriving.end]
 
 let aws_cloudwatch_log_subscription_filter ?distribution ?id
     ?role_arn ~destination_arn ~filter_pattern ~log_group_name ~name

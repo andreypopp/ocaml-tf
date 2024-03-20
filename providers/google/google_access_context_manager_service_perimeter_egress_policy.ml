@@ -4,88 +4,330 @@ open! Tf_core
 
 type egress_from__sources = {
   access_level : string prop option; [@option]
-      (** An AccessLevel resource name that allows resources outside the ServicePerimeter to be accessed from the inside. *)
 }
-[@@deriving yojson_of]
-(** Sources that this EgressPolicy authorizes access from. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : egress_from__sources) -> ()
+
+let yojson_of_egress_from__sources =
+  (function
+   | { access_level = v_access_level } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_access_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_level", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : egress_from__sources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_egress_from__sources
+
+[@@@deriving.end]
 
 type egress_from = {
   identities : string prop list option; [@option]
-      (** A list of identities that are allowed access through this 'EgressPolicy'.
-Should be in the format of email address. The email address should
-represent individual user or service account only. *)
   identity_type : string prop option; [@option]
-      (** Specifies the type of identities that are allowed access to outside the
-perimeter. If left unspecified, then members of 'identities' field will
-be allowed access. Possible values: [ANY_IDENTITY, ANY_USER_ACCOUNT, ANY_SERVICE_ACCOUNT] *)
   source_restriction : string prop option; [@option]
-      (** Whether to enforce traffic restrictions based on 'sources' field. If the 'sources' field is non-empty, then this field must be set to 'SOURCE_RESTRICTION_ENABLED'. Possible values: [SOURCE_RESTRICTION_UNSPECIFIED, SOURCE_RESTRICTION_ENABLED, SOURCE_RESTRICTION_DISABLED] *)
   sources : egress_from__sources list;
 }
-[@@deriving yojson_of]
-(** Defines conditions on the source of a request causing this 'EgressPolicy' to apply. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : egress_from) -> ()
+
+let yojson_of_egress_from =
+  (function
+   | {
+       identities = v_identities;
+       identity_type = v_identity_type;
+       source_restriction = v_source_restriction;
+       sources = v_sources;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_egress_from__sources v_sources
+         in
+         ("sources", arg) :: bnds
+       in
+       let bnds =
+         match v_source_restriction with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_restriction", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identity_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_identities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identities", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : egress_from -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_egress_from
+
+[@@@deriving.end]
 
 type egress_to__operations__method_selectors = {
   method_ : string prop option; [@option] [@key "method"]
-      (** Value for 'method' should be a valid method name for the corresponding
-'serviceName' in 'ApiOperation'. If '*' used as value for method,
-then ALL methods and permissions are allowed. *)
   permission : string prop option; [@option]
-      (** Value for permission should be a valid Cloud IAM permission for the
-corresponding 'serviceName' in 'ApiOperation'. *)
 }
-[@@deriving yojson_of]
-(** API methods or permissions to allow. Method or permission must belong
-to the service specified by 'serviceName' field. A single MethodSelector
-entry with '*' specified for the 'method' field will allow all methods
-AND permissions for the service specified in 'serviceName'. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : egress_to__operations__method_selectors) -> ()
+
+let yojson_of_egress_to__operations__method_selectors =
+  (function
+   | { method_ = v_method_; permission = v_permission } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_permission with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "permission", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_method_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "method", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : egress_to__operations__method_selectors ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_egress_to__operations__method_selectors
+
+[@@@deriving.end]
 
 type egress_to__operations = {
   service_name : string prop option; [@option]
-      (** The name of the API whose methods or permissions the 'IngressPolicy' or
-'EgressPolicy' want to allow. A single 'ApiOperation' with serviceName
-field set to '*' will allow all methods AND permissions for all services. *)
   method_selectors : egress_to__operations__method_selectors list;
 }
-[@@deriving yojson_of]
-(** A list of 'ApiOperations' that this egress rule applies to. A request matches
-if it contains an operation/service in this list. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : egress_to__operations) -> ()
+
+let yojson_of_egress_to__operations =
+  (function
+   | {
+       service_name = v_service_name;
+       method_selectors = v_method_selectors;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_egress_to__operations__method_selectors
+             v_method_selectors
+         in
+         ("method_selectors", arg) :: bnds
+       in
+       let bnds =
+         match v_service_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : egress_to__operations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_egress_to__operations
+
+[@@@deriving.end]
 
 type egress_to = {
   external_resources : string prop list option; [@option]
-      (** A list of external resources that are allowed to be accessed. A request
-matches if it contains an external resource in this list (Example:
-s3://bucket/path). Currently '*' is not allowed. *)
   resources : string prop list option; [@option]
-      (** A list of resources, currently only projects in the form
-'projects/<projectnumber>', that match this to stanza. A request matches
-if it contains a resource in this list. If * is specified for resources,
-then this 'EgressTo' rule will authorize access to all resources outside
-the perimeter. *)
   operations : egress_to__operations list;
 }
-[@@deriving yojson_of]
-(** Defines the conditions on the 'ApiOperation' and destination resources that
-cause this 'EgressPolicy' to apply. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : egress_to) -> ()
+
+let yojson_of_egress_to =
+  (function
+   | {
+       external_resources = v_external_resources;
+       resources = v_resources;
+       operations = v_operations;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_egress_to__operations
+             v_operations
+         in
+         ("operations", arg) :: bnds
+       in
+       let bnds =
+         match v_resources with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resources", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_external_resources with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "external_resources", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : egress_to -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_egress_to
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_access_context_manager_service_perimeter_egress_policy = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   perimeter : string prop;
-      (** The name of the Service Perimeter to add this resource to. *)
   egress_from : egress_from list;
   egress_to : egress_to list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_access_context_manager_service_perimeter_egress_policy *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       google_access_context_manager_service_perimeter_egress_policy) ->
+  ()
+
+let yojson_of_google_access_context_manager_service_perimeter_egress_policy
+    =
+  (function
+   | {
+       id = v_id;
+       perimeter = v_perimeter;
+       egress_from = v_egress_from;
+       egress_to = v_egress_to;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_egress_to v_egress_to in
+         ("egress_to", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_egress_from v_egress_from
+         in
+         ("egress_from", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_perimeter in
+         ("perimeter", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_access_context_manager_service_perimeter_egress_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_google_access_context_manager_service_perimeter_egress_policy
+
+[@@@deriving.end]
 
 let egress_from__sources ?access_level () : egress_from__sources =
   { access_level }

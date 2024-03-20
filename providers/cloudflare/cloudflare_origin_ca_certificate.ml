@@ -4,19 +4,76 @@ open! Tf_core
 
 type cloudflare_origin_ca_certificate = {
   csr : string prop;
-      (** The Certificate Signing Request. Must be newline-encoded. **Modifying this attribute will force creation of a new resource.** *)
   hostnames : string prop list;
-      (** A list of hostnames or wildcard names bound to the certificate. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   min_days_for_renewal : float prop option; [@option]
-      (** Number of days prior to the expiry to trigger a renewal of the certificate if a Terraform operation is run. *)
   request_type : string prop;
-      (** The signature type desired on the certificate. Available values: `origin-rsa`, `origin-ecc`, `keyless-certificate`. **Modifying this attribute will force creation of a new resource.** *)
   requested_validity : float prop option; [@option]
-      (** The number of days for which the certificate should be valid. Available values: `7`, `30`, `90`, `365`, `730`, `1095`, `5475`. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Origin CA certificate used to protect traffic to your origin without involving a third party Certificate Authority. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_origin_ca_certificate) -> ()
+
+let yojson_of_cloudflare_origin_ca_certificate =
+  (function
+   | {
+       csr = v_csr;
+       hostnames = v_hostnames;
+       id = v_id;
+       min_days_for_renewal = v_min_days_for_renewal;
+       request_type = v_request_type;
+       requested_validity = v_requested_validity;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_requested_validity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "requested_validity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_request_type in
+         ("request_type", arg) :: bnds
+       in
+       let bnds =
+         match v_min_days_for_renewal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_days_for_renewal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_hostnames
+         in
+         ("hostnames", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_csr in
+         ("csr", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_origin_ca_certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_origin_ca_certificate
+
+[@@@deriving.end]
 
 let cloudflare_origin_ca_certificate ?id ?min_days_for_renewal
     ?requested_validity ~csr ~hostnames ~request_type () :

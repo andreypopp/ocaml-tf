@@ -3,13 +3,69 @@
 open! Tf_core
 
 type aws_sagemaker_notebook_instance_lifecycle_configuration = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop option; [@option]  (** name *)
-  on_create : string prop option; [@option]  (** on_create *)
-  on_start : string prop option; [@option]  (** on_start *)
+  id : string prop option; [@option]
+  name : string prop option; [@option]
+  on_create : string prop option; [@option]
+  on_start : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_notebook_instance_lifecycle_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_sagemaker_notebook_instance_lifecycle_configuration) ->
+  ()
+
+let yojson_of_aws_sagemaker_notebook_instance_lifecycle_configuration
+    =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       on_create = v_on_create;
+       on_start = v_on_start;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_on_start with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "on_start", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_on_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "on_create", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_notebook_instance_lifecycle_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_aws_sagemaker_notebook_instance_lifecycle_configuration
+
+[@@@deriving.end]
 
 let aws_sagemaker_notebook_instance_lifecycle_configuration ?id ?name
     ?on_create ?on_start () :

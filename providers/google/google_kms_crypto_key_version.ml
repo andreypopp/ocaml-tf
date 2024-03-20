@@ -3,49 +3,244 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type attestation__external_protection_level_options = {
   ekm_connection_key_path : string prop;
-      (** ekm_connection_key_path *)
-  external_key_uri : string prop;  (** external_key_uri *)
+  external_key_uri : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : attestation__external_protection_level_options) -> ()
+
+let yojson_of_attestation__external_protection_level_options =
+  (function
+   | {
+       ekm_connection_key_path = v_ekm_connection_key_path;
+       external_key_uri = v_external_key_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_external_key_uri
+         in
+         ("external_key_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ekm_connection_key_path
+         in
+         ("ekm_connection_key_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : attestation__external_protection_level_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attestation__external_protection_level_options
+
+[@@@deriving.end]
 
 type attestation__cert_chains = {
-  cavium_certs : string prop list;  (** cavium_certs *)
-  google_card_certs : string prop list;  (** google_card_certs *)
+  cavium_certs : string prop list;
+  google_card_certs : string prop list;
   google_partition_certs : string prop list;
-      (** google_partition_certs *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attestation__cert_chains) -> ()
+
+let yojson_of_attestation__cert_chains =
+  (function
+   | {
+       cavium_certs = v_cavium_certs;
+       google_card_certs = v_google_card_certs;
+       google_partition_certs = v_google_partition_certs;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_google_partition_certs
+         in
+         ("google_partition_certs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_google_card_certs
+         in
+         ("google_card_certs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_cavium_certs
+         in
+         ("cavium_certs", arg) :: bnds
+       in
+       `Assoc bnds
+    : attestation__cert_chains -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attestation__cert_chains
+
+[@@@deriving.end]
 
 type attestation = {
-  cert_chains : attestation__cert_chains list;  (** cert_chains *)
-  content : string prop;  (** content *)
+  cert_chains : attestation__cert_chains list;
+  content : string prop;
   external_protection_level_options :
     attestation__external_protection_level_options list;
-      (** external_protection_level_options *)
-  format : string prop;  (** format *)
+  format : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attestation) -> ()
+
+let yojson_of_attestation =
+  (function
+   | {
+       cert_chains = v_cert_chains;
+       content = v_content;
+       external_protection_level_options =
+         v_external_protection_level_options;
+       format = v_format;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_format in
+         ("format", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_attestation__external_protection_level_options
+             v_external_protection_level_options
+         in
+         ("external_protection_level_options", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_attestation__cert_chains
+             v_cert_chains
+         in
+         ("cert_chains", arg) :: bnds
+       in
+       `Assoc bnds
+    : attestation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attestation
+
+[@@@deriving.end]
 
 type google_kms_crypto_key_version = {
   crypto_key : string prop;
-      (** The name of the cryptoKey associated with the CryptoKeyVersions.
-Format: ''projects/{{project}}/locations/{{location}}/keyRings/{{keyring}}/cryptoKeys/{{cryptoKey}}'' *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   state : string prop option; [@option]
-      (** The current state of the CryptoKeyVersion. Possible values: [PENDING_GENERATION, ENABLED, DISABLED, DESTROYED, DESTROY_SCHEDULED, PENDING_IMPORT, IMPORT_FAILED] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_kms_crypto_key_version *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_kms_crypto_key_version) -> ()
+
+let yojson_of_google_kms_crypto_key_version =
+  (function
+   | {
+       crypto_key = v_crypto_key;
+       id = v_id;
+       state = v_state;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_crypto_key in
+         ("crypto_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_kms_crypto_key_version ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_kms_crypto_key_version
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

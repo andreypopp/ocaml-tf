@@ -4,31 +4,120 @@ open! Tf_core
 
 type default_cluster_config__binary_authorization_config__policy_bindings = {
   name : string prop option; [@option]
-      (** The relative resource name of the binauthz platform policy to audit. GKE
-platform policies have the following format:
-'projects/{project_number}/platforms/gke/policies/{policy_id}'. *)
 }
-[@@deriving yojson_of]
-(** Binauthz policies that apply to this cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       default_cluster_config__binary_authorization_config__policy_bindings) ->
+  ()
+
+let yojson_of_default_cluster_config__binary_authorization_config__policy_bindings
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : default_cluster_config__binary_authorization_config__policy_bindings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_default_cluster_config__binary_authorization_config__policy_bindings
+
+[@@@deriving.end]
 
 type default_cluster_config__binary_authorization_config = {
   evaluation_mode : string prop option; [@option]
-      (** Mode of operation for binauthz policy evaluation. Possible values: [DISABLED, POLICY_BINDINGS] *)
   policy_bindings :
     default_cluster_config__binary_authorization_config__policy_bindings
     list;
 }
-[@@deriving yojson_of]
-(** Enable/Disable binary authorization features for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : default_cluster_config__binary_authorization_config) -> ()
+
+let yojson_of_default_cluster_config__binary_authorization_config =
+  (function
+   | {
+       evaluation_mode = v_evaluation_mode;
+       policy_bindings = v_policy_bindings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_default_cluster_config__binary_authorization_config__policy_bindings
+             v_policy_bindings
+         in
+         ("policy_bindings", arg) :: bnds
+       in
+       let bnds =
+         match v_evaluation_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "evaluation_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : default_cluster_config__binary_authorization_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_cluster_config__binary_authorization_config
+
+[@@@deriving.end]
 
 type default_cluster_config__security_posture_config = {
   mode : string prop option; [@option]
-      (** Sets which mode to use for Security Posture features. Possible values: [DISABLED, BASIC] *)
   vulnerability_mode : string prop option; [@option]
-      (** Sets which mode to use for vulnerability scanning. Possible values: [VULNERABILITY_DISABLED, VULNERABILITY_BASIC, VULNERABILITY_ENTERPRISE] *)
 }
-[@@deriving yojson_of]
-(** Enable/Disable Security Posture features for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : default_cluster_config__security_posture_config) -> ()
+
+let yojson_of_default_cluster_config__security_posture_config =
+  (function
+   | { mode = v_mode; vulnerability_mode = v_vulnerability_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_vulnerability_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vulnerability_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : default_cluster_config__security_posture_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_cluster_config__security_posture_config
+
+[@@@deriving.end]
 
 type default_cluster_config = {
   binary_authorization_config :
@@ -36,31 +125,173 @@ type default_cluster_config = {
   security_posture_config :
     default_cluster_config__security_posture_config list;
 }
-[@@deriving yojson_of]
-(** The default cluster configurations to apply across the fleet. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : default_cluster_config) -> ()
+
+let yojson_of_default_cluster_config =
+  (function
+   | {
+       binary_authorization_config = v_binary_authorization_config;
+       security_posture_config = v_security_posture_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_default_cluster_config__security_posture_config
+             v_security_posture_config
+         in
+         ("security_posture_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_default_cluster_config__binary_authorization_config
+             v_binary_authorization_config
+         in
+         ("binary_authorization_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : default_cluster_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_cluster_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type state = { code : string prop  (** code *) }
-[@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type state = { code : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : state) -> ()
+
+let yojson_of_state =
+  (function
+   | { code = v_code } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_code in
+         ("code", arg) :: bnds
+       in
+       `Assoc bnds
+    : state -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_state
+
+[@@@deriving.end]
 
 type google_gke_hub_fleet = {
   display_name : string prop option; [@option]
-      (** A user-assigned display name of the Fleet. When present, it must be between 4 to 30 characters.
-Allowed characters are: lowercase and uppercase letters, numbers, hyphen, single-quote, double-quote, space, and exclamation point. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   default_cluster_config : default_cluster_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_gke_hub_fleet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_gke_hub_fleet) -> ()
+
+let yojson_of_google_gke_hub_fleet =
+  (function
+   | {
+       display_name = v_display_name;
+       id = v_id;
+       project = v_project;
+       default_cluster_config = v_default_cluster_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_default_cluster_config
+             v_default_cluster_config
+         in
+         ("default_cluster_config", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_gke_hub_fleet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_gke_hub_fleet
+
+[@@@deriving.end]
 
 let default_cluster_config__binary_authorization_config__policy_bindings
     ?name () :

@@ -10,10 +10,14 @@ type index_statistics__text_document_statistics = {
       (** indexed_text_documents_count *)
 }
 
+[@@@deriving.end]
+
 type index_statistics__faq_statistics = {
   indexed_question_answers_count : float prop;
       (** indexed_question_answers_count *)
 }
+
+[@@@deriving.end]
 
 type index_statistics = {
   faq_statistics : index_statistics__faq_statistics list;
@@ -22,6 +26,8 @@ type index_statistics = {
     index_statistics__text_document_statistics list;
       (** text_document_statistics *)
 }
+
+[@@@deriving.end]
 
 type capacity_units
 

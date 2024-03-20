@@ -4,61 +4,238 @@ open! Tf_core
 
 type certificate_authority_config__certificate_authority_service_config = {
   ca_pool : string prop;
-      (** A CA pool resource used to issue a certificate.
-The CA pool string has a relative resource path following the form
-projects/{project}/locations/{location}/caPools/{caPool}. *)
 }
-[@@deriving yojson_of]
-(** Defines a CertificateAuthorityServiceConfig. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       certificate_authority_config__certificate_authority_service_config) ->
+  ()
+
+let yojson_of_certificate_authority_config__certificate_authority_service_config
+    =
+  (function
+   | { ca_pool = v_ca_pool } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ca_pool in
+         ("ca_pool", arg) :: bnds
+       in
+       `Assoc bnds
+    : certificate_authority_config__certificate_authority_service_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_certificate_authority_config__certificate_authority_service_config
+
+[@@@deriving.end]
 
 type certificate_authority_config = {
   certificate_authority_service_config :
     certificate_authority_config__certificate_authority_service_config
     list;
 }
-[@@deriving yojson_of]
-(** The CA that issues the workload certificate. It includes the CA address, type, authentication to CA service, etc. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certificate_authority_config) -> ()
+
+let yojson_of_certificate_authority_config =
+  (function
+   | {
+       certificate_authority_service_config =
+         v_certificate_authority_service_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_certificate_authority_config__certificate_authority_service_config
+             v_certificate_authority_service_config
+         in
+         ("certificate_authority_service_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : certificate_authority_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certificate_authority_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_certificate_manager_certificate_issuance_config = {
   description : string prop option; [@option]
-      (** One or more paragraphs of text description of a CertificateIssuanceConfig. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   key_algorithm : string prop;
-      (** Key algorithm to use when generating the private key. Possible values: [RSA_2048, ECDSA_P256] *)
   labels : (string * string prop) list option; [@option]
-      (** 'Set of label tags associated with the CertificateIssuanceConfig resource.
- An object containing a list of key: value pairs. Example: { name: wrench, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   lifetime : string prop;
-      (** Lifetime of issued certificates. A duration in seconds with up to nine fractional digits, ending with 's'.
-Example: 1814400s. Valid values are from 21 days (1814400s) to 30 days (2592000s) *)
   location : string prop option; [@option]
-      (** The Certificate Manager location. If not specified, global is used. *)
   name : string prop;
-      (** A user-defined name of the certificate issuance config.
-CertificateIssuanceConfig names must be unique globally. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   rotation_window_percentage : float prop;
-      (** It specifies the percentage of elapsed time of the certificate lifetime to wait before renewing the certificate.
-Must be a number between 1-99, inclusive.
-You must set the rotation window percentage in relation to the certificate lifetime so that certificate renewal occurs at least 7 days after
-the certificate has been issued and at least 7 days before it expires. *)
   certificate_authority_config : certificate_authority_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_certificate_manager_certificate_issuance_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_certificate_manager_certificate_issuance_config) ->
+  ()
+
+let yojson_of_google_certificate_manager_certificate_issuance_config
+    =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       key_algorithm = v_key_algorithm;
+       labels = v_labels;
+       lifetime = v_lifetime;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       rotation_window_percentage = v_rotation_window_percentage;
+       certificate_authority_config = v_certificate_authority_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_certificate_authority_config
+             v_certificate_authority_config
+         in
+         ("certificate_authority_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_rotation_window_percentage
+         in
+         ("rotation_window_percentage", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_lifetime in
+         ("lifetime", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_algorithm in
+         ("key_algorithm", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_certificate_manager_certificate_issuance_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_google_certificate_manager_certificate_issuance_config
+
+[@@@deriving.end]
 
 let certificate_authority_config__certificate_authority_service_config
     ~ca_pool () :

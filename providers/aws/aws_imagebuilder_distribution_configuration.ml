@@ -4,93 +4,471 @@ open! Tf_core
 
 type distribution__ami_distribution_configuration__launch_permission = {
   organization_arns : string prop list option; [@option]
-      (** organization_arns *)
   organizational_unit_arns : string prop list option; [@option]
-      (** organizational_unit_arns *)
   user_groups : string prop list option; [@option]
-      (** user_groups *)
-  user_ids : string prop list option; [@option]  (** user_ids *)
+  user_ids : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** distribution__ami_distribution_configuration__launch_permission *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       distribution__ami_distribution_configuration__launch_permission) ->
+  ()
+
+let yojson_of_distribution__ami_distribution_configuration__launch_permission
+    =
+  (function
+   | {
+       organization_arns = v_organization_arns;
+       organizational_unit_arns = v_organizational_unit_arns;
+       user_groups = v_user_groups;
+       user_ids = v_user_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "user_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_user_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "user_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_organizational_unit_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "organizational_unit_arns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_organization_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "organization_arns", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : distribution__ami_distribution_configuration__launch_permission ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_distribution__ami_distribution_configuration__launch_permission
+
+[@@@deriving.end]
 
 type distribution__ami_distribution_configuration = {
   ami_tags : (string * string prop) list option; [@option]
-      (** ami_tags *)
-  description : string prop option; [@option]  (** description *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
-  name : string prop option; [@option]  (** name *)
+  description : string prop option; [@option]
+  kms_key_id : string prop option; [@option]
+  name : string prop option; [@option]
   target_account_ids : string prop list option; [@option]
-      (** target_account_ids *)
   launch_permission :
     distribution__ami_distribution_configuration__launch_permission
     list;
 }
-[@@deriving yojson_of]
-(** distribution__ami_distribution_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : distribution__ami_distribution_configuration) -> ()
+
+let yojson_of_distribution__ami_distribution_configuration =
+  (function
+   | {
+       ami_tags = v_ami_tags;
+       description = v_description;
+       kms_key_id = v_kms_key_id;
+       name = v_name;
+       target_account_ids = v_target_account_ids;
+       launch_permission = v_launch_permission;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_distribution__ami_distribution_configuration__launch_permission
+             v_launch_permission
+         in
+         ("launch_permission", arg) :: bnds
+       in
+       let bnds =
+         match v_target_account_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "target_account_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ami_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "ami_tags", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : distribution__ami_distribution_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_distribution__ami_distribution_configuration
+
+[@@@deriving.end]
 
 type distribution__container_distribution_configuration__target_repository = {
-  repository_name : string prop;  (** repository_name *)
-  service : string prop;  (** service *)
+  repository_name : string prop;
+  service : string prop;
 }
-[@@deriving yojson_of]
-(** distribution__container_distribution_configuration__target_repository *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       distribution__container_distribution_configuration__target_repository) ->
+  ()
+
+let yojson_of_distribution__container_distribution_configuration__target_repository
+    =
+  (function
+   | { repository_name = v_repository_name; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_repository_name
+         in
+         ("repository_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : distribution__container_distribution_configuration__target_repository ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_distribution__container_distribution_configuration__target_repository
+
+[@@@deriving.end]
 
 type distribution__container_distribution_configuration = {
   container_tags : string prop list option; [@option]
-      (** container_tags *)
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   target_repository :
     distribution__container_distribution_configuration__target_repository
     list;
 }
-[@@deriving yojson_of]
-(** distribution__container_distribution_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : distribution__container_distribution_configuration) -> ()
+
+let yojson_of_distribution__container_distribution_configuration =
+  (function
+   | {
+       container_tags = v_container_tags;
+       description = v_description;
+       target_repository = v_target_repository;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_distribution__container_distribution_configuration__target_repository
+             v_target_repository
+         in
+         ("target_repository", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "container_tags", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : distribution__container_distribution_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_distribution__container_distribution_configuration
+
+[@@@deriving.end]
 
 type distribution__fast_launch_configuration__launch_template = {
   launch_template_id : string prop option; [@option]
-      (** launch_template_id *)
   launch_template_name : string prop option; [@option]
-      (** launch_template_name *)
   launch_template_version : string prop option; [@option]
-      (** launch_template_version *)
 }
-[@@deriving yojson_of]
-(** distribution__fast_launch_configuration__launch_template *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : distribution__fast_launch_configuration__launch_template) ->
+  ()
+
+let yojson_of_distribution__fast_launch_configuration__launch_template
+    =
+  (function
+   | {
+       launch_template_id = v_launch_template_id;
+       launch_template_name = v_launch_template_name;
+       launch_template_version = v_launch_template_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_launch_template_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "launch_template_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_launch_template_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "launch_template_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_launch_template_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "launch_template_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : distribution__fast_launch_configuration__launch_template ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_distribution__fast_launch_configuration__launch_template
+
+[@@@deriving.end]
 
 type distribution__fast_launch_configuration__snapshot_configuration = {
   target_resource_count : float prop option; [@option]
-      (** target_resource_count *)
 }
-[@@deriving yojson_of]
-(** distribution__fast_launch_configuration__snapshot_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       distribution__fast_launch_configuration__snapshot_configuration) ->
+  ()
+
+let yojson_of_distribution__fast_launch_configuration__snapshot_configuration
+    =
+  (function
+   | { target_resource_count = v_target_resource_count } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_target_resource_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_resource_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : distribution__fast_launch_configuration__snapshot_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_distribution__fast_launch_configuration__snapshot_configuration
+
+[@@@deriving.end]
 
 type distribution__fast_launch_configuration = {
-  account_id : string prop;  (** account_id *)
-  enabled : bool prop;  (** enabled *)
+  account_id : string prop;
+  enabled : bool prop;
   max_parallel_launches : float prop option; [@option]
-      (** max_parallel_launches *)
   launch_template :
     distribution__fast_launch_configuration__launch_template list;
   snapshot_configuration :
     distribution__fast_launch_configuration__snapshot_configuration
     list;
 }
-[@@deriving yojson_of]
-(** distribution__fast_launch_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : distribution__fast_launch_configuration) -> ()
+
+let yojson_of_distribution__fast_launch_configuration =
+  (function
+   | {
+       account_id = v_account_id;
+       enabled = v_enabled;
+       max_parallel_launches = v_max_parallel_launches;
+       launch_template = v_launch_template;
+       snapshot_configuration = v_snapshot_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_distribution__fast_launch_configuration__snapshot_configuration
+             v_snapshot_configuration
+         in
+         ("snapshot_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_distribution__fast_launch_configuration__launch_template
+             v_launch_template
+         in
+         ("launch_template", arg) :: bnds
+       in
+       let bnds =
+         match v_max_parallel_launches with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_parallel_launches", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : distribution__fast_launch_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_distribution__fast_launch_configuration
+
+[@@@deriving.end]
 
 type distribution__launch_template_configuration = {
-  account_id : string prop option; [@option]  (** account_id *)
-  default : bool prop option; [@option]  (** default *)
-  launch_template_id : string prop;  (** launch_template_id *)
+  account_id : string prop option; [@option]
+  default : bool prop option; [@option]
+  launch_template_id : string prop;
 }
-[@@deriving yojson_of]
-(** distribution__launch_template_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : distribution__launch_template_configuration) -> ()
+
+let yojson_of_distribution__launch_template_configuration =
+  (function
+   | {
+       account_id = v_account_id;
+       default = v_default;
+       launch_template_id = v_launch_template_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_launch_template_id
+         in
+         ("launch_template_id", arg) :: bnds
+       in
+       let bnds =
+         match v_default with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "default", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : distribution__launch_template_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_distribution__launch_template_configuration
+
+[@@@deriving.end]
 
 type distribution = {
   license_configuration_arns : string prop list option; [@option]
-      (** license_configuration_arns *)
-  region : string prop;  (** region *)
+  region : string prop;
   ami_distribution_configuration :
     distribution__ami_distribution_configuration list;
   container_distribution_configuration :
@@ -100,20 +478,169 @@ type distribution = {
   launch_template_configuration :
     distribution__launch_template_configuration list;
 }
-[@@deriving yojson_of]
-(** distribution *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : distribution) -> ()
+
+let yojson_of_distribution =
+  (function
+   | {
+       license_configuration_arns = v_license_configuration_arns;
+       region = v_region;
+       ami_distribution_configuration =
+         v_ami_distribution_configuration;
+       container_distribution_configuration =
+         v_container_distribution_configuration;
+       fast_launch_configuration = v_fast_launch_configuration;
+       launch_template_configuration =
+         v_launch_template_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_distribution__launch_template_configuration
+             v_launch_template_configuration
+         in
+         ("launch_template_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_distribution__fast_launch_configuration
+             v_fast_launch_configuration
+         in
+         ("fast_launch_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_distribution__container_distribution_configuration
+             v_container_distribution_configuration
+         in
+         ("container_distribution_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_distribution__ami_distribution_configuration
+             v_ami_distribution_configuration
+         in
+         ("ami_distribution_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       let bnds =
+         match v_license_configuration_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "license_configuration_arns", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : distribution -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_distribution
+
+[@@@deriving.end]
 
 type aws_imagebuilder_distribution_configuration = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   distribution : distribution list;
 }
-[@@deriving yojson_of]
-(** aws_imagebuilder_distribution_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_imagebuilder_distribution_configuration) -> ()
+
+let yojson_of_aws_imagebuilder_distribution_configuration =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       distribution = v_distribution;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_distribution v_distribution
+         in
+         ("distribution", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_imagebuilder_distribution_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_imagebuilder_distribution_configuration
+
+[@@@deriving.end]
 
 let distribution__ami_distribution_configuration__launch_permission
     ?organization_arns ?organizational_unit_arns ?user_groups

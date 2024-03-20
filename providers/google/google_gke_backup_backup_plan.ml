@@ -4,126 +4,463 @@ open! Tf_core
 
 type backup_config__encryption_key = {
   gcp_kms_encryption_key : string prop;
-      (** Google Cloud KMS encryption key. Format: projects/*/locations/*/keyRings/*/cryptoKeys/* *)
 }
-[@@deriving yojson_of]
-(** This defines a customer managed encryption key that will be used to encrypt the config
-portion (the Kubernetes resources) of Backups created via this plan. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backup_config__encryption_key) -> ()
+
+let yojson_of_backup_config__encryption_key =
+  (function
+   | { gcp_kms_encryption_key = v_gcp_kms_encryption_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gcp_kms_encryption_key
+         in
+         ("gcp_kms_encryption_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : backup_config__encryption_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup_config__encryption_key
+
+[@@@deriving.end]
 
 type backup_config__selected_applications__namespaced_names = {
-  name : string prop;  (** The name of a Kubernetes Resource. *)
+  name : string prop;
   namespace : string prop;
-      (** The namespace of a Kubernetes Resource. *)
 }
-[@@deriving yojson_of]
-(** A list of namespaced Kubernetes resources. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : backup_config__selected_applications__namespaced_names) ->
+  ()
+
+let yojson_of_backup_config__selected_applications__namespaced_names
+    =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace in
+         ("namespace", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : backup_config__selected_applications__namespaced_names ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_backup_config__selected_applications__namespaced_names
+
+[@@@deriving.end]
 
 type backup_config__selected_applications = {
   namespaced_names :
     backup_config__selected_applications__namespaced_names list;
 }
-[@@deriving yojson_of]
-(** A list of namespaced Kubernetes Resources. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backup_config__selected_applications) -> ()
+
+let yojson_of_backup_config__selected_applications =
+  (function
+   | { namespaced_names = v_namespaced_names } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_backup_config__selected_applications__namespaced_names
+             v_namespaced_names
+         in
+         ("namespaced_names", arg) :: bnds
+       in
+       `Assoc bnds
+    : backup_config__selected_applications ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup_config__selected_applications
+
+[@@@deriving.end]
 
 type backup_config__selected_namespaces = {
   namespaces : string prop list;
-      (** A list of Kubernetes Namespaces. *)
 }
-[@@deriving yojson_of]
-(** If set, include just the resources in the listed namespaces. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backup_config__selected_namespaces) -> ()
+
+let yojson_of_backup_config__selected_namespaces =
+  (function
+   | { namespaces = v_namespaces } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_namespaces
+         in
+         ("namespaces", arg) :: bnds
+       in
+       `Assoc bnds
+    : backup_config__selected_namespaces ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup_config__selected_namespaces
+
+[@@@deriving.end]
 
 type backup_config = {
   all_namespaces : bool prop option; [@option]
-      (** If True, include all namespaced resources. *)
   include_secrets : bool prop option; [@option]
-      (** This flag specifies whether Kubernetes Secret resources should be included
-when they fall into the scope of Backups. *)
   include_volume_data : bool prop option; [@option]
-      (** This flag specifies whether volume data should be backed up when PVCs are
-included in the scope of a Backup. *)
   encryption_key : backup_config__encryption_key list;
   selected_applications : backup_config__selected_applications list;
   selected_namespaces : backup_config__selected_namespaces list;
 }
-[@@deriving yojson_of]
-(** Defines the configuration of Backups created via this BackupPlan. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backup_config) -> ()
+
+let yojson_of_backup_config =
+  (function
+   | {
+       all_namespaces = v_all_namespaces;
+       include_secrets = v_include_secrets;
+       include_volume_data = v_include_volume_data;
+       encryption_key = v_encryption_key;
+       selected_applications = v_selected_applications;
+       selected_namespaces = v_selected_namespaces;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_backup_config__selected_namespaces
+             v_selected_namespaces
+         in
+         ("selected_namespaces", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_backup_config__selected_applications
+             v_selected_applications
+         in
+         ("selected_applications", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_backup_config__encryption_key
+             v_encryption_key
+         in
+         ("encryption_key", arg) :: bnds
+       in
+       let bnds =
+         match v_include_volume_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_volume_data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_secrets with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_secrets", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_all_namespaces with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "all_namespaces", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : backup_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup_config
+
+[@@@deriving.end]
 
 type backup_schedule = {
   cron_schedule : string prop option; [@option]
-      (** A standard cron string that defines a repeating schedule for
-creating Backups via this BackupPlan.
-If this is defined, then backupRetainDays must also be defined. *)
   paused : bool prop option; [@option]
-      (** This flag denotes whether automatic Backup creation is paused for this BackupPlan. *)
 }
-[@@deriving yojson_of]
-(** Defines a schedule for automatic Backup creation via this BackupPlan. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backup_schedule) -> ()
+
+let yojson_of_backup_schedule =
+  (function
+   | { cron_schedule = v_cron_schedule; paused = v_paused } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_paused with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "paused", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cron_schedule with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cron_schedule", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : backup_schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backup_schedule
+
+[@@@deriving.end]
 
 type retention_policy = {
   backup_delete_lock_days : float prop option; [@option]
-      (** Minimum age for a Backup created via this BackupPlan (in days).
-Must be an integer value between 0-90 (inclusive).
-A Backup created under this BackupPlan will not be deletable
-until it reaches Backup's (create time + backup_delete_lock_days).
-Updating this field of a BackupPlan does not affect existing Backups.
-Backups created after a successful update will inherit this new value. *)
   backup_retain_days : float prop option; [@option]
-      (** The default maximum age of a Backup created via this BackupPlan.
-This field MUST be an integer value >= 0 and <= 365. If specified,
-a Backup created under this BackupPlan will be automatically deleted
-after its age reaches (createTime + backupRetainDays).
-If not specified, Backups created under this BackupPlan will NOT be
-subject to automatic deletion. Updating this field does NOT affect
-existing Backups under it. Backups created AFTER a successful update
-will automatically pick up the new value.
-NOTE: backupRetainDays must be >= backupDeleteLockDays.
-If cronSchedule is defined, then this must be <= 360 * the creation interval.] *)
   locked : bool prop option; [@option]
-      (** This flag denotes whether the retention policy of this BackupPlan is locked.
-If set to True, no further update is allowed on this policy, including
-the locked field itself. *)
 }
-[@@deriving yojson_of]
-(** RetentionPolicy governs lifecycle of Backups created under this plan. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : retention_policy) -> ()
+
+let yojson_of_retention_policy =
+  (function
+   | {
+       backup_delete_lock_days = v_backup_delete_lock_days;
+       backup_retain_days = v_backup_retain_days;
+       locked = v_locked;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_locked with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "locked", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backup_retain_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "backup_retain_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backup_delete_lock_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "backup_delete_lock_days", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : retention_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retention_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_gke_backup_backup_plan = {
   cluster : string prop;
-      (** The source cluster from which Backups will be created via this BackupPlan. *)
   deactivated : bool prop option; [@option]
-      (** This flag indicates whether this BackupPlan has been deactivated.
-Setting this field to True locks the BackupPlan such that no further updates will be allowed
-(except deletes), including the deactivated field itself. It also prevents any new Backups
-from being created via this BackupPlan (including scheduled Backups). *)
   description : string prop option; [@option]
-      (** User specified descriptive string for this BackupPlan. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Description: A set of custom labels supplied by the user.
-A list of key->value pairs.
-Example: { name: wrench, mass: 1.3kg, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The region of the Backup Plan. *)
+  location : string prop;
   name : string prop;
-      (** The full name of the BackupPlan Resource. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   backup_config : backup_config list;
   backup_schedule : backup_schedule list;
   retention_policy : retention_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_gke_backup_backup_plan *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_gke_backup_backup_plan) -> ()
+
+let yojson_of_google_gke_backup_backup_plan =
+  (function
+   | {
+       cluster = v_cluster;
+       deactivated = v_deactivated;
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       backup_config = v_backup_config;
+       backup_schedule = v_backup_schedule;
+       retention_policy = v_retention_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retention_policy
+             v_retention_policy
+         in
+         ("retention_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_backup_schedule v_backup_schedule
+         in
+         ("backup_schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_backup_config v_backup_config
+         in
+         ("backup_config", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deactivated with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deactivated", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster in
+         ("cluster", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_gke_backup_backup_plan ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_gke_backup_backup_plan
+
+[@@@deriving.end]
 
 let backup_config__encryption_key ~gcp_kms_encryption_key () :
     backup_config__encryption_key =

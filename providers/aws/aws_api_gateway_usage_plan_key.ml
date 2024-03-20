@@ -3,13 +3,53 @@
 open! Tf_core
 
 type aws_api_gateway_usage_plan_key = {
-  id : string prop option; [@option]  (** id *)
-  key_id : string prop;  (** key_id *)
-  key_type : string prop;  (** key_type *)
-  usage_plan_id : string prop;  (** usage_plan_id *)
+  id : string prop option; [@option]
+  key_id : string prop;
+  key_type : string prop;
+  usage_plan_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_api_gateway_usage_plan_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_api_gateway_usage_plan_key) -> ()
+
+let yojson_of_aws_api_gateway_usage_plan_key =
+  (function
+   | {
+       id = v_id;
+       key_id = v_key_id;
+       key_type = v_key_type;
+       usage_plan_id = v_usage_plan_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_usage_plan_id in
+         ("usage_plan_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_type in
+         ("key_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_id in
+         ("key_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_api_gateway_usage_plan_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_api_gateway_usage_plan_key
+
+[@@@deriving.end]
 
 let aws_api_gateway_usage_plan_key ?id ~key_id ~key_type
     ~usage_plan_id () : aws_api_gateway_usage_plan_key =

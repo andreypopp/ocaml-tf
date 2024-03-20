@@ -4,32 +4,121 @@ open! Tf_core
 
 type action = {
   type_ : string prop; [@key "type"]
-      (** Type of supported action. Available values: `drop`, `forward`, `worker`. *)
   value : string prop list;
-      (** A list with items in the following form. *)
 }
-[@@deriving yojson_of]
-(** List actions patterns. *)
+[@@deriving_inline yojson_of]
 
-type matcher = {
-  type_ : string prop; [@key "type"]
-      (** Type of matcher. Available values: `all`. *)
-}
-[@@deriving yojson_of]
-(** Matching patterns to forward to your actions. *)
+let _ = fun (_ : action) -> ()
+
+let yojson_of_action =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_value
+         in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_action
+
+[@@@deriving.end]
+
+type matcher = { type_ : string prop [@key "type"] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : matcher) -> ()
+
+let yojson_of_matcher =
+  (function
+   | { type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : matcher -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_matcher
+
+[@@@deriving.end]
 
 type cloudflare_email_routing_catch_all = {
-  enabled : bool prop option; [@option]  (** Routing rule status. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** Routing rule name. *)
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   zone_id : string prop;
-      (** The zone identifier to target for the resource. *)
   action : action list;
   matcher : matcher list;
 }
-[@@deriving yojson_of]
-(** Provides a resource for managing Email Routing Addresses catch all behaviour.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_email_routing_catch_all) -> ()
+
+let yojson_of_cloudflare_email_routing_catch_all =
+  (function
+   | {
+       enabled = v_enabled;
+       id = v_id;
+       name = v_name;
+       zone_id = v_zone_id;
+       action = v_action;
+       matcher = v_matcher;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_matcher v_matcher in
+         ("matcher", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_action v_action in
+         ("action", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_email_routing_catch_all ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_email_routing_catch_all
+
+[@@@deriving.end]
 
 let action ~type_ ~value () : action = { type_; value }
 let matcher ~type_ () : matcher = { type_ }

@@ -3,15 +3,76 @@
 open! Tf_core
 
 type aws_cognito_user_group = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  precedence : float prop option; [@option]  (** precedence *)
-  role_arn : string prop option; [@option]  (** role_arn *)
-  user_pool_id : string prop;  (** user_pool_id *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  precedence : float prop option; [@option]
+  role_arn : string prop option; [@option]
+  user_pool_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_cognito_user_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cognito_user_group) -> ()
+
+let yojson_of_aws_cognito_user_group =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       precedence = v_precedence;
+       role_arn = v_role_arn;
+       user_pool_id = v_user_pool_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_pool_id in
+         ("user_pool_id", arg) :: bnds
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_precedence with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "precedence", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cognito_user_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cognito_user_group
+
+[@@@deriving.end]
 
 let aws_cognito_user_group ?description ?id ?precedence ?role_arn
     ~name ~user_pool_id () : aws_cognito_user_group =

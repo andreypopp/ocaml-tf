@@ -3,28 +3,123 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type traffic_source = {
-  identifier : string prop;  (** identifier *)
-  type_ : string prop; [@key "type"]  (** type *)
+  identifier : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** traffic_source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : traffic_source) -> ()
+
+let yojson_of_traffic_source =
+  (function
+   | { identifier = v_identifier; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_identifier in
+         ("identifier", arg) :: bnds
+       in
+       `Assoc bnds
+    : traffic_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_traffic_source
+
+[@@@deriving.end]
 
 type aws_autoscaling_traffic_source_attachment = {
   autoscaling_group_name : string prop;
-      (** autoscaling_group_name *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   timeouts : timeouts option;
   traffic_source : traffic_source list;
 }
-[@@deriving yojson_of]
-(** aws_autoscaling_traffic_source_attachment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_autoscaling_traffic_source_attachment) -> ()
+
+let yojson_of_aws_autoscaling_traffic_source_attachment =
+  (function
+   | {
+       autoscaling_group_name = v_autoscaling_group_name;
+       id = v_id;
+       timeouts = v_timeouts;
+       traffic_source = v_traffic_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_traffic_source v_traffic_source
+         in
+         ("traffic_source", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_autoscaling_group_name
+         in
+         ("autoscaling_group_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_autoscaling_traffic_source_attachment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_autoscaling_traffic_source_attachment
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

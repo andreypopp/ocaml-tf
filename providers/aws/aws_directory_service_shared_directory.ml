@@ -3,29 +3,132 @@
 open! Tf_core
 
 type target = {
-  id : string prop;  (** id *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  id : string prop;
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** target *)
+[@@deriving_inline yojson_of]
 
-type timeouts = {
-  delete : string prop option; [@option]  (** delete *)
-}
-[@@deriving yojson_of]
-(** timeouts *)
+let _ = fun (_ : target) -> ()
+
+let yojson_of_target =
+  (function
+   | { id = v_id; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_target
+
+[@@@deriving.end]
+
+type timeouts = { delete : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_directory_service_shared_directory = {
-  directory_id : string prop;  (** directory_id *)
-  id : string prop option; [@option]  (** id *)
+  directory_id : string prop;
+  id : string prop option; [@option]
   method_ : string prop option; [@option] [@key "method"]
-      (** method *)
-  notes : string prop option; [@option]  (** notes *)
+  notes : string prop option; [@option]
   target : target list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_directory_service_shared_directory *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_directory_service_shared_directory) -> ()
+
+let yojson_of_aws_directory_service_shared_directory =
+  (function
+   | {
+       directory_id = v_directory_id;
+       id = v_id;
+       method_ = v_method_;
+       notes = v_notes;
+       target = v_target;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_target v_target in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         match v_notes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_method_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_directory_id in
+         ("directory_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_directory_service_shared_directory ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_directory_service_shared_directory
+
+[@@@deriving.end]
 
 let target ?type_ ~id () : target = { id; type_ }
 let timeouts ?delete () : timeouts = { delete }

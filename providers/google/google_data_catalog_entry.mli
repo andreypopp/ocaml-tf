@@ -10,13 +10,19 @@ type bigquery_date_sharded_spec = {
   table_prefix : string prop;  (** table_prefix *)
 }
 
+[@@@deriving.end]
+
 type bigquery_table_spec__view_spec = {
   view_query : string prop;  (** view_query *)
 }
 
+[@@@deriving.end]
+
 type bigquery_table_spec__table_spec = {
   grouped_entry : string prop;  (** grouped_entry *)
 }
+
+[@@@deriving.end]
 
 type bigquery_table_spec = {
   table_source_type : string prop;  (** table_source_type *)
@@ -25,10 +31,14 @@ type bigquery_table_spec = {
   view_spec : bigquery_table_spec__view_spec list;  (** view_spec *)
 }
 
+[@@@deriving.end]
+
 type gcs_fileset_spec__sample_gcs_file_specs = {
   file_path : string prop;  (** file_path *)
   size_bytes : float prop;  (** size_bytes *)
 }
+
+[@@@deriving.end]
 
 type gcs_fileset_spec
 

@@ -3,11 +3,34 @@
 open! Tf_core
 
 type aws_kinesis_resource_policy = {
-  policy : string prop;  (** policy *)
-  resource_arn : string prop;  (** resource_arn *)
+  policy : string prop;
+  resource_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_kinesis_resource_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_kinesis_resource_policy) -> ()
+
+let yojson_of_aws_kinesis_resource_policy =
+  (function
+   | { policy = v_policy; resource_arn = v_resource_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_arn in
+         ("resource_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy in
+         ("policy", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_kinesis_resource_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_kinesis_resource_policy
+
+[@@@deriving.end]
 
 let aws_kinesis_resource_policy ~policy ~resource_arn () :
     aws_kinesis_resource_policy =

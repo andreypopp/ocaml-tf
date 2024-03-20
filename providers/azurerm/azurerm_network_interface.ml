@@ -6,54 +6,321 @@ type ip_configuration = {
   gateway_load_balancer_frontend_ip_configuration_id :
     string prop option;
       [@option]
-      (** gateway_load_balancer_frontend_ip_configuration_id *)
-  name : string prop;  (** name *)
-  primary : bool prop option; [@option]  (** primary *)
+  name : string prop;
+  primary : bool prop option; [@option]
   private_ip_address : string prop option; [@option]
-      (** private_ip_address *)
   private_ip_address_allocation : string prop;
-      (** private_ip_address_allocation *)
   private_ip_address_version : string prop option; [@option]
-      (** private_ip_address_version *)
   public_ip_address_id : string prop option; [@option]
-      (** public_ip_address_id *)
-  subnet_id : string prop option; [@option]  (** subnet_id *)
+  subnet_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** ip_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ip_configuration) -> ()
+
+let yojson_of_ip_configuration =
+  (function
+   | {
+       gateway_load_balancer_frontend_ip_configuration_id =
+         v_gateway_load_balancer_frontend_ip_configuration_id;
+       name = v_name;
+       primary = v_primary;
+       private_ip_address = v_private_ip_address;
+       private_ip_address_allocation =
+         v_private_ip_address_allocation;
+       private_ip_address_version = v_private_ip_address_version;
+       public_ip_address_id = v_public_ip_address_id;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_ip_address_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "public_ip_address_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_ip_address_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ip_address_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_private_ip_address_allocation
+         in
+         ("private_ip_address_allocation", arg) :: bnds
+       in
+       let bnds =
+         match v_private_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_primary with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "primary", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match
+           v_gateway_load_balancer_frontend_ip_configuration_id
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               ( "gateway_load_balancer_frontend_ip_configuration_id",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ip_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ip_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_network_interface = {
   auxiliary_mode : string prop option; [@option]
-      (** auxiliary_mode *)
-  auxiliary_sku : string prop option; [@option]  (** auxiliary_sku *)
+  auxiliary_sku : string prop option; [@option]
   dns_servers : string prop list option; [@option]
-      (** dns_servers *)
-  edge_zone : string prop option; [@option]  (** edge_zone *)
+  edge_zone : string prop option; [@option]
   enable_accelerated_networking : bool prop option; [@option]
-      (** enable_accelerated_networking *)
   enable_ip_forwarding : bool prop option; [@option]
-      (** enable_ip_forwarding *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   internal_dns_name_label : string prop option; [@option]
-      (** internal_dns_name_label *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   ip_configuration : ip_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_network_interface *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_network_interface) -> ()
+
+let yojson_of_azurerm_network_interface =
+  (function
+   | {
+       auxiliary_mode = v_auxiliary_mode;
+       auxiliary_sku = v_auxiliary_sku;
+       dns_servers = v_dns_servers;
+       edge_zone = v_edge_zone;
+       enable_accelerated_networking =
+         v_enable_accelerated_networking;
+       enable_ip_forwarding = v_enable_ip_forwarding;
+       id = v_id;
+       internal_dns_name_label = v_internal_dns_name_label;
+       location = v_location;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       ip_configuration = v_ip_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ip_configuration
+             v_ip_configuration
+         in
+         ("ip_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_internal_dns_name_label with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "internal_dns_name_label", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_ip_forwarding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_ip_forwarding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_accelerated_networking with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_accelerated_networking", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_edge_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "edge_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dns_servers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dns_servers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auxiliary_sku with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auxiliary_sku", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auxiliary_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auxiliary_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_network_interface -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_network_interface
+
+[@@@deriving.end]
 
 let ip_configuration
     ?gateway_load_balancer_frontend_ip_configuration_id ?primary

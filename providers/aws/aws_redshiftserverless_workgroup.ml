@@ -3,65 +3,392 @@
 open! Tf_core
 
 type config_parameter = {
-  parameter_key : string prop;  (** parameter_key *)
-  parameter_value : string prop;  (** parameter_value *)
+  parameter_key : string prop;
+  parameter_value : string prop;
 }
-[@@deriving yojson_of]
-(** config_parameter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config_parameter) -> ()
+
+let yojson_of_config_parameter =
+  (function
+   | {
+       parameter_key = v_parameter_key;
+       parameter_value = v_parameter_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_parameter_value
+         in
+         ("parameter_value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parameter_key in
+         ("parameter_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : config_parameter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config_parameter
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type endpoint__vpc_endpoint__network_interface = {
-  availability_zone : string prop;  (** availability_zone *)
-  network_interface_id : string prop;  (** network_interface_id *)
-  private_ip_address : string prop;  (** private_ip_address *)
-  subnet_id : string prop;  (** subnet_id *)
+  availability_zone : string prop;
+  network_interface_id : string prop;
+  private_ip_address : string prop;
+  subnet_id : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoint__vpc_endpoint__network_interface) -> ()
+
+let yojson_of_endpoint__vpc_endpoint__network_interface =
+  (function
+   | {
+       availability_zone = v_availability_zone;
+       network_interface_id = v_network_interface_id;
+       private_ip_address = v_private_ip_address;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_private_ip_address
+         in
+         ("private_ip_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_network_interface_id
+         in
+         ("network_interface_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_availability_zone
+         in
+         ("availability_zone", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoint__vpc_endpoint__network_interface ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoint__vpc_endpoint__network_interface
+
+[@@@deriving.end]
 
 type endpoint__vpc_endpoint = {
   network_interface : endpoint__vpc_endpoint__network_interface list;
-      (** network_interface *)
-  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
-  vpc_id : string prop;  (** vpc_id *)
+  vpc_endpoint_id : string prop;
+  vpc_id : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoint__vpc_endpoint) -> ()
+
+let yojson_of_endpoint__vpc_endpoint =
+  (function
+   | {
+       network_interface = v_network_interface;
+       vpc_endpoint_id = v_vpc_endpoint_id;
+       vpc_id = v_vpc_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_vpc_endpoint_id
+         in
+         ("vpc_endpoint_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_endpoint__vpc_endpoint__network_interface
+             v_network_interface
+         in
+         ("network_interface", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoint__vpc_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoint__vpc_endpoint
+
+[@@@deriving.end]
 
 type endpoint = {
-  address : string prop;  (** address *)
-  port : float prop;  (** port *)
-  vpc_endpoint : endpoint__vpc_endpoint list;  (** vpc_endpoint *)
+  address : string prop;
+  port : float prop;
+  vpc_endpoint : endpoint__vpc_endpoint list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : endpoint) -> ()
+
+let yojson_of_endpoint =
+  (function
+   | {
+       address = v_address;
+       port = v_port;
+       vpc_endpoint = v_vpc_endpoint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_endpoint__vpc_endpoint
+             v_vpc_endpoint
+         in
+         ("vpc_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_address in
+         ("address", arg) :: bnds
+       in
+       `Assoc bnds
+    : endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoint
+
+[@@@deriving.end]
 
 type aws_redshiftserverless_workgroup = {
-  base_capacity : float prop option; [@option]  (** base_capacity *)
+  base_capacity : float prop option; [@option]
   enhanced_vpc_routing : bool prop option; [@option]
-      (** enhanced_vpc_routing *)
-  id : string prop option; [@option]  (** id *)
-  max_capacity : float prop option; [@option]  (** max_capacity *)
-  namespace_name : string prop;  (** namespace_name *)
-  port : float prop option; [@option]  (** port *)
+  id : string prop option; [@option]
+  max_capacity : float prop option; [@option]
+  namespace_name : string prop;
+  port : float prop option; [@option]
   publicly_accessible : bool prop option; [@option]
-      (** publicly_accessible *)
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
-  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  subnet_ids : string prop list option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  workgroup_name : string prop;  (** workgroup_name *)
+  workgroup_name : string prop;
   config_parameter : config_parameter list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_redshiftserverless_workgroup *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshiftserverless_workgroup) -> ()
+
+let yojson_of_aws_redshiftserverless_workgroup =
+  (function
+   | {
+       base_capacity = v_base_capacity;
+       enhanced_vpc_routing = v_enhanced_vpc_routing;
+       id = v_id;
+       max_capacity = v_max_capacity;
+       namespace_name = v_namespace_name;
+       port = v_port;
+       publicly_accessible = v_publicly_accessible;
+       security_group_ids = v_security_group_ids;
+       subnet_ids = v_subnet_ids;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       workgroup_name = v_workgroup_name;
+       config_parameter = v_config_parameter;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config_parameter
+             v_config_parameter
+         in
+         ("config_parameter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_workgroup_name
+         in
+         ("workgroup_name", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "subnet_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_publicly_accessible with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "publicly_accessible", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_namespace_name
+         in
+         ("namespace_name", arg) :: bnds
+       in
+       let bnds =
+         match v_max_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_capacity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enhanced_vpc_routing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enhanced_vpc_routing", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_base_capacity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "base_capacity", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_redshiftserverless_workgroup ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshiftserverless_workgroup
+
+[@@@deriving.end]
 
 let config_parameter ~parameter_key ~parameter_value () :
     config_parameter =

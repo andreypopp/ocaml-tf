@@ -10,6 +10,8 @@ type aks_assigned_identity = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+[@@@deriving.end]
+
 type plan
 
 val plan :

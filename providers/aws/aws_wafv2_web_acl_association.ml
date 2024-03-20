@@ -3,17 +3,17 @@
 open! Tf_core
 
 type timeouts = {
-  create: string  prop option; [@option] (** create *)
-} [@@deriving yojson_of]
-(** timeouts *)
+  create: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type aws_wafv2_web_acl_association = {
-  id: string  prop option; [@option] (** id *)
-  resource_arn: string prop;  (** resource_arn *)
-  web_acl_arn: string prop;  (** web_acl_arn *)
+  id: string  prop option; [@option]
+  resource_arn: string prop; 
+  web_acl_arn: string prop; 
   timeouts: timeouts option;
-} [@@deriving yojson_of]
-(** aws_wafv2_web_acl_association *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let timeouts ?create () =
   ({

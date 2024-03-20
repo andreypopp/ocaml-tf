@@ -4,181 +4,782 @@ open! Tf_core
 
 type routing_policy__geo__health_checked_targets__internal_load_balancers = {
   ip_address : string prop;
-      (** The frontend IP address of the load balancer. *)
   ip_protocol : string prop;
-      (** The configured IP protocol of the load balancer. This value is case-sensitive. Possible values: [tcp, udp] *)
   load_balancer_type : string prop;
-      (** The type of load balancer. This value is case-sensitive. Possible values: [regionalL4ilb, regionalL7ilb, globalL7ilb] *)
   network_url : string prop;
-      (** The fully qualified url of the network in which the load balancer belongs. This should be formatted like `https://www.googleapis.com/compute/v1/projects/{project}/global/networks/{network}`. *)
   port : string prop;
-      (** The configured port of the load balancer. *)
   project : string prop;
-      (** The ID of the project in which the load balancer belongs. *)
   region : string prop option; [@option]
-      (** The region of the load balancer. Only needed for regional load balancers. *)
 }
-[@@deriving yojson_of]
-(** The list of internal load balancers to health check. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing_policy__geo__health_checked_targets__internal_load_balancers) ->
+  ()
+
+let yojson_of_routing_policy__geo__health_checked_targets__internal_load_balancers
+    =
+  (function
+   | {
+       ip_address = v_ip_address;
+       ip_protocol = v_ip_protocol;
+       load_balancer_type = v_load_balancer_type;
+       network_url = v_network_url;
+       port = v_port;
+       project = v_project;
+       region = v_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project in
+         ("project", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network_url in
+         ("network_url", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_load_balancer_type
+         in
+         ("load_balancer_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_protocol in
+         ("ip_protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_address in
+         ("ip_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__geo__health_checked_targets__internal_load_balancers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing_policy__geo__health_checked_targets__internal_load_balancers
+
+[@@@deriving.end]
 
 type routing_policy__geo__health_checked_targets = {
   internal_load_balancers :
     routing_policy__geo__health_checked_targets__internal_load_balancers
     list;
 }
-[@@deriving yojson_of]
-(** For A and AAAA types only. The list of targets to be health checked. These can be specified along with `rrdatas` within this item. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing_policy__geo__health_checked_targets) -> ()
+
+let yojson_of_routing_policy__geo__health_checked_targets =
+  (function
+   | { internal_load_balancers = v_internal_load_balancers } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing_policy__geo__health_checked_targets__internal_load_balancers
+             v_internal_load_balancers
+         in
+         ("internal_load_balancers", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__geo__health_checked_targets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing_policy__geo__health_checked_targets
+
+[@@@deriving.end]
 
 type routing_policy__geo = {
   location : string prop;
-      (** The location name defined in Google Cloud. *)
-  rrdatas : string prop list option; [@option]  (** rrdatas *)
+  rrdatas : string prop list option; [@option]
   health_checked_targets :
     routing_policy__geo__health_checked_targets list;
 }
-[@@deriving yojson_of]
-(** The configuration for Geo location based routing policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing_policy__geo) -> ()
+
+let yojson_of_routing_policy__geo =
+  (function
+   | {
+       location = v_location;
+       rrdatas = v_rrdatas;
+       health_checked_targets = v_health_checked_targets;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing_policy__geo__health_checked_targets
+             v_health_checked_targets
+         in
+         ("health_checked_targets", arg) :: bnds
+       in
+       let bnds =
+         match v_rrdatas with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "rrdatas", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__geo -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing_policy__geo
+
+[@@@deriving.end]
 
 type routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers = {
   ip_address : string prop;
-      (** The frontend IP address of the load balancer. *)
   ip_protocol : string prop;
-      (** The configured IP protocol of the load balancer. This value is case-sensitive. Possible values: [tcp, udp] *)
   load_balancer_type : string prop;
-      (** The type of load balancer. This value is case-sensitive. Possible values: [regionalL4ilb, regionalL7ilb, globalL7ilb] *)
   network_url : string prop;
-      (** The fully qualified url of the network in which the load balancer belongs. This should be formatted like `https://www.googleapis.com/compute/v1/projects/{project}/global/networks/{network}`. *)
   port : string prop;
-      (** The configured port of the load balancer. *)
   project : string prop;
-      (** The ID of the project in which the load balancer belongs. *)
   region : string prop option; [@option]
-      (** The region of the load balancer. Only needed for regional load balancers. *)
 }
-[@@deriving yojson_of]
-(** The list of internal load balancers to health check. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers) ->
+  ()
+
+let yojson_of_routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
+    =
+  (function
+   | {
+       ip_address = v_ip_address;
+       ip_protocol = v_ip_protocol;
+       load_balancer_type = v_load_balancer_type;
+       network_url = v_network_url;
+       port = v_port;
+       project = v_project;
+       region = v_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project in
+         ("project", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network_url in
+         ("network_url", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_load_balancer_type
+         in
+         ("load_balancer_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_protocol in
+         ("ip_protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_address in
+         ("ip_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
+
+[@@@deriving.end]
 
 type routing_policy__primary_backup__backup_geo__health_checked_targets = {
   internal_load_balancers :
     routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
     list;
 }
-[@@deriving yojson_of]
-(** For A and AAAA types only. The list of targets to be health checked. These can be specified along with `rrdatas` within this item. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing_policy__primary_backup__backup_geo__health_checked_targets) ->
+  ()
+
+let yojson_of_routing_policy__primary_backup__backup_geo__health_checked_targets
+    =
+  (function
+   | { internal_load_balancers = v_internal_load_balancers } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing_policy__primary_backup__backup_geo__health_checked_targets__internal_load_balancers
+             v_internal_load_balancers
+         in
+         ("internal_load_balancers", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__primary_backup__backup_geo__health_checked_targets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing_policy__primary_backup__backup_geo__health_checked_targets
+
+[@@@deriving.end]
 
 type routing_policy__primary_backup__backup_geo = {
   location : string prop;
-      (** The location name defined in Google Cloud. *)
-  rrdatas : string prop list option; [@option]  (** rrdatas *)
+  rrdatas : string prop list option; [@option]
   health_checked_targets :
     routing_policy__primary_backup__backup_geo__health_checked_targets
     list;
 }
-[@@deriving yojson_of]
-(** The backup geo targets, which provide a regional failover policy for the otherwise global primary targets. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing_policy__primary_backup__backup_geo) -> ()
+
+let yojson_of_routing_policy__primary_backup__backup_geo =
+  (function
+   | {
+       location = v_location;
+       rrdatas = v_rrdatas;
+       health_checked_targets = v_health_checked_targets;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing_policy__primary_backup__backup_geo__health_checked_targets
+             v_health_checked_targets
+         in
+         ("health_checked_targets", arg) :: bnds
+       in
+       let bnds =
+         match v_rrdatas with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "rrdatas", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__primary_backup__backup_geo ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing_policy__primary_backup__backup_geo
+
+[@@@deriving.end]
 
 type routing_policy__primary_backup__primary__internal_load_balancers = {
   ip_address : string prop;
-      (** The frontend IP address of the load balancer. *)
   ip_protocol : string prop;
-      (** The configured IP protocol of the load balancer. This value is case-sensitive. Possible values: [tcp, udp] *)
   load_balancer_type : string prop;
-      (** The type of load balancer. This value is case-sensitive. Possible values: [regionalL4ilb, regionalL7ilb, globalL7ilb] *)
   network_url : string prop;
-      (** The fully qualified url of the network in which the load balancer belongs. This should be formatted like `https://www.googleapis.com/compute/v1/projects/{project}/global/networks/{network}`. *)
   port : string prop;
-      (** The configured port of the load balancer. *)
   project : string prop;
-      (** The ID of the project in which the load balancer belongs. *)
   region : string prop option; [@option]
-      (** The region of the load balancer. Only needed for regional load balancers. *)
 }
-[@@deriving yojson_of]
-(** The list of internal load balancers to health check. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing_policy__primary_backup__primary__internal_load_balancers) ->
+  ()
+
+let yojson_of_routing_policy__primary_backup__primary__internal_load_balancers
+    =
+  (function
+   | {
+       ip_address = v_ip_address;
+       ip_protocol = v_ip_protocol;
+       load_balancer_type = v_load_balancer_type;
+       network_url = v_network_url;
+       port = v_port;
+       project = v_project;
+       region = v_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project in
+         ("project", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network_url in
+         ("network_url", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_load_balancer_type
+         in
+         ("load_balancer_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_protocol in
+         ("ip_protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_address in
+         ("ip_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__primary_backup__primary__internal_load_balancers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing_policy__primary_backup__primary__internal_load_balancers
+
+[@@@deriving.end]
 
 type routing_policy__primary_backup__primary = {
   internal_load_balancers :
     routing_policy__primary_backup__primary__internal_load_balancers
     list;
 }
-[@@deriving yojson_of]
-(** The list of global primary targets to be health checked. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing_policy__primary_backup__primary) -> ()
+
+let yojson_of_routing_policy__primary_backup__primary =
+  (function
+   | { internal_load_balancers = v_internal_load_balancers } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing_policy__primary_backup__primary__internal_load_balancers
+             v_internal_load_balancers
+         in
+         ("internal_load_balancers", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__primary_backup__primary ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing_policy__primary_backup__primary
+
+[@@@deriving.end]
 
 type routing_policy__primary_backup = {
   enable_geo_fencing_for_backups : bool prop option; [@option]
-      (** Specifies whether to enable fencing for backup geo queries. *)
   trickle_ratio : float prop option; [@option]
-      (** Specifies the percentage of traffic to send to the backup targets even when the primary targets are healthy. *)
   backup_geo : routing_policy__primary_backup__backup_geo list;
   primary : routing_policy__primary_backup__primary list;
 }
-[@@deriving yojson_of]
-(** The configuration for a primary-backup policy with global to regional failover. Queries are responded to with the global primary targets, but if none of the primary targets are healthy, then we fallback to a regional failover policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing_policy__primary_backup) -> ()
+
+let yojson_of_routing_policy__primary_backup =
+  (function
+   | {
+       enable_geo_fencing_for_backups =
+         v_enable_geo_fencing_for_backups;
+       trickle_ratio = v_trickle_ratio;
+       backup_geo = v_backup_geo;
+       primary = v_primary;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing_policy__primary_backup__primary
+             v_primary
+         in
+         ("primary", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing_policy__primary_backup__backup_geo
+             v_backup_geo
+         in
+         ("backup_geo", arg) :: bnds
+       in
+       let bnds =
+         match v_trickle_ratio with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "trickle_ratio", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_geo_fencing_for_backups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_geo_fencing_for_backups", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__primary_backup ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing_policy__primary_backup
+
+[@@@deriving.end]
 
 type routing_policy__wrr__health_checked_targets__internal_load_balancers = {
   ip_address : string prop;
-      (** The frontend IP address of the load balancer. *)
   ip_protocol : string prop;
-      (** The configured IP protocol of the load balancer. This value is case-sensitive. Possible values: [tcp, udp] *)
   load_balancer_type : string prop;
-      (** The type of load balancer. This value is case-sensitive. Possible values: [regionalL4ilb, regionalL7ilb, globalL7ilb] *)
   network_url : string prop;
-      (** The fully qualified url of the network in which the load balancer belongs. This should be formatted like `https://www.googleapis.com/compute/v1/projects/{project}/global/networks/{network}`. *)
   port : string prop;
-      (** The configured port of the load balancer. *)
   project : string prop;
-      (** The ID of the project in which the load balancer belongs. *)
   region : string prop option; [@option]
-      (** The region of the load balancer. Only needed for regional load balancers. *)
 }
-[@@deriving yojson_of]
-(** The list of internal load balancers to health check. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       routing_policy__wrr__health_checked_targets__internal_load_balancers) ->
+  ()
+
+let yojson_of_routing_policy__wrr__health_checked_targets__internal_load_balancers
+    =
+  (function
+   | {
+       ip_address = v_ip_address;
+       ip_protocol = v_ip_protocol;
+       load_balancer_type = v_load_balancer_type;
+       network_url = v_network_url;
+       port = v_port;
+       project = v_project;
+       region = v_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project in
+         ("project", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network_url in
+         ("network_url", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_load_balancer_type
+         in
+         ("load_balancer_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_protocol in
+         ("ip_protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_address in
+         ("ip_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__wrr__health_checked_targets__internal_load_balancers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_routing_policy__wrr__health_checked_targets__internal_load_balancers
+
+[@@@deriving.end]
 
 type routing_policy__wrr__health_checked_targets = {
   internal_load_balancers :
     routing_policy__wrr__health_checked_targets__internal_load_balancers
     list;
 }
-[@@deriving yojson_of]
-(** The list of targets to be health checked. Note that if DNSSEC is enabled for this zone, only one of `rrdatas` or `health_checked_targets` can be set. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing_policy__wrr__health_checked_targets) -> ()
+
+let yojson_of_routing_policy__wrr__health_checked_targets =
+  (function
+   | { internal_load_balancers = v_internal_load_balancers } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing_policy__wrr__health_checked_targets__internal_load_balancers
+             v_internal_load_balancers
+         in
+         ("internal_load_balancers", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__wrr__health_checked_targets ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing_policy__wrr__health_checked_targets
+
+[@@@deriving.end]
 
 type routing_policy__wrr = {
-  rrdatas : string prop list option; [@option]  (** rrdatas *)
+  rrdatas : string prop list option; [@option]
   weight : float prop;
-      (** The ratio of traffic routed to the target. *)
   health_checked_targets :
     routing_policy__wrr__health_checked_targets list;
 }
-[@@deriving yojson_of]
-(** The configuration for Weighted Round Robin based routing policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing_policy__wrr) -> ()
+
+let yojson_of_routing_policy__wrr =
+  (function
+   | {
+       rrdatas = v_rrdatas;
+       weight = v_weight;
+       health_checked_targets = v_health_checked_targets;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_routing_policy__wrr__health_checked_targets
+             v_health_checked_targets
+         in
+         ("health_checked_targets", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_weight in
+         ("weight", arg) :: bnds
+       in
+       let bnds =
+         match v_rrdatas with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "rrdatas", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing_policy__wrr -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing_policy__wrr
+
+[@@@deriving.end]
 
 type routing_policy = {
   enable_geo_fencing : bool prop option; [@option]
-      (** Specifies whether to enable fencing for geo queries. *)
   geo : routing_policy__geo list;
   primary_backup : routing_policy__primary_backup list;
   wrr : routing_policy__wrr list;
 }
-[@@deriving yojson_of]
-(** The configuration for steering traffic based on query. You can specify either Weighted Round Robin(WRR) type or Geolocation(GEO) type. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing_policy) -> ()
+
+let yojson_of_routing_policy =
+  (function
+   | {
+       enable_geo_fencing = v_enable_geo_fencing;
+       geo = v_geo;
+       primary_backup = v_primary_backup;
+       wrr = v_wrr;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_routing_policy__wrr v_wrr
+         in
+         ("wrr", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_routing_policy__primary_backup
+             v_primary_backup
+         in
+         ("primary_backup", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_routing_policy__geo v_geo
+         in
+         ("geo", arg) :: bnds
+       in
+       let bnds =
+         match v_enable_geo_fencing with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_geo_fencing", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : routing_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing_policy
+
+[@@@deriving.end]
 
 type google_dns_record_set = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   managed_zone : string prop;
-      (** The name of the zone in which this record set will reside. *)
   name : string prop;
-      (** The DNS name this record set will apply to. *)
   project : string prop option; [@option]
-      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   rrdatas : string prop list option; [@option]
-      (** The string data for the records in this record set whose meaning depends on the DNS type. For TXT record, if the string data contains spaces, add surrounding \ if you don't want your string to get split on spaces. To specify a single record value longer than 255 characters such as a TXT record for DKIM, add \\ inside the Terraform configuration string (e.g. first255characters\\morecharacters). *)
   ttl : float prop option; [@option]
-      (** The time-to-live of this record set (seconds). *)
-  type_ : string prop; [@key "type"]  (** The DNS record set type. *)
+  type_ : string prop; [@key "type"]
   routing_policy : routing_policy list;
 }
-[@@deriving yojson_of]
-(** google_dns_record_set *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dns_record_set) -> ()
+
+let yojson_of_google_dns_record_set =
+  (function
+   | {
+       id = v_id;
+       managed_zone = v_managed_zone;
+       name = v_name;
+       project = v_project;
+       rrdatas = v_rrdatas;
+       ttl = v_ttl;
+       type_ = v_type_;
+       routing_policy = v_routing_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_routing_policy v_routing_policy
+         in
+         ("routing_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rrdatas with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "rrdatas", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_managed_zone in
+         ("managed_zone", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dns_record_set -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dns_record_set
+
+[@@@deriving.end]
 
 let routing_policy__geo__health_checked_targets__internal_load_balancers
     ?region ~ip_address ~ip_protocol ~load_balancer_type ~network_url

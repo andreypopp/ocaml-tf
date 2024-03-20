@@ -9,6 +9,8 @@ type site_credential = {
   password : string prop;  (** password *)
 }
 
+[@@@deriving.end]
+
 type auth_settings__active_directory
 
 val auth_settings__active_directory :
@@ -408,6 +410,8 @@ type site_config__ip_restriction__headers = {
   x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
 
+[@@@deriving.end]
+
 type site_config__ip_restriction
 
 val site_config__ip_restriction :
@@ -428,6 +432,8 @@ type site_config__scm_ip_restriction__headers = {
   x_forwarded_for : string prop list;  (** x_forwarded_for *)
   x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
+
+[@@@deriving.end]
 
 type site_config__scm_ip_restriction
 

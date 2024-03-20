@@ -3,13 +3,58 @@
 open! Tf_core
 
 type aws_lakeformation_lf_tag = {
-  catalog_id : string prop option; [@option]  (** catalog_id *)
-  id : string prop option; [@option]  (** id *)
-  key : string prop;  (** key *)
-  values : string prop list;  (** values *)
+  catalog_id : string prop option; [@option]
+  id : string prop option; [@option]
+  key : string prop;
+  values : string prop list;
 }
-[@@deriving yojson_of]
-(** aws_lakeformation_lf_tag *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lakeformation_lf_tag) -> ()
+
+let yojson_of_aws_lakeformation_lf_tag =
+  (function
+   | {
+       catalog_id = v_catalog_id;
+       id = v_id;
+       key = v_key;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_catalog_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "catalog_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_lakeformation_lf_tag -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lakeformation_lf_tag
+
+[@@@deriving.end]
 
 let aws_lakeformation_lf_tag ?catalog_id ?id ~key ~values () :
     aws_lakeformation_lf_tag =

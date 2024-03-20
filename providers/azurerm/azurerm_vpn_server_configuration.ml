@@ -3,89 +3,389 @@
 open! Tf_core
 
 type azure_active_directory_authentication = {
-  audience : string prop;  (** audience *)
-  issuer : string prop;  (** issuer *)
-  tenant : string prop;  (** tenant *)
+  audience : string prop;
+  issuer : string prop;
+  tenant : string prop;
 }
-[@@deriving yojson_of]
-(** azure_active_directory_authentication *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azure_active_directory_authentication) -> ()
+
+let yojson_of_azure_active_directory_authentication =
+  (function
+   | { audience = v_audience; issuer = v_issuer; tenant = v_tenant }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tenant in
+         ("tenant", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_issuer in
+         ("issuer", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_audience in
+         ("audience", arg) :: bnds
+       in
+       `Assoc bnds
+    : azure_active_directory_authentication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azure_active_directory_authentication
+
+[@@@deriving.end]
 
 type client_revoked_certificate = {
-  name : string prop;  (** name *)
-  thumbprint : string prop;  (** thumbprint *)
+  name : string prop;
+  thumbprint : string prop;
 }
-[@@deriving yojson_of]
-(** client_revoked_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client_revoked_certificate) -> ()
+
+let yojson_of_client_revoked_certificate =
+  (function
+   | { name = v_name; thumbprint = v_thumbprint } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_thumbprint in
+         ("thumbprint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : client_revoked_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client_revoked_certificate
+
+[@@@deriving.end]
 
 type client_root_certificate = {
-  name : string prop;  (** name *)
-  public_cert_data : string prop;  (** public_cert_data *)
+  name : string prop;
+  public_cert_data : string prop;
 }
-[@@deriving yojson_of]
-(** client_root_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client_root_certificate) -> ()
+
+let yojson_of_client_root_certificate =
+  (function
+   | { name = v_name; public_cert_data = v_public_cert_data } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_public_cert_data
+         in
+         ("public_cert_data", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : client_root_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client_root_certificate
+
+[@@@deriving.end]
 
 type ipsec_policy = {
-  dh_group : string prop;  (** dh_group *)
-  ike_encryption : string prop;  (** ike_encryption *)
-  ike_integrity : string prop;  (** ike_integrity *)
-  ipsec_encryption : string prop;  (** ipsec_encryption *)
-  ipsec_integrity : string prop;  (** ipsec_integrity *)
-  pfs_group : string prop;  (** pfs_group *)
-  sa_data_size_kilobytes : float prop;  (** sa_data_size_kilobytes *)
-  sa_lifetime_seconds : float prop;  (** sa_lifetime_seconds *)
+  dh_group : string prop;
+  ike_encryption : string prop;
+  ike_integrity : string prop;
+  ipsec_encryption : string prop;
+  ipsec_integrity : string prop;
+  pfs_group : string prop;
+  sa_data_size_kilobytes : float prop;
+  sa_lifetime_seconds : float prop;
 }
-[@@deriving yojson_of]
-(** ipsec_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ipsec_policy) -> ()
+
+let yojson_of_ipsec_policy =
+  (function
+   | {
+       dh_group = v_dh_group;
+       ike_encryption = v_ike_encryption;
+       ike_integrity = v_ike_integrity;
+       ipsec_encryption = v_ipsec_encryption;
+       ipsec_integrity = v_ipsec_integrity;
+       pfs_group = v_pfs_group;
+       sa_data_size_kilobytes = v_sa_data_size_kilobytes;
+       sa_lifetime_seconds = v_sa_lifetime_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_sa_lifetime_seconds
+         in
+         ("sa_lifetime_seconds", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_sa_data_size_kilobytes
+         in
+         ("sa_data_size_kilobytes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pfs_group in
+         ("pfs_group", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ipsec_integrity
+         in
+         ("ipsec_integrity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ipsec_encryption
+         in
+         ("ipsec_encryption", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ike_integrity in
+         ("ike_integrity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ike_encryption
+         in
+         ("ike_encryption", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dh_group in
+         ("dh_group", arg) :: bnds
+       in
+       `Assoc bnds
+    : ipsec_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ipsec_policy
+
+[@@@deriving.end]
 
 type radius__client_root_certificate = {
-  name : string prop;  (** name *)
-  thumbprint : string prop;  (** thumbprint *)
+  name : string prop;
+  thumbprint : string prop;
 }
-[@@deriving yojson_of]
-(** radius__client_root_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : radius__client_root_certificate) -> ()
+
+let yojson_of_radius__client_root_certificate =
+  (function
+   | { name = v_name; thumbprint = v_thumbprint } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_thumbprint in
+         ("thumbprint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : radius__client_root_certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_radius__client_root_certificate
+
+[@@@deriving.end]
 
 type radius__server = {
-  address : string prop;  (** address *)
-  score : float prop;  (** score *)
-  secret : string prop;  (** secret *)
+  address : string prop;
+  score : float prop;
+  secret : string prop;
 }
-[@@deriving yojson_of]
-(** radius__server *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : radius__server) -> ()
+
+let yojson_of_radius__server =
+  (function
+   | { address = v_address; score = v_score; secret = v_secret } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_score in
+         ("score", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_address in
+         ("address", arg) :: bnds
+       in
+       `Assoc bnds
+    : radius__server -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_radius__server
+
+[@@@deriving.end]
 
 type radius__server_root_certificate = {
-  name : string prop;  (** name *)
-  public_cert_data : string prop;  (** public_cert_data *)
+  name : string prop;
+  public_cert_data : string prop;
 }
-[@@deriving yojson_of]
-(** radius__server_root_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : radius__server_root_certificate) -> ()
+
+let yojson_of_radius__server_root_certificate =
+  (function
+   | { name = v_name; public_cert_data = v_public_cert_data } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_public_cert_data
+         in
+         ("public_cert_data", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : radius__server_root_certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_radius__server_root_certificate
+
+[@@@deriving.end]
 
 type radius = {
   client_root_certificate : radius__client_root_certificate list;
   server : radius__server list;
   server_root_certificate : radius__server_root_certificate list;
 }
-[@@deriving yojson_of]
-(** radius *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : radius) -> ()
+
+let yojson_of_radius =
+  (function
+   | {
+       client_root_certificate = v_client_root_certificate;
+       server = v_server;
+       server_root_certificate = v_server_root_certificate;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_radius__server_root_certificate
+             v_server_root_certificate
+         in
+         ("server_root_certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_radius__server v_server
+         in
+         ("server", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_radius__client_root_certificate
+             v_client_root_certificate
+         in
+         ("client_root_certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : radius -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_radius
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_vpn_server_configuration = {
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   vpn_authentication_types : string prop list;
-      (** vpn_authentication_types *)
   vpn_protocols : string prop list option; [@option]
-      (** vpn_protocols *)
   azure_active_directory_authentication :
     azure_active_directory_authentication list;
   client_revoked_certificate : client_revoked_certificate list;
@@ -94,8 +394,130 @@ type azurerm_vpn_server_configuration = {
   radius : radius list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_vpn_server_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_vpn_server_configuration) -> ()
+
+let yojson_of_azurerm_vpn_server_configuration =
+  (function
+   | {
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       vpn_authentication_types = v_vpn_authentication_types;
+       vpn_protocols = v_vpn_protocols;
+       azure_active_directory_authentication =
+         v_azure_active_directory_authentication;
+       client_revoked_certificate = v_client_revoked_certificate;
+       client_root_certificate = v_client_root_certificate;
+       ipsec_policy = v_ipsec_policy;
+       radius = v_radius;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_radius v_radius in
+         ("radius", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ipsec_policy v_ipsec_policy
+         in
+         ("ipsec_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_client_root_certificate
+             v_client_root_certificate
+         in
+         ("client_root_certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_client_revoked_certificate
+             v_client_revoked_certificate
+         in
+         ("client_revoked_certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_azure_active_directory_authentication
+             v_azure_active_directory_authentication
+         in
+         ("azure_active_directory_authentication", arg) :: bnds
+       in
+       let bnds =
+         match v_vpn_protocols with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "vpn_protocols", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_vpn_authentication_types
+         in
+         ("vpn_authentication_types", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_vpn_server_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_vpn_server_configuration
+
+[@@@deriving.end]
 
 let azure_active_directory_authentication ~audience ~issuer ~tenant
     () : azure_active_directory_authentication =

@@ -4,15 +4,63 @@ open! Tf_core
 
 type aws_securityhub_account = {
   auto_enable_controls : bool prop option; [@option]
-      (** auto_enable_controls *)
   control_finding_generator : string prop option; [@option]
-      (** control_finding_generator *)
   enable_default_standards : bool prop option; [@option]
-      (** enable_default_standards *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_securityhub_account *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securityhub_account) -> ()
+
+let yojson_of_aws_securityhub_account =
+  (function
+   | {
+       auto_enable_controls = v_auto_enable_controls;
+       control_finding_generator = v_control_finding_generator;
+       enable_default_standards = v_enable_default_standards;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_default_standards with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_default_standards", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_control_finding_generator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "control_finding_generator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_enable_controls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_enable_controls", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_securityhub_account -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securityhub_account
+
+[@@@deriving.end]
 
 let aws_securityhub_account ?auto_enable_controls
     ?control_finding_generator ?enable_default_standards ?id () :

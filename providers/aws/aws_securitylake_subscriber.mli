@@ -18,10 +18,14 @@ type source__custom_log_source_resource__attributes = {
   table_arn : string prop;  (** table_arn *)
 }
 
+[@@@deriving.end]
+
 type source__custom_log_source_resource__provider = {
   location : string prop;  (** location *)
   role_arn : string prop;  (** role_arn *)
 }
+
+[@@@deriving.end]
 
 type source__custom_log_source_resource
 

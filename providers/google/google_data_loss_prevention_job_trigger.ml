@@ -4,115 +4,410 @@ open! Tf_core
 
 type inspect_job__actions__deidentify__transformation_config = {
   deidentify_template : string prop option; [@option]
-      (** If this template is specified, it will serve as the default de-identify template. *)
   image_redact_template : string prop option; [@option]
-      (** If this template is specified, it will serve as the de-identify template for images. *)
   structured_deidentify_template : string prop option; [@option]
-      (** If this template is specified, it will serve as the de-identify template for structured content such as delimited files and tables. *)
 }
-[@@deriving yojson_of]
-(** User specified deidentify templates and configs for structured, unstructured, and image files. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__actions__deidentify__transformation_config) ->
+  ()
+
+let yojson_of_inspect_job__actions__deidentify__transformation_config
+    =
+  (function
+   | {
+       deidentify_template = v_deidentify_template;
+       image_redact_template = v_image_redact_template;
+       structured_deidentify_template =
+         v_structured_deidentify_template;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_structured_deidentify_template with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "structured_deidentify_template", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_redact_template with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_redact_template", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deidentify_template with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deidentify_template", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__actions__deidentify__transformation_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__actions__deidentify__transformation_config
+
+[@@@deriving.end]
 
 type inspect_job__actions__deidentify__transformation_details_storage_config__table = {
   dataset_id : string prop;
-      (** The ID of the dataset containing this table. *)
   project_id : string prop;
-      (** The ID of the project containing this table. *)
   table_id : string prop option; [@option]
-      (** The ID of the table. The ID must contain only letters (a-z,
-A-Z), numbers (0-9), or underscores (_). The maximum length
-is 1,024 characters. *)
 }
-[@@deriving yojson_of]
-(** The BigQuery table in which to store the output. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__actions__deidentify__transformation_details_storage_config__table) ->
+  ()
+
+let yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config__table
+    =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       table_id = v_table_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_table_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "table_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__actions__deidentify__transformation_details_storage_config__table ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config__table
+
+[@@@deriving.end]
 
 type inspect_job__actions__deidentify__transformation_details_storage_config = {
   table :
     inspect_job__actions__deidentify__transformation_details_storage_config__table
     list;
 }
-[@@deriving yojson_of]
-(** Config for storing transformation details. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__actions__deidentify__transformation_details_storage_config) ->
+  ()
+
+let yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config
+    =
+  (function
+   | { table = v_table } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config__table
+             v_table
+         in
+         ("table", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__actions__deidentify__transformation_details_storage_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config
+
+[@@@deriving.end]
 
 type inspect_job__actions__deidentify = {
   cloud_storage_output : string prop;
-      (** User settable Cloud Storage bucket and folders to store de-identified files.
-
-This field must be set for cloud storage deidentification.
-
-The output Cloud Storage bucket must be different from the input bucket.
-
-De-identified files will overwrite files in the output path.
-
-Form of: gs://bucket/folder/ or gs://bucket *)
   file_types_to_transform : string prop list option; [@option]
-      (** List of user-specified file type groups to transform. If specified, only the files with these filetypes will be transformed.
-
-If empty, all supported files will be transformed. Supported types may be automatically added over time.
-
-If a file type is set in this field that isn't supported by the Deidentify action then the job will fail and will not be successfully created/started. Possible values: [IMAGE, TEXT_FILE, CSV, TSV] *)
   transformation_config :
     inspect_job__actions__deidentify__transformation_config list;
   transformation_details_storage_config :
     inspect_job__actions__deidentify__transformation_details_storage_config
     list;
 }
-[@@deriving yojson_of]
-(** Create a de-identified copy of the requested table or files. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__actions__deidentify) -> ()
+
+let yojson_of_inspect_job__actions__deidentify =
+  (function
+   | {
+       cloud_storage_output = v_cloud_storage_output;
+       file_types_to_transform = v_file_types_to_transform;
+       transformation_config = v_transformation_config;
+       transformation_details_storage_config =
+         v_transformation_details_storage_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__deidentify__transformation_details_storage_config
+             v_transformation_details_storage_config
+         in
+         ("transformation_details_storage_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__deidentify__transformation_config
+             v_transformation_config
+         in
+         ("transformation_config", arg) :: bnds
+       in
+       let bnds =
+         match v_file_types_to_transform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "file_types_to_transform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cloud_storage_output
+         in
+         ("cloud_storage_output", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__actions__deidentify ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__actions__deidentify
+
+[@@@deriving.end]
 
 type inspect_job__actions__job_notification_emails = unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
 
-type inspect_job__actions__pub_sub = {
-  topic : string prop;
-      (** Cloud Pub/Sub topic to send notifications to. *)
-}
-[@@deriving yojson_of]
-(** Publish a message into a given Pub/Sub topic when the job completes. *)
+let _ = fun (_ : inspect_job__actions__job_notification_emails) -> ()
+
+let yojson_of_inspect_job__actions__job_notification_emails =
+  (yojson_of_unit
+    : inspect_job__actions__job_notification_emails ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__actions__job_notification_emails
+
+[@@@deriving.end]
+
+type inspect_job__actions__pub_sub = { topic : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__actions__pub_sub) -> ()
+
+let yojson_of_inspect_job__actions__pub_sub =
+  (function
+   | { topic = v_topic } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic in
+         ("topic", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__actions__pub_sub ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__actions__pub_sub
+
+[@@@deriving.end]
 
 type inspect_job__actions__publish_findings_to_cloud_data_catalog =
   unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__actions__publish_findings_to_cloud_data_catalog) ->
+  ()
+
+let yojson_of_inspect_job__actions__publish_findings_to_cloud_data_catalog
+    =
+  (yojson_of_unit
+    : inspect_job__actions__publish_findings_to_cloud_data_catalog ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__actions__publish_findings_to_cloud_data_catalog
+
+[@@@deriving.end]
 
 type inspect_job__actions__publish_summary_to_cscc = unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__actions__publish_summary_to_cscc) -> ()
+
+let yojson_of_inspect_job__actions__publish_summary_to_cscc =
+  (yojson_of_unit
+    : inspect_job__actions__publish_summary_to_cscc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__actions__publish_summary_to_cscc
+
+[@@@deriving.end]
 
 type inspect_job__actions__publish_to_stackdriver = unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__actions__publish_to_stackdriver) -> ()
+
+let yojson_of_inspect_job__actions__publish_to_stackdriver =
+  (yojson_of_unit
+    : inspect_job__actions__publish_to_stackdriver ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__actions__publish_to_stackdriver
+
+[@@@deriving.end]
 
 type inspect_job__actions__save_findings__output_config__table = {
-  dataset_id : string prop;  (** Dataset ID of the table. *)
+  dataset_id : string prop;
   project_id : string prop;
-      (** The Google Cloud Platform project ID of the project containing the table. *)
   table_id : string prop option; [@option]
-      (** Name of the table. If is not set a new one will be generated for you with the following format:
-'dlp_googleapis_yyyy_mm_dd_[dlp_job_id]'. Pacific timezone will be used for generating the date details. *)
 }
-[@@deriving yojson_of]
-(** Information on the location of the target BigQuery Table. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__actions__save_findings__output_config__table) ->
+  ()
+
+let yojson_of_inspect_job__actions__save_findings__output_config__table
+    =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       table_id = v_table_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_table_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "table_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__actions__save_findings__output_config__table ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__actions__save_findings__output_config__table
+
+[@@@deriving.end]
 
 type inspect_job__actions__save_findings__output_config = {
   output_schema : string prop option; [@option]
-      (** Schema used for writing the findings for Inspect jobs. This field is only used for
-Inspect and must be unspecified for Risk jobs. Columns are derived from the Finding
-object. If appending to an existing table, any columns from the predefined schema
-that are missing will be added. No columns in the existing table will be deleted.
-
-If unspecified, then all available columns will be used for a new table or an (existing)
-table with no schema, and no changes will be made to an existing table that has a schema.
-Only for use with external storage. Possible values: [BASIC_COLUMNS, GCS_COLUMNS, DATASTORE_COLUMNS, BIG_QUERY_COLUMNS, ALL_COLUMNS] *)
   table :
     inspect_job__actions__save_findings__output_config__table list;
 }
-[@@deriving yojson_of]
-(** Information on where to store output *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__actions__save_findings__output_config) -> ()
+
+let yojson_of_inspect_job__actions__save_findings__output_config =
+  (function
+   | { output_schema = v_output_schema; table = v_table } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__save_findings__output_config__table
+             v_table
+         in
+         ("table", arg) :: bnds
+       in
+       let bnds =
+         match v_output_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_schema", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__actions__save_findings__output_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__actions__save_findings__output_config
+
+[@@@deriving.end]
 
 type inspect_job__actions__save_findings = {
   output_config :
     inspect_job__actions__save_findings__output_config list;
 }
-[@@deriving yojson_of]
-(** If set, the detailed findings will be persisted to the specified OutputStorageConfig. Only a single instance of this action can be specified. Compatible with: Inspect, Risk *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__actions__save_findings) -> ()
+
+let yojson_of_inspect_job__actions__save_findings =
+  (function
+   | { output_config = v_output_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__save_findings__output_config
+             v_output_config
+         in
+         ("output_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__actions__save_findings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__actions__save_findings
+
+[@@@deriving.end]
 
 type inspect_job__actions = {
   deidentify : inspect_job__actions__deidentify list;
@@ -127,23 +422,147 @@ type inspect_job__actions = {
     inspect_job__actions__publish_to_stackdriver list;
   save_findings : inspect_job__actions__save_findings list;
 }
-[@@deriving yojson_of]
-(** Configuration block for the actions to execute on the completion of a job. Can be specified multiple times, but only one for each type. Each action block supports fields documented below. This argument is processed in [attribute-as-blocks mode](https://www.terraform.io/docs/configuration/attr-as-blocks.html). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__actions) -> ()
+
+let yojson_of_inspect_job__actions =
+  (function
+   | {
+       deidentify = v_deidentify;
+       job_notification_emails = v_job_notification_emails;
+       pub_sub = v_pub_sub;
+       publish_findings_to_cloud_data_catalog =
+         v_publish_findings_to_cloud_data_catalog;
+       publish_summary_to_cscc = v_publish_summary_to_cscc;
+       publish_to_stackdriver = v_publish_to_stackdriver;
+       save_findings = v_save_findings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__save_findings
+             v_save_findings
+         in
+         ("save_findings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__publish_to_stackdriver
+             v_publish_to_stackdriver
+         in
+         ("publish_to_stackdriver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__publish_summary_to_cscc
+             v_publish_summary_to_cscc
+         in
+         ("publish_summary_to_cscc", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__publish_findings_to_cloud_data_catalog
+             v_publish_findings_to_cloud_data_catalog
+         in
+         ("publish_findings_to_cloud_data_catalog", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_inspect_job__actions__pub_sub
+             v_pub_sub
+         in
+         ("pub_sub", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__actions__job_notification_emails
+             v_job_notification_emails
+         in
+         ("job_notification_emails", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_inspect_job__actions__deidentify
+             v_deidentify
+         in
+         ("deidentify", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__actions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__actions
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path = {
   path : string prop;
-      (** A url representing a file or path (no wildcards) in Cloud Storage. Example: 'gs://[BUCKET_NAME]/dictionary.txt' *)
 }
-[@@deriving yojson_of]
-(** Newline-delimited file of words in Cloud Storage. Only a single file is accepted. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path
+    =
+  (function
+   | { path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__dictionary__word_list = {
   words : string prop list;
-      (** Words or phrases defining the dictionary. The dictionary must contain at least one
-phrase and every phrase must contain at least 2 characters that are letters or digits. *)
 }
-[@@deriving yojson_of]
-(** List of words or phrases to search for. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__custom_info_types__dictionary__word_list) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__word_list
+    =
+  (function
+   | { words = v_words } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_words
+         in
+         ("words", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__custom_info_types__dictionary__word_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__word_list
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__dictionary = {
   cloud_storage_path :
@@ -153,67 +572,252 @@ type inspect_job__inspect_config__custom_info_types__dictionary = {
     inspect_job__inspect_config__custom_info_types__dictionary__word_list
     list;
 }
-[@@deriving yojson_of]
-(** Dictionary which defines the rule. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__inspect_config__custom_info_types__dictionary) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types__dictionary
+    =
+  (function
+   | {
+       cloud_storage_path = v_cloud_storage_path;
+       word_list = v_word_list;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__word_list
+             v_word_list
+         in
+         ("word_list", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types__dictionary__cloud_storage_path
+             v_cloud_storage_path
+         in
+         ("cloud_storage_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__custom_info_types__dictionary ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__custom_info_types__dictionary
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__info_type = {
   name : string prop;
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names
-listed at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
   version : string prop option; [@option]
-      (** Version of the information type to use. By default, the version is set to stable. *)
   sensitivity_score :
     inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** CustomInfoType can either be a new infoType, or an extension of built-in infoType, when the name matches one of existing
-infoTypes and that infoType is specified in 'info_types' field. Specifying the latter adds findings to the
-one detected by the system. If built-in info type is not specified in 'info_types' list then the name is
-treated as a custom info type. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__inspect_config__custom_info_types__info_type) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types__info_type
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types__info_type__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__custom_info_types__info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__custom_info_types__info_type
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__regex = {
   group_indexes : float prop list option; [@option]
-      (** The index of the submatch to extract as findings. When not specified, the entire match is returned. No more than 3 may be included. *)
   pattern : string prop;
-      (** Pattern defining the regular expression.
-Its syntax (https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub. *)
 }
-[@@deriving yojson_of]
-(** Regular expression which defines the rule. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__inspect_config__custom_info_types__regex) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types__regex =
+  (function
+   | { group_indexes = v_group_indexes; pattern = v_pattern } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pattern in
+         ("pattern", arg) :: bnds
+       in
+       let bnds =
+         match v_group_indexes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "group_indexes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__custom_info_types__regex ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__custom_info_types__regex
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__custom_info_types__sensitivity_score) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__custom_info_types__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__custom_info_types__sensitivity_score
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__stored_type = {
   name : string prop;
-      (** Resource name of the requested StoredInfoType, for example 'organizations/433245324/storedInfoTypes/432452342'
-or 'projects/project-id/storedInfoTypes/432452342'. *)
 }
-[@@deriving yojson_of]
-(** A reference to a StoredInfoType to use with scanning. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__custom_info_types__stored_type) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types__stored_type
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__custom_info_types__stored_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__custom_info_types__stored_type
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types__surrogate_type =
   unit
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__custom_info_types__surrogate_type) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types__surrogate_type
+    =
+  (yojson_of_unit
+    : inspect_job__inspect_config__custom_info_types__surrogate_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__custom_info_types__surrogate_type
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__custom_info_types = {
   exclusion_type : string prop option; [@option]
-      (** If set to EXCLUSION_TYPE_EXCLUDE this infoType will not cause a finding to be returned. It still can be used for rules matching. Possible values: [EXCLUSION_TYPE_EXCLUDE] *)
   likelihood : string prop option; [@option]
-      (** Likelihood to return for this CustomInfoType. This base value can be altered by a detection rule if the finding meets the criteria
-specified by the rule. Default value: VERY_LIKELY Possible values: [VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY, VERY_LIKELY] *)
   dictionary :
     inspect_job__inspect_config__custom_info_types__dictionary list;
   info_type :
@@ -228,110 +832,498 @@ specified by the rule. Default value: VERY_LIKELY Possible values: [VERY_UNLIKEL
     inspect_job__inspect_config__custom_info_types__surrogate_type
     list;
 }
-[@@deriving yojson_of]
-(** Custom info types to be used. See https://cloud.google.com/dlp/docs/creating-custom-infotypes to learn more. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__inspect_config__custom_info_types) -> ()
+
+let yojson_of_inspect_job__inspect_config__custom_info_types =
+  (function
+   | {
+       exclusion_type = v_exclusion_type;
+       likelihood = v_likelihood;
+       dictionary = v_dictionary;
+       info_type = v_info_type;
+       regex = v_regex;
+       sensitivity_score = v_sensitivity_score;
+       stored_type = v_stored_type;
+       surrogate_type = v_surrogate_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types__surrogate_type
+             v_surrogate_type
+         in
+         ("surrogate_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types__stored_type
+             v_stored_type
+         in
+         ("stored_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types__regex
+             v_regex
+         in
+         ("regex", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types__info_type
+             v_info_type
+         in
+         ("info_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types__dictionary
+             v_dictionary
+         in
+         ("dictionary", arg) :: bnds
+       in
+       let bnds =
+         match v_likelihood with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "likelihood", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exclusion_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "exclusion_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__custom_info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__inspect_config__custom_info_types
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__info_types__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__inspect_config__info_types__sensitivity_score) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__info_types__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__info_types__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__info_types__sensitivity_score
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__info_types = {
   name : string prop;
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed
-at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
   version : string prop option; [@option]
-      (** Version of the information type to use. By default, the version is set to stable *)
   sensitivity_score :
     inspect_job__inspect_config__info_types__sensitivity_score list;
 }
-[@@deriving yojson_of]
-(** Restricts what infoTypes to look for. The values must correspond to InfoType values returned by infoTypes.list
-or listed at https://cloud.google.com/dlp/docs/infotypes-reference.
+[@@deriving_inline yojson_of]
 
-When no InfoTypes or CustomInfoTypes are specified in a request, the system may automatically choose what detectors to run.
-By default this may be all types, but may change over time as detectors are updated. *)
+let _ = fun (_ : inspect_job__inspect_config__info_types) -> ()
+
+let yojson_of_inspect_job__inspect_config__info_types =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__info_types__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__inspect_config__info_types
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__limits__max_findings_per_info_type__info_type = {
   name : string prop;
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed
-at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
   version : string prop option; [@option]
-      (** Version of the information type to use. By default, the version is set to stable *)
   sensitivity_score :
     inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** Type of information the findings limit applies to. Only one limit per infoType should be provided. If InfoTypeLimit does
-not have an infoType, the DLP API applies the limit against all infoTypes that are found but not
-specified in another InfoTypeLimit. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__limits__max_findings_per_info_type__info_type) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__limits__max_findings_per_info_type__info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__limits__max_findings_per_info_type = {
   max_findings : float prop option; [@option]
-      (** Max findings limit for the given infoType. *)
   info_type :
     inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
     list;
 }
-[@@deriving yojson_of]
-(** Configuration of findings limit given for specified infoTypes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__limits__max_findings_per_info_type) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type
+    =
+  (function
+   | { max_findings = v_max_findings; info_type = v_info_type } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type__info_type
+             v_info_type
+         in
+         ("info_type", arg) :: bnds
+       in
+       let bnds =
+         match v_max_findings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_findings", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__limits__max_findings_per_info_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__limits = {
   max_findings_per_item : float prop option; [@option]
-      (** Max number of findings that will be returned for each item scanned. The maximum returned is 2000. *)
   max_findings_per_request : float prop option; [@option]
-      (** Max number of findings that will be returned per request/job. The maximum returned is 2000. *)
   max_findings_per_info_type :
     inspect_job__inspect_config__limits__max_findings_per_info_type
     list;
 }
-[@@deriving yojson_of]
-(** Configuration to control the number of findings returned. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__inspect_config__limits) -> ()
+
+let yojson_of_inspect_job__inspect_config__limits =
+  (function
+   | {
+       max_findings_per_item = v_max_findings_per_item;
+       max_findings_per_request = v_max_findings_per_request;
+       max_findings_per_info_type = v_max_findings_per_info_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__limits__max_findings_per_info_type
+             v_max_findings_per_info_type
+         in
+         ("max_findings_per_info_type", arg) :: bnds
+       in
+       let bnds =
+         match v_max_findings_per_request with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_findings_per_request", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_findings_per_item with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_findings_per_item", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__limits ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__inspect_config__limits
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__info_types__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__info_types__sensitivity_score) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__info_types__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__info_types__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__info_types__sensitivity_score
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__info_types = {
   name : string prop;
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed
-at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
   version : string prop option; [@option]
-      (** Version of the information type to use. By default, the version is set to stable. *)
   sensitivity_score :
     inspect_job__inspect_config__rule_set__info_types__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** List of infoTypes this rule set is applied to. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__inspect_config__rule_set__info_types) -> ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__info_types =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__info_types__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__inspect_config__rule_set__info_types
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path = {
   path : string prop;
-      (** A url representing a file or path (no wildcards) in Cloud Storage. Example: 'gs://[BUCKET_NAME]/dictionary.txt' *)
 }
-[@@deriving yojson_of]
-(** Newline-delimited file of words in Cloud Storage. Only a single file is accepted. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path
+    =
+  (function
+   | { path = v_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list = {
   words : string prop list;
-      (** Words or phrases defining the dictionary. The dictionary must contain at least one
-phrase and every phrase must contain at least 2 characters that are letters or digits. *)
 }
-[@@deriving yojson_of]
-(** List of words or phrases to search for. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list
+    =
+  (function
+   | { words = v_words } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_words
+         in
+         ("words", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary = {
   cloud_storage_path :
@@ -341,32 +1333,138 @@ type inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary = 
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list
     list;
 }
-[@@deriving yojson_of]
-(** Dictionary which defines the rule. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
+    =
+  (function
+   | {
+       cloud_storage_path = v_cloud_storage_path;
+       word_list = v_word_list;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__word_list
+             v_word_list
+         in
+         ("word_list", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary__cloud_storage_path
+             v_cloud_storage_path
+         in
+         ("cloud_storage_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex = {
   group_indexes : float prop list option; [@option]
-      (** The index of the submatch to extract as findings. When not specified,
-the entire match is returned. No more than 3 may be included. *)
   pattern : string prop option; [@option]
-      (** Pattern defining the regular expression. Its syntax
-(https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub. *)
 }
-[@@deriving yojson_of]
-(** Regular expression pattern defining what qualifies as a hotword. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex
+    =
+  (function
+   | { group_indexes = v_group_indexes; pattern = v_pattern } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_pattern with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pattern", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group_indexes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "group_indexes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity = {
   window_after : float prop option; [@option]
-      (** Number of characters after the finding to consider. Either this or window_before must be specified *)
   window_before : float prop option; [@option]
-      (** Number of characters before the finding to consider. Either this or window_after must be specified *)
 }
-[@@deriving yojson_of]
-(** Proximity of the finding within which the entire hotword must reside. The total length of the window cannot
-exceed 1000 characters. Note that the finding itself will be included in the window, so that hotwords may be
-used to match substrings of the finding itself. For example, the certainty of a phone number regex
-'(\d{3}) \d{3}-\d{4}' could be adjusted upwards if the area code is known to be the local area code of a company
-office using the hotword regex '(xxx)', where 'xxx' is the area code in question. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity
+    =
+  (function
+   | {
+       window_after = v_window_after;
+       window_before = v_window_before;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_window_before with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "window_before", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_window_after with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "window_after", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword = {
   hotword_regex :
@@ -376,50 +1474,208 @@ type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_ho
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity
     list;
 }
-[@@deriving yojson_of]
-(** Drop if the hotword rule is contained in the proximate context. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
+    =
+  (function
+   | { hotword_regex = v_hotword_regex; proximity = v_proximity } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__proximity
+             v_proximity
+         in
+         ("proximity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword__hotword_regex
+             v_hotword_regex
+         in
+         ("hotword_regex", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score = {
   score : string prop;
-      (** The sensitivity score applied to the resource. Possible values: [SENSITIVITY_LOW, SENSITIVITY_MODERATE, SENSITIVITY_HIGH] *)
 }
-[@@deriving yojson_of]
-(** Optional custom sensitivity for this InfoType. This only applies to data profiling. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score
+    =
+  (function
+   | { score = v_score } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_score in
+         ("score", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types = {
   name : string prop;
-      (** Name of the information type. Either a name of your choosing when creating a CustomInfoType, or one of the names listed
-at https://cloud.google.com/dlp/docs/infotypes-reference when specifying a built-in type. *)
   version : string prop option; [@option]
-      (** Version of the information type to use. By default, the version is set to stable. *)
   sensitivity_score :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score
     list;
 }
-[@@deriving yojson_of]
-(** If a finding is matched by any of the infoType detectors listed here, the finding will be excluded from the scan results. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
+    =
+  (function
+   | {
+       name = v_name;
+       version = v_version;
+       sensitivity_score = v_sensitivity_score;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types__sensitivity_score
+             v_sensitivity_score
+         in
+         ("sensitivity_score", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types = {
   info_types :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
     list;
 }
-[@@deriving yojson_of]
-(** Set of infoTypes for which findings would affect this rule. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types
+    =
+  (function
+   | { info_types = v_info_types } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types__info_types
+             v_info_types
+         in
+         ("info_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex = {
   group_indexes : float prop list option; [@option]
-      (** The index of the submatch to extract as findings. When not specified, the entire match is returned. No more than 3 may be included. *)
   pattern : string prop;
-      (** Pattern defining the regular expression.
-Its syntax (https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub. *)
 }
-[@@deriving yojson_of]
-(** Regular expression which defines the rule. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex
+    =
+  (function
+   | { group_indexes = v_group_indexes; pattern = v_pattern } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pattern in
+         ("pattern", arg) :: bnds
+       in
+       let bnds =
+         match v_group_indexes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "group_indexes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__exclusion_rule = {
   matching_type : string prop;
-      (** How the rule is applied. See the documentation for more information: https://cloud.google.com/dlp/docs/reference/rest/v2/InspectConfig#MatchingType Possible values: [MATCHING_TYPE_FULL_MATCH, MATCHING_TYPE_PARTIAL_MATCH, MATCHING_TYPE_INVERSE_MATCH] *)
   dictionary :
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
     list;
@@ -433,46 +1689,207 @@ type inspect_job__inspect_config__rule_set__rules__exclusion_rule = {
     inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex
     list;
 }
-[@@deriving yojson_of]
-(** The rule that specifies conditions when findings of infoTypes specified in InspectionRuleSet are removed from results. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__exclusion_rule) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule
+    =
+  (function
+   | {
+       matching_type = v_matching_type;
+       dictionary = v_dictionary;
+       exclude_by_hotword = v_exclude_by_hotword;
+       exclude_info_types = v_exclude_info_types;
+       regex = v_regex;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__regex
+             v_regex
+         in
+         ("regex", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_info_types
+             v_exclude_info_types
+         in
+         ("exclude_info_types", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__exclude_by_hotword
+             v_exclude_by_hotword
+         in
+         ("exclude_by_hotword", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule__dictionary
+             v_dictionary
+         in
+         ("dictionary", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_matching_type in
+         ("matching_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__exclusion_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex = {
   group_indexes : float prop list option; [@option]
-      (** The index of the submatch to extract as findings. When not specified,
-the entire match is returned. No more than 3 may be included. *)
   pattern : string prop option; [@option]
-      (** Pattern defining the regular expression. Its syntax
-(https://github.com/google/re2/wiki/Syntax) can be found under the google/re2 repository on GitHub. *)
 }
-[@@deriving yojson_of]
-(** Regular expression pattern defining what qualifies as a hotword. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex
+    =
+  (function
+   | { group_indexes = v_group_indexes; pattern = v_pattern } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_pattern with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pattern", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group_indexes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_float) v
+             in
+             let bnd = "group_indexes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment = {
   fixed_likelihood : string prop option; [@option]
-      (** Set the likelihood of a finding to a fixed value. Either this or relative_likelihood can be set. Possible values: [VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY, VERY_LIKELY] *)
   relative_likelihood : float prop option; [@option]
-      (** Increase or decrease the likelihood by the specified number of levels. For example,
-if a finding would be POSSIBLE without the detection rule and relativeLikelihood is 1,
-then it is upgraded to LIKELY, while a value of -1 would downgrade it to UNLIKELY.
-Likelihood may never drop below VERY_UNLIKELY or exceed VERY_LIKELY, so applying an
-adjustment of 1 followed by an adjustment of -1 when base likelihood is VERY_LIKELY
-will result in a final likelihood of LIKELY. Either this or fixed_likelihood can be set. *)
 }
-[@@deriving yojson_of]
-(** Likelihood adjustment to apply to all matching findings. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment
+    =
+  (function
+   | {
+       fixed_likelihood = v_fixed_likelihood;
+       relative_likelihood = v_relative_likelihood;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_relative_likelihood with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "relative_likelihood", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fixed_likelihood with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fixed_likelihood", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity = {
   window_after : float prop option; [@option]
-      (** Number of characters after the finding to consider. Either this or window_before must be specified *)
   window_before : float prop option; [@option]
-      (** Number of characters before the finding to consider. Either this or window_after must be specified *)
 }
-[@@deriving yojson_of]
-(** Proximity of the finding within which the entire hotword must reside. The total length of the window cannot
-exceed 1000 characters. Note that the finding itself will be included in the window, so that hotwords may be
-used to match substrings of the finding itself. For example, the certainty of a phone number regex
-'(\d{3}) \d{3}-\d{4}' could be adjusted upwards if the area code is known to be the local area code of a company
-office using the hotword regex '(xxx)', where 'xxx' is the area code in question. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity
+    =
+  (function
+   | {
+       window_after = v_window_after;
+       window_before = v_window_before;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_window_before with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "window_before", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_window_after with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "window_after", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules__hotword_rule = {
   hotword_regex :
@@ -485,8 +1902,55 @@ type inspect_job__inspect_config__rule_set__rules__hotword_rule = {
     inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity
     list;
 }
-[@@deriving yojson_of]
-(** Hotword-based detection rule. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__inspect_config__rule_set__rules__hotword_rule) ->
+  ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule
+    =
+  (function
+   | {
+       hotword_regex = v_hotword_regex;
+       likelihood_adjustment = v_likelihood_adjustment;
+       proximity = v_proximity;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__proximity
+             v_proximity
+         in
+         ("proximity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__likelihood_adjustment
+             v_likelihood_adjustment
+         in
+         ("likelihood_adjustment", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule__hotword_regex
+             v_hotword_regex
+         in
+         ("hotword_regex", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules__hotword_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set__rules = {
   exclusion_rule :
@@ -494,78 +1958,311 @@ type inspect_job__inspect_config__rule_set__rules = {
   hotword_rule :
     inspect_job__inspect_config__rule_set__rules__hotword_rule list;
 }
-[@@deriving yojson_of]
-(** Set of rules to be applied to infoTypes. The rules are applied in order. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__inspect_config__rule_set__rules) -> ()
+
+let yojson_of_inspect_job__inspect_config__rule_set__rules =
+  (function
+   | {
+       exclusion_rule = v_exclusion_rule;
+       hotword_rule = v_hotword_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__hotword_rule
+             v_hotword_rule
+         in
+         ("hotword_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules__exclusion_rule
+             v_exclusion_rule
+         in
+         ("exclusion_rule", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set__rules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__inspect_config__rule_set__rules
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config__rule_set = {
   info_types :
     inspect_job__inspect_config__rule_set__info_types list;
   rules : inspect_job__inspect_config__rule_set__rules list;
 }
-[@@deriving yojson_of]
-(** Set of rules to apply to the findings for this InspectConfig. Exclusion rules, contained in the set are executed in the end,
-other rules are executed in the order they are specified for each info type. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__inspect_config__rule_set) -> ()
+
+let yojson_of_inspect_job__inspect_config__rule_set =
+  (function
+   | { info_types = v_info_types; rules = v_rules } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__rules
+             v_rules
+         in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set__info_types
+             v_info_types
+         in
+         ("info_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config__rule_set ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__inspect_config__rule_set
+
+[@@@deriving.end]
 
 type inspect_job__inspect_config = {
   exclude_info_types : bool prop option; [@option]
-      (** When true, excludes type information of the findings. *)
   include_quote : bool prop option; [@option]
-      (** When true, a contextual quote from the data that triggered a finding is included in the response. *)
   min_likelihood : string prop option; [@option]
-      (** Only returns findings equal or above this threshold. See https://cloud.google.com/dlp/docs/likelihood for more info Default value: POSSIBLE Possible values: [VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY, VERY_LIKELY] *)
   custom_info_types :
     inspect_job__inspect_config__custom_info_types list;
   info_types : inspect_job__inspect_config__info_types list;
   limits : inspect_job__inspect_config__limits list;
   rule_set : inspect_job__inspect_config__rule_set list;
 }
-[@@deriving yojson_of]
-(** The core content of the template. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__inspect_config) -> ()
+
+let yojson_of_inspect_job__inspect_config =
+  (function
+   | {
+       exclude_info_types = v_exclude_info_types;
+       include_quote = v_include_quote;
+       min_likelihood = v_min_likelihood;
+       custom_info_types = v_custom_info_types;
+       info_types = v_info_types;
+       limits = v_limits;
+       rule_set = v_rule_set;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__rule_set
+             v_rule_set
+         in
+         ("rule_set", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__limits v_limits
+         in
+         ("limits", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__info_types
+             v_info_types
+         in
+         ("info_types", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__inspect_config__custom_info_types
+             v_custom_info_types
+         in
+         ("custom_info_types", arg) :: bnds
+       in
+       let bnds =
+         match v_min_likelihood with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_likelihood", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_quote with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "include_quote", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exclude_info_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "exclude_info_types", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__inspect_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__inspect_config
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__big_query_options__excluded_fields = {
   name : string prop;
-      (** Name describing the field excluded from scanning. *)
 }
-[@@deriving yojson_of]
-(** References to fields excluded from scanning.
-This allows you to skip inspection of entire columns which you know have no findings. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__storage_config__big_query_options__excluded_fields) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__big_query_options__excluded_fields
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__big_query_options__excluded_fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__big_query_options__excluded_fields
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__big_query_options__identifying_fields = {
   name : string prop;
-      (** Name of a BigQuery field to be returned with the findings. *)
 }
-[@@deriving yojson_of]
-(** Specifies the BigQuery fields that will be returned with findings.
-If not specified, no identifying fields will be returned for findings. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__storage_config__big_query_options__identifying_fields) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__big_query_options__identifying_fields
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__big_query_options__identifying_fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__big_query_options__identifying_fields
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__big_query_options__included_fields = {
   name : string prop;
-      (** Name describing the field to which scanning is limited. *)
 }
-[@@deriving yojson_of]
-(** Limit scanning only to these fields. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__storage_config__big_query_options__included_fields) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__big_query_options__included_fields
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__big_query_options__included_fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__big_query_options__included_fields
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__big_query_options__table_reference = {
-  dataset_id : string prop;  (** The dataset ID of the table. *)
+  dataset_id : string prop;
   project_id : string prop;
-      (** The Google Cloud Platform project ID of the project containing the table. *)
-  table_id : string prop;  (** The name of the table. *)
+  table_id : string prop;
 }
-[@@deriving yojson_of]
-(** Set of files to scan. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__storage_config__big_query_options__table_reference) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__big_query_options__table_reference
+    =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       table_id = v_table_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_id in
+         ("table_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__big_query_options__table_reference ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__big_query_options__table_reference
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__big_query_options = {
   rows_limit : float prop option; [@option]
-      (** Max number of rows to scan. If the table has more rows than this value, the rest of the rows are omitted.
-If not set, or if set to 0, all rows will be scanned. Only one of rowsLimit and rowsLimitPercent can be
-specified. Cannot be used in conjunction with TimespanConfig. *)
   rows_limit_percent : float prop option; [@option]
-      (** Max percentage of rows to scan. The rest are omitted. The number of rows scanned is rounded down.
-Must be between 0 and 100, inclusively. Both 0 and 100 means no limit. Defaults to 0. Only one of
-rowsLimit and rowsLimitPercent can be specified. Cannot be used in conjunction with TimespanConfig. *)
   sample_method : string prop option; [@option]
-      (** How to sample rows if not all rows are scanned. Meaningful only when used in conjunction with either
-rowsLimit or rowsLimitPercent. If not specified, rows are scanned in the order BigQuery reads them. Default value: TOP Possible values: [TOP, RANDOM_START] *)
   excluded_fields :
     inspect_job__storage_config__big_query_options__excluded_fields
     list;
@@ -579,161 +2276,614 @@ rowsLimit or rowsLimitPercent. If not specified, rows are scanned in the order B
     inspect_job__storage_config__big_query_options__table_reference
     list;
 }
-[@@deriving yojson_of]
-(** Options defining BigQuery table and row identifiers. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__storage_config__big_query_options) -> ()
+
+let yojson_of_inspect_job__storage_config__big_query_options =
+  (function
+   | {
+       rows_limit = v_rows_limit;
+       rows_limit_percent = v_rows_limit_percent;
+       sample_method = v_sample_method;
+       excluded_fields = v_excluded_fields;
+       identifying_fields = v_identifying_fields;
+       included_fields = v_included_fields;
+       table_reference = v_table_reference;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__big_query_options__table_reference
+             v_table_reference
+         in
+         ("table_reference", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__big_query_options__included_fields
+             v_included_fields
+         in
+         ("included_fields", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__big_query_options__identifying_fields
+             v_identifying_fields
+         in
+         ("identifying_fields", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__big_query_options__excluded_fields
+             v_excluded_fields
+         in
+         ("excluded_fields", arg) :: bnds
+       in
+       let bnds =
+         match v_sample_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sample_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rows_limit_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "rows_limit_percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rows_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "rows_limit", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__big_query_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__storage_config__big_query_options
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set = {
   bucket_name : string prop;
-      (** The name of a Cloud Storage bucket. *)
   exclude_regex : string prop list option; [@option]
-      (** A list of regular expressions matching file paths to exclude. All files in the bucket that match at
-least one of these regular expressions will be excluded from the scan. *)
   include_regex : string prop list option; [@option]
-      (** A list of regular expressions matching file paths to include. All files in the bucket
-that match at least one of these regular expressions will be included in the set of files,
-except for those that also match an item in excludeRegex. Leaving this field empty will
-match all files by default (this is equivalent to including .* in the list) *)
 }
-[@@deriving yojson_of]
-(** The regex-filtered set of files to scan. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set
+    =
+  (function
+   | {
+       bucket_name = v_bucket_name;
+       exclude_regex = v_exclude_regex;
+       include_regex = v_include_regex;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_include_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "include_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exclude_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exclude_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__cloud_storage_options__file_set = {
   url : string prop option; [@option]
-      (** The Cloud Storage url of the file(s) to scan, in the format 'gs://<bucket>/<path>'. Trailing wildcard
-in the path is allowed.
-
-If the url ends in a trailing slash, the bucket or directory represented by the url will be scanned
-non-recursively (content in sub-directories will not be scanned). This means that 'gs://mybucket/' is
-equivalent to 'gs://mybucket/*', and 'gs://mybucket/directory/' is equivalent to 'gs://mybucket/directory/*'. *)
   regex_file_set :
     inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set
     list;
 }
-[@@deriving yojson_of]
-(** Set of files to scan. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__storage_config__cloud_storage_options__file_set) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__cloud_storage_options__file_set
+    =
+  (function
+   | { url = v_url; regex_file_set = v_regex_file_set } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__cloud_storage_options__file_set__regex_file_set
+             v_regex_file_set
+         in
+         ("regex_file_set", arg) :: bnds
+       in
+       let bnds =
+         match v_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "url", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__cloud_storage_options__file_set ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__cloud_storage_options__file_set
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__cloud_storage_options = {
   bytes_limit_per_file : float prop option; [@option]
-      (** Max number of bytes to scan from a file. If a scanned file's size is bigger than this value
-then the rest of the bytes are omitted. *)
   bytes_limit_per_file_percent : float prop option; [@option]
-      (** Max percentage of bytes to scan from a file. The rest are omitted. The number of bytes scanned is rounded down.
-Must be between 0 and 100, inclusively. Both 0 and 100 means no limit. *)
   file_types : string prop list option; [@option]
-      (** List of file type groups to include in the scan. If empty, all files are scanned and available data
-format processors are applied. In addition, the binary content of the selected files is always scanned as well.
-Images are scanned only as binary if the specified region does not support image inspection and no fileTypes were specified. Possible values: [BINARY_FILE, TEXT_FILE, IMAGE, WORD, PDF, AVRO, CSV, TSV, POWERPOINT, EXCEL] *)
   files_limit_percent : float prop option; [@option]
-      (** Limits the number of files to scan to this percentage of the input FileSet. Number of files scanned is rounded down.
-Must be between 0 and 100, inclusively. Both 0 and 100 means no limit. *)
   sample_method : string prop option; [@option]
-      (** How to sample bytes if not all bytes are scanned. Meaningful only when used in conjunction with bytesLimitPerFile.
-If not specified, scanning would start from the top. Possible values: [TOP, RANDOM_START] *)
   file_set :
     inspect_job__storage_config__cloud_storage_options__file_set list;
 }
-[@@deriving yojson_of]
-(** Options defining a file or a set of files within a Google Cloud Storage bucket. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__storage_config__cloud_storage_options) -> ()
+
+let yojson_of_inspect_job__storage_config__cloud_storage_options =
+  (function
+   | {
+       bytes_limit_per_file = v_bytes_limit_per_file;
+       bytes_limit_per_file_percent = v_bytes_limit_per_file_percent;
+       file_types = v_file_types;
+       files_limit_percent = v_files_limit_percent;
+       sample_method = v_sample_method;
+       file_set = v_file_set;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__cloud_storage_options__file_set
+             v_file_set
+         in
+         ("file_set", arg) :: bnds
+       in
+       let bnds =
+         match v_sample_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sample_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_files_limit_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "files_limit_percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "file_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bytes_limit_per_file_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "bytes_limit_per_file_percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bytes_limit_per_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "bytes_limit_per_file", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__cloud_storage_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__storage_config__cloud_storage_options
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__datastore_options__kind = {
-  name : string prop;  (** The name of the Datastore kind. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** A representation of a Datastore kind. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__storage_config__datastore_options__kind) -> ()
+
+let yojson_of_inspect_job__storage_config__datastore_options__kind =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__datastore_options__kind ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__datastore_options__kind
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__datastore_options__partition_id = {
   namespace_id : string prop option; [@option]
-      (** If not empty, the ID of the namespace to which the entities belong. *)
   project_id : string prop;
-      (** The ID of the project to which the entities belong. *)
 }
-[@@deriving yojson_of]
-(** Datastore partition ID. A partition ID identifies a grouping of entities. The grouping
-is always by project and namespace, however the namespace ID may be empty. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__storage_config__datastore_options__partition_id) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__datastore_options__partition_id
+    =
+  (function
+   | { namespace_id = v_namespace_id; project_id = v_project_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         match v_namespace_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__datastore_options__partition_id ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__datastore_options__partition_id
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__datastore_options = {
   kind : inspect_job__storage_config__datastore_options__kind list;
   partition_id :
     inspect_job__storage_config__datastore_options__partition_id list;
 }
-[@@deriving yojson_of]
-(** Options defining a data set within Google Cloud Datastore. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__storage_config__datastore_options) -> ()
+
+let yojson_of_inspect_job__storage_config__datastore_options =
+  (function
+   | { kind = v_kind; partition_id = v_partition_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__datastore_options__partition_id
+             v_partition_id
+         in
+         ("partition_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__datastore_options__kind
+             v_kind
+         in
+         ("kind", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__datastore_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__storage_config__datastore_options
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__hybrid_options__table_options__identifying_fields = {
-  name : string prop;  (** Name describing the field. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** The columns that are the primary keys for table objects included in ContentItem. A copy of this
-cell's value will stored alongside alongside each finding so that the finding can be traced to
-the specific row it came from. No more than 3 may be provided. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__storage_config__hybrid_options__table_options__identifying_fields) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__hybrid_options__table_options__identifying_fields
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__hybrid_options__table_options__identifying_fields ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__hybrid_options__table_options__identifying_fields
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__hybrid_options__table_options = {
   identifying_fields :
     inspect_job__storage_config__hybrid_options__table_options__identifying_fields
     list;
 }
-[@@deriving yojson_of]
-(** If the container is a table, additional information to make findings meaningful such as the columns that are primary keys. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : inspect_job__storage_config__hybrid_options__table_options) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__hybrid_options__table_options
+    =
+  (function
+   | { identifying_fields = v_identifying_fields } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__hybrid_options__table_options__identifying_fields
+             v_identifying_fields
+         in
+         ("identifying_fields", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__hybrid_options__table_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__hybrid_options__table_options
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__hybrid_options = {
   description : string prop option; [@option]
-      (** A short description of where the data is coming from. Will be stored once in the job. 256 max length. *)
   labels : (string * string prop) list option; [@option]
-      (** To organize findings, these labels will be added to each finding.
-
-Label keys must be between 1 and 63 characters long and must conform to the following regular expression: '[a-z]([-a-z0-9]*[a-z0-9])?'.
-
-Label values must be between 0 and 63 characters long and must conform to the regular expression '([a-z]([-a-z0-9]*[a-z0-9])?)?'.
-
-No more than 10 labels can be associated with a given finding.
-
-Examples:
-* 'environment : production'
-* 'pipeline : etl' *)
   required_finding_label_keys : string prop list option; [@option]
-      (** These are labels that each inspection request must include within their 'finding_labels' map. Request
-may contain others, but any missing one of these will be rejected.
-
-Label keys must be between 1 and 63 characters long and must conform to the following regular expression: '[a-z]([-a-z0-9]*[a-z0-9])?'.
-
-No more than 10 keys can be required. *)
   table_options :
     inspect_job__storage_config__hybrid_options__table_options list;
 }
-[@@deriving yojson_of]
-(** Configuration to control jobs where the content being inspected is outside of Google Cloud Platform. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__storage_config__hybrid_options) -> ()
+
+let yojson_of_inspect_job__storage_config__hybrid_options =
+  (function
+   | {
+       description = v_description;
+       labels = v_labels;
+       required_finding_label_keys = v_required_finding_label_keys;
+       table_options = v_table_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__hybrid_options__table_options
+             v_table_options
+         in
+         ("table_options", arg) :: bnds
+       in
+       let bnds =
+         match v_required_finding_label_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "required_finding_label_keys", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__hybrid_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__storage_config__hybrid_options
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__timespan_config__timestamp_field = {
   name : string prop;
-      (** Specification of the field containing the timestamp of scanned items. Used for data sources like Datastore and BigQuery.
-
-For BigQuery: Required to filter out rows based on the given start and end times. If not specified and the table was
-modified between the given start and end times, the entire table will be scanned. The valid data types of the timestamp
-field are: INTEGER, DATE, TIMESTAMP, or DATETIME BigQuery column.
-
-For Datastore. Valid data types of the timestamp field are: TIMESTAMP. Datastore entity will be scanned if the
-timestamp property does not exist or its value is empty or invalid. *)
 }
-[@@deriving yojson_of]
-(** Specification of the field containing the timestamp of scanned items. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       inspect_job__storage_config__timespan_config__timestamp_field) ->
+  ()
+
+let yojson_of_inspect_job__storage_config__timespan_config__timestamp_field
+    =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__timespan_config__timestamp_field ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_inspect_job__storage_config__timespan_config__timestamp_field
+
+[@@@deriving.end]
 
 type inspect_job__storage_config__timespan_config = {
   enable_auto_population_of_timespan_config : bool prop option;
       [@option]
-      (** When the job is started by a JobTrigger we will automatically figure out a valid startTime to avoid
-scanning files that have not been modified since the last time the JobTrigger executed. This will
-be based on the time of the execution of the last run of the JobTrigger or the timespan endTime
-used in the last run of the JobTrigger. *)
   end_time : string prop option; [@option]
-      (** Exclude files, tables, or rows newer than this value. If not set, no upper time limit is applied. *)
   start_time : string prop option; [@option]
-      (** Exclude files, tables, or rows older than this value. If not set, no lower time limit is applied. *)
   timestamp_field :
     inspect_job__storage_config__timespan_config__timestamp_field
     list;
 }
-[@@deriving yojson_of]
-(** Configuration of the timespan of the items to include in scanning *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__storage_config__timespan_config) -> ()
+
+let yojson_of_inspect_job__storage_config__timespan_config =
+  (function
+   | {
+       enable_auto_population_of_timespan_config =
+         v_enable_auto_population_of_timespan_config;
+       end_time = v_end_time;
+       start_time = v_start_time;
+       timestamp_field = v_timestamp_field;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__timespan_config__timestamp_field
+             v_timestamp_field
+         in
+         ("timestamp_field", arg) :: bnds
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_end_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "end_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_auto_population_of_timespan_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "enable_auto_population_of_timespan_config", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config__timespan_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__storage_config__timespan_config
+
+[@@@deriving.end]
 
 type inspect_job__storage_config = {
   big_query_options :
@@ -745,70 +2895,341 @@ type inspect_job__storage_config = {
   hybrid_options : inspect_job__storage_config__hybrid_options list;
   timespan_config : inspect_job__storage_config__timespan_config list;
 }
-[@@deriving yojson_of]
-(** Information on where to inspect *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job__storage_config) -> ()
+
+let yojson_of_inspect_job__storage_config =
+  (function
+   | {
+       big_query_options = v_big_query_options;
+       cloud_storage_options = v_cloud_storage_options;
+       datastore_options = v_datastore_options;
+       hybrid_options = v_hybrid_options;
+       timespan_config = v_timespan_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__timespan_config
+             v_timespan_config
+         in
+         ("timespan_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__hybrid_options
+             v_hybrid_options
+         in
+         ("hybrid_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__datastore_options
+             v_datastore_options
+         in
+         ("datastore_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__cloud_storage_options
+             v_cloud_storage_options
+         in
+         ("cloud_storage_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_inspect_job__storage_config__big_query_options
+             v_big_query_options
+         in
+         ("big_query_options", arg) :: bnds
+       in
+       `Assoc bnds
+    : inspect_job__storage_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job__storage_config
+
+[@@@deriving.end]
 
 type inspect_job = {
   inspect_template_name : string prop option; [@option]
-      (** The name of the template to run when this job is triggered. *)
   actions : inspect_job__actions list;
   inspect_config : inspect_job__inspect_config list;
   storage_config : inspect_job__storage_config list;
 }
-[@@deriving yojson_of]
-(** Controls what and how to inspect for findings. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : inspect_job) -> ()
+
+let yojson_of_inspect_job =
+  (function
+   | {
+       inspect_template_name = v_inspect_template_name;
+       actions = v_actions;
+       inspect_config = v_inspect_config;
+       storage_config = v_storage_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_inspect_job__storage_config
+             v_storage_config
+         in
+         ("storage_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_inspect_job__inspect_config
+             v_inspect_config
+         in
+         ("inspect_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_inspect_job__actions v_actions
+         in
+         ("actions", arg) :: bnds
+       in
+       let bnds =
+         match v_inspect_template_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "inspect_template_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : inspect_job -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_inspect_job
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type triggers__manual = unit [@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type triggers__manual = unit [@@deriving_inline yojson_of]
+
+let _ = fun (_ : triggers__manual) -> ()
+
+let yojson_of_triggers__manual =
+  (yojson_of_unit
+    : triggers__manual -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_triggers__manual
+
+[@@@deriving.end]
 
 type triggers__schedule = {
   recurrence_period_duration : string prop option; [@option]
-      (** With this option a job is started a regular periodic basis. For example: every day (86400 seconds).
-
-A scheduled start time will be skipped if the previous execution has not ended when its scheduled time occurs.
-
-This value must be set to a time duration greater than or equal to 1 day and can be no longer than 60 days.
-
-A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
 }
-[@@deriving yojson_of]
-(** Schedule for triggered jobs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : triggers__schedule) -> ()
+
+let yojson_of_triggers__schedule =
+  (function
+   | { recurrence_period_duration = v_recurrence_period_duration } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_recurrence_period_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "recurrence_period_duration", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : triggers__schedule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_triggers__schedule
+
+[@@@deriving.end]
 
 type triggers = {
   manual : triggers__manual list;
   schedule : triggers__schedule list;
 }
-[@@deriving yojson_of]
-(** What event needs to occur for a new job to be started. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : triggers) -> ()
+
+let yojson_of_triggers =
+  (function
+   | { manual = v_manual; schedule = v_schedule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_triggers__schedule v_schedule
+         in
+         ("schedule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_triggers__manual v_manual
+         in
+         ("manual", arg) :: bnds
+       in
+       `Assoc bnds
+    : triggers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_triggers
+
+[@@@deriving.end]
 
 type google_data_loss_prevention_job_trigger = {
   description : string prop option; [@option]
-      (** A description of the job trigger. *)
   display_name : string prop option; [@option]
-      (** User set display name of the job trigger. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   parent : string prop;
-      (** The parent of the trigger, either in the format 'projects/{{project}}'
-or 'projects/{{project}}/locations/{{location}}' *)
   status : string prop option; [@option]
-      (** Whether the trigger is currently active. Default value: HEALTHY Possible values: [PAUSED, HEALTHY, CANCELLED] *)
   trigger_id : string prop option; [@option]
-      (** The trigger id can contain uppercase and lowercase letters, numbers, and hyphens;
-that is, it must match the regular expression: [a-zA-Z\d-_]+.
-The maximum length is 100 characters. Can be empty to allow the system to generate one. *)
   inspect_job : inspect_job list;
   timeouts : timeouts option;
   triggers : triggers list;
 }
-[@@deriving yojson_of]
-(** google_data_loss_prevention_job_trigger *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_data_loss_prevention_job_trigger) -> ()
+
+let yojson_of_google_data_loss_prevention_job_trigger =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       parent = v_parent;
+       status = v_status;
+       trigger_id = v_trigger_id;
+       inspect_job = v_inspect_job;
+       timeouts = v_timeouts;
+       triggers = v_triggers;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_triggers v_triggers in
+         ("triggers", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_inspect_job v_inspect_job
+         in
+         ("inspect_job", arg) :: bnds
+       in
+       let bnds =
+         match v_trigger_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "trigger_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_data_loss_prevention_job_trigger ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_data_loss_prevention_job_trigger
+
+[@@@deriving.end]
 
 let inspect_job__actions__deidentify__transformation_config
     ?deidentify_template ?image_redact_template

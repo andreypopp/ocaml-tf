@@ -3,35 +3,189 @@
 open! Tf_core
 
 type retention_policy = {
-  days : float prop option; [@option]  (** days *)
-  enabled : bool prop;  (** enabled *)
+  days : float prop option; [@option]
+  enabled : bool prop;
 }
-[@@deriving yojson_of]
-(** retention_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : retention_policy) -> ()
+
+let yojson_of_retention_policy =
+  (function
+   | { days = v_days; enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       let bnds =
+         match v_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "days", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : retention_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retention_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_monitor_log_profile = {
-  categories : string prop list;  (** categories *)
-  id : string prop option; [@option]  (** id *)
-  locations : string prop list;  (** locations *)
-  name : string prop;  (** name *)
+  categories : string prop list;
+  id : string prop option; [@option]
+  locations : string prop list;
+  name : string prop;
   servicebus_rule_id : string prop option; [@option]
-      (** servicebus_rule_id *)
   storage_account_id : string prop option; [@option]
-      (** storage_account_id *)
   retention_policy : retention_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_monitor_log_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_monitor_log_profile) -> ()
+
+let yojson_of_azurerm_monitor_log_profile =
+  (function
+   | {
+       categories = v_categories;
+       id = v_id;
+       locations = v_locations;
+       name = v_name;
+       servicebus_rule_id = v_servicebus_rule_id;
+       storage_account_id = v_storage_account_id;
+       retention_policy = v_retention_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retention_policy
+             v_retention_policy
+         in
+         ("retention_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_account_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_servicebus_rule_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "servicebus_rule_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_locations
+         in
+         ("locations", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_categories
+         in
+         ("categories", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_monitor_log_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_monitor_log_profile
+
+[@@@deriving.end]
 
 let retention_policy ?days ~enabled () : retention_policy =
   { days; enabled }

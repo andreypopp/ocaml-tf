@@ -4,42 +4,227 @@ open! Tf_core
 
 type private_endpoint = {
   allowed_request_types : string prop list option; [@option]
-      (** allowed_request_types *)
   denied_request_types : string prop list option; [@option]
-      (** denied_request_types *)
-  id : string prop;  (** id *)
+  id : string prop;
 }
-[@@deriving yojson_of]
-(** private_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : private_endpoint) -> ()
+
+let yojson_of_private_endpoint =
+  (function
+   | {
+       allowed_request_types = v_allowed_request_types;
+       denied_request_types = v_denied_request_types;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         match v_denied_request_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "denied_request_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_request_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_request_types", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : private_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_private_endpoint
+
+[@@@deriving.end]
 
 type public_network = {
   allowed_request_types : string prop list option; [@option]
-      (** allowed_request_types *)
   denied_request_types : string prop list option; [@option]
-      (** denied_request_types *)
 }
-[@@deriving yojson_of]
-(** public_network *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : public_network) -> ()
+
+let yojson_of_public_network =
+  (function
+   | {
+       allowed_request_types = v_allowed_request_types;
+       denied_request_types = v_denied_request_types;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_denied_request_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "denied_request_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_request_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_request_types", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : public_network -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_public_network
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_signalr_service_network_acl = {
-  default_action : string prop;  (** default_action *)
-  id : string prop option; [@option]  (** id *)
-  signalr_service_id : string prop;  (** signalr_service_id *)
+  default_action : string prop;
+  id : string prop option; [@option]
+  signalr_service_id : string prop;
   private_endpoint : private_endpoint list;
   public_network : public_network list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_signalr_service_network_acl *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_signalr_service_network_acl) -> ()
+
+let yojson_of_azurerm_signalr_service_network_acl =
+  (function
+   | {
+       default_action = v_default_action;
+       id = v_id;
+       signalr_service_id = v_signalr_service_id;
+       private_endpoint = v_private_endpoint;
+       public_network = v_public_network;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_public_network v_public_network
+         in
+         ("public_network", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_private_endpoint
+             v_private_endpoint
+         in
+         ("private_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_signalr_service_id
+         in
+         ("signalr_service_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_default_action
+         in
+         ("default_action", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_signalr_service_network_acl ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_signalr_service_network_acl
+
+[@@@deriving.end]
 
 let private_endpoint ?allowed_request_types ?denied_request_types ~id
     () : private_endpoint =

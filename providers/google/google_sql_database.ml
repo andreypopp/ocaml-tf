@@ -3,43 +3,138 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_sql_database = {
   charset : string prop option; [@option]
-      (** The charset value. See MySQL's
-[Supported Character Sets and Collations](https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html)
-and Postgres' [Character Set Support](https://www.postgresql.org/docs/9.6/static/multibyte.html)
-for more details and supported values. Postgres databases only support
-a value of 'UTF8' at creation time. *)
   collation : string prop option; [@option]
-      (** The collation value. See MySQL's
-[Supported Character Sets and Collations](https://dev.mysql.com/doc/refman/5.7/en/charset-charsets.html)
-and Postgres' [Collation Support](https://www.postgresql.org/docs/9.6/static/collation.html)
-for more details and supported values. Postgres databases only support
-a value of 'en_US.UTF8' at creation time. *)
   deletion_policy : string prop option; [@option]
-      (** The deletion policy for the database. Setting ABANDON allows the resource
-to be abandoned rather than deleted. This is useful for Postgres, where databases cannot be
-deleted from the API if there are users other than cloudsqlsuperuser with access. Possible
-values are: ABANDON, DELETE. Defaults to DELETE. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   instance : string prop;
-      (** The name of the Cloud SQL instance. This does not include the project
-ID. *)
   name : string prop;
-      (** The name of the database in the Cloud SQL instance.
-This does not include the project ID or instance name. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_sql_database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_sql_database) -> ()
+
+let yojson_of_google_sql_database =
+  (function
+   | {
+       charset = v_charset;
+       collation = v_collation;
+       deletion_policy = v_deletion_policy;
+       id = v_id;
+       instance = v_instance;
+       name = v_name;
+       project = v_project;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance in
+         ("instance", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deletion_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_collation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "collation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_charset with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "charset", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_sql_database -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_sql_database
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

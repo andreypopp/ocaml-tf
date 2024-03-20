@@ -3,57 +3,113 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_firebase_app_check_service_config = {
   enforcement_mode : string prop option; [@option]
-      (** The App Check enforcement mode for a service supported by App Check. Valid values are
-
-(Unset)
-Firebase App Check is not enforced for the service, nor are App Check metrics collected.
-Though the service is not protected by App Check in this mode, other applicable protections,
-such as user authorization, are still enforced. An unconfigured service is in this mode by default.
-This is equivalent to OFF in the REST API. Deleting the Terraform resource will also switch the
-enforcement to OFF for this service.
-
-UNENFORCED
-Firebase App Check is not enforced for the service. App Check metrics are collected to help you
-decide when to turn on enforcement for the service. Though the service is not protected by App Check
-in this mode, other applicable protections, such as user authorization, are still enforced.
-
-ENFORCED
-Firebase App Check is enforced for the service. The service will reject any request that attempts to
-access your project's resources if it does not have valid App Check token attached, with some exceptions
-depending on the service; for example, some services will still allow requests bearing the developer's
-privileged service account credentials without an App Check token. App Check metrics continue to be
-collected to help you detect issues with your App Check integration and monitor the composition of your
-callers. While the service is protected by App Check, other applicable protections, such as user
-authorization, continue to be enforced at the same time.
-
-Use caution when choosing to enforce App Check on a Firebase service. If your users have not updated
-to an App Check capable version of your app, their apps will no longer be able to use your Firebase
-services that are enforcing App Check. App Check metrics can help you decide whether to enforce App
-Check on your Firebase services.
-
-If your app has not launched yet, you should enable enforcement immediately, since there are no outdated
-clients in use. Possible values: [UNENFORCED, ENFORCED] *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   service_id : string prop;
-      (** The identifier of the service to configure enforcement. Currently, the following service IDs are supported:
-  firebasestorage.googleapis.com (Cloud Storage for Firebase)
-  firebasedatabase.googleapis.com (Firebase Realtime Database)
-  firestore.googleapis.com (Cloud Firestore)
-  identitytoolkit.googleapis.com (Authentication) *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_firebase_app_check_service_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_firebase_app_check_service_config) -> ()
+
+let yojson_of_google_firebase_app_check_service_config =
+  (function
+   | {
+       enforcement_mode = v_enforcement_mode;
+       id = v_id;
+       project = v_project;
+       service_id = v_service_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_id in
+         ("service_id", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enforcement_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "enforcement_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_firebase_app_check_service_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_firebase_app_check_service_config
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

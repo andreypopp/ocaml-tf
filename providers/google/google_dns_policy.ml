@@ -4,63 +4,238 @@ open! Tf_core
 
 type alternative_name_server_config__target_name_servers = {
   forwarding_path : string prop option; [@option]
-      (** Forwarding path for this TargetNameServer. If unset or 'default' Cloud DNS will make forwarding
-decision based on address ranges, i.e. RFC1918 addresses go to the VPC, Non-RFC1918 addresses go
-to the Internet. When set to 'private', Cloud DNS will always send queries through VPC for this target Possible values: [default, private] *)
-  ipv4_address : string prop;  (** IPv4 address to forward to. *)
+  ipv4_address : string prop;
 }
-[@@deriving yojson_of]
-(** Sets an alternative name server for the associated networks. When specified,
-all DNS queries are forwarded to a name server that you choose. Names such as .internal
-are not available when an alternative name server is specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : alternative_name_server_config__target_name_servers) -> ()
+
+let yojson_of_alternative_name_server_config__target_name_servers =
+  (function
+   | {
+       forwarding_path = v_forwarding_path;
+       ipv4_address = v_ipv4_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ipv4_address in
+         ("ipv4_address", arg) :: bnds
+       in
+       let bnds =
+         match v_forwarding_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "forwarding_path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : alternative_name_server_config__target_name_servers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_alternative_name_server_config__target_name_servers
+
+[@@@deriving.end]
 
 type alternative_name_server_config = {
   target_name_servers :
     alternative_name_server_config__target_name_servers list;
 }
-[@@deriving yojson_of]
-(** Sets an alternative name server for the associated networks.
-When specified, all DNS queries are forwarded to a name server that you choose.
-Names such as .internal are not available when an alternative name server is specified. *)
+[@@deriving_inline yojson_of]
 
-type networks = {
-  network_url : string prop;
-      (** The id or fully qualified URL of the VPC network to forward queries to.
-This should be formatted like 'projects/{project}/global/networks/{network}' or
-'https://www.googleapis.com/compute/v1/projects/{project}/global/networks/{network}' *)
-}
-[@@deriving yojson_of]
-(** List of network names specifying networks to which this policy is applied. *)
+let _ = fun (_ : alternative_name_server_config) -> ()
+
+let yojson_of_alternative_name_server_config =
+  (function
+   | { target_name_servers = v_target_name_servers } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_alternative_name_server_config__target_name_servers
+             v_target_name_servers
+         in
+         ("target_name_servers", arg) :: bnds
+       in
+       `Assoc bnds
+    : alternative_name_server_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_alternative_name_server_config
+
+[@@@deriving.end]
+
+type networks = { network_url : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : networks) -> ()
+
+let yojson_of_networks =
+  (function
+   | { network_url = v_network_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network_url in
+         ("network_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : networks -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_networks
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_dns_policy = {
   description : string prop option; [@option]
-      (** A textual description field. Defaults to 'Managed by Terraform'. *)
   enable_inbound_forwarding : bool prop option; [@option]
-      (** Allows networks bound to this policy to receive DNS queries sent
-by VMs or applications over VPN connections. When enabled, a
-virtual IP address will be allocated from each of the sub-networks
-that are bound to this policy. *)
   enable_logging : bool prop option; [@option]
-      (** Controls whether logging is enabled for the networks bound to this policy.
-Defaults to no logging if not set. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** User assigned name for this policy. *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  name : string prop;
+  project : string prop option; [@option]
   alternative_name_server_config :
     alternative_name_server_config list;
   networks : networks list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dns_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dns_policy) -> ()
+
+let yojson_of_google_dns_policy =
+  (function
+   | {
+       description = v_description;
+       enable_inbound_forwarding = v_enable_inbound_forwarding;
+       enable_logging = v_enable_logging;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       alternative_name_server_config =
+         v_alternative_name_server_config;
+       networks = v_networks;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_networks v_networks in
+         ("networks", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_alternative_name_server_config
+             v_alternative_name_server_config
+         in
+         ("alternative_name_server_config", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_logging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_logging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_inbound_forwarding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_inbound_forwarding", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dns_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dns_policy
+
+[@@@deriving.end]
 
 let alternative_name_server_config__target_name_servers
     ?forwarding_path ~ipv4_address () :

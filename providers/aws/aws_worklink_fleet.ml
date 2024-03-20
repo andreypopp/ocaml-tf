@@ -3,35 +3,171 @@
 open! Tf_core
 
 type identity_provider = {
-  saml_metadata : string prop;  (** saml_metadata *)
-  type_ : string prop; [@key "type"]  (** type *)
+  saml_metadata : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity_provider *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity_provider) -> ()
+
+let yojson_of_identity_provider =
+  (function
+   | { saml_metadata = v_saml_metadata; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_saml_metadata in
+         ("saml_metadata", arg) :: bnds
+       in
+       `Assoc bnds
+    : identity_provider -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity_provider
+
+[@@@deriving.end]
 
 type network = {
-  security_group_ids : string prop list;  (** security_group_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
-  vpc_id : string prop;  (** vpc_id *)
+  security_group_ids : string prop list;
+  subnet_ids : string prop list;
+  vpc_id : string prop;
 }
-[@@deriving yojson_of]
-(** network *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network) -> ()
+
+let yojson_of_network =
+  (function
+   | {
+       security_group_ids = v_security_group_ids;
+       subnet_ids = v_subnet_ids;
+       vpc_id = v_vpc_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_security_group_ids
+         in
+         ("security_group_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : network -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network
+
+[@@@deriving.end]
 
 type aws_worklink_fleet = {
   audit_stream_arn : string prop option; [@option]
-      (** audit_stream_arn *)
   device_ca_certificate : string prop option; [@option]
-      (** device_ca_certificate *)
-  display_name : string prop option; [@option]  (** display_name *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  display_name : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   optimize_for_end_user_location : bool prop option; [@option]
-      (** optimize_for_end_user_location *)
   identity_provider : identity_provider list;
   network : network list;
 }
-[@@deriving yojson_of]
-(** aws_worklink_fleet *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_worklink_fleet) -> ()
+
+let yojson_of_aws_worklink_fleet =
+  (function
+   | {
+       audit_stream_arn = v_audit_stream_arn;
+       device_ca_certificate = v_device_ca_certificate;
+       display_name = v_display_name;
+       id = v_id;
+       name = v_name;
+       optimize_for_end_user_location =
+         v_optimize_for_end_user_location;
+       identity_provider = v_identity_provider;
+       network = v_network;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_network v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_identity_provider
+             v_identity_provider
+         in
+         ("identity_provider", arg) :: bnds
+       in
+       let bnds =
+         match v_optimize_for_end_user_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optimize_for_end_user_location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_device_ca_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "device_ca_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_audit_stream_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "audit_stream_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_worklink_fleet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_worklink_fleet
+
+[@@@deriving.end]
 
 let identity_provider ~saml_metadata ~type_ () : identity_provider =
   { saml_metadata; type_ }

@@ -11,6 +11,8 @@ type asset_status = {
   update_time : string prop;  (** update_time *)
 }
 
+[@@@deriving.end]
+
 type discovery_spec__csv_options
 
 val discovery_spec__csv_options :

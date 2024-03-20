@@ -2,45 +2,175 @@
 
 open! Tf_core
 
-type gke_clusters = {
-  gke_cluster_name : string prop;
-      (** The resource name of the cluster to bind this ManagedZone to.
-This should be specified in the format like
-'projects/*/locations/*/clusters/*' *)
-}
-[@@deriving yojson_of]
-(** The list of Google Kubernetes Engine clusters that can see this zone. *)
+type gke_clusters = { gke_cluster_name : string prop }
+[@@deriving_inline yojson_of]
 
-type networks = {
-  network_url : string prop;
-      (** The fully qualified URL of the VPC network to bind to.
-This should be formatted like
-'https://www.googleapis.com/compute/v1/projects/{project}/global/networks/{network}' *)
-}
-[@@deriving yojson_of]
-(** The list of network names specifying networks to which this policy is applied. *)
+let _ = fun (_ : gke_clusters) -> ()
+
+let yojson_of_gke_clusters =
+  (function
+   | { gke_cluster_name = v_gke_cluster_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_gke_cluster_name
+         in
+         ("gke_cluster_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : gke_clusters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gke_clusters
+
+[@@@deriving.end]
+
+type networks = { network_url : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : networks) -> ()
+
+let yojson_of_networks =
+  (function
+   | { network_url = v_network_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network_url in
+         ("network_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : networks -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_networks
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_dns_response_policy = {
   description : string prop option; [@option]
-      (** The description of the response policy, such as 'My new response policy'. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   response_policy_name : string prop;
-      (** The user assigned name for this Response Policy, such as 'myresponsepolicy'. *)
   gke_clusters : gke_clusters list;
   networks : networks list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dns_response_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dns_response_policy) -> ()
+
+let yojson_of_google_dns_response_policy =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       project = v_project;
+       response_policy_name = v_response_policy_name;
+       gke_clusters = v_gke_clusters;
+       networks = v_networks;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_networks v_networks in
+         ("networks", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_gke_clusters v_gke_clusters
+         in
+         ("gke_clusters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_response_policy_name
+         in
+         ("response_policy_name", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dns_response_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dns_response_policy
+
+[@@@deriving.end]
 
 let gke_clusters ~gke_cluster_name () : gke_clusters =
   { gke_cluster_name }

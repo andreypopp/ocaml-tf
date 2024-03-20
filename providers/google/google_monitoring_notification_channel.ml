@@ -4,61 +4,237 @@ open! Tf_core
 
 type sensitive_labels = {
   auth_token : string prop option; [@option]
-      (** An authorization token for a notification channel. Channel types that support this field include: slack *)
   password : string prop option; [@option]
-      (** An password for a notification channel. Channel types that support this field include: webhook_basicauth *)
   service_key : string prop option; [@option]
-      (** An servicekey token for a notification channel. Channel types that support this field include: pagerduty *)
 }
-[@@deriving yojson_of]
-(** Different notification type behaviors are configured primarily using the the 'labels' field on this
-resource. This block contains the labels which contain secrets or passwords so that they can be marked
-sensitive and hidden from plan output. The name of the field, eg: password, will be the key
-in the 'labels' map in the api request.
+[@@deriving_inline yojson_of]
 
-Credentials may not be specified in both locations and will cause an error. Changing from one location
-to a different credential configuration in the config will require an apply to update state. *)
+let _ = fun (_ : sensitive_labels) -> ()
+
+let yojson_of_sensitive_labels =
+  (function
+   | {
+       auth_token = v_auth_token;
+       password = v_password;
+       service_key = v_service_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auth_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auth_token", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sensitive_labels -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sensitive_labels
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_monitoring_notification_channel = {
   description : string prop option; [@option]
-      (** An optional human-readable description of this notification channel. This description may provide additional details, beyond the display name, for the channel. This may not exceed 1024 Unicode characters. *)
   display_name : string prop option; [@option]
-      (** An optional human-readable name for this notification channel. It is recommended that you specify a non-empty and unique name in order to make it easier to identify the channels in your project, though this is not enforced. The display name is limited to 512 Unicode characters. *)
   enabled : bool prop option; [@option]
-      (** Whether notifications are forwarded to the described channel. This makes it possible to disable delivery of notifications to a particular channel without removing the channel from all alerting policies that reference the channel. This is a more convenient approach when the change is temporary and you want to receive notifications from the same set of alerting policies on the channel at some point in the future. *)
   force_delete : bool prop option; [@option]
-      (** If true, the notification channel will be deleted regardless
-of its use in alert policies (the policies will be updated
-to remove the channel). If false, channels that are still
-referenced by an existing alerting policy will fail to be
-deleted in a delete operation. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Configuration fields that define the channel and its behavior. The
-permissible and required labels are specified in the
-NotificationChannelDescriptor corresponding to the type field.
-
-Labels with sensitive data are obfuscated by the API and therefore Terraform cannot
-determine if there are upstream changes to these fields. They can also be configured via
-the sensitive_labels block, but cannot be configured in both places. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   type_ : string prop; [@key "type"]
-      (** The type of the notification channel. This field matches the value of the NotificationChannelDescriptor.type field. See https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.notificationChannelDescriptors/list to get the list of valid values such as email, slack, etc... *)
   user_labels : (string * string prop) list option; [@option]
-      (** User-supplied key/value data that does not need to conform to the corresponding NotificationChannelDescriptor's schema, unlike the labels field. This field is intended to be used for organizing and identifying the NotificationChannel objects.The field can contain up to 64 entries. Each key and value is limited to 63 Unicode characters or 128 bytes, whichever is smaller. Labels and values can contain only lowercase letters, numerals, underscores, and dashes. Keys must begin with a letter. *)
   sensitive_labels : sensitive_labels list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_monitoring_notification_channel *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_monitoring_notification_channel) -> ()
+
+let yojson_of_google_monitoring_notification_channel =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       enabled = v_enabled;
+       force_delete = v_force_delete;
+       id = v_id;
+       labels = v_labels;
+       project = v_project;
+       type_ = v_type_;
+       user_labels = v_user_labels;
+       sensitive_labels = v_sensitive_labels;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sensitive_labels
+             v_sensitive_labels
+         in
+         ("sensitive_labels", arg) :: bnds
+       in
+       let bnds =
+         match v_user_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "user_labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_monitoring_notification_channel ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_monitoring_notification_channel
+
+[@@@deriving.end]
 
 let sensitive_labels ?auth_token ?password ?service_key () :
     sensitive_labels =

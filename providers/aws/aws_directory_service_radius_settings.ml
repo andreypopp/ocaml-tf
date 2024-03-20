@@ -3,29 +3,142 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_directory_service_radius_settings = {
   authentication_protocol : string prop;
-      (** authentication_protocol *)
-  directory_id : string prop;  (** directory_id *)
-  display_label : string prop;  (** display_label *)
-  id : string prop option; [@option]  (** id *)
-  radius_port : float prop;  (** radius_port *)
-  radius_retries : float prop;  (** radius_retries *)
-  radius_servers : string prop list;  (** radius_servers *)
-  radius_timeout : float prop;  (** radius_timeout *)
-  shared_secret : string prop;  (** shared_secret *)
+  directory_id : string prop;
+  display_label : string prop;
+  id : string prop option; [@option]
+  radius_port : float prop;
+  radius_retries : float prop;
+  radius_servers : string prop list;
+  radius_timeout : float prop;
+  shared_secret : string prop;
   use_same_username : bool prop option; [@option]
-      (** use_same_username *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_directory_service_radius_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_directory_service_radius_settings) -> ()
+
+let yojson_of_aws_directory_service_radius_settings =
+  (function
+   | {
+       authentication_protocol = v_authentication_protocol;
+       directory_id = v_directory_id;
+       display_label = v_display_label;
+       id = v_id;
+       radius_port = v_radius_port;
+       radius_retries = v_radius_retries;
+       radius_servers = v_radius_servers;
+       radius_timeout = v_radius_timeout;
+       shared_secret = v_shared_secret;
+       use_same_username = v_use_same_username;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_use_same_username with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_same_username", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_shared_secret in
+         ("shared_secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_radius_timeout in
+         ("radius_timeout", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_radius_servers
+         in
+         ("radius_servers", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_radius_retries in
+         ("radius_retries", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_radius_port in
+         ("radius_port", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_label in
+         ("display_label", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_directory_id in
+         ("directory_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_authentication_protocol
+         in
+         ("authentication_protocol", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_directory_service_radius_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_directory_service_radius_settings
+
+[@@@deriving.end]
 
 let timeouts ?create ?update () : timeouts = { create; update }
 

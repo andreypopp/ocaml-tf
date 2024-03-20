@@ -3,16 +3,76 @@
 open! Tf_core
 
 type aws_codeartifact_repository_permissions_policy = {
-  domain : string prop;  (** domain *)
-  domain_owner : string prop option; [@option]  (** domain_owner *)
-  id : string prop option; [@option]  (** id *)
-  policy_document : string prop;  (** policy_document *)
+  domain : string prop;
+  domain_owner : string prop option; [@option]
+  id : string prop option; [@option]
+  policy_document : string prop;
   policy_revision : string prop option; [@option]
-      (** policy_revision *)
-  repository : string prop;  (** repository *)
+  repository : string prop;
 }
-[@@deriving yojson_of]
-(** aws_codeartifact_repository_permissions_policy *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_codeartifact_repository_permissions_policy) -> ()
+
+let yojson_of_aws_codeartifact_repository_permissions_policy =
+  (function
+   | {
+       domain = v_domain;
+       domain_owner = v_domain_owner;
+       id = v_id;
+       policy_document = v_policy_document;
+       policy_revision = v_policy_revision;
+       repository = v_repository;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_repository in
+         ("repository", arg) :: bnds
+       in
+       let bnds =
+         match v_policy_revision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy_revision", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_policy_document
+         in
+         ("policy_document", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domain_owner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain_owner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_codeartifact_repository_permissions_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_codeartifact_repository_permissions_policy
+
+[@@@deriving.end]
 
 let aws_codeartifact_repository_permissions_policy ?domain_owner ?id
     ?policy_revision ~domain ~policy_document ~repository () :

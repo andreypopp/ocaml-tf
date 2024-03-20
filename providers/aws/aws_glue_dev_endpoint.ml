@@ -4,34 +4,213 @@ open! Tf_core
 
 type aws_glue_dev_endpoint = {
   arguments : (string * string prop) list option; [@option]
-      (** arguments *)
   extra_jars_s3_path : string prop option; [@option]
-      (** extra_jars_s3_path *)
   extra_python_libs_s3_path : string prop option; [@option]
-      (** extra_python_libs_s3_path *)
-  glue_version : string prop option; [@option]  (** glue_version *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  glue_version : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   number_of_nodes : float prop option; [@option]
-      (** number_of_nodes *)
   number_of_workers : float prop option; [@option]
-      (** number_of_workers *)
-  public_key : string prop option; [@option]  (** public_key *)
+  public_key : string prop option; [@option]
   public_keys : string prop list option; [@option]
-      (** public_keys *)
-  role_arn : string prop;  (** role_arn *)
+  role_arn : string prop;
   security_configuration : string prop option; [@option]
-      (** security_configuration *)
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
-  subnet_id : string prop option; [@option]  (** subnet_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  subnet_id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  worker_type : string prop option; [@option]  (** worker_type *)
+  worker_type : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_glue_dev_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_glue_dev_endpoint) -> ()
+
+let yojson_of_aws_glue_dev_endpoint =
+  (function
+   | {
+       arguments = v_arguments;
+       extra_jars_s3_path = v_extra_jars_s3_path;
+       extra_python_libs_s3_path = v_extra_python_libs_s3_path;
+       glue_version = v_glue_version;
+       id = v_id;
+       name = v_name;
+       number_of_nodes = v_number_of_nodes;
+       number_of_workers = v_number_of_workers;
+       public_key = v_public_key;
+       public_keys = v_public_keys;
+       role_arn = v_role_arn;
+       security_configuration = v_security_configuration;
+       security_group_ids = v_security_group_ids;
+       subnet_id = v_subnet_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       worker_type = v_worker_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_worker_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "worker_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_configuration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_configuration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_public_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "public_keys", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "public_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_of_workers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_of_workers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_of_nodes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_of_nodes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_glue_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "glue_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_extra_python_libs_s3_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "extra_python_libs_s3_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_extra_jars_s3_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "extra_jars_s3_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_arguments with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "arguments", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_glue_dev_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_glue_dev_endpoint
+
+[@@@deriving.end]
 
 let aws_glue_dev_endpoint ?arguments ?extra_jars_s3_path
     ?extra_python_libs_s3_path ?glue_version ?id ?number_of_nodes

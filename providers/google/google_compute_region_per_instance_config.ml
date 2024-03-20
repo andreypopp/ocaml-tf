@@ -4,107 +4,444 @@ open! Tf_core
 
 type preserved_state__disk = {
   delete_rule : string prop option; [@option]
-      (** A value that prescribes what should happen to the stateful disk when the VM instance is deleted.
-The available options are 'NEVER' and 'ON_PERMANENT_INSTANCE_DELETION'.
-'NEVER' - detach the disk when the VM is deleted, but do not delete the disk.
-'ON_PERMANENT_INSTANCE_DELETION' will delete the stateful disk when the VM is permanently
-deleted from the instance group. Default value: NEVER Possible values: [NEVER, ON_PERMANENT_INSTANCE_DELETION] *)
   device_name : string prop;
-      (** A unique device name that is reflected into the /dev/ tree of a Linux operating system running within the instance. *)
   mode : string prop option; [@option]
-      (** The mode of the disk. Default value: READ_WRITE Possible values: [READ_ONLY, READ_WRITE] *)
   source : string prop;
-      (** The URI of an existing persistent disk to attach under the specified device-name in the format
-'projects/project-id/zones/zone/disks/disk-name'. *)
 }
-[@@deriving yojson_of]
-(** Stateful disks for the instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : preserved_state__disk) -> ()
+
+let yojson_of_preserved_state__disk =
+  (function
+   | {
+       delete_rule = v_delete_rule;
+       device_name = v_device_name;
+       mode = v_mode;
+       source = v_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_device_name in
+         ("device_name", arg) :: bnds
+       in
+       let bnds =
+         match v_delete_rule with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete_rule", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : preserved_state__disk -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_preserved_state__disk
+
+[@@@deriving.end]
 
 type preserved_state__external_ip__ip_address = {
   address : string prop option; [@option]
-      (** The URL of the reservation for this IP address. *)
 }
-[@@deriving yojson_of]
-(** Ip address representation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : preserved_state__external_ip__ip_address) -> ()
+
+let yojson_of_preserved_state__external_ip__ip_address =
+  (function
+   | { address = v_address } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : preserved_state__external_ip__ip_address ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_preserved_state__external_ip__ip_address
+
+[@@@deriving.end]
 
 type preserved_state__external_ip = {
   auto_delete : string prop option; [@option]
-      (** These stateful IPs will never be released during autohealing, update or VM instance recreate operations. This flag is used to configure if the IP reservation should be deleted after it is no longer used by the group, e.g. when the given instance or the whole group is deleted. Default value: NEVER Possible values: [NEVER, ON_PERMANENT_INSTANCE_DELETION] *)
-  interface_name : string prop;  (** interface_name *)
+  interface_name : string prop;
   ip_address : preserved_state__external_ip__ip_address list;
 }
-[@@deriving yojson_of]
-(** Preserved external IPs defined for this instance. This map is keyed with the name of the network interface. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : preserved_state__external_ip) -> ()
+
+let yojson_of_preserved_state__external_ip =
+  (function
+   | {
+       auto_delete = v_auto_delete;
+       interface_name = v_interface_name;
+       ip_address = v_ip_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_preserved_state__external_ip__ip_address
+             v_ip_address
+         in
+         ("ip_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_interface_name
+         in
+         ("interface_name", arg) :: bnds
+       in
+       let bnds =
+         match v_auto_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auto_delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : preserved_state__external_ip ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_preserved_state__external_ip
+
+[@@@deriving.end]
 
 type preserved_state__internal_ip__ip_address = {
   address : string prop option; [@option]
-      (** The URL of the reservation for this IP address. *)
 }
-[@@deriving yojson_of]
-(** Ip address representation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : preserved_state__internal_ip__ip_address) -> ()
+
+let yojson_of_preserved_state__internal_ip__ip_address =
+  (function
+   | { address = v_address } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "address", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : preserved_state__internal_ip__ip_address ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_preserved_state__internal_ip__ip_address
+
+[@@@deriving.end]
 
 type preserved_state__internal_ip = {
   auto_delete : string prop option; [@option]
-      (** These stateful IPs will never be released during autohealing, update or VM instance recreate operations. This flag is used to configure if the IP reservation should be deleted after it is no longer used by the group, e.g. when the given instance or the whole group is deleted. Default value: NEVER Possible values: [NEVER, ON_PERMANENT_INSTANCE_DELETION] *)
-  interface_name : string prop;  (** interface_name *)
+  interface_name : string prop;
   ip_address : preserved_state__internal_ip__ip_address list;
 }
-[@@deriving yojson_of]
-(** Preserved internal IPs defined for this instance. This map is keyed with the name of the network interface. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : preserved_state__internal_ip) -> ()
+
+let yojson_of_preserved_state__internal_ip =
+  (function
+   | {
+       auto_delete = v_auto_delete;
+       interface_name = v_interface_name;
+       ip_address = v_ip_address;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_preserved_state__internal_ip__ip_address
+             v_ip_address
+         in
+         ("ip_address", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_interface_name
+         in
+         ("interface_name", arg) :: bnds
+       in
+       let bnds =
+         match v_auto_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auto_delete", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : preserved_state__internal_ip ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_preserved_state__internal_ip
+
+[@@@deriving.end]
 
 type preserved_state = {
   metadata : (string * string prop) list option; [@option]
-      (** Preserved metadata defined for this instance. This is a list of key->value pairs. *)
   disk : preserved_state__disk list;
   external_ip : preserved_state__external_ip list;
   internal_ip : preserved_state__internal_ip list;
 }
-[@@deriving yojson_of]
-(** The preserved state for this instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : preserved_state) -> ()
+
+let yojson_of_preserved_state =
+  (function
+   | {
+       metadata = v_metadata;
+       disk = v_disk;
+       external_ip = v_external_ip;
+       internal_ip = v_internal_ip;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_preserved_state__internal_ip
+             v_internal_ip
+         in
+         ("internal_ip", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_preserved_state__external_ip
+             v_external_ip
+         in
+         ("external_ip", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_preserved_state__disk v_disk
+         in
+         ("disk", arg) :: bnds
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : preserved_state -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_preserved_state
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_region_per_instance_config = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   minimal_action : string prop option; [@option]
-      (** The minimal action to perform on the instance during an update.
-Default is 'NONE'. Possible values are:
-* REPLACE
-* RESTART
-* REFRESH
-* NONE *)
   most_disruptive_allowed_action : string prop option; [@option]
-      (** The most disruptive action to perform on the instance during an update.
-Default is 'REPLACE'. Possible values are:
-* REPLACE
-* RESTART
-* REFRESH
-* NONE *)
   name : string prop;
-      (** The name for this per-instance config and its corresponding instance. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** Region where the containing instance group manager is located *)
   region_instance_group_manager : string prop;
-      (** The region instance group manager this instance config is part of. *)
   remove_instance_on_destroy : bool prop option; [@option]
-      (** When true, deleting this config will immediately remove the underlying instance.
-When false, deleting this config will use the behavior as determined by remove_instance_on_destroy. *)
   remove_instance_state_on_destroy : bool prop option; [@option]
-      (** When true, deleting this config will immediately remove any specified state from the underlying instance.
-When false, deleting this config will *not* immediately remove any state from the underlying instance.
-State will be removed on the next instance recreation or update. *)
   preserved_state : preserved_state list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_region_per_instance_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_region_per_instance_config) -> ()
+
+let yojson_of_google_compute_region_per_instance_config =
+  (function
+   | {
+       id = v_id;
+       minimal_action = v_minimal_action;
+       most_disruptive_allowed_action =
+         v_most_disruptive_allowed_action;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       region_instance_group_manager =
+         v_region_instance_group_manager;
+       remove_instance_on_destroy = v_remove_instance_on_destroy;
+       remove_instance_state_on_destroy =
+         v_remove_instance_state_on_destroy;
+       preserved_state = v_preserved_state;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_preserved_state v_preserved_state
+         in
+         ("preserved_state", arg) :: bnds
+       in
+       let bnds =
+         match v_remove_instance_state_on_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "remove_instance_state_on_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_remove_instance_on_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "remove_instance_on_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_region_instance_group_manager
+         in
+         ("region_instance_group_manager", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_most_disruptive_allowed_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "most_disruptive_allowed_action", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minimal_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "minimal_action", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_region_per_instance_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_region_per_instance_config
+
+[@@@deriving.end]
 
 let preserved_state__disk ?delete_rule ?mode ~device_name ~source ()
     : preserved_state__disk =

@@ -2,88 +2,356 @@
 
 open! Tf_core
 
-type collector_ilb = {
-  url : string prop;  (** The URL of the forwarding rule. *)
-}
-[@@deriving yojson_of]
-(** The Forwarding Rule resource (of type load_balancing_scheme=INTERNAL)
-that will be used as collector for mirrored traffic. The
-specified forwarding rule must have is_mirroring_collector
-set to true. *)
+type collector_ilb = { url : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : collector_ilb) -> ()
+
+let yojson_of_collector_ilb =
+  (function
+   | { url = v_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       `Assoc bnds
+    : collector_ilb -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_collector_ilb
+
+[@@@deriving.end]
 
 type filter = {
   cidr_ranges : string prop list option; [@option]
-      (** IP CIDR ranges that apply as a filter on the source (ingress) or
-destination (egress) IP in the IP header. Only IPv4 is supported. *)
   direction : string prop option; [@option]
-      (** Direction of traffic to mirror. Default value: BOTH Possible values: [INGRESS, EGRESS, BOTH] *)
   ip_protocols : string prop list option; [@option]
-      (** Possible IP protocols including tcp, udp, icmp and esp *)
 }
-[@@deriving yojson_of]
-(** A filter for mirrored traffic.  If unset, all traffic is mirrored. *)
+[@@deriving_inline yojson_of]
 
-type mirrored_resources__instances = {
-  url : string prop;
-      (** The URL of the instances where this rule should be active. *)
-}
-[@@deriving yojson_of]
-(** All the listed instances will be mirrored.  Specify at most 50. *)
+let _ = fun (_ : filter) -> ()
 
-type mirrored_resources__subnetworks = {
-  url : string prop;
-      (** The URL of the subnetwork where this rule should be active. *)
-}
-[@@deriving yojson_of]
-(** All instances in one of these subnetworks will be mirrored. *)
+let yojson_of_filter =
+  (function
+   | {
+       cidr_ranges = v_cidr_ranges;
+       direction = v_direction;
+       ip_protocols = v_ip_protocols;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ip_protocols with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ip_protocols", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_direction with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "direction", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cidr_ranges with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "cidr_ranges", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filter
+
+[@@@deriving.end]
+
+type mirrored_resources__instances = { url : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mirrored_resources__instances) -> ()
+
+let yojson_of_mirrored_resources__instances =
+  (function
+   | { url = v_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       `Assoc bnds
+    : mirrored_resources__instances ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mirrored_resources__instances
+
+[@@@deriving.end]
+
+type mirrored_resources__subnetworks = { url : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mirrored_resources__subnetworks) -> ()
+
+let yojson_of_mirrored_resources__subnetworks =
+  (function
+   | { url = v_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       `Assoc bnds
+    : mirrored_resources__subnetworks ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mirrored_resources__subnetworks
+
+[@@@deriving.end]
 
 type mirrored_resources = {
   tags : string prop list option; [@option]
-      (** All instances with these tags will be mirrored. *)
   instances : mirrored_resources__instances list;
   subnetworks : mirrored_resources__subnetworks list;
 }
-[@@deriving yojson_of]
-(** A means of specifying which resources to mirror. *)
+[@@deriving_inline yojson_of]
 
-type network = {
-  url : string prop;
-      (** The full self_link URL of the network where this rule is active. *)
-}
-[@@deriving yojson_of]
-(** Specifies the mirrored VPC network. Only packets in this network
-will be mirrored. All mirrored VMs should have a NIC in the given
-network. All mirrored subnetworks should belong to the given network. *)
+let _ = fun (_ : mirrored_resources) -> ()
+
+let yojson_of_mirrored_resources =
+  (function
+   | {
+       tags = v_tags;
+       instances = v_instances;
+       subnetworks = v_subnetworks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_mirrored_resources__subnetworks
+             v_subnetworks
+         in
+         ("subnetworks", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_mirrored_resources__instances
+             v_instances
+         in
+         ("instances", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : mirrored_resources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mirrored_resources
+
+[@@@deriving.end]
+
+type network = { url : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : network) -> ()
+
+let yojson_of_network =
+  (function
+   | { url = v_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       `Assoc bnds
+    : network -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_packet_mirroring = {
   description : string prop option; [@option]
-      (** A human-readable description of the rule. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The name of the packet mirroring rule *)
+  id : string prop option; [@option]
+  name : string prop;
   priority : float prop option; [@option]
-      (** Since only one rule can be active at a time, priority is
-used to break ties in the case of two rules that apply to
-the same instances. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The Region in which the created address should reside.
-If it is not provided, the provider region is used. *)
   collector_ilb : collector_ilb list;
   filter : filter list;
   mirrored_resources : mirrored_resources list;
   network : network list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_packet_mirroring *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_packet_mirroring) -> ()
+
+let yojson_of_google_compute_packet_mirroring =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       priority = v_priority;
+       project = v_project;
+       region = v_region;
+       collector_ilb = v_collector_ilb;
+       filter = v_filter;
+       mirrored_resources = v_mirrored_resources;
+       network = v_network;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_network v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_mirrored_resources
+             v_mirrored_resources
+         in
+         ("mirrored_resources", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_filter v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_collector_ilb v_collector_ilb
+         in
+         ("collector_ilb", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_packet_mirroring ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_packet_mirroring
+
+[@@@deriving.end]
 
 let collector_ilb ~url () : collector_ilb = { url }
 

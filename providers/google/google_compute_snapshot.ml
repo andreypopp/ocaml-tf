@@ -4,87 +4,275 @@ open! Tf_core
 
 type snapshot_encryption_key = {
   kms_key_self_link : string prop option; [@option]
-      (** The name of the encryption key that is stored in Google Cloud KMS. *)
   kms_key_service_account : string prop option; [@option]
-      (** The service account used for the encryption request for the given KMS key.
-If absent, the Compute Engine Service Agent service account is used. *)
   raw_key : string prop option; [@option]
-      (** Specifies a 256-bit customer-supplied encryption key, encoded in
-RFC 4648 base64 to either encrypt or decrypt this resource. *)
 }
-[@@deriving yojson_of]
-(** Encrypts the snapshot using a customer-supplied encryption key.
+[@@deriving_inline yojson_of]
 
-After you encrypt a snapshot using a customer-supplied key, you must
-provide the same key if you use the snapshot later. For example, you
-must provide the encryption key when you create a disk from the
-encrypted snapshot in a future request.
+let _ = fun (_ : snapshot_encryption_key) -> ()
 
-Customer-supplied encryption keys do not protect access to metadata of
-the snapshot.
+let yojson_of_snapshot_encryption_key =
+  (function
+   | {
+       kms_key_self_link = v_kms_key_self_link;
+       kms_key_service_account = v_kms_key_service_account;
+       raw_key = v_raw_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_raw_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "raw_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_self_link with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_self_link", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snapshot_encryption_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-If you do not provide an encryption key when creating the snapshot,
-then the snapshot will be encrypted using an automatically generated
-key and you do not need to provide a key to use the snapshot later. *)
+let _ = yojson_of_snapshot_encryption_key
+
+[@@@deriving.end]
 
 type source_disk_encryption_key = {
   kms_key_service_account : string prop option; [@option]
-      (** The service account used for the encryption request for the given KMS key.
-If absent, the Compute Engine Service Agent service account is used. *)
   raw_key : string prop option; [@option]
-      (** Specifies a 256-bit customer-supplied encryption key, encoded in
-RFC 4648 base64 to either encrypt or decrypt this resource. *)
 }
-[@@deriving yojson_of]
-(** The customer-supplied encryption key of the source snapshot. Required
-if the source snapshot is protected by a customer-supplied encryption
-key. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source_disk_encryption_key) -> ()
+
+let yojson_of_source_disk_encryption_key =
+  (function
+   | {
+       kms_key_service_account = v_kms_key_service_account;
+       raw_key = v_raw_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_raw_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "raw_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_service_account", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : source_disk_encryption_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source_disk_encryption_key
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_compute_snapshot = {
   chain_name : string prop option; [@option]
-      (** Creates the new snapshot in the snapshot chain labeled with the
-specified name. The chain name must be 1-63 characters long and
-comply with RFC1035. This is an uncommon option only for advanced
-service owners who needs to create separate snapshot chains, for
-example, for chargeback tracking.  When you describe your snapshot
-resource, this field is visible only if it has a non-empty value. *)
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Labels to apply to this Snapshot.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** Name of the resource; provided by the client when the resource is
-created. The name must be 1-63 characters long, and comply with
-RFC1035. Specifically, the name must be 1-63 characters long and match
-the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which means the
-first character must be a lowercase letter, and all following
-characters must be a dash, lowercase letter, or digit, except the last
-character, which cannot be a dash. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   source_disk : string prop;
-      (** A reference to the disk used to create this snapshot. *)
   storage_locations : string prop list option; [@option]
-      (** Cloud Storage bucket storage location of the snapshot (regional or multi-regional). *)
   zone : string prop option; [@option]
-      (** A reference to the zone where the disk is hosted. *)
   snapshot_encryption_key : snapshot_encryption_key list;
   source_disk_encryption_key : source_disk_encryption_key list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_snapshot *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_snapshot) -> ()
+
+let yojson_of_google_compute_snapshot =
+  (function
+   | {
+       chain_name = v_chain_name;
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       source_disk = v_source_disk;
+       storage_locations = v_storage_locations;
+       zone = v_zone;
+       snapshot_encryption_key = v_snapshot_encryption_key;
+       source_disk_encryption_key = v_source_disk_encryption_key;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_source_disk_encryption_key
+             v_source_disk_encryption_key
+         in
+         ("source_disk_encryption_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_snapshot_encryption_key
+             v_snapshot_encryption_key
+         in
+         ("snapshot_encryption_key", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_locations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "storage_locations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source_disk in
+         ("source_disk", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_chain_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "chain_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_snapshot -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_snapshot
+
+[@@@deriving.end]
 
 let snapshot_encryption_key ?kms_key_self_link
     ?kms_key_service_account ?raw_key () : snapshot_encryption_key =

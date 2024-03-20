@@ -4,15 +4,41 @@ open! Tf_core
 
 type cloudflare_tiered_cache = {
   cache_type : string prop;
-      (** The typed of tiered cache to utilize on the zone. Available values: `generic`, `smart`, `off`. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a resource, that manages Cloudflare Tiered Cache settings.
-This allows you to adjust topologies for your zone.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_tiered_cache) -> ()
+
+let yojson_of_cloudflare_tiered_cache =
+  (function
+   | { cache_type = v_cache_type; id = v_id; zone_id = v_zone_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cache_type in
+         ("cache_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_tiered_cache -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_tiered_cache
+
+[@@@deriving.end]
 
 let cloudflare_tiered_cache ?id ~cache_type ~zone_id () :
     cloudflare_tiered_cache =

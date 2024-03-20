@@ -3,22 +3,102 @@
 open! Tf_core
 
 type certificate_validation_records = {
-  name : string prop;  (** name *)
-  status : string prop;  (** status *)
-  type_ : string prop; [@key "type"]  (** type *)
-  value : string prop;  (** value *)
+  name : string prop;
+  status : string prop;
+  type_ : string prop; [@key "type"]
+  value : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certificate_validation_records) -> ()
+
+let yojson_of_certificate_validation_records =
+  (function
+   | {
+       name = v_name;
+       status = v_status;
+       type_ = v_type_;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : certificate_validation_records ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certificate_validation_records
+
+[@@@deriving.end]
 
 type aws_apprunner_custom_domain_association = {
-  domain_name : string prop;  (** domain_name *)
+  domain_name : string prop;
   enable_www_subdomain : bool prop option; [@option]
-      (** enable_www_subdomain *)
-  id : string prop option; [@option]  (** id *)
-  service_arn : string prop;  (** service_arn *)
+  id : string prop option; [@option]
+  service_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_apprunner_custom_domain_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_apprunner_custom_domain_association) -> ()
+
+let yojson_of_aws_apprunner_custom_domain_association =
+  (function
+   | {
+       domain_name = v_domain_name;
+       enable_www_subdomain = v_enable_www_subdomain;
+       id = v_id;
+       service_arn = v_service_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_arn in
+         ("service_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_www_subdomain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_www_subdomain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_apprunner_custom_domain_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_apprunner_custom_domain_association
+
+[@@@deriving.end]
 
 let aws_apprunner_custom_domain_association ?enable_www_subdomain ?id
     ~domain_name ~service_arn () :

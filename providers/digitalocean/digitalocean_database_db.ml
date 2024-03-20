@@ -3,12 +3,42 @@
 open! Tf_core
 
 type digitalocean_database_db = {
-  cluster_id : string prop;  (** cluster_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  cluster_id : string prop;
+  id : string prop option; [@option]
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** digitalocean_database_db *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_database_db) -> ()
+
+let yojson_of_digitalocean_database_db =
+  (function
+   | { cluster_id = v_cluster_id; id = v_id; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_database_db -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_database_db
+
+[@@@deriving.end]
 
 let digitalocean_database_db ?id ~cluster_id ~name () :
     digitalocean_database_db =

@@ -3,10 +3,33 @@
 open! Tf_core
 
 type aws_servicequotas_template_association = {
-  skip_destroy : bool prop option; [@option]  (** skip_destroy *)
+  skip_destroy : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_servicequotas_template_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_servicequotas_template_association) -> ()
+
+let yojson_of_aws_servicequotas_template_association =
+  (function
+   | { skip_destroy = v_skip_destroy } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_skip_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_destroy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_servicequotas_template_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_servicequotas_template_association
+
+[@@@deriving.end]
 
 let aws_servicequotas_template_association ?skip_destroy () :
     aws_servicequotas_template_association =

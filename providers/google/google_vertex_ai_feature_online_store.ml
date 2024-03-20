@@ -4,46 +4,213 @@ open! Tf_core
 
 type bigtable__auto_scaling = {
   cpu_utilization_target : float prop option; [@option]
-      (** A percentage of the cluster's CPU capacity. Can be from 10% to 80%. When a cluster's CPU utilization exceeds the target that you have set, Bigtable immediately adds nodes to the cluster. When CPU utilization is substantially lower than the target, Bigtable removes nodes. If not set will default to 50%. *)
   max_node_count : float prop;
-      (** The maximum number of nodes to scale up to. Must be greater than or equal to minNodeCount, and less than or equal to 10 times of 'minNodeCount'. *)
   min_node_count : float prop;
-      (** The minimum number of nodes to scale down to. Must be greater than or equal to 1. *)
 }
-[@@deriving yojson_of]
-(** Autoscaling config applied to Bigtable Instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bigtable__auto_scaling) -> ()
+
+let yojson_of_bigtable__auto_scaling =
+  (function
+   | {
+       cpu_utilization_target = v_cpu_utilization_target;
+       max_node_count = v_max_node_count;
+       min_node_count = v_min_node_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_node_count in
+         ("min_node_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_node_count in
+         ("max_node_count", arg) :: bnds
+       in
+       let bnds =
+         match v_cpu_utilization_target with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cpu_utilization_target", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : bigtable__auto_scaling -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bigtable__auto_scaling
+
+[@@@deriving.end]
 
 type bigtable = { auto_scaling : bigtable__auto_scaling list }
-[@@deriving yojson_of]
-(** Settings for Cloud Bigtable instance that will be created to serve featureValues for all FeatureViews under this FeatureOnlineStore. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bigtable) -> ()
+
+let yojson_of_bigtable =
+  (function
+   | { auto_scaling = v_auto_scaling } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bigtable__auto_scaling
+             v_auto_scaling
+         in
+         ("auto_scaling", arg) :: bnds
+       in
+       `Assoc bnds
+    : bigtable -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bigtable
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_vertex_ai_feature_online_store = {
   force_destroy : bool prop option; [@option]
-      (** If set to true, any FeatureViews and Features for this FeatureOnlineStore will also be deleted. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** The labels with user-defined metadata to organize your feature online stores.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** The resource name of the Feature Online Store. This value may be up to 60 characters, and valid characters are [a-z0-9_]. The first character cannot be a number. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** The region of feature online store. eg us-central1 *)
   bigtable : bigtable list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vertex_ai_feature_online_store *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_vertex_ai_feature_online_store) -> ()
+
+let yojson_of_google_vertex_ai_feature_online_store =
+  (function
+   | {
+       force_destroy = v_force_destroy;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       bigtable = v_bigtable;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_bigtable v_bigtable in
+         ("bigtable", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_vertex_ai_feature_online_store ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vertex_ai_feature_online_store
+
+[@@@deriving.end]
 
 let bigtable__auto_scaling ?cpu_utilization_target ~max_node_count
     ~min_node_count () : bigtable__auto_scaling =

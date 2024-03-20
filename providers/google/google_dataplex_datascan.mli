@@ -9,6 +9,8 @@ type execution_status = {
   latest_job_start_time : string prop;  (** latest_job_start_time *)
 }
 
+[@@@deriving.end]
+
 type data
 
 val data :

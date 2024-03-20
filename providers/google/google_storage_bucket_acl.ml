@@ -3,17 +3,72 @@
 open! Tf_core
 
 type google_storage_bucket_acl = {
-  bucket : string prop;  (** The name of the bucket it applies to. *)
+  bucket : string prop;
   default_acl : string prop option; [@option]
-      (** Configure this ACL to be the default ACL. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   predefined_acl : string prop option; [@option]
-      (** The canned GCS ACL to apply. Must be set if role_entity is not. *)
   role_entity : string prop list option; [@option]
-      (** List of role/entity pairs in the form ROLE:entity. See GCS Bucket ACL documentation  for more details. Must be set if predefined_acl is not. *)
 }
-[@@deriving yojson_of]
-(** google_storage_bucket_acl *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_storage_bucket_acl) -> ()
+
+let yojson_of_google_storage_bucket_acl =
+  (function
+   | {
+       bucket = v_bucket;
+       default_acl = v_default_acl;
+       id = v_id;
+       predefined_acl = v_predefined_acl;
+       role_entity = v_role_entity;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_role_entity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "role_entity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_predefined_acl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "predefined_acl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_acl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_acl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_storage_bucket_acl -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_storage_bucket_acl
+
+[@@@deriving.end]
 
 let google_storage_bucket_acl ?default_acl ?id ?predefined_acl
     ?role_entity ~bucket () : google_storage_bucket_acl =

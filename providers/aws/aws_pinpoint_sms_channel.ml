@@ -3,14 +3,72 @@
 open! Tf_core
 
 type aws_pinpoint_sms_channel = {
-  application_id : string prop;  (** application_id *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  sender_id : string prop option; [@option]  (** sender_id *)
-  short_code : string prop option; [@option]  (** short_code *)
+  application_id : string prop;
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  sender_id : string prop option; [@option]
+  short_code : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_pinpoint_sms_channel *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_pinpoint_sms_channel) -> ()
+
+let yojson_of_aws_pinpoint_sms_channel =
+  (function
+   | {
+       application_id = v_application_id;
+       enabled = v_enabled;
+       id = v_id;
+       sender_id = v_sender_id;
+       short_code = v_short_code;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_short_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "short_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sender_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sender_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_application_id
+         in
+         ("application_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_pinpoint_sms_channel -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_pinpoint_sms_channel
+
+[@@@deriving.end]
 
 let aws_pinpoint_sms_channel ?enabled ?id ?sender_id ?short_code
     ~application_id () : aws_pinpoint_sms_channel =

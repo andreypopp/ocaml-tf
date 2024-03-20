@@ -4,13 +4,56 @@ open! Tf_core
 
 type aws_secretsmanager_secret_policy = {
   block_public_policy : bool prop option; [@option]
-      (** block_public_policy *)
-  id : string prop option; [@option]  (** id *)
-  policy : string prop;  (** policy *)
-  secret_arn : string prop;  (** secret_arn *)
+  id : string prop option; [@option]
+  policy : string prop;
+  secret_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_secretsmanager_secret_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_secretsmanager_secret_policy) -> ()
+
+let yojson_of_aws_secretsmanager_secret_policy =
+  (function
+   | {
+       block_public_policy = v_block_public_policy;
+       id = v_id;
+       policy = v_policy;
+       secret_arn = v_secret_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_arn in
+         ("secret_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_block_public_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "block_public_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_secretsmanager_secret_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_secretsmanager_secret_policy
+
+[@@@deriving.end]
 
 let aws_secretsmanager_secret_policy ?block_public_policy ?id ~policy
     ~secret_arn () : aws_secretsmanager_secret_policy =

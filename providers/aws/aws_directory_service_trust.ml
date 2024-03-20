@@ -4,20 +4,101 @@ open! Tf_core
 
 type aws_directory_service_trust = {
   conditional_forwarder_ip_addrs : string prop list option; [@option]
-      (** conditional_forwarder_ip_addrs *)
   delete_associated_conditional_forwarder : bool prop option;
       [@option]
-      (** delete_associated_conditional_forwarder *)
-  directory_id : string prop;  (** directory_id *)
-  remote_domain_name : string prop;  (** remote_domain_name *)
+  directory_id : string prop;
+  remote_domain_name : string prop;
   selective_auth : string prop option; [@option]
-      (** selective_auth *)
-  trust_direction : string prop;  (** trust_direction *)
-  trust_password : string prop;  (** trust_password *)
-  trust_type : string prop option; [@option]  (** trust_type *)
+  trust_direction : string prop;
+  trust_password : string prop;
+  trust_type : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_directory_service_trust *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_directory_service_trust) -> ()
+
+let yojson_of_aws_directory_service_trust =
+  (function
+   | {
+       conditional_forwarder_ip_addrs =
+         v_conditional_forwarder_ip_addrs;
+       delete_associated_conditional_forwarder =
+         v_delete_associated_conditional_forwarder;
+       directory_id = v_directory_id;
+       remote_domain_name = v_remote_domain_name;
+       selective_auth = v_selective_auth;
+       trust_direction = v_trust_direction;
+       trust_password = v_trust_password;
+       trust_type = v_trust_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_trust_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "trust_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_trust_password
+         in
+         ("trust_password", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_trust_direction
+         in
+         ("trust_direction", arg) :: bnds
+       in
+       let bnds =
+         match v_selective_auth with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "selective_auth", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_remote_domain_name
+         in
+         ("remote_domain_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_directory_id in
+         ("directory_id", arg) :: bnds
+       in
+       let bnds =
+         match v_delete_associated_conditional_forwarder with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "delete_associated_conditional_forwarder", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_conditional_forwarder_ip_addrs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "conditional_forwarder_ip_addrs", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_directory_service_trust ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_directory_service_trust
+
+[@@@deriving.end]
 
 let aws_directory_service_trust ?conditional_forwarder_ip_addrs
     ?delete_associated_conditional_forwarder ?selective_auth

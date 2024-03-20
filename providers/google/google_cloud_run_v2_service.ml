@@ -4,194 +4,783 @@ open! Tf_core
 
 type binary_authorization = {
   breakglass_justification : string prop option; [@option]
-      (** If present, indicates to use Breakglass using this justification. If useDefault is False, then it must be empty. For more information on breakglass, see https://cloud.google.com/binary-authorization/docs/using-breakglass *)
   use_default : bool prop option; [@option]
-      (** If True, indicates to use the default project's binary authorization policy. If False, binary authorization will be disabled. *)
 }
-[@@deriving yojson_of]
-(** Settings for the Binary Authorization feature. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : binary_authorization) -> ()
+
+let yojson_of_binary_authorization =
+  (function
+   | {
+       breakglass_justification = v_breakglass_justification;
+       use_default = v_use_default;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_default with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_default", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_breakglass_justification with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "breakglass_justification", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : binary_authorization -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_binary_authorization
+
+[@@@deriving.end]
 
 type template__containers__env__value_source__secret_key_ref = {
   secret : string prop;
-      (** The name of the secret in Cloud Secret Manager. Format: {secretName} if the secret is in the same project. projects/{project}/secrets/{secretName} if the secret is in a different project. *)
   version : string prop option; [@option]
-      (** The Cloud Secret Manager secret version. Can be 'latest' for the latest value or an integer for a specific version. *)
 }
-[@@deriving yojson_of]
-(** Selects a secret and a specific version from Cloud Secret Manager. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : template__containers__env__value_source__secret_key_ref) ->
+  ()
+
+let yojson_of_template__containers__env__value_source__secret_key_ref
+    =
+  (function
+   | { secret = v_secret; version = v_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret in
+         ("secret", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__containers__env__value_source__secret_key_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_template__containers__env__value_source__secret_key_ref
+
+[@@@deriving.end]
 
 type template__containers__env__value_source = {
   secret_key_ref :
     template__containers__env__value_source__secret_key_ref list;
 }
-[@@deriving yojson_of]
-(** Source for the environment variable's value. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers__env__value_source) -> ()
+
+let yojson_of_template__containers__env__value_source =
+  (function
+   | { secret_key_ref = v_secret_key_ref } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__env__value_source__secret_key_ref
+             v_secret_key_ref
+         in
+         ("secret_key_ref", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__containers__env__value_source ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__env__value_source
+
+[@@@deriving.end]
 
 type template__containers__env = {
   name : string prop;
-      (** Name of the environment variable. Must be a C_IDENTIFIER, and mnay not exceed 32768 characters. *)
   value : string prop option; [@option]
-      (** Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any route environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to , and the maximum length is 32768 bytes *)
   value_source : template__containers__env__value_source list;
 }
-[@@deriving yojson_of]
-(** List of environment variables to set in the container. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers__env) -> ()
+
+let yojson_of_template__containers__env =
+  (function
+   | {
+       name = v_name;
+       value = v_value;
+       value_source = v_value_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__env__value_source
+             v_value_source
+         in
+         ("value_source", arg) :: bnds
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__containers__env -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__env
+
+[@@@deriving.end]
 
 type template__containers__liveness_probe__grpc = {
   port : float prop option; [@option]
-      (** Port number to access on the container. Number must be in the range 1 to 65535.
-If not specified, defaults to the same value as container.ports[0].containerPort. *)
   service : string prop option; [@option]
-      (** The name of the service to place in the gRPC HealthCheckRequest
-(see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
-If this is not specified, the default behavior is defined by gRPC. *)
 }
-[@@deriving yojson_of]
-(** GRPC specifies an action involving a GRPC port. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers__liveness_probe__grpc) -> ()
+
+let yojson_of_template__containers__liveness_probe__grpc =
+  (function
+   | { port = v_port; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers__liveness_probe__grpc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__liveness_probe__grpc
+
+[@@@deriving.end]
 
 type template__containers__liveness_probe__http_get__http_headers = {
-  name : string prop;  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop;
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Custom headers to set in the request. HTTP allows repeated headers. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       template__containers__liveness_probe__http_get__http_headers) ->
+  ()
+
+let yojson_of_template__containers__liveness_probe__http_get__http_headers
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__containers__liveness_probe__http_get__http_headers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_template__containers__liveness_probe__http_get__http_headers
+
+[@@@deriving.end]
 
 type template__containers__liveness_probe__http_get = {
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. Defaults to '/'. *)
   port : float prop option; [@option]
-      (** Port number to access on the container. Number must be in the range 1 to 65535.
-If not specified, defaults to the same value as container.ports[0].containerPort. *)
   http_headers :
     template__containers__liveness_probe__http_get__http_headers list;
 }
-[@@deriving yojson_of]
-(** HTTPGet specifies the http request to perform. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : template__containers__liveness_probe__http_get) -> ()
+
+let yojson_of_template__containers__liveness_probe__http_get =
+  (function
+   | { path = v_path; port = v_port; http_headers = v_http_headers }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__liveness_probe__http_get__http_headers
+             v_http_headers
+         in
+         ("http_headers", arg) :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers__liveness_probe__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__liveness_probe__http_get
+
+[@@@deriving.end]
 
 type template__containers__liveness_probe__tcp_socket = {
   port : float prop;
-      (** Port number to access on the container. Must be in the range 1 to 65535.
-If not specified, defaults to the exposed port of the container, which
-is the value of container.ports[0].containerPort. *)
 }
-[@@deriving yojson_of]
-(** TCPSocketAction describes an action based on opening a socket *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : template__containers__liveness_probe__tcp_socket) -> ()
+
+let yojson_of_template__containers__liveness_probe__tcp_socket =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__containers__liveness_probe__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__liveness_probe__tcp_socket
+
+[@@@deriving.end]
 
 type template__containers__liveness_probe = {
   failure_threshold : float prop option; [@option]
-      (** Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1. *)
   initial_delay_seconds : float prop option; [@option]
-      (** Number of seconds after the container has started before the probe is initiated. Defaults to 0 seconds. Minimum value is 0. Maximum value for liveness probe is 3600. Maximum value for startup probe is 240. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
   period_seconds : float prop option; [@option]
-      (** How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1. Maximum value for liveness probe is 3600. Maximum value for startup probe is 240. Must be greater or equal than timeoutSeconds *)
   timeout_seconds : float prop option; [@option]
-      (** Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. Maximum value is 3600. Must be smaller than periodSeconds. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
   grpc : template__containers__liveness_probe__grpc list;
   http_get : template__containers__liveness_probe__http_get list;
   tcp_socket : template__containers__liveness_probe__tcp_socket list;
 }
-[@@deriving yojson_of]
-(** Periodic probe of container liveness. Container will be restarted if the probe fails. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers__liveness_probe) -> ()
+
+let yojson_of_template__containers__liveness_probe =
+  (function
+   | {
+       failure_threshold = v_failure_threshold;
+       initial_delay_seconds = v_initial_delay_seconds;
+       period_seconds = v_period_seconds;
+       timeout_seconds = v_timeout_seconds;
+       grpc = v_grpc;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__liveness_probe__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__liveness_probe__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__liveness_probe__grpc
+             v_grpc
+         in
+         ("grpc", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_delay_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_delay_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers__liveness_probe ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__liveness_probe
+
+[@@@deriving.end]
 
 type template__containers__ports = {
   container_port : float prop option; [@option]
-      (** Port number the container listens on. This must be a valid TCP port number, 0 < containerPort < 65536. *)
   name : string prop option; [@option]
-      (** If specified, used to specify which protocol to use. Allowed values are http1 and h2c. *)
 }
-[@@deriving yojson_of]
-(** List of ports to expose from the container. Only a single port can be specified. The specified ports must be listening on all interfaces (0.0.0.0) within the container to be accessible.
+[@@deriving_inline yojson_of]
 
-If omitted, a port number will be chosen and passed to the container through the PORT environment variable for the container to listen on *)
+let _ = fun (_ : template__containers__ports) -> ()
+
+let yojson_of_template__containers__ports =
+  (function
+   | { container_port = v_container_port; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "container_port", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers__ports ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__ports
+
+[@@@deriving.end]
 
 type template__containers__resources = {
   cpu_idle : bool prop option; [@option]
-      (** Determines whether CPU is only allocated during requests. True by default if the parent 'resources' field is not set. However, if
-'resources' is set, this field must be explicitly set to true to preserve the default behavior. *)
   limits : (string * string prop) list option; [@option]
-      (** Only memory and CPU are supported. Use key 'cpu' for CPU limit and 'memory' for memory limit. Note: The only supported values for CPU are '1', '2', '4', and '8'. Setting 4 CPU requires at least 2Gi of memory. The values of the map is string form of the 'quantity' k8s type: https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apimachinery/pkg/api/resource/quantity.go *)
   startup_cpu_boost : bool prop option; [@option]
-      (** Determines whether CPU should be boosted on startup of a new container instance above the requested CPU threshold, this can help reduce cold-start latency. *)
 }
-[@@deriving yojson_of]
-(** Compute Resource requirements by this container. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers__resources) -> ()
+
+let yojson_of_template__containers__resources =
+  (function
+   | {
+       cpu_idle = v_cpu_idle;
+       limits = v_limits;
+       startup_cpu_boost = v_startup_cpu_boost;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_startup_cpu_boost with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "startup_cpu_boost", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_limits with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "limits", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cpu_idle with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cpu_idle", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers__resources ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__resources
+
+[@@@deriving.end]
 
 type template__containers__startup_probe__grpc = {
   port : float prop option; [@option]
-      (** Port number to access on the container. Number must be in the range 1 to 65535.
-If not specified, defaults to the same value as container.ports[0].containerPort. *)
   service : string prop option; [@option]
-      (** The name of the service to place in the gRPC HealthCheckRequest
-(see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
-If this is not specified, the default behavior is defined by gRPC. *)
 }
-[@@deriving yojson_of]
-(** GRPC specifies an action involving a GRPC port. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers__startup_probe__grpc) -> ()
+
+let yojson_of_template__containers__startup_probe__grpc =
+  (function
+   | { port = v_port; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers__startup_probe__grpc ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__startup_probe__grpc
+
+[@@@deriving.end]
 
 type template__containers__startup_probe__http_get__http_headers = {
-  name : string prop;  (** The header field name *)
-  value : string prop option; [@option]  (** The header field value *)
+  name : string prop;
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** Custom headers to set in the request. HTTP allows repeated headers. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       template__containers__startup_probe__http_get__http_headers) ->
+  ()
+
+let yojson_of_template__containers__startup_probe__http_get__http_headers
+    =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__containers__startup_probe__http_get__http_headers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_template__containers__startup_probe__http_get__http_headers
+
+[@@@deriving.end]
 
 type template__containers__startup_probe__http_get = {
   path : string prop option; [@option]
-      (** Path to access on the HTTP server. Defaults to '/'. *)
   port : float prop option; [@option]
-      (** Port number to access on the container. Must be in the range 1 to 65535.
-If not specified, defaults to the same value as container.ports[0].containerPort. *)
   http_headers :
     template__containers__startup_probe__http_get__http_headers list;
 }
-[@@deriving yojson_of]
-(** HTTPGet specifies the http request to perform. Exactly one of HTTPGet or TCPSocket must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers__startup_probe__http_get) -> ()
+
+let yojson_of_template__containers__startup_probe__http_get =
+  (function
+   | { path = v_path; port = v_port; http_headers = v_http_headers }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__startup_probe__http_get__http_headers
+             v_http_headers
+         in
+         ("http_headers", arg) :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers__startup_probe__http_get ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__startup_probe__http_get
+
+[@@@deriving.end]
 
 type template__containers__startup_probe__tcp_socket = {
   port : float prop option; [@option]
-      (** Port number to access on the container. Must be in the range 1 to 65535.
-If not specified, defaults to the same value as container.ports[0].containerPort. *)
 }
-[@@deriving yojson_of]
-(** TCPSocket specifies an action involving a TCP port. Exactly one of HTTPGet or TCPSocket must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : template__containers__startup_probe__tcp_socket) -> ()
+
+let yojson_of_template__containers__startup_probe__tcp_socket =
+  (function
+   | { port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers__startup_probe__tcp_socket ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__startup_probe__tcp_socket
+
+[@@@deriving.end]
 
 type template__containers__startup_probe = {
   failure_threshold : float prop option; [@option]
-      (** Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1. *)
   initial_delay_seconds : float prop option; [@option]
-      (** Number of seconds after the container has started before the probe is initiated. Defaults to 0 seconds. Minimum value is 0. Maximum value for liveness probe is 3600. Maximum value for startup probe is 240. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
   period_seconds : float prop option; [@option]
-      (** How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1. Maximum value for liveness probe is 3600. Maximum value for startup probe is 240. Must be greater or equal than timeoutSeconds *)
   timeout_seconds : float prop option; [@option]
-      (** Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. Maximum value is 3600. Must be smaller than periodSeconds. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
   grpc : template__containers__startup_probe__grpc list;
   http_get : template__containers__startup_probe__http_get list;
   tcp_socket : template__containers__startup_probe__tcp_socket list;
 }
-[@@deriving yojson_of]
-(** Startup probe of application within the container. All other probes are disabled if a startup probe is provided, until it succeeds. Container will not be added to service endpoints if the probe fails. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers__startup_probe) -> ()
+
+let yojson_of_template__containers__startup_probe =
+  (function
+   | {
+       failure_threshold = v_failure_threshold;
+       initial_delay_seconds = v_initial_delay_seconds;
+       period_seconds = v_period_seconds;
+       timeout_seconds = v_timeout_seconds;
+       grpc = v_grpc;
+       http_get = v_http_get;
+       tcp_socket = v_tcp_socket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__startup_probe__tcp_socket
+             v_tcp_socket
+         in
+         ("tcp_socket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__startup_probe__http_get
+             v_http_get
+         in
+         ("http_get", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__startup_probe__grpc
+             v_grpc
+         in
+         ("grpc", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_delay_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_delay_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers__startup_probe ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__startup_probe
+
+[@@@deriving.end]
 
 type template__containers__volume_mounts = {
   mount_path : string prop;
-      (** Path within the container at which the volume should be mounted. Must not contain ':'. For Cloud SQL volumes, it can be left empty, or must otherwise be /cloudsql. All instances defined in the Volume will be available as /cloudsql/[instance]. For more information on Cloud SQL volumes, visit https://cloud.google.com/sql/docs/mysql/connect-run *)
-  name : string prop;  (** This must match the Name of a Volume. *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** Volume to mount into the container's filesystem. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers__volume_mounts) -> ()
+
+let yojson_of_template__containers__volume_mounts =
+  (function
+   | { mount_path = v_mount_path; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mount_path in
+         ("mount_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__containers__volume_mounts ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers__volume_mounts
+
+[@@@deriving.end]
 
 type template__containers = {
   args : string prop list option; [@option]
-      (** Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell *)
   command : string prop list option; [@option]
-      (** Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell *)
   depends_on : string prop list option; [@option]
-      (** Containers which should be started before this container. If specified the container will wait to start until all containers with the listed names are healthy. *)
   image : string prop;
-      (** URL of the Container image in Google Container Registry or Google Artifact Registry. More info: https://kubernetes.io/docs/concepts/containers/images *)
   name : string prop option; [@option]
-      (** Name of the container specified as a DNS_LABEL. *)
   working_dir : string prop option; [@option]
-      (** Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. *)
   env : template__containers__env list;
   liveness_probe : template__containers__liveness_probe list;
   ports : template__containers__ports list;
@@ -199,240 +788,1164 @@ type template__containers = {
   startup_probe : template__containers__startup_probe list;
   volume_mounts : template__containers__volume_mounts list;
 }
-[@@deriving yojson_of]
-(** Holds the containers that define the unit of execution for this Service. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__containers) -> ()
+
+let yojson_of_template__containers =
+  (function
+   | {
+       args = v_args;
+       command = v_command;
+       depends_on = v_depends_on;
+       image = v_image;
+       name = v_name;
+       working_dir = v_working_dir;
+       env = v_env;
+       liveness_probe = v_liveness_probe;
+       ports = v_ports;
+       resources = v_resources;
+       startup_probe = v_startup_probe;
+       volume_mounts = v_volume_mounts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__volume_mounts
+             v_volume_mounts
+         in
+         ("volume_mounts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__startup_probe
+             v_startup_probe
+         in
+         ("startup_probe", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__containers__resources
+             v_resources
+         in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__containers__ports
+             v_ports
+         in
+         ("ports", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__containers__liveness_probe
+             v_liveness_probe
+         in
+         ("liveness_probe", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__containers__env v_env
+         in
+         ("env", arg) :: bnds
+       in
+       let bnds =
+         match v_working_dir with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "working_dir", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_image in
+         ("image", arg) :: bnds
+       in
+       let bnds =
+         match v_depends_on with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "depends_on", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_command with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "command", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__containers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__containers
+
+[@@@deriving.end]
 
 type template__scaling = {
   max_instance_count : float prop option; [@option]
-      (** Maximum number of serving instances that this resource should have. *)
   min_instance_count : float prop option; [@option]
-      (** Minimum number of serving instances that this resource should have. *)
 }
-[@@deriving yojson_of]
-(** Scaling settings for this Revision. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__scaling) -> ()
+
+let yojson_of_template__scaling =
+  (function
+   | {
+       max_instance_count = v_max_instance_count;
+       min_instance_count = v_min_instance_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_min_instance_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_instance_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_instance_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_instance_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__scaling -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__scaling
+
+[@@@deriving.end]
 
 type template__volumes__cloud_sql_instance = {
   instances : string prop list option; [@option]
-      (** The Cloud SQL instance connection names, as can be found in https://console.cloud.google.com/sql/instances. Visit https://cloud.google.com/sql/docs/mysql/connect-run for more information on how to connect Cloud SQL and Cloud Run. Format: {project}:{location}:{instance} *)
 }
-[@@deriving yojson_of]
-(** For Cloud SQL volumes, contains the specific instances that should be mounted. Visit https://cloud.google.com/sql/docs/mysql/connect-run for more information on how to connect Cloud SQL and Cloud Run. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__volumes__cloud_sql_instance) -> ()
+
+let yojson_of_template__volumes__cloud_sql_instance =
+  (function
+   | { instances = v_instances } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "instances", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__volumes__cloud_sql_instance ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__volumes__cloud_sql_instance
+
+[@@@deriving.end]
 
 type template__volumes__gcs = {
-  bucket : string prop;  (** GCS Bucket name *)
+  bucket : string prop;
   read_only : bool prop option; [@option]
-      (** If true, mount the GCS bucket as read-only *)
 }
-[@@deriving yojson_of]
-(** Represents a GCS Bucket mounted as a volume. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__volumes__gcs) -> ()
+
+let yojson_of_template__volumes__gcs =
+  (function
+   | { bucket = v_bucket; read_only = v_read_only } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__volumes__gcs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__volumes__gcs
+
+[@@@deriving.end]
 
 type template__volumes__nfs = {
   path : string prop;
-      (** Path that is exported by the NFS server. *)
   read_only : bool prop option; [@option]
-      (** If true, mount the NFS volume as read only *)
   server : string prop;
-      (** Hostname or IP address of the NFS server *)
 }
-[@@deriving yojson_of]
-(** Represents an NFS mount. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__volumes__nfs) -> ()
+
+let yojson_of_template__volumes__nfs =
+  (function
+   | { path = v_path; read_only = v_read_only; server = v_server } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_server in
+         ("server", arg) :: bnds
+       in
+       let bnds =
+         match v_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__volumes__nfs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__volumes__nfs
+
+[@@@deriving.end]
 
 type template__volumes__secret__items = {
   mode : float prop option; [@option]
-      (** Integer octal mode bits to use on this file, must be a value between 01 and 0777 (octal). If 0 or not set, the Volume's default mode will be used. *)
   path : string prop;
-      (** The relative path of the secret in the container. *)
   version : string prop option; [@option]
-      (** The Cloud Secret Manager secret version. Can be 'latest' for the latest value or an integer for a specific version *)
 }
-[@@deriving yojson_of]
-(** If unspecified, the volume will expose a file whose name is the secret, relative to VolumeMount.mount_path. If specified, the key will be used as the version to fetch from Cloud Secret Manager and the path will be the name of the file exposed in the volume. When items are defined, they must specify a path and a version. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__volumes__secret__items) -> ()
+
+let yojson_of_template__volumes__secret__items =
+  (function
+   | { mode = v_mode; path = v_path; version = v_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__volumes__secret__items ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__volumes__secret__items
+
+[@@@deriving.end]
 
 type template__volumes__secret = {
   default_mode : float prop option; [@option]
-      (** Integer representation of mode bits to use on created files by default. Must be a value between 0000 and 0777 (octal), defaulting to 0444. Directories within the path are not affected by this setting. *)
   secret : string prop;
-      (** The name of the secret in Cloud Secret Manager. Format: {secret} if the secret is in the same project. projects/{project}/secrets/{secret} if the secret is in a different project. *)
   items : template__volumes__secret__items list;
 }
-[@@deriving yojson_of]
-(** Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__volumes__secret) -> ()
+
+let yojson_of_template__volumes__secret =
+  (function
+   | {
+       default_mode = v_default_mode;
+       secret = v_secret;
+       items = v_items;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__volumes__secret__items
+             v_items
+         in
+         ("items", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         match v_default_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__volumes__secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__volumes__secret
+
+[@@@deriving.end]
 
 type template__volumes = {
-  name : string prop;  (** Volume's name. *)
+  name : string prop;
   cloud_sql_instance : template__volumes__cloud_sql_instance list;
   gcs : template__volumes__gcs list;
   nfs : template__volumes__nfs list;
   secret : template__volumes__secret list;
 }
-[@@deriving yojson_of]
-(** A list of Volumes to make available to containers. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__volumes) -> ()
+
+let yojson_of_template__volumes =
+  (function
+   | {
+       name = v_name;
+       cloud_sql_instance = v_cloud_sql_instance;
+       gcs = v_gcs;
+       nfs = v_nfs;
+       secret = v_secret;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__volumes__secret
+             v_secret
+         in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__volumes__nfs v_nfs
+         in
+         ("nfs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__volumes__gcs v_gcs
+         in
+         ("gcs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__volumes__cloud_sql_instance
+             v_cloud_sql_instance
+         in
+         ("cloud_sql_instance", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : template__volumes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__volumes
+
+[@@@deriving.end]
 
 type template__vpc_access__network_interfaces = {
   network : string prop option; [@option]
-      (** The VPC network that the Cloud Run resource will be able to send traffic to. At least one of network or subnetwork must be specified. If both
-network and subnetwork are specified, the given VPC subnetwork must belong to the given VPC network. If network is not specified, it will be
-looked up from the subnetwork. *)
   subnetwork : string prop option; [@option]
-      (** The VPC subnetwork that the Cloud Run resource will get IPs from. At least one of network or subnetwork must be specified. If both
-network and subnetwork are specified, the given VPC subnetwork must belong to the given VPC network. If subnetwork is not specified, the
-subnetwork with the same name with the network will be used. *)
   tags : string prop list option; [@option]
-      (** Network tags applied to this Cloud Run service. *)
 }
-[@@deriving yojson_of]
-(** Direct VPC egress settings. Currently only single network interface is supported. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__vpc_access__network_interfaces) -> ()
+
+let yojson_of_template__vpc_access__network_interfaces =
+  (function
+   | {
+       network = v_network;
+       subnetwork = v_subnetwork;
+       tags = v_tags;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnetwork with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__vpc_access__network_interfaces ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__vpc_access__network_interfaces
+
+[@@@deriving.end]
 
 type template__vpc_access = {
   connector : string prop option; [@option]
-      (** VPC Access connector name. Format: projects/{project}/locations/{location}/connectors/{connector}, where {project} can be project id or number. *)
   egress : string prop option; [@option]
-      (** Traffic VPC egress settings. Possible values: [ALL_TRAFFIC, PRIVATE_RANGES_ONLY] *)
   network_interfaces : template__vpc_access__network_interfaces list;
 }
-[@@deriving yojson_of]
-(** VPC Access configuration to use for this Task. For more information, visit https://cloud.google.com/run/docs/configuring/connecting-vpc. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template__vpc_access) -> ()
+
+let yojson_of_template__vpc_access =
+  (function
+   | {
+       connector = v_connector;
+       egress = v_egress;
+       network_interfaces = v_network_interfaces;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_template__vpc_access__network_interfaces
+             v_network_interfaces
+         in
+         ("network_interfaces", arg) :: bnds
+       in
+       let bnds =
+         match v_egress with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "egress", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_connector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "connector", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template__vpc_access -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template__vpc_access
+
+[@@@deriving.end]
 
 type template = {
   annotations : (string * string prop) list option; [@option]
-      (** Unstructured key value map that may be set by external tools to store and arbitrary metadata. They are not queryable and should be preserved when modifying objects.
-
-Cloud Run API v2 does not support annotations with 'run.googleapis.com', 'cloud.googleapis.com', 'serving.knative.dev', or 'autoscaling.knative.dev' namespaces, and they will be rejected.
-All system annotations in v1 now have a corresponding field in v2 RevisionTemplate.
-
-This field follows Kubernetes annotations' namespacing, limits, and rules. *)
   encryption_key : string prop option; [@option]
-      (** A reference to a customer managed encryption key (CMEK) to use to encrypt this container image. For more information, go to https://cloud.google.com/run/docs/securing/using-cmek *)
   execution_environment : string prop option; [@option]
-      (** The sandbox environment to host this Revision. Possible values: [EXECUTION_ENVIRONMENT_GEN1, EXECUTION_ENVIRONMENT_GEN2] *)
   labels : (string * string prop) list option; [@option]
-      (** Unstructured key value map that can be used to organize and categorize objects. User-provided labels are shared with Google's billing system, so they can be used to filter, or break down billing charges by team, component, environment, state, etc.
-For more information, visit https://cloud.google.com/resource-manager/docs/creating-managing-labels or https://cloud.google.com/run/docs/configuring/labels.
-
-Cloud Run API v2 does not support labels with 'run.googleapis.com', 'cloud.googleapis.com', 'serving.knative.dev', or 'autoscaling.knative.dev' namespaces, and they will be rejected.
-All system labels in v1 now have a corresponding field in v2 RevisionTemplate. *)
   max_instance_request_concurrency : float prop option; [@option]
-      (** Sets the maximum number of requests that each serving instance can receive. *)
   revision : string prop option; [@option]
-      (** The unique name for the revision. If this field is omitted, it will be automatically generated based on the Service name. *)
   service_account : string prop option; [@option]
-      (** Email address of the IAM service account associated with the revision of the service. The service account represents the identity of the running revision, and determines what permissions the revision has. If not provided, the revision will use the project's default service account. *)
   session_affinity : bool prop option; [@option]
-      (** Enables session affinity. For more information, go to https://cloud.google.com/run/docs/configuring/session-affinity *)
   timeout : string prop option; [@option]
-      (** Max allowed time for an instance to respond to a request.
-
-A duration in seconds with up to nine fractional digits, ending with 's'. Example: 3.5s. *)
   containers : template__containers list;
   scaling : template__scaling list;
   volumes : template__volumes list;
   vpc_access : template__vpc_access list;
 }
-[@@deriving yojson_of]
-(** The template used to create revisions for this Service. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : template) -> ()
+
+let yojson_of_template =
+  (function
+   | {
+       annotations = v_annotations;
+       encryption_key = v_encryption_key;
+       execution_environment = v_execution_environment;
+       labels = v_labels;
+       max_instance_request_concurrency =
+         v_max_instance_request_concurrency;
+       revision = v_revision;
+       service_account = v_service_account;
+       session_affinity = v_session_affinity;
+       timeout = v_timeout;
+       containers = v_containers;
+       scaling = v_scaling;
+       volumes = v_volumes;
+       vpc_access = v_vpc_access;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__vpc_access v_vpc_access
+         in
+         ("vpc_access", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__volumes v_volumes
+         in
+         ("volumes", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__scaling v_scaling
+         in
+         ("scaling", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_template__containers v_containers
+         in
+         ("containers", arg) :: bnds
+       in
+       let bnds =
+         match v_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_affinity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "session_affinity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_revision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "revision", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_instance_request_concurrency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_instance_request_concurrency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_execution_environment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "execution_environment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : template -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_template
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type traffic = {
   percent : float prop option; [@option]
-      (** Specifies percent of the traffic to this Revision. This defaults to zero if unspecified. *)
   revision : string prop option; [@option]
-      (** Revision to which to send this portion of traffic, if traffic allocation is by revision. *)
   tag : string prop option; [@option]
-      (** Indicates a string to be part of the URI to exclusively reference this target. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The allocation type for this traffic target. Possible values: [TRAFFIC_TARGET_ALLOCATION_TYPE_LATEST, TRAFFIC_TARGET_ALLOCATION_TYPE_REVISION] *)
 }
-[@@deriving yojson_of]
-(** Specifies how to distribute traffic over a collection of Revisions belonging to the Service. If traffic is empty or not provided, defaults to 100% traffic to the latest Ready Revision. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : traffic) -> ()
+
+let yojson_of_traffic =
+  (function
+   | {
+       percent = v_percent;
+       revision = v_revision;
+       tag = v_tag;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_revision with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "revision", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "percent", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : traffic -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_traffic
+
+[@@@deriving.end]
 
 type conditions = {
-  execution_reason : string prop;  (** execution_reason *)
-  last_transition_time : string prop;  (** last_transition_time *)
-  message : string prop;  (** message *)
-  reason : string prop;  (** reason *)
-  revision_reason : string prop;  (** revision_reason *)
-  severity : string prop;  (** severity *)
-  state : string prop;  (** state *)
-  type_ : string prop; [@key "type"]  (** type *)
+  execution_reason : string prop;
+  last_transition_time : string prop;
+  message : string prop;
+  reason : string prop;
+  revision_reason : string prop;
+  severity : string prop;
+  state : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : conditions) -> ()
+
+let yojson_of_conditions =
+  (function
+   | {
+       execution_reason = v_execution_reason;
+       last_transition_time = v_last_transition_time;
+       message = v_message;
+       reason = v_reason;
+       revision_reason = v_revision_reason;
+       severity = v_severity;
+       state = v_state;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_severity in
+         ("severity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_revision_reason
+         in
+         ("revision_reason", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_reason in
+         ("reason", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_last_transition_time
+         in
+         ("last_transition_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_execution_reason
+         in
+         ("execution_reason", arg) :: bnds
+       in
+       `Assoc bnds
+    : conditions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_conditions
+
+[@@@deriving.end]
 
 type terminal_condition = {
-  execution_reason : string prop;  (** execution_reason *)
-  last_transition_time : string prop;  (** last_transition_time *)
-  message : string prop;  (** message *)
-  reason : string prop;  (** reason *)
-  revision_reason : string prop;  (** revision_reason *)
-  severity : string prop;  (** severity *)
-  state : string prop;  (** state *)
-  type_ : string prop; [@key "type"]  (** type *)
+  execution_reason : string prop;
+  last_transition_time : string prop;
+  message : string prop;
+  reason : string prop;
+  revision_reason : string prop;
+  severity : string prop;
+  state : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : terminal_condition) -> ()
+
+let yojson_of_terminal_condition =
+  (function
+   | {
+       execution_reason = v_execution_reason;
+       last_transition_time = v_last_transition_time;
+       message = v_message;
+       reason = v_reason;
+       revision_reason = v_revision_reason;
+       severity = v_severity;
+       state = v_state;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_severity in
+         ("severity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_revision_reason
+         in
+         ("revision_reason", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_reason in
+         ("reason", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_last_transition_time
+         in
+         ("last_transition_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_execution_reason
+         in
+         ("execution_reason", arg) :: bnds
+       in
+       `Assoc bnds
+    : terminal_condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_terminal_condition
+
+[@@@deriving.end]
 
 type traffic_statuses = {
-  percent : float prop;  (** percent *)
-  revision : string prop;  (** revision *)
-  tag : string prop;  (** tag *)
-  type_ : string prop; [@key "type"]  (** type *)
-  uri : string prop;  (** uri *)
+  percent : float prop;
+  revision : string prop;
+  tag : string prop;
+  type_ : string prop; [@key "type"]
+  uri : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : traffic_statuses) -> ()
+
+let yojson_of_traffic_statuses =
+  (function
+   | {
+       percent = v_percent;
+       revision = v_revision;
+       tag = v_tag;
+       type_ = v_type_;
+       uri = v_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tag in
+         ("tag", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_revision in
+         ("revision", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_percent in
+         ("percent", arg) :: bnds
+       in
+       `Assoc bnds
+    : traffic_statuses -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_traffic_statuses
+
+[@@@deriving.end]
 
 type google_cloud_run_v2_service = {
   annotations : (string * string prop) list option; [@option]
-      (** Unstructured key value map that may be set by external tools to store and arbitrary metadata. They are not queryable and should be preserved when modifying objects.
-
-Cloud Run API v2 does not support annotations with 'run.googleapis.com', 'cloud.googleapis.com', 'serving.knative.dev', or 'autoscaling.knative.dev' namespaces, and they will be rejected in new resources.
-All system annotations in v1 now have a corresponding field in v2 Service.
-
-This field follows Kubernetes annotations' namespacing, limits, and rules.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
   client : string prop option; [@option]
-      (** Arbitrary identifier for the API client. *)
   client_version : string prop option; [@option]
-      (** Arbitrary version identifier for the API client. *)
   custom_audiences : string prop list option; [@option]
-      (** One or more custom audiences that you want this service to support. Specify each custom audience as the full URL in a string. The custom audiences are encoded in the token and used to authenticate requests.
-For more information, see https://cloud.google.com/run/docs/configuring/custom-audiences. *)
   description : string prop option; [@option]
-      (** User-provided description of the Service. This field currently has a 512-character limit. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ingress : string prop option; [@option]
-      (** Provides the ingress settings for this Service. On output, returns the currently observed ingress settings, or INGRESS_TRAFFIC_UNSPECIFIED if no revision is active. Possible values: [INGRESS_TRAFFIC_ALL, INGRESS_TRAFFIC_INTERNAL_ONLY, INGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER] *)
   labels : (string * string prop) list option; [@option]
-      (** Unstructured key value map that can be used to organize and categorize objects. User-provided labels are shared with Google's billing system, so they can be used to filter, or break down billing charges by team, component,
-environment, state, etc. For more information, visit https://cloud.google.com/resource-manager/docs/creating-managing-labels or https://cloud.google.com/run/docs/configuring/labels.
-
-Cloud Run API v2 does not support labels with  'run.googleapis.com', 'cloud.googleapis.com', 'serving.knative.dev', or 'autoscaling.knative.dev' namespaces, and they will be rejected.
-All system labels in v1 now have a corresponding field in v2 Service.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   launch_stage : string prop option; [@option]
-      (** The launch stage as defined by [Google Cloud Platform Launch Stages](https://cloud.google.com/products#product-launch-stages). Cloud Run supports ALPHA, BETA, and GA.
-If no value is specified, GA is assumed. Set the launch stage to a preview stage on input to allow use of preview features in that stage. On read (or output), describes whether the resource uses preview features.
-
-For example, if ALPHA is provided as input, but only BETA and GA-level features are used, this field will be BETA on output. Possible values: [UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS, ALPHA, BETA, GA, DEPRECATED] *)
   location : string prop;
-      (** The location of the cloud run service *)
-  name : string prop;  (** Name of the Service. *)
-  project : string prop option; [@option]  (** project *)
+  name : string prop;
+  project : string prop option; [@option]
   binary_authorization : binary_authorization list;
   template : template list;
   timeouts : timeouts option;
   traffic : traffic list;
 }
-[@@deriving yojson_of]
-(** google_cloud_run_v2_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_cloud_run_v2_service) -> ()
+
+let yojson_of_google_cloud_run_v2_service =
+  (function
+   | {
+       annotations = v_annotations;
+       client = v_client;
+       client_version = v_client_version;
+       custom_audiences = v_custom_audiences;
+       description = v_description;
+       id = v_id;
+       ingress = v_ingress;
+       labels = v_labels;
+       launch_stage = v_launch_stage;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       binary_authorization = v_binary_authorization;
+       template = v_template;
+       timeouts = v_timeouts;
+       traffic = v_traffic;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_traffic v_traffic in
+         ("traffic", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_template v_template in
+         ("template", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_binary_authorization
+             v_binary_authorization
+         in
+         ("binary_authorization", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_launch_stage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "launch_stage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ingress with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ingress", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_audiences with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "custom_audiences", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_cloud_run_v2_service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_cloud_run_v2_service
+
+[@@@deriving.end]
 
 let binary_authorization ?breakglass_justification ?use_default () :
     binary_authorization =

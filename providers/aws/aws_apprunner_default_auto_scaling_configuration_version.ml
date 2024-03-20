@@ -4,10 +4,38 @@ open! Tf_core
 
 type aws_apprunner_default_auto_scaling_configuration_version = {
   auto_scaling_configuration_arn : string prop;
-      (** auto_scaling_configuration_arn *)
 }
-[@@deriving yojson_of]
-(** aws_apprunner_default_auto_scaling_configuration_version *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_apprunner_default_auto_scaling_configuration_version) ->
+  ()
+
+let yojson_of_aws_apprunner_default_auto_scaling_configuration_version
+    =
+  (function
+   | {
+       auto_scaling_configuration_arn =
+         v_auto_scaling_configuration_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_auto_scaling_configuration_arn
+         in
+         ("auto_scaling_configuration_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_apprunner_default_auto_scaling_configuration_version ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_aws_apprunner_default_auto_scaling_configuration_version
+
+[@@@deriving.end]
 
 let aws_apprunner_default_auto_scaling_configuration_version
     ~auto_scaling_configuration_arn () :

@@ -4,45 +4,158 @@ open! Tf_core
 
 type policy_sets__policies__compliance_standards = {
   control : string prop option; [@option]
-      (** Mapping of security controls for the policy. *)
   standard : string prop option; [@option]
-      (** Mapping of compliance standards for the policy. *)
 }
-[@@deriving yojson_of]
-(** Mapping for policy to security standards and controls. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : policy_sets__policies__compliance_standards) -> ()
+
+let yojson_of_policy_sets__policies__compliance_standards =
+  (function
+   | { control = v_control; standard = v_standard } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_standard with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "standard", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_control with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "control", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__compliance_standards ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policy_sets__policies__compliance_standards
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition = {
   description : string prop option; [@option]
-      (** Description of the expression *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting, e.g. a file name and a position in the file *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose. *)
 }
-[@@deriving yojson_of]
-(** Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language.
-This page details the objects and attributes that are used to the build the CEL expressions for
-custom access levels - https://cloud.google.com/access-context-manager/docs/custom-access-level-spec. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
+    =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__org_policy_constraint__policy_rules__values = {
   allowed_values : string prop list option; [@option]
-      (** List of values allowed at this resource. *)
   denied_values : string prop list option; [@option]
-      (** List of values denied at this resource. *)
 }
-[@@deriving yojson_of]
-(** List of values to be used for this policy rule. This field can be set only in policies for list constraints. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__org_policy_constraint__policy_rules__values) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
+    =
+  (function
+   | {
+       allowed_values = v_allowed_values;
+       denied_values = v_denied_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_denied_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "denied_values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_values", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__org_policy_constraint__policy_rules__values ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__org_policy_constraint__policy_rules = {
   allow_all : bool prop option; [@option]
-      (** Setting this to true means that all values are allowed. This field can be set only in policies for list constraints. *)
   deny_all : bool prop option; [@option]
-      (** Setting this to true means that all values are denied. This field can be set only in policies for list constraints. *)
   enforce : bool prop option; [@option]
-      (** If 'true', then the policy is enforced. If 'false', then any configuration is acceptable.
-This field can be set only in policies for boolean constraints. *)
   condition :
     policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
     list;
@@ -50,70 +163,320 @@ This field can be set only in policies for boolean constraints. *)
     policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
     list;
 }
-[@@deriving yojson_of]
-(** Definition of policy rules *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__org_policy_constraint__policy_rules) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules
+    =
+  (function
+   | {
+       allow_all = v_allow_all;
+       deny_all = v_deny_all;
+       enforce = v_enforce;
+       condition = v_condition;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__values
+             v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules__condition
+             v_condition
+         in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         match v_enforce with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enforce", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deny_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deny_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_all", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__org_policy_constraint__policy_rules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__org_policy_constraint = {
   canned_constraint_id : string prop;
-      (** Organization policy canned constraint Id *)
   policy_rules :
     policy_sets__policies__constraint__org_policy_constraint__policy_rules
     list;
 }
-[@@deriving yojson_of]
-(** Organization policy canned constraint definition. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : policy_sets__policies__constraint__org_policy_constraint) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__org_policy_constraint
+    =
+  (function
+   | {
+       canned_constraint_id = v_canned_constraint_id;
+       policy_rules = v_policy_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__org_policy_constraint__policy_rules
+             v_policy_rules
+         in
+         ("policy_rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_canned_constraint_id
+         in
+         ("canned_constraint_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__org_policy_constraint ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__org_policy_constraint
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint = {
   action_type : string prop;
-      (** The action to take if the condition is met. Possible values: [ALLOW, DENY] *)
   condition : string prop;
-      (** A CEL condition that refers to a supported service resource, for example 'resource.management.autoUpgrade == false'. For details about CEL usage, see [Common Expression Language](https://cloud.google.com/resource-manager/docs/organization-policy/creating-managing-custom-constraints#common_expression_language). *)
   description : string prop option; [@option]
-      (** A human-friendly description of the constraint to display as an error message when the policy is violated. *)
   display_name : string prop option; [@option]
-      (** A human-friendly name for the constraint. *)
   method_types : string prop list;
-      (** A list of RESTful methods for which to enforce the constraint. Can be 'CREATE', 'UPDATE', or both. Not all Google Cloud services support both methods. To see supported methods for each service, find the service in [Supported services](https://cloud.google.com/resource-manager/docs/organization-policy/custom-constraint-supported-services). *)
   name : string prop;
-      (** Immutable. The name of the custom constraint. This is unique within the organization. *)
   resource_types : string prop list;
-      (** Immutable. The fully qualified name of the Google Cloud REST resource containing the object and field you want to restrict. For example, 'container.googleapis.com/NodePool'. *)
 }
-[@@deriving yojson_of]
-(** Organization policy custom constraint definition. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
+    =
+  (function
+   | {
+       action_type = v_action_type;
+       condition = v_condition;
+       description = v_description;
+       display_name = v_display_name;
+       method_types = v_method_types;
+       name = v_name;
+       resource_types = v_resource_types;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_resource_types
+         in
+         ("resource_types", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_method_types
+         in
+         ("method_types", arg) :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_condition in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action_type in
+         ("action_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition = {
   description : string prop option; [@option]
-      (** Description of the expression *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting, e.g. a file name and a position in the file *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose. *)
 }
-[@@deriving yojson_of]
-(** Represents a textual expression in the Common Expression Language (CEL) syntax. CEL is a C-like expression language.
-This page details the objects and attributes that are used to the build the CEL expressions for
-custom access levels - https://cloud.google.com/access-context-manager/docs/custom-access-level-spec. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
+    =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values = {
   allowed_values : string prop list option; [@option]
-      (** List of values allowed at this resource. *)
   denied_values : string prop list option; [@option]
-      (** List of values denied at this resource. *)
 }
-[@@deriving yojson_of]
-(** List of values to be used for this policy rule. This field can be set only in policies for list constraints. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
+    =
+  (function
+   | {
+       allowed_values = v_allowed_values;
+       denied_values = v_denied_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_denied_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "denied_values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_values", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules = {
   allow_all : bool prop option; [@option]
-      (** Setting this to true means that all values are allowed. This field can be set only in policies for list constraints. *)
   deny_all : bool prop option; [@option]
-      (** Setting this to true means that all values are denied. This field can be set only in policies for list constraints. *)
   enforce : bool prop option; [@option]
-      (** If 'true', then the policy is enforced. If 'false', then any configuration is acceptable.
-This field can be set only in policies for boolean constraints. *)
   condition :
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
     list;
@@ -121,8 +484,74 @@ This field can be set only in policies for boolean constraints. *)
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
     list;
 }
-[@@deriving yojson_of]
-(** Definition of policy rules *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
+    =
+  (function
+   | {
+       allow_all = v_allow_all;
+       deny_all = v_deny_all;
+       enforce = v_enforce;
+       condition = v_condition;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__values
+             v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules__condition
+             v_condition
+         in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         match v_enforce with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enforce", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deny_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deny_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_all", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__org_policy_constraint_custom = {
   custom_constraint :
@@ -132,76 +561,287 @@ type policy_sets__policies__constraint__org_policy_constraint_custom = {
     policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
     list;
 }
-[@@deriving yojson_of]
-(** Organization policy custom constraint policy definition. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__org_policy_constraint_custom) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom
+    =
+  (function
+   | {
+       custom_constraint = v_custom_constraint;
+       policy_rules = v_policy_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__policy_rules
+             v_policy_rules
+         in
+         ("policy_rules", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom__custom_constraint
+             v_custom_constraint
+         in
+         ("custom_constraint", arg) :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__org_policy_constraint_custom ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression = {
   description : string prop option; [@option]
-      (** Description of the expression *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting, e.g. a file name and a position in the file *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose. *)
 }
-[@@deriving yojson_of]
-(** The CEL expression for the custom output. A resource property can be
-specified to return the value of the property or a text string enclosed
-in quotation marks. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
+    =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties = {
   name : string prop;
-      (** Name of the property for the custom output. *)
   value_expression :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
     list;
 }
-[@@deriving yojson_of]
-(** A list of custom output properties to add to the finding. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
+    =
+  (function
+   | { name = v_name; value_expression = v_value_expression } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties__value_expression
+             v_value_expression
+         in
+         ("value_expression", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output = {
   properties :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
     list;
 }
-[@@deriving yojson_of]
-(** Custom output properties. A set of optional name-value pairs that define custom source properties to
-return with each finding that is generated by the custom module. The custom
-source properties that are defined here are included in the finding JSON
-under 'sourceProperties'. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
+    =
+  (function
+   | { properties = v_properties } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output__properties
+             v_properties
+         in
+         ("properties", arg) :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate = {
   description : string prop option; [@option]
-      (** Description of the expression *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting, e.g. a file name and a position in the file *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose. *)
 }
-[@@deriving yojson_of]
-(** The CEL expression to evaluate to produce findings.When the expression
-evaluates to true against a resource, a finding is generated. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
+    =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector = {
   resource_types : string prop list;
-      (** The resource types to run the detector on. *)
 }
-[@@deriving yojson_of]
-(** The resource types that the custom module operates on. Each custom module
-can specify up to 5 resource types. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
+    =
+  (function
+   | { resource_types = v_resource_types } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_resource_types
+         in
+         ("resource_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module__config = {
   description : string prop option; [@option]
-      (** Text that describes the vulnerability or misconfiguration that the custom
-module detects. *)
   recommendation : string prop option; [@option]
-      (** An explanation of the recommended steps that security teams can take to
-resolve the detected issue *)
   severity : string prop;
-      (** The severity to assign to findings generated by the module. Possible values: [SEVERITY_UNSPECIFIED, CRITICAL, HIGH, MEDIUM, LOW] *)
   custom_output :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
     list;
@@ -212,31 +852,179 @@ resolve the detected issue *)
     policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
     list;
 }
-[@@deriving yojson_of]
-(** Custom module details. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__security_health_analytics_custom_module__config) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config
+    =
+  (function
+   | {
+       description = v_description;
+       recommendation = v_recommendation;
+       severity = v_severity;
+       custom_output = v_custom_output;
+       predicate = v_predicate;
+       resource_selector = v_resource_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__resource_selector
+             v_resource_selector
+         in
+         ("resource_selector", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__predicate
+             v_predicate
+         in
+         ("predicate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config__custom_output
+             v_custom_output
+         in
+         ("custom_output", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_severity in
+         ("severity", arg) :: bnds
+       in
+       let bnds =
+         match v_recommendation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "recommendation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__security_health_analytics_custom_module__config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__security_health_analytics_custom_module = {
   display_name : string prop option; [@option]
-      (** The display name of the Security Health Analytics custom module. This
-display name becomes the finding category for all findings that are
-returned by this custom module. *)
   module_enablement_state : string prop option; [@option]
-      (** The state of enablement for the module at its level of the resource hierarchy. Possible values: [ENABLEMENT_STATE_UNSPECIFIED, ENABLED, DISABLED] *)
   config :
     policy_sets__policies__constraint__security_health_analytics_custom_module__config
     list;
 }
-[@@deriving yojson_of]
-(** Definition of Security Health Analytics Custom Module. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__security_health_analytics_custom_module) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module
+    =
+  (function
+   | {
+       display_name = v_display_name;
+       module_enablement_state = v_module_enablement_state;
+       config = v_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module__config
+             v_config
+         in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         match v_module_enablement_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "module_enablement_state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__security_health_analytics_custom_module ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint__security_health_analytics_module = {
   module_enablement_state : string prop option; [@option]
-      (** The state of enablement for the module at its level of the resource hierarchy. Possible values: [ENABLEMENT_STATE_UNSPECIFIED, ENABLED, DISABLED] *)
   module_name : string prop;
-      (** The name of the module eg: BIGQUERY_TABLE_CMEK_DISABLED. *)
 }
-[@@deriving yojson_of]
-(** Security Health Analytics built-in detector definition. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       policy_sets__policies__constraint__security_health_analytics_module) ->
+  ()
+
+let yojson_of_policy_sets__policies__constraint__security_health_analytics_module
+    =
+  (function
+   | {
+       module_enablement_state = v_module_enablement_state;
+       module_name = v_module_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_module_name in
+         ("module_name", arg) :: bnds
+       in
+       let bnds =
+         match v_module_enablement_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "module_enablement_state", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint__security_health_analytics_module ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_policy_sets__policies__constraint__security_health_analytics_module
+
+[@@@deriving.end]
 
 type policy_sets__policies__constraint = {
   org_policy_constraint :
@@ -251,55 +1039,287 @@ type policy_sets__policies__constraint = {
     policy_sets__policies__constraint__security_health_analytics_module
     list;
 }
-[@@deriving yojson_of]
-(** Policy constraint definition.It can have the definition of one of following constraints: orgPolicyConstraint orgPolicyConstraintCustom securityHealthAnalyticsModule securityHealthAnalyticsCustomModule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : policy_sets__policies__constraint) -> ()
+
+let yojson_of_policy_sets__policies__constraint =
+  (function
+   | {
+       org_policy_constraint = v_org_policy_constraint;
+       org_policy_constraint_custom = v_org_policy_constraint_custom;
+       security_health_analytics_custom_module =
+         v_security_health_analytics_custom_module;
+       security_health_analytics_module =
+         v_security_health_analytics_module;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__security_health_analytics_module
+             v_security_health_analytics_module
+         in
+         ("security_health_analytics_module", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__security_health_analytics_custom_module
+             v_security_health_analytics_custom_module
+         in
+         ("security_health_analytics_custom_module", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__org_policy_constraint_custom
+             v_org_policy_constraint_custom
+         in
+         ("org_policy_constraint_custom", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__constraint__org_policy_constraint
+             v_org_policy_constraint
+         in
+         ("org_policy_constraint", arg) :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies__constraint ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policy_sets__policies__constraint
+
+[@@@deriving.end]
 
 type policy_sets__policies = {
   description : string prop option; [@option]
-      (** Description of the policy. *)
-  policy_id : string prop;  (** ID of the policy. *)
+  policy_id : string prop;
   compliance_standards :
     policy_sets__policies__compliance_standards list;
   constraint_ : policy_sets__policies__constraint list;
 }
-[@@deriving yojson_of]
-(** List of security policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : policy_sets__policies) -> ()
+
+let yojson_of_policy_sets__policies =
+  (function
+   | {
+       description = v_description;
+       policy_id = v_policy_id;
+       compliance_standards = v_compliance_standards;
+       constraint_ = v_constraint_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_policy_sets__policies__constraint
+             v_constraint_
+         in
+         ("constraint_", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_policy_sets__policies__compliance_standards
+             v_compliance_standards
+         in
+         ("compliance_standards", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_id in
+         ("policy_id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets__policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policy_sets__policies
+
+[@@@deriving.end]
 
 type policy_sets = {
   description : string prop option; [@option]
-      (** Description of the policy set. *)
-  policy_set_id : string prop;  (** ID of the policy set. *)
+  policy_set_id : string prop;
   policies : policy_sets__policies list;
 }
-[@@deriving yojson_of]
-(** List of policy sets for the posture. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : policy_sets) -> ()
+
+let yojson_of_policy_sets =
+  (function
+   | {
+       description = v_description;
+       policy_set_id = v_policy_set_id;
+       policies = v_policies;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_policy_sets__policies v_policies
+         in
+         ("policies", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_set_id in
+         ("policy_set_id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : policy_sets -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policy_sets
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_securityposture_posture = {
   description : string prop option; [@option]
-      (** Description of the posture. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location : string prop;
-      (** Location of the resource, eg: global. *)
   parent : string prop;
-      (** The parent of the resource, an organization. Format should be 'organizations/{organization_id}'. *)
   posture_id : string prop;
-      (** Id of the posture. It is an immutable field. *)
   state : string prop;
-      (** State of the posture. Update to state field should not be triggered along with
-with other field updates. Possible values: [DEPRECATED, DRAFT, ACTIVE] *)
   policy_sets : policy_sets list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_securityposture_posture *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_securityposture_posture) -> ()
+
+let yojson_of_google_securityposture_posture =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       location = v_location;
+       parent = v_parent;
+       posture_id = v_posture_id;
+       state = v_state;
+       policy_sets = v_policy_sets;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_policy_sets v_policy_sets
+         in
+         ("policy_sets", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_posture_id in
+         ("posture_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_securityposture_posture ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_securityposture_posture
+
+[@@@deriving.end]
 
 let policy_sets__policies__compliance_standards ?control ?standard ()
     : policy_sets__policies__compliance_standards =

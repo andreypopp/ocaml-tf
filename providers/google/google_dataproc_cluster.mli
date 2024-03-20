@@ -201,6 +201,8 @@ type cluster_config__preemptible_worker_config__instance_flexibility_policy__ins
   vm_count : float prop;  (** vm_count *)
 }
 
+[@@@deriving.end]
+
 type cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
 
 val cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list :

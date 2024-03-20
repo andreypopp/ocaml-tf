@@ -3,56 +3,241 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type trust_stores__intermediate_cas = {
   pem_certificate : string prop option; [@option]
-      (** PEM intermediate certificate used for building up paths for validation.
-Each certificate provided in PEM format may occupy up to 5kB. *)
 }
-[@@deriving yojson_of]
-(** Set of intermediate CA certificates used for the path building phase of chain validation.
-The field is currently not supported if trust config is used for the workload certificate feature. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trust_stores__intermediate_cas) -> ()
+
+let yojson_of_trust_stores__intermediate_cas =
+  (function
+   | { pem_certificate = v_pem_certificate } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_pem_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pem_certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : trust_stores__intermediate_cas ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trust_stores__intermediate_cas
+
+[@@@deriving.end]
 
 type trust_stores__trust_anchors = {
   pem_certificate : string prop option; [@option]
-      (** PEM root certificate of the PKI used for validation.
-Each certificate provided in PEM format may occupy up to 5kB. *)
 }
-[@@deriving yojson_of]
-(** List of Trust Anchors to be used while performing validation against a given TrustStore. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trust_stores__trust_anchors) -> ()
+
+let yojson_of_trust_stores__trust_anchors =
+  (function
+   | { pem_certificate = v_pem_certificate } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_pem_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pem_certificate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : trust_stores__trust_anchors ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trust_stores__trust_anchors
+
+[@@@deriving.end]
 
 type trust_stores = {
   intermediate_cas : trust_stores__intermediate_cas list;
   trust_anchors : trust_stores__trust_anchors list;
 }
-[@@deriving yojson_of]
-(** Set of trust stores to perform validation against.
-This field is supported when TrustConfig is configured with Load Balancers, currently not supported for SPIFFE certificate validation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trust_stores) -> ()
+
+let yojson_of_trust_stores =
+  (function
+   | {
+       intermediate_cas = v_intermediate_cas;
+       trust_anchors = v_trust_anchors;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_trust_stores__trust_anchors
+             v_trust_anchors
+         in
+         ("trust_anchors", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_trust_stores__intermediate_cas
+             v_intermediate_cas
+         in
+         ("intermediate_cas", arg) :: bnds
+       in
+       `Assoc bnds
+    : trust_stores -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trust_stores
+
+[@@@deriving.end]
 
 type google_certificate_manager_trust_config = {
   description : string prop option; [@option]
-      (** One or more paragraphs of text description of a trust config. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Set of label tags associated with the trust config.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  location : string prop;  (** The trust config location. *)
+  location : string prop;
   name : string prop;
-      (** A user-defined name of the trust config. Trust config names must be unique globally. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   timeouts : timeouts option;
   trust_stores : trust_stores list;
 }
-[@@deriving yojson_of]
-(** google_certificate_manager_trust_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_certificate_manager_trust_config) -> ()
+
+let yojson_of_google_certificate_manager_trust_config =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       timeouts = v_timeouts;
+       trust_stores = v_trust_stores;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_trust_stores v_trust_stores
+         in
+         ("trust_stores", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_certificate_manager_trust_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_certificate_manager_trust_config
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

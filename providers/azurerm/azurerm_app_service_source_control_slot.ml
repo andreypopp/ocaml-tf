@@ -4,65 +4,305 @@ open! Tf_core
 
 type github_action_configuration__code_configuration = {
   runtime_stack : string prop;
-      (** The value to use for the Runtime Stack in the workflow file content for code base apps. *)
   runtime_version : string prop;
-      (** The value to use for the Runtime Version in the workflow file content for code base apps. *)
 }
-[@@deriving yojson_of]
-(** github_action_configuration__code_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : github_action_configuration__code_configuration) -> ()
+
+let yojson_of_github_action_configuration__code_configuration =
+  (function
+   | {
+       runtime_stack = v_runtime_stack;
+       runtime_version = v_runtime_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_runtime_version
+         in
+         ("runtime_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_runtime_stack in
+         ("runtime_stack", arg) :: bnds
+       in
+       `Assoc bnds
+    : github_action_configuration__code_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github_action_configuration__code_configuration
+
+[@@@deriving.end]
 
 type github_action_configuration__container_configuration = {
-  image_name : string prop;  (** The image name for the build. *)
+  image_name : string prop;
   registry_password : string prop option; [@option]
-      (** The password used to upload the image to the container registry. *)
   registry_url : string prop;
-      (** The server URL for the container registry where the build will be hosted. *)
   registry_username : string prop option; [@option]
-      (** The username used to upload the image to the container registry. *)
 }
-[@@deriving yojson_of]
-(** github_action_configuration__container_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : github_action_configuration__container_configuration) -> ()
+
+let yojson_of_github_action_configuration__container_configuration =
+  (function
+   | {
+       image_name = v_image_name;
+       registry_password = v_registry_password;
+       registry_url = v_registry_url;
+       registry_username = v_registry_username;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_registry_username with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "registry_username", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_registry_url in
+         ("registry_url", arg) :: bnds
+       in
+       let bnds =
+         match v_registry_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "registry_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_image_name in
+         ("image_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : github_action_configuration__container_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_github_action_configuration__container_configuration
+
+[@@@deriving.end]
 
 type github_action_configuration = {
   generate_workflow_file : bool prop option; [@option]
-      (** Should the service generate the GitHub Action Workflow file. Defaults to `true` *)
   code_configuration :
     github_action_configuration__code_configuration list;
   container_configuration :
     github_action_configuration__container_configuration list;
 }
-[@@deriving yojson_of]
-(** github_action_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : github_action_configuration) -> ()
+
+let yojson_of_github_action_configuration =
+  (function
+   | {
+       generate_workflow_file = v_generate_workflow_file;
+       code_configuration = v_code_configuration;
+       container_configuration = v_container_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_github_action_configuration__container_configuration
+             v_container_configuration
+         in
+         ("container_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_github_action_configuration__code_configuration
+             v_code_configuration
+         in
+         ("code_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_generate_workflow_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "generate_workflow_file", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : github_action_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github_action_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; read = v_read } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_app_service_source_control_slot = {
   branch : string prop option; [@option]
-      (** The URL for the repository *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   repo_url : string prop option; [@option]
-      (** The branch name to use for deployments. *)
   rollback_enabled : bool prop option; [@option]
-      (** Should the Deployment Rollback be enabled? Defaults to `false` *)
   slot_id : string prop;
-      (** The ID of the Linux or Windows Web App Slot. *)
   use_local_git : bool prop option; [@option]
-      (** Should the Slot use local Git configuration. *)
   use_manual_integration : bool prop option; [@option]
-      (** Should code be deployed manually. Set to `true` to disable continuous integration, such as webhooks into online repos such as GitHub. Defaults to `false` *)
   use_mercurial : bool prop option; [@option]
-      (** The repository specified is Mercurial. Defaults to `false`. *)
   github_action_configuration : github_action_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_app_service_source_control_slot *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_app_service_source_control_slot) -> ()
+
+let yojson_of_azurerm_app_service_source_control_slot =
+  (function
+   | {
+       branch = v_branch;
+       id = v_id;
+       repo_url = v_repo_url;
+       rollback_enabled = v_rollback_enabled;
+       slot_id = v_slot_id;
+       use_local_git = v_use_local_git;
+       use_manual_integration = v_use_manual_integration;
+       use_mercurial = v_use_mercurial;
+       github_action_configuration = v_github_action_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_github_action_configuration
+             v_github_action_configuration
+         in
+         ("github_action_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_use_mercurial with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_mercurial", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_use_manual_integration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_manual_integration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_use_local_git with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_local_git", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_slot_id in
+         ("slot_id", arg) :: bnds
+       in
+       let bnds =
+         match v_rollback_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "rollback_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_repo_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "repo_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_branch with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "branch", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_app_service_source_control_slot ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_app_service_source_control_slot
+
+[@@@deriving.end]
 
 let github_action_configuration__code_configuration ~runtime_stack
     ~runtime_version () :

@@ -3,46 +3,264 @@
 open! Tf_core
 
 type nat_ip_configuration = {
-  name : string prop;  (** name *)
-  primary : bool prop;  (** primary *)
+  name : string prop;
+  primary : bool prop;
   private_ip_address : string prop option; [@option]
-      (** private_ip_address *)
   private_ip_address_version : string prop option; [@option]
-      (** private_ip_address_version *)
-  subnet_id : string prop;  (** subnet_id *)
+  subnet_id : string prop;
 }
-[@@deriving yojson_of]
-(** nat_ip_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : nat_ip_configuration) -> ()
+
+let yojson_of_nat_ip_configuration =
+  (function
+   | {
+       name = v_name;
+       primary = v_primary;
+       private_ip_address = v_private_ip_address;
+       private_ip_address_version = v_private_ip_address_version;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         match v_private_ip_address_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ip_address_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_ip_address with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ip_address", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_primary in
+         ("primary", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : nat_ip_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_nat_ip_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_private_link_service = {
   auto_approval_subscription_ids : string prop list option; [@option]
-      (** auto_approval_subscription_ids *)
   enable_proxy_protocol : bool prop option; [@option]
-      (** enable_proxy_protocol *)
-  fqdns : string prop list option; [@option]  (** fqdns *)
-  id : string prop option; [@option]  (** id *)
+  fqdns : string prop list option; [@option]
+  id : string prop option; [@option]
   load_balancer_frontend_ip_configuration_ids : string prop list;
-      (** load_balancer_frontend_ip_configuration_ids *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   visibility_subscription_ids : string prop list option; [@option]
-      (** visibility_subscription_ids *)
   nat_ip_configuration : nat_ip_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_private_link_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_private_link_service) -> ()
+
+let yojson_of_azurerm_private_link_service =
+  (function
+   | {
+       auto_approval_subscription_ids =
+         v_auto_approval_subscription_ids;
+       enable_proxy_protocol = v_enable_proxy_protocol;
+       fqdns = v_fqdns;
+       id = v_id;
+       load_balancer_frontend_ip_configuration_ids =
+         v_load_balancer_frontend_ip_configuration_ids;
+       location = v_location;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       visibility_subscription_ids = v_visibility_subscription_ids;
+       nat_ip_configuration = v_nat_ip_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_nat_ip_configuration
+             v_nat_ip_configuration
+         in
+         ("nat_ip_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_visibility_subscription_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "visibility_subscription_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_load_balancer_frontend_ip_configuration_ids
+         in
+         ("load_balancer_frontend_ip_configuration_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fqdns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "fqdns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_proxy_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_proxy_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_approval_subscription_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "auto_approval_subscription_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_private_link_service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_private_link_service
+
+[@@@deriving.end]
 
 let nat_ip_configuration ?private_ip_address
     ?private_ip_address_version ~name ~primary ~subnet_id () :

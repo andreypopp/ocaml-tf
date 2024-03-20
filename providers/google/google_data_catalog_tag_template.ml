@@ -4,72 +4,302 @@ open! Tf_core
 
 type fields__type__enum_type__allowed_values = {
   display_name : string prop;
-      (** The display name of the enum value. *)
 }
-[@@deriving yojson_of]
-(** The set of allowed values for this enum. The display names of the
-values must be case-insensitively unique within this set. Currently,
-enum values can only be added to the list of allowed values. Deletion
-and renaming of enum values are not supported.
-Can have up to 500 allowed values. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fields__type__enum_type__allowed_values) -> ()
+
+let yojson_of_fields__type__enum_type__allowed_values =
+  (function
+   | { display_name = v_display_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : fields__type__enum_type__allowed_values ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fields__type__enum_type__allowed_values
+
+[@@@deriving.end]
 
 type fields__type__enum_type = {
   allowed_values : fields__type__enum_type__allowed_values list;
 }
-[@@deriving yojson_of]
-(** Represents an enum type.
- Exactly one of 'primitive_type' or 'enum_type' must be set *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fields__type__enum_type) -> ()
+
+let yojson_of_fields__type__enum_type =
+  (function
+   | { allowed_values = v_allowed_values } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_fields__type__enum_type__allowed_values
+             v_allowed_values
+         in
+         ("allowed_values", arg) :: bnds
+       in
+       `Assoc bnds
+    : fields__type__enum_type -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fields__type__enum_type
+
+[@@@deriving.end]
 
 type fields__type = {
   primitive_type : string prop option; [@option]
-      (** Represents primitive types - string, bool etc.
- Exactly one of 'primitive_type' or 'enum_type' must be set Possible values: [DOUBLE, STRING, BOOL, TIMESTAMP] *)
   enum_type : fields__type__enum_type list;
 }
-[@@deriving yojson_of]
-(** The type of value this tag field can contain. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fields__type) -> ()
+
+let yojson_of_fields__type =
+  (function
+   | { primitive_type = v_primitive_type; enum_type = v_enum_type }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_fields__type__enum_type
+             v_enum_type
+         in
+         ("enum_type", arg) :: bnds
+       in
+       let bnds =
+         match v_primitive_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "primitive_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : fields__type -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fields__type
+
+[@@@deriving.end]
 
 type fields = {
   description : string prop option; [@option]
-      (** A description for this field. *)
   display_name : string prop option; [@option]
-      (** The display name for this field. *)
-  field_id : string prop;  (** field_id *)
+  field_id : string prop;
   is_required : bool prop option; [@option]
-      (** Whether this is a required field. Defaults to false. *)
   order : float prop option; [@option]
-      (** The order of this field with respect to other fields in this tag template.
-A higher value indicates a more important field. The value can be negative.
-Multiple fields can have the same order, and field orders within a tag do not have to be sequential. *)
   type_ : fields__type list;
 }
-[@@deriving yojson_of]
-(** Set of tag template field IDs and the settings for the field. This set is an exhaustive list of the allowed fields. This set must contain at least one field and at most 500 fields. The change of field_id will be resulting in re-creating of field. The change of primitive_type will be resulting in re-creating of field, however if the field is a required, you cannot update it. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fields) -> ()
+
+let yojson_of_fields =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       field_id = v_field_id;
+       is_required = v_is_required;
+       order = v_order;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_fields__type v_type_ in
+         ("type_", arg) :: bnds
+       in
+       let bnds =
+         match v_order with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "order", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_field_id in
+         ("field_id", arg) :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : fields -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fields
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_data_catalog_tag_template = {
   display_name : string prop option; [@option]
-      (** The display name for this template. *)
   force_delete : bool prop option; [@option]
-      (** This confirms the deletion of any possible tags using this template. Must be set to true in order to delete the tag template. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** Template location region. *)
   tag_template_id : string prop;
-      (** The id of the tag template to create. *)
   fields : fields list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_data_catalog_tag_template *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_data_catalog_tag_template) -> ()
+
+let yojson_of_google_data_catalog_tag_template =
+  (function
+   | {
+       display_name = v_display_name;
+       force_delete = v_force_delete;
+       id = v_id;
+       project = v_project;
+       region = v_region;
+       tag_template_id = v_tag_template_id;
+       fields = v_fields;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_fields v_fields in
+         ("fields", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_tag_template_id
+         in
+         ("tag_template_id", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_data_catalog_tag_template ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_data_catalog_tag_template
+
+[@@@deriving.end]
 
 let fields__type__enum_type__allowed_values ~display_name () :
     fields__type__enum_type__allowed_values =

@@ -3,36 +3,206 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type value_from_key_vault = {
   identity_client_id : string prop option; [@option]
-      (** identity_client_id *)
-  secret_id : string prop;  (** secret_id *)
+  secret_id : string prop;
 }
-[@@deriving yojson_of]
-(** value_from_key_vault *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : value_from_key_vault) -> ()
+
+let yojson_of_value_from_key_vault =
+  (function
+   | {
+       identity_client_id = v_identity_client_id;
+       secret_id = v_secret_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_id in
+         ("secret_id", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_client_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identity_client_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : value_from_key_vault -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_value_from_key_vault
+
+[@@@deriving.end]
 
 type azurerm_api_management_named_value = {
-  api_management_name : string prop;  (** api_management_name *)
-  display_name : string prop;  (** display_name *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  secret : bool prop option; [@option]  (** secret *)
-  tags : string prop list option; [@option]  (** tags *)
-  value : string prop option; [@option]  (** value *)
+  api_management_name : string prop;
+  display_name : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
+  secret : bool prop option; [@option]
+  tags : string prop list option; [@option]
+  value : string prop option; [@option]
   timeouts : timeouts option;
   value_from_key_vault : value_from_key_vault list;
 }
-[@@deriving yojson_of]
-(** azurerm_api_management_named_value *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_api_management_named_value) -> ()
+
+let yojson_of_azurerm_api_management_named_value =
+  (function
+   | {
+       api_management_name = v_api_management_name;
+       display_name = v_display_name;
+       id = v_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       secret = v_secret;
+       tags = v_tags;
+       value = v_value;
+       timeouts = v_timeouts;
+       value_from_key_vault = v_value_from_key_vault;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_value_from_key_vault
+             v_value_from_key_vault
+         in
+         ("value_from_key_vault", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "secret", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_api_management_name
+         in
+         ("api_management_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_api_management_named_value ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_api_management_named_value
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read ?update () : timeouts =
   { create; delete; read; update }

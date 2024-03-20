@@ -3,15 +3,82 @@
 open! Tf_core
 
 type aws_iam_policy_attachment = {
-  groups : string prop list option; [@option]  (** groups *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  policy_arn : string prop;  (** policy_arn *)
-  roles : string prop list option; [@option]  (** roles *)
-  users : string prop list option; [@option]  (** users *)
+  groups : string prop list option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  policy_arn : string prop;
+  roles : string prop list option; [@option]
+  users : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_iam_policy_attachment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_policy_attachment) -> ()
+
+let yojson_of_aws_iam_policy_attachment =
+  (function
+   | {
+       groups = v_groups;
+       id = v_id;
+       name = v_name;
+       policy_arn = v_policy_arn;
+       roles = v_roles;
+       users = v_users;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_users with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "users", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_roles with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "roles", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_arn in
+         ("policy_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "groups", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_policy_attachment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_policy_attachment
+
+[@@@deriving.end]
 
 let aws_iam_policy_attachment ?groups ?id ?roles ?users ~name
     ~policy_arn () : aws_iam_policy_attachment =

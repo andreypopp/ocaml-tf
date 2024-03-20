@@ -2,77 +2,346 @@
 
 open! Tf_core
 
-type bigquery_dataset = {
-  dataset : string prop;
-      (** Resource name of the dataset source for this listing. e.g. projects/myproject/datasets/123 *)
-}
-[@@deriving yojson_of]
-(** Shared dataset i.e. BigQuery dataset source. *)
+type bigquery_dataset = { dataset : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bigquery_dataset) -> ()
+
+let yojson_of_bigquery_dataset =
+  (function
+   | { dataset = v_dataset } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset in
+         ("dataset", arg) :: bnds
+       in
+       `Assoc bnds
+    : bigquery_dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bigquery_dataset
+
+[@@@deriving.end]
 
 type data_provider = {
-  name : string prop;  (** Name of the data provider. *)
+  name : string prop;
   primary_contact : string prop option; [@option]
-      (** Email or URL of the data provider. *)
 }
-[@@deriving yojson_of]
-(** Details of the data provider who owns the source data. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_provider) -> ()
+
+let yojson_of_data_provider =
+  (function
+   | { name = v_name; primary_contact = v_primary_contact } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_primary_contact with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "primary_contact", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_provider -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_provider
+
+[@@@deriving.end]
 
 type publisher = {
-  name : string prop;  (** Name of the listing publisher. *)
+  name : string prop;
   primary_contact : string prop option; [@option]
-      (** Email or URL of the listing publisher. *)
 }
-[@@deriving yojson_of]
-(** Details of the publisher who owns the listing and who can share the source data. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : publisher) -> ()
+
+let yojson_of_publisher =
+  (function
+   | { name = v_name; primary_contact = v_primary_contact } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_primary_contact with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "primary_contact", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : publisher -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_publisher
+
+[@@@deriving.end]
 
 type restricted_export_config = {
   enabled : bool prop option; [@option]
-      (** If true, enable restricted export. *)
   restrict_query_result : bool prop option; [@option]
-      (** If true, restrict export of query result derived from restricted linked dataset table. *)
 }
-[@@deriving yojson_of]
-(** If set, restricted export configuration will be propagated and enforced on the linked dataset. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : restricted_export_config) -> ()
+
+let yojson_of_restricted_export_config =
+  (function
+   | {
+       enabled = v_enabled;
+       restrict_query_result = v_restrict_query_result;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_restrict_query_result with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "restrict_query_result", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : restricted_export_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_restricted_export_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigquery_analytics_hub_listing = {
   categories : string prop list option; [@option]
-      (** Categories of the listing. Up to two categories are allowed. *)
   data_exchange_id : string prop;
-      (** The ID of the data exchange. Must contain only Unicode letters, numbers (0-9), underscores (_). Should not use characters that require URL-escaping, or characters outside of ASCII, spaces. *)
   description : string prop option; [@option]
-      (** Short description of the listing. The description must not contain Unicode non-characters and C0 and C1 control codes except tabs (HT), new lines (LF), carriage returns (CR), and page breaks (FF). *)
   display_name : string prop;
-      (** Human-readable display name of the listing. The display name must contain only Unicode letters, numbers (0-9), underscores (_), dashes (-), spaces ( ), ampersands (&) and can't start or end with spaces. *)
   documentation : string prop option; [@option]
-      (** Documentation describing the listing. *)
   icon : string prop option; [@option]
-      (** Base64 encoded image representing the listing. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   listing_id : string prop;
-      (** The ID of the listing. Must contain only Unicode letters, numbers (0-9), underscores (_). Should not use characters that require URL-escaping, or characters outside of ASCII, spaces. *)
   location : string prop;
-      (** The name of the location this data exchange listing. *)
   primary_contact : string prop option; [@option]
-      (** Email or URL of the primary point of contact of the listing. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   request_access : string prop option; [@option]
-      (** Email or URL of the request access of the listing. Subscribers can use this reference to request access. *)
   bigquery_dataset : bigquery_dataset list;
   data_provider : data_provider list;
   publisher : publisher list;
   restricted_export_config : restricted_export_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigquery_analytics_hub_listing *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigquery_analytics_hub_listing) -> ()
+
+let yojson_of_google_bigquery_analytics_hub_listing =
+  (function
+   | {
+       categories = v_categories;
+       data_exchange_id = v_data_exchange_id;
+       description = v_description;
+       display_name = v_display_name;
+       documentation = v_documentation;
+       icon = v_icon;
+       id = v_id;
+       listing_id = v_listing_id;
+       location = v_location;
+       primary_contact = v_primary_contact;
+       project = v_project;
+       request_access = v_request_access;
+       bigquery_dataset = v_bigquery_dataset;
+       data_provider = v_data_provider;
+       publisher = v_publisher;
+       restricted_export_config = v_restricted_export_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_restricted_export_config
+             v_restricted_export_config
+         in
+         ("restricted_export_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_publisher v_publisher in
+         ("publisher", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_provider v_data_provider
+         in
+         ("data_provider", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bigquery_dataset
+             v_bigquery_dataset
+         in
+         ("bigquery_dataset", arg) :: bnds
+       in
+       let bnds =
+         match v_request_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "request_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_primary_contact with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "primary_contact", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_listing_id in
+         ("listing_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_icon with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "icon", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_documentation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "documentation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_exchange_id
+         in
+         ("data_exchange_id", arg) :: bnds
+       in
+       let bnds =
+         match v_categories with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "categories", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_bigquery_analytics_hub_listing ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigquery_analytics_hub_listing
+
+[@@@deriving.end]
 
 let bigquery_dataset ~dataset () : bigquery_dataset = { dataset }
 

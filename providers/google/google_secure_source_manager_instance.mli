@@ -11,6 +11,8 @@ type host_config = {
   html : string prop;  (** html *)
 }
 
+[@@@deriving.end]
+
 type private_config
 
 val private_config :

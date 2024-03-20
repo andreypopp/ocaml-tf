@@ -4,96 +4,322 @@ open! Tf_core
 
 type amazon_managed_kafka_event_source_config = {
   consumer_group_id : string prop option; [@option]
-      (** consumer_group_id *)
 }
-[@@deriving yojson_of]
-(** amazon_managed_kafka_event_source_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : amazon_managed_kafka_event_source_config) -> ()
+
+let yojson_of_amazon_managed_kafka_event_source_config =
+  (function
+   | { consumer_group_id = v_consumer_group_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_consumer_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "consumer_group_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : amazon_managed_kafka_event_source_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_amazon_managed_kafka_event_source_config
+
+[@@@deriving.end]
 
 type destination_config__on_failure = {
-  destination_arn : string prop;  (** destination_arn *)
+  destination_arn : string prop;
 }
-[@@deriving yojson_of]
-(** destination_config__on_failure *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : destination_config__on_failure) -> ()
+
+let yojson_of_destination_config__on_failure =
+  (function
+   | { destination_arn = v_destination_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_arn
+         in
+         ("destination_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : destination_config__on_failure ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination_config__on_failure
+
+[@@@deriving.end]
 
 type destination_config = {
   on_failure : destination_config__on_failure list;
 }
-[@@deriving yojson_of]
-(** destination_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : destination_config) -> ()
+
+let yojson_of_destination_config =
+  (function
+   | { on_failure = v_on_failure } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destination_config__on_failure
+             v_on_failure
+         in
+         ("on_failure", arg) :: bnds
+       in
+       `Assoc bnds
+    : destination_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination_config
+
+[@@@deriving.end]
 
 type document_db_event_source_config = {
   collection_name : string prop option; [@option]
-      (** collection_name *)
-  database_name : string prop;  (** database_name *)
-  full_document : string prop option; [@option]  (** full_document *)
+  database_name : string prop;
+  full_document : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** document_db_event_source_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : document_db_event_source_config) -> ()
+
+let yojson_of_document_db_event_source_config =
+  (function
+   | {
+       collection_name = v_collection_name;
+       database_name = v_database_name;
+       full_document = v_full_document;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_full_document with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "full_document", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_name in
+         ("database_name", arg) :: bnds
+       in
+       let bnds =
+         match v_collection_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "collection_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : document_db_event_source_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_document_db_event_source_config
+
+[@@@deriving.end]
 
 type filter_criteria__filter = {
-  pattern : string prop option; [@option]  (** pattern *)
+  pattern : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** filter_criteria__filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : filter_criteria__filter) -> ()
+
+let yojson_of_filter_criteria__filter =
+  (function
+   | { pattern = v_pattern } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_pattern with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pattern", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : filter_criteria__filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filter_criteria__filter
+
+[@@@deriving.end]
 
 type filter_criteria = { filter : filter_criteria__filter list }
-[@@deriving yojson_of]
-(** filter_criteria *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : filter_criteria) -> ()
+
+let yojson_of_filter_criteria =
+  (function
+   | { filter = v_filter } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_filter_criteria__filter v_filter
+         in
+         ("filter", arg) :: bnds
+       in
+       `Assoc bnds
+    : filter_criteria -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filter_criteria
+
+[@@@deriving.end]
 
 type scaling_config = {
   maximum_concurrency : float prop option; [@option]
-      (** maximum_concurrency *)
 }
-[@@deriving yojson_of]
-(** scaling_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : scaling_config) -> ()
+
+let yojson_of_scaling_config =
+  (function
+   | { maximum_concurrency = v_maximum_concurrency } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_maximum_concurrency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_concurrency", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : scaling_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_scaling_config
+
+[@@@deriving.end]
 
 type self_managed_event_source = {
-  endpoints : (string * string prop) list;  (** endpoints *)
+  endpoints : (string * string prop) list;
 }
-[@@deriving yojson_of]
-(** self_managed_event_source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : self_managed_event_source) -> ()
+
+let yojson_of_self_managed_event_source =
+  (function
+   | { endpoints = v_endpoints } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_endpoints
+         in
+         ("endpoints", arg) :: bnds
+       in
+       `Assoc bnds
+    : self_managed_event_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_self_managed_event_source
+
+[@@@deriving.end]
 
 type self_managed_kafka_event_source_config = {
   consumer_group_id : string prop option; [@option]
-      (** consumer_group_id *)
 }
-[@@deriving yojson_of]
-(** self_managed_kafka_event_source_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : self_managed_kafka_event_source_config) -> ()
+
+let yojson_of_self_managed_kafka_event_source_config =
+  (function
+   | { consumer_group_id = v_consumer_group_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_consumer_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "consumer_group_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : self_managed_kafka_event_source_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_self_managed_kafka_event_source_config
+
+[@@@deriving.end]
 
 type source_access_configuration = {
-  type_ : string prop; [@key "type"]  (** type *)
-  uri : string prop;  (** uri *)
+  type_ : string prop; [@key "type"]
+  uri : string prop;
 }
-[@@deriving yojson_of]
-(** source_access_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source_access_configuration) -> ()
+
+let yojson_of_source_access_configuration =
+  (function
+   | { type_ = v_type_; uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : source_access_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source_access_configuration
+
+[@@@deriving.end]
 
 type aws_lambda_event_source_mapping = {
-  batch_size : float prop option; [@option]  (** batch_size *)
+  batch_size : float prop option; [@option]
   bisect_batch_on_function_error : bool prop option; [@option]
-      (** bisect_batch_on_function_error *)
-  enabled : bool prop option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]
   event_source_arn : string prop option; [@option]
-      (** event_source_arn *)
-  function_name : string prop;  (** function_name *)
+  function_name : string prop;
   function_response_types : string prop list option; [@option]
-      (** function_response_types *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   maximum_batching_window_in_seconds : float prop option; [@option]
-      (** maximum_batching_window_in_seconds *)
   maximum_record_age_in_seconds : float prop option; [@option]
-      (** maximum_record_age_in_seconds *)
   maximum_retry_attempts : float prop option; [@option]
-      (** maximum_retry_attempts *)
   parallelization_factor : float prop option; [@option]
-      (** parallelization_factor *)
-  queues : string prop list option; [@option]  (** queues *)
+  queues : string prop list option; [@option]
   starting_position : string prop option; [@option]
-      (** starting_position *)
   starting_position_timestamp : string prop option; [@option]
-      (** starting_position_timestamp *)
-  topics : string prop list option; [@option]  (** topics *)
+  topics : string prop list option; [@option]
   tumbling_window_in_seconds : float prop option; [@option]
-      (** tumbling_window_in_seconds *)
   amazon_managed_kafka_event_source_config :
     amazon_managed_kafka_event_source_config list;
   destination_config : destination_config list;
@@ -106,8 +332,240 @@ type aws_lambda_event_source_mapping = {
     self_managed_kafka_event_source_config list;
   source_access_configuration : source_access_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_lambda_event_source_mapping *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lambda_event_source_mapping) -> ()
+
+let yojson_of_aws_lambda_event_source_mapping =
+  (function
+   | {
+       batch_size = v_batch_size;
+       bisect_batch_on_function_error =
+         v_bisect_batch_on_function_error;
+       enabled = v_enabled;
+       event_source_arn = v_event_source_arn;
+       function_name = v_function_name;
+       function_response_types = v_function_response_types;
+       id = v_id;
+       maximum_batching_window_in_seconds =
+         v_maximum_batching_window_in_seconds;
+       maximum_record_age_in_seconds =
+         v_maximum_record_age_in_seconds;
+       maximum_retry_attempts = v_maximum_retry_attempts;
+       parallelization_factor = v_parallelization_factor;
+       queues = v_queues;
+       starting_position = v_starting_position;
+       starting_position_timestamp = v_starting_position_timestamp;
+       topics = v_topics;
+       tumbling_window_in_seconds = v_tumbling_window_in_seconds;
+       amazon_managed_kafka_event_source_config =
+         v_amazon_managed_kafka_event_source_config;
+       destination_config = v_destination_config;
+       document_db_event_source_config =
+         v_document_db_event_source_config;
+       filter_criteria = v_filter_criteria;
+       scaling_config = v_scaling_config;
+       self_managed_event_source = v_self_managed_event_source;
+       self_managed_kafka_event_source_config =
+         v_self_managed_kafka_event_source_config;
+       source_access_configuration = v_source_access_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_source_access_configuration
+             v_source_access_configuration
+         in
+         ("source_access_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_self_managed_kafka_event_source_config
+             v_self_managed_kafka_event_source_config
+         in
+         ("self_managed_kafka_event_source_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_self_managed_event_source
+             v_self_managed_event_source
+         in
+         ("self_managed_event_source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_scaling_config v_scaling_config
+         in
+         ("scaling_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_filter_criteria v_filter_criteria
+         in
+         ("filter_criteria", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_document_db_event_source_config
+             v_document_db_event_source_config
+         in
+         ("document_db_event_source_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destination_config
+             v_destination_config
+         in
+         ("destination_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_amazon_managed_kafka_event_source_config
+             v_amazon_managed_kafka_event_source_config
+         in
+         ("amazon_managed_kafka_event_source_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tumbling_window_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "tumbling_window_in_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_topics with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "topics", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_starting_position_timestamp with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "starting_position_timestamp", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_starting_position with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "starting_position", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_queues with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "queues", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parallelization_factor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "parallelization_factor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maximum_retry_attempts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_retry_attempts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maximum_record_age_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_record_age_in_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maximum_batching_window_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_batching_window_in_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_function_response_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "function_response_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_function_name in
+         ("function_name", arg) :: bnds
+       in
+       let bnds =
+         match v_event_source_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "event_source_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bisect_batch_on_function_error with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bisect_batch_on_function_error", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_batch_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "batch_size", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_lambda_event_source_mapping ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lambda_event_source_mapping
+
+[@@@deriving.end]
 
 let amazon_managed_kafka_event_source_config ?consumer_group_id () :
     amazon_managed_kafka_event_source_config =

@@ -3,12 +3,43 @@
 open! Tf_core
 
 type digitalocean_droplet_snapshot = {
-  droplet_id : string prop;  (** droplet_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  droplet_id : string prop;
+  id : string prop option; [@option]
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** digitalocean_droplet_snapshot *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_droplet_snapshot) -> ()
+
+let yojson_of_digitalocean_droplet_snapshot =
+  (function
+   | { droplet_id = v_droplet_id; id = v_id; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_droplet_id in
+         ("droplet_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_droplet_snapshot ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_droplet_snapshot
+
+[@@@deriving.end]
 
 let digitalocean_droplet_snapshot ?id ~droplet_id ~name () :
     digitalocean_droplet_snapshot =

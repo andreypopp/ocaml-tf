@@ -4,65 +4,379 @@ open! Tf_core
 
 type load_balancer_options = {
   load_balancer_arn : string prop option; [@option]
-      (** load_balancer_arn *)
-  port : float prop option; [@option]  (** port *)
-  protocol : string prop option; [@option]  (** protocol *)
-  subnet_ids : string prop list option; [@option]  (** subnet_ids *)
+  port : float prop option; [@option]
+  protocol : string prop option; [@option]
+  subnet_ids : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** load_balancer_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : load_balancer_options) -> ()
+
+let yojson_of_load_balancer_options =
+  (function
+   | {
+       load_balancer_arn = v_load_balancer_arn;
+       port = v_port;
+       protocol = v_protocol;
+       subnet_ids = v_subnet_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subnet_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "subnet_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_load_balancer_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "load_balancer_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : load_balancer_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_load_balancer_options
+
+[@@@deriving.end]
 
 type network_interface_options = {
   network_interface_id : string prop option; [@option]
-      (** network_interface_id *)
-  port : float prop option; [@option]  (** port *)
-  protocol : string prop option; [@option]  (** protocol *)
+  port : float prop option; [@option]
+  protocol : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** network_interface_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_interface_options) -> ()
+
+let yojson_of_network_interface_options =
+  (function
+   | {
+       network_interface_id = v_network_interface_id;
+       port = v_port;
+       protocol = v_protocol;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_interface_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_interface_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network_interface_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_interface_options
+
+[@@@deriving.end]
 
 type sse_specification = {
   customer_managed_key_enabled : bool prop option; [@option]
-      (** customer_managed_key_enabled *)
-  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  kms_key_arn : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** sse_specification *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sse_specification) -> ()
+
+let yojson_of_sse_specification =
+  (function
+   | {
+       customer_managed_key_enabled = v_customer_managed_key_enabled;
+       kms_key_arn = v_kms_key_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_customer_managed_key_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "customer_managed_key_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sse_specification -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sse_specification
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_verifiedaccess_endpoint = {
-  application_domain : string prop;  (** application_domain *)
-  attachment_type : string prop;  (** attachment_type *)
-  description : string prop option; [@option]  (** description *)
+  application_domain : string prop;
+  attachment_type : string prop;
+  description : string prop option; [@option]
   domain_certificate_arn : string prop;
-      (** domain_certificate_arn *)
   endpoint_domain_prefix : string prop;
-      (** endpoint_domain_prefix *)
-  endpoint_type : string prop;  (** endpoint_type *)
-  id : string prop option; [@option]  (** id *)
+  endpoint_type : string prop;
+  id : string prop option; [@option]
   policy_document : string prop option; [@option]
-      (** policy_document *)
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   verified_access_group_id : string prop;
-      (** verified_access_group_id *)
   load_balancer_options : load_balancer_options list;
   network_interface_options : network_interface_options list;
   sse_specification : sse_specification list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_verifiedaccess_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_verifiedaccess_endpoint) -> ()
+
+let yojson_of_aws_verifiedaccess_endpoint =
+  (function
+   | {
+       application_domain = v_application_domain;
+       attachment_type = v_attachment_type;
+       description = v_description;
+       domain_certificate_arn = v_domain_certificate_arn;
+       endpoint_domain_prefix = v_endpoint_domain_prefix;
+       endpoint_type = v_endpoint_type;
+       id = v_id;
+       policy_document = v_policy_document;
+       security_group_ids = v_security_group_ids;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       verified_access_group_id = v_verified_access_group_id;
+       load_balancer_options = v_load_balancer_options;
+       network_interface_options = v_network_interface_options;
+       sse_specification = v_sse_specification;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sse_specification
+             v_sse_specification
+         in
+         ("sse_specification", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_interface_options
+             v_network_interface_options
+         in
+         ("network_interface_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_load_balancer_options
+             v_load_balancer_options
+         in
+         ("load_balancer_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_verified_access_group_id
+         in
+         ("verified_access_group_id", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policy_document with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy_document", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_endpoint_type in
+         ("endpoint_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_endpoint_domain_prefix
+         in
+         ("endpoint_domain_prefix", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_domain_certificate_arn
+         in
+         ("domain_certificate_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_attachment_type
+         in
+         ("attachment_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_application_domain
+         in
+         ("application_domain", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_verifiedaccess_endpoint ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_verifiedaccess_endpoint
+
+[@@@deriving.end]
 
 let load_balancer_options ?load_balancer_arn ?port ?protocol
     ?subnet_ids () : load_balancer_options =

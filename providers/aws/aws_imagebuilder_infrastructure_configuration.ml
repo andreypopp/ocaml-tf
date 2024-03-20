@@ -4,47 +4,294 @@ open! Tf_core
 
 type instance_metadata_options = {
   http_put_response_hop_limit : float prop option; [@option]
-      (** http_put_response_hop_limit *)
-  http_tokens : string prop option; [@option]  (** http_tokens *)
+  http_tokens : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** instance_metadata_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : instance_metadata_options) -> ()
+
+let yojson_of_instance_metadata_options =
+  (function
+   | {
+       http_put_response_hop_limit = v_http_put_response_hop_limit;
+       http_tokens = v_http_tokens;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_http_tokens with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "http_tokens", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http_put_response_hop_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "http_put_response_hop_limit", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : instance_metadata_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_instance_metadata_options
+
+[@@@deriving.end]
 
 type logging__s3_logs = {
-  s3_bucket_name : string prop;  (** s3_bucket_name *)
-  s3_key_prefix : string prop option; [@option]  (** s3_key_prefix *)
+  s3_bucket_name : string prop;
+  s3_key_prefix : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logging__s3_logs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging__s3_logs) -> ()
+
+let yojson_of_logging__s3_logs =
+  (function
+   | {
+       s3_bucket_name = v_s3_bucket_name;
+       s3_key_prefix = v_s3_key_prefix;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_s3_key_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_key_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_s3_bucket_name
+         in
+         ("s3_bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging__s3_logs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging__s3_logs
+
+[@@@deriving.end]
 
 type logging = { s3_logs : logging__s3_logs list }
-[@@deriving yojson_of]
-(** logging *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging) -> ()
+
+let yojson_of_logging =
+  (function
+   | { s3_logs = v_s3_logs } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logging__s3_logs v_s3_logs
+         in
+         ("s3_logs", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging
+
+[@@@deriving.end]
 
 type aws_imagebuilder_infrastructure_configuration = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  instance_profile_name : string prop;  (** instance_profile_name *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  instance_profile_name : string prop;
   instance_types : string prop list option; [@option]
-      (** instance_types *)
-  key_pair : string prop option; [@option]  (** key_pair *)
-  name : string prop;  (** name *)
+  key_pair : string prop option; [@option]
+  name : string prop;
   resource_tags : (string * string prop) list option; [@option]
-      (** resource_tags *)
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
-  sns_topic_arn : string prop option; [@option]  (** sns_topic_arn *)
-  subnet_id : string prop option; [@option]  (** subnet_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  sns_topic_arn : string prop option; [@option]
+  subnet_id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   terminate_instance_on_failure : bool prop option; [@option]
-      (** terminate_instance_on_failure *)
   instance_metadata_options : instance_metadata_options list;
   logging : logging list;
 }
-[@@deriving yojson_of]
-(** aws_imagebuilder_infrastructure_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_imagebuilder_infrastructure_configuration) -> ()
+
+let yojson_of_aws_imagebuilder_infrastructure_configuration =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       instance_profile_name = v_instance_profile_name;
+       instance_types = v_instance_types;
+       key_pair = v_key_pair;
+       name = v_name;
+       resource_tags = v_resource_tags;
+       security_group_ids = v_security_group_ids;
+       sns_topic_arn = v_sns_topic_arn;
+       subnet_id = v_subnet_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       terminate_instance_on_failure =
+         v_terminate_instance_on_failure;
+       instance_metadata_options = v_instance_metadata_options;
+       logging = v_logging;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_logging v_logging in
+         ("logging", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_instance_metadata_options
+             v_instance_metadata_options
+         in
+         ("instance_metadata_options", arg) :: bnds
+       in
+       let bnds =
+         match v_terminate_instance_on_failure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "terminate_instance_on_failure", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sns_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sns_topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "resource_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_key_pair with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_pair", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "instance_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_instance_profile_name
+         in
+         ("instance_profile_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_imagebuilder_infrastructure_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_imagebuilder_infrastructure_configuration
+
+[@@@deriving.end]
 
 let instance_metadata_options ?http_put_response_hop_limit
     ?http_tokens () : instance_metadata_options =

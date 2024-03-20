@@ -5,183 +5,1017 @@ open! Tf_core
 type async_inference_config__client_config = {
   max_concurrent_invocations_per_instance : float prop option;
       [@option]
-      (** max_concurrent_invocations_per_instance *)
 }
-[@@deriving yojson_of]
-(** async_inference_config__client_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : async_inference_config__client_config) -> ()
+
+let yojson_of_async_inference_config__client_config =
+  (function
+   | {
+       max_concurrent_invocations_per_instance =
+         v_max_concurrent_invocations_per_instance;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_concurrent_invocations_per_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "max_concurrent_invocations_per_instance", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : async_inference_config__client_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_async_inference_config__client_config
+
+[@@@deriving.end]
 
 type async_inference_config__output_config__notification_config = {
-  error_topic : string prop option; [@option]  (** error_topic *)
+  error_topic : string prop option; [@option]
   include_inference_response_in : string prop list option; [@option]
-      (** include_inference_response_in *)
-  success_topic : string prop option; [@option]  (** success_topic *)
+  success_topic : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** async_inference_config__output_config__notification_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : async_inference_config__output_config__notification_config) ->
+  ()
+
+let yojson_of_async_inference_config__output_config__notification_config
+    =
+  (function
+   | {
+       error_topic = v_error_topic;
+       include_inference_response_in =
+         v_include_inference_response_in;
+       success_topic = v_success_topic;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_success_topic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "success_topic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_include_inference_response_in with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "include_inference_response_in", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_error_topic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "error_topic", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : async_inference_config__output_config__notification_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_async_inference_config__output_config__notification_config
+
+[@@@deriving.end]
 
 type async_inference_config__output_config = {
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]
   s3_failure_path : string prop option; [@option]
-      (** s3_failure_path *)
-  s3_output_path : string prop;  (** s3_output_path *)
+  s3_output_path : string prop;
   notification_config :
     async_inference_config__output_config__notification_config list;
 }
-[@@deriving yojson_of]
-(** async_inference_config__output_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : async_inference_config__output_config) -> ()
+
+let yojson_of_async_inference_config__output_config =
+  (function
+   | {
+       kms_key_id = v_kms_key_id;
+       s3_failure_path = v_s3_failure_path;
+       s3_output_path = v_s3_output_path;
+       notification_config = v_notification_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_async_inference_config__output_config__notification_config
+             v_notification_config
+         in
+         ("notification_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_s3_output_path
+         in
+         ("s3_output_path", arg) :: bnds
+       in
+       let bnds =
+         match v_s3_failure_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "s3_failure_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : async_inference_config__output_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_async_inference_config__output_config
+
+[@@@deriving.end]
 
 type async_inference_config = {
   client_config : async_inference_config__client_config list;
   output_config : async_inference_config__output_config list;
 }
-[@@deriving yojson_of]
-(** async_inference_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : async_inference_config) -> ()
+
+let yojson_of_async_inference_config =
+  (function
+   | {
+       client_config = v_client_config;
+       output_config = v_output_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_async_inference_config__output_config
+             v_output_config
+         in
+         ("output_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_async_inference_config__client_config
+             v_client_config
+         in
+         ("client_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : async_inference_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_async_inference_config
+
+[@@@deriving.end]
 
 type data_capture_config__capture_content_type_header = {
   csv_content_types : string prop list option; [@option]
-      (** csv_content_types *)
   json_content_types : string prop list option; [@option]
-      (** json_content_types *)
 }
-[@@deriving yojson_of]
-(** data_capture_config__capture_content_type_header *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : data_capture_config__capture_content_type_header) -> ()
+
+let yojson_of_data_capture_config__capture_content_type_header =
+  (function
+   | {
+       csv_content_types = v_csv_content_types;
+       json_content_types = v_json_content_types;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_json_content_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "json_content_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_csv_content_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "csv_content_types", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_capture_config__capture_content_type_header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_capture_config__capture_content_type_header
+
+[@@@deriving.end]
 
 type data_capture_config__capture_options = {
-  capture_mode : string prop;  (** capture_mode *)
+  capture_mode : string prop;
 }
-[@@deriving yojson_of]
-(** data_capture_config__capture_options *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_capture_config__capture_options) -> ()
+
+let yojson_of_data_capture_config__capture_options =
+  (function
+   | { capture_mode = v_capture_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_capture_mode in
+         ("capture_mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_capture_config__capture_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_capture_config__capture_options
+
+[@@@deriving.end]
 
 type data_capture_config = {
-  destination_s3_uri : string prop;  (** destination_s3_uri *)
-  enable_capture : bool prop option; [@option]  (** enable_capture *)
+  destination_s3_uri : string prop;
+  enable_capture : bool prop option; [@option]
   initial_sampling_percentage : float prop;
-      (** initial_sampling_percentage *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]
   capture_content_type_header :
     data_capture_config__capture_content_type_header list;
   capture_options : data_capture_config__capture_options list;
 }
-[@@deriving yojson_of]
-(** data_capture_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_capture_config) -> ()
+
+let yojson_of_data_capture_config =
+  (function
+   | {
+       destination_s3_uri = v_destination_s3_uri;
+       enable_capture = v_enable_capture;
+       initial_sampling_percentage = v_initial_sampling_percentage;
+       kms_key_id = v_kms_key_id;
+       capture_content_type_header = v_capture_content_type_header;
+       capture_options = v_capture_options;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_capture_config__capture_options
+             v_capture_options
+         in
+         ("capture_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_data_capture_config__capture_content_type_header
+             v_capture_content_type_header
+         in
+         ("capture_content_type_header", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_initial_sampling_percentage
+         in
+         ("initial_sampling_percentage", arg) :: bnds
+       in
+       let bnds =
+         match v_enable_capture with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_capture", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_s3_uri
+         in
+         ("destination_s3_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_capture_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_capture_config
+
+[@@@deriving.end]
 
 type production_variants__core_dump_config = {
-  destination_s3_uri : string prop;  (** destination_s3_uri *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  destination_s3_uri : string prop;
+  kms_key_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** production_variants__core_dump_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : production_variants__core_dump_config) -> ()
+
+let yojson_of_production_variants__core_dump_config =
+  (function
+   | {
+       destination_s3_uri = v_destination_s3_uri;
+       kms_key_id = v_kms_key_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_s3_uri
+         in
+         ("destination_s3_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : production_variants__core_dump_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_production_variants__core_dump_config
+
+[@@@deriving.end]
 
 type production_variants__routing_config = {
-  routing_strategy : string prop;  (** routing_strategy *)
+  routing_strategy : string prop;
 }
-[@@deriving yojson_of]
-(** production_variants__routing_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : production_variants__routing_config) -> ()
+
+let yojson_of_production_variants__routing_config =
+  (function
+   | { routing_strategy = v_routing_strategy } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_routing_strategy
+         in
+         ("routing_strategy", arg) :: bnds
+       in
+       `Assoc bnds
+    : production_variants__routing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_production_variants__routing_config
+
+[@@@deriving.end]
 
 type production_variants__serverless_config = {
-  max_concurrency : float prop;  (** max_concurrency *)
-  memory_size_in_mb : float prop;  (** memory_size_in_mb *)
+  max_concurrency : float prop;
+  memory_size_in_mb : float prop;
   provisioned_concurrency : float prop option; [@option]
-      (** provisioned_concurrency *)
 }
-[@@deriving yojson_of]
-(** production_variants__serverless_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : production_variants__serverless_config) -> ()
+
+let yojson_of_production_variants__serverless_config =
+  (function
+   | {
+       max_concurrency = v_max_concurrency;
+       memory_size_in_mb = v_memory_size_in_mb;
+       provisioned_concurrency = v_provisioned_concurrency;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_provisioned_concurrency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "provisioned_concurrency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_memory_size_in_mb
+         in
+         ("memory_size_in_mb", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_concurrency
+         in
+         ("max_concurrency", arg) :: bnds
+       in
+       `Assoc bnds
+    : production_variants__serverless_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_production_variants__serverless_config
+
+[@@@deriving.end]
 
 type production_variants = {
   accelerator_type : string prop option; [@option]
-      (** accelerator_type *)
   container_startup_health_check_timeout_in_seconds :
     float prop option;
       [@option]
-      (** container_startup_health_check_timeout_in_seconds *)
   enable_ssm_access : bool prop option; [@option]
-      (** enable_ssm_access *)
   initial_instance_count : float prop option; [@option]
-      (** initial_instance_count *)
   initial_variant_weight : float prop option; [@option]
-      (** initial_variant_weight *)
-  instance_type : string prop option; [@option]  (** instance_type *)
+  instance_type : string prop option; [@option]
   model_data_download_timeout_in_seconds : float prop option;
       [@option]
-      (** model_data_download_timeout_in_seconds *)
-  model_name : string prop;  (** model_name *)
-  variant_name : string prop option; [@option]  (** variant_name *)
+  model_name : string prop;
+  variant_name : string prop option; [@option]
   volume_size_in_gb : float prop option; [@option]
-      (** volume_size_in_gb *)
   core_dump_config : production_variants__core_dump_config list;
   routing_config : production_variants__routing_config list;
   serverless_config : production_variants__serverless_config list;
 }
-[@@deriving yojson_of]
-(** production_variants *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : production_variants) -> ()
+
+let yojson_of_production_variants =
+  (function
+   | {
+       accelerator_type = v_accelerator_type;
+       container_startup_health_check_timeout_in_seconds =
+         v_container_startup_health_check_timeout_in_seconds;
+       enable_ssm_access = v_enable_ssm_access;
+       initial_instance_count = v_initial_instance_count;
+       initial_variant_weight = v_initial_variant_weight;
+       instance_type = v_instance_type;
+       model_data_download_timeout_in_seconds =
+         v_model_data_download_timeout_in_seconds;
+       model_name = v_model_name;
+       variant_name = v_variant_name;
+       volume_size_in_gb = v_volume_size_in_gb;
+       core_dump_config = v_core_dump_config;
+       routing_config = v_routing_config;
+       serverless_config = v_serverless_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_production_variants__serverless_config
+             v_serverless_config
+         in
+         ("serverless_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_production_variants__routing_config
+             v_routing_config
+         in
+         ("routing_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_production_variants__core_dump_config
+             v_core_dump_config
+         in
+         ("core_dump_config", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_size_in_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "volume_size_in_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_variant_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "variant_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_model_name in
+         ("model_name", arg) :: bnds
+       in
+       let bnds =
+         match v_model_data_download_timeout_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "model_data_download_timeout_in_seconds", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_variant_weight with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_variant_weight", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_instance_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_instance_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_ssm_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_ssm_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_container_startup_health_check_timeout_in_seconds
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               ( "container_startup_health_check_timeout_in_seconds",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accelerator_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "accelerator_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : production_variants -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_production_variants
+
+[@@@deriving.end]
 
 type shadow_production_variants__core_dump_config = {
-  destination_s3_uri : string prop;  (** destination_s3_uri *)
-  kms_key_id : string prop;  (** kms_key_id *)
+  destination_s3_uri : string prop;
+  kms_key_id : string prop;
 }
-[@@deriving yojson_of]
-(** shadow_production_variants__core_dump_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shadow_production_variants__core_dump_config) -> ()
+
+let yojson_of_shadow_production_variants__core_dump_config =
+  (function
+   | {
+       destination_s3_uri = v_destination_s3_uri;
+       kms_key_id = v_kms_key_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_id in
+         ("kms_key_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_s3_uri
+         in
+         ("destination_s3_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : shadow_production_variants__core_dump_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shadow_production_variants__core_dump_config
+
+[@@@deriving.end]
 
 type shadow_production_variants__routing_config = {
-  routing_strategy : string prop;  (** routing_strategy *)
+  routing_strategy : string prop;
 }
-[@@deriving yojson_of]
-(** shadow_production_variants__routing_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shadow_production_variants__routing_config) -> ()
+
+let yojson_of_shadow_production_variants__routing_config =
+  (function
+   | { routing_strategy = v_routing_strategy } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_routing_strategy
+         in
+         ("routing_strategy", arg) :: bnds
+       in
+       `Assoc bnds
+    : shadow_production_variants__routing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shadow_production_variants__routing_config
+
+[@@@deriving.end]
 
 type shadow_production_variants__serverless_config = {
-  max_concurrency : float prop;  (** max_concurrency *)
-  memory_size_in_mb : float prop;  (** memory_size_in_mb *)
+  max_concurrency : float prop;
+  memory_size_in_mb : float prop;
   provisioned_concurrency : float prop option; [@option]
-      (** provisioned_concurrency *)
 }
-[@@deriving yojson_of]
-(** shadow_production_variants__serverless_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shadow_production_variants__serverless_config) -> ()
+
+let yojson_of_shadow_production_variants__serverless_config =
+  (function
+   | {
+       max_concurrency = v_max_concurrency;
+       memory_size_in_mb = v_memory_size_in_mb;
+       provisioned_concurrency = v_provisioned_concurrency;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_provisioned_concurrency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "provisioned_concurrency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_memory_size_in_mb
+         in
+         ("memory_size_in_mb", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_concurrency
+         in
+         ("max_concurrency", arg) :: bnds
+       in
+       `Assoc bnds
+    : shadow_production_variants__serverless_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shadow_production_variants__serverless_config
+
+[@@@deriving.end]
 
 type shadow_production_variants = {
   accelerator_type : string prop option; [@option]
-      (** accelerator_type *)
   container_startup_health_check_timeout_in_seconds :
     float prop option;
       [@option]
-      (** container_startup_health_check_timeout_in_seconds *)
   enable_ssm_access : bool prop option; [@option]
-      (** enable_ssm_access *)
   initial_instance_count : float prop option; [@option]
-      (** initial_instance_count *)
   initial_variant_weight : float prop option; [@option]
-      (** initial_variant_weight *)
-  instance_type : string prop option; [@option]  (** instance_type *)
+  instance_type : string prop option; [@option]
   model_data_download_timeout_in_seconds : float prop option;
       [@option]
-      (** model_data_download_timeout_in_seconds *)
-  model_name : string prop;  (** model_name *)
-  variant_name : string prop option; [@option]  (** variant_name *)
+  model_name : string prop;
+  variant_name : string prop option; [@option]
   volume_size_in_gb : float prop option; [@option]
-      (** volume_size_in_gb *)
   core_dump_config :
     shadow_production_variants__core_dump_config list;
   routing_config : shadow_production_variants__routing_config list;
   serverless_config :
     shadow_production_variants__serverless_config list;
 }
-[@@deriving yojson_of]
-(** shadow_production_variants *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shadow_production_variants) -> ()
+
+let yojson_of_shadow_production_variants =
+  (function
+   | {
+       accelerator_type = v_accelerator_type;
+       container_startup_health_check_timeout_in_seconds =
+         v_container_startup_health_check_timeout_in_seconds;
+       enable_ssm_access = v_enable_ssm_access;
+       initial_instance_count = v_initial_instance_count;
+       initial_variant_weight = v_initial_variant_weight;
+       instance_type = v_instance_type;
+       model_data_download_timeout_in_seconds =
+         v_model_data_download_timeout_in_seconds;
+       model_name = v_model_name;
+       variant_name = v_variant_name;
+       volume_size_in_gb = v_volume_size_in_gb;
+       core_dump_config = v_core_dump_config;
+       routing_config = v_routing_config;
+       serverless_config = v_serverless_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_shadow_production_variants__serverless_config
+             v_serverless_config
+         in
+         ("serverless_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_shadow_production_variants__routing_config
+             v_routing_config
+         in
+         ("routing_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_shadow_production_variants__core_dump_config
+             v_core_dump_config
+         in
+         ("core_dump_config", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_size_in_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "volume_size_in_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_variant_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "variant_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_model_name in
+         ("model_name", arg) :: bnds
+       in
+       let bnds =
+         match v_model_data_download_timeout_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "model_data_download_timeout_in_seconds", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_variant_weight with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_variant_weight", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_initial_instance_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "initial_instance_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_ssm_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_ssm_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match
+           v_container_startup_health_check_timeout_in_seconds
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               ( "container_startup_health_check_timeout_in_seconds",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_accelerator_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "accelerator_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : shadow_production_variants -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shadow_production_variants
+
+[@@@deriving.end]
 
 type aws_sagemaker_endpoint_configuration = {
-  id : string prop option; [@option]  (** id *)
-  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  kms_key_arn : string prop option; [@option]
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   async_inference_config : async_inference_config list;
   data_capture_config : data_capture_config list;
   production_variants : production_variants list;
   shadow_production_variants : shadow_production_variants list;
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_endpoint_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sagemaker_endpoint_configuration) -> ()
+
+let yojson_of_aws_sagemaker_endpoint_configuration =
+  (function
+   | {
+       id = v_id;
+       kms_key_arn = v_kms_key_arn;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       async_inference_config = v_async_inference_config;
+       data_capture_config = v_data_capture_config;
+       production_variants = v_production_variants;
+       shadow_production_variants = v_shadow_production_variants;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_shadow_production_variants
+             v_shadow_production_variants
+         in
+         ("shadow_production_variants", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_production_variants
+             v_production_variants
+         in
+         ("production_variants", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_capture_config
+             v_data_capture_config
+         in
+         ("data_capture_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_async_inference_config
+             v_async_inference_config
+         in
+         ("async_inference_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_endpoint_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sagemaker_endpoint_configuration
+
+[@@@deriving.end]
 
 let async_inference_config__client_config
     ?max_concurrent_invocations_per_instance () :

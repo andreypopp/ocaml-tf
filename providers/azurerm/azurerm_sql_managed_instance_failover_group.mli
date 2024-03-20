@@ -9,6 +9,8 @@ type partner_region = {
   role : string prop;  (** role *)
 }
 
+[@@@deriving.end]
+
 type read_write_endpoint_failover_policy
 
 val read_write_endpoint_failover_policy :

@@ -2,30 +2,94 @@
 
 open! Tf_core
 
-type configuration = {
-  target : string prop;
-      (** The configuration target for this rule. You must set the target to ua for User Agent Blocking rules. *)
-  value : string prop;
-      (** The exact user agent string to match. This value will be compared to the received User-Agent HTTP header value. *)
-}
-[@@deriving yojson_of]
-(** The configuration object for the current rule. *)
+type configuration = { target : string prop; value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configuration) -> ()
+
+let yojson_of_configuration =
+  (function
+   | { target = v_target; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target in
+         ("target", arg) :: bnds
+       in
+       `Assoc bnds
+    : configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configuration
+
+[@@@deriving.end]
 
 type cloudflare_user_agent_blocking_rule = {
   description : string prop;
-      (** An informative summary of the rule. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   mode : string prop;
-      (** The action to apply to a matched request. Available values: `block`, `challenge`, `js_challenge`, `managed_challenge`. *)
   paused : bool prop;
-      (** When true, indicates that the rule is currently paused. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   configuration : configuration list;
 }
-[@@deriving yojson_of]
-(** Provides a resource to manage User Agent Blocking Rules.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_user_agent_blocking_rule) -> ()
+
+let yojson_of_cloudflare_user_agent_blocking_rule =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       mode = v_mode;
+       paused = v_paused;
+       zone_id = v_zone_id;
+       configuration = v_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configuration v_configuration
+         in
+         ("configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_paused in
+         ("paused", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_user_agent_blocking_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_user_agent_blocking_rule
+
+[@@@deriving.end]
 
 let configuration ~target ~value () : configuration =
   { target; value }

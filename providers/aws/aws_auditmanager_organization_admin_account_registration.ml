@@ -3,10 +3,35 @@
 open! Tf_core
 
 type aws_auditmanager_organization_admin_account_registration = {
-  admin_account_id : string prop;  (** admin_account_id *)
+  admin_account_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_auditmanager_organization_admin_account_registration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : aws_auditmanager_organization_admin_account_registration) ->
+  ()
+
+let yojson_of_aws_auditmanager_organization_admin_account_registration
+    =
+  (function
+   | { admin_account_id = v_admin_account_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_admin_account_id
+         in
+         ("admin_account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_auditmanager_organization_admin_account_registration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_aws_auditmanager_organization_admin_account_registration
+
+[@@@deriving.end]
 
 let aws_auditmanager_organization_admin_account_registration
     ~admin_account_id () :

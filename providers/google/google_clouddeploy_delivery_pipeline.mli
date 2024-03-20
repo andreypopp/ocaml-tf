@@ -9,16 +9,22 @@ type condition__targets_type_condition = {
   status : bool prop;  (** status *)
 }
 
+[@@@deriving.end]
+
 type condition__targets_present_condition = {
   missing_targets : string prop list;  (** missing_targets *)
   status : bool prop;  (** status *)
   update_time : string prop;  (** update_time *)
 }
 
+[@@@deriving.end]
+
 type condition__pipeline_ready_condition = {
   status : bool prop;  (** status *)
   update_time : string prop;  (** update_time *)
 }
+
+[@@@deriving.end]
 
 type condition = {
   pipeline_ready_condition :
@@ -30,6 +36,8 @@ type condition = {
   targets_type_condition : condition__targets_type_condition list;
       (** targets_type_condition *)
 }
+
+[@@@deriving.end]
 
 type serial_pipeline__stages__deploy_parameters
 

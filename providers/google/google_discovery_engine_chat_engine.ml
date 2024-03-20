@@ -4,62 +4,291 @@ open! Tf_core
 
 type chat_engine_config__agent_creation_config = {
   business : string prop option; [@option]
-      (** Name of the company, organization or other entity that the agent represents. Used for knowledge connector LLM prompt and for knowledge search. *)
   default_language_code : string prop;
-      (** The default language of the agent as a language tag. See [Language Support](https://cloud.google.com/dialogflow/docs/reference/language) for a list of the currently supported language codes. *)
   location : string prop option; [@option]
-      (** Agent location for Agent creation, currently supported values: global/us/eu, it needs to be the same region as the Chat Engine. *)
   time_zone : string prop;
-      (** The time zone of the agent from the [time zone database](https://www.iana.org/time-zones), e.g., America/New_York, Europe/Paris. *)
 }
-[@@deriving yojson_of]
-(** The configuration to generate the Dialogflow agent that is associated to this Engine. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : chat_engine_config__agent_creation_config) -> ()
+
+let yojson_of_chat_engine_config__agent_creation_config =
+  (function
+   | {
+       business = v_business;
+       default_language_code = v_default_language_code;
+       location = v_location;
+       time_zone = v_time_zone;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_zone in
+         ("time_zone", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_default_language_code
+         in
+         ("default_language_code", arg) :: bnds
+       in
+       let bnds =
+         match v_business with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "business", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : chat_engine_config__agent_creation_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_chat_engine_config__agent_creation_config
+
+[@@@deriving.end]
 
 type chat_engine_config = {
   agent_creation_config :
     chat_engine_config__agent_creation_config list;
 }
-[@@deriving yojson_of]
-(** Configurations for a chat Engine. *)
+[@@deriving_inline yojson_of]
 
-type common_config = {
-  company_name : string prop option; [@option]
-      (** The name of the company, business or entity that is associated with the engine. Setting this may help improve LLM related features. *)
-}
-[@@deriving yojson_of]
-(** Common config spec that specifies the metadata of the engine. *)
+let _ = fun (_ : chat_engine_config) -> ()
+
+let yojson_of_chat_engine_config =
+  (function
+   | { agent_creation_config = v_agent_creation_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_chat_engine_config__agent_creation_config
+             v_agent_creation_config
+         in
+         ("agent_creation_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : chat_engine_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_chat_engine_config
+
+[@@@deriving.end]
+
+type common_config = { company_name : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : common_config) -> ()
+
+let yojson_of_common_config =
+  (function
+   | { company_name = v_company_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_company_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "company_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : common_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_common_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type chat_engine_metadata = {
-  dialogflow_agent : string prop;  (** dialogflow_agent *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type chat_engine_metadata = { dialogflow_agent : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : chat_engine_metadata) -> ()
+
+let yojson_of_chat_engine_metadata =
+  (function
+   | { dialogflow_agent = v_dialogflow_agent } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_dialogflow_agent
+         in
+         ("dialogflow_agent", arg) :: bnds
+       in
+       `Assoc bnds
+    : chat_engine_metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_chat_engine_metadata
+
+[@@@deriving.end]
 
 type google_discovery_engine_chat_engine = {
-  collection_id : string prop;  (** The collection ID. *)
+  collection_id : string prop;
   data_store_ids : string prop list;
-      (** The data stores associated with this engine. Multiple DataStores in the same Collection can be associated here. All listed DataStores must be 'SOLUTION_TYPE_CHAT'. Adding or removing data stores will force recreation. *)
   display_name : string prop;
-      (** The display name of the engine. Should be human readable. UTF-8 encoded string with limit of 1024 characters. *)
-  engine_id : string prop;  (** The ID to use for chat engine. *)
-  id : string prop option; [@option]  (** id *)
+  engine_id : string prop;
+  id : string prop option; [@option]
   industry_vertical : string prop option; [@option]
-      (** The industry vertical that the chat engine registers. Vertical on Engine has to match vertical of the DataStore linked to the engine. Default value: GENERIC Possible values: [GENERIC] *)
-  location : string prop;  (** Location. *)
-  project : string prop option; [@option]  (** project *)
+  location : string prop;
+  project : string prop option; [@option]
   chat_engine_config : chat_engine_config list;
   common_config : common_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_discovery_engine_chat_engine *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_discovery_engine_chat_engine) -> ()
+
+let yojson_of_google_discovery_engine_chat_engine =
+  (function
+   | {
+       collection_id = v_collection_id;
+       data_store_ids = v_data_store_ids;
+       display_name = v_display_name;
+       engine_id = v_engine_id;
+       id = v_id;
+       industry_vertical = v_industry_vertical;
+       location = v_location;
+       project = v_project;
+       chat_engine_config = v_chat_engine_config;
+       common_config = v_common_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_common_config v_common_config
+         in
+         ("common_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_chat_engine_config
+             v_chat_engine_config
+         in
+         ("chat_engine_config", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_industry_vertical with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "industry_vertical", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_engine_id in
+         ("engine_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_data_store_ids
+         in
+         ("data_store_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_collection_id in
+         ("collection_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_discovery_engine_chat_engine ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_discovery_engine_chat_engine
+
+[@@@deriving.end]
 
 let chat_engine_config__agent_creation_config ?business ?location
     ~default_language_code ~time_zone () :

@@ -3,31 +3,140 @@
 open! Tf_core
 
 type identity = {
-  identity_ids : string prop list;  (** identity_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  identity_ids : string prop list;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_identity_ids
+         in
+         ("identity_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
 
 type three_tier_configuration__application_server_configuration__virtual_machine_configuration__image = {
-  offer : string prop;  (** offer *)
-  publisher : string prop;  (** publisher *)
-  sku : string prop;  (** sku *)
-  version : string prop;  (** version *)
+  offer : string prop;
+  publisher : string prop;
+  sku : string prop;
+  version : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__application_server_configuration__virtual_machine_configuration__image *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__application_server_configuration__virtual_machine_configuration__image) ->
+  ()
+
+let yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__image
+    =
+  (function
+   | {
+       offer = v_offer;
+       publisher = v_publisher;
+       sku = v_sku;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sku in
+         ("sku", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_publisher in
+         ("publisher", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_offer in
+         ("offer", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__application_server_configuration__virtual_machine_configuration__image ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__image
+
+[@@@deriving.end]
 
 type three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile = {
-  admin_username : string prop;  (** admin_username *)
-  ssh_private_key : string prop;  (** ssh_private_key *)
-  ssh_public_key : string prop;  (** ssh_public_key *)
+  admin_username : string prop;
+  ssh_private_key : string prop;
+  ssh_public_key : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile) ->
+  ()
+
+let yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile
+    =
+  (function
+   | {
+       admin_username = v_admin_username;
+       ssh_private_key = v_ssh_private_key;
+       ssh_public_key = v_ssh_public_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ssh_public_key
+         in
+         ("ssh_public_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ssh_private_key
+         in
+         ("ssh_private_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_admin_username
+         in
+         ("admin_username", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile
+
+[@@@deriving.end]
 
 type three_tier_configuration__application_server_configuration__virtual_machine_configuration = {
-  virtual_machine_size : string prop;  (** virtual_machine_size *)
+  virtual_machine_size : string prop;
   image :
     three_tier_configuration__application_server_configuration__virtual_machine_configuration__image
     list;
@@ -35,38 +144,207 @@ type three_tier_configuration__application_server_configuration__virtual_machine
     three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__application_server_configuration__virtual_machine_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__application_server_configuration__virtual_machine_configuration) ->
+  ()
+
+let yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration
+    =
+  (function
+   | {
+       virtual_machine_size = v_virtual_machine_size;
+       image = v_image;
+       os_profile = v_os_profile;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__os_profile
+             v_os_profile
+         in
+         ("os_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration__image
+             v_image
+         in
+         ("image", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_machine_size
+         in
+         ("virtual_machine_size", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__application_server_configuration__virtual_machine_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration
+
+[@@@deriving.end]
 
 type three_tier_configuration__application_server_configuration = {
-  instance_count : float prop;  (** instance_count *)
-  subnet_id : string prop;  (** subnet_id *)
+  instance_count : float prop;
+  subnet_id : string prop;
   virtual_machine_configuration :
     three_tier_configuration__application_server_configuration__virtual_machine_configuration
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__application_server_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : three_tier_configuration__application_server_configuration) ->
+  ()
+
+let yojson_of_three_tier_configuration__application_server_configuration
+    =
+  (function
+   | {
+       instance_count = v_instance_count;
+       subnet_id = v_subnet_id;
+       virtual_machine_configuration =
+         v_virtual_machine_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__application_server_configuration__virtual_machine_configuration
+             v_virtual_machine_configuration
+         in
+         ("virtual_machine_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_instance_count in
+         ("instance_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__application_server_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__application_server_configuration
+
+[@@@deriving.end]
 
 type three_tier_configuration__central_server_configuration__virtual_machine_configuration__image = {
-  offer : string prop;  (** offer *)
-  publisher : string prop;  (** publisher *)
-  sku : string prop;  (** sku *)
-  version : string prop;  (** version *)
+  offer : string prop;
+  publisher : string prop;
+  sku : string prop;
+  version : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__central_server_configuration__virtual_machine_configuration__image *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__central_server_configuration__virtual_machine_configuration__image) ->
+  ()
+
+let yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__image
+    =
+  (function
+   | {
+       offer = v_offer;
+       publisher = v_publisher;
+       sku = v_sku;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sku in
+         ("sku", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_publisher in
+         ("publisher", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_offer in
+         ("offer", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__central_server_configuration__virtual_machine_configuration__image ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__image
+
+[@@@deriving.end]
 
 type three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile = {
-  admin_username : string prop;  (** admin_username *)
-  ssh_private_key : string prop;  (** ssh_private_key *)
-  ssh_public_key : string prop;  (** ssh_public_key *)
+  admin_username : string prop;
+  ssh_private_key : string prop;
+  ssh_public_key : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile) ->
+  ()
+
+let yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile
+    =
+  (function
+   | {
+       admin_username = v_admin_username;
+       ssh_private_key = v_ssh_private_key;
+       ssh_public_key = v_ssh_public_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ssh_public_key
+         in
+         ("ssh_public_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ssh_private_key
+         in
+         ("ssh_private_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_admin_username
+         in
+         ("admin_username", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile
+
+[@@@deriving.end]
 
 type three_tier_configuration__central_server_configuration__virtual_machine_configuration = {
-  virtual_machine_size : string prop;  (** virtual_machine_size *)
+  virtual_machine_size : string prop;
   image :
     three_tier_configuration__central_server_configuration__virtual_machine_configuration__image
     list;
@@ -74,47 +352,259 @@ type three_tier_configuration__central_server_configuration__virtual_machine_con
     three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__central_server_configuration__virtual_machine_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__central_server_configuration__virtual_machine_configuration) ->
+  ()
+
+let yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration
+    =
+  (function
+   | {
+       virtual_machine_size = v_virtual_machine_size;
+       image = v_image;
+       os_profile = v_os_profile;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__os_profile
+             v_os_profile
+         in
+         ("os_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration__image
+             v_image
+         in
+         ("image", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_machine_size
+         in
+         ("virtual_machine_size", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__central_server_configuration__virtual_machine_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration
+
+[@@@deriving.end]
 
 type three_tier_configuration__central_server_configuration = {
-  instance_count : float prop;  (** instance_count *)
-  subnet_id : string prop;  (** subnet_id *)
+  instance_count : float prop;
+  subnet_id : string prop;
   virtual_machine_configuration :
     three_tier_configuration__central_server_configuration__virtual_machine_configuration
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__central_server_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : three_tier_configuration__central_server_configuration) ->
+  ()
+
+let yojson_of_three_tier_configuration__central_server_configuration
+    =
+  (function
+   | {
+       instance_count = v_instance_count;
+       subnet_id = v_subnet_id;
+       virtual_machine_configuration =
+         v_virtual_machine_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__central_server_configuration__virtual_machine_configuration
+             v_virtual_machine_configuration
+         in
+         ("virtual_machine_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_instance_count in
+         ("instance_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__central_server_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__central_server_configuration
+
+[@@@deriving.end]
 
 type three_tier_configuration__database_server_configuration__disk_volume_configuration = {
-  number_of_disks : float prop;  (** number_of_disks *)
-  size_in_gb : float prop;  (** size_in_gb *)
-  sku_name : string prop;  (** sku_name *)
-  volume_name : string prop;  (** volume_name *)
+  number_of_disks : float prop;
+  size_in_gb : float prop;
+  sku_name : string prop;
+  volume_name : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__database_server_configuration__disk_volume_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__database_server_configuration__disk_volume_configuration) ->
+  ()
+
+let yojson_of_three_tier_configuration__database_server_configuration__disk_volume_configuration
+    =
+  (function
+   | {
+       number_of_disks = v_number_of_disks;
+       size_in_gb = v_size_in_gb;
+       sku_name = v_sku_name;
+       volume_name = v_volume_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_name in
+         ("volume_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sku_name in
+         ("sku_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_size_in_gb in
+         ("size_in_gb", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_number_of_disks
+         in
+         ("number_of_disks", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__database_server_configuration__disk_volume_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__database_server_configuration__disk_volume_configuration
+
+[@@@deriving.end]
 
 type three_tier_configuration__database_server_configuration__virtual_machine_configuration__image = {
-  offer : string prop;  (** offer *)
-  publisher : string prop;  (** publisher *)
-  sku : string prop;  (** sku *)
-  version : string prop;  (** version *)
+  offer : string prop;
+  publisher : string prop;
+  sku : string prop;
+  version : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__database_server_configuration__virtual_machine_configuration__image *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__database_server_configuration__virtual_machine_configuration__image) ->
+  ()
+
+let yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__image
+    =
+  (function
+   | {
+       offer = v_offer;
+       publisher = v_publisher;
+       sku = v_sku;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sku in
+         ("sku", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_publisher in
+         ("publisher", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_offer in
+         ("offer", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__database_server_configuration__virtual_machine_configuration__image ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__image
+
+[@@@deriving.end]
 
 type three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile = {
-  admin_username : string prop;  (** admin_username *)
-  ssh_private_key : string prop;  (** ssh_private_key *)
-  ssh_public_key : string prop;  (** ssh_public_key *)
+  admin_username : string prop;
+  ssh_private_key : string prop;
+  ssh_public_key : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile) ->
+  ()
+
+let yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile
+    =
+  (function
+   | {
+       admin_username = v_admin_username;
+       ssh_private_key = v_ssh_private_key;
+       ssh_public_key = v_ssh_public_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ssh_public_key
+         in
+         ("ssh_public_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ssh_private_key
+         in
+         ("ssh_private_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_admin_username
+         in
+         ("admin_username", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile
+
+[@@@deriving.end]
 
 type three_tier_configuration__database_server_configuration__virtual_machine_configuration = {
-  virtual_machine_size : string prop;  (** virtual_machine_size *)
+  virtual_machine_size : string prop;
   image :
     three_tier_configuration__database_server_configuration__virtual_machine_configuration__image
     list;
@@ -122,13 +612,59 @@ type three_tier_configuration__database_server_configuration__virtual_machine_co
     three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__database_server_configuration__virtual_machine_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__database_server_configuration__virtual_machine_configuration) ->
+  ()
+
+let yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration
+    =
+  (function
+   | {
+       virtual_machine_size = v_virtual_machine_size;
+       image = v_image;
+       os_profile = v_os_profile;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__os_profile
+             v_os_profile
+         in
+         ("os_profile", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration__image
+             v_image
+         in
+         ("image", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_machine_size
+         in
+         ("virtual_machine_size", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__database_server_configuration__virtual_machine_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration
+
+[@@@deriving.end]
 
 type three_tier_configuration__database_server_configuration = {
-  database_type : string prop option; [@option]  (** database_type *)
-  instance_count : float prop;  (** instance_count *)
-  subnet_id : string prop;  (** subnet_id *)
+  database_type : string prop option; [@option]
+  instance_count : float prop;
+  subnet_id : string prop;
   disk_volume_configuration :
     three_tier_configuration__database_server_configuration__disk_volume_configuration
     list;
@@ -136,77 +672,425 @@ type three_tier_configuration__database_server_configuration = {
     three_tier_configuration__database_server_configuration__virtual_machine_configuration
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__database_server_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : three_tier_configuration__database_server_configuration) ->
+  ()
+
+let yojson_of_three_tier_configuration__database_server_configuration
+    =
+  (function
+   | {
+       database_type = v_database_type;
+       instance_count = v_instance_count;
+       subnet_id = v_subnet_id;
+       disk_volume_configuration = v_disk_volume_configuration;
+       virtual_machine_configuration =
+         v_virtual_machine_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__database_server_configuration__virtual_machine_configuration
+             v_virtual_machine_configuration
+         in
+         ("virtual_machine_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__database_server_configuration__disk_volume_configuration
+             v_disk_volume_configuration
+         in
+         ("disk_volume_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_instance_count in
+         ("instance_count", arg) :: bnds
+       in
+       let bnds =
+         match v_database_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "database_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__database_server_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__database_server_configuration
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__application_server__virtual_machine__data_disk = {
-  names : string prop list;  (** names *)
-  volume_name : string prop;  (** volume_name *)
+  names : string prop list;
+  volume_name : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__application_server__virtual_machine__data_disk *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__resource_names__application_server__virtual_machine__data_disk) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine__data_disk
+    =
+  (function
+   | { names = v_names; volume_name = v_volume_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_name in
+         ("volume_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_names
+         in
+         ("names", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__application_server__virtual_machine__data_disk ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine__data_disk
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__application_server__virtual_machine = {
-  host_name : string prop option; [@option]  (** host_name *)
+  host_name : string prop option; [@option]
   network_interface_names : string prop list option; [@option]
-      (** network_interface_names *)
-  os_disk_name : string prop option; [@option]  (** os_disk_name *)
+  os_disk_name : string prop option; [@option]
   virtual_machine_name : string prop option; [@option]
-      (** virtual_machine_name *)
   data_disk :
     three_tier_configuration__resource_names__application_server__virtual_machine__data_disk
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__application_server__virtual_machine *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__resource_names__application_server__virtual_machine) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine
+    =
+  (function
+   | {
+       host_name = v_host_name;
+       network_interface_names = v_network_interface_names;
+       os_disk_name = v_os_disk_name;
+       virtual_machine_name = v_virtual_machine_name;
+       data_disk = v_data_disk;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine__data_disk
+             v_data_disk
+         in
+         ("data_disk", arg) :: bnds
+       in
+       let bnds =
+         match v_virtual_machine_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "virtual_machine_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_os_disk_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "os_disk_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_interface_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "network_interface_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__application_server__virtual_machine ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__application_server = {
   availability_set_name : string prop option; [@option]
-      (** availability_set_name *)
   virtual_machine :
     three_tier_configuration__resource_names__application_server__virtual_machine
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__application_server *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__resource_names__application_server) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__application_server
+    =
+  (function
+   | {
+       availability_set_name = v_availability_set_name;
+       virtual_machine = v_virtual_machine;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__application_server__virtual_machine
+             v_virtual_machine
+         in
+         ("virtual_machine", arg) :: bnds
+       in
+       let bnds =
+         match v_availability_set_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "availability_set_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__application_server ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__application_server
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__central_server__load_balancer = {
   backend_pool_names : string prop list option; [@option]
-      (** backend_pool_names *)
   frontend_ip_configuration_names : string prop list option;
       [@option]
-      (** frontend_ip_configuration_names *)
   health_probe_names : string prop list option; [@option]
-      (** health_probe_names *)
-  name : string prop option; [@option]  (** name *)
+  name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__central_server__load_balancer *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__resource_names__central_server__load_balancer) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__central_server__load_balancer
+    =
+  (function
+   | {
+       backend_pool_names = v_backend_pool_names;
+       frontend_ip_configuration_names =
+         v_frontend_ip_configuration_names;
+       health_probe_names = v_health_probe_names;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_health_probe_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "health_probe_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_frontend_ip_configuration_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "frontend_ip_configuration_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backend_pool_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "backend_pool_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__central_server__load_balancer ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__central_server__load_balancer
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__central_server__virtual_machine__data_disk = {
-  names : string prop list;  (** names *)
-  volume_name : string prop;  (** volume_name *)
+  names : string prop list;
+  volume_name : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__central_server__virtual_machine__data_disk *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__resource_names__central_server__virtual_machine__data_disk) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine__data_disk
+    =
+  (function
+   | { names = v_names; volume_name = v_volume_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_name in
+         ("volume_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_names
+         in
+         ("names", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__central_server__virtual_machine__data_disk ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine__data_disk
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__central_server__virtual_machine = {
-  host_name : string prop option; [@option]  (** host_name *)
+  host_name : string prop option; [@option]
   network_interface_names : string prop list option; [@option]
-      (** network_interface_names *)
-  os_disk_name : string prop option; [@option]  (** os_disk_name *)
+  os_disk_name : string prop option; [@option]
   virtual_machine_name : string prop option; [@option]
-      (** virtual_machine_name *)
   data_disk :
     three_tier_configuration__resource_names__central_server__virtual_machine__data_disk
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__central_server__virtual_machine *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__resource_names__central_server__virtual_machine) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine
+    =
+  (function
+   | {
+       host_name = v_host_name;
+       network_interface_names = v_network_interface_names;
+       os_disk_name = v_os_disk_name;
+       virtual_machine_name = v_virtual_machine_name;
+       data_disk = v_data_disk;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine__data_disk
+             v_data_disk
+         in
+         ("data_disk", arg) :: bnds
+       in
+       let bnds =
+         match v_virtual_machine_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "virtual_machine_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_os_disk_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "os_disk_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_interface_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "network_interface_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__central_server__virtual_machine ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__central_server = {
   availability_set_name : string prop option; [@option]
-      (** availability_set_name *)
   load_balancer :
     three_tier_configuration__resource_names__central_server__load_balancer
     list;
@@ -214,46 +1098,249 @@ type three_tier_configuration__resource_names__central_server = {
     three_tier_configuration__resource_names__central_server__virtual_machine
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__central_server *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : three_tier_configuration__resource_names__central_server) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__central_server
+    =
+  (function
+   | {
+       availability_set_name = v_availability_set_name;
+       load_balancer = v_load_balancer;
+       virtual_machine = v_virtual_machine;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__central_server__virtual_machine
+             v_virtual_machine
+         in
+         ("virtual_machine", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__central_server__load_balancer
+             v_load_balancer
+         in
+         ("load_balancer", arg) :: bnds
+       in
+       let bnds =
+         match v_availability_set_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "availability_set_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__central_server ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__central_server
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__database_server__load_balancer = {
   backend_pool_names : string prop list option; [@option]
-      (** backend_pool_names *)
   frontend_ip_configuration_names : string prop list option;
       [@option]
-      (** frontend_ip_configuration_names *)
   health_probe_names : string prop list option; [@option]
-      (** health_probe_names *)
-  name : string prop option; [@option]  (** name *)
+  name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__database_server__load_balancer *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__resource_names__database_server__load_balancer) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__database_server__load_balancer
+    =
+  (function
+   | {
+       backend_pool_names = v_backend_pool_names;
+       frontend_ip_configuration_names =
+         v_frontend_ip_configuration_names;
+       health_probe_names = v_health_probe_names;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_health_probe_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "health_probe_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_frontend_ip_configuration_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "frontend_ip_configuration_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backend_pool_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "backend_pool_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__database_server__load_balancer ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__database_server__load_balancer
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__database_server__virtual_machine__data_disk = {
-  names : string prop list;  (** names *)
-  volume_name : string prop;  (** volume_name *)
+  names : string prop list;
+  volume_name : string prop;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__database_server__virtual_machine__data_disk *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__resource_names__database_server__virtual_machine__data_disk) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine__data_disk
+    =
+  (function
+   | { names = v_names; volume_name = v_volume_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_name in
+         ("volume_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_names
+         in
+         ("names", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__database_server__virtual_machine__data_disk ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine__data_disk
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__database_server__virtual_machine = {
-  host_name : string prop option; [@option]  (** host_name *)
+  host_name : string prop option; [@option]
   network_interface_names : string prop list option; [@option]
-      (** network_interface_names *)
-  os_disk_name : string prop option; [@option]  (** os_disk_name *)
+  os_disk_name : string prop option; [@option]
   virtual_machine_name : string prop option; [@option]
-      (** virtual_machine_name *)
   data_disk :
     three_tier_configuration__resource_names__database_server__virtual_machine__data_disk
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__database_server__virtual_machine *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       three_tier_configuration__resource_names__database_server__virtual_machine) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine
+    =
+  (function
+   | {
+       host_name = v_host_name;
+       network_interface_names = v_network_interface_names;
+       os_disk_name = v_os_disk_name;
+       virtual_machine_name = v_virtual_machine_name;
+       data_disk = v_data_disk;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine__data_disk
+             v_data_disk
+         in
+         ("data_disk", arg) :: bnds
+       in
+       let bnds =
+         match v_virtual_machine_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "virtual_machine_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_os_disk_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "os_disk_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_interface_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "network_interface_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__database_server__virtual_machine ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__database_server = {
   availability_set_name : string prop option; [@option]
-      (** availability_set_name *)
   load_balancer :
     three_tier_configuration__resource_names__database_server__load_balancer
     list;
@@ -261,16 +1348,100 @@ type three_tier_configuration__resource_names__database_server = {
     three_tier_configuration__resource_names__database_server__virtual_machine
     list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__database_server *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : three_tier_configuration__resource_names__database_server) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__database_server
+    =
+  (function
+   | {
+       availability_set_name = v_availability_set_name;
+       load_balancer = v_load_balancer;
+       virtual_machine = v_virtual_machine;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__database_server__virtual_machine
+             v_virtual_machine
+         in
+         ("virtual_machine", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__database_server__load_balancer
+             v_load_balancer
+         in
+         ("load_balancer", arg) :: bnds
+       in
+       let bnds =
+         match v_availability_set_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "availability_set_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__database_server ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__database_server
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names__shared_storage = {
-  account_name : string prop option; [@option]  (** account_name *)
+  account_name : string prop option; [@option]
   private_endpoint_name : string prop option; [@option]
-      (** private_endpoint_name *)
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names__shared_storage *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : three_tier_configuration__resource_names__shared_storage) ->
+  ()
+
+let yojson_of_three_tier_configuration__resource_names__shared_storage
+    =
+  (function
+   | {
+       account_name = v_account_name;
+       private_endpoint_name = v_private_endpoint_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_private_endpoint_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_endpoint_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names__shared_storage ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__resource_names__shared_storage
+
+[@@@deriving.end]
 
 type three_tier_configuration__resource_names = {
   application_server :
@@ -282,25 +1453,108 @@ type three_tier_configuration__resource_names = {
   shared_storage :
     three_tier_configuration__resource_names__shared_storage list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__resource_names *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : three_tier_configuration__resource_names) -> ()
+
+let yojson_of_three_tier_configuration__resource_names =
+  (function
+   | {
+       application_server = v_application_server;
+       central_server = v_central_server;
+       database_server = v_database_server;
+       shared_storage = v_shared_storage;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__shared_storage
+             v_shared_storage
+         in
+         ("shared_storage", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__database_server
+             v_database_server
+         in
+         ("database_server", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__central_server
+             v_central_server
+         in
+         ("central_server", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names__application_server
+             v_application_server
+         in
+         ("application_server", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__resource_names ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_three_tier_configuration__resource_names
+
+[@@@deriving.end]
 
 type three_tier_configuration__transport_create_and_mount = {
   resource_group_id : string prop option; [@option]
-      (** resource_group_id *)
   storage_account_name : string prop option; [@option]
-      (** storage_account_name *)
 }
-[@@deriving yojson_of]
-(** three_tier_configuration__transport_create_and_mount *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : three_tier_configuration__transport_create_and_mount) -> ()
+
+let yojson_of_three_tier_configuration__transport_create_and_mount =
+  (function
+   | {
+       resource_group_id = v_resource_group_id;
+       storage_account_name = v_storage_account_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_storage_account_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_account_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_group_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration__transport_create_and_mount ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_three_tier_configuration__transport_create_and_mount
+
+[@@@deriving.end]
 
 type three_tier_configuration = {
   app_resource_group_name : string prop;
-      (** app_resource_group_name *)
   high_availability_type : string prop option; [@option]
-      (** high_availability_type *)
   secondary_ip_enabled : bool prop option; [@option]
-      (** secondary_ip_enabled *)
   application_server_configuration :
     three_tier_configuration__application_server_configuration list;
   central_server_configuration :
@@ -311,36 +1565,280 @@ type three_tier_configuration = {
   transport_create_and_mount :
     three_tier_configuration__transport_create_and_mount list;
 }
-[@@deriving yojson_of]
-(** three_tier_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : three_tier_configuration) -> ()
+
+let yojson_of_three_tier_configuration =
+  (function
+   | {
+       app_resource_group_name = v_app_resource_group_name;
+       high_availability_type = v_high_availability_type;
+       secondary_ip_enabled = v_secondary_ip_enabled;
+       application_server_configuration =
+         v_application_server_configuration;
+       central_server_configuration = v_central_server_configuration;
+       database_server_configuration =
+         v_database_server_configuration;
+       resource_names = v_resource_names;
+       transport_create_and_mount = v_transport_create_and_mount;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__transport_create_and_mount
+             v_transport_create_and_mount
+         in
+         ("transport_create_and_mount", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__resource_names
+             v_resource_names
+         in
+         ("resource_names", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__database_server_configuration
+             v_database_server_configuration
+         in
+         ("database_server_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__central_server_configuration
+             v_central_server_configuration
+         in
+         ("central_server_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_three_tier_configuration__application_server_configuration
+             v_application_server_configuration
+         in
+         ("application_server_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_secondary_ip_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "secondary_ip_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_high_availability_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "high_availability_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_app_resource_group_name
+         in
+         ("app_resource_group_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : three_tier_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_three_tier_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_workloads_sap_three_tier_virtual_instance = {
-  app_location : string prop;  (** app_location *)
-  environment : string prop;  (** environment *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
+  app_location : string prop;
+  environment : string prop;
+  id : string prop option; [@option]
+  location : string prop;
   managed_resource_group_name : string prop option; [@option]
-      (** managed_resource_group_name *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  sap_fqdn : string prop;  (** sap_fqdn *)
-  sap_product : string prop;  (** sap_product *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  name : string prop;
+  resource_group_name : string prop;
+  sap_fqdn : string prop;
+  sap_product : string prop;
+  tags : (string * string prop) list option; [@option]
   identity : identity list;
   three_tier_configuration : three_tier_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_workloads_sap_three_tier_virtual_instance *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : azurerm_workloads_sap_three_tier_virtual_instance) -> ()
+
+let yojson_of_azurerm_workloads_sap_three_tier_virtual_instance =
+  (function
+   | {
+       app_location = v_app_location;
+       environment = v_environment;
+       id = v_id;
+       location = v_location;
+       managed_resource_group_name = v_managed_resource_group_name;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       sap_fqdn = v_sap_fqdn;
+       sap_product = v_sap_product;
+       tags = v_tags;
+       identity = v_identity;
+       three_tier_configuration = v_three_tier_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_three_tier_configuration
+             v_three_tier_configuration
+         in
+         ("three_tier_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity v_identity in
+         ("identity", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sap_product in
+         ("sap_product", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sap_fqdn in
+         ("sap_fqdn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_managed_resource_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_resource_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_environment in
+         ("environment", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_app_location in
+         ("app_location", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_workloads_sap_three_tier_virtual_instance ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_workloads_sap_three_tier_virtual_instance
+
+[@@@deriving.end]
 
 let identity ~identity_ids ~type_ () : identity =
   { identity_ids; type_ }

@@ -2,42 +2,144 @@
 
 open! Tf_core
 
-type bandwidth_limit = {
-  limit_mbps : string prop;
-      (** Bandwidth rate in megabytes per second, distributed across all the agents in the pool. *)
-}
-[@@deriving yojson_of]
-(** Specifies the bandwidth limit details. If this field is unspecified, the default value is set as 'No Limit'. *)
+type bandwidth_limit = { limit_mbps : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : bandwidth_limit) -> ()
+
+let yojson_of_bandwidth_limit =
+  (function
+   | { limit_mbps = v_limit_mbps } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_limit_mbps in
+         ("limit_mbps", arg) :: bnds
+       in
+       `Assoc bnds
+    : bandwidth_limit -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_bandwidth_limit
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_storage_transfer_agent_pool = {
   display_name : string prop option; [@option]
-      (** Specifies the client-specified AgentPool description. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The ID of the agent pool to create.
-
-The agentPoolId must meet the following requirements:
-* Length of 128 characters or less.
-* Not start with the string goog.
-* Start with a lowercase ASCII character, followed by:
-  * Zero or more: lowercase Latin alphabet characters, numerals, hyphens (-), periods (.), underscores (_), or tildes (~).
-  * One or more numerals or lowercase ASCII characters.
-
-As expressed by the regular expression: ^(?!goog)[a-z]([a-z0-9-._~]*[a-z0-9])?$. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   bandwidth_limit : bandwidth_limit list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_storage_transfer_agent_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_storage_transfer_agent_pool) -> ()
+
+let yojson_of_google_storage_transfer_agent_pool =
+  (function
+   | {
+       display_name = v_display_name;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       bandwidth_limit = v_bandwidth_limit;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_bandwidth_limit v_bandwidth_limit
+         in
+         ("bandwidth_limit", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_storage_transfer_agent_pool ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_storage_transfer_agent_pool
+
+[@@@deriving.end]
 
 let bandwidth_limit ~limit_mbps () : bandwidth_limit = { limit_mbps }
 

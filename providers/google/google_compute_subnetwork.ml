@@ -4,117 +4,325 @@ open! Tf_core
 
 type log_config = {
   aggregation_interval : string prop option; [@option]
-      (** Can only be specified if VPC flow logging for this subnetwork is enabled.
-Toggles the aggregation interval for collecting flow logs. Increasing the
-interval time will reduce the amount of generated flow logs for long
-lasting connections. Default is an interval of 5 seconds per connection. Default value: INTERVAL_5_SEC Possible values: [INTERVAL_5_SEC, INTERVAL_30_SEC, INTERVAL_1_MIN, INTERVAL_5_MIN, INTERVAL_10_MIN, INTERVAL_15_MIN] *)
   filter_expr : string prop option; [@option]
-      (** Export filter used to define which VPC flow logs should be logged, as as CEL expression. See
-https://cloud.google.com/vpc/docs/flow-logs#filtering for details on how to format this field.
-The default value is 'true', which evaluates to include everything. *)
   flow_sampling : float prop option; [@option]
-      (** Can only be specified if VPC flow logging for this subnetwork is enabled.
-The value of the field must be in [0, 1]. Set the sampling rate of VPC
-flow logs within the subnetwork where 1.0 means all collected logs are
-reported and 0.0 means no logs are reported. Default is 0.5 which means
-half of all collected logs are reported. *)
   metadata : string prop option; [@option]
-      (** Can only be specified if VPC flow logging for this subnetwork is enabled.
-Configures whether metadata fields should be added to the reported VPC
-flow logs. Default value: INCLUDE_ALL_METADATA Possible values: [EXCLUDE_ALL_METADATA, INCLUDE_ALL_METADATA, CUSTOM_METADATA] *)
   metadata_fields : string prop list option; [@option]
-      (** List of metadata fields that should be added to reported logs.
-Can only be specified if VPC flow logs for this subnetwork is enabled and metadata is set to CUSTOM_METADATA. *)
 }
-[@@deriving yojson_of]
-(** This field denotes the VPC flow logging options for this subnetwork. If
-logging is enabled, logs are exported to Cloud Logging. Flow logging
-isn't supported if the subnet 'purpose' field is set to subnetwork is
-'REGIONAL_MANAGED_PROXY' or 'GLOBAL_MANAGED_PROXY'. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : log_config) -> ()
+
+let yojson_of_log_config =
+  (function
+   | {
+       aggregation_interval = v_aggregation_interval;
+       filter_expr = v_filter_expr;
+       flow_sampling = v_flow_sampling;
+       metadata = v_metadata;
+       metadata_fields = v_metadata_fields;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_metadata_fields with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "metadata_fields", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_flow_sampling with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "flow_sampling", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_filter_expr with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "filter_expr", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_aggregation_interval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "aggregation_interval", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : log_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_log_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type secondary_ip_range = {
-  ip_cidr_range : string prop;  (** ip_cidr_range *)
-  range_name : string prop;  (** range_name *)
+  ip_cidr_range : string prop;
+  range_name : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secondary_ip_range) -> ()
+
+let yojson_of_secondary_ip_range =
+  (function
+   | { ip_cidr_range = v_ip_cidr_range; range_name = v_range_name }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_range_name in
+         ("range_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_cidr_range in
+         ("ip_cidr_range", arg) :: bnds
+       in
+       `Assoc bnds
+    : secondary_ip_range -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secondary_ip_range
+
+[@@@deriving.end]
 
 type google_compute_subnetwork = {
   description : string prop option; [@option]
-      (** An optional description of this resource. Provide this property when
-you create the resource. This field can be set only at resource
-creation time. *)
   external_ipv6_prefix : string prop option; [@option]
-      (** The range of external IPv6 addresses that are owned by this subnetwork. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_cidr_range : string prop;
-      (** The range of internal addresses that are owned by this subnetwork.
-Provide this property when you create the subnetwork. For example,
-10.0.0.0/8 or 192.168.0.0/16. Ranges must be unique and
-non-overlapping within a network. Only IPv4 is supported. *)
   ipv6_access_type : string prop option; [@option]
-      (** The access type of IPv6 address this subnet holds. It's immutable and can only be specified during creation
-or the first time the subnet is updated into IPV4_IPV6 dual stack. If the ipv6_type is EXTERNAL then this subnet
-cannot enable direct path. Possible values: [EXTERNAL, INTERNAL] *)
   name : string prop;
-      (** The name of the resource, provided by the client when initially
-creating the resource. The name must be 1-63 characters long, and
-comply with RFC1035. Specifically, the name must be 1-63 characters
-long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?' which
-means the first character must be a lowercase letter, and all
-following characters must be a dash, lowercase letter, or digit,
-except the last character, which cannot be a dash. *)
   network : string prop;
-      (** The network this subnet belongs to.
-Only networks that are in the distributed mode can have subnetworks. *)
   private_ip_google_access : bool prop option; [@option]
-      (** When enabled, VMs in this subnetwork without external IP addresses can
-access Google APIs and services by using Private Google Access. *)
   private_ipv6_google_access : string prop option; [@option]
-      (** The private IPv6 google access type for the VMs in this subnet. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   purpose : string prop option; [@option]
-      (** The purpose of the resource. This field can be either 'PRIVATE_RFC_1918', 'REGIONAL_MANAGED_PROXY', 'GLOBAL_MANAGED_PROXY', 'PRIVATE_SERVICE_CONNECT' or 'PRIVATE_NAT'([Beta](https://terraform.io/docs/providers/google/guides/provider_versions.html)).
-A subnet with purpose set to 'REGIONAL_MANAGED_PROXY' is a user-created subnetwork that is reserved for regional Envoy-based load balancers.
-A subnetwork in a given region with purpose set to 'GLOBAL_MANAGED_PROXY' is a proxy-only subnet and is shared between all the cross-regional Envoy-based load balancers.
-A subnetwork with purpose set to 'PRIVATE_SERVICE_CONNECT' reserves the subnet for hosting a Private Service Connect published service.
-A subnetwork with purpose set to 'PRIVATE_NAT' is used as source range for Private NAT gateways.
-Note that 'REGIONAL_MANAGED_PROXY' is the preferred setting for all regional Envoy load balancers.
-If unspecified, the purpose defaults to 'PRIVATE_RFC_1918'. *)
   region : string prop option; [@option]
-      (** The GCP region for this subnetwork. *)
   role : string prop option; [@option]
-      (** The role of subnetwork.
-Currently, this field is only used when 'purpose' is 'REGIONAL_MANAGED_PROXY'.
-The value can be set to 'ACTIVE' or 'BACKUP'.
-An 'ACTIVE' subnetwork is one that is currently being used for Envoy-based load balancers in a region.
-A 'BACKUP' subnetwork is one that is ready to be promoted to 'ACTIVE' or is currently draining. Possible values: [ACTIVE, BACKUP] *)
   secondary_ip_range : secondary_ip_range list option; [@option]
-      (** An array of configurations for secondary IP ranges for VM instances
-contained in this subnetwork. The primary IP of such VM must belong
-to the primary ipCidrRange of the subnetwork. The alias IPs may belong
-to either primary or secondary ranges.
-
-**Note**: This field uses [attr-as-block mode](https://www.terraform.io/docs/configuration/attr-as-blocks.html) to avoid
-breaking users during the 0.12 upgrade. To explicitly send a list
-of zero objects you must use the following syntax:
-'example=[]'
-For more details about this behavior, see [this section](https://www.terraform.io/docs/configuration/attr-as-blocks.html#defining-a-fixed-object-collection-value). *)
   stack_type : string prop option; [@option]
-      (** The stack type for this subnet to identify whether the IPv6 feature is enabled or not.
-If not specified IPV4_ONLY will be used. Possible values: [IPV4_ONLY, IPV4_IPV6] *)
   log_config : log_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_subnetwork *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_subnetwork) -> ()
+
+let yojson_of_google_compute_subnetwork =
+  (function
+   | {
+       description = v_description;
+       external_ipv6_prefix = v_external_ipv6_prefix;
+       id = v_id;
+       ip_cidr_range = v_ip_cidr_range;
+       ipv6_access_type = v_ipv6_access_type;
+       name = v_name;
+       network = v_network;
+       private_ip_google_access = v_private_ip_google_access;
+       private_ipv6_google_access = v_private_ipv6_google_access;
+       project = v_project;
+       purpose = v_purpose;
+       region = v_region;
+       role = v_role;
+       secondary_ip_range = v_secondary_ip_range;
+       stack_type = v_stack_type;
+       log_config = v_log_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_log_config v_log_config
+         in
+         ("log_config", arg) :: bnds
+       in
+       let bnds =
+         match v_stack_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stack_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secondary_ip_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list yojson_of_secondary_ip_range v
+             in
+             let bnd = "secondary_ip_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_purpose with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "purpose", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_ipv6_google_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_ipv6_google_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_ip_google_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "private_ip_google_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_ipv6_access_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_access_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ip_cidr_range in
+         ("ip_cidr_range", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_external_ipv6_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "external_ipv6_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_subnetwork -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_subnetwork
+
+[@@@deriving.end]
 
 let log_config ?aggregation_interval ?filter_expr ?flow_sampling
     ?metadata ?metadata_fields () : log_config =

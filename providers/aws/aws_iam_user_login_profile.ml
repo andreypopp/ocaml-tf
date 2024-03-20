@@ -3,16 +3,70 @@
 open! Tf_core
 
 type aws_iam_user_login_profile = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   password_length : float prop option; [@option]
-      (** password_length *)
   password_reset_required : bool prop option; [@option]
-      (** password_reset_required *)
-  pgp_key : string prop option; [@option]  (** pgp_key *)
-  user : string prop;  (** user *)
+  pgp_key : string prop option; [@option]
+  user : string prop;
 }
-[@@deriving yojson_of]
-(** aws_iam_user_login_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_user_login_profile) -> ()
+
+let yojson_of_aws_iam_user_login_profile =
+  (function
+   | {
+       id = v_id;
+       password_length = v_password_length;
+       password_reset_required = v_password_reset_required;
+       pgp_key = v_pgp_key;
+       user = v_user;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user in
+         ("user", arg) :: bnds
+       in
+       let bnds =
+         match v_pgp_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pgp_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_password_reset_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "password_reset_required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_password_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "password_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_user_login_profile -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_user_login_profile
+
+[@@@deriving.end]
 
 let aws_iam_user_login_profile ?id ?password_length
     ?password_reset_required ?pgp_key ~user () :

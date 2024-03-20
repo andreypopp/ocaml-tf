@@ -3,45 +3,221 @@
 open! Tf_core
 
 type auth_parameters__api_key = {
-  key : string prop;  (** key *)
-  value : string prop;  (** value *)
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** auth_parameters__api_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auth_parameters__api_key) -> ()
+
+let yojson_of_auth_parameters__api_key =
+  (function
+   | { key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__api_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters__api_key
+
+[@@@deriving.end]
 
 type auth_parameters__basic = {
-  password : string prop;  (** password *)
-  username : string prop;  (** username *)
+  password : string prop;
+  username : string prop;
 }
-[@@deriving yojson_of]
-(** auth_parameters__basic *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auth_parameters__basic) -> ()
+
+let yojson_of_auth_parameters__basic =
+  (function
+   | { password = v_password; username = v_username } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_password in
+         ("password", arg) :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__basic -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters__basic
+
+[@@@deriving.end]
 
 type auth_parameters__invocation_http_parameters__body = {
   is_value_secret : bool prop option; [@option]
-      (** is_value_secret *)
-  key : string prop option; [@option]  (** key *)
-  value : string prop option; [@option]  (** value *)
+  key : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** auth_parameters__invocation_http_parameters__body *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : auth_parameters__invocation_http_parameters__body) -> ()
+
+let yojson_of_auth_parameters__invocation_http_parameters__body =
+  (function
+   | {
+       is_value_secret = v_is_value_secret;
+       key = v_key;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_value_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_value_secret", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__invocation_http_parameters__body ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters__invocation_http_parameters__body
+
+[@@@deriving.end]
 
 type auth_parameters__invocation_http_parameters__header = {
   is_value_secret : bool prop option; [@option]
-      (** is_value_secret *)
-  key : string prop option; [@option]  (** key *)
-  value : string prop option; [@option]  (** value *)
+  key : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** auth_parameters__invocation_http_parameters__header *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : auth_parameters__invocation_http_parameters__header) -> ()
+
+let yojson_of_auth_parameters__invocation_http_parameters__header =
+  (function
+   | {
+       is_value_secret = v_is_value_secret;
+       key = v_key;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_value_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_value_secret", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__invocation_http_parameters__header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters__invocation_http_parameters__header
+
+[@@@deriving.end]
 
 type auth_parameters__invocation_http_parameters__query_string = {
   is_value_secret : bool prop option; [@option]
-      (** is_value_secret *)
-  key : string prop option; [@option]  (** key *)
-  value : string prop option; [@option]  (** value *)
+  key : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** auth_parameters__invocation_http_parameters__query_string *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : auth_parameters__invocation_http_parameters__query_string) ->
+  ()
+
+let yojson_of_auth_parameters__invocation_http_parameters__query_string
+    =
+  (function
+   | {
+       is_value_secret = v_is_value_secret;
+       key = v_key;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_value_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_value_secret", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__invocation_http_parameters__query_string ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_auth_parameters__invocation_http_parameters__query_string
+
+[@@@deriving.end]
 
 type auth_parameters__invocation_http_parameters = {
   body : auth_parameters__invocation_http_parameters__body list;
@@ -49,42 +225,243 @@ type auth_parameters__invocation_http_parameters = {
   query_string :
     auth_parameters__invocation_http_parameters__query_string list;
 }
-[@@deriving yojson_of]
-(** auth_parameters__invocation_http_parameters *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auth_parameters__invocation_http_parameters) -> ()
+
+let yojson_of_auth_parameters__invocation_http_parameters =
+  (function
+   | {
+       body = v_body;
+       header = v_header;
+       query_string = v_query_string;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auth_parameters__invocation_http_parameters__query_string
+             v_query_string
+         in
+         ("query_string", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auth_parameters__invocation_http_parameters__header
+             v_header
+         in
+         ("header", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auth_parameters__invocation_http_parameters__body
+             v_body
+         in
+         ("body", arg) :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__invocation_http_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters__invocation_http_parameters
+
+[@@@deriving.end]
 
 type auth_parameters__oauth__client_parameters = {
-  client_id : string prop;  (** client_id *)
-  client_secret : string prop;  (** client_secret *)
+  client_id : string prop;
+  client_secret : string prop;
 }
-[@@deriving yojson_of]
-(** auth_parameters__oauth__client_parameters *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auth_parameters__oauth__client_parameters) -> ()
+
+let yojson_of_auth_parameters__oauth__client_parameters =
+  (function
+   | { client_id = v_client_id; client_secret = v_client_secret } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_secret in
+         ("client_secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_id in
+         ("client_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__oauth__client_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters__oauth__client_parameters
+
+[@@@deriving.end]
 
 type auth_parameters__oauth__oauth_http_parameters__body = {
   is_value_secret : bool prop option; [@option]
-      (** is_value_secret *)
-  key : string prop option; [@option]  (** key *)
-  value : string prop option; [@option]  (** value *)
+  key : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** auth_parameters__oauth__oauth_http_parameters__body *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : auth_parameters__oauth__oauth_http_parameters__body) -> ()
+
+let yojson_of_auth_parameters__oauth__oauth_http_parameters__body =
+  (function
+   | {
+       is_value_secret = v_is_value_secret;
+       key = v_key;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_value_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_value_secret", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__oauth__oauth_http_parameters__body ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters__oauth__oauth_http_parameters__body
+
+[@@@deriving.end]
 
 type auth_parameters__oauth__oauth_http_parameters__header = {
   is_value_secret : bool prop option; [@option]
-      (** is_value_secret *)
-  key : string prop option; [@option]  (** key *)
-  value : string prop option; [@option]  (** value *)
+  key : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** auth_parameters__oauth__oauth_http_parameters__header *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : auth_parameters__oauth__oauth_http_parameters__header) ->
+  ()
+
+let yojson_of_auth_parameters__oauth__oauth_http_parameters__header =
+  (function
+   | {
+       is_value_secret = v_is_value_secret;
+       key = v_key;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_value_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_value_secret", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__oauth__oauth_http_parameters__header ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_auth_parameters__oauth__oauth_http_parameters__header
+
+[@@@deriving.end]
 
 type auth_parameters__oauth__oauth_http_parameters__query_string = {
   is_value_secret : bool prop option; [@option]
-      (** is_value_secret *)
-  key : string prop option; [@option]  (** key *)
-  value : string prop option; [@option]  (** value *)
+  key : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** auth_parameters__oauth__oauth_http_parameters__query_string *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       auth_parameters__oauth__oauth_http_parameters__query_string) ->
+  ()
+
+let yojson_of_auth_parameters__oauth__oauth_http_parameters__query_string
+    =
+  (function
+   | {
+       is_value_secret = v_is_value_secret;
+       key = v_key;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_value_secret with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_value_secret", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__oauth__oauth_http_parameters__query_string ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_auth_parameters__oauth__oauth_http_parameters__query_string
+
+[@@@deriving.end]
 
 type auth_parameters__oauth__oauth_http_parameters = {
   body : auth_parameters__oauth__oauth_http_parameters__body list;
@@ -93,19 +470,106 @@ type auth_parameters__oauth__oauth_http_parameters = {
   query_string :
     auth_parameters__oauth__oauth_http_parameters__query_string list;
 }
-[@@deriving yojson_of]
-(** auth_parameters__oauth__oauth_http_parameters *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auth_parameters__oauth__oauth_http_parameters) -> ()
+
+let yojson_of_auth_parameters__oauth__oauth_http_parameters =
+  (function
+   | {
+       body = v_body;
+       header = v_header;
+       query_string = v_query_string;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auth_parameters__oauth__oauth_http_parameters__query_string
+             v_query_string
+         in
+         ("query_string", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auth_parameters__oauth__oauth_http_parameters__header
+             v_header
+         in
+         ("header", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auth_parameters__oauth__oauth_http_parameters__body
+             v_body
+         in
+         ("body", arg) :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__oauth__oauth_http_parameters ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters__oauth__oauth_http_parameters
+
+[@@@deriving.end]
 
 type auth_parameters__oauth = {
   authorization_endpoint : string prop;
-      (** authorization_endpoint *)
-  http_method : string prop;  (** http_method *)
+  http_method : string prop;
   client_parameters : auth_parameters__oauth__client_parameters list;
   oauth_http_parameters :
     auth_parameters__oauth__oauth_http_parameters list;
 }
-[@@deriving yojson_of]
-(** auth_parameters__oauth *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auth_parameters__oauth) -> ()
+
+let yojson_of_auth_parameters__oauth =
+  (function
+   | {
+       authorization_endpoint = v_authorization_endpoint;
+       http_method = v_http_method;
+       client_parameters = v_client_parameters;
+       oauth_http_parameters = v_oauth_http_parameters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auth_parameters__oauth__oauth_http_parameters
+             v_oauth_http_parameters
+         in
+         ("oauth_http_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auth_parameters__oauth__client_parameters
+             v_client_parameters
+         in
+         ("client_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_http_method in
+         ("http_method", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_authorization_endpoint
+         in
+         ("authorization_endpoint", arg) :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters__oauth -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters__oauth
+
+[@@@deriving.end]
 
 type auth_parameters = {
   api_key : auth_parameters__api_key list;
@@ -114,18 +578,117 @@ type auth_parameters = {
     auth_parameters__invocation_http_parameters list;
   oauth : auth_parameters__oauth list;
 }
-[@@deriving yojson_of]
-(** auth_parameters *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auth_parameters) -> ()
+
+let yojson_of_auth_parameters =
+  (function
+   | {
+       api_key = v_api_key;
+       basic = v_basic;
+       invocation_http_parameters = v_invocation_http_parameters;
+       oauth = v_oauth;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auth_parameters__oauth v_oauth
+         in
+         ("oauth", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_auth_parameters__invocation_http_parameters
+             v_invocation_http_parameters
+         in
+         ("invocation_http_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auth_parameters__basic v_basic
+         in
+         ("basic", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auth_parameters__api_key
+             v_api_key
+         in
+         ("api_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : auth_parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auth_parameters
+
+[@@@deriving.end]
 
 type aws_cloudwatch_event_connection = {
-  authorization_type : string prop;  (** authorization_type *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  authorization_type : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
   auth_parameters : auth_parameters list;
 }
-[@@deriving yojson_of]
-(** aws_cloudwatch_event_connection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudwatch_event_connection) -> ()
+
+let yojson_of_aws_cloudwatch_event_connection =
+  (function
+   | {
+       authorization_type = v_authorization_type;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       auth_parameters = v_auth_parameters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auth_parameters v_auth_parameters
+         in
+         ("auth_parameters", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_authorization_type
+         in
+         ("authorization_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudwatch_event_connection ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudwatch_event_connection
+
+[@@@deriving.end]
 
 let auth_parameters__api_key ~key ~value () :
     auth_parameters__api_key =

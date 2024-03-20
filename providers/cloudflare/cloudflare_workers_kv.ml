@@ -4,16 +4,57 @@ open! Tf_core
 
 type cloudflare_workers_kv = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   key : string prop;
-      (** Name of the KV pair. **Modifying this attribute will force creation of a new resource.** *)
   namespace_id : string prop;
-      (** The ID of the Workers KV namespace in which you want to create the KV pair. **Modifying this attribute will force creation of a new resource.** *)
-  value : string prop;  (** Value of the KV pair. *)
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** Provides a resource to manage a Cloudflare Workers KV Pair. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_workers_kv) -> ()
+
+let yojson_of_cloudflare_workers_kv =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       key = v_key;
+       namespace_id = v_namespace_id;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace_id in
+         ("namespace_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_workers_kv -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_workers_kv
+
+[@@@deriving.end]
 
 let cloudflare_workers_kv ?id ~account_id ~key ~namespace_id ~value
     () : cloudflare_workers_kv =

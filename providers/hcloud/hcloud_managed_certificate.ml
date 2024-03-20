@@ -3,14 +3,68 @@
 open! Tf_core
 
 type hcloud_managed_certificate = {
-  domain_names : string prop list;  (** domain_names *)
-  id : string prop option; [@option]  (** id *)
+  domain_names : string prop list;
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** labels *)
-  name : string prop;  (** name *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** hcloud_managed_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_managed_certificate) -> ()
+
+let yojson_of_hcloud_managed_certificate =
+  (function
+   | {
+       domain_names = v_domain_names;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_domain_names
+         in
+         ("domain_names", arg) :: bnds
+       in
+       `Assoc bnds
+    : hcloud_managed_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_managed_certificate
+
+[@@@deriving.end]
 
 let hcloud_managed_certificate ?id ?labels ~domain_names ~name () :
     hcloud_managed_certificate =

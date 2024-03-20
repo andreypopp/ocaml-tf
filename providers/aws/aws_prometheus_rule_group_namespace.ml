@@ -3,13 +3,53 @@
 open! Tf_core
 
 type aws_prometheus_rule_group_namespace = {
-  data : string prop;  (** data *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  workspace_id : string prop;  (** workspace_id *)
+  data : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  workspace_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_prometheus_rule_group_namespace *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_prometheus_rule_group_namespace) -> ()
+
+let yojson_of_aws_prometheus_rule_group_namespace =
+  (function
+   | {
+       data = v_data;
+       id = v_id;
+       name = v_name;
+       workspace_id = v_workspace_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workspace_id in
+         ("workspace_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_data in
+         ("data", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_prometheus_rule_group_namespace ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_prometheus_rule_group_namespace
+
+[@@@deriving.end]
 
 let aws_prometheus_rule_group_namespace ?id ~data ~name ~workspace_id
     () : aws_prometheus_rule_group_namespace =

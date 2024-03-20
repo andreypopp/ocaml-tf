@@ -3,29 +3,162 @@
 open! Tf_core
 
 type ec2_config = {
-  security_group_arns : string prop list;  (** security_group_arns *)
-  subnet_arn : string prop;  (** subnet_arn *)
+  security_group_arns : string prop list;
+  subnet_arn : string prop;
 }
-[@@deriving yojson_of]
-(** ec2_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ec2_config) -> ()
+
+let yojson_of_ec2_config =
+  (function
+   | {
+       security_group_arns = v_security_group_arns;
+       subnet_arn = v_subnet_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_arn in
+         ("subnet_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_security_group_arns
+         in
+         ("security_group_arns", arg) :: bnds
+       in
+       `Assoc bnds
+    : ec2_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ec2_config
+
+[@@@deriving.end]
 
 type aws_datasync_location_efs = {
   access_point_arn : string prop option; [@option]
-      (** access_point_arn *)
-  efs_file_system_arn : string prop;  (** efs_file_system_arn *)
+  efs_file_system_arn : string prop;
   file_system_access_role_arn : string prop option; [@option]
-      (** file_system_access_role_arn *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   in_transit_encryption : string prop option; [@option]
-      (** in_transit_encryption *)
-  subdirectory : string prop option; [@option]  (** subdirectory *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  subdirectory : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   ec2_config : ec2_config list;
 }
-[@@deriving yojson_of]
-(** aws_datasync_location_efs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_datasync_location_efs) -> ()
+
+let yojson_of_aws_datasync_location_efs =
+  (function
+   | {
+       access_point_arn = v_access_point_arn;
+       efs_file_system_arn = v_efs_file_system_arn;
+       file_system_access_role_arn = v_file_system_access_role_arn;
+       id = v_id;
+       in_transit_encryption = v_in_transit_encryption;
+       subdirectory = v_subdirectory;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       ec2_config = v_ec2_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ec2_config v_ec2_config
+         in
+         ("ec2_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subdirectory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subdirectory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_in_transit_encryption with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "in_transit_encryption", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_system_access_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "file_system_access_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_efs_file_system_arn
+         in
+         ("efs_file_system_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_access_point_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_point_arn", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_datasync_location_efs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_datasync_location_efs
+
+[@@@deriving.end]
 
 let ec2_config ~security_group_arns ~subnet_arn () : ec2_config =
   { security_group_arns; subnet_arn }

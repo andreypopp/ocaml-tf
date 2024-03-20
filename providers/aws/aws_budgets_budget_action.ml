@@ -3,74 +3,414 @@
 open! Tf_core
 
 type action_threshold = {
-  action_threshold_type : string prop;  (** action_threshold_type *)
-  action_threshold_value : float prop;  (** action_threshold_value *)
+  action_threshold_type : string prop;
+  action_threshold_value : float prop;
 }
-[@@deriving yojson_of]
-(** action_threshold *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : action_threshold) -> ()
+
+let yojson_of_action_threshold =
+  (function
+   | {
+       action_threshold_type = v_action_threshold_type;
+       action_threshold_value = v_action_threshold_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_action_threshold_value
+         in
+         ("action_threshold_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_action_threshold_type
+         in
+         ("action_threshold_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : action_threshold -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_action_threshold
+
+[@@@deriving.end]
 
 type definition__iam_action_definition = {
-  groups : string prop list option; [@option]  (** groups *)
-  policy_arn : string prop;  (** policy_arn *)
-  roles : string prop list option; [@option]  (** roles *)
-  users : string prop list option; [@option]  (** users *)
+  groups : string prop list option; [@option]
+  policy_arn : string prop;
+  roles : string prop list option; [@option]
+  users : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** definition__iam_action_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : definition__iam_action_definition) -> ()
+
+let yojson_of_definition__iam_action_definition =
+  (function
+   | {
+       groups = v_groups;
+       policy_arn = v_policy_arn;
+       roles = v_roles;
+       users = v_users;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_users with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "users", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_roles with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "roles", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_arn in
+         ("policy_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "groups", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : definition__iam_action_definition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_definition__iam_action_definition
+
+[@@@deriving.end]
 
 type definition__scp_action_definition = {
-  policy_id : string prop;  (** policy_id *)
-  target_ids : string prop list;  (** target_ids *)
+  policy_id : string prop;
+  target_ids : string prop list;
 }
-[@@deriving yojson_of]
-(** definition__scp_action_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : definition__scp_action_definition) -> ()
+
+let yojson_of_definition__scp_action_definition =
+  (function
+   | { policy_id = v_policy_id; target_ids = v_target_ids } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_target_ids
+         in
+         ("target_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_id in
+         ("policy_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : definition__scp_action_definition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_definition__scp_action_definition
+
+[@@@deriving.end]
 
 type definition__ssm_action_definition = {
-  action_sub_type : string prop;  (** action_sub_type *)
-  instance_ids : string prop list;  (** instance_ids *)
-  region : string prop;  (** region *)
+  action_sub_type : string prop;
+  instance_ids : string prop list;
+  region : string prop;
 }
-[@@deriving yojson_of]
-(** definition__ssm_action_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : definition__ssm_action_definition) -> ()
+
+let yojson_of_definition__ssm_action_definition =
+  (function
+   | {
+       action_sub_type = v_action_sub_type;
+       instance_ids = v_instance_ids;
+       region = v_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_instance_ids
+         in
+         ("instance_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_action_sub_type
+         in
+         ("action_sub_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : definition__ssm_action_definition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_definition__ssm_action_definition
+
+[@@@deriving.end]
 
 type definition = {
   iam_action_definition : definition__iam_action_definition list;
   scp_action_definition : definition__scp_action_definition list;
   ssm_action_definition : definition__ssm_action_definition list;
 }
-[@@deriving yojson_of]
-(** definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : definition) -> ()
+
+let yojson_of_definition =
+  (function
+   | {
+       iam_action_definition = v_iam_action_definition;
+       scp_action_definition = v_scp_action_definition;
+       ssm_action_definition = v_ssm_action_definition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_definition__ssm_action_definition
+             v_ssm_action_definition
+         in
+         ("ssm_action_definition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_definition__scp_action_definition
+             v_scp_action_definition
+         in
+         ("scp_action_definition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_definition__iam_action_definition
+             v_iam_action_definition
+         in
+         ("iam_action_definition", arg) :: bnds
+       in
+       `Assoc bnds
+    : definition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_definition
+
+[@@@deriving.end]
 
 type subscriber = {
-  address : string prop;  (** address *)
-  subscription_type : string prop;  (** subscription_type *)
+  address : string prop;
+  subscription_type : string prop;
 }
-[@@deriving yojson_of]
-(** subscriber *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subscriber) -> ()
+
+let yojson_of_subscriber =
+  (function
+   | { address = v_address; subscription_type = v_subscription_type }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_subscription_type
+         in
+         ("subscription_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_address in
+         ("address", arg) :: bnds
+       in
+       `Assoc bnds
+    : subscriber -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subscriber
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_budgets_budget_action = {
-  account_id : string prop option; [@option]  (** account_id *)
-  action_type : string prop;  (** action_type *)
-  approval_model : string prop;  (** approval_model *)
-  budget_name : string prop;  (** budget_name *)
-  execution_role_arn : string prop;  (** execution_role_arn *)
-  id : string prop option; [@option]  (** id *)
-  notification_type : string prop;  (** notification_type *)
+  account_id : string prop option; [@option]
+  action_type : string prop;
+  approval_model : string prop;
+  budget_name : string prop;
+  execution_role_arn : string prop;
+  id : string prop option; [@option]
+  notification_type : string prop;
   action_threshold : action_threshold list;
   definition : definition list;
   subscriber : subscriber list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_budgets_budget_action *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_budgets_budget_action) -> ()
+
+let yojson_of_aws_budgets_budget_action =
+  (function
+   | {
+       account_id = v_account_id;
+       action_type = v_action_type;
+       approval_model = v_approval_model;
+       budget_name = v_budget_name;
+       execution_role_arn = v_execution_role_arn;
+       id = v_id;
+       notification_type = v_notification_type;
+       action_threshold = v_action_threshold;
+       definition = v_definition;
+       subscriber = v_subscriber;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_subscriber v_subscriber
+         in
+         ("subscriber", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_definition v_definition
+         in
+         ("definition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_action_threshold
+             v_action_threshold
+         in
+         ("action_threshold", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_notification_type
+         in
+         ("notification_type", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_execution_role_arn
+         in
+         ("execution_role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_budget_name in
+         ("budget_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_approval_model
+         in
+         ("approval_model", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action_type in
+         ("action_type", arg) :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_budgets_budget_action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_budgets_budget_action
+
+[@@@deriving.end]
 
 let action_threshold ~action_threshold_type ~action_threshold_value
     () : action_threshold =

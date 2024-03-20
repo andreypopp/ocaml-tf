@@ -3,23 +3,114 @@
 open! Tf_core
 
 type default_capacity_provider_strategy = {
-  base : float prop option; [@option]  (** base *)
-  capacity_provider : string prop;  (** capacity_provider *)
-  weight : float prop option; [@option]  (** weight *)
+  base : float prop option; [@option]
+  capacity_provider : string prop;
+  weight : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** default_capacity_provider_strategy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : default_capacity_provider_strategy) -> ()
+
+let yojson_of_default_capacity_provider_strategy =
+  (function
+   | {
+       base = v_base;
+       capacity_provider = v_capacity_provider;
+       weight = v_weight;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_weight with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "weight", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_capacity_provider
+         in
+         ("capacity_provider", arg) :: bnds
+       in
+       let bnds =
+         match v_base with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "base", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : default_capacity_provider_strategy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_capacity_provider_strategy
+
+[@@@deriving.end]
 
 type aws_ecs_cluster_capacity_providers = {
   capacity_providers : string prop list option; [@option]
-      (** capacity_providers *)
-  cluster_name : string prop;  (** cluster_name *)
-  id : string prop option; [@option]  (** id *)
+  cluster_name : string prop;
+  id : string prop option; [@option]
   default_capacity_provider_strategy :
     default_capacity_provider_strategy list;
 }
-[@@deriving yojson_of]
-(** aws_ecs_cluster_capacity_providers *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ecs_cluster_capacity_providers) -> ()
+
+let yojson_of_aws_ecs_cluster_capacity_providers =
+  (function
+   | {
+       capacity_providers = v_capacity_providers;
+       cluster_name = v_cluster_name;
+       id = v_id;
+       default_capacity_provider_strategy =
+         v_default_capacity_provider_strategy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_default_capacity_provider_strategy
+             v_default_capacity_provider_strategy
+         in
+         ("default_capacity_provider_strategy", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_name in
+         ("cluster_name", arg) :: bnds
+       in
+       let bnds =
+         match v_capacity_providers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "capacity_providers", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ecs_cluster_capacity_providers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ecs_cluster_capacity_providers
+
+[@@@deriving.end]
 
 let default_capacity_provider_strategy ?base ?weight
     ~capacity_provider () : default_capacity_provider_strategy =

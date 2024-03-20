@@ -11,6 +11,8 @@ type endpoint__vpc_endpoint__network_interface = {
   subnet_id : string prop;  (** subnet_id *)
 }
 
+[@@@deriving.end]
+
 type endpoint__vpc_endpoint = {
   network_interface : endpoint__vpc_endpoint__network_interface list;
       (** network_interface *)
@@ -18,11 +20,15 @@ type endpoint__vpc_endpoint = {
   vpc_id : string prop;  (** vpc_id *)
 }
 
+[@@@deriving.end]
+
 type endpoint = {
   address : string prop;  (** address *)
   port : float prop;  (** port *)
   vpc_endpoint : endpoint__vpc_endpoint list;  (** vpc_endpoint *)
 }
+
+[@@@deriving.end]
 
 type config_parameter
 

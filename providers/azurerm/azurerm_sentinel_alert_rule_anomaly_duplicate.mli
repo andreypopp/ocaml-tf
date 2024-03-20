@@ -9,6 +9,8 @@ type required_data_connector = {
   data_types : string prop list;  (** data_types *)
 }
 
+[@@@deriving.end]
+
 type multi_select_observation
 
 val multi_select_observation :

@@ -3,76 +3,412 @@
 open! Tf_core
 
 type abort_statement__message = {
-  content : string prop;  (** content *)
-  content_type : string prop;  (** content_type *)
-  group_number : float prop option; [@option]  (** group_number *)
+  content : string prop;
+  content_type : string prop;
+  group_number : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** abort_statement__message *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : abort_statement__message) -> ()
+
+let yojson_of_abort_statement__message =
+  (function
+   | {
+       content = v_content;
+       content_type = v_content_type;
+       group_number = v_group_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_group_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "group_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content_type in
+         ("content_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : abort_statement__message -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_abort_statement__message
+
+[@@@deriving.end]
 
 type abort_statement = {
-  response_card : string prop option; [@option]  (** response_card *)
+  response_card : string prop option; [@option]
   message : abort_statement__message list;
 }
-[@@deriving yojson_of]
-(** abort_statement *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : abort_statement) -> ()
+
+let yojson_of_abort_statement =
+  (function
+   | { response_card = v_response_card; message = v_message } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_abort_statement__message
+             v_message
+         in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         match v_response_card with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "response_card", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : abort_statement -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_abort_statement
+
+[@@@deriving.end]
 
 type clarification_prompt__message = {
-  content : string prop;  (** content *)
-  content_type : string prop;  (** content_type *)
-  group_number : float prop option; [@option]  (** group_number *)
+  content : string prop;
+  content_type : string prop;
+  group_number : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** clarification_prompt__message *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : clarification_prompt__message) -> ()
+
+let yojson_of_clarification_prompt__message =
+  (function
+   | {
+       content = v_content;
+       content_type = v_content_type;
+       group_number = v_group_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_group_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "group_number", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content_type in
+         ("content_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : clarification_prompt__message ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_clarification_prompt__message
+
+[@@@deriving.end]
 
 type clarification_prompt = {
-  max_attempts : float prop;  (** max_attempts *)
-  response_card : string prop option; [@option]  (** response_card *)
+  max_attempts : float prop;
+  response_card : string prop option; [@option]
   message : clarification_prompt__message list;
 }
-[@@deriving yojson_of]
-(** clarification_prompt *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : clarification_prompt) -> ()
+
+let yojson_of_clarification_prompt =
+  (function
+   | {
+       max_attempts = v_max_attempts;
+       response_card = v_response_card;
+       message = v_message;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_clarification_prompt__message
+             v_message
+         in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         match v_response_card with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "response_card", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_attempts in
+         ("max_attempts", arg) :: bnds
+       in
+       `Assoc bnds
+    : clarification_prompt -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_clarification_prompt
+
+[@@@deriving.end]
 
 type intent = {
-  intent_name : string prop;  (** intent_name *)
-  intent_version : string prop;  (** intent_version *)
+  intent_name : string prop;
+  intent_version : string prop;
 }
-[@@deriving yojson_of]
-(** intent *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : intent) -> ()
+
+let yojson_of_intent =
+  (function
+   | {
+       intent_name = v_intent_name;
+       intent_version = v_intent_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_intent_version
+         in
+         ("intent_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_intent_name in
+         ("intent_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : intent -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_intent
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_lex_bot = {
-  child_directed : bool prop;  (** child_directed *)
-  create_version : bool prop option; [@option]  (** create_version *)
-  description : string prop option; [@option]  (** description *)
+  child_directed : bool prop;
+  create_version : bool prop option; [@option]
+  description : string prop option; [@option]
   detect_sentiment : bool prop option; [@option]
-      (** detect_sentiment *)
   enable_model_improvements : bool prop option; [@option]
-      (** enable_model_improvements *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   idle_session_ttl_in_seconds : float prop option; [@option]
-      (** idle_session_ttl_in_seconds *)
-  locale : string prop option; [@option]  (** locale *)
-  name : string prop;  (** name *)
+  locale : string prop option; [@option]
+  name : string prop;
   nlu_intent_confidence_threshold : float prop option; [@option]
-      (** nlu_intent_confidence_threshold *)
   process_behavior : string prop option; [@option]
-      (** process_behavior *)
-  voice_id : string prop option; [@option]  (** voice_id *)
+  voice_id : string prop option; [@option]
   abort_statement : abort_statement list;
   clarification_prompt : clarification_prompt list;
   intent : intent list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_lex_bot *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lex_bot) -> ()
+
+let yojson_of_aws_lex_bot =
+  (function
+   | {
+       child_directed = v_child_directed;
+       create_version = v_create_version;
+       description = v_description;
+       detect_sentiment = v_detect_sentiment;
+       enable_model_improvements = v_enable_model_improvements;
+       id = v_id;
+       idle_session_ttl_in_seconds = v_idle_session_ttl_in_seconds;
+       locale = v_locale;
+       name = v_name;
+       nlu_intent_confidence_threshold =
+         v_nlu_intent_confidence_threshold;
+       process_behavior = v_process_behavior;
+       voice_id = v_voice_id;
+       abort_statement = v_abort_statement;
+       clarification_prompt = v_clarification_prompt;
+       intent = v_intent;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_intent v_intent in
+         ("intent", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_clarification_prompt
+             v_clarification_prompt
+         in
+         ("clarification_prompt", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_abort_statement v_abort_statement
+         in
+         ("abort_statement", arg) :: bnds
+       in
+       let bnds =
+         match v_voice_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "voice_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_process_behavior with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "process_behavior", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nlu_intent_confidence_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "nlu_intent_confidence_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_locale with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "locale", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_idle_session_ttl_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "idle_session_ttl_in_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_model_improvements with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_model_improvements", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_detect_sentiment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "detect_sentiment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "create_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_child_directed in
+         ("child_directed", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lex_bot -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lex_bot
+
+[@@@deriving.end]
 
 let abort_statement__message ?group_number ~content ~content_type ()
     : abort_statement__message =

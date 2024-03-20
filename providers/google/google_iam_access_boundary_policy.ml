@@ -4,59 +4,265 @@ open! Tf_core
 
 type rules__access_boundary_rule__availability_condition = {
   description : string prop option; [@option]
-      (** Description of the expression. This is a longer text which describes the expression,
-e.g. when hovered over it in a UI. *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting,
-e.g. a file name and a position in the file. *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose.
-This can be used e.g. in UIs which allow to enter the expression. *)
 }
-[@@deriving yojson_of]
-(** The availability condition further constrains the access allowed by the access boundary rule. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : rules__access_boundary_rule__availability_condition) -> ()
+
+let yojson_of_rules__access_boundary_rule__availability_condition =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rules__access_boundary_rule__availability_condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules__access_boundary_rule__availability_condition
+
+[@@@deriving.end]
 
 type rules__access_boundary_rule = {
   available_permissions : string prop list option; [@option]
-      (** A list of permissions that may be allowed for use on the specified resource. *)
   available_resource : string prop option; [@option]
-      (** The full resource name of a Google Cloud resource entity. *)
   availability_condition :
     rules__access_boundary_rule__availability_condition list;
 }
-[@@deriving yojson_of]
-(** An access boundary rule in an IAM policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules__access_boundary_rule) -> ()
+
+let yojson_of_rules__access_boundary_rule =
+  (function
+   | {
+       available_permissions = v_available_permissions;
+       available_resource = v_available_resource;
+       availability_condition = v_availability_condition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rules__access_boundary_rule__availability_condition
+             v_availability_condition
+         in
+         ("availability_condition", arg) :: bnds
+       in
+       let bnds =
+         match v_available_resource with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "available_resource", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_available_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "available_permissions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rules__access_boundary_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules__access_boundary_rule
+
+[@@@deriving.end]
 
 type rules = {
   description : string prop option; [@option]
-      (** The description of the rule. *)
   access_boundary_rule : rules__access_boundary_rule list;
 }
-[@@deriving yojson_of]
-(** Rules to be applied. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules) -> ()
+
+let yojson_of_rules =
+  (function
+   | {
+       description = v_description;
+       access_boundary_rule = v_access_boundary_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rules__access_boundary_rule
+             v_access_boundary_rule
+         in
+         ("access_boundary_rule", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_iam_access_boundary_policy = {
   display_name : string prop option; [@option]
-      (** The display name of the rule. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The name of the policy. *)
+  id : string prop option; [@option]
+  name : string prop;
   parent : string prop;
-      (** The attachment point is identified by its URL-encoded full resource name. *)
   rules : rules list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_iam_access_boundary_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_iam_access_boundary_policy) -> ()
+
+let yojson_of_google_iam_access_boundary_policy =
+  (function
+   | {
+       display_name = v_display_name;
+       id = v_id;
+       name = v_name;
+       parent = v_parent;
+       rules = v_rules;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rules v_rules in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_iam_access_boundary_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_iam_access_boundary_policy
+
+[@@@deriving.end]
 
 let rules__access_boundary_rule__availability_condition ?description
     ?location ?title ~expression () :

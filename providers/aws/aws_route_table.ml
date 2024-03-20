@@ -3,46 +3,272 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type route = {
-  carrier_gateway_id : string prop;  (** carrier_gateway_id *)
-  cidr_block : string prop;  (** cidr_block *)
-  core_network_arn : string prop;  (** core_network_arn *)
+  carrier_gateway_id : string prop;
+  cidr_block : string prop;
+  core_network_arn : string prop;
   destination_prefix_list_id : string prop;
-      (** destination_prefix_list_id *)
   egress_only_gateway_id : string prop;
-      (** egress_only_gateway_id *)
-  gateway_id : string prop;  (** gateway_id *)
-  ipv6_cidr_block : string prop;  (** ipv6_cidr_block *)
-  local_gateway_id : string prop;  (** local_gateway_id *)
-  nat_gateway_id : string prop;  (** nat_gateway_id *)
-  network_interface_id : string prop;  (** network_interface_id *)
-  transit_gateway_id : string prop;  (** transit_gateway_id *)
-  vpc_endpoint_id : string prop;  (** vpc_endpoint_id *)
+  gateway_id : string prop;
+  ipv6_cidr_block : string prop;
+  local_gateway_id : string prop;
+  nat_gateway_id : string prop;
+  network_interface_id : string prop;
+  transit_gateway_id : string prop;
+  vpc_endpoint_id : string prop;
   vpc_peering_connection_id : string prop;
-      (** vpc_peering_connection_id *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : route) -> ()
+
+let yojson_of_route =
+  (function
+   | {
+       carrier_gateway_id = v_carrier_gateway_id;
+       cidr_block = v_cidr_block;
+       core_network_arn = v_core_network_arn;
+       destination_prefix_list_id = v_destination_prefix_list_id;
+       egress_only_gateway_id = v_egress_only_gateway_id;
+       gateway_id = v_gateway_id;
+       ipv6_cidr_block = v_ipv6_cidr_block;
+       local_gateway_id = v_local_gateway_id;
+       nat_gateway_id = v_nat_gateway_id;
+       network_interface_id = v_network_interface_id;
+       transit_gateway_id = v_transit_gateway_id;
+       vpc_endpoint_id = v_vpc_endpoint_id;
+       vpc_peering_connection_id = v_vpc_peering_connection_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_vpc_peering_connection_id
+         in
+         ("vpc_peering_connection_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_vpc_endpoint_id
+         in
+         ("vpc_endpoint_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_transit_gateway_id
+         in
+         ("transit_gateway_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_network_interface_id
+         in
+         ("network_interface_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_nat_gateway_id
+         in
+         ("nat_gateway_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_local_gateway_id
+         in
+         ("local_gateway_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ipv6_cidr_block
+         in
+         ("ipv6_cidr_block", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_gateway_id in
+         ("gateway_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_egress_only_gateway_id
+         in
+         ("egress_only_gateway_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_destination_prefix_list_id
+         in
+         ("destination_prefix_list_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_core_network_arn
+         in
+         ("core_network_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cidr_block in
+         ("cidr_block", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_carrier_gateway_id
+         in
+         ("carrier_gateway_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_route
+
+[@@@deriving.end]
 
 type aws_route_table = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   propagating_vgws : string prop list option; [@option]
-      (** propagating_vgws *)
-  route : route list option; [@option]  (** route *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  route : route list option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  vpc_id : string prop;  (** vpc_id *)
+  vpc_id : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_route_table *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route_table) -> ()
+
+let yojson_of_aws_route_table =
+  (function
+   | {
+       id = v_id;
+       propagating_vgws = v_propagating_vgws;
+       route = v_route;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       vpc_id = v_vpc_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_route with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_list yojson_of_route v in
+             let bnd = "route", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_propagating_vgws with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "propagating_vgws", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_route_table -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route_table
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

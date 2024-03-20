@@ -5,6 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type drift_status = { status : string prop  (** status *) }
+
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

@@ -3,159 +3,822 @@
 open! Tf_core
 
 type backend_request__data_masking__headers = {
-  mode : string prop;  (** mode *)
-  value : string prop;  (** value *)
+  mode : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** backend_request__data_masking__headers *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backend_request__data_masking__headers) -> ()
+
+let yojson_of_backend_request__data_masking__headers =
+  (function
+   | { mode = v_mode; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : backend_request__data_masking__headers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backend_request__data_masking__headers
+
+[@@@deriving.end]
 
 type backend_request__data_masking__query_params = {
-  mode : string prop;  (** mode *)
-  value : string prop;  (** value *)
+  mode : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** backend_request__data_masking__query_params *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backend_request__data_masking__query_params) -> ()
+
+let yojson_of_backend_request__data_masking__query_params =
+  (function
+   | { mode = v_mode; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : backend_request__data_masking__query_params ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backend_request__data_masking__query_params
+
+[@@@deriving.end]
 
 type backend_request__data_masking = {
   headers : backend_request__data_masking__headers list;
   query_params : backend_request__data_masking__query_params list;
 }
-[@@deriving yojson_of]
-(** backend_request__data_masking *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backend_request__data_masking) -> ()
+
+let yojson_of_backend_request__data_masking =
+  (function
+   | { headers = v_headers; query_params = v_query_params } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_backend_request__data_masking__query_params
+             v_query_params
+         in
+         ("query_params", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_backend_request__data_masking__headers
+             v_headers
+         in
+         ("headers", arg) :: bnds
+       in
+       `Assoc bnds
+    : backend_request__data_masking ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backend_request__data_masking
+
+[@@@deriving.end]
 
 type backend_request = {
-  body_bytes : float prop option; [@option]  (** body_bytes *)
+  body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
-      (** headers_to_log *)
   data_masking : backend_request__data_masking list;
 }
-[@@deriving yojson_of]
-(** backend_request *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backend_request) -> ()
+
+let yojson_of_backend_request =
+  (function
+   | {
+       body_bytes = v_body_bytes;
+       headers_to_log = v_headers_to_log;
+       data_masking = v_data_masking;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_backend_request__data_masking
+             v_data_masking
+         in
+         ("data_masking", arg) :: bnds
+       in
+       let bnds =
+         match v_headers_to_log with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "headers_to_log", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_body_bytes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "body_bytes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : backend_request -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backend_request
+
+[@@@deriving.end]
 
 type backend_response__data_masking__headers = {
-  mode : string prop;  (** mode *)
-  value : string prop;  (** value *)
+  mode : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** backend_response__data_masking__headers *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backend_response__data_masking__headers) -> ()
+
+let yojson_of_backend_response__data_masking__headers =
+  (function
+   | { mode = v_mode; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : backend_response__data_masking__headers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backend_response__data_masking__headers
+
+[@@@deriving.end]
 
 type backend_response__data_masking__query_params = {
-  mode : string prop;  (** mode *)
-  value : string prop;  (** value *)
+  mode : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** backend_response__data_masking__query_params *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backend_response__data_masking__query_params) -> ()
+
+let yojson_of_backend_response__data_masking__query_params =
+  (function
+   | { mode = v_mode; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : backend_response__data_masking__query_params ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backend_response__data_masking__query_params
+
+[@@@deriving.end]
 
 type backend_response__data_masking = {
   headers : backend_response__data_masking__headers list;
   query_params : backend_response__data_masking__query_params list;
 }
-[@@deriving yojson_of]
-(** backend_response__data_masking *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backend_response__data_masking) -> ()
+
+let yojson_of_backend_response__data_masking =
+  (function
+   | { headers = v_headers; query_params = v_query_params } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_backend_response__data_masking__query_params
+             v_query_params
+         in
+         ("query_params", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_backend_response__data_masking__headers
+             v_headers
+         in
+         ("headers", arg) :: bnds
+       in
+       `Assoc bnds
+    : backend_response__data_masking ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backend_response__data_masking
+
+[@@@deriving.end]
 
 type backend_response = {
-  body_bytes : float prop option; [@option]  (** body_bytes *)
+  body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
-      (** headers_to_log *)
   data_masking : backend_response__data_masking list;
 }
-[@@deriving yojson_of]
-(** backend_response *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : backend_response) -> ()
+
+let yojson_of_backend_response =
+  (function
+   | {
+       body_bytes = v_body_bytes;
+       headers_to_log = v_headers_to_log;
+       data_masking = v_data_masking;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_backend_response__data_masking
+             v_data_masking
+         in
+         ("data_masking", arg) :: bnds
+       in
+       let bnds =
+         match v_headers_to_log with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "headers_to_log", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_body_bytes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "body_bytes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : backend_response -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_backend_response
+
+[@@@deriving.end]
 
 type frontend_request__data_masking__headers = {
-  mode : string prop;  (** mode *)
-  value : string prop;  (** value *)
+  mode : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** frontend_request__data_masking__headers *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : frontend_request__data_masking__headers) -> ()
+
+let yojson_of_frontend_request__data_masking__headers =
+  (function
+   | { mode = v_mode; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : frontend_request__data_masking__headers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_frontend_request__data_masking__headers
+
+[@@@deriving.end]
 
 type frontend_request__data_masking__query_params = {
-  mode : string prop;  (** mode *)
-  value : string prop;  (** value *)
+  mode : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** frontend_request__data_masking__query_params *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : frontend_request__data_masking__query_params) -> ()
+
+let yojson_of_frontend_request__data_masking__query_params =
+  (function
+   | { mode = v_mode; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : frontend_request__data_masking__query_params ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_frontend_request__data_masking__query_params
+
+[@@@deriving.end]
 
 type frontend_request__data_masking = {
   headers : frontend_request__data_masking__headers list;
   query_params : frontend_request__data_masking__query_params list;
 }
-[@@deriving yojson_of]
-(** frontend_request__data_masking *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : frontend_request__data_masking) -> ()
+
+let yojson_of_frontend_request__data_masking =
+  (function
+   | { headers = v_headers; query_params = v_query_params } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_frontend_request__data_masking__query_params
+             v_query_params
+         in
+         ("query_params", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_frontend_request__data_masking__headers
+             v_headers
+         in
+         ("headers", arg) :: bnds
+       in
+       `Assoc bnds
+    : frontend_request__data_masking ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_frontend_request__data_masking
+
+[@@@deriving.end]
 
 type frontend_request = {
-  body_bytes : float prop option; [@option]  (** body_bytes *)
+  body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
-      (** headers_to_log *)
   data_masking : frontend_request__data_masking list;
 }
-[@@deriving yojson_of]
-(** frontend_request *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : frontend_request) -> ()
+
+let yojson_of_frontend_request =
+  (function
+   | {
+       body_bytes = v_body_bytes;
+       headers_to_log = v_headers_to_log;
+       data_masking = v_data_masking;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_frontend_request__data_masking
+             v_data_masking
+         in
+         ("data_masking", arg) :: bnds
+       in
+       let bnds =
+         match v_headers_to_log with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "headers_to_log", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_body_bytes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "body_bytes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : frontend_request -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_frontend_request
+
+[@@@deriving.end]
 
 type frontend_response__data_masking__headers = {
-  mode : string prop;  (** mode *)
-  value : string prop;  (** value *)
+  mode : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** frontend_response__data_masking__headers *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : frontend_response__data_masking__headers) -> ()
+
+let yojson_of_frontend_response__data_masking__headers =
+  (function
+   | { mode = v_mode; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : frontend_response__data_masking__headers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_frontend_response__data_masking__headers
+
+[@@@deriving.end]
 
 type frontend_response__data_masking__query_params = {
-  mode : string prop;  (** mode *)
-  value : string prop;  (** value *)
+  mode : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** frontend_response__data_masking__query_params *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : frontend_response__data_masking__query_params) -> ()
+
+let yojson_of_frontend_response__data_masking__query_params =
+  (function
+   | { mode = v_mode; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : frontend_response__data_masking__query_params ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_frontend_response__data_masking__query_params
+
+[@@@deriving.end]
 
 type frontend_response__data_masking = {
   headers : frontend_response__data_masking__headers list;
   query_params : frontend_response__data_masking__query_params list;
 }
-[@@deriving yojson_of]
-(** frontend_response__data_masking *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : frontend_response__data_masking) -> ()
+
+let yojson_of_frontend_response__data_masking =
+  (function
+   | { headers = v_headers; query_params = v_query_params } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_frontend_response__data_masking__query_params
+             v_query_params
+         in
+         ("query_params", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_frontend_response__data_masking__headers
+             v_headers
+         in
+         ("headers", arg) :: bnds
+       in
+       `Assoc bnds
+    : frontend_response__data_masking ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_frontend_response__data_masking
+
+[@@@deriving.end]
 
 type frontend_response = {
-  body_bytes : float prop option; [@option]  (** body_bytes *)
+  body_bytes : float prop option; [@option]
   headers_to_log : string prop list option; [@option]
-      (** headers_to_log *)
   data_masking : frontend_response__data_masking list;
 }
-[@@deriving yojson_of]
-(** frontend_response *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : frontend_response) -> ()
+
+let yojson_of_frontend_response =
+  (function
+   | {
+       body_bytes = v_body_bytes;
+       headers_to_log = v_headers_to_log;
+       data_masking = v_data_masking;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_frontend_response__data_masking
+             v_data_masking
+         in
+         ("data_masking", arg) :: bnds
+       in
+       let bnds =
+         match v_headers_to_log with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "headers_to_log", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_body_bytes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "body_bytes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : frontend_response -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_frontend_response
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_api_management_diagnostic = {
   always_log_errors : bool prop option; [@option]
-      (** always_log_errors *)
   api_management_logger_id : string prop;
-      (** api_management_logger_id *)
-  api_management_name : string prop;  (** api_management_name *)
+  api_management_name : string prop;
   http_correlation_protocol : string prop option; [@option]
-      (** http_correlation_protocol *)
-  id : string prop option; [@option]  (** id *)
-  identifier : string prop;  (** identifier *)
-  log_client_ip : bool prop option; [@option]  (** log_client_ip *)
+  id : string prop option; [@option]
+  identifier : string prop;
+  log_client_ip : bool prop option; [@option]
   operation_name_format : string prop option; [@option]
-      (** operation_name_format *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  resource_group_name : string prop;
   sampling_percentage : float prop option; [@option]
-      (** sampling_percentage *)
-  verbosity : string prop option; [@option]  (** verbosity *)
+  verbosity : string prop option; [@option]
   backend_request : backend_request list;
   backend_response : backend_response list;
   frontend_request : frontend_request list;
   frontend_response : frontend_response list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_api_management_diagnostic *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_api_management_diagnostic) -> ()
+
+let yojson_of_azurerm_api_management_diagnostic =
+  (function
+   | {
+       always_log_errors = v_always_log_errors;
+       api_management_logger_id = v_api_management_logger_id;
+       api_management_name = v_api_management_name;
+       http_correlation_protocol = v_http_correlation_protocol;
+       id = v_id;
+       identifier = v_identifier;
+       log_client_ip = v_log_client_ip;
+       operation_name_format = v_operation_name_format;
+       resource_group_name = v_resource_group_name;
+       sampling_percentage = v_sampling_percentage;
+       verbosity = v_verbosity;
+       backend_request = v_backend_request;
+       backend_response = v_backend_response;
+       frontend_request = v_frontend_request;
+       frontend_response = v_frontend_response;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_frontend_response
+             v_frontend_response
+         in
+         ("frontend_response", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_frontend_request
+             v_frontend_request
+         in
+         ("frontend_request", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_backend_response
+             v_backend_response
+         in
+         ("backend_response", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_backend_request v_backend_request
+         in
+         ("backend_request", arg) :: bnds
+       in
+       let bnds =
+         match v_verbosity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "verbosity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sampling_percentage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "sampling_percentage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_operation_name_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operation_name_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_log_client_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "log_client_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_identifier in
+         ("identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http_correlation_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "http_correlation_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_api_management_name
+         in
+         ("api_management_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_api_management_logger_id
+         in
+         ("api_management_logger_id", arg) :: bnds
+       in
+       let bnds =
+         match v_always_log_errors with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "always_log_errors", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_api_management_diagnostic ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_api_management_diagnostic
+
+[@@@deriving.end]
 
 let backend_request__data_masking__headers ~mode ~value () :
     backend_request__data_masking__headers =

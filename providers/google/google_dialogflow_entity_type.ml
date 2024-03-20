@@ -2,49 +2,156 @@
 
 open! Tf_core
 
-type entities = {
-  synonyms : string prop list;
-      (** A collection of value synonyms. For example, if the entity type is vegetable, and value is scallions, a synonym
-could be green onions.
-For KIND_LIST entity types:
-* This collection must contain exactly one synonym equal to value. *)
-  value : string prop;
-      (** The primary value associated with this entity entry. For example, if the entity type is vegetable, the value
-could be scallions.
-For KIND_MAP entity types:
-* A reference value to be used in place of synonyms.
-For KIND_LIST entity types:
-* A string that can contain references to other entity types (with or without aliases). *)
-}
-[@@deriving yojson_of]
-(** The collection of entity entries associated with the entity type. *)
+type entities = { synonyms : string prop list; value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : entities) -> ()
+
+let yojson_of_entities =
+  (function
+   | { synonyms = v_synonyms; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_synonyms
+         in
+         ("synonyms", arg) :: bnds
+       in
+       `Assoc bnds
+    : entities -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_entities
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_dialogflow_entity_type = {
   display_name : string prop;
-      (** The name of this entity type to be displayed on the console. *)
   enable_fuzzy_extraction : bool prop option; [@option]
-      (** Enables fuzzy entity extraction during classification. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kind : string prop;
-      (** Indicates the kind of entity type.
-* KIND_MAP: Map entity types allow mapping of a group of synonyms to a reference value.
-* KIND_LIST: List entity types contain a set of entries that do not map to reference values. However, list entity
-types can contain references to other entity types (with or without aliases).
-* KIND_REGEXP: Regexp entity types allow to specify regular expressions in entries values. Possible values: [KIND_MAP, KIND_LIST, KIND_REGEXP] *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   entities : entities list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dialogflow_entity_type *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dialogflow_entity_type) -> ()
+
+let yojson_of_google_dialogflow_entity_type =
+  (function
+   | {
+       display_name = v_display_name;
+       enable_fuzzy_extraction = v_enable_fuzzy_extraction;
+       id = v_id;
+       kind = v_kind;
+       project = v_project;
+       entities = v_entities;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_entities v_entities in
+         ("entities", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_fuzzy_extraction with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_fuzzy_extraction", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_dialogflow_entity_type ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dialogflow_entity_type
+
+[@@@deriving.end]
 
 let entities ~synonyms ~value () : entities = { synonyms; value }
 

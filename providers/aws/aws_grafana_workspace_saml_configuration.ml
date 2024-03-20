@@ -3,41 +3,208 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_grafana_workspace_saml_configuration = {
   admin_role_values : string prop list option; [@option]
-      (** admin_role_values *)
   allowed_organizations : string prop list option; [@option]
-      (** allowed_organizations *)
-  editor_role_values : string prop list;  (** editor_role_values *)
+  editor_role_values : string prop list;
   email_assertion : string prop option; [@option]
-      (** email_assertion *)
   groups_assertion : string prop option; [@option]
-      (** groups_assertion *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   idp_metadata_url : string prop option; [@option]
-      (** idp_metadata_url *)
   idp_metadata_xml : string prop option; [@option]
-      (** idp_metadata_xml *)
   login_assertion : string prop option; [@option]
-      (** login_assertion *)
   login_validity_duration : float prop option; [@option]
-      (** login_validity_duration *)
   name_assertion : string prop option; [@option]
-      (** name_assertion *)
-  org_assertion : string prop option; [@option]  (** org_assertion *)
+  org_assertion : string prop option; [@option]
   role_assertion : string prop option; [@option]
-      (** role_assertion *)
-  workspace_id : string prop;  (** workspace_id *)
+  workspace_id : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_grafana_workspace_saml_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_grafana_workspace_saml_configuration) -> ()
+
+let yojson_of_aws_grafana_workspace_saml_configuration =
+  (function
+   | {
+       admin_role_values = v_admin_role_values;
+       allowed_organizations = v_allowed_organizations;
+       editor_role_values = v_editor_role_values;
+       email_assertion = v_email_assertion;
+       groups_assertion = v_groups_assertion;
+       id = v_id;
+       idp_metadata_url = v_idp_metadata_url;
+       idp_metadata_xml = v_idp_metadata_xml;
+       login_assertion = v_login_assertion;
+       login_validity_duration = v_login_validity_duration;
+       name_assertion = v_name_assertion;
+       org_assertion = v_org_assertion;
+       role_assertion = v_role_assertion;
+       workspace_id = v_workspace_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workspace_id in
+         ("workspace_id", arg) :: bnds
+       in
+       let bnds =
+         match v_role_assertion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_assertion", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_org_assertion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "org_assertion", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_assertion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_assertion", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_login_validity_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "login_validity_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_login_assertion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "login_assertion", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_idp_metadata_xml with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "idp_metadata_xml", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_idp_metadata_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "idp_metadata_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_groups_assertion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "groups_assertion", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_email_assertion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "email_assertion", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_editor_role_values
+         in
+         ("editor_role_values", arg) :: bnds
+       in
+       let bnds =
+         match v_allowed_organizations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_organizations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_admin_role_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "admin_role_values", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_grafana_workspace_saml_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_grafana_workspace_saml_configuration
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

@@ -3,18 +3,80 @@
 open! Tf_core
 
 type aws_lakeformation_resource = {
-  arn : string prop;  (** arn *)
+  arn : string prop;
   hybrid_access_enabled : bool prop option; [@option]
-      (** hybrid_access_enabled *)
-  id : string prop option; [@option]  (** id *)
-  role_arn : string prop option; [@option]  (** role_arn *)
+  id : string prop option; [@option]
+  role_arn : string prop option; [@option]
   use_service_linked_role : bool prop option; [@option]
-      (** use_service_linked_role *)
   with_federation : bool prop option; [@option]
-      (** with_federation *)
 }
-[@@deriving yojson_of]
-(** aws_lakeformation_resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lakeformation_resource) -> ()
+
+let yojson_of_aws_lakeformation_resource =
+  (function
+   | {
+       arn = v_arn;
+       hybrid_access_enabled = v_hybrid_access_enabled;
+       id = v_id;
+       role_arn = v_role_arn;
+       use_service_linked_role = v_use_service_linked_role;
+       with_federation = v_with_federation;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_with_federation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "with_federation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_use_service_linked_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_service_linked_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hybrid_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "hybrid_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_arn in
+         ("arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lakeformation_resource -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lakeformation_resource
+
+[@@@deriving.end]
 
 let aws_lakeformation_resource ?hybrid_access_enabled ?id ?role_arn
     ?use_service_linked_role ?with_federation ~arn () :

@@ -4,20 +4,72 @@ open! Tf_core
 
 type cloudflare_mtls_certificate = {
   account_id : string prop;
-      (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   ca : bool prop;
-      (** Whether this is a CA or leaf certificate. **Modifying this attribute will force creation of a new resource.** *)
   certificates : string prop;
-      (** Certificate you intend to use with mTLS-enabled services. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop option; [@option]
-      (** Optional unique name for the certificate. **Modifying this attribute will force creation of a new resource.** *)
   private_key : string prop option; [@option]
-      (** The certificate's private key. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare mTLS certificate resource. These certificates may be used with mTLS enabled Cloudflare services.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_mtls_certificate) -> ()
+
+let yojson_of_cloudflare_mtls_certificate =
+  (function
+   | {
+       account_id = v_account_id;
+       ca = v_ca;
+       certificates = v_certificates;
+       id = v_id;
+       name = v_name;
+       private_key = v_private_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_private_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_certificates in
+         ("certificates", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_ca in
+         ("ca", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_mtls_certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_mtls_certificate
+
+[@@@deriving.end]
 
 let cloudflare_mtls_certificate ?id ?name ?private_key ~account_id
     ~ca ~certificates () : cloudflare_mtls_certificate =

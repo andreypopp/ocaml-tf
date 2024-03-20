@@ -3,13 +3,53 @@
 open! Tf_core
 
 type digitalocean_spaces_bucket_policy = {
-  bucket : string prop;  (** bucket *)
-  id : string prop option; [@option]  (** id *)
-  policy : string prop;  (** policy *)
-  region : string prop;  (** region *)
+  bucket : string prop;
+  id : string prop option; [@option]
+  policy : string prop;
+  region : string prop;
 }
-[@@deriving yojson_of]
-(** digitalocean_spaces_bucket_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_spaces_bucket_policy) -> ()
+
+let yojson_of_digitalocean_spaces_bucket_policy =
+  (function
+   | {
+       bucket = v_bucket;
+       id = v_id;
+       policy = v_policy;
+       region = v_region;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket in
+         ("bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_spaces_bucket_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_spaces_bucket_policy
+
+[@@@deriving.end]
 
 let digitalocean_spaces_bucket_policy ?id ~bucket ~policy ~region ()
     : digitalocean_spaces_bucket_policy =

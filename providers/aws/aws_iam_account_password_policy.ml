@@ -4,26 +4,125 @@ open! Tf_core
 
 type aws_iam_account_password_policy = {
   allow_users_to_change_password : bool prop option; [@option]
-      (** allow_users_to_change_password *)
-  hard_expiry : bool prop option; [@option]  (** hard_expiry *)
-  id : string prop option; [@option]  (** id *)
+  hard_expiry : bool prop option; [@option]
+  id : string prop option; [@option]
   max_password_age : float prop option; [@option]
-      (** max_password_age *)
   minimum_password_length : float prop option; [@option]
-      (** minimum_password_length *)
   password_reuse_prevention : float prop option; [@option]
-      (** password_reuse_prevention *)
   require_lowercase_characters : bool prop option; [@option]
-      (** require_lowercase_characters *)
   require_numbers : bool prop option; [@option]
-      (** require_numbers *)
   require_symbols : bool prop option; [@option]
-      (** require_symbols *)
   require_uppercase_characters : bool prop option; [@option]
-      (** require_uppercase_characters *)
 }
-[@@deriving yojson_of]
-(** aws_iam_account_password_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_account_password_policy) -> ()
+
+let yojson_of_aws_iam_account_password_policy =
+  (function
+   | {
+       allow_users_to_change_password =
+         v_allow_users_to_change_password;
+       hard_expiry = v_hard_expiry;
+       id = v_id;
+       max_password_age = v_max_password_age;
+       minimum_password_length = v_minimum_password_length;
+       password_reuse_prevention = v_password_reuse_prevention;
+       require_lowercase_characters = v_require_lowercase_characters;
+       require_numbers = v_require_numbers;
+       require_symbols = v_require_symbols;
+       require_uppercase_characters = v_require_uppercase_characters;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_require_uppercase_characters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_uppercase_characters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_require_symbols with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_symbols", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_require_numbers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_numbers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_require_lowercase_characters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_lowercase_characters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_password_reuse_prevention with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "password_reuse_prevention", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_minimum_password_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "minimum_password_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_password_age with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_password_age", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_hard_expiry with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "hard_expiry", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_users_to_change_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_users_to_change_password", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_account_password_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_account_password_policy
+
+[@@@deriving.end]
 
 let aws_iam_account_password_policy ?allow_users_to_change_password
     ?hard_expiry ?id ?max_password_age ?minimum_password_length

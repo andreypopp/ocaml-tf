@@ -2,35 +2,113 @@
 
 open! Tf_core
 
-type configurations = {
-  target : string prop;
-      (** The request property to target. Available values: `ip`, `ip_range`. *)
-  value : string prop;
-      (** The value to target. Depends on target's type. IP addresses should just be standard IPv4/IPv6 notation i.e. `192.0.2.1` or `2001:db8::/32` and IP ranges in CIDR format i.e. `192.0.2.0/24`. *)
-}
-[@@deriving yojson_of]
-(** A list of IP addresses or IP ranges to match the request against specified in target, value pairs. *)
+type configurations = { target : string prop; value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : configurations) -> ()
+
+let yojson_of_configurations =
+  (function
+   | { target = v_target; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target in
+         ("target", arg) :: bnds
+       in
+       `Assoc bnds
+    : configurations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_configurations
+
+[@@@deriving.end]
 
 type cloudflare_zone_lockdown = {
   description : string prop option; [@option]
-      (** A description about the lockdown entry. Typically used as a reminder or explanation for the lockdown. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   paused : bool prop option; [@option]
-      (** Boolean of whether this zone lockdown is currently paused. Defaults to `false`. *)
-  priority : float prop option; [@option]  (** priority *)
+  priority : float prop option; [@option]
   urls : string prop list;
-      (** A list of simple wildcard patterns to match requests against. The order of the urls is unimportant. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   configurations : configurations list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Zone Lockdown resource. Zone Lockdown allows
-you to define one or more URLs (with wildcard matching on the domain
-or path) that will only permit access if the request originates
-from an IP address that matches a safelist of one or more IP
-addresses and/or IP ranges.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_zone_lockdown) -> ()
+
+let yojson_of_cloudflare_zone_lockdown =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       paused = v_paused;
+       priority = v_priority;
+       urls = v_urls;
+       zone_id = v_zone_id;
+       configurations = v_configurations;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_configurations v_configurations
+         in
+         ("configurations", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_urls
+         in
+         ("urls", arg) :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_paused with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "paused", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_zone_lockdown -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_zone_lockdown
+
+[@@@deriving.end]
 
 let configurations ~target ~value () : configurations =
   { target; value }

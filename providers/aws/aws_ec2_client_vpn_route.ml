@@ -3,24 +3,111 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_ec2_client_vpn_route = {
   client_vpn_endpoint_id : string prop;
-      (** client_vpn_endpoint_id *)
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   destination_cidr_block : string prop;
-      (** destination_cidr_block *)
-  id : string prop option; [@option]  (** id *)
-  target_vpc_subnet_id : string prop;  (** target_vpc_subnet_id *)
+  id : string prop option; [@option]
+  target_vpc_subnet_id : string prop;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_ec2_client_vpn_route *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_client_vpn_route) -> ()
+
+let yojson_of_aws_ec2_client_vpn_route =
+  (function
+   | {
+       client_vpn_endpoint_id = v_client_vpn_endpoint_id;
+       description = v_description;
+       destination_cidr_block = v_destination_cidr_block;
+       id = v_id;
+       target_vpc_subnet_id = v_target_vpc_subnet_id;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_vpc_subnet_id
+         in
+         ("target_vpc_subnet_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_cidr_block
+         in
+         ("destination_cidr_block", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_client_vpn_endpoint_id
+         in
+         ("client_vpn_endpoint_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_client_vpn_route -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_client_vpn_route
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete () : timeouts = { create; delete }
 

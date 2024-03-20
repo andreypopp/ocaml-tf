@@ -3,14 +3,62 @@
 open! Tf_core
 
 type aws_devicefarm_upload = {
-  content_type : string prop option; [@option]  (** content_type *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  project_arn : string prop;  (** project_arn *)
-  type_ : string prop; [@key "type"]  (** type *)
+  content_type : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  project_arn : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** aws_devicefarm_upload *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_devicefarm_upload) -> ()
+
+let yojson_of_aws_devicefarm_upload =
+  (function
+   | {
+       content_type = v_content_type;
+       id = v_id;
+       name = v_name;
+       project_arn = v_project_arn;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_arn in
+         ("project_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_devicefarm_upload -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_devicefarm_upload
+
+[@@@deriving.end]
 
 let aws_devicefarm_upload ?content_type ?id ~name ~project_arn ~type_
     () : aws_devicefarm_upload =

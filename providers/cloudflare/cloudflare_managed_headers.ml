@@ -3,31 +3,116 @@
 open! Tf_core
 
 type managed_request_headers = {
-  enabled : bool prop;  (** Whether the headers rule is active. *)
-  id : string prop;  (** Unique headers rule identifier. *)
+  enabled : bool prop;
+  id : string prop;
 }
-[@@deriving yojson_of]
-(** The list of managed request headers. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_request_headers) -> ()
+
+let yojson_of_managed_request_headers =
+  (function
+   | { enabled = v_enabled; id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_request_headers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_request_headers
+
+[@@@deriving.end]
 
 type managed_response_headers = {
-  enabled : bool prop;  (** Whether the headers rule is active. *)
-  id : string prop;  (** Unique headers rule identifier. *)
+  enabled : bool prop;
+  id : string prop;
 }
-[@@deriving yojson_of]
-(** The list of managed response headers. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_response_headers) -> ()
+
+let yojson_of_managed_response_headers =
+  (function
+   | { enabled = v_enabled; id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_response_headers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_response_headers
+
+[@@@deriving.end]
 
 type cloudflare_managed_headers = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   zone_id : string prop;
-      (** The zone identifier to target for the resource. *)
   managed_request_headers : managed_request_headers list;
   managed_response_headers : managed_response_headers list;
 }
-[@@deriving yojson_of]
-(** The [Cloudflare Managed Headers](https://developers.cloudflare.com/rules/transform/managed-transforms/)
-allows you to add or remove some predefined headers to one's
-requests or origin responses.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_managed_headers) -> ()
+
+let yojson_of_cloudflare_managed_headers =
+  (function
+   | {
+       id = v_id;
+       zone_id = v_zone_id;
+       managed_request_headers = v_managed_request_headers;
+       managed_response_headers = v_managed_response_headers;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_managed_response_headers
+             v_managed_response_headers
+         in
+         ("managed_response_headers", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_managed_request_headers
+             v_managed_request_headers
+         in
+         ("managed_request_headers", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_managed_headers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_managed_headers
+
+[@@@deriving.end]
 
 let managed_request_headers ~enabled ~id () : managed_request_headers
     =

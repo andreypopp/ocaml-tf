@@ -5,54 +5,315 @@ open! Tf_core
 type service_location = {
   allowed_media_source_address_prefixes : string prop list option;
       [@option]
-      (** allowed_media_source_address_prefixes *)
   allowed_signaling_source_address_prefixes :
     string prop list option;
       [@option]
-      (** allowed_signaling_source_address_prefixes *)
   esrp_addresses : string prop list option; [@option]
-      (** esrp_addresses *)
-  location : string prop;  (** location *)
-  operator_addresses : string prop list;  (** operator_addresses *)
+  location : string prop;
+  operator_addresses : string prop list;
 }
-[@@deriving yojson_of]
-(** service_location *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_location) -> ()
+
+let yojson_of_service_location =
+  (function
+   | {
+       allowed_media_source_address_prefixes =
+         v_allowed_media_source_address_prefixes;
+       allowed_signaling_source_address_prefixes =
+         v_allowed_signaling_source_address_prefixes;
+       esrp_addresses = v_esrp_addresses;
+       location = v_location;
+       operator_addresses = v_operator_addresses;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_operator_addresses
+         in
+         ("operator_addresses", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_esrp_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "esrp_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_signaling_source_address_prefixes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd =
+               "allowed_signaling_source_address_prefixes", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_media_source_address_prefixes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd =
+               "allowed_media_source_address_prefixes", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : service_location -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_location
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_voice_services_communications_gateway = {
-  api_bridge : string prop option; [@option]  (** api_bridge *)
+  api_bridge : string prop option; [@option]
   auto_generated_domain_name_label_scope : string prop option;
       [@option]
-      (** auto_generated_domain_name_label_scope *)
-  codecs : string prop;  (** codecs *)
-  connectivity : string prop;  (** connectivity *)
-  e911_type : string prop;  (** e911_type *)
+  codecs : string prop;
+  connectivity : string prop;
+  e911_type : string prop;
   emergency_dial_strings : string prop list option; [@option]
-      (** emergency_dial_strings *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
+  id : string prop option; [@option]
+  location : string prop;
   microsoft_teams_voicemail_pilot_number : string prop option;
       [@option]
-      (** microsoft_teams_voicemail_pilot_number *)
-  name : string prop;  (** name *)
+  name : string prop;
   on_prem_mcp_enabled : bool prop option; [@option]
-      (** on_prem_mcp_enabled *)
-  platforms : string prop list;  (** platforms *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  platforms : string prop list;
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   service_location : service_location list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_voice_services_communications_gateway *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_voice_services_communications_gateway) -> ()
+
+let yojson_of_azurerm_voice_services_communications_gateway =
+  (function
+   | {
+       api_bridge = v_api_bridge;
+       auto_generated_domain_name_label_scope =
+         v_auto_generated_domain_name_label_scope;
+       codecs = v_codecs;
+       connectivity = v_connectivity;
+       e911_type = v_e911_type;
+       emergency_dial_strings = v_emergency_dial_strings;
+       id = v_id;
+       location = v_location;
+       microsoft_teams_voicemail_pilot_number =
+         v_microsoft_teams_voicemail_pilot_number;
+       name = v_name;
+       on_prem_mcp_enabled = v_on_prem_mcp_enabled;
+       platforms = v_platforms;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       service_location = v_service_location;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_service_location
+             v_service_location
+         in
+         ("service_location", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_platforms
+         in
+         ("platforms", arg) :: bnds
+       in
+       let bnds =
+         match v_on_prem_mcp_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "on_prem_mcp_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_microsoft_teams_voicemail_pilot_number with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "microsoft_teams_voicemail_pilot_number", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_emergency_dial_strings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "emergency_dial_strings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_e911_type in
+         ("e911_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_connectivity in
+         ("connectivity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_codecs in
+         ("codecs", arg) :: bnds
+       in
+       let bnds =
+         match v_auto_generated_domain_name_label_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "auto_generated_domain_name_label_scope", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_bridge with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_bridge", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_voice_services_communications_gateway ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_voice_services_communications_gateway
+
+[@@@deriving.end]
 
 let service_location ?allowed_media_source_address_prefixes
     ?allowed_signaling_source_address_prefixes ?esrp_addresses

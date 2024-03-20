@@ -3,64 +3,253 @@
 open! Tf_core
 
 type properties__property = {
-  name : string prop option; [@option]  (** Name of the property. *)
-  value : string prop option; [@option]  (** Value of the property. *)
+  name : string prop option; [@option]
+  value : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** List of all properties in the object. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : properties__property) -> ()
+
+let yojson_of_properties__property =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : properties__property -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_properties__property
+
+[@@@deriving.end]
 
 type properties = { property : properties__property list }
-[@@deriving yojson_of]
-(** Properties defined in the Apigee organization profile. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : properties) -> ()
+
+let yojson_of_properties =
+  (function
+   | { property = v_property } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_properties__property v_property
+         in
+         ("property", arg) :: bnds
+       in
+       `Assoc bnds
+    : properties -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_properties
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_apigee_organization = {
   analytics_region : string prop option; [@option]
-      (** Primary GCP region for analytics data storage. For valid values, see [Create an Apigee organization](https://cloud.google.com/apigee/docs/api-platform/get-started/create-org). *)
   authorized_network : string prop option; [@option]
-      (** Compute Engine network used for Service Networking to be peered with Apigee runtime instances.
-See [Getting started with the Service Networking API](https://cloud.google.com/service-infrastructure/docs/service-networking/getting-started).
-Valid only when 'RuntimeType' is set to CLOUD. The value can be updated only when there are no runtime instances. For example: default. *)
   billing_type : string prop option; [@option]
-      (** Billing type of the Apigee organization. See [Apigee pricing](https://cloud.google.com/apigee/pricing). *)
   description : string prop option; [@option]
-      (** Description of the Apigee organization. *)
   disable_vpc_peering : bool prop option; [@option]
-      (** Flag that specifies whether the VPC Peering through Private Google Access should be
-disabled between the consumer network and Apigee. Required if an 'authorizedNetwork'
-on the consumer project is not provided, in which case the flag should be set to 'true'.
-Valid only when 'RuntimeType' is set to CLOUD. The value must be set before the creation
-of any Apigee runtime instance and can be updated only when there are no runtime instances. *)
   display_name : string prop option; [@option]
-      (** The display name of the Apigee organization. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   project_id : string prop;
-      (** The project ID associated with the Apigee organization. *)
   retention : string prop option; [@option]
-      (** Optional. This setting is applicable only for organizations that are soft-deleted (i.e., BillingType
-is not EVALUATION). It controls how long Organization data will be retained after the initial delete
-operation completes. During this period, the Organization may be restored to its last known state.
-After this period, the Organization will no longer be able to be restored. Default value: DELETION_RETENTION_UNSPECIFIED Possible values: [DELETION_RETENTION_UNSPECIFIED, MINIMUM] *)
   runtime_database_encryption_key_name : string prop option;
       [@option]
-      (** Cloud KMS key name used for encrypting the data that is stored and replicated across runtime instances.
-Update is not allowed after the organization is created.
-If not specified, a Google-Managed encryption key will be used.
-Valid only when 'RuntimeType' is CLOUD. For example: 'projects/foo/locations/us/keyRings/bar/cryptoKeys/baz'. *)
   runtime_type : string prop option; [@option]
-      (** Runtime type of the Apigee organization based on the Apigee subscription purchased. Default value: CLOUD Possible values: [CLOUD, HYBRID] *)
   properties : properties list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_apigee_organization *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_apigee_organization) -> ()
+
+let yojson_of_google_apigee_organization =
+  (function
+   | {
+       analytics_region = v_analytics_region;
+       authorized_network = v_authorized_network;
+       billing_type = v_billing_type;
+       description = v_description;
+       disable_vpc_peering = v_disable_vpc_peering;
+       display_name = v_display_name;
+       id = v_id;
+       project_id = v_project_id;
+       retention = v_retention;
+       runtime_database_encryption_key_name =
+         v_runtime_database_encryption_key_name;
+       runtime_type = v_runtime_type;
+       properties = v_properties;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_properties v_properties
+         in
+         ("properties", arg) :: bnds
+       in
+       let bnds =
+         match v_runtime_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "runtime_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_runtime_database_encryption_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "runtime_database_encryption_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_retention with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "retention", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_vpc_peering with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_vpc_peering", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_billing_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "billing_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authorized_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "authorized_network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_analytics_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "analytics_region", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_apigee_organization -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_apigee_organization
+
+[@@@deriving.end]
 
 let properties__property ?name ?value () : properties__property =
   { name; value }

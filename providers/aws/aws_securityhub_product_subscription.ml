@@ -3,11 +3,38 @@
 open! Tf_core
 
 type aws_securityhub_product_subscription = {
-  id : string prop option; [@option]  (** id *)
-  product_arn : string prop;  (** product_arn *)
+  id : string prop option; [@option]
+  product_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_securityhub_product_subscription *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securityhub_product_subscription) -> ()
+
+let yojson_of_aws_securityhub_product_subscription =
+  (function
+   | { id = v_id; product_arn = v_product_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_product_arn in
+         ("product_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_securityhub_product_subscription ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securityhub_product_subscription
+
+[@@@deriving.end]
 
 let aws_securityhub_product_subscription ?id ~product_arn () :
     aws_securityhub_product_subscription =

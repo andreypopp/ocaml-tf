@@ -4,92 +4,416 @@ open! Tf_core
 
 type access_config = {
   authentication_mode : string prop option; [@option]
-      (** authentication_mode *)
   bootstrap_cluster_creator_admin_permissions : bool prop option;
       [@option]
-      (** bootstrap_cluster_creator_admin_permissions *)
 }
-[@@deriving yojson_of]
-(** access_config *)
+[@@deriving_inline yojson_of]
 
-type encryption_config__provider = {
-  key_arn : string prop;  (** key_arn *)
-}
-[@@deriving yojson_of]
-(** encryption_config__provider *)
+let _ = fun (_ : access_config) -> ()
+
+let yojson_of_access_config =
+  (function
+   | {
+       authentication_mode = v_authentication_mode;
+       bootstrap_cluster_creator_admin_permissions =
+         v_bootstrap_cluster_creator_admin_permissions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_bootstrap_cluster_creator_admin_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "bootstrap_cluster_creator_admin_permissions", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authentication_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "authentication_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access_config
+
+[@@@deriving.end]
+
+type encryption_config__provider = { key_arn : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_config__provider) -> ()
+
+let yojson_of_encryption_config__provider =
+  (function
+   | { key_arn = v_key_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_arn in
+         ("key_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption_config__provider ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_config__provider
+
+[@@@deriving.end]
 
 type encryption_config = {
-  resources : string prop list;  (** resources *)
+  resources : string prop list;
   provider : encryption_config__provider list;
 }
-[@@deriving yojson_of]
-(** encryption_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption_config) -> ()
+
+let yojson_of_encryption_config =
+  (function
+   | { resources = v_resources; provider = v_provider } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption_config__provider
+             v_provider
+         in
+         ("provider", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_resources
+         in
+         ("resources", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption_config
+
+[@@@deriving.end]
 
 type kubernetes_network_config = {
-  ip_family : string prop option; [@option]  (** ip_family *)
+  ip_family : string prop option; [@option]
   service_ipv4_cidr : string prop option; [@option]
-      (** service_ipv4_cidr *)
 }
-[@@deriving yojson_of]
-(** kubernetes_network_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_network_config) -> ()
+
+let yojson_of_kubernetes_network_config =
+  (function
+   | {
+       ip_family = v_ip_family;
+       service_ipv4_cidr = v_service_ipv4_cidr;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service_ipv4_cidr with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_ipv4_cidr", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_family with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_family", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_network_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_network_config
+
+[@@@deriving.end]
 
 type outpost_config__control_plane_placement = {
-  group_name : string prop;  (** group_name *)
+  group_name : string prop;
 }
-[@@deriving yojson_of]
-(** outpost_config__control_plane_placement *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : outpost_config__control_plane_placement) -> ()
+
+let yojson_of_outpost_config__control_plane_placement =
+  (function
+   | { group_name = v_group_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group_name in
+         ("group_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : outpost_config__control_plane_placement ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_outpost_config__control_plane_placement
+
+[@@@deriving.end]
 
 type outpost_config = {
   control_plane_instance_type : string prop;
-      (** control_plane_instance_type *)
-  outpost_arns : string prop list;  (** outpost_arns *)
+  outpost_arns : string prop list;
   control_plane_placement :
     outpost_config__control_plane_placement list;
 }
-[@@deriving yojson_of]
-(** outpost_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : outpost_config) -> ()
+
+let yojson_of_outpost_config =
+  (function
+   | {
+       control_plane_instance_type = v_control_plane_instance_type;
+       outpost_arns = v_outpost_arns;
+       control_plane_placement = v_control_plane_placement;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_outpost_config__control_plane_placement
+             v_control_plane_placement
+         in
+         ("control_plane_placement", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_outpost_arns
+         in
+         ("outpost_arns", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_control_plane_instance_type
+         in
+         ("control_plane_instance_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : outpost_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_outpost_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type vpc_config = {
   endpoint_private_access : bool prop option; [@option]
-      (** endpoint_private_access *)
   endpoint_public_access : bool prop option; [@option]
-      (** endpoint_public_access *)
   public_access_cidrs : string prop list option; [@option]
-      (** public_access_cidrs *)
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  subnet_ids : string prop list;
 }
-[@@deriving yojson_of]
-(** vpc_config *)
+[@@deriving_inline yojson_of]
 
-type certificate_authority = { data : string prop  (** data *) }
-[@@deriving yojson_of]
+let _ = fun (_ : vpc_config) -> ()
 
-type identity__oidc = { issuer : string prop  (** issuer *) }
-[@@deriving yojson_of]
+let yojson_of_vpc_config =
+  (function
+   | {
+       endpoint_private_access = v_endpoint_private_access;
+       endpoint_public_access = v_endpoint_public_access;
+       public_access_cidrs = v_public_access_cidrs;
+       security_group_ids = v_security_group_ids;
+       subnet_ids = v_subnet_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_access_cidrs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "public_access_cidrs", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_endpoint_public_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "endpoint_public_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_endpoint_private_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "endpoint_private_access", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : vpc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-type identity = { oidc : identity__oidc list  (** oidc *) }
-[@@deriving yojson_of]
+let _ = yojson_of_vpc_config
+
+[@@@deriving.end]
+
+type certificate_authority = { data : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certificate_authority) -> ()
+
+let yojson_of_certificate_authority =
+  (function
+   | { data = v_data } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_data in
+         ("data", arg) :: bnds
+       in
+       `Assoc bnds
+    : certificate_authority -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certificate_authority
+
+[@@@deriving.end]
+
+type identity__oidc = { issuer : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity__oidc) -> ()
+
+let yojson_of_identity__oidc =
+  (function
+   | { issuer = v_issuer } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_issuer in
+         ("issuer", arg) :: bnds
+       in
+       `Assoc bnds
+    : identity__oidc -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity__oidc
+
+[@@@deriving.end]
+
+type identity = { oidc : identity__oidc list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { oidc = v_oidc } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity__oidc v_oidc in
+         ("oidc", arg) :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
 
 type aws_eks_cluster = {
   enabled_cluster_log_types : string prop list option; [@option]
-      (** enabled_cluster_log_types *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  role_arn : string prop;  (** role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  version : string prop option; [@option]  (** version *)
+  version : string prop option; [@option]
   access_config : access_config list;
   encryption_config : encryption_config list;
   kubernetes_network_config : kubernetes_network_config list;
@@ -97,8 +421,138 @@ type aws_eks_cluster = {
   timeouts : timeouts option;
   vpc_config : vpc_config list;
 }
-[@@deriving yojson_of]
-(** aws_eks_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_eks_cluster) -> ()
+
+let yojson_of_aws_eks_cluster =
+  (function
+   | {
+       enabled_cluster_log_types = v_enabled_cluster_log_types;
+       id = v_id;
+       name = v_name;
+       role_arn = v_role_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       version = v_version;
+       access_config = v_access_config;
+       encryption_config = v_encryption_config;
+       kubernetes_network_config = v_kubernetes_network_config;
+       outpost_config = v_outpost_config;
+       timeouts = v_timeouts;
+       vpc_config = v_vpc_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vpc_config v_vpc_config
+         in
+         ("vpc_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_outpost_config v_outpost_config
+         in
+         ("outpost_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_kubernetes_network_config
+             v_kubernetes_network_config
+         in
+         ("kubernetes_network_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption_config
+             v_encryption_config
+         in
+         ("encryption_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access_config v_access_config
+         in
+         ("access_config", arg) :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled_cluster_log_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "enabled_cluster_log_types", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_eks_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_eks_cluster
+
+[@@@deriving.end]
 
 let access_config ?authentication_mode
     ?bootstrap_cluster_creator_admin_permissions () : access_config =

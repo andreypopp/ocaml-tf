@@ -3,209 +3,966 @@
 open! Tf_core
 
 type azure_active_directory = {
-  client_application_id : string prop;  (** client_application_id *)
+  client_application_id : string prop;
   cluster_application_id : string prop;
-      (** cluster_application_id *)
-  tenant_id : string prop;  (** tenant_id *)
+  tenant_id : string prop;
 }
-[@@deriving yojson_of]
-(** azure_active_directory *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azure_active_directory) -> ()
+
+let yojson_of_azure_active_directory =
+  (function
+   | {
+       client_application_id = v_client_application_id;
+       cluster_application_id = v_cluster_application_id;
+       tenant_id = v_tenant_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tenant_id in
+         ("tenant_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cluster_application_id
+         in
+         ("cluster_application_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_client_application_id
+         in
+         ("client_application_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azure_active_directory -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azure_active_directory
+
+[@@@deriving.end]
 
 type certificate = {
-  thumbprint : string prop;  (** thumbprint *)
+  thumbprint : string prop;
   thumbprint_secondary : string prop option; [@option]
-      (** thumbprint_secondary *)
-  x509_store_name : string prop;  (** x509_store_name *)
+  x509_store_name : string prop;
 }
-[@@deriving yojson_of]
-(** certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certificate) -> ()
+
+let yojson_of_certificate =
+  (function
+   | {
+       thumbprint = v_thumbprint;
+       thumbprint_secondary = v_thumbprint_secondary;
+       x509_store_name = v_x509_store_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_x509_store_name
+         in
+         ("x509_store_name", arg) :: bnds
+       in
+       let bnds =
+         match v_thumbprint_secondary with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "thumbprint_secondary", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_thumbprint in
+         ("thumbprint", arg) :: bnds
+       in
+       `Assoc bnds
+    : certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certificate
+
+[@@@deriving.end]
 
 type certificate_common_names__common_names = {
   certificate_common_name : string prop;
-      (** certificate_common_name *)
   certificate_issuer_thumbprint : string prop option; [@option]
-      (** certificate_issuer_thumbprint *)
 }
-[@@deriving yojson_of]
-(** certificate_common_names__common_names *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certificate_common_names__common_names) -> ()
+
+let yojson_of_certificate_common_names__common_names =
+  (function
+   | {
+       certificate_common_name = v_certificate_common_name;
+       certificate_issuer_thumbprint =
+         v_certificate_issuer_thumbprint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_certificate_issuer_thumbprint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_issuer_thumbprint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_common_name
+         in
+         ("certificate_common_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : certificate_common_names__common_names ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certificate_common_names__common_names
+
+[@@@deriving.end]
 
 type certificate_common_names = {
-  x509_store_name : string prop;  (** x509_store_name *)
+  x509_store_name : string prop;
   common_names : certificate_common_names__common_names list;
 }
-[@@deriving yojson_of]
-(** certificate_common_names *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : certificate_common_names) -> ()
+
+let yojson_of_certificate_common_names =
+  (function
+   | {
+       x509_store_name = v_x509_store_name;
+       common_names = v_common_names;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_certificate_common_names__common_names
+             v_common_names
+         in
+         ("common_names", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_x509_store_name
+         in
+         ("x509_store_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : certificate_common_names -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_certificate_common_names
+
+[@@@deriving.end]
 
 type client_certificate_common_name = {
-  common_name : string prop;  (** common_name *)
-  is_admin : bool prop;  (** is_admin *)
+  common_name : string prop;
+  is_admin : bool prop;
   issuer_thumbprint : string prop option; [@option]
-      (** issuer_thumbprint *)
 }
-[@@deriving yojson_of]
-(** client_certificate_common_name *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client_certificate_common_name) -> ()
+
+let yojson_of_client_certificate_common_name =
+  (function
+   | {
+       common_name = v_common_name;
+       is_admin = v_is_admin;
+       issuer_thumbprint = v_issuer_thumbprint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_issuer_thumbprint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "issuer_thumbprint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_is_admin in
+         ("is_admin", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_common_name in
+         ("common_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : client_certificate_common_name ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client_certificate_common_name
+
+[@@@deriving.end]
 
 type client_certificate_thumbprint = {
-  is_admin : bool prop;  (** is_admin *)
-  thumbprint : string prop;  (** thumbprint *)
+  is_admin : bool prop;
+  thumbprint : string prop;
 }
-[@@deriving yojson_of]
-(** client_certificate_thumbprint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client_certificate_thumbprint) -> ()
+
+let yojson_of_client_certificate_thumbprint =
+  (function
+   | { is_admin = v_is_admin; thumbprint = v_thumbprint } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_thumbprint in
+         ("thumbprint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_is_admin in
+         ("is_admin", arg) :: bnds
+       in
+       `Assoc bnds
+    : client_certificate_thumbprint ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client_certificate_thumbprint
+
+[@@@deriving.end]
 
 type diagnostics_config = {
-  blob_endpoint : string prop;  (** blob_endpoint *)
+  blob_endpoint : string prop;
   protected_account_key_name : string prop;
-      (** protected_account_key_name *)
-  queue_endpoint : string prop;  (** queue_endpoint *)
-  storage_account_name : string prop;  (** storage_account_name *)
-  table_endpoint : string prop;  (** table_endpoint *)
+  queue_endpoint : string prop;
+  storage_account_name : string prop;
+  table_endpoint : string prop;
 }
-[@@deriving yojson_of]
-(** diagnostics_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : diagnostics_config) -> ()
+
+let yojson_of_diagnostics_config =
+  (function
+   | {
+       blob_endpoint = v_blob_endpoint;
+       protected_account_key_name = v_protected_account_key_name;
+       queue_endpoint = v_queue_endpoint;
+       storage_account_name = v_storage_account_name;
+       table_endpoint = v_table_endpoint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_table_endpoint
+         in
+         ("table_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_storage_account_name
+         in
+         ("storage_account_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_queue_endpoint
+         in
+         ("queue_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_protected_account_key_name
+         in
+         ("protected_account_key_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_blob_endpoint in
+         ("blob_endpoint", arg) :: bnds
+       in
+       `Assoc bnds
+    : diagnostics_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_diagnostics_config
+
+[@@@deriving.end]
 
 type fabric_settings = {
-  name : string prop;  (** name *)
+  name : string prop;
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
 }
-[@@deriving yojson_of]
-(** fabric_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fabric_settings) -> ()
+
+let yojson_of_fabric_settings =
+  (function
+   | { name = v_name; parameters = v_parameters } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : fabric_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fabric_settings
+
+[@@@deriving.end]
 
 type node_type__application_ports = {
-  end_port : float prop;  (** end_port *)
-  start_port : float prop;  (** start_port *)
+  end_port : float prop;
+  start_port : float prop;
 }
-[@@deriving yojson_of]
-(** node_type__application_ports *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_type__application_ports) -> ()
+
+let yojson_of_node_type__application_ports =
+  (function
+   | { end_port = v_end_port; start_port = v_start_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_start_port in
+         ("start_port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_end_port in
+         ("end_port", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_type__application_ports ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_type__application_ports
+
+[@@@deriving.end]
 
 type node_type__ephemeral_ports = {
-  end_port : float prop;  (** end_port *)
-  start_port : float prop;  (** start_port *)
+  end_port : float prop;
+  start_port : float prop;
 }
-[@@deriving yojson_of]
-(** node_type__ephemeral_ports *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_type__ephemeral_ports) -> ()
+
+let yojson_of_node_type__ephemeral_ports =
+  (function
+   | { end_port = v_end_port; start_port = v_start_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_start_port in
+         ("start_port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_end_port in
+         ("end_port", arg) :: bnds
+       in
+       `Assoc bnds
+    : node_type__ephemeral_ports -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_type__ephemeral_ports
+
+[@@@deriving.end]
 
 type node_type = {
   capacities : (string * string prop) list option; [@option]
-      (** capacities *)
-  client_endpoint_port : float prop;  (** client_endpoint_port *)
+  client_endpoint_port : float prop;
   durability_level : string prop option; [@option]
-      (** durability_level *)
-  http_endpoint_port : float prop;  (** http_endpoint_port *)
-  instance_count : float prop;  (** instance_count *)
-  is_primary : bool prop;  (** is_primary *)
-  is_stateless : bool prop option; [@option]  (** is_stateless *)
+  http_endpoint_port : float prop;
+  instance_count : float prop;
+  is_primary : bool prop;
+  is_stateless : bool prop option; [@option]
   multiple_availability_zones : bool prop option; [@option]
-      (** multiple_availability_zones *)
-  name : string prop;  (** name *)
+  name : string prop;
   placement_properties : (string * string prop) list option;
       [@option]
-      (** placement_properties *)
   reverse_proxy_endpoint_port : float prop option; [@option]
-      (** reverse_proxy_endpoint_port *)
   application_ports : node_type__application_ports list;
   ephemeral_ports : node_type__ephemeral_ports list;
 }
-[@@deriving yojson_of]
-(** node_type *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_type) -> ()
+
+let yojson_of_node_type =
+  (function
+   | {
+       capacities = v_capacities;
+       client_endpoint_port = v_client_endpoint_port;
+       durability_level = v_durability_level;
+       http_endpoint_port = v_http_endpoint_port;
+       instance_count = v_instance_count;
+       is_primary = v_is_primary;
+       is_stateless = v_is_stateless;
+       multiple_availability_zones = v_multiple_availability_zones;
+       name = v_name;
+       placement_properties = v_placement_properties;
+       reverse_proxy_endpoint_port = v_reverse_proxy_endpoint_port;
+       application_ports = v_application_ports;
+       ephemeral_ports = v_ephemeral_ports;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_type__ephemeral_ports
+             v_ephemeral_ports
+         in
+         ("ephemeral_ports", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_type__application_ports
+             v_application_ports
+         in
+         ("application_ports", arg) :: bnds
+       in
+       let bnds =
+         match v_reverse_proxy_endpoint_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "reverse_proxy_endpoint_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_placement_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "placement_properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_multiple_availability_zones with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "multiple_availability_zones", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_stateless with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_stateless", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_is_primary in
+         ("is_primary", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_instance_count in
+         ("instance_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_http_endpoint_port
+         in
+         ("http_endpoint_port", arg) :: bnds
+       in
+       let bnds =
+         match v_durability_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "durability_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_client_endpoint_port
+         in
+         ("client_endpoint_port", arg) :: bnds
+       in
+       let bnds =
+         match v_capacities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "capacities", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_type -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_type
+
+[@@@deriving.end]
 
 type reverse_proxy_certificate = {
-  thumbprint : string prop;  (** thumbprint *)
+  thumbprint : string prop;
   thumbprint_secondary : string prop option; [@option]
-      (** thumbprint_secondary *)
-  x509_store_name : string prop;  (** x509_store_name *)
+  x509_store_name : string prop;
 }
-[@@deriving yojson_of]
-(** reverse_proxy_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : reverse_proxy_certificate) -> ()
+
+let yojson_of_reverse_proxy_certificate =
+  (function
+   | {
+       thumbprint = v_thumbprint;
+       thumbprint_secondary = v_thumbprint_secondary;
+       x509_store_name = v_x509_store_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_x509_store_name
+         in
+         ("x509_store_name", arg) :: bnds
+       in
+       let bnds =
+         match v_thumbprint_secondary with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "thumbprint_secondary", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_thumbprint in
+         ("thumbprint", arg) :: bnds
+       in
+       `Assoc bnds
+    : reverse_proxy_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_reverse_proxy_certificate
+
+[@@@deriving.end]
 
 type reverse_proxy_certificate_common_names__common_names = {
   certificate_common_name : string prop;
-      (** certificate_common_name *)
   certificate_issuer_thumbprint : string prop option; [@option]
-      (** certificate_issuer_thumbprint *)
 }
-[@@deriving yojson_of]
-(** reverse_proxy_certificate_common_names__common_names *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : reverse_proxy_certificate_common_names__common_names) -> ()
+
+let yojson_of_reverse_proxy_certificate_common_names__common_names =
+  (function
+   | {
+       certificate_common_name = v_certificate_common_name;
+       certificate_issuer_thumbprint =
+         v_certificate_issuer_thumbprint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_certificate_issuer_thumbprint with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_issuer_thumbprint", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_common_name
+         in
+         ("certificate_common_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : reverse_proxy_certificate_common_names__common_names ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_reverse_proxy_certificate_common_names__common_names
+
+[@@@deriving.end]
 
 type reverse_proxy_certificate_common_names = {
-  x509_store_name : string prop;  (** x509_store_name *)
+  x509_store_name : string prop;
   common_names :
     reverse_proxy_certificate_common_names__common_names list;
 }
-[@@deriving yojson_of]
-(** reverse_proxy_certificate_common_names *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : reverse_proxy_certificate_common_names) -> ()
+
+let yojson_of_reverse_proxy_certificate_common_names =
+  (function
+   | {
+       x509_store_name = v_x509_store_name;
+       common_names = v_common_names;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_reverse_proxy_certificate_common_names__common_names
+             v_common_names
+         in
+         ("common_names", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_x509_store_name
+         in
+         ("x509_store_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : reverse_proxy_certificate_common_names ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_reverse_proxy_certificate_common_names
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type upgrade_policy__delta_health_policy = {
   max_delta_unhealthy_applications_percent : float prop option;
       [@option]
-      (** max_delta_unhealthy_applications_percent *)
   max_delta_unhealthy_nodes_percent : float prop option; [@option]
-      (** max_delta_unhealthy_nodes_percent *)
   max_upgrade_domain_delta_unhealthy_nodes_percent :
     float prop option;
       [@option]
-      (** max_upgrade_domain_delta_unhealthy_nodes_percent *)
 }
-[@@deriving yojson_of]
-(** upgrade_policy__delta_health_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : upgrade_policy__delta_health_policy) -> ()
+
+let yojson_of_upgrade_policy__delta_health_policy =
+  (function
+   | {
+       max_delta_unhealthy_applications_percent =
+         v_max_delta_unhealthy_applications_percent;
+       max_delta_unhealthy_nodes_percent =
+         v_max_delta_unhealthy_nodes_percent;
+       max_upgrade_domain_delta_unhealthy_nodes_percent =
+         v_max_upgrade_domain_delta_unhealthy_nodes_percent;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match
+           v_max_upgrade_domain_delta_unhealthy_nodes_percent
+         with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               ( "max_upgrade_domain_delta_unhealthy_nodes_percent",
+                 arg )
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_delta_unhealthy_nodes_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_delta_unhealthy_nodes_percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_delta_unhealthy_applications_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "max_delta_unhealthy_applications_percent", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : upgrade_policy__delta_health_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_upgrade_policy__delta_health_policy
+
+[@@@deriving.end]
 
 type upgrade_policy__health_policy = {
   max_unhealthy_applications_percent : float prop option; [@option]
-      (** max_unhealthy_applications_percent *)
   max_unhealthy_nodes_percent : float prop option; [@option]
-      (** max_unhealthy_nodes_percent *)
 }
-[@@deriving yojson_of]
-(** upgrade_policy__health_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : upgrade_policy__health_policy) -> ()
+
+let yojson_of_upgrade_policy__health_policy =
+  (function
+   | {
+       max_unhealthy_applications_percent =
+         v_max_unhealthy_applications_percent;
+       max_unhealthy_nodes_percent = v_max_unhealthy_nodes_percent;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_unhealthy_nodes_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_unhealthy_nodes_percent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_unhealthy_applications_percent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_unhealthy_applications_percent", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : upgrade_policy__health_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_upgrade_policy__health_policy
+
+[@@@deriving.end]
 
 type upgrade_policy = {
   force_restart_enabled : bool prop option; [@option]
-      (** force_restart_enabled *)
   health_check_retry_timeout : string prop option; [@option]
-      (** health_check_retry_timeout *)
   health_check_stable_duration : string prop option; [@option]
-      (** health_check_stable_duration *)
   health_check_wait_duration : string prop option; [@option]
-      (** health_check_wait_duration *)
   upgrade_domain_timeout : string prop option; [@option]
-      (** upgrade_domain_timeout *)
   upgrade_replica_set_check_timeout : string prop option; [@option]
-      (** upgrade_replica_set_check_timeout *)
   upgrade_timeout : string prop option; [@option]
-      (** upgrade_timeout *)
   delta_health_policy : upgrade_policy__delta_health_policy list;
   health_policy : upgrade_policy__health_policy list;
 }
-[@@deriving yojson_of]
-(** upgrade_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : upgrade_policy) -> ()
+
+let yojson_of_upgrade_policy =
+  (function
+   | {
+       force_restart_enabled = v_force_restart_enabled;
+       health_check_retry_timeout = v_health_check_retry_timeout;
+       health_check_stable_duration = v_health_check_stable_duration;
+       health_check_wait_duration = v_health_check_wait_duration;
+       upgrade_domain_timeout = v_upgrade_domain_timeout;
+       upgrade_replica_set_check_timeout =
+         v_upgrade_replica_set_check_timeout;
+       upgrade_timeout = v_upgrade_timeout;
+       delta_health_policy = v_delta_health_policy;
+       health_policy = v_health_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_upgrade_policy__health_policy
+             v_health_policy
+         in
+         ("health_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_upgrade_policy__delta_health_policy
+             v_delta_health_policy
+         in
+         ("delta_health_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_upgrade_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "upgrade_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_upgrade_replica_set_check_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "upgrade_replica_set_check_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_upgrade_domain_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "upgrade_domain_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_health_check_wait_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "health_check_wait_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_health_check_stable_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "health_check_stable_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_health_check_retry_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "health_check_retry_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_restart_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_restart_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : upgrade_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_upgrade_policy
+
+[@@@deriving.end]
 
 type azurerm_service_fabric_cluster = {
   add_on_features : string prop list option; [@option]
-      (** add_on_features *)
   cluster_code_version : string prop option; [@option]
-      (** cluster_code_version *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  management_endpoint : string prop;  (** management_endpoint *)
-  name : string prop;  (** name *)
-  reliability_level : string prop;  (** reliability_level *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  id : string prop option; [@option]
+  location : string prop;
+  management_endpoint : string prop;
+  name : string prop;
+  reliability_level : string prop;
+  resource_group_name : string prop;
   service_fabric_zonal_upgrade_mode : string prop option; [@option]
-      (** service_fabric_zonal_upgrade_mode *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
-  upgrade_mode : string prop;  (** upgrade_mode *)
-  vm_image : string prop;  (** vm_image *)
+  tags : (string * string prop) list option; [@option]
+  upgrade_mode : string prop;
+  vm_image : string prop;
   vmss_zonal_upgrade_mode : string prop option; [@option]
-      (** vmss_zonal_upgrade_mode *)
   azure_active_directory : azure_active_directory list;
   certificate : certificate list;
   certificate_common_names : certificate_common_names list;
@@ -221,8 +978,221 @@ type azurerm_service_fabric_cluster = {
   timeouts : timeouts option;
   upgrade_policy : upgrade_policy list;
 }
-[@@deriving yojson_of]
-(** azurerm_service_fabric_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_service_fabric_cluster) -> ()
+
+let yojson_of_azurerm_service_fabric_cluster =
+  (function
+   | {
+       add_on_features = v_add_on_features;
+       cluster_code_version = v_cluster_code_version;
+       id = v_id;
+       location = v_location;
+       management_endpoint = v_management_endpoint;
+       name = v_name;
+       reliability_level = v_reliability_level;
+       resource_group_name = v_resource_group_name;
+       service_fabric_zonal_upgrade_mode =
+         v_service_fabric_zonal_upgrade_mode;
+       tags = v_tags;
+       upgrade_mode = v_upgrade_mode;
+       vm_image = v_vm_image;
+       vmss_zonal_upgrade_mode = v_vmss_zonal_upgrade_mode;
+       azure_active_directory = v_azure_active_directory;
+       certificate = v_certificate;
+       certificate_common_names = v_certificate_common_names;
+       client_certificate_common_name =
+         v_client_certificate_common_name;
+       client_certificate_thumbprint =
+         v_client_certificate_thumbprint;
+       diagnostics_config = v_diagnostics_config;
+       fabric_settings = v_fabric_settings;
+       node_type = v_node_type;
+       reverse_proxy_certificate = v_reverse_proxy_certificate;
+       reverse_proxy_certificate_common_names =
+         v_reverse_proxy_certificate_common_names;
+       timeouts = v_timeouts;
+       upgrade_policy = v_upgrade_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_upgrade_policy v_upgrade_policy
+         in
+         ("upgrade_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_reverse_proxy_certificate_common_names
+             v_reverse_proxy_certificate_common_names
+         in
+         ("reverse_proxy_certificate_common_names", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_reverse_proxy_certificate
+             v_reverse_proxy_certificate
+         in
+         ("reverse_proxy_certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_node_type v_node_type in
+         ("node_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_fabric_settings v_fabric_settings
+         in
+         ("fabric_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_diagnostics_config
+             v_diagnostics_config
+         in
+         ("diagnostics_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_client_certificate_thumbprint
+             v_client_certificate_thumbprint
+         in
+         ("client_certificate_thumbprint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_client_certificate_common_name
+             v_client_certificate_common_name
+         in
+         ("client_certificate_common_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_certificate_common_names
+             v_certificate_common_names
+         in
+         ("certificate_common_names", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_certificate v_certificate
+         in
+         ("certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_azure_active_directory
+             v_azure_active_directory
+         in
+         ("azure_active_directory", arg) :: bnds
+       in
+       let bnds =
+         match v_vmss_zonal_upgrade_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vmss_zonal_upgrade_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vm_image in
+         ("vm_image", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_upgrade_mode in
+         ("upgrade_mode", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_fabric_zonal_upgrade_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_fabric_zonal_upgrade_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_reliability_level
+         in
+         ("reliability_level", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_management_endpoint
+         in
+         ("management_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cluster_code_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cluster_code_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_add_on_features with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "add_on_features", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_service_fabric_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_service_fabric_cluster
+
+[@@@deriving.end]
 
 let azure_active_directory ~client_application_id
     ~cluster_application_id ~tenant_id () : azure_active_directory =

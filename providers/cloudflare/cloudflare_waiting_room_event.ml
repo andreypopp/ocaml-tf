@@ -4,39 +4,170 @@ open! Tf_core
 
 type cloudflare_waiting_room_event = {
   custom_page_html : string prop option; [@option]
-      (** This is a templated html file that will be rendered at the edge. *)
   description : string prop option; [@option]
-      (** A description to let users add more details about the event. *)
   disable_session_renewal : bool prop option; [@option]
-      (** Disables automatic renewal of session cookies. *)
   event_end_time : string prop;
-      (** ISO 8601 timestamp that marks the end of the event. **Modifying this attribute will force creation of a new resource.** *)
   event_start_time : string prop;
-      (** ISO 8601 timestamp that marks the start of the event. Must occur at least 1 minute before `event_end_time`. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** A unique name to identify the event. Only alphanumeric characters, hyphens, and underscores are allowed. **Modifying this attribute will force creation of a new resource.** *)
   new_users_per_minute : float prop option; [@option]
-      (** The number of new users that will be let into the route every minute. *)
   prequeue_start_time : string prop option; [@option]
-      (** ISO 8601 timestamp that marks when to begin queueing all users before the event starts. Must occur at least 5 minutes before `event_start_time`. *)
   queueing_method : string prop option; [@option]
-      (** The queueing method used by the waiting room. Available values: `fifo`, `random`, `passthrough`, `reject`. *)
   session_duration : float prop option; [@option]
-      (** Lifetime of a cookie (in minutes) set by Cloudflare for users who get access to the origin. *)
   shuffle_at_event_start : bool prop option; [@option]
-      (** Users in the prequeue will be shuffled randomly at the `event_start_time`. Requires that `prequeue_start_time` is not null. Defaults to `false`. *)
   suspended : bool prop option; [@option]
-      (** If suspended, the event is ignored and traffic will be handled based on the waiting room configuration. *)
   total_active_users : float prop option; [@option]
-      (** The total number of active user sessions on the route at a point in time. *)
   waiting_room_id : string prop;
-      (** The Waiting Room ID the event should apply to. **Modifying this attribute will force creation of a new resource.** *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Waiting Room Event resource. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_waiting_room_event) -> ()
+
+let yojson_of_cloudflare_waiting_room_event =
+  (function
+   | {
+       custom_page_html = v_custom_page_html;
+       description = v_description;
+       disable_session_renewal = v_disable_session_renewal;
+       event_end_time = v_event_end_time;
+       event_start_time = v_event_start_time;
+       id = v_id;
+       name = v_name;
+       new_users_per_minute = v_new_users_per_minute;
+       prequeue_start_time = v_prequeue_start_time;
+       queueing_method = v_queueing_method;
+       session_duration = v_session_duration;
+       shuffle_at_event_start = v_shuffle_at_event_start;
+       suspended = v_suspended;
+       total_active_users = v_total_active_users;
+       waiting_room_id = v_waiting_room_id;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_waiting_room_id
+         in
+         ("waiting_room_id", arg) :: bnds
+       in
+       let bnds =
+         match v_total_active_users with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "total_active_users", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_suspended with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "suspended", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_shuffle_at_event_start with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "shuffle_at_event_start", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "session_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_queueing_method with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "queueing_method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_prequeue_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "prequeue_start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_new_users_per_minute with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "new_users_per_minute", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_event_start_time
+         in
+         ("event_start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_event_end_time
+         in
+         ("event_end_time", arg) :: bnds
+       in
+       let bnds =
+         match v_disable_session_renewal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_session_renewal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_page_html with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_page_html", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_waiting_room_event ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_waiting_room_event
+
+[@@@deriving.end]
 
 let cloudflare_waiting_room_event ?custom_page_html ?description
     ?disable_session_renewal ?id ?new_users_per_minute

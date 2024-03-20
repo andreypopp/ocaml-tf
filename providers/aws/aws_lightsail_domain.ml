@@ -3,11 +3,37 @@
 open! Tf_core
 
 type aws_lightsail_domain = {
-  domain_name : string prop;  (** domain_name *)
-  id : string prop option; [@option]  (** id *)
+  domain_name : string prop;
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_lightsail_domain *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lightsail_domain) -> ()
+
+let yojson_of_aws_lightsail_domain =
+  (function
+   | { domain_name = v_domain_name; id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lightsail_domain -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lightsail_domain
+
+[@@@deriving.end]
 
 let aws_lightsail_domain ?id ~domain_name () : aws_lightsail_domain =
   { domain_name; id }

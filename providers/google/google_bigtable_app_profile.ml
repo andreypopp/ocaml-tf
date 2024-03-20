@@ -4,53 +4,235 @@ open! Tf_core
 
 type single_cluster_routing = {
   allow_transactional_writes : bool prop option; [@option]
-      (** If true, CheckAndMutateRow and ReadModifyWriteRow requests are allowed by this app profile.
-It is unsafe to send these requests to the same table/row/column in multiple clusters. *)
   cluster_id : string prop;
-      (** The cluster to which read/write requests should be routed. *)
 }
-[@@deriving yojson_of]
-(** Use a single-cluster routing policy. *)
+[@@deriving_inline yojson_of]
 
-type standard_isolation = {
-  priority : string prop;
-      (** The priority of requests sent using this app profile. Possible values: [PRIORITY_LOW, PRIORITY_MEDIUM, PRIORITY_HIGH] *)
-}
-[@@deriving yojson_of]
-(** The standard options used for isolating this app profile's traffic from other use cases. *)
+let _ = fun (_ : single_cluster_routing) -> ()
+
+let yojson_of_single_cluster_routing =
+  (function
+   | {
+       allow_transactional_writes = v_allow_transactional_writes;
+       cluster_id = v_cluster_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       let bnds =
+         match v_allow_transactional_writes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_transactional_writes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : single_cluster_routing -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_single_cluster_routing
+
+[@@@deriving.end]
+
+type standard_isolation = { priority : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : standard_isolation) -> ()
+
+let yojson_of_standard_isolation =
+  (function
+   | { priority = v_priority } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_priority in
+         ("priority", arg) :: bnds
+       in
+       `Assoc bnds
+    : standard_isolation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_standard_isolation
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigtable_app_profile = {
   app_profile_id : string prop;
-      (** The unique name of the app profile in the form '[_a-zA-Z0-9][-_.a-zA-Z0-9]*'. *)
   description : string prop option; [@option]
-      (** Long form description of the use case for this app profile. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ignore_warnings : bool prop option; [@option]
-      (** If true, ignore safety checks when deleting/updating the app profile. *)
   instance : string prop option; [@option]
-      (** The name of the instance to create the app profile within. *)
   multi_cluster_routing_cluster_ids : string prop list option;
       [@option]
-      (** The set of clusters to route to. The order is ignored; clusters will be tried in order of distance. If left empty, all clusters are eligible. *)
   multi_cluster_routing_use_any : bool prop option; [@option]
-      (** If true, read/write requests are routed to the nearest cluster in the instance, and will fail over to the nearest cluster that is available
-in the event of transient errors or delays. Clusters in a region are considered equidistant. Choosing this option sacrifices read-your-writes
-consistency to improve availability. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   single_cluster_routing : single_cluster_routing list;
   standard_isolation : standard_isolation list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigtable_app_profile *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigtable_app_profile) -> ()
+
+let yojson_of_google_bigtable_app_profile =
+  (function
+   | {
+       app_profile_id = v_app_profile_id;
+       description = v_description;
+       id = v_id;
+       ignore_warnings = v_ignore_warnings;
+       instance = v_instance;
+       multi_cluster_routing_cluster_ids =
+         v_multi_cluster_routing_cluster_ids;
+       multi_cluster_routing_use_any =
+         v_multi_cluster_routing_use_any;
+       project = v_project;
+       single_cluster_routing = v_single_cluster_routing;
+       standard_isolation = v_standard_isolation;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_standard_isolation
+             v_standard_isolation
+         in
+         ("standard_isolation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_single_cluster_routing
+             v_single_cluster_routing
+         in
+         ("single_cluster_routing", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_multi_cluster_routing_use_any with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "multi_cluster_routing_use_any", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_multi_cluster_routing_cluster_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "multi_cluster_routing_cluster_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_warnings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_warnings", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_app_profile_id
+         in
+         ("app_profile_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_bigtable_app_profile ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigtable_app_profile
+
+[@@@deriving.end]
 
 let single_cluster_routing ?allow_transactional_writes ~cluster_id ()
     : single_cluster_routing =

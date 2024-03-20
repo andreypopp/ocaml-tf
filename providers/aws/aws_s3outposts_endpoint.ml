@@ -2,22 +2,99 @@
 
 open! Tf_core
 
-type network_interfaces = {
-  network_interface_id : string prop;  (** network_interface_id *)
-}
-[@@deriving yojson_of]
+type network_interfaces = { network_interface_id : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_interfaces) -> ()
+
+let yojson_of_network_interfaces =
+  (function
+   | { network_interface_id = v_network_interface_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_network_interface_id
+         in
+         ("network_interface_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_interfaces -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_interfaces
+
+[@@@deriving.end]
 
 type aws_s3outposts_endpoint = {
-  access_type : string prop option; [@option]  (** access_type *)
+  access_type : string prop option; [@option]
   customer_owned_ipv4_pool : string prop option; [@option]
-      (** customer_owned_ipv4_pool *)
-  id : string prop option; [@option]  (** id *)
-  outpost_id : string prop;  (** outpost_id *)
-  security_group_id : string prop;  (** security_group_id *)
-  subnet_id : string prop;  (** subnet_id *)
+  id : string prop option; [@option]
+  outpost_id : string prop;
+  security_group_id : string prop;
+  subnet_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_s3outposts_endpoint *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_s3outposts_endpoint) -> ()
+
+let yojson_of_aws_s3outposts_endpoint =
+  (function
+   | {
+       access_type = v_access_type;
+       customer_owned_ipv4_pool = v_customer_owned_ipv4_pool;
+       id = v_id;
+       outpost_id = v_outpost_id;
+       security_group_id = v_security_group_id;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_security_group_id
+         in
+         ("security_group_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_outpost_id in
+         ("outpost_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_customer_owned_ipv4_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "customer_owned_ipv4_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_s3outposts_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_s3outposts_endpoint
+
+[@@@deriving.end]
 
 let aws_s3outposts_endpoint ?access_type ?customer_owned_ipv4_pool
     ?id ~outpost_id ~security_group_id ~subnet_id () :

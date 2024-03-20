@@ -16,10 +16,14 @@ type execution_status__latest_job = {
   uid : string prop;  (** uid *)
 }
 
+[@@@deriving.end]
+
 type execution_status = {
   latest_job : execution_status__latest_job list;  (** latest_job *)
   update_time : string prop;  (** update_time *)
 }
+
+[@@@deriving.end]
 
 type execution_spec
 

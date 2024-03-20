@@ -4,35 +4,164 @@ open! Tf_core
 
 type timeouts = {
   create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
   update : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type voice_settings = {
-  engine : string prop option; [@option]  (** engine *)
-  voice_id : string prop;  (** voice_id *)
+  engine : string prop option; [@option]
+  voice_id : string prop;
 }
-[@@deriving yojson_of]
-(** voice_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : voice_settings) -> ()
+
+let yojson_of_voice_settings =
+  (function
+   | { engine = v_engine; voice_id = v_voice_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_voice_id in
+         ("voice_id", arg) :: bnds
+       in
+       let bnds =
+         match v_engine with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : voice_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_voice_settings
+
+[@@@deriving.end]
 
 type aws_lexv2models_bot_locale = {
-  bot_id : string prop;  (** bot_id *)
-  bot_version : string prop;  (** bot_version *)
-  description : string prop option; [@option]  (** description *)
-  locale_id : string prop;  (** locale_id *)
+  bot_id : string prop;
+  bot_version : string prop;
+  description : string prop option; [@option]
+  locale_id : string prop;
   n_lu_intent_confidence_threshold : float prop;
-      (** n_lu_intent_confidence_threshold *)
-  name : string prop option; [@option]  (** name *)
+  name : string prop option; [@option]
   timeouts : timeouts option;
   voice_settings : voice_settings list;
 }
-[@@deriving yojson_of]
-(** aws_lexv2models_bot_locale *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lexv2models_bot_locale) -> ()
+
+let yojson_of_aws_lexv2models_bot_locale =
+  (function
+   | {
+       bot_id = v_bot_id;
+       bot_version = v_bot_version;
+       description = v_description;
+       locale_id = v_locale_id;
+       n_lu_intent_confidence_threshold =
+         v_n_lu_intent_confidence_threshold;
+       name = v_name;
+       timeouts = v_timeouts;
+       voice_settings = v_voice_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_voice_settings v_voice_settings
+         in
+         ("voice_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_n_lu_intent_confidence_threshold
+         in
+         ("n_lu_intent_confidence_threshold", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_locale_id in
+         ("locale_id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bot_version in
+         ("bot_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bot_id in
+         ("bot_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lexv2models_bot_locale -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lexv2models_bot_locale
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

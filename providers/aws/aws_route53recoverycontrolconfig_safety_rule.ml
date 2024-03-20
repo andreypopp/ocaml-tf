@@ -3,28 +3,137 @@
 open! Tf_core
 
 type rule_config = {
-  inverted : bool prop;  (** inverted *)
-  threshold : float prop;  (** threshold *)
-  type_ : string prop; [@key "type"]  (** type *)
+  inverted : bool prop;
+  threshold : float prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** rule_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rule_config) -> ()
+
+let yojson_of_rule_config =
+  (function
+   | {
+       inverted = v_inverted;
+       threshold = v_threshold;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_threshold in
+         ("threshold", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_inverted in
+         ("inverted", arg) :: bnds
+       in
+       `Assoc bnds
+    : rule_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rule_config
+
+[@@@deriving.end]
 
 type aws_route53recoverycontrolconfig_safety_rule = {
   asserted_controls : string prop list option; [@option]
-      (** asserted_controls *)
-  control_panel_arn : string prop;  (** control_panel_arn *)
+  control_panel_arn : string prop;
   gating_controls : string prop list option; [@option]
-      (** gating_controls *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   target_controls : string prop list option; [@option]
-      (** target_controls *)
-  wait_period_ms : float prop;  (** wait_period_ms *)
+  wait_period_ms : float prop;
   rule_config : rule_config list;
 }
-[@@deriving yojson_of]
-(** aws_route53recoverycontrolconfig_safety_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53recoverycontrolconfig_safety_rule) -> ()
+
+let yojson_of_aws_route53recoverycontrolconfig_safety_rule =
+  (function
+   | {
+       asserted_controls = v_asserted_controls;
+       control_panel_arn = v_control_panel_arn;
+       gating_controls = v_gating_controls;
+       id = v_id;
+       name = v_name;
+       target_controls = v_target_controls;
+       wait_period_ms = v_wait_period_ms;
+       rule_config = v_rule_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rule_config v_rule_config
+         in
+         ("rule_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_wait_period_ms in
+         ("wait_period_ms", arg) :: bnds
+       in
+       let bnds =
+         match v_target_controls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "target_controls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gating_controls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "gating_controls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_control_panel_arn
+         in
+         ("control_panel_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_asserted_controls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "asserted_controls", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_route53recoverycontrolconfig_safety_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53recoverycontrolconfig_safety_rule
+
+[@@@deriving.end]
 
 let rule_config ~inverted ~threshold ~type_ () : rule_config =
   { inverted; threshold; type_ }

@@ -4,88 +4,431 @@ open! Tf_core
 
 type ethereum_details__geth_details = {
   garbage_collection_mode : string prop option; [@option]
-      (** Blockchain garbage collection modes. Only applicable when NodeType is FULL or ARCHIVE. Possible values: [FULL, ARCHIVE] *)
 }
-[@@deriving yojson_of]
-(** User-provided key-value pairs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ethereum_details__geth_details) -> ()
+
+let yojson_of_ethereum_details__geth_details =
+  (function
+   | { garbage_collection_mode = v_garbage_collection_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_garbage_collection_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "garbage_collection_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ethereum_details__geth_details ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ethereum_details__geth_details
+
+[@@@deriving.end]
 
 type ethereum_details__validator_config = {
   mev_relay_urls : string prop list option; [@option]
-      (** URLs for MEV-relay services to use for block building. When set, a managed MEV-boost service is configured on the beacon client. *)
 }
-[@@deriving yojson_of]
-(** Configuration for validator-related parameters on the beacon client, and for any managed validator client. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ethereum_details__validator_config) -> ()
+
+let yojson_of_ethereum_details__validator_config =
+  (function
+   | { mev_relay_urls = v_mev_relay_urls } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_mev_relay_urls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "mev_relay_urls", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ethereum_details__validator_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ethereum_details__validator_config
+
+[@@@deriving.end]
 
 type ethereum_details__additional_endpoints = {
-  beacon_api_endpoint : string prop;  (** beacon_api_endpoint *)
+  beacon_api_endpoint : string prop;
   beacon_prometheus_metrics_api_endpoint : string prop;
-      (** beacon_prometheus_metrics_api_endpoint *)
   execution_client_prometheus_metrics_api_endpoint : string prop;
-      (** execution_client_prometheus_metrics_api_endpoint *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ethereum_details__additional_endpoints) -> ()
+
+let yojson_of_ethereum_details__additional_endpoints =
+  (function
+   | {
+       beacon_api_endpoint = v_beacon_api_endpoint;
+       beacon_prometheus_metrics_api_endpoint =
+         v_beacon_prometheus_metrics_api_endpoint;
+       execution_client_prometheus_metrics_api_endpoint =
+         v_execution_client_prometheus_metrics_api_endpoint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_execution_client_prometheus_metrics_api_endpoint
+         in
+         ("execution_client_prometheus_metrics_api_endpoint", arg)
+         :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_beacon_prometheus_metrics_api_endpoint
+         in
+         ("beacon_prometheus_metrics_api_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_beacon_api_endpoint
+         in
+         ("beacon_api_endpoint", arg) :: bnds
+       in
+       `Assoc bnds
+    : ethereum_details__additional_endpoints ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ethereum_details__additional_endpoints
+
+[@@@deriving.end]
 
 type ethereum_details = {
   api_enable_admin : bool prop option; [@option]
-      (** Enables JSON-RPC access to functions in the admin namespace. Defaults to false. *)
   api_enable_debug : bool prop option; [@option]
-      (** Enables JSON-RPC access to functions in the debug namespace. Defaults to false. *)
   consensus_client : string prop option; [@option]
-      (** The consensus client Possible values: [CONSENSUS_CLIENT_UNSPECIFIED, LIGHTHOUSE] *)
   execution_client : string prop option; [@option]
-      (** The execution client Possible values: [EXECUTION_CLIENT_UNSPECIFIED, GETH, ERIGON] *)
   network : string prop option; [@option]
-      (** The Ethereum environment being accessed. Possible values: [MAINNET, TESTNET_GOERLI_PRATER, TESTNET_SEPOLIA] *)
   node_type : string prop option; [@option]
-      (** The type of Ethereum node. Possible values: [LIGHT, FULL, ARCHIVE] *)
   geth_details : ethereum_details__geth_details list;
   validator_config : ethereum_details__validator_config list;
 }
-[@@deriving yojson_of]
-(** User-provided key-value pairs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ethereum_details) -> ()
+
+let yojson_of_ethereum_details =
+  (function
+   | {
+       api_enable_admin = v_api_enable_admin;
+       api_enable_debug = v_api_enable_debug;
+       consensus_client = v_consensus_client;
+       execution_client = v_execution_client;
+       network = v_network;
+       node_type = v_node_type;
+       geth_details = v_geth_details;
+       validator_config = v_validator_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_ethereum_details__validator_config
+             v_validator_config
+         in
+         ("validator_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ethereum_details__geth_details
+             v_geth_details
+         in
+         ("geth_details", arg) :: bnds
+       in
+       let bnds =
+         match v_node_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_execution_client with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "execution_client", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_consensus_client with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "consensus_client", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_enable_debug with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "api_enable_debug", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_enable_admin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "api_enable_admin", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ethereum_details -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ethereum_details
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type connection_info__endpoint_info = {
-  json_rpc_api_endpoint : string prop;  (** json_rpc_api_endpoint *)
+  json_rpc_api_endpoint : string prop;
   websockets_api_endpoint : string prop;
-      (** websockets_api_endpoint *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : connection_info__endpoint_info) -> ()
+
+let yojson_of_connection_info__endpoint_info =
+  (function
+   | {
+       json_rpc_api_endpoint = v_json_rpc_api_endpoint;
+       websockets_api_endpoint = v_websockets_api_endpoint;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_websockets_api_endpoint
+         in
+         ("websockets_api_endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_json_rpc_api_endpoint
+         in
+         ("json_rpc_api_endpoint", arg) :: bnds
+       in
+       `Assoc bnds
+    : connection_info__endpoint_info ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_connection_info__endpoint_info
+
+[@@@deriving.end]
 
 type connection_info = {
   endpoint_info : connection_info__endpoint_info list;
-      (** endpoint_info *)
-  service_attachment : string prop;  (** service_attachment *)
+  service_attachment : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : connection_info) -> ()
+
+let yojson_of_connection_info =
+  (function
+   | {
+       endpoint_info = v_endpoint_info;
+       service_attachment = v_service_attachment;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_attachment
+         in
+         ("service_attachment", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_connection_info__endpoint_info
+             v_endpoint_info
+         in
+         ("endpoint_info", arg) :: bnds
+       in
+       `Assoc bnds
+    : connection_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_connection_info
+
+[@@@deriving.end]
 
 type google_blockchain_node_engine_blockchain_nodes = {
   blockchain_node_id : string prop;
-      (** ID of the requesting object. *)
   blockchain_type : string prop option; [@option]
-      (** User-provided key-value pairs Possible values: [ETHEREUM] *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** User-provided key-value pairs
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop;
-      (** Location of Blockchain Node being created. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   ethereum_details : ethereum_details list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_blockchain_node_engine_blockchain_nodes *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_blockchain_node_engine_blockchain_nodes) -> ()
+
+let yojson_of_google_blockchain_node_engine_blockchain_nodes =
+  (function
+   | {
+       blockchain_node_id = v_blockchain_node_id;
+       blockchain_type = v_blockchain_type;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       project = v_project;
+       ethereum_details = v_ethereum_details;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ethereum_details
+             v_ethereum_details
+         in
+         ("ethereum_details", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_blockchain_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "blockchain_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_blockchain_node_id
+         in
+         ("blockchain_node_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_blockchain_node_engine_blockchain_nodes ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_blockchain_node_engine_blockchain_nodes
+
+[@@@deriving.end]
 
 let ethereum_details__geth_details ?garbage_collection_mode () :
     ethereum_details__geth_details =

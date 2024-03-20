@@ -3,12 +3,47 @@
 open! Tf_core
 
 type aws_lightsail_bucket_resource_access = {
-  bucket_name : string prop;  (** bucket_name *)
-  id : string prop option; [@option]  (** id *)
-  resource_name : string prop;  (** resource_name *)
+  bucket_name : string prop;
+  id : string prop option; [@option]
+  resource_name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_lightsail_bucket_resource_access *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lightsail_bucket_resource_access) -> ()
+
+let yojson_of_aws_lightsail_bucket_resource_access =
+  (function
+   | {
+       bucket_name = v_bucket_name;
+       id = v_id;
+       resource_name = v_resource_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_name in
+         ("resource_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_lightsail_bucket_resource_access ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lightsail_bucket_resource_access
+
+[@@@deriving.end]
 
 let aws_lightsail_bucket_resource_access ?id ~bucket_name
     ~resource_name () : aws_lightsail_bucket_resource_access =

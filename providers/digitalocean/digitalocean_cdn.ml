@@ -4,19 +4,79 @@ open! Tf_core
 
 type digitalocean_cdn = {
   certificate_id : string prop option; [@option]
-      (** ID of a DigitalOcean managed TLS certificate for use with custom domains *)
   certificate_name : string prop option; [@option]
-      (** certificate_name *)
   custom_domain : string prop option; [@option]
-      (** fully qualified domain name (FQDN) for custom subdomain, (requires certificate_id) *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   origin : string prop;
-      (** fully qualified domain name (FQDN) for the origin server *)
   ttl : float prop option; [@option]
-      (** The amount of time the content is cached in the CDN *)
 }
-[@@deriving yojson_of]
-(** digitalocean_cdn *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_cdn) -> ()
+
+let yojson_of_digitalocean_cdn =
+  (function
+   | {
+       certificate_id = v_certificate_id;
+       certificate_name = v_certificate_name;
+       custom_domain = v_custom_domain;
+       id = v_id;
+       origin = v_origin;
+       ttl = v_ttl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_origin in
+         ("origin", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_domain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_cdn -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_cdn
+
+[@@@deriving.end]
 
 let digitalocean_cdn ?certificate_id ?certificate_name ?custom_domain
     ?id ?ttl ~origin () : digitalocean_cdn =

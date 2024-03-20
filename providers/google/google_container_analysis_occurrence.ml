@@ -4,75 +4,196 @@ open! Tf_core
 
 type attestation__signatures = {
   public_key_id : string prop;
-      (** The identifier for the public key that verifies this
-signature. MUST be an RFC3986 conformant
-URI. * When possible, the key id should be an
-immutable reference, such as a cryptographic digest.
-Examples of valid values:
-
-* OpenPGP V4 public key fingerprint. See https://www.iana.org/assignments/uri-schemes/prov/openpgp4fpr
-  for more details on this scheme.
-    * 'openpgp4fpr:74FAF3B861BDA0870C7B6DEF607E48D2A663AEEA'
-* RFC6920 digest-named SubjectPublicKeyInfo (digest of the DER serialization):
-    * ni:///sha-256;cD9o9Cq6LG3jD0iKXqEi_vdjJGecm_iXkbqVoScViaU *)
   signature : string prop option; [@option]
-      (** The content of the signature, an opaque bytestring.
-The payload that this signature verifies MUST be
-unambiguously provided with the Signature during
-verification. A wrapper message might provide the
-payload explicitly. Alternatively, a message might
-have a canonical serialization that can always be
-unambiguously computed to derive the payload. *)
 }
-[@@deriving yojson_of]
-(** One or more signatures over serializedPayload.
-Verifier implementations should consider this attestation
-message verified if at least one signature verifies
-serializedPayload. See Signature in common.proto for more
-details on signature structure and verification. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attestation__signatures) -> ()
+
+let yojson_of_attestation__signatures =
+  (function
+   | { public_key_id = v_public_key_id; signature = v_signature } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_signature with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "signature", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_public_key_id in
+         ("public_key_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : attestation__signatures -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attestation__signatures
+
+[@@@deriving.end]
 
 type attestation = {
   serialized_payload : string prop;
-      (** The serialized payload that is verified by one or
-more signatures. A base64-encoded string. *)
   signatures : attestation__signatures list;
 }
-[@@deriving yojson_of]
-(** Occurrence that represents a single attestation. The authenticity
-of an attestation can be verified using the attached signature.
-If the verifier trusts the public key of the signer, then verifying
-the signature is sufficient to establish trust. In this circumstance,
-the authority to which this attestation is attached is primarily
-useful for lookup (how to find this attestation if you already
-know the authority and artifact to be verified) and intent (for
-which authority this attestation was intended to sign. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attestation) -> ()
+
+let yojson_of_attestation =
+  (function
+   | {
+       serialized_payload = v_serialized_payload;
+       signatures = v_signatures;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_attestation__signatures
+             v_signatures
+         in
+         ("signatures", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_serialized_payload
+         in
+         ("serialized_payload", arg) :: bnds
+       in
+       `Assoc bnds
+    : attestation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attestation
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_container_analysis_occurrence = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   note_name : string prop;
-      (** The analysis note associated with this occurrence, in the form of
-projects/[PROJECT]/notes/[NOTE_ID]. This field can be used as a
-filter in list requests. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   remediation : string prop option; [@option]
-      (** A description of actions that can be taken to remedy the note. *)
   resource_uri : string prop;
-      (** Required. Immutable. A URI that represents the resource for which
-the occurrence applies. For example,
-https://gcr.io/project/image@sha256:123abc for a Docker image. *)
   attestation : attestation list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_container_analysis_occurrence *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_container_analysis_occurrence) -> ()
+
+let yojson_of_google_container_analysis_occurrence =
+  (function
+   | {
+       id = v_id;
+       note_name = v_note_name;
+       project = v_project;
+       remediation = v_remediation;
+       resource_uri = v_resource_uri;
+       attestation = v_attestation;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_attestation v_attestation
+         in
+         ("attestation", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_uri in
+         ("resource_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_remediation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "remediation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_note_name in
+         ("note_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_container_analysis_occurrence ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_container_analysis_occurrence
+
+[@@@deriving.end]
 
 let attestation__signatures ?signature ~public_key_id () :
     attestation__signatures =

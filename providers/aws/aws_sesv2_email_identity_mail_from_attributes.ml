@@ -4,14 +4,62 @@ open! Tf_core
 
 type aws_sesv2_email_identity_mail_from_attributes = {
   behavior_on_mx_failure : string prop option; [@option]
-      (** behavior_on_mx_failure *)
-  email_identity : string prop;  (** email_identity *)
-  id : string prop option; [@option]  (** id *)
+  email_identity : string prop;
+  id : string prop option; [@option]
   mail_from_domain : string prop option; [@option]
-      (** mail_from_domain *)
 }
-[@@deriving yojson_of]
-(** aws_sesv2_email_identity_mail_from_attributes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sesv2_email_identity_mail_from_attributes) -> ()
+
+let yojson_of_aws_sesv2_email_identity_mail_from_attributes =
+  (function
+   | {
+       behavior_on_mx_failure = v_behavior_on_mx_failure;
+       email_identity = v_email_identity;
+       id = v_id;
+       mail_from_domain = v_mail_from_domain;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_mail_from_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mail_from_domain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_email_identity
+         in
+         ("email_identity", arg) :: bnds
+       in
+       let bnds =
+         match v_behavior_on_mx_failure with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "behavior_on_mx_failure", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sesv2_email_identity_mail_from_attributes ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sesv2_email_identity_mail_from_attributes
+
+[@@@deriving.end]
 
 let aws_sesv2_email_identity_mail_from_attributes
     ?behavior_on_mx_failure ?id ?mail_from_domain ~email_identity ()

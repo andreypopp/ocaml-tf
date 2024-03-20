@@ -3,76 +3,437 @@
 open! Tf_core
 
 type storage_descriptor__columns = {
-  comment : string prop option; [@option]  (** comment *)
-  name : string prop;  (** name *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  comment : string prop option; [@option]
+  name : string prop;
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** storage_descriptor__columns *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage_descriptor__columns) -> ()
+
+let yojson_of_storage_descriptor__columns =
+  (function
+   | { comment = v_comment; name = v_name; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_comment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : storage_descriptor__columns ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage_descriptor__columns
+
+[@@@deriving.end]
 
 type storage_descriptor__ser_de_info = {
-  name : string prop option; [@option]  (** name *)
+  name : string prop option; [@option]
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
   serialization_library : string prop option; [@option]
-      (** serialization_library *)
 }
-[@@deriving yojson_of]
-(** storage_descriptor__ser_de_info *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage_descriptor__ser_de_info) -> ()
+
+let yojson_of_storage_descriptor__ser_de_info =
+  (function
+   | {
+       name = v_name;
+       parameters = v_parameters;
+       serialization_library = v_serialization_library;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_serialization_library with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "serialization_library", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : storage_descriptor__ser_de_info ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage_descriptor__ser_de_info
+
+[@@@deriving.end]
 
 type storage_descriptor__skewed_info = {
   skewed_column_names : string prop list option; [@option]
-      (** skewed_column_names *)
   skewed_column_value_location_maps :
     (string * string prop) list option;
       [@option]
-      (** skewed_column_value_location_maps *)
   skewed_column_values : string prop list option; [@option]
-      (** skewed_column_values *)
 }
-[@@deriving yojson_of]
-(** storage_descriptor__skewed_info *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage_descriptor__skewed_info) -> ()
+
+let yojson_of_storage_descriptor__skewed_info =
+  (function
+   | {
+       skewed_column_names = v_skewed_column_names;
+       skewed_column_value_location_maps =
+         v_skewed_column_value_location_maps;
+       skewed_column_values = v_skewed_column_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_skewed_column_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "skewed_column_values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skewed_column_value_location_maps with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "skewed_column_value_location_maps", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skewed_column_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "skewed_column_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : storage_descriptor__skewed_info ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage_descriptor__skewed_info
+
+[@@@deriving.end]
 
 type storage_descriptor__sort_columns = {
-  column : string prop;  (** column *)
-  sort_order : float prop;  (** sort_order *)
+  column : string prop;
+  sort_order : float prop;
 }
-[@@deriving yojson_of]
-(** storage_descriptor__sort_columns *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage_descriptor__sort_columns) -> ()
+
+let yojson_of_storage_descriptor__sort_columns =
+  (function
+   | { column = v_column; sort_order = v_sort_order } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_sort_order in
+         ("sort_order", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_column in
+         ("column", arg) :: bnds
+       in
+       `Assoc bnds
+    : storage_descriptor__sort_columns ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage_descriptor__sort_columns
+
+[@@@deriving.end]
 
 type storage_descriptor = {
   bucket_columns : string prop list option; [@option]
-      (** bucket_columns *)
-  compressed : bool prop option; [@option]  (** compressed *)
-  input_format : string prop option; [@option]  (** input_format *)
-  location : string prop option; [@option]  (** location *)
+  compressed : bool prop option; [@option]
+  input_format : string prop option; [@option]
+  location : string prop option; [@option]
   number_of_buckets : float prop option; [@option]
-      (** number_of_buckets *)
-  output_format : string prop option; [@option]  (** output_format *)
+  output_format : string prop option; [@option]
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
   stored_as_sub_directories : bool prop option; [@option]
-      (** stored_as_sub_directories *)
   columns : storage_descriptor__columns list;
   ser_de_info : storage_descriptor__ser_de_info list;
   skewed_info : storage_descriptor__skewed_info list;
   sort_columns : storage_descriptor__sort_columns list;
 }
-[@@deriving yojson_of]
-(** storage_descriptor *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage_descriptor) -> ()
+
+let yojson_of_storage_descriptor =
+  (function
+   | {
+       bucket_columns = v_bucket_columns;
+       compressed = v_compressed;
+       input_format = v_input_format;
+       location = v_location;
+       number_of_buckets = v_number_of_buckets;
+       output_format = v_output_format;
+       parameters = v_parameters;
+       stored_as_sub_directories = v_stored_as_sub_directories;
+       columns = v_columns;
+       ser_de_info = v_ser_de_info;
+       skewed_info = v_skewed_info;
+       sort_columns = v_sort_columns;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_storage_descriptor__sort_columns
+             v_sort_columns
+         in
+         ("sort_columns", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_storage_descriptor__skewed_info
+             v_skewed_info
+         in
+         ("skewed_info", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_storage_descriptor__ser_de_info
+             v_ser_de_info
+         in
+         ("ser_de_info", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_storage_descriptor__columns
+             v_columns
+         in
+         ("columns", arg) :: bnds
+       in
+       let bnds =
+         match v_stored_as_sub_directories with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "stored_as_sub_directories", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_output_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "output_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_number_of_buckets with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "number_of_buckets", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_input_format with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "input_format", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compressed with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "compressed", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bucket_columns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "bucket_columns", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : storage_descriptor -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage_descriptor
+
+[@@@deriving.end]
 
 type aws_glue_partition = {
-  catalog_id : string prop option; [@option]  (** catalog_id *)
-  database_name : string prop;  (** database_name *)
-  id : string prop option; [@option]  (** id *)
+  catalog_id : string prop option; [@option]
+  database_name : string prop;
+  id : string prop option; [@option]
   parameters : (string * string prop) list option; [@option]
-      (** parameters *)
-  partition_values : string prop list;  (** partition_values *)
-  table_name : string prop;  (** table_name *)
+  partition_values : string prop list;
+  table_name : string prop;
   storage_descriptor : storage_descriptor list;
 }
-[@@deriving yojson_of]
-(** aws_glue_partition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_glue_partition) -> ()
+
+let yojson_of_aws_glue_partition =
+  (function
+   | {
+       catalog_id = v_catalog_id;
+       database_name = v_database_name;
+       id = v_id;
+       parameters = v_parameters;
+       partition_values = v_partition_values;
+       table_name = v_table_name;
+       storage_descriptor = v_storage_descriptor;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_storage_descriptor
+             v_storage_descriptor
+         in
+         ("storage_descriptor", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_name in
+         ("table_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_partition_values
+         in
+         ("partition_values", arg) :: bnds
+       in
+       let bnds =
+         match v_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_name in
+         ("database_name", arg) :: bnds
+       in
+       let bnds =
+         match v_catalog_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "catalog_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_glue_partition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_glue_partition
+
+[@@@deriving.end]
 
 let storage_descriptor__columns ?comment ?type_ ~name () :
     storage_descriptor__columns =

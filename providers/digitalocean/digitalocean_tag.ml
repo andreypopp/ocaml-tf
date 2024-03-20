@@ -3,11 +3,37 @@
 open! Tf_core
 
 type digitalocean_tag = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** digitalocean_tag *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_tag) -> ()
+
+let yojson_of_digitalocean_tag =
+  (function
+   | { id = v_id; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_tag -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_tag
+
+[@@@deriving.end]
 
 let digitalocean_tag ?id ~name () : digitalocean_tag = { id; name }
 

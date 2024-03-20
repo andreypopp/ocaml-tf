@@ -4,12 +4,47 @@ open! Tf_core
 
 type aws_route53_query_log = {
   cloudwatch_log_group_arn : string prop;
-      (** cloudwatch_log_group_arn *)
-  id : string prop option; [@option]  (** id *)
-  zone_id : string prop;  (** zone_id *)
+  id : string prop option; [@option]
+  zone_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_route53_query_log *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_query_log) -> ()
+
+let yojson_of_aws_route53_query_log =
+  (function
+   | {
+       cloudwatch_log_group_arn = v_cloudwatch_log_group_arn;
+       id = v_id;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cloudwatch_log_group_arn
+         in
+         ("cloudwatch_log_group_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_query_log -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_query_log
+
+[@@@deriving.end]
 
 let aws_route53_query_log ?id ~cloudwatch_log_group_arn ~zone_id () :
     aws_route53_query_log =

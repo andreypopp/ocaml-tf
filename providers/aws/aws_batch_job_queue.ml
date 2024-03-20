@@ -3,37 +3,175 @@
 open! Tf_core
 
 type compute_environment_order = {
-  compute_environment : string prop;  (** compute_environment *)
-  order : float prop;  (** order *)
+  compute_environment : string prop;
+  order : float prop;
 }
-[@@deriving yojson_of]
-(** compute_environment_order *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : compute_environment_order) -> ()
+
+let yojson_of_compute_environment_order =
+  (function
+   | { compute_environment = v_compute_environment; order = v_order }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_order in
+         ("order", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_compute_environment
+         in
+         ("compute_environment", arg) :: bnds
+       in
+       `Assoc bnds
+    : compute_environment_order -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_compute_environment_order
+
+[@@@deriving.end]
 
 type timeouts = {
   create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
   update : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_batch_job_queue = {
   compute_environments : string prop list option; [@option]
-      (** compute_environments *)
-  name : string prop;  (** name *)
-  priority : float prop;  (** priority *)
+  name : string prop;
+  priority : float prop;
   scheduling_policy_arn : string prop option; [@option]
-      (** scheduling_policy_arn *)
-  state : string prop;  (** state *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  state : string prop;
+  tags : (string * string prop) list option; [@option]
   compute_environment_order : compute_environment_order list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_batch_job_queue *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_batch_job_queue) -> ()
+
+let yojson_of_aws_batch_job_queue =
+  (function
+   | {
+       compute_environments = v_compute_environments;
+       name = v_name;
+       priority = v_priority;
+       scheduling_policy_arn = v_scheduling_policy_arn;
+       state = v_state;
+       tags = v_tags;
+       compute_environment_order = v_compute_environment_order;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_compute_environment_order
+             v_compute_environment_order
+         in
+         ("compute_environment_order", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         match v_scheduling_policy_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scheduling_policy_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_priority in
+         ("priority", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_compute_environments with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "compute_environments", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_batch_job_queue -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_batch_job_queue
+
+[@@@deriving.end]
 
 let compute_environment_order ~compute_environment ~order () :
     compute_environment_order =

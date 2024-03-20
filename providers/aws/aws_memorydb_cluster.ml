@@ -3,84 +3,496 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type cluster_endpoint = {
-  address : string prop;  (** address *)
-  port : float prop;  (** port *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type cluster_endpoint = { address : string prop; port : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_endpoint) -> ()
+
+let yojson_of_cluster_endpoint =
+  (function
+   | { address = v_address; port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_address in
+         ("address", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_endpoint
+
+[@@@deriving.end]
 
 type shards__nodes__endpoint = {
-  address : string prop;  (** address *)
-  port : float prop;  (** port *)
+  address : string prop;
+  port : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shards__nodes__endpoint) -> ()
+
+let yojson_of_shards__nodes__endpoint =
+  (function
+   | { address = v_address; port = v_port } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_port in
+         ("port", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_address in
+         ("address", arg) :: bnds
+       in
+       `Assoc bnds
+    : shards__nodes__endpoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shards__nodes__endpoint
+
+[@@@deriving.end]
 
 type shards__nodes = {
-  availability_zone : string prop;  (** availability_zone *)
-  create_time : string prop;  (** create_time *)
-  endpoint : shards__nodes__endpoint list;  (** endpoint *)
-  name : string prop;  (** name *)
+  availability_zone : string prop;
+  create_time : string prop;
+  endpoint : shards__nodes__endpoint list;
+  name : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shards__nodes) -> ()
+
+let yojson_of_shards__nodes =
+  (function
+   | {
+       availability_zone = v_availability_zone;
+       create_time = v_create_time;
+       endpoint = v_endpoint;
+       name = v_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_shards__nodes__endpoint
+             v_endpoint
+         in
+         ("endpoint", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_create_time in
+         ("create_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_availability_zone
+         in
+         ("availability_zone", arg) :: bnds
+       in
+       `Assoc bnds
+    : shards__nodes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shards__nodes
+
+[@@@deriving.end]
 
 type shards = {
-  name : string prop;  (** name *)
-  nodes : shards__nodes list;  (** nodes *)
-  num_nodes : float prop;  (** num_nodes *)
-  slots : string prop;  (** slots *)
+  name : string prop;
+  nodes : shards__nodes list;
+  num_nodes : float prop;
+  slots : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : shards) -> ()
+
+let yojson_of_shards =
+  (function
+   | {
+       name = v_name;
+       nodes = v_nodes;
+       num_nodes = v_num_nodes;
+       slots = v_slots;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_slots in
+         ("slots", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_num_nodes in
+         ("num_nodes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_shards__nodes v_nodes in
+         ("nodes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : shards -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_shards
+
+[@@@deriving.end]
 
 type aws_memorydb_cluster = {
-  acl_name : string prop;  (** acl_name *)
+  acl_name : string prop;
   auto_minor_version_upgrade : bool prop option; [@option]
-      (** auto_minor_version_upgrade *)
-  data_tiering : bool prop option; [@option]  (** data_tiering *)
-  description : string prop option; [@option]  (** description *)
+  data_tiering : bool prop option; [@option]
+  description : string prop option; [@option]
   engine_version : string prop option; [@option]
-      (** engine_version *)
   final_snapshot_name : string prop option; [@option]
-      (** final_snapshot_name *)
-  id : string prop option; [@option]  (** id *)
-  kms_key_arn : string prop option; [@option]  (** kms_key_arn *)
+  id : string prop option; [@option]
+  kms_key_arn : string prop option; [@option]
   maintenance_window : string prop option; [@option]
-      (** maintenance_window *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  node_type : string prop;  (** node_type *)
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  node_type : string prop;
   num_replicas_per_shard : float prop option; [@option]
-      (** num_replicas_per_shard *)
-  num_shards : float prop option; [@option]  (** num_shards *)
+  num_shards : float prop option; [@option]
   parameter_group_name : string prop option; [@option]
-      (** parameter_group_name *)
-  port : float prop option; [@option]  (** port *)
+  port : float prop option; [@option]
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
   snapshot_arns : string prop list option; [@option]
-      (** snapshot_arns *)
-  snapshot_name : string prop option; [@option]  (** snapshot_name *)
+  snapshot_name : string prop option; [@option]
   snapshot_retention_limit : float prop option; [@option]
-      (** snapshot_retention_limit *)
   snapshot_window : string prop option; [@option]
-      (** snapshot_window *)
-  sns_topic_arn : string prop option; [@option]  (** sns_topic_arn *)
+  sns_topic_arn : string prop option; [@option]
   subnet_group_name : string prop option; [@option]
-      (** subnet_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  tls_enabled : bool prop option; [@option]  (** tls_enabled *)
+  tls_enabled : bool prop option; [@option]
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_memorydb_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_memorydb_cluster) -> ()
+
+let yojson_of_aws_memorydb_cluster =
+  (function
+   | {
+       acl_name = v_acl_name;
+       auto_minor_version_upgrade = v_auto_minor_version_upgrade;
+       data_tiering = v_data_tiering;
+       description = v_description;
+       engine_version = v_engine_version;
+       final_snapshot_name = v_final_snapshot_name;
+       id = v_id;
+       kms_key_arn = v_kms_key_arn;
+       maintenance_window = v_maintenance_window;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       node_type = v_node_type;
+       num_replicas_per_shard = v_num_replicas_per_shard;
+       num_shards = v_num_shards;
+       parameter_group_name = v_parameter_group_name;
+       port = v_port;
+       security_group_ids = v_security_group_ids;
+       snapshot_arns = v_snapshot_arns;
+       snapshot_name = v_snapshot_name;
+       snapshot_retention_limit = v_snapshot_retention_limit;
+       snapshot_window = v_snapshot_window;
+       sns_topic_arn = v_sns_topic_arn;
+       subnet_group_name = v_subnet_group_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       tls_enabled = v_tls_enabled;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_tls_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "tls_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnet_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnet_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sns_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sns_topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "snapshot_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_retention_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "snapshot_retention_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "snapshot_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_arns with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "snapshot_arns", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parameter_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parameter_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_shards with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_shards", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_replicas_per_shard with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_replicas_per_shard", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_node_type in
+         ("node_type", arg) :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maintenance_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "maintenance_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_final_snapshot_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "final_snapshot_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_engine_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_tiering with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "data_tiering", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_minor_version_upgrade with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_minor_version_upgrade", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_acl_name in
+         ("acl_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_memorydb_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_memorydb_cluster
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

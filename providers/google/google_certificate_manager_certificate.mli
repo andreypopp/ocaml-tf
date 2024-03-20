@@ -11,10 +11,14 @@ type managed__authorization_attempt_info = {
   state : string prop;  (** state *)
 }
 
+[@@@deriving.end]
+
 type managed__provisioning_issue = {
   details : string prop;  (** details *)
   reason : string prop;  (** reason *)
 }
+
+[@@@deriving.end]
 
 type managed
 

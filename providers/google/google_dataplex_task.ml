@@ -4,51 +4,247 @@ open! Tf_core
 
 type execution_spec = {
   args : (string * string prop) list option; [@option]
-      (** The arguments to pass to the task. The args can use placeholders of the format ${placeholder} as part of key/value string. These will be interpolated before passing the args to the driver. Currently supported placeholders: - ${taskId} - ${job_time} To pass positional args, set the key as TASK_ARGS. The value should be a comma-separated string of all the positional arguments. To use a delimiter other than comma, refer to https://cloud.google.com/sdk/gcloud/reference/topic/escaping. In case of other keys being present in the args, then TASK_ARGS will be passed as the last argument. An object containing a list of 'key': value pairs. Example: { 'name': 'wrench', 'mass': '1.3kg', 'count': '3' }. *)
   kms_key : string prop option; [@option]
-      (** The Cloud KMS key to use for encryption, of the form: projects/{project_number}/locations/{locationId}/keyRings/{key-ring-name}/cryptoKeys/{key-name}. *)
   max_job_execution_lifetime : string prop option; [@option]
-      (** The maximum duration after which the job execution is expired. A duration in seconds with up to nine fractional digits, ending with 's'. Example: '3.5s'. *)
   project : string prop option; [@option]
-      (** The project in which jobs are run. By default, the project containing the Lake is used. If a project is provided, the ExecutionSpec.service_account must belong to this project. *)
   service_account : string prop;
-      (** Service account to use to execute a task. If not provided, the default Compute service account for the project is used. *)
 }
-[@@deriving yojson_of]
-(** Configuration for the cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution_spec) -> ()
+
+let yojson_of_execution_spec =
+  (function
+   | {
+       args = v_args;
+       kms_key = v_kms_key;
+       max_job_execution_lifetime = v_max_job_execution_lifetime;
+       project = v_project;
+       service_account = v_service_account;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_account
+         in
+         ("service_account", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_job_execution_lifetime with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_job_execution_lifetime", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_args with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "args", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : execution_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution_spec
+
+[@@@deriving.end]
 
 type notebook__infrastructure_spec__batch = {
   executors_count : float prop option; [@option]
-      (** Total number of job executors. Executor Count should be between 2 and 100. [Default=2] *)
   max_executors_count : float prop option; [@option]
-      (** Max configurable executors. If maxExecutorsCount > executorsCount, then auto-scaling is enabled. Max Executor Count should be between 2 and 1000. [Default=1000] *)
 }
-[@@deriving yojson_of]
-(** Compute resources needed for a Task when using Dataproc Serverless. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notebook__infrastructure_spec__batch) -> ()
+
+let yojson_of_notebook__infrastructure_spec__batch =
+  (function
+   | {
+       executors_count = v_executors_count;
+       max_executors_count = v_max_executors_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_executors_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_executors_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_executors_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "executors_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : notebook__infrastructure_spec__batch ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notebook__infrastructure_spec__batch
+
+[@@@deriving.end]
 
 type notebook__infrastructure_spec__container_image = {
   image : string prop option; [@option]
-      (** Container image to use. *)
   java_jars : string prop list option; [@option]
-      (** A list of Java JARS to add to the classpath. Valid input includes Cloud Storage URIs to Jar binaries. For example, gs://bucket-name/my/path/to/file.jar *)
   properties : (string * string prop) list option; [@option]
-      (** Override to common configuration of open source components installed on the Dataproc cluster. The properties to set on daemon config files. Property keys are specified in prefix:property format, for example core:hadoop.tmp.dir. For more information, see Cluster properties. *)
   python_packages : string prop list option; [@option]
-      (** A list of python packages to be installed. Valid formats include Cloud Storage URI to a PIP installable library. For example, gs://bucket-name/my/path/to/lib.tar.gz *)
 }
-[@@deriving yojson_of]
-(** Container Image Runtime Configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : notebook__infrastructure_spec__container_image) -> ()
+
+let yojson_of_notebook__infrastructure_spec__container_image =
+  (function
+   | {
+       image = v_image;
+       java_jars = v_java_jars;
+       properties = v_properties;
+       python_packages = v_python_packages;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_python_packages with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "python_packages", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_java_jars with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "java_jars", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : notebook__infrastructure_spec__container_image ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notebook__infrastructure_spec__container_image
+
+[@@@deriving.end]
 
 type notebook__infrastructure_spec__vpc_network = {
   network : string prop option; [@option]
-      (** The Cloud VPC network in which the job is run. By default, the Cloud VPC network named Default within the project is used. *)
   network_tags : string prop list option; [@option]
-      (** List of network tags to apply to the job. *)
   sub_network : string prop option; [@option]
-      (** The Cloud VPC sub-network in which the job is run. *)
 }
-[@@deriving yojson_of]
-(** Vpc network. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notebook__infrastructure_spec__vpc_network) -> ()
+
+let yojson_of_notebook__infrastructure_spec__vpc_network =
+  (function
+   | {
+       network = v_network;
+       network_tags = v_network_tags;
+       sub_network = v_sub_network;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sub_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sub_network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "network_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : notebook__infrastructure_spec__vpc_network ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notebook__infrastructure_spec__vpc_network
+
+[@@@deriving.end]
 
 type notebook__infrastructure_spec = {
   batch : notebook__infrastructure_spec__batch list;
@@ -56,151 +252,789 @@ type notebook__infrastructure_spec = {
     notebook__infrastructure_spec__container_image list;
   vpc_network : notebook__infrastructure_spec__vpc_network list;
 }
-[@@deriving yojson_of]
-(** Infrastructure specification for the execution. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notebook__infrastructure_spec) -> ()
+
+let yojson_of_notebook__infrastructure_spec =
+  (function
+   | {
+       batch = v_batch;
+       container_image = v_container_image;
+       vpc_network = v_vpc_network;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_notebook__infrastructure_spec__vpc_network
+             v_vpc_network
+         in
+         ("vpc_network", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_notebook__infrastructure_spec__container_image
+             v_container_image
+         in
+         ("container_image", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_notebook__infrastructure_spec__batch v_batch
+         in
+         ("batch", arg) :: bnds
+       in
+       `Assoc bnds
+    : notebook__infrastructure_spec ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notebook__infrastructure_spec
+
+[@@@deriving.end]
 
 type notebook = {
   archive_uris : string prop list option; [@option]
-      (** Cloud Storage URIs of archives to be extracted into the working directory of each executor. Supported file types: .jar, .tar, .tar.gz, .tgz, and .zip. *)
   file_uris : string prop list option; [@option]
-      (** Cloud Storage URIs of files to be placed in the working directory of each executor. *)
   notebook : string prop;
-      (** Path to input notebook. This can be the Cloud Storage URI of the notebook file or the path to a Notebook Content. The execution args are accessible as environment variables (TASK_key=value). *)
   infrastructure_spec : notebook__infrastructure_spec list;
 }
-[@@deriving yojson_of]
-(** A service with manual scaling runs continuously, allowing you to perform complex initialization and rely on the state of its memory over time. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notebook) -> ()
+
+let yojson_of_notebook =
+  (function
+   | {
+       archive_uris = v_archive_uris;
+       file_uris = v_file_uris;
+       notebook = v_notebook;
+       infrastructure_spec = v_infrastructure_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_notebook__infrastructure_spec
+             v_infrastructure_spec
+         in
+         ("infrastructure_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_notebook in
+         ("notebook", arg) :: bnds
+       in
+       let bnds =
+         match v_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_archive_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "archive_uris", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : notebook -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notebook
+
+[@@@deriving.end]
 
 type spark__infrastructure_spec__batch = {
   executors_count : float prop option; [@option]
-      (** Total number of job executors. Executor Count should be between 2 and 100. [Default=2] *)
   max_executors_count : float prop option; [@option]
-      (** Max configurable executors. If maxExecutorsCount > executorsCount, then auto-scaling is enabled. Max Executor Count should be between 2 and 1000. [Default=1000] *)
 }
-[@@deriving yojson_of]
-(** Compute resources needed for a Task when using Dataproc Serverless. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spark__infrastructure_spec__batch) -> ()
+
+let yojson_of_spark__infrastructure_spec__batch =
+  (function
+   | {
+       executors_count = v_executors_count;
+       max_executors_count = v_max_executors_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_executors_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_executors_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_executors_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "executors_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spark__infrastructure_spec__batch ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spark__infrastructure_spec__batch
+
+[@@@deriving.end]
 
 type spark__infrastructure_spec__container_image = {
   image : string prop option; [@option]
-      (** Container image to use. *)
   java_jars : string prop list option; [@option]
-      (** A list of Java JARS to add to the classpath. Valid input includes Cloud Storage URIs to Jar binaries. For example, gs://bucket-name/my/path/to/file.jar *)
   properties : (string * string prop) list option; [@option]
-      (** Override to common configuration of open source components installed on the Dataproc cluster. The properties to set on daemon config files. Property keys are specified in prefix:property format, for example core:hadoop.tmp.dir. For more information, see Cluster properties. *)
   python_packages : string prop list option; [@option]
-      (** A list of python packages to be installed. Valid formats include Cloud Storage URI to a PIP installable library. For example, gs://bucket-name/my/path/to/lib.tar.gz *)
 }
-[@@deriving yojson_of]
-(** Container Image Runtime Configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spark__infrastructure_spec__container_image) -> ()
+
+let yojson_of_spark__infrastructure_spec__container_image =
+  (function
+   | {
+       image = v_image;
+       java_jars = v_java_jars;
+       properties = v_properties;
+       python_packages = v_python_packages;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_python_packages with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "python_packages", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_java_jars with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "java_jars", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spark__infrastructure_spec__container_image ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spark__infrastructure_spec__container_image
+
+[@@@deriving.end]
 
 type spark__infrastructure_spec__vpc_network = {
   network : string prop option; [@option]
-      (** The Cloud VPC network in which the job is run. By default, the Cloud VPC network named Default within the project is used. *)
   network_tags : string prop list option; [@option]
-      (** List of network tags to apply to the job. *)
   sub_network : string prop option; [@option]
-      (** The Cloud VPC sub-network in which the job is run. *)
 }
-[@@deriving yojson_of]
-(** Vpc network. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spark__infrastructure_spec__vpc_network) -> ()
+
+let yojson_of_spark__infrastructure_spec__vpc_network =
+  (function
+   | {
+       network = v_network;
+       network_tags = v_network_tags;
+       sub_network = v_sub_network;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_sub_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sub_network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "network_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spark__infrastructure_spec__vpc_network ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spark__infrastructure_spec__vpc_network
+
+[@@@deriving.end]
 
 type spark__infrastructure_spec = {
   batch : spark__infrastructure_spec__batch list;
   container_image : spark__infrastructure_spec__container_image list;
   vpc_network : spark__infrastructure_spec__vpc_network list;
 }
-[@@deriving yojson_of]
-(** Infrastructure specification for the execution. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spark__infrastructure_spec) -> ()
+
+let yojson_of_spark__infrastructure_spec =
+  (function
+   | {
+       batch = v_batch;
+       container_image = v_container_image;
+       vpc_network = v_vpc_network;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spark__infrastructure_spec__vpc_network
+             v_vpc_network
+         in
+         ("vpc_network", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_spark__infrastructure_spec__container_image
+             v_container_image
+         in
+         ("container_image", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spark__infrastructure_spec__batch
+             v_batch
+         in
+         ("batch", arg) :: bnds
+       in
+       `Assoc bnds
+    : spark__infrastructure_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spark__infrastructure_spec
+
+[@@@deriving.end]
 
 type spark = {
   archive_uris : string prop list option; [@option]
-      (** Cloud Storage URIs of archives to be extracted into the working directory of each executor. Supported file types: .jar, .tar, .tar.gz, .tgz, and .zip. *)
   file_uris : string prop list option; [@option]
-      (** Cloud Storage URIs of files to be placed in the working directory of each executor. *)
   main_class : string prop option; [@option]
-      (** The name of the driver's main class. The jar file that contains the class must be in the default CLASSPATH or specified in jar_file_uris. The execution args are passed in as a sequence of named process arguments (--key=value). *)
   main_jar_file_uri : string prop option; [@option]
-      (** The Cloud Storage URI of the jar file that contains the main class. The execution args are passed in as a sequence of named process arguments (--key=value). *)
   python_script_file : string prop option; [@option]
-      (** The Gcloud Storage URI of the main Python file to use as the driver. Must be a .py file. The execution args are passed in as a sequence of named process arguments (--key=value). *)
   sql_script : string prop option; [@option]
-      (** The query text. The execution args are used to declare a set of script variables (set key='value';). *)
   sql_script_file : string prop option; [@option]
-      (** A reference to a query file. This can be the Cloud Storage URI of the query file or it can the path to a SqlScript Content. The execution args are used to declare a set of script variables (set key='value';). *)
   infrastructure_spec : spark__infrastructure_spec list;
 }
-[@@deriving yojson_of]
-(** A service with manual scaling runs continuously, allowing you to perform complex initialization and rely on the state of its memory over time. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spark) -> ()
+
+let yojson_of_spark =
+  (function
+   | {
+       archive_uris = v_archive_uris;
+       file_uris = v_file_uris;
+       main_class = v_main_class;
+       main_jar_file_uri = v_main_jar_file_uri;
+       python_script_file = v_python_script_file;
+       sql_script = v_sql_script;
+       sql_script_file = v_sql_script_file;
+       infrastructure_spec = v_infrastructure_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spark__infrastructure_spec
+             v_infrastructure_spec
+         in
+         ("infrastructure_spec", arg) :: bnds
+       in
+       let bnds =
+         match v_sql_script_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sql_script_file", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sql_script with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sql_script", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_python_script_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "python_script_file", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_main_jar_file_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "main_jar_file_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_main_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "main_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "file_uris", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_archive_uris with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "archive_uris", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spark -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spark
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type trigger_spec = {
   disabled : bool prop option; [@option]
-      (** Prevent the task from executing. This does not cancel already running tasks. It is intended to temporarily disable RECURRING tasks. *)
   max_retries : float prop option; [@option]
-      (** Number of retry attempts before aborting. Set to zero to never attempt to retry a failed task. *)
   schedule : string prop option; [@option]
-      (** Cron schedule (https://en.wikipedia.org/wiki/Cron) for running tasks periodically. To explicitly set a timezone to the cron tab, apply a prefix in the cron tab: 'CRON_TZ=${IANA_TIME_ZONE}' or 'TZ=${IANA_TIME_ZONE}'. The ${IANA_TIME_ZONE} may only be a valid string from IANA time zone database. For example, CRON_TZ=America/New_York 1 * * * *, or TZ=America/New_York 1 * * * *. This field is required for RECURRING tasks. *)
   start_time : string prop option; [@option]
-      (** The first run of the task will be after this time. If not specified, the task will run shortly after being submitted if ON_DEMAND and based on the schedule if RECURRING. *)
   type_ : string prop; [@key "type"]
-      (** Trigger type of the user-specified Task Possible values: [ON_DEMAND, RECURRING] *)
 }
-[@@deriving yojson_of]
-(** Configuration for the cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : trigger_spec) -> ()
+
+let yojson_of_trigger_spec =
+  (function
+   | {
+       disabled = v_disabled;
+       max_retries = v_max_retries;
+       schedule = v_schedule;
+       start_time = v_start_time;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_schedule with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schedule", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_retries with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_retries", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : trigger_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_trigger_spec
+
+[@@@deriving.end]
 
 type execution_status__latest_job = {
-  end_time : string prop;  (** end_time *)
-  message : string prop;  (** message *)
-  name : string prop;  (** name *)
-  retry_count : float prop;  (** retry_count *)
-  service : string prop;  (** service *)
-  service_job : string prop;  (** service_job *)
-  start_time : string prop;  (** start_time *)
-  state : string prop;  (** state *)
-  uid : string prop;  (** uid *)
+  end_time : string prop;
+  message : string prop;
+  name : string prop;
+  retry_count : float prop;
+  service : string prop;
+  service_job : string prop;
+  start_time : string prop;
+  state : string prop;
+  uid : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution_status__latest_job) -> ()
+
+let yojson_of_execution_status__latest_job =
+  (function
+   | {
+       end_time = v_end_time;
+       message = v_message;
+       name = v_name;
+       retry_count = v_retry_count;
+       service = v_service;
+       service_job = v_service_job;
+       start_time = v_start_time;
+       state = v_state;
+       uid = v_uid;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uid in
+         ("uid", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_start_time in
+         ("start_time", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_job in
+         ("service_job", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_retry_count in
+         ("retry_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_end_time in
+         ("end_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : execution_status__latest_job ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution_status__latest_job
+
+[@@@deriving.end]
 
 type execution_status = {
-  latest_job : execution_status__latest_job list;  (** latest_job *)
-  update_time : string prop;  (** update_time *)
+  latest_job : execution_status__latest_job list;
+  update_time : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution_status) -> ()
+
+let yojson_of_execution_status =
+  (function
+   | { latest_job = v_latest_job; update_time = v_update_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_update_time in
+         ("update_time", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_execution_status__latest_job
+             v_latest_job
+         in
+         ("latest_job", arg) :: bnds
+       in
+       `Assoc bnds
+    : execution_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution_status
+
+[@@@deriving.end]
 
 type google_dataplex_task = {
   description : string prop option; [@option]
-      (** User-provided description of the task. *)
   display_name : string prop option; [@option]
-      (** User friendly display name. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** User-defined labels for the task.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   lake : string prop option; [@option]
-      (** The lake in which the task will be created in. *)
   location : string prop option; [@option]
-      (** The location in which the task will be created in. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   task_id : string prop option; [@option]
-      (** The task Id of the task. *)
   execution_spec : execution_spec list;
   notebook : notebook list;
   spark : spark list;
   timeouts : timeouts option;
   trigger_spec : trigger_spec list;
 }
-[@@deriving yojson_of]
-(** google_dataplex_task *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dataplex_task) -> ()
+
+let yojson_of_google_dataplex_task =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       labels = v_labels;
+       lake = v_lake;
+       location = v_location;
+       project = v_project;
+       task_id = v_task_id;
+       execution_spec = v_execution_spec;
+       notebook = v_notebook;
+       spark = v_spark;
+       timeouts = v_timeouts;
+       trigger_spec = v_trigger_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_trigger_spec v_trigger_spec
+         in
+         ("trigger_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spark v_spark in
+         ("spark", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_notebook v_notebook in
+         ("notebook", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_execution_spec v_execution_spec
+         in
+         ("execution_spec", arg) :: bnds
+       in
+       let bnds =
+         match v_task_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "task_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lake with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "lake", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dataplex_task -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dataplex_task
+
+[@@@deriving.end]
 
 let execution_spec ?args ?kms_key ?max_job_execution_lifetime
     ?project ~service_account () : execution_spec =

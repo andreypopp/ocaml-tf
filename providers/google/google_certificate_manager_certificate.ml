@@ -3,95 +3,356 @@
 open! Tf_core
 
 type managed__authorization_attempt_info = {
-  details : string prop;  (** details *)
-  domain : string prop;  (** domain *)
-  failure_reason : string prop;  (** failure_reason *)
-  state : string prop;  (** state *)
+  details : string prop;
+  domain : string prop;
+  failure_reason : string prop;
+  state : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed__authorization_attempt_info) -> ()
+
+let yojson_of_managed__authorization_attempt_info =
+  (function
+   | {
+       details = v_details;
+       domain = v_domain;
+       failure_reason = v_failure_reason;
+       state = v_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_failure_reason
+         in
+         ("failure_reason", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_details in
+         ("details", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed__authorization_attempt_info ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed__authorization_attempt_info
+
+[@@@deriving.end]
 
 type managed__provisioning_issue = {
-  details : string prop;  (** details *)
-  reason : string prop;  (** reason *)
+  details : string prop;
+  reason : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed__provisioning_issue) -> ()
+
+let yojson_of_managed__provisioning_issue =
+  (function
+   | { details = v_details; reason = v_reason } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_reason in
+         ("reason", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_details in
+         ("details", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed__provisioning_issue ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed__provisioning_issue
+
+[@@@deriving.end]
 
 type managed = {
   dns_authorizations : string prop list option; [@option]
-      (** Authorizations that will be used for performing domain authorization. Either issuanceConfig or dnsAuthorizations should be specificed, but not both. *)
   domains : string prop list option; [@option]
-      (** The domains for which a managed SSL certificate will be generated.
-Wildcard domains are only supported with DNS challenge resolution *)
   issuance_config : string prop option; [@option]
-      (** The resource name for a CertificateIssuanceConfig used to configure private PKI certificates in the format projects/*/locations/*/certificateIssuanceConfigs/*.
-If this field is not set, the certificates will instead be publicly signed as documented at https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#caa.
-Either issuanceConfig or dnsAuthorizations should be specificed, but not both. *)
 }
-[@@deriving yojson_of]
-(** Configuration and state of a Managed Certificate.
-Certificate Manager provisions and renews Managed Certificates
-automatically, for as long as it's authorized to do so. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed) -> ()
+
+let yojson_of_managed =
+  (function
+   | {
+       dns_authorizations = v_dns_authorizations;
+       domains = v_domains;
+       issuance_config = v_issuance_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_issuance_config with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "issuance_config", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domains with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "domains", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dns_authorizations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "dns_authorizations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : managed -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed
+
+[@@@deriving.end]
 
 type self_managed = {
   certificate_pem : string prop option; [@option]
-      (** The certificate chain in PEM-encoded form.
-
-Leaf certificate comes first, followed by intermediate ones if any. *)
   pem_certificate : string prop option; [@option]
-      (** The certificate chain in PEM-encoded form.
-
-Leaf certificate comes first, followed by intermediate ones if any. *)
   pem_private_key : string prop option; [@option]
-      (** The private key of the leaf certificate in PEM-encoded form. *)
   private_key_pem : string prop option; [@option]
-      (** The private key of the leaf certificate in PEM-encoded form. *)
 }
-[@@deriving yojson_of]
-(** Certificate data for a SelfManaged Certificate.
-SelfManaged Certificates are uploaded by the user. Updating such
-certificates before they expire remains the user's responsibility. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : self_managed) -> ()
+
+let yojson_of_self_managed =
+  (function
+   | {
+       certificate_pem = v_certificate_pem;
+       pem_certificate = v_pem_certificate;
+       pem_private_key = v_pem_private_key;
+       private_key_pem = v_private_key_pem;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_private_key_pem with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_key_pem", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pem_private_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pem_private_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_pem_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "pem_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_pem with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_pem", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : self_managed -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_self_managed
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_certificate_manager_certificate = {
   description : string prop option; [@option]
-      (** A human-readable description of the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Set of label tags associated with the Certificate resource.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop option; [@option]
-      (** The Certificate Manager location. If not specified, global is used. *)
   name : string prop;
-      (** A user-defined name of the certificate. Certificate names must be unique
-The name must be 1-64 characters long, and match the regular expression [a-zA-Z][a-zA-Z0-9_-]* which means the first character must be a letter,
-and all following characters must be a dash, underscore, letter or digit. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   scope : string prop option; [@option]
-      (** The scope of the certificate.
-
-DEFAULT: Certificates with default scope are served from core Google data centers.
-If unsure, choose this option.
-
-EDGE_CACHE: Certificates with scope EDGE_CACHE are special-purposed certificates, served from Edge Points of Presence.
-See https://cloud.google.com/vpc/docs/edge-locations.
-
-ALL_REGIONS: Certificates with ALL_REGIONS scope are served from all GCP regions (You can only use ALL_REGIONS with global certs).
-See https://cloud.google.com/compute/docs/regions-zones *)
   managed : managed list;
   self_managed : self_managed list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_certificate_manager_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_certificate_manager_certificate) -> ()
+
+let yojson_of_google_certificate_manager_certificate =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       scope = v_scope;
+       managed = v_managed;
+       self_managed = v_self_managed;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_self_managed v_self_managed
+         in
+         ("self_managed", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_managed v_managed in
+         ("managed", arg) :: bnds
+       in
+       let bnds =
+         match v_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_certificate_manager_certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_certificate_manager_certificate
+
+[@@@deriving.end]
 
 let managed ?dns_authorizations ?domains ?issuance_config () :
     managed =

@@ -4,66 +4,283 @@ open! Tf_core
 
 type rules__deny_rule__denial_condition = {
   description : string prop option; [@option]
-      (** Description of the expression. This is a longer text which describes the expression,
-e.g. when hovered over it in a UI. *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting,
-e.g. a file name and a position in the file. *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose.
-This can be used e.g. in UIs which allow to enter the expression. *)
 }
-[@@deriving yojson_of]
-(** User defined CEVAL expression. A CEVAL expression is used to specify match criteria such as origin.ip, source.region_code and contents in the request header. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules__deny_rule__denial_condition) -> ()
+
+let yojson_of_rules__deny_rule__denial_condition =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rules__deny_rule__denial_condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules__deny_rule__denial_condition
+
+[@@@deriving.end]
 
 type rules__deny_rule = {
   denied_permissions : string prop list option; [@option]
-      (** The permissions that are explicitly denied by this rule. Each permission uses the format '{service-fqdn}/{resource}.{verb}',
-where '{service-fqdn}' is the fully qualified domain name for the service. For example, 'iam.googleapis.com/roles.list'. *)
   denied_principals : string prop list option; [@option]
-      (** The identities that are prevented from using one or more permissions on Google Cloud resources. *)
   exception_permissions : string prop list option; [@option]
-      (** Specifies the permissions that this rule excludes from the set of denied permissions given by deniedPermissions.
-If a permission appears in deniedPermissions and in exceptionPermissions then it will not be denied.
-The excluded permissions can be specified using the same syntax as deniedPermissions. *)
   exception_principals : string prop list option; [@option]
-      (** The identities that are excluded from the deny rule, even if they are listed in the deniedPrincipals.
-For example, you could add a Google group to the deniedPrincipals, then exclude specific users who belong to that group. *)
   denial_condition : rules__deny_rule__denial_condition list;
 }
-[@@deriving yojson_of]
-(** A deny rule in an IAM deny policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules__deny_rule) -> ()
+
+let yojson_of_rules__deny_rule =
+  (function
+   | {
+       denied_permissions = v_denied_permissions;
+       denied_principals = v_denied_principals;
+       exception_permissions = v_exception_permissions;
+       exception_principals = v_exception_principals;
+       denial_condition = v_denial_condition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_rules__deny_rule__denial_condition
+             v_denial_condition
+         in
+         ("denial_condition", arg) :: bnds
+       in
+       let bnds =
+         match v_exception_principals with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exception_principals", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_exception_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exception_permissions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_denied_principals with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "denied_principals", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_denied_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "denied_permissions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rules__deny_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules__deny_rule
+
+[@@@deriving.end]
 
 type rules = {
   description : string prop option; [@option]
-      (** The description of the rule. *)
   deny_rule : rules__deny_rule list;
 }
-[@@deriving yojson_of]
-(** Rules to be applied. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rules) -> ()
+
+let yojson_of_rules =
+  (function
+   | { description = v_description; deny_rule = v_deny_rule } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_rules__deny_rule v_deny_rule
+         in
+         ("deny_rule", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rules
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_iam_deny_policy = {
   display_name : string prop option; [@option]
-      (** The display name of the rule. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The name of the policy. *)
+  id : string prop option; [@option]
+  name : string prop;
   parent : string prop;
-      (** The attachment point is identified by its URL-encoded full resource name. *)
   rules : rules list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_iam_deny_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_iam_deny_policy) -> ()
+
+let yojson_of_google_iam_deny_policy =
+  (function
+   | {
+       display_name = v_display_name;
+       id = v_id;
+       name = v_name;
+       parent = v_parent;
+       rules = v_rules;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rules v_rules in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_iam_deny_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_iam_deny_policy
+
+[@@@deriving.end]
 
 let rules__deny_rule__denial_condition ?description ?location ?title
     ~expression () : rules__deny_rule__denial_condition =

@@ -3,29 +3,147 @@
 open! Tf_core
 
 type auto_enable = {
-  ec2 : bool prop;  (** ec2 *)
-  ecr : bool prop;  (** ecr *)
-  lambda : bool prop option; [@option]  (** lambda *)
-  lambda_code : bool prop option; [@option]  (** lambda_code *)
+  ec2 : bool prop;
+  ecr : bool prop;
+  lambda : bool prop option; [@option]
+  lambda_code : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** auto_enable *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auto_enable) -> ()
+
+let yojson_of_auto_enable =
+  (function
+   | {
+       ec2 = v_ec2;
+       ecr = v_ecr;
+       lambda = v_lambda;
+       lambda_code = v_lambda_code;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_lambda_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "lambda_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_lambda with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "lambda", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_ecr in
+         ("ecr", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_ec2 in
+         ("ec2", arg) :: bnds
+       in
+       `Assoc bnds
+    : auto_enable -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auto_enable
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_inspector2_organization_configuration = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   auto_enable : auto_enable list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_inspector2_organization_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_inspector2_organization_configuration) -> ()
+
+let yojson_of_aws_inspector2_organization_configuration =
+  (function
+   | {
+       id = v_id;
+       auto_enable = v_auto_enable;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auto_enable v_auto_enable
+         in
+         ("auto_enable", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_inspector2_organization_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_inspector2_organization_configuration
+
+[@@@deriving.end]
 
 let auto_enable ?lambda ?lambda_code ~ec2 ~ecr () : auto_enable =
   { ec2; ecr; lambda; lambda_code }

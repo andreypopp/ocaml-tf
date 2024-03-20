@@ -3,12 +3,43 @@
 open! Tf_core
 
 type aws_ecs_account_setting_default = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
+  id : string prop option; [@option]
+  name : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** aws_ecs_account_setting_default *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ecs_account_setting_default) -> ()
+
+let yojson_of_aws_ecs_account_setting_default =
+  (function
+   | { id = v_id; name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ecs_account_setting_default ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ecs_account_setting_default
+
+[@@@deriving.end]
 
 let aws_ecs_account_setting_default ?id ~name ~value () :
     aws_ecs_account_setting_default =

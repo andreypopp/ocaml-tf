@@ -4,119 +4,555 @@ open! Tf_core
 
 type github_config__authorizer_credential = {
   oauth_token_secret_version : string prop option; [@option]
-      (** A SecretManager resource containing the OAuth token that authorizes the Cloud Build connection. Format: 'projects/*/secrets/*/versions/*'. *)
 }
-[@@deriving yojson_of]
-(** OAuth credential of the account that authorized the Cloud Build GitHub App. It is recommended to use a robot account instead of a human user account. The OAuth token must be tied to the Cloud Build GitHub App. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : github_config__authorizer_credential) -> ()
+
+let yojson_of_github_config__authorizer_credential =
+  (function
+   | { oauth_token_secret_version = v_oauth_token_secret_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_oauth_token_secret_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "oauth_token_secret_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : github_config__authorizer_credential ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github_config__authorizer_credential
+
+[@@@deriving.end]
 
 type github_config = {
   app_installation_id : float prop option; [@option]
-      (** GitHub App installation id. *)
   authorizer_credential : github_config__authorizer_credential list;
 }
-[@@deriving yojson_of]
-(** Configuration for connections to github.com. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : github_config) -> ()
+
+let yojson_of_github_config =
+  (function
+   | {
+       app_installation_id = v_app_installation_id;
+       authorizer_credential = v_authorizer_credential;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_github_config__authorizer_credential
+             v_authorizer_credential
+         in
+         ("authorizer_credential", arg) :: bnds
+       in
+       let bnds =
+         match v_app_installation_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "app_installation_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : github_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github_config
+
+[@@@deriving.end]
 
 type github_enterprise_config__service_directory_config = {
   service : string prop;
-      (** Required. The Service Directory service name. Format: projects/{project}/locations/{location}/namespaces/{namespace}/services/{service}. *)
 }
-[@@deriving yojson_of]
-(** Configuration for using Service Directory to privately connect to a GitHub Enterprise server. This should only be set if the GitHub Enterprise server is hosted on-premises and not reachable by public internet. If this field is left empty, calls to the GitHub Enterprise server will be made over the public internet. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : github_enterprise_config__service_directory_config) -> ()
+
+let yojson_of_github_enterprise_config__service_directory_config =
+  (function
+   | { service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       `Assoc bnds
+    : github_enterprise_config__service_directory_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github_enterprise_config__service_directory_config
+
+[@@@deriving.end]
 
 type github_enterprise_config = {
   app_id : float prop option; [@option]
-      (** Id of the GitHub App created from the manifest. *)
   app_installation_id : float prop option; [@option]
-      (** ID of the installation of the GitHub App. *)
   app_slug : string prop option; [@option]
-      (** The URL-friendly name of the GitHub App. *)
   host_uri : string prop;
-      (** Required. The URI of the GitHub Enterprise host this connection is for. *)
   private_key_secret_version : string prop option; [@option]
-      (** SecretManager resource containing the private key of the GitHub App, formatted as 'projects/*/secrets/*/versions/*'. *)
   ssl_ca : string prop option; [@option]
-      (** SSL certificate to use for requests to GitHub Enterprise. *)
   webhook_secret_secret_version : string prop option; [@option]
-      (** SecretManager resource containing the webhook secret of the GitHub App, formatted as 'projects/*/secrets/*/versions/*'. *)
   service_directory_config :
     github_enterprise_config__service_directory_config list;
 }
-[@@deriving yojson_of]
-(** Configuration for connections to an instance of GitHub Enterprise. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : github_enterprise_config) -> ()
+
+let yojson_of_github_enterprise_config =
+  (function
+   | {
+       app_id = v_app_id;
+       app_installation_id = v_app_installation_id;
+       app_slug = v_app_slug;
+       host_uri = v_host_uri;
+       private_key_secret_version = v_private_key_secret_version;
+       ssl_ca = v_ssl_ca;
+       webhook_secret_secret_version =
+         v_webhook_secret_secret_version;
+       service_directory_config = v_service_directory_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_github_enterprise_config__service_directory_config
+             v_service_directory_config
+         in
+         ("service_directory_config", arg) :: bnds
+       in
+       let bnds =
+         match v_webhook_secret_secret_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "webhook_secret_secret_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ssl_ca with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_ca", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_key_secret_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_key_secret_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_host_uri in
+         ("host_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_app_slug with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "app_slug", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_app_installation_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "app_installation_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_app_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "app_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : github_enterprise_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github_enterprise_config
+
+[@@@deriving.end]
 
 type gitlab_config__authorizer_credential = {
   user_token_secret_version : string prop;
-      (** Required. A SecretManager resource containing the user token that authorizes the Cloud Build connection. Format: 'projects/*/secrets/*/versions/*'. *)
 }
-[@@deriving yojson_of]
-(** Required. A GitLab personal access token with the 'api' scope access. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : gitlab_config__authorizer_credential) -> ()
+
+let yojson_of_gitlab_config__authorizer_credential =
+  (function
+   | { user_token_secret_version = v_user_token_secret_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_user_token_secret_version
+         in
+         ("user_token_secret_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : gitlab_config__authorizer_credential ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gitlab_config__authorizer_credential
+
+[@@@deriving.end]
 
 type gitlab_config__read_authorizer_credential = {
   user_token_secret_version : string prop;
-      (** Required. A SecretManager resource containing the user token that authorizes the Cloud Build connection. Format: 'projects/*/secrets/*/versions/*'. *)
 }
-[@@deriving yojson_of]
-(** Required. A GitLab personal access token with the minimum 'read_api' scope access. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : gitlab_config__read_authorizer_credential) -> ()
+
+let yojson_of_gitlab_config__read_authorizer_credential =
+  (function
+   | { user_token_secret_version = v_user_token_secret_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_user_token_secret_version
+         in
+         ("user_token_secret_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : gitlab_config__read_authorizer_credential ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gitlab_config__read_authorizer_credential
+
+[@@@deriving.end]
 
 type gitlab_config__service_directory_config = {
   service : string prop;
-      (** Required. The Service Directory service name. Format: projects/{project}/locations/{location}/namespaces/{namespace}/services/{service}. *)
 }
-[@@deriving yojson_of]
-(** Configuration for using Service Directory to privately connect to a GitLab Enterprise server. This should only be set if the GitLab Enterprise server is hosted on-premises and not reachable by public internet. If this field is left empty, calls to the GitLab Enterprise server will be made over the public internet. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : gitlab_config__service_directory_config) -> ()
+
+let yojson_of_gitlab_config__service_directory_config =
+  (function
+   | { service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       `Assoc bnds
+    : gitlab_config__service_directory_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gitlab_config__service_directory_config
+
+[@@@deriving.end]
 
 type gitlab_config = {
   host_uri : string prop option; [@option]
-      (** The URI of the GitLab Enterprise host this connection is for. If not specified, the default value is https://gitlab.com. *)
   ssl_ca : string prop option; [@option]
-      (** SSL certificate to use for requests to GitLab Enterprise. *)
   webhook_secret_secret_version : string prop;
-      (** Required. Immutable. SecretManager resource containing the webhook secret of a GitLab Enterprise project, formatted as 'projects/*/secrets/*/versions/*'. *)
   authorizer_credential : gitlab_config__authorizer_credential list;
   read_authorizer_credential :
     gitlab_config__read_authorizer_credential list;
   service_directory_config :
     gitlab_config__service_directory_config list;
 }
-[@@deriving yojson_of]
-(** Configuration for connections to gitlab.com or an instance of GitLab Enterprise. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : gitlab_config) -> ()
+
+let yojson_of_gitlab_config =
+  (function
+   | {
+       host_uri = v_host_uri;
+       ssl_ca = v_ssl_ca;
+       webhook_secret_secret_version =
+         v_webhook_secret_secret_version;
+       authorizer_credential = v_authorizer_credential;
+       read_authorizer_credential = v_read_authorizer_credential;
+       service_directory_config = v_service_directory_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_gitlab_config__service_directory_config
+             v_service_directory_config
+         in
+         ("service_directory_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_gitlab_config__read_authorizer_credential
+             v_read_authorizer_credential
+         in
+         ("read_authorizer_credential", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_gitlab_config__authorizer_credential
+             v_authorizer_credential
+         in
+         ("authorizer_credential", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_webhook_secret_secret_version
+         in
+         ("webhook_secret_secret_version", arg) :: bnds
+       in
+       let bnds =
+         match v_ssl_ca with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ssl_ca", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host_uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : gitlab_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gitlab_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type installation_state = {
-  action_uri : string prop;  (** action_uri *)
-  message : string prop;  (** message *)
-  stage : string prop;  (** stage *)
+  action_uri : string prop;
+  message : string prop;
+  stage : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : installation_state) -> ()
+
+let yojson_of_installation_state =
+  (function
+   | {
+       action_uri = v_action_uri;
+       message = v_message;
+       stage = v_stage;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stage in
+         ("stage", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action_uri in
+         ("action_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : installation_state -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_installation_state
+
+[@@@deriving.end]
 
 type google_cloudbuildv2_connection = {
   annotations : (string * string prop) list option; [@option]
-      (** Allows clients to store small amounts of arbitrary data.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
   disabled : bool prop option; [@option]
-      (** If disabled is set to true, functionality is disabled for this connection. Repository based API methods and webhooks processing for repositories in this connection will be disabled. *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location for the resource *)
+  id : string prop option; [@option]
+  location : string prop;
   name : string prop;
-      (** Immutable. The resource name of the connection. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   github_config : github_config list;
   github_enterprise_config : github_enterprise_config list;
   gitlab_config : gitlab_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_cloudbuildv2_connection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_cloudbuildv2_connection) -> ()
+
+let yojson_of_google_cloudbuildv2_connection =
+  (function
+   | {
+       annotations = v_annotations;
+       disabled = v_disabled;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       github_config = v_github_config;
+       github_enterprise_config = v_github_enterprise_config;
+       gitlab_config = v_gitlab_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_gitlab_config v_gitlab_config
+         in
+         ("gitlab_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_github_enterprise_config
+             v_github_enterprise_config
+         in
+         ("github_enterprise_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_github_config v_github_config
+         in
+         ("github_config", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_cloudbuildv2_connection ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_cloudbuildv2_connection
+
+[@@@deriving.end]
 
 let github_config__authorizer_credential ?oauth_token_secret_version
     () : github_config__authorizer_credential =

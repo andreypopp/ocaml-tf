@@ -3,63 +3,198 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_dialogflow_agent = {
   api_version : string prop option; [@option]
-      (** API version displayed in Dialogflow console. If not specified, V2 API is assumed. Clients are free to query
-different service endpoints for different API versions. However, bots connectors and webhook calls will follow
-the specified API version.
-* API_VERSION_V1: Legacy V1 API.
-* API_VERSION_V2: V2 API.
-* API_VERSION_V2_BETA_1: V2beta1 API. Possible values: [API_VERSION_V1, API_VERSION_V2, API_VERSION_V2_BETA_1] *)
   avatar_uri : string prop option; [@option]
-      (** The URI of the agent's avatar, which are used throughout the Dialogflow console. When an image URL is entered
-into this field, the Dialogflow will save the image in the backend. The address of the backend image returned
-from the API will be shown in the [avatarUriBackend] field. *)
   classification_threshold : float prop option; [@option]
-      (** To filter out false positive results and still get variety in matched natural language inputs for your agent,
-you can tune the machine learning classification threshold. If the returned score value is less than the threshold
-value, then a fallback intent will be triggered or, if there are no fallback intents defined, no intent will be
-triggered. The score values range from 0.0 (completely uncertain) to 1.0 (completely certain). If set to 0.0, the
-default of 0.3 is used. *)
   default_language_code : string prop;
-      (** The default language of the agent as a language tag. [See Language Support](https://cloud.google.com/dialogflow/docs/reference/language)
-for a list of the currently supported language codes. This field cannot be updated after creation. *)
   description : string prop option; [@option]
-      (** The description of this agent. The maximum length is 500 characters. If exceeded, the request is rejected. *)
-  display_name : string prop;  (** The name of this agent. *)
+  display_name : string prop;
   enable_logging : bool prop option; [@option]
-      (** Determines whether this agent should log conversation queries. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   match_mode : string prop option; [@option]
-      (** Determines how intents are detected from user queries.
-* MATCH_MODE_HYBRID: Best for agents with a small number of examples in intents and/or wide use of templates
-syntax and composite entities.
-* MATCH_MODE_ML_ONLY: Can be used for agents with a large number of examples in intents, especially the ones
-using @sys.any or very large developer entities. Possible values: [MATCH_MODE_HYBRID, MATCH_MODE_ML_ONLY] *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   supported_language_codes : string prop list option; [@option]
-      (** The list of all languages supported by this agent (except for the defaultLanguageCode). *)
   tier : string prop option; [@option]
-      (** The agent tier. If not specified, TIER_STANDARD is assumed.
-* TIER_STANDARD: Standard tier.
-* TIER_ENTERPRISE: Enterprise tier (Essentials).
-* TIER_ENTERPRISE_PLUS: Enterprise tier (Plus).
-NOTE: Due to consistency issues, the provider will not read this field from the API. Drift is possible between
-the Terraform state and Dialogflow if the agent tier is changed outside of Terraform. Possible values: [TIER_STANDARD, TIER_ENTERPRISE, TIER_ENTERPRISE_PLUS] *)
   time_zone : string prop;
-      (** The time zone of this agent from the [time zone database](https://www.iana.org/time-zones), e.g., America/New_York,
-Europe/Paris. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_dialogflow_agent *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dialogflow_agent) -> ()
+
+let yojson_of_google_dialogflow_agent =
+  (function
+   | {
+       api_version = v_api_version;
+       avatar_uri = v_avatar_uri;
+       classification_threshold = v_classification_threshold;
+       default_language_code = v_default_language_code;
+       description = v_description;
+       display_name = v_display_name;
+       enable_logging = v_enable_logging;
+       id = v_id;
+       match_mode = v_match_mode;
+       project = v_project;
+       supported_language_codes = v_supported_language_codes;
+       tier = v_tier;
+       time_zone = v_time_zone;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_zone in
+         ("time_zone", arg) :: bnds
+       in
+       let bnds =
+         match v_tier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_supported_language_codes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "supported_language_codes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_match_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "match_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_logging with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_logging", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_default_language_code
+         in
+         ("default_language_code", arg) :: bnds
+       in
+       let bnds =
+         match v_classification_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "classification_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_avatar_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "avatar_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dialogflow_agent -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dialogflow_agent
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

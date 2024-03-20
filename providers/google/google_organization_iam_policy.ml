@@ -3,13 +3,43 @@
 open! Tf_core
 
 type google_organization_iam_policy = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   org_id : string prop;
-      (** The numeric ID of the organization in which you want to manage the audit logging config. *)
-  policy_data : string prop;  (** policy_data *)
+  policy_data : string prop;
 }
-[@@deriving yojson_of]
-(** google_organization_iam_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_organization_iam_policy) -> ()
+
+let yojson_of_google_organization_iam_policy =
+  (function
+   | { id = v_id; org_id = v_org_id; policy_data = v_policy_data } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_data in
+         ("policy_data", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_org_id in
+         ("org_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_organization_iam_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_organization_iam_policy
+
+[@@@deriving.end]
 
 let google_organization_iam_policy ?id ~org_id ~policy_data () :
     google_organization_iam_policy =

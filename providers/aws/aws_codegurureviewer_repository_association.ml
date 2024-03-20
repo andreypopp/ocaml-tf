@@ -4,38 +4,175 @@ open! Tf_core
 
 type kms_key_details = {
   encryption_option : string prop option; [@option]
-      (** encryption_option *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  kms_key_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** kms_key_details *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kms_key_details) -> ()
+
+let yojson_of_kms_key_details =
+  (function
+   | {
+       encryption_option = v_encryption_option;
+       kms_key_id = v_kms_key_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_option with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption_option", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kms_key_details -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kms_key_details
+
+[@@@deriving.end]
 
 type repository__bitbucket = {
-  connection_arn : string prop;  (** connection_arn *)
-  name : string prop;  (** name *)
-  owner : string prop;  (** owner *)
+  connection_arn : string prop;
+  name : string prop;
+  owner : string prop;
 }
-[@@deriving yojson_of]
-(** repository__bitbucket *)
+[@@deriving_inline yojson_of]
 
-type repository__codecommit = { name : string prop  (** name *) }
-[@@deriving yojson_of]
-(** repository__codecommit *)
+let _ = fun (_ : repository__bitbucket) -> ()
+
+let yojson_of_repository__bitbucket =
+  (function
+   | {
+       connection_arn = v_connection_arn;
+       name = v_name;
+       owner = v_owner;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_owner in
+         ("owner", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_connection_arn
+         in
+         ("connection_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : repository__bitbucket -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_repository__bitbucket
+
+[@@@deriving.end]
+
+type repository__codecommit = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : repository__codecommit) -> ()
+
+let yojson_of_repository__codecommit =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : repository__codecommit -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_repository__codecommit
+
+[@@@deriving.end]
 
 type repository__github_enterprise_server = {
-  connection_arn : string prop;  (** connection_arn *)
-  name : string prop;  (** name *)
-  owner : string prop;  (** owner *)
+  connection_arn : string prop;
+  name : string prop;
+  owner : string prop;
 }
-[@@deriving yojson_of]
-(** repository__github_enterprise_server *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : repository__github_enterprise_server) -> ()
+
+let yojson_of_repository__github_enterprise_server =
+  (function
+   | {
+       connection_arn = v_connection_arn;
+       name = v_name;
+       owner = v_owner;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_owner in
+         ("owner", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_connection_arn
+         in
+         ("connection_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : repository__github_enterprise_server ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_repository__github_enterprise_server
+
+[@@@deriving.end]
 
 type repository__s3_bucket = {
-  bucket_name : string prop;  (** bucket_name *)
-  name : string prop;  (** name *)
+  bucket_name : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** repository__s3_bucket *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : repository__s3_bucket) -> ()
+
+let yojson_of_repository__s3_bucket =
+  (function
+   | { bucket_name = v_bucket_name; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : repository__s3_bucket -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_repository__s3_bucket
+
+[@@@deriving.end]
 
 type repository = {
   bitbucket : repository__bitbucket list;
@@ -44,43 +181,265 @@ type repository = {
     repository__github_enterprise_server list;
   s3_bucket : repository__s3_bucket list;
 }
-[@@deriving yojson_of]
-(** repository *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : repository) -> ()
+
+let yojson_of_repository =
+  (function
+   | {
+       bitbucket = v_bitbucket;
+       codecommit = v_codecommit;
+       github_enterprise_server = v_github_enterprise_server;
+       s3_bucket = v_s3_bucket;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_repository__s3_bucket v_s3_bucket
+         in
+         ("s3_bucket", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_repository__github_enterprise_server
+             v_github_enterprise_server
+         in
+         ("github_enterprise_server", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_repository__codecommit
+             v_codecommit
+         in
+         ("codecommit", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_repository__bitbucket v_bitbucket
+         in
+         ("bitbucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : repository -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_repository
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type s3_repository_details__code_artifacts = {
   build_artifacts_object_key : string prop;
-      (** build_artifacts_object_key *)
   source_code_artifacts_object_key : string prop;
-      (** source_code_artifacts_object_key *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : s3_repository_details__code_artifacts) -> ()
+
+let yojson_of_s3_repository_details__code_artifacts =
+  (function
+   | {
+       build_artifacts_object_key = v_build_artifacts_object_key;
+       source_code_artifacts_object_key =
+         v_source_code_artifacts_object_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_source_code_artifacts_object_key
+         in
+         ("source_code_artifacts_object_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_build_artifacts_object_key
+         in
+         ("build_artifacts_object_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : s3_repository_details__code_artifacts ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_s3_repository_details__code_artifacts
+
+[@@@deriving.end]
 
 type s3_repository_details = {
-  bucket_name : string prop;  (** bucket_name *)
+  bucket_name : string prop;
   code_artifacts : s3_repository_details__code_artifacts list;
-      (** code_artifacts *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : s3_repository_details) -> ()
+
+let yojson_of_s3_repository_details =
+  (function
+   | {
+       bucket_name = v_bucket_name;
+       code_artifacts = v_code_artifacts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_s3_repository_details__code_artifacts
+             v_code_artifacts
+         in
+         ("code_artifacts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : s3_repository_details -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_s3_repository_details
+
+[@@@deriving.end]
 
 type aws_codegurureviewer_repository_association = {
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   kms_key_details : kms_key_details list;
   repository : repository list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_codegurureviewer_repository_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_codegurureviewer_repository_association) -> ()
+
+let yojson_of_aws_codegurureviewer_repository_association =
+  (function
+   | {
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       kms_key_details = v_kms_key_details;
+       repository = v_repository;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_repository v_repository
+         in
+         ("repository", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_kms_key_details v_kms_key_details
+         in
+         ("kms_key_details", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_codegurureviewer_repository_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_codegurureviewer_repository_association
+
+[@@@deriving.end]
 
 let kms_key_details ?encryption_option ?kms_key_id () :
     kms_key_details =

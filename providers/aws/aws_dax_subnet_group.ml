@@ -3,13 +3,60 @@
 open! Tf_core
 
 type aws_dax_subnet_group = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  subnet_ids : string prop list;
 }
-[@@deriving yojson_of]
-(** aws_dax_subnet_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_dax_subnet_group) -> ()
+
+let yojson_of_aws_dax_subnet_group =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       subnet_ids = v_subnet_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_dax_subnet_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_dax_subnet_group
+
+[@@@deriving.end]
 
 let aws_dax_subnet_group ?description ?id ~name ~subnet_ids () :
     aws_dax_subnet_group =

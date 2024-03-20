@@ -3,28 +3,143 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; read = v_read } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_site_recovery_network_mapping = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  recovery_vault_name : string prop;  (** recovery_vault_name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  source_network_id : string prop;  (** source_network_id *)
+  id : string prop option; [@option]
+  name : string prop;
+  recovery_vault_name : string prop;
+  resource_group_name : string prop;
+  source_network_id : string prop;
   source_recovery_fabric_name : string prop;
-      (** source_recovery_fabric_name *)
-  target_network_id : string prop;  (** target_network_id *)
+  target_network_id : string prop;
   target_recovery_fabric_name : string prop;
-      (** target_recovery_fabric_name *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_site_recovery_network_mapping *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_site_recovery_network_mapping) -> ()
+
+let yojson_of_azurerm_site_recovery_network_mapping =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       recovery_vault_name = v_recovery_vault_name;
+       resource_group_name = v_resource_group_name;
+       source_network_id = v_source_network_id;
+       source_recovery_fabric_name = v_source_recovery_fabric_name;
+       target_network_id = v_target_network_id;
+       target_recovery_fabric_name = v_target_recovery_fabric_name;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_target_recovery_fabric_name
+         in
+         ("target_recovery_fabric_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_network_id
+         in
+         ("target_network_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_source_recovery_fabric_name
+         in
+         ("source_recovery_fabric_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_network_id
+         in
+         ("source_network_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_recovery_vault_name
+         in
+         ("recovery_vault_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_site_recovery_network_mapping ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_site_recovery_network_mapping
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?read () : timeouts =
   { create; delete; read }

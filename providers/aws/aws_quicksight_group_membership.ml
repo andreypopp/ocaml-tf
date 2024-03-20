@@ -3,13 +3,13 @@
 open! Tf_core
 
 type aws_quicksight_group_membership = {
-  aws_account_id: string  prop option; [@option] (** aws_account_id *)
-  group_name: string prop;  (** group_name *)
-  id: string  prop option; [@option] (** id *)
-  member_name: string prop;  (** member_name *)
-  namespace: string  prop option; [@option] (** namespace *)
-} [@@deriving yojson_of]
-(** aws_quicksight_group_membership *)
+  aws_account_id: string  prop option; [@option]
+  group_name: string prop; 
+  id: string  prop option; [@option]
+  member_name: string prop; 
+  namespace: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let aws_quicksight_group_membership ?aws_account_id ?id ?namespace ~group_name ~member_name () =
   ({

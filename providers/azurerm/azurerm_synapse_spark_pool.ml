@@ -2,72 +2,393 @@
 
 open! Tf_core
 
-type auto_pause = {
-  delay_in_minutes : float prop;  (** delay_in_minutes *)
-}
-[@@deriving yojson_of]
-(** auto_pause *)
+type auto_pause = { delay_in_minutes : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auto_pause) -> ()
+
+let yojson_of_auto_pause =
+  (function
+   | { delay_in_minutes = v_delay_in_minutes } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_delay_in_minutes
+         in
+         ("delay_in_minutes", arg) :: bnds
+       in
+       `Assoc bnds
+    : auto_pause -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auto_pause
+
+[@@@deriving.end]
 
 type auto_scale = {
-  max_node_count : float prop;  (** max_node_count *)
-  min_node_count : float prop;  (** min_node_count *)
+  max_node_count : float prop;
+  min_node_count : float prop;
 }
-[@@deriving yojson_of]
-(** auto_scale *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : auto_scale) -> ()
+
+let yojson_of_auto_scale =
+  (function
+   | {
+       max_node_count = v_max_node_count;
+       min_node_count = v_min_node_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_node_count in
+         ("min_node_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_node_count in
+         ("max_node_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : auto_scale -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_auto_scale
+
+[@@@deriving.end]
 
 type library_requirement = {
-  content : string prop;  (** content *)
-  filename : string prop;  (** filename *)
+  content : string prop;
+  filename : string prop;
 }
-[@@deriving yojson_of]
-(** library_requirement *)
+[@@deriving_inline yojson_of]
 
-type spark_config = {
-  content : string prop;  (** content *)
-  filename : string prop;  (** filename *)
-}
-[@@deriving yojson_of]
-(** spark_config *)
+let _ = fun (_ : library_requirement) -> ()
+
+let yojson_of_library_requirement =
+  (function
+   | { content = v_content; filename = v_filename } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filename in
+         ("filename", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : library_requirement -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_library_requirement
+
+[@@@deriving.end]
+
+type spark_config = { content : string prop; filename : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spark_config) -> ()
+
+let yojson_of_spark_config =
+  (function
+   | { content = v_content; filename = v_filename } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filename in
+         ("filename", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : spark_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spark_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_synapse_spark_pool = {
-  cache_size : float prop option; [@option]  (** cache_size *)
+  cache_size : float prop option; [@option]
   compute_isolation_enabled : bool prop option; [@option]
-      (** compute_isolation_enabled *)
   dynamic_executor_allocation_enabled : bool prop option; [@option]
-      (** dynamic_executor_allocation_enabled *)
-  id : string prop option; [@option]  (** id *)
-  max_executors : float prop option; [@option]  (** max_executors *)
-  min_executors : float prop option; [@option]  (** min_executors *)
-  name : string prop;  (** name *)
-  node_count : float prop option; [@option]  (** node_count *)
-  node_size : string prop;  (** node_size *)
-  node_size_family : string prop;  (** node_size_family *)
+  id : string prop option; [@option]
+  max_executors : float prop option; [@option]
+  min_executors : float prop option; [@option]
+  name : string prop;
+  node_count : float prop option; [@option]
+  node_size : string prop;
+  node_size_family : string prop;
   session_level_packages_enabled : bool prop option; [@option]
-      (** session_level_packages_enabled *)
   spark_events_folder : string prop option; [@option]
-      (** spark_events_folder *)
   spark_log_folder : string prop option; [@option]
-      (** spark_log_folder *)
-  spark_version : string prop option; [@option]  (** spark_version *)
-  synapse_workspace_id : string prop;  (** synapse_workspace_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  spark_version : string prop option; [@option]
+  synapse_workspace_id : string prop;
+  tags : (string * string prop) list option; [@option]
   auto_pause : auto_pause list;
   auto_scale : auto_scale list;
   library_requirement : library_requirement list;
   spark_config : spark_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_synapse_spark_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_synapse_spark_pool) -> ()
+
+let yojson_of_azurerm_synapse_spark_pool =
+  (function
+   | {
+       cache_size = v_cache_size;
+       compute_isolation_enabled = v_compute_isolation_enabled;
+       dynamic_executor_allocation_enabled =
+         v_dynamic_executor_allocation_enabled;
+       id = v_id;
+       max_executors = v_max_executors;
+       min_executors = v_min_executors;
+       name = v_name;
+       node_count = v_node_count;
+       node_size = v_node_size;
+       node_size_family = v_node_size_family;
+       session_level_packages_enabled =
+         v_session_level_packages_enabled;
+       spark_events_folder = v_spark_events_folder;
+       spark_log_folder = v_spark_log_folder;
+       spark_version = v_spark_version;
+       synapse_workspace_id = v_synapse_workspace_id;
+       tags = v_tags;
+       auto_pause = v_auto_pause;
+       auto_scale = v_auto_scale;
+       library_requirement = v_library_requirement;
+       spark_config = v_spark_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spark_config v_spark_config
+         in
+         ("spark_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_library_requirement
+             v_library_requirement
+         in
+         ("library_requirement", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auto_scale v_auto_scale
+         in
+         ("auto_scale", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_auto_pause v_auto_pause
+         in
+         ("auto_pause", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_synapse_workspace_id
+         in
+         ("synapse_workspace_id", arg) :: bnds
+       in
+       let bnds =
+         match v_spark_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "spark_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_spark_log_folder with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "spark_log_folder", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_spark_events_folder with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "spark_events_folder", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_level_packages_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "session_level_packages_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_node_size_family
+         in
+         ("node_size_family", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_node_size in
+         ("node_size", arg) :: bnds
+       in
+       let bnds =
+         match v_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_min_executors with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_executors", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_executors with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_executors", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dynamic_executor_allocation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "dynamic_executor_allocation_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compute_isolation_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "compute_isolation_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cache_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cache_size", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_synapse_spark_pool -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_synapse_spark_pool
+
+[@@@deriving.end]
 
 let auto_pause ~delay_in_minutes () : auto_pause =
   { delay_in_minutes }

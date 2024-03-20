@@ -4,105 +4,299 @@ open! Tf_core
 
 type analytics_engine_binding = {
   dataset : string prop;
-      (** The name of the Analytics Engine dataset to write to. *)
   name : string prop;
-      (** The global variable for the binding in your Worker code. *)
 }
-[@@deriving yojson_of]
-(** analytics_engine_binding *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : analytics_engine_binding) -> ()
+
+let yojson_of_analytics_engine_binding =
+  (function
+   | { dataset = v_dataset; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset in
+         ("dataset", arg) :: bnds
+       in
+       `Assoc bnds
+    : analytics_engine_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_analytics_engine_binding
+
+[@@@deriving.end]
 
 type d1_database_binding = {
   database_id : string prop;
-      (** Database ID of D1 database to use. *)
   name : string prop;
-      (** The global variable for the binding in your Worker code. *)
 }
-[@@deriving yojson_of]
-(** d1_database_binding *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : d1_database_binding) -> ()
+
+let yojson_of_d1_database_binding =
+  (function
+   | { database_id = v_database_id; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_database_id in
+         ("database_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : d1_database_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_d1_database_binding
+
+[@@@deriving.end]
 
 type kv_namespace_binding = {
   name : string prop;
-      (** The global variable for the binding in your Worker code. *)
   namespace_id : string prop;
-      (** ID of the KV namespace you want to use. *)
 }
-[@@deriving yojson_of]
-(** kv_namespace_binding *)
+[@@deriving_inline yojson_of]
 
-type placement = {
-  mode : string prop;
-      (** The placement mode for the Worker. Available values: `smart`. *)
-}
-[@@deriving yojson_of]
-(** placement *)
+let _ = fun (_ : kv_namespace_binding) -> ()
 
-type plain_text_binding = {
-  name : string prop;
-      (** The global variable for the binding in your Worker code. *)
-  text : string prop;  (** The plain text you want to store. *)
-}
-[@@deriving yojson_of]
-(** plain_text_binding *)
+let yojson_of_kv_namespace_binding =
+  (function
+   | { name = v_name; namespace_id = v_namespace_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace_id in
+         ("namespace_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : kv_namespace_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-type queue_binding = {
-  binding : string prop;
-      (** The name of the global variable for the binding in your Worker code. *)
-  queue : string prop;  (** Name of the queue you want to use. *)
-}
-[@@deriving yojson_of]
-(** queue_binding *)
+let _ = yojson_of_kv_namespace_binding
+
+[@@@deriving.end]
+
+type placement = { mode : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : placement) -> ()
+
+let yojson_of_placement =
+  (function
+   | { mode = v_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : placement -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_placement
+
+[@@@deriving.end]
+
+type plain_text_binding = { name : string prop; text : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : plain_text_binding) -> ()
+
+let yojson_of_plain_text_binding =
+  (function
+   | { name = v_name; text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_text in
+         ("text", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : plain_text_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_plain_text_binding
+
+[@@@deriving.end]
+
+type queue_binding = { binding : string prop; queue : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : queue_binding) -> ()
+
+let yojson_of_queue_binding =
+  (function
+   | { binding = v_binding; queue = v_queue } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_queue in
+         ("queue", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_binding in
+         ("binding", arg) :: bnds
+       in
+       `Assoc bnds
+    : queue_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_queue_binding
+
+[@@@deriving.end]
 
 type r2_bucket_binding = {
   bucket_name : string prop;
-      (** The name of the Bucket to bind to. *)
   name : string prop;
-      (** The global variable for the binding in your Worker code. *)
 }
-[@@deriving yojson_of]
-(** r2_bucket_binding *)
+[@@deriving_inline yojson_of]
 
-type secret_text_binding = {
-  name : string prop;
-      (** The global variable for the binding in your Worker code. *)
-  text : string prop;  (** The secret text you want to store. *)
-}
-[@@deriving yojson_of]
-(** secret_text_binding *)
+let _ = fun (_ : r2_bucket_binding) -> ()
+
+let yojson_of_r2_bucket_binding =
+  (function
+   | { bucket_name = v_bucket_name; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : r2_bucket_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_r2_bucket_binding
+
+[@@@deriving.end]
+
+type secret_text_binding = { name : string prop; text : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secret_text_binding) -> ()
+
+let yojson_of_secret_text_binding =
+  (function
+   | { name = v_name; text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_text in
+         ("text", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : secret_text_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secret_text_binding
+
+[@@@deriving.end]
 
 type service_binding = {
   environment : string prop option; [@option]
-      (** The name of the Worker environment to bind to. *)
   name : string prop;
-      (** The global variable for the binding in your Worker code. *)
-  service : string prop;  (** The name of the Worker to bind to. *)
+  service : string prop;
 }
-[@@deriving yojson_of]
-(** service_binding *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_binding) -> ()
+
+let yojson_of_service_binding =
+  (function
+   | {
+       environment = v_environment;
+       name = v_name;
+       service = v_service;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_environment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "environment", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : service_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_binding
+
+[@@@deriving.end]
 
 type webassembly_binding = {
   module_ : string prop; [@key "module"]
-      (** The base64 encoded wasm module you want to store. *)
   name : string prop;
-      (** The global variable for the binding in your Worker code. *)
 }
-[@@deriving yojson_of]
-(** webassembly_binding *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : webassembly_binding) -> ()
+
+let yojson_of_webassembly_binding =
+  (function
+   | { module_ = v_module_; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_module_ in
+         ("module", arg) :: bnds
+       in
+       `Assoc bnds
+    : webassembly_binding -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_webassembly_binding
+
+[@@@deriving.end]
 
 type cloudflare_worker_script = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
   compatibility_date : string prop option; [@option]
-      (** The date to use for the compatibility flag. *)
   compatibility_flags : string prop list option; [@option]
-      (** Compatibility flags used for Worker Scripts. *)
-  content : string prop;  (** The script content. *)
-  id : string prop option; [@option]  (** id *)
+  content : string prop;
+  id : string prop option; [@option]
   logpush : bool prop option; [@option]
-      (** Enabling allows Worker events to be sent to a defined Logpush destination. *)
   module_ : bool prop option; [@option] [@key "module"]
-      (** Whether to upload Worker as a module. *)
   name : string prop;
-      (** The name for the script. **Modifying this attribute will force creation of a new resource.** *)
   analytics_engine_binding : analytics_engine_binding list;
   d1_database_binding : d1_database_binding list;
   kv_namespace_binding : kv_namespace_binding list;
@@ -114,8 +308,160 @@ type cloudflare_worker_script = {
   service_binding : service_binding list;
   webassembly_binding : webassembly_binding list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare worker script resource. In order for a script to be active, you'll also need to setup a `cloudflare_worker_route`. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_worker_script) -> ()
+
+let yojson_of_cloudflare_worker_script =
+  (function
+   | {
+       account_id = v_account_id;
+       compatibility_date = v_compatibility_date;
+       compatibility_flags = v_compatibility_flags;
+       content = v_content;
+       id = v_id;
+       logpush = v_logpush;
+       module_ = v_module_;
+       name = v_name;
+       analytics_engine_binding = v_analytics_engine_binding;
+       d1_database_binding = v_d1_database_binding;
+       kv_namespace_binding = v_kv_namespace_binding;
+       placement = v_placement;
+       plain_text_binding = v_plain_text_binding;
+       queue_binding = v_queue_binding;
+       r2_bucket_binding = v_r2_bucket_binding;
+       secret_text_binding = v_secret_text_binding;
+       service_binding = v_service_binding;
+       webassembly_binding = v_webassembly_binding;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_webassembly_binding
+             v_webassembly_binding
+         in
+         ("webassembly_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_service_binding v_service_binding
+         in
+         ("service_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_secret_text_binding
+             v_secret_text_binding
+         in
+         ("secret_text_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_r2_bucket_binding
+             v_r2_bucket_binding
+         in
+         ("r2_bucket_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_queue_binding v_queue_binding
+         in
+         ("queue_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_plain_text_binding
+             v_plain_text_binding
+         in
+         ("plain_text_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_placement v_placement in
+         ("placement", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_kv_namespace_binding
+             v_kv_namespace_binding
+         in
+         ("kv_namespace_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_d1_database_binding
+             v_d1_database_binding
+         in
+         ("d1_database_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_analytics_engine_binding
+             v_analytics_engine_binding
+         in
+         ("analytics_engine_binding", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_module_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "module", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_logpush with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "logpush", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       let bnds =
+         match v_compatibility_flags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "compatibility_flags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compatibility_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compatibility_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_worker_script -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_worker_script
+
+[@@@deriving.end]
 
 let analytics_engine_binding ~dataset ~name () :
     analytics_engine_binding =

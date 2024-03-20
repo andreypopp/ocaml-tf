@@ -3,43 +3,182 @@
 open! Tf_core
 
 type env__value_from__config_map_key_ref = {
-  key : string prop option; [@option]  (** The key to select. *)
+  key : string prop option; [@option]
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the ConfigMap or its key must be defined. *)
 }
-[@@deriving yojson_of]
-(** Selects a key of a ConfigMap. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : env__value_from__config_map_key_ref) -> ()
+
+let yojson_of_env__value_from__config_map_key_ref =
+  (function
+   | { key = v_key; name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : env__value_from__config_map_key_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_env__value_from__config_map_key_ref
+
+[@@@deriving.end]
 
 type env__value_from__field_ref = {
   api_version : string prop option; [@option]
-      (** Version of the schema the FieldPath is written in terms of, defaults to v1. *)
   field_path : string prop option; [@option]
-      (** Path of the field to select in the specified API version *)
 }
-[@@deriving yojson_of]
-(** Selects a field of the pod: supports metadata.name, metadata.namespace, metadata.labels, metadata.annotations, spec.nodeName, spec.serviceAccountName, status.podIP. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : env__value_from__field_ref) -> ()
+
+let yojson_of_env__value_from__field_ref =
+  (function
+   | { api_version = v_api_version; field_path = v_field_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_field_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_api_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "api_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : env__value_from__field_ref -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_env__value_from__field_ref
+
+[@@@deriving.end]
 
 type env__value_from__resource_field_ref = {
   container_name : string prop option; [@option]
-      (** container_name *)
-  divisor : string prop option; [@option]  (** divisor *)
-  resource : string prop;  (** Resource to select *)
+  divisor : string prop option; [@option]
+  resource : string prop;
 }
-[@@deriving yojson_of]
-(** Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : env__value_from__resource_field_ref) -> ()
+
+let yojson_of_env__value_from__resource_field_ref =
+  (function
+   | {
+       container_name = v_container_name;
+       divisor = v_divisor;
+       resource = v_resource;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource in
+         ("resource", arg) :: bnds
+       in
+       let bnds =
+         match v_divisor with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "divisor", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "container_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : env__value_from__resource_field_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_env__value_from__resource_field_ref
+
+[@@@deriving.end]
 
 type env__value_from__secret_key_ref = {
   key : string prop option; [@option]
-      (** The key of the secret to select from. Must be a valid secret key. *)
   name : string prop option; [@option]
-      (** Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names *)
   optional : bool prop option; [@option]
-      (** Specify whether the Secret or its key must be defined. *)
 }
-[@@deriving yojson_of]
-(** Selects a key of a secret in the pod's namespace. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : env__value_from__secret_key_ref) -> ()
+
+let yojson_of_env__value_from__secret_key_ref =
+  (function
+   | { key = v_key; name = v_name; optional = v_optional } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_optional with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "optional", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : env__value_from__secret_key_ref ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_env__value_from__secret_key_ref
+
+[@@@deriving.end]
 
 type env__value_from = {
   config_map_key_ref : env__value_from__config_map_key_ref list;
@@ -47,44 +186,224 @@ type env__value_from = {
   resource_field_ref : env__value_from__resource_field_ref list;
   secret_key_ref : env__value_from__secret_key_ref list;
 }
-[@@deriving yojson_of]
-(** Source for the environment variable's value *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : env__value_from) -> ()
+
+let yojson_of_env__value_from =
+  (function
+   | {
+       config_map_key_ref = v_config_map_key_ref;
+       field_ref = v_field_ref;
+       resource_field_ref = v_resource_field_ref;
+       secret_key_ref = v_secret_key_ref;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_env__value_from__secret_key_ref
+             v_secret_key_ref
+         in
+         ("secret_key_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_env__value_from__resource_field_ref
+             v_resource_field_ref
+         in
+         ("resource_field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_env__value_from__field_ref
+             v_field_ref
+         in
+         ("field_ref", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_env__value_from__config_map_key_ref
+             v_config_map_key_ref
+         in
+         ("config_map_key_ref", arg) :: bnds
+       in
+       `Assoc bnds
+    : env__value_from -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_env__value_from
+
+[@@@deriving.end]
 
 type env = {
   name : string prop;
-      (** Name of the environment variable. Must be a C_IDENTIFIER *)
   value : string prop option; [@option]
-      (** Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to . *)
   value_from : env__value_from list;
 }
-[@@deriving yojson_of]
-(** List of custom values used to represent environment variables *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : env) -> ()
+
+let yojson_of_env =
+  (function
+   | { name = v_name; value = v_value; value_from = v_value_from } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_env__value_from v_value_from
+         in
+         ("value_from", arg) :: bnds
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : env -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_env
+
+[@@@deriving.end]
 
 type metadata = {
-  name : string prop;  (** The name of the resource. *)
+  name : string prop;
   namespace : string prop option; [@option]
-      (** The namespace of the resource. *)
 }
-[@@deriving yojson_of]
-(** metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type kubernetes_env = {
-  api_version : string prop;  (** Resource API version *)
+  api_version : string prop;
   container : string prop option; [@option]
-      (** Name of the container for which we are updating the environment variables. *)
   field_manager : string prop option; [@option]
-      (** Set the name of the field manager for the specified environment variables. *)
   force : bool prop option; [@option]
-      (** Force overwriting environments that were created or edited outside of Terraform. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   init_container : string prop option; [@option]
-      (** Name of the initContainer for which we are updating the environment variables. *)
-  kind : string prop;  (** Resource Kind *)
+  kind : string prop;
   env : env list;
   metadata : metadata list;
 }
-[@@deriving yojson_of]
-(** kubernetes_env *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_env) -> ()
+
+let yojson_of_kubernetes_env =
+  (function
+   | {
+       api_version = v_api_version;
+       container = v_container;
+       field_manager = v_field_manager;
+       force = v_force;
+       id = v_id;
+       init_container = v_init_container;
+       kind = v_kind;
+       env = v_env;
+       metadata = v_metadata;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_env v_env in
+         ("env", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kind in
+         ("kind", arg) :: bnds
+       in
+       let bnds =
+         match v_init_container with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "init_container", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_field_manager with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_manager", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_container with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "container", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_version in
+         ("api_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_env -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_env
+
+[@@@deriving.end]
 
 let env__value_from__config_map_key_ref ?key ?name ?optional () :
     env__value_from__config_map_key_ref =

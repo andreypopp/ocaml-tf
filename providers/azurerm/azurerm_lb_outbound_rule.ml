@@ -2,37 +2,190 @@
 
 open! Tf_core
 
-type frontend_ip_configuration = { name : string prop  (** name *) }
-[@@deriving yojson_of]
-(** frontend_ip_configuration *)
+type frontend_ip_configuration = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : frontend_ip_configuration) -> ()
+
+let yojson_of_frontend_ip_configuration =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : frontend_ip_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_frontend_ip_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_lb_outbound_rule = {
   allocated_outbound_ports : float prop option; [@option]
-      (** allocated_outbound_ports *)
   backend_address_pool_id : string prop;
-      (** backend_address_pool_id *)
   enable_tcp_reset : bool prop option; [@option]
-      (** enable_tcp_reset *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   idle_timeout_in_minutes : float prop option; [@option]
-      (** idle_timeout_in_minutes *)
-  loadbalancer_id : string prop;  (** loadbalancer_id *)
-  name : string prop;  (** name *)
-  protocol : string prop;  (** protocol *)
+  loadbalancer_id : string prop;
+  name : string prop;
+  protocol : string prop;
   frontend_ip_configuration : frontend_ip_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_lb_outbound_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_lb_outbound_rule) -> ()
+
+let yojson_of_azurerm_lb_outbound_rule =
+  (function
+   | {
+       allocated_outbound_ports = v_allocated_outbound_ports;
+       backend_address_pool_id = v_backend_address_pool_id;
+       enable_tcp_reset = v_enable_tcp_reset;
+       id = v_id;
+       idle_timeout_in_minutes = v_idle_timeout_in_minutes;
+       loadbalancer_id = v_loadbalancer_id;
+       name = v_name;
+       protocol = v_protocol;
+       frontend_ip_configuration = v_frontend_ip_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_frontend_ip_configuration
+             v_frontend_ip_configuration
+         in
+         ("frontend_ip_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_protocol in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_loadbalancer_id
+         in
+         ("loadbalancer_id", arg) :: bnds
+       in
+       let bnds =
+         match v_idle_timeout_in_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "idle_timeout_in_minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_tcp_reset with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_tcp_reset", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_backend_address_pool_id
+         in
+         ("backend_address_pool_id", arg) :: bnds
+       in
+       let bnds =
+         match v_allocated_outbound_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "allocated_outbound_ports", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_lb_outbound_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_lb_outbound_rule
+
+[@@@deriving.end]
 
 let frontend_ip_configuration ~name () : frontend_ip_configuration =
   { name }

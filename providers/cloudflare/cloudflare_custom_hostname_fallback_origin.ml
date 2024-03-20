@@ -3,14 +3,43 @@
 open! Tf_core
 
 type cloudflare_custom_hostname_fallback_origin = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   origin : string prop;
-      (** Hostname you intend to fallback requests to. Origin must be a proxied A/AAAA/CNAME DNS record within Clouldflare. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare custom hostname fallback origin resource. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_custom_hostname_fallback_origin) -> ()
+
+let yojson_of_cloudflare_custom_hostname_fallback_origin =
+  (function
+   | { id = v_id; origin = v_origin; zone_id = v_zone_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_origin in
+         ("origin", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_custom_hostname_fallback_origin ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_custom_hostname_fallback_origin
+
+[@@@deriving.end]
 
 let cloudflare_custom_hostname_fallback_origin ?id ~origin ~zone_id
     () : cloudflare_custom_hostname_fallback_origin =

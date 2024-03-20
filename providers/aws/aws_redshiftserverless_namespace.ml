@@ -4,28 +4,173 @@ open! Tf_core
 
 type aws_redshiftserverless_namespace = {
   admin_password_secret_kms_key_id : string prop option; [@option]
-      (** admin_password_secret_kms_key_id *)
   admin_user_password : string prop option; [@option]
-      (** admin_user_password *)
   admin_username : string prop option; [@option]
-      (** admin_username *)
-  db_name : string prop option; [@option]  (** db_name *)
+  db_name : string prop option; [@option]
   default_iam_role_arn : string prop option; [@option]
-      (** default_iam_role_arn *)
-  iam_roles : string prop list option; [@option]  (** iam_roles *)
-  id : string prop option; [@option]  (** id *)
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
+  iam_roles : string prop list option; [@option]
+  id : string prop option; [@option]
+  kms_key_id : string prop option; [@option]
   log_exports : string prop list option; [@option]
-      (** log_exports *)
   manage_admin_password : bool prop option; [@option]
-      (** manage_admin_password *)
-  namespace_name : string prop;  (** namespace_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  namespace_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_redshiftserverless_namespace *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_redshiftserverless_namespace) -> ()
+
+let yojson_of_aws_redshiftserverless_namespace =
+  (function
+   | {
+       admin_password_secret_kms_key_id =
+         v_admin_password_secret_kms_key_id;
+       admin_user_password = v_admin_user_password;
+       admin_username = v_admin_username;
+       db_name = v_db_name;
+       default_iam_role_arn = v_default_iam_role_arn;
+       iam_roles = v_iam_roles;
+       id = v_id;
+       kms_key_id = v_kms_key_id;
+       log_exports = v_log_exports;
+       manage_admin_password = v_manage_admin_password;
+       namespace_name = v_namespace_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_namespace_name
+         in
+         ("namespace_name", arg) :: bnds
+       in
+       let bnds =
+         match v_manage_admin_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "manage_admin_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_log_exports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "log_exports", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iam_roles with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "iam_roles", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_iam_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_iam_role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_db_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "db_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_admin_username with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "admin_username", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_admin_user_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "admin_user_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_admin_password_secret_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "admin_password_secret_kms_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_redshiftserverless_namespace ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_redshiftserverless_namespace
+
+[@@@deriving.end]
 
 let aws_redshiftserverless_namespace
     ?admin_password_secret_kms_key_id ?admin_user_password

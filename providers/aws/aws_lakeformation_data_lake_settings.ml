@@ -4,43 +4,222 @@ open! Tf_core
 
 type create_database_default_permissions = {
   permissions : string prop list option; [@option]
-      (** permissions *)
-  principal : string prop option; [@option]  (** principal *)
+  principal : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** create_database_default_permissions *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : create_database_default_permissions) -> ()
+
+let yojson_of_create_database_default_permissions =
+  (function
+   | { permissions = v_permissions; principal = v_principal } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_principal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "principal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "permissions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : create_database_default_permissions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_create_database_default_permissions
+
+[@@@deriving.end]
 
 type create_table_default_permissions = {
   permissions : string prop list option; [@option]
-      (** permissions *)
-  principal : string prop option; [@option]  (** principal *)
+  principal : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** create_table_default_permissions *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : create_table_default_permissions) -> ()
+
+let yojson_of_create_table_default_permissions =
+  (function
+   | { permissions = v_permissions; principal = v_principal } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_principal with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "principal", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_permissions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "permissions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : create_table_default_permissions ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_create_table_default_permissions
+
+[@@@deriving.end]
 
 type aws_lakeformation_data_lake_settings = {
-  admins : string prop list option; [@option]  (** admins *)
+  admins : string prop list option; [@option]
   allow_external_data_filtering : bool prop option; [@option]
-      (** allow_external_data_filtering *)
   authorized_session_tag_value_list : string prop list option;
       [@option]
-      (** authorized_session_tag_value_list *)
-  catalog_id : string prop option; [@option]  (** catalog_id *)
+  catalog_id : string prop option; [@option]
   external_data_filtering_allow_list : string prop list option;
       [@option]
-      (** external_data_filtering_allow_list *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   read_only_admins : string prop list option; [@option]
-      (** read_only_admins *)
   trusted_resource_owners : string prop list option; [@option]
-      (** trusted_resource_owners *)
   create_database_default_permissions :
     create_database_default_permissions list;
   create_table_default_permissions :
     create_table_default_permissions list;
 }
-[@@deriving yojson_of]
-(** aws_lakeformation_data_lake_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lakeformation_data_lake_settings) -> ()
+
+let yojson_of_aws_lakeformation_data_lake_settings =
+  (function
+   | {
+       admins = v_admins;
+       allow_external_data_filtering =
+         v_allow_external_data_filtering;
+       authorized_session_tag_value_list =
+         v_authorized_session_tag_value_list;
+       catalog_id = v_catalog_id;
+       external_data_filtering_allow_list =
+         v_external_data_filtering_allow_list;
+       id = v_id;
+       read_only_admins = v_read_only_admins;
+       trusted_resource_owners = v_trusted_resource_owners;
+       create_database_default_permissions =
+         v_create_database_default_permissions;
+       create_table_default_permissions =
+         v_create_table_default_permissions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_create_table_default_permissions
+             v_create_table_default_permissions
+         in
+         ("create_table_default_permissions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_create_database_default_permissions
+             v_create_database_default_permissions
+         in
+         ("create_database_default_permissions", arg) :: bnds
+       in
+       let bnds =
+         match v_trusted_resource_owners with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "trusted_resource_owners", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read_only_admins with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "read_only_admins", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_external_data_filtering_allow_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "external_data_filtering_allow_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_catalog_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "catalog_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authorized_session_tag_value_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "authorized_session_tag_value_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_external_data_filtering with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_external_data_filtering", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_admins with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "admins", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_lakeformation_data_lake_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lakeformation_data_lake_settings
+
+[@@@deriving.end]
 
 let create_database_default_permissions ?permissions ?principal () :
     create_database_default_permissions =

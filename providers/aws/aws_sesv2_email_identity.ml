@@ -4,27 +4,146 @@ open! Tf_core
 
 type dkim_signing_attributes = {
   domain_signing_private_key : string prop option; [@option]
-      (** domain_signing_private_key *)
   domain_signing_selector : string prop option; [@option]
-      (** domain_signing_selector *)
   next_signing_key_length : string prop option; [@option]
-      (** next_signing_key_length *)
 }
-[@@deriving yojson_of]
-(** dkim_signing_attributes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dkim_signing_attributes) -> ()
+
+let yojson_of_dkim_signing_attributes =
+  (function
+   | {
+       domain_signing_private_key = v_domain_signing_private_key;
+       domain_signing_selector = v_domain_signing_selector;
+       next_signing_key_length = v_next_signing_key_length;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_next_signing_key_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_signing_key_length", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domain_signing_selector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain_signing_selector", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domain_signing_private_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain_signing_private_key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : dkim_signing_attributes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dkim_signing_attributes
+
+[@@@deriving.end]
 
 type aws_sesv2_email_identity = {
   configuration_set_name : string prop option; [@option]
-      (** configuration_set_name *)
-  email_identity : string prop;  (** email_identity *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  email_identity : string prop;
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   dkim_signing_attributes : dkim_signing_attributes list;
 }
-[@@deriving yojson_of]
-(** aws_sesv2_email_identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sesv2_email_identity) -> ()
+
+let yojson_of_aws_sesv2_email_identity =
+  (function
+   | {
+       configuration_set_name = v_configuration_set_name;
+       email_identity = v_email_identity;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       dkim_signing_attributes = v_dkim_signing_attributes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dkim_signing_attributes
+             v_dkim_signing_attributes
+         in
+         ("dkim_signing_attributes", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_email_identity
+         in
+         ("email_identity", arg) :: bnds
+       in
+       let bnds =
+         match v_configuration_set_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "configuration_set_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sesv2_email_identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sesv2_email_identity
+
+[@@@deriving.end]
 
 let dkim_signing_attributes ?domain_signing_private_key
     ?domain_signing_selector ?next_signing_key_length () :

@@ -4,39 +4,190 @@ open! Tf_core
 
 type build_pack_group = {
   build_pack_ids : string prop list option; [@option]
-      (** build_pack_ids *)
-  name : string prop;  (** name *)
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** build_pack_group *)
+[@@deriving_inline yojson_of]
 
-type stack = {
-  id : string prop;  (** id *)
-  version : string prop;  (** version *)
-}
-[@@deriving yojson_of]
-(** stack *)
+let _ = fun (_ : build_pack_group) -> ()
+
+let yojson_of_build_pack_group =
+  (function
+   | { build_pack_ids = v_build_pack_ids; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_build_pack_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "build_pack_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : build_pack_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_build_pack_group
+
+[@@@deriving.end]
+
+type stack = { id : string prop; version : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : stack) -> ()
+
+let yojson_of_stack =
+  (function
+   | { id = v_id; version = v_version } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : stack -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_stack
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_spring_cloud_builder = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  name : string prop;
   spring_cloud_service_id : string prop;
-      (** spring_cloud_service_id *)
   build_pack_group : build_pack_group list;
   stack : stack list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_spring_cloud_builder *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_spring_cloud_builder) -> ()
+
+let yojson_of_azurerm_spring_cloud_builder =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       spring_cloud_service_id = v_spring_cloud_service_id;
+       build_pack_group = v_build_pack_group;
+       stack = v_stack;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_stack v_stack in
+         ("stack", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_build_pack_group
+             v_build_pack_group
+         in
+         ("build_pack_group", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_spring_cloud_service_id
+         in
+         ("spring_cloud_service_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_spring_cloud_builder ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_spring_cloud_builder
+
+[@@@deriving.end]
 
 let build_pack_group ?build_pack_ids ~name () : build_pack_group =
   { build_pack_ids; name }

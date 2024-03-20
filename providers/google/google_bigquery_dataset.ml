@@ -4,209 +4,505 @@ open! Tf_core
 
 type access__dataset__dataset = {
   dataset_id : string prop;
-      (** The ID of the dataset containing this table. *)
   project_id : string prop;
-      (** The ID of the project containing this table. *)
 }
-[@@deriving yojson_of]
-(** The dataset this entry applies to *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access__dataset__dataset) -> ()
+
+let yojson_of_access__dataset__dataset =
+  (function
+   | { dataset_id = v_dataset_id; project_id = v_project_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : access__dataset__dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access__dataset__dataset
+
+[@@@deriving.end]
 
 type access__dataset = {
   target_types : string prop list;
-      (** Which resources in the dataset this entry applies to. Currently, only views are supported,
-but additional target types may be added in the future. Possible values: VIEWS *)
   dataset : access__dataset__dataset list;
 }
-[@@deriving yojson_of]
-(** Grants all resources of particular types in a particular dataset read access to the current dataset. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access__dataset) -> ()
+
+let yojson_of_access__dataset =
+  (function
+   | { target_types = v_target_types; dataset = v_dataset } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access__dataset__dataset
+             v_dataset
+         in
+         ("dataset", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_target_types
+         in
+         ("target_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : access__dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access__dataset
+
+[@@@deriving.end]
 
 type access__routine = {
   dataset_id : string prop;
-      (** The ID of the dataset containing this table. *)
   project_id : string prop;
-      (** The ID of the project containing this table. *)
   routine_id : string prop;
-      (** The ID of the routine. The ID must contain only letters (a-z,
-A-Z), numbers (0-9), or underscores (_). The maximum length
-is 256 characters. *)
 }
-[@@deriving yojson_of]
-(** A routine from a different dataset to grant access to. Queries
-executed against that routine will have read access to tables in
-this dataset. The role field is not required when this field is
-set. If that routine is updated by any user, access to the routine
-needs to be granted again via an update operation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access__routine) -> ()
+
+let yojson_of_access__routine =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       routine_id = v_routine_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_routine_id in
+         ("routine_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : access__routine -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access__routine
+
+[@@@deriving.end]
 
 type access__view = {
   dataset_id : string prop;
-      (** The ID of the dataset containing this table. *)
   project_id : string prop;
-      (** The ID of the project containing this table. *)
   table_id : string prop;
-      (** The ID of the table. The ID must contain only letters (a-z,
-A-Z), numbers (0-9), or underscores (_). The maximum length
-is 1,024 characters. *)
 }
-[@@deriving yojson_of]
-(** A view from a different dataset to grant access to. Queries
-executed against that view will have read access to tables in
-this dataset. The role field is not required when this field is
-set. If that view is updated by any user, access to the view
-needs to be granted again via an update operation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access__view) -> ()
+
+let yojson_of_access__view =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       table_id = v_table_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_id in
+         ("table_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : access__view -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access__view
+
+[@@@deriving.end]
 
 type access = {
   domain : string prop option; [@option]
-      (** A domain to grant access to. Any users signed in with the
-domain specified will be granted the specified access *)
   group_by_email : string prop option; [@option]
-      (** An email address of a Google Group to grant access to. *)
   iam_member : string prop option; [@option]
-      (** Some other type of member that appears in the IAM Policy but isn't a user,
-group, domain, or special group. For example: 'allUsers' *)
   role : string prop option; [@option]
-      (** Describes the rights granted to the user specified by the other
-member of the access object. Basic, predefined, and custom roles
-are supported. Predefined roles that have equivalent basic roles
-are swapped by the API to their basic counterparts. See
-[official docs](https://cloud.google.com/bigquery/docs/access-control). *)
   special_group : string prop option; [@option]
-      (** A special group to grant access to. Possible values include:
-
-
-* 'projectOwners': Owners of the enclosing project.
-
-
-* 'projectReaders': Readers of the enclosing project.
-
-
-* 'projectWriters': Writers of the enclosing project.
-
-
-* 'allAuthenticatedUsers': All authenticated BigQuery users. *)
   user_by_email : string prop option; [@option]
-      (** An email address of a user to grant access to. For example:
-fred@example.com *)
   dataset : access__dataset list;
   routine : access__routine list;
   view : access__view list;
 }
-[@@deriving yojson_of]
-(** An array of objects that define dataset access for one or more entities. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : access) -> ()
+
+let yojson_of_access =
+  (function
+   | {
+       domain = v_domain;
+       group_by_email = v_group_by_email;
+       iam_member = v_iam_member;
+       role = v_role;
+       special_group = v_special_group;
+       user_by_email = v_user_by_email;
+       dataset = v_dataset;
+       routine = v_routine;
+       view = v_view;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_access__view v_view in
+         ("view", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access__routine v_routine
+         in
+         ("routine", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_access__dataset v_dataset
+         in
+         ("dataset", arg) :: bnds
+       in
+       let bnds =
+         match v_user_by_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_by_email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_special_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "special_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iam_member with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "iam_member", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group_by_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group_by_email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : access -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_access
+
+[@@@deriving.end]
 
 type default_encryption_configuration = {
   kms_key_name : string prop;
-      (** Describes the Cloud KMS encryption key that will be used to protect destination
-BigQuery table. The BigQuery Service Account associated with your project requires
-access to this encryption key. *)
 }
-[@@deriving yojson_of]
-(** The default encryption key for all tables in the dataset. Once this property is set,
-all newly-created partitioned tables in the dataset will have encryption key set to
-this value, unless table creation request (or query) overrides the key. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : default_encryption_configuration) -> ()
+
+let yojson_of_default_encryption_configuration =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_name in
+         ("kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : default_encryption_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_default_encryption_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigquery_dataset = {
   dataset_id : string prop;
-      (** A unique ID for this dataset, without the project name. The ID
-must contain only letters (a-z, A-Z), numbers (0-9), or
-underscores (_). The maximum length is 1,024 characters. *)
   default_collation : string prop option; [@option]
-      (** Defines the default collation specification of future tables created
-in the dataset. If a table is created in this dataset without table-level
-default collation, then the table inherits the dataset default collation,
-which is applied to the string fields that do not have explicit collation
-specified. A change to this field affects only tables created afterwards,
-and does not alter the existing tables.
-
-The following values are supported:
-- 'und:ci': undetermined locale, case insensitive.
-- '': empty string. Default to case-sensitive behavior. *)
   default_partition_expiration_ms : float prop option; [@option]
-      (** The default partition expiration for all partitioned tables in
-the dataset, in milliseconds.
-
-
-Once this property is set, all newly-created partitioned tables in
-the dataset will have an 'expirationMs' property in the 'timePartitioning'
-settings set to this value, and changing the value will only
-affect new tables, not existing ones. The storage in a partition will
-have an expiration time of its partition time plus this value.
-Setting this property overrides the use of 'defaultTableExpirationMs'
-for partitioned tables: only one of 'defaultTableExpirationMs' and
-'defaultPartitionExpirationMs' will be used for any new partitioned
-table. If you provide an explicit 'timePartitioning.expirationMs' when
-creating or updating a partitioned table, that value takes precedence
-over the default partition expiration time indicated by this property. *)
   default_table_expiration_ms : float prop option; [@option]
-      (** The default lifetime of all tables in the dataset, in milliseconds.
-The minimum value is 3600000 milliseconds (one hour).
-
-
-Once this property is set, all newly-created tables in the dataset
-will have an 'expirationTime' property set to the creation time plus
-the value in this property, and changing the value will only affect
-new tables, not existing ones. When the 'expirationTime' for a given
-table is reached, that table will be deleted automatically.
-If a table's 'expirationTime' is modified or removed before the
-table expires, or if you provide an explicit 'expirationTime' when
-creating a table, that value takes precedence over the default
-expiration time indicated by this property. *)
   delete_contents_on_destroy : bool prop option; [@option]
-      (** If set to 'true', delete all the tables in the
-dataset when destroying the resource; otherwise,
-destroying the resource will fail if tables are present. *)
   description : string prop option; [@option]
-      (** A user-friendly description of the dataset *)
   friendly_name : string prop option; [@option]
-      (** A descriptive name for the dataset *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   is_case_insensitive : bool prop option; [@option]
-      (** TRUE if the dataset and its table names are case-insensitive, otherwise FALSE.
-By default, this is FALSE, which means the dataset and its table names are
-case-sensitive. This field does not affect routine references. *)
   labels : (string * string prop) list option; [@option]
-      (** The labels associated with this dataset. You can use these to
-organize and group your datasets.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop option; [@option]
-      (** The geographic location where the dataset should reside.
-See [official docs](https://cloud.google.com/bigquery/docs/dataset-locations).
-
-
-There are two types of locations, regional or multi-regional. A regional
-location is a specific geographic place, such as Tokyo, and a multi-regional
-location is a large geographic area, such as the United States, that
-contains at least two geographic places.
-
-
-The default value is multi-regional location 'US'.
-Changing this forces a new resource to be created. *)
   max_time_travel_hours : string prop option; [@option]
-      (** Defines the time travel window in hours. The value can be from 48 to 168 hours (2 to 7 days). *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   storage_billing_model : string prop option; [@option]
-      (** Specifies the storage billing model for the dataset.
-Set this flag value to LOGICAL to use logical bytes for storage billing,
-or to PHYSICAL to use physical bytes instead.
-
-LOGICAL is the default if this flag isn't specified. *)
   access : access list;
   default_encryption_configuration :
     default_encryption_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigquery_dataset *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigquery_dataset) -> ()
+
+let yojson_of_google_bigquery_dataset =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       default_collation = v_default_collation;
+       default_partition_expiration_ms =
+         v_default_partition_expiration_ms;
+       default_table_expiration_ms = v_default_table_expiration_ms;
+       delete_contents_on_destroy = v_delete_contents_on_destroy;
+       description = v_description;
+       friendly_name = v_friendly_name;
+       id = v_id;
+       is_case_insensitive = v_is_case_insensitive;
+       labels = v_labels;
+       location = v_location;
+       max_time_travel_hours = v_max_time_travel_hours;
+       project = v_project;
+       storage_billing_model = v_storage_billing_model;
+       access = v_access;
+       default_encryption_configuration =
+         v_default_encryption_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_default_encryption_configuration
+             v_default_encryption_configuration
+         in
+         ("default_encryption_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_access v_access in
+         ("access", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_billing_model with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_billing_model", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_time_travel_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_time_travel_hours", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_case_insensitive with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_case_insensitive", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_friendly_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "friendly_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_contents_on_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete_contents_on_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_table_expiration_ms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_table_expiration_ms", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_partition_expiration_ms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "default_partition_expiration_ms", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_collation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_collation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_bigquery_dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigquery_dataset
+
+[@@@deriving.end]
 
 let access__dataset__dataset ~dataset_id ~project_id () :
     access__dataset__dataset =

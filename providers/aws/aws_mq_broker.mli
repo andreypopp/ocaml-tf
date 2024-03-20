@@ -10,6 +10,8 @@ type instances = {
   ip_address : string prop;  (** ip_address *)
 }
 
+[@@@deriving.end]
+
 type configuration
 
 val configuration :

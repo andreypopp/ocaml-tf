@@ -4,14 +4,63 @@ open! Tf_core
 
 type aws_rds_cluster_activity_stream = {
   engine_native_audit_fields_included : bool prop option; [@option]
-      (** engine_native_audit_fields_included *)
-  id : string prop option; [@option]  (** id *)
-  kms_key_id : string prop;  (** kms_key_id *)
-  mode : string prop;  (** mode *)
-  resource_arn : string prop;  (** resource_arn *)
+  id : string prop option; [@option]
+  kms_key_id : string prop;
+  mode : string prop;
+  resource_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_rds_cluster_activity_stream *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_rds_cluster_activity_stream) -> ()
+
+let yojson_of_aws_rds_cluster_activity_stream =
+  (function
+   | {
+       engine_native_audit_fields_included =
+         v_engine_native_audit_fields_included;
+       id = v_id;
+       kms_key_id = v_kms_key_id;
+       mode = v_mode;
+       resource_arn = v_resource_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_arn in
+         ("resource_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_id in
+         ("kms_key_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_engine_native_audit_fields_included with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "engine_native_audit_fields_included", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_rds_cluster_activity_stream ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_rds_cluster_activity_stream
+
+[@@@deriving.end]
 
 let aws_rds_cluster_activity_stream
     ?engine_native_audit_fields_included ?id ~kms_key_id ~mode

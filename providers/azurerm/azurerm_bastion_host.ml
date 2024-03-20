@@ -3,45 +3,257 @@
 open! Tf_core
 
 type ip_configuration = {
-  name : string prop;  (** name *)
-  public_ip_address_id : string prop;  (** public_ip_address_id *)
-  subnet_id : string prop;  (** subnet_id *)
+  name : string prop;
+  public_ip_address_id : string prop;
+  subnet_id : string prop;
 }
-[@@deriving yojson_of]
-(** ip_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ip_configuration) -> ()
+
+let yojson_of_ip_configuration =
+  (function
+   | {
+       name = v_name;
+       public_ip_address_id = v_public_ip_address_id;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_public_ip_address_id
+         in
+         ("public_ip_address_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : ip_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ip_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_bastion_host = {
   copy_paste_enabled : bool prop option; [@option]
-      (** copy_paste_enabled *)
   file_copy_enabled : bool prop option; [@option]
-      (** file_copy_enabled *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_connect_enabled : bool prop option; [@option]
-      (** ip_connect_enabled *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  scale_units : float prop option; [@option]  (** scale_units *)
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  scale_units : float prop option; [@option]
   shareable_link_enabled : bool prop option; [@option]
-      (** shareable_link_enabled *)
-  sku : string prop option; [@option]  (** sku *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  sku : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tunneling_enabled : bool prop option; [@option]
-      (** tunneling_enabled *)
   ip_configuration : ip_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_bastion_host *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_bastion_host) -> ()
+
+let yojson_of_azurerm_bastion_host =
+  (function
+   | {
+       copy_paste_enabled = v_copy_paste_enabled;
+       file_copy_enabled = v_file_copy_enabled;
+       id = v_id;
+       ip_connect_enabled = v_ip_connect_enabled;
+       location = v_location;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       scale_units = v_scale_units;
+       shareable_link_enabled = v_shareable_link_enabled;
+       sku = v_sku;
+       tags = v_tags;
+       tunneling_enabled = v_tunneling_enabled;
+       ip_configuration = v_ip_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ip_configuration
+             v_ip_configuration
+         in
+         ("ip_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tunneling_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "tunneling_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sku with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sku", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_shareable_link_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "shareable_link_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_scale_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "scale_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_ip_connect_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ip_connect_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_file_copy_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "file_copy_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_copy_paste_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "copy_paste_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_bastion_host -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_bastion_host
+
+[@@@deriving.end]
 
 let ip_configuration ~name ~public_ip_address_id ~subnet_id () :
     ip_configuration =

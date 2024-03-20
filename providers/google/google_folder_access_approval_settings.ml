@@ -4,65 +4,159 @@ open! Tf_core
 
 type enrolled_services = {
   cloud_product : string prop;
-      (** The product for which Access Approval will be enrolled. Allowed values are listed (case-sensitive):
-  * all
-  * App Engine
-  * BigQuery
-  * Cloud Bigtable
-  * Cloud Key Management Service
-  * Compute Engine
-  * Cloud Dataflow
-  * Cloud Identity and Access Management
-  * Cloud Pub/Sub
-  * Cloud Storage
-  * Persistent Disk
-
-Note: These values are supported as input, but considered a legacy format:
-  * all
-  * appengine.googleapis.com
-  * bigquery.googleapis.com
-  * bigtable.googleapis.com
-  * cloudkms.googleapis.com
-  * compute.googleapis.com
-  * dataflow.googleapis.com
-  * iam.googleapis.com
-  * pubsub.googleapis.com
-  * storage.googleapis.com *)
   enrollment_level : string prop option; [@option]
-      (** The enrollment level of the service. Default value: BLOCK_ALL Possible values: [BLOCK_ALL] *)
 }
-[@@deriving yojson_of]
-(** A list of Google Cloud Services for which the given resource has Access Approval enrolled.
-Access requests for the resource given by name against any of these services contained here will be required
-to have explicit approval. Enrollment can only be done on an all or nothing basis.
+[@@deriving_inline yojson_of]
 
-A maximum of 10 enrolled services will be enforced, to be expanded as the set of supported services is expanded. *)
+let _ = fun (_ : enrolled_services) -> ()
+
+let yojson_of_enrolled_services =
+  (function
+   | {
+       cloud_product = v_cloud_product;
+       enrollment_level = v_enrollment_level;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enrollment_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "enrollment_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cloud_product in
+         ("cloud_product", arg) :: bnds
+       in
+       `Assoc bnds
+    : enrolled_services -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_enrolled_services
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_folder_access_approval_settings = {
   active_key_version : string prop option; [@option]
-      (** The asymmetric crypto key version to use for signing approval requests.
-Empty active_key_version indicates that a Google-managed key should be used for signing.
-This property will be ignored if set by an ancestor of the resource, and new non-empty values may not be set. *)
   folder_id : string prop;
-      (** ID of the folder of the access approval settings. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   notification_emails : string prop list option; [@option]
-      (** A list of email addresses to which notifications relating to approval requests should be sent.
-Notifications relating to a resource will be sent to all emails in the settings of ancestor
-resources of that resource. A maximum of 50 email addresses are allowed. *)
   enrolled_services : enrolled_services list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_folder_access_approval_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_folder_access_approval_settings) -> ()
+
+let yojson_of_google_folder_access_approval_settings =
+  (function
+   | {
+       active_key_version = v_active_key_version;
+       folder_id = v_folder_id;
+       id = v_id;
+       notification_emails = v_notification_emails;
+       enrolled_services = v_enrolled_services;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_enrolled_services
+             v_enrolled_services
+         in
+         ("enrolled_services", arg) :: bnds
+       in
+       let bnds =
+         match v_notification_emails with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "notification_emails", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_folder_id in
+         ("folder_id", arg) :: bnds
+       in
+       let bnds =
+         match v_active_key_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "active_key_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_folder_access_approval_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_folder_access_approval_settings
+
+[@@@deriving.end]
 
 let enrolled_services ?enrollment_level ~cloud_product () :
     enrolled_services =

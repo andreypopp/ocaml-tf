@@ -3,26 +3,125 @@
 open! Tf_core
 
 type input_parameter = {
-  parameter_name : string prop;  (** parameter_name *)
-  parameter_value : string prop;  (** parameter_value *)
+  parameter_name : string prop;
+  parameter_value : string prop;
 }
-[@@deriving yojson_of]
-(** input_parameter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : input_parameter) -> ()
+
+let yojson_of_input_parameter =
+  (function
+   | {
+       parameter_name = v_parameter_name;
+       parameter_value = v_parameter_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_parameter_value
+         in
+         ("parameter_value", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_parameter_name
+         in
+         ("parameter_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : input_parameter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_input_parameter
+
+[@@@deriving.end]
 
 type aws_config_conformance_pack = {
   delivery_s3_bucket : string prop option; [@option]
-      (** delivery_s3_bucket *)
   delivery_s3_key_prefix : string prop option; [@option]
-      (** delivery_s3_key_prefix *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  template_body : string prop option; [@option]  (** template_body *)
+  id : string prop option; [@option]
+  name : string prop;
+  template_body : string prop option; [@option]
   template_s3_uri : string prop option; [@option]
-      (** template_s3_uri *)
   input_parameter : input_parameter list;
 }
-[@@deriving yojson_of]
-(** aws_config_conformance_pack *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_config_conformance_pack) -> ()
+
+let yojson_of_aws_config_conformance_pack =
+  (function
+   | {
+       delivery_s3_bucket = v_delivery_s3_bucket;
+       delivery_s3_key_prefix = v_delivery_s3_key_prefix;
+       id = v_id;
+       name = v_name;
+       template_body = v_template_body;
+       template_s3_uri = v_template_s3_uri;
+       input_parameter = v_input_parameter;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_input_parameter v_input_parameter
+         in
+         ("input_parameter", arg) :: bnds
+       in
+       let bnds =
+         match v_template_s3_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "template_s3_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_template_body with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "template_body", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delivery_s3_key_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delivery_s3_key_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delivery_s3_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delivery_s3_bucket", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_config_conformance_pack ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_config_conformance_pack
+
+[@@@deriving.end]
 
 let input_parameter ~parameter_name ~parameter_value () :
     input_parameter =

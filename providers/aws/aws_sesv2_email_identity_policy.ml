@@ -3,13 +3,55 @@
 open! Tf_core
 
 type aws_sesv2_email_identity_policy = {
-  email_identity : string prop;  (** email_identity *)
-  id : string prop option; [@option]  (** id *)
-  policy : string prop;  (** policy *)
-  policy_name : string prop;  (** policy_name *)
+  email_identity : string prop;
+  id : string prop option; [@option]
+  policy : string prop;
+  policy_name : string prop;
 }
-[@@deriving yojson_of]
-(** aws_sesv2_email_identity_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sesv2_email_identity_policy) -> ()
+
+let yojson_of_aws_sesv2_email_identity_policy =
+  (function
+   | {
+       email_identity = v_email_identity;
+       id = v_id;
+       policy = v_policy;
+       policy_name = v_policy_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_name in
+         ("policy_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_email_identity
+         in
+         ("email_identity", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_sesv2_email_identity_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sesv2_email_identity_policy
+
+[@@@deriving.end]
 
 let aws_sesv2_email_identity_policy ?id ~email_identity ~policy
     ~policy_name () : aws_sesv2_email_identity_policy =

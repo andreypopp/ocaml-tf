@@ -70,6 +70,8 @@ type config__node_config__ip_allocation_policy = {
   use_ip_aliases : bool prop;  (** use_ip_aliases *)
 }
 
+[@@@deriving.end]
+
 type config__node_config
 
 val config__node_config :

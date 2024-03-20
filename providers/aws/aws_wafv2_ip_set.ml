@@ -3,16 +3,16 @@
 open! Tf_core
 
 type aws_wafv2_ip_set = {
-  addresses: string   prop list option; [@option] (** addresses *)
-  description: string  prop option; [@option] (** description *)
-  id: string  prop option; [@option] (** id *)
-  ip_address_version: string prop;  (** ip_address_version *)
-  name: string prop;  (** name *)
-  scope: string prop;  (** scope *)
-  tags: (string * string   prop) list option; [@option] (** tags *)
-  tags_all: (string * string   prop) list option; [@option] (** tags_all *)
-} [@@deriving yojson_of]
-(** aws_wafv2_ip_set *)
+  addresses: string   prop list option; [@option]
+  description: string  prop option; [@option]
+  id: string  prop option; [@option]
+  ip_address_version: string prop; 
+  name: string prop; 
+  scope: string prop; 
+  tags: (string * string   prop) list option; [@option]
+  tags_all: (string * string   prop) list option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let aws_wafv2_ip_set ?addresses ?description ?id ?tags ?tags_all ~ip_address_version ~name ~scope () =
   ({

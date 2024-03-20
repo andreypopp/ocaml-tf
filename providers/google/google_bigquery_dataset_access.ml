@@ -4,109 +4,311 @@ open! Tf_core
 
 type dataset__dataset = {
   dataset_id : string prop;
-      (** The ID of the dataset containing this table. *)
   project_id : string prop;
-      (** The ID of the project containing this table. *)
 }
-[@@deriving yojson_of]
-(** The dataset this entry applies to *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dataset__dataset) -> ()
+
+let yojson_of_dataset__dataset =
+  (function
+   | { dataset_id = v_dataset_id; project_id = v_project_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : dataset__dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dataset__dataset
+
+[@@@deriving.end]
 
 type dataset = {
   target_types : string prop list;
-      (** Which resources in the dataset this entry applies to. Currently, only views are supported,
-but additional target types may be added in the future. Possible values: VIEWS *)
   dataset : dataset__dataset list;
 }
-[@@deriving yojson_of]
-(** Grants all resources of particular types in a particular dataset read access to the current dataset. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dataset) -> ()
+
+let yojson_of_dataset =
+  (function
+   | { target_types = v_target_types; dataset = v_dataset } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dataset__dataset v_dataset
+         in
+         ("dataset", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_target_types
+         in
+         ("target_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : dataset -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dataset
+
+[@@@deriving.end]
 
 type routine = {
   dataset_id : string prop;
-      (** The ID of the dataset containing this table. *)
   project_id : string prop;
-      (** The ID of the project containing this table. *)
   routine_id : string prop;
-      (** The ID of the routine. The ID must contain only letters (a-z,
-A-Z), numbers (0-9), or underscores (_). The maximum length
-is 256 characters. *)
 }
-[@@deriving yojson_of]
-(** A routine from a different dataset to grant access to. Queries
-executed against that routine will have read access to tables in
-this dataset. The role field is not required when this field is
-set. If that routine is updated by any user, access to the routine
-needs to be granted again via an update operation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routine) -> ()
+
+let yojson_of_routine =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       routine_id = v_routine_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_routine_id in
+         ("routine_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : routine -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routine
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type view = {
   dataset_id : string prop;
-      (** The ID of the dataset containing this table. *)
   project_id : string prop;
-      (** The ID of the project containing this table. *)
   table_id : string prop;
-      (** The ID of the table. The ID must contain only letters (a-z,
-A-Z), numbers (0-9), or underscores (_). The maximum length
-is 1,024 characters. *)
 }
-[@@deriving yojson_of]
-(** A view from a different dataset to grant access to. Queries
-executed against that view will have read access to tables in
-this dataset. The role field is not required when this field is
-set. If that view is updated by any user, access to the view
-needs to be granted again via an update operation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : view) -> ()
+
+let yojson_of_view =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       project_id = v_project_id;
+       table_id = v_table_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_table_id in
+         ("table_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_id in
+         ("project_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : view -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_view
+
+[@@@deriving.end]
 
 type google_bigquery_dataset_access = {
   dataset_id : string prop;
-      (** A unique ID for this dataset, without the project name. The ID
-must contain only letters (a-z, A-Z), numbers (0-9), or
-underscores (_). The maximum length is 1,024 characters. *)
   domain : string prop option; [@option]
-      (** A domain to grant access to. Any users signed in with the
-domain specified will be granted the specified access *)
   group_by_email : string prop option; [@option]
-      (** An email address of a Google Group to grant access to. *)
   iam_member : string prop option; [@option]
-      (** Some other type of member that appears in the IAM Policy but isn't a user,
-group, domain, or special group. For example: 'allUsers' *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   role : string prop option; [@option]
-      (** Describes the rights granted to the user specified by the other
-member of the access object. Basic, predefined, and custom roles are
-supported. Predefined roles that have equivalent basic roles are
-swapped by the API to their basic counterparts, and will show a diff
-post-create. See
-[official docs](https://cloud.google.com/bigquery/docs/access-control). *)
   special_group : string prop option; [@option]
-      (** A special group to grant access to. Possible values include:
-
-
-* 'projectOwners': Owners of the enclosing project.
-
-
-* 'projectReaders': Readers of the enclosing project.
-
-
-* 'projectWriters': Writers of the enclosing project.
-
-
-* 'allAuthenticatedUsers': All authenticated BigQuery users. *)
   user_by_email : string prop option; [@option]
-      (** An email address of a user to grant access to. For example:
-fred@example.com *)
   dataset : dataset list;
   routine : routine list;
   timeouts : timeouts option;
   view : view list;
 }
-[@@deriving yojson_of]
-(** google_bigquery_dataset_access *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigquery_dataset_access) -> ()
+
+let yojson_of_google_bigquery_dataset_access =
+  (function
+   | {
+       dataset_id = v_dataset_id;
+       domain = v_domain;
+       group_by_email = v_group_by_email;
+       iam_member = v_iam_member;
+       id = v_id;
+       project = v_project;
+       role = v_role;
+       special_group = v_special_group;
+       user_by_email = v_user_by_email;
+       dataset = v_dataset;
+       routine = v_routine;
+       timeouts = v_timeouts;
+       view = v_view;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_view v_view in
+         ("view", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_routine v_routine in
+         ("routine", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_dataset v_dataset in
+         ("dataset", arg) :: bnds
+       in
+       let bnds =
+         match v_user_by_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_by_email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_special_group with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "special_group", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iam_member with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "iam_member", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_group_by_email with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "group_by_email", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset_id in
+         ("dataset_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_bigquery_dataset_access ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigquery_dataset_access
+
+[@@@deriving.end]
 
 let dataset__dataset ~dataset_id ~project_id () : dataset__dataset =
   { dataset_id; project_id }

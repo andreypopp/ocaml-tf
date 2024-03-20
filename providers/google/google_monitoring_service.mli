@@ -8,6 +8,8 @@ type telemetry = {
   resource_name : string prop;  (** resource_name *)
 }
 
+[@@@deriving.end]
+
 type basic_service
 
 val basic_service :

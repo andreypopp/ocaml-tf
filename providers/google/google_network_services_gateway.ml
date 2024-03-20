@@ -3,68 +3,240 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_network_services_gateway = {
   addresses : string prop list option; [@option]
-      (** Zero or one IPv4-address on which the Gateway will receive the traffic. When no address is provided,
-an IP from the subnetwork is allocated This field only applies to gateways of type 'SECURE_WEB_GATEWAY'.
-Gateways of type 'OPEN_MESH' listen on 0.0.0.0. *)
   certificate_urls : string prop list option; [@option]
-      (** A fully-qualified Certificates URL reference. The proxy presents a Certificate (selected based on SNI) when establishing a TLS connection.
-This feature only applies to gateways of type 'SECURE_WEB_GATEWAY'. *)
   delete_swg_autogen_router_on_destroy : bool prop option; [@option]
-      (** When deleting a gateway of type 'SECURE_WEB_GATEWAY', this boolean option will also delete auto generated router by the gateway creation.
-If there is no other gateway of type 'SECURE_WEB_GATEWAY' remaining for that region and network it will be deleted. *)
   description : string prop option; [@option]
-      (** A free-text description of the resource. Max length 1024 characters. *)
   gateway_security_policy : string prop option; [@option]
-      (** A fully-qualified GatewaySecurityPolicy URL reference. Defines how a server should apply security policy to inbound (VM to Proxy) initiated connections.
-For example: 'projects/*/locations/*/gatewaySecurityPolicies/swg-policy'.
-This policy is specific to gateways of type 'SECURE_WEB_GATEWAY'. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Set of label tags associated with the Gateway resource.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   location : string prop option; [@option]
-      (** The location of the gateway.
-The default value is 'global'. *)
   name : string prop;
-      (** Short name of the Gateway resource to be created. *)
   network : string prop option; [@option]
-      (** The relative resource name identifying the VPC network that is using this configuration.
-For example: 'projects/*/global/networks/network-1'.
-Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY'. *)
   ports : float prop list;
-      (** One or more port numbers (1-65535), on which the Gateway will receive traffic.
-The proxy binds to the specified ports. Gateways of type 'SECURE_WEB_GATEWAY' are
-limited to 1 port. Gateways of type 'OPEN_MESH' listen on 0.0.0.0 and support multiple ports. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   scope : string prop option; [@option]
-      (** Immutable. Scope determines how configuration across multiple Gateway instances are merged.
-The configuration for multiple Gateway instances with the same scope will be merged as presented as
-a single coniguration to the proxy/load balancer.
-Max length 64 characters. Scope should start with a letter and can only have letters, numbers, hyphens. *)
   server_tls_policy : string prop option; [@option]
-      (** A fully-qualified ServerTLSPolicy URL reference. Specifies how TLS traffic is terminated.
-If empty, TLS termination is disabled. *)
   subnetwork : string prop option; [@option]
-      (** The relative resource name identifying the subnetwork in which this SWG is allocated.
-For example: 'projects/*/regions/us-central1/subnetworks/network-1'.
-Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY. *)
   type_ : string prop; [@key "type"]
-      (** Immutable. The type of the customer-managed gateway. Possible values are: * OPEN_MESH * SECURE_WEB_GATEWAY. Possible values: [TYPE_UNSPECIFIED, OPEN_MESH, SECURE_WEB_GATEWAY] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_network_services_gateway *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_network_services_gateway) -> ()
+
+let yojson_of_google_network_services_gateway =
+  (function
+   | {
+       addresses = v_addresses;
+       certificate_urls = v_certificate_urls;
+       delete_swg_autogen_router_on_destroy =
+         v_delete_swg_autogen_router_on_destroy;
+       description = v_description;
+       gateway_security_policy = v_gateway_security_policy;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       network = v_network;
+       ports = v_ports;
+       project = v_project;
+       scope = v_scope;
+       server_tls_policy = v_server_tls_policy;
+       subnetwork = v_subnetwork;
+       type_ = v_type_;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_subnetwork with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_server_tls_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "server_tls_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_float) v_ports
+         in
+         ("ports", arg) :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gateway_security_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gateway_security_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_swg_autogen_router_on_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete_swg_autogen_router_on_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_urls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "certificate_urls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "addresses", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_network_services_gateway ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_network_services_gateway
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

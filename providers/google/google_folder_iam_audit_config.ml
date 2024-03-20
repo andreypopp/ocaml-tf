@@ -4,22 +4,91 @@ open! Tf_core
 
 type audit_log_config = {
   exempted_members : string prop list option; [@option]
-      (** Identities that do not cause logging for this type of permission. Each entry can have one of the following values:user:{emailid}: An email address that represents a specific Google account. For example, alice@gmail.com or joe@example.com. serviceAccount:{emailid}: An email address that represents a service account. For example, my-other-app@appspot.gserviceaccount.com. group:{emailid}: An email address that represents a Google group. For example, admins@example.com. domain:{domain}: A G Suite domain (primary, instead of alias) name that represents all the users of that domain. For example, google.com or example.com. *)
   log_type : string prop;
-      (** Permission type for which logging is to be configured. Must be one of DATA_READ, DATA_WRITE, or ADMIN_READ. *)
 }
-[@@deriving yojson_of]
-(** The configuration for logging of each type of permission. This can be specified multiple times. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : audit_log_config) -> ()
+
+let yojson_of_audit_log_config =
+  (function
+   | { exempted_members = v_exempted_members; log_type = v_log_type }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_log_type in
+         ("log_type", arg) :: bnds
+       in
+       let bnds =
+         match v_exempted_members with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "exempted_members", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : audit_log_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_audit_log_config
+
+[@@@deriving.end]
 
 type google_folder_iam_audit_config = {
-  folder : string prop;  (** folder *)
-  id : string prop option; [@option]  (** id *)
+  folder : string prop;
+  id : string prop option; [@option]
   service : string prop;
-      (** Service which will be enabled for audit logging. The special value allServices covers all services. *)
   audit_log_config : audit_log_config list;
 }
-[@@deriving yojson_of]
-(** google_folder_iam_audit_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_folder_iam_audit_config) -> ()
+
+let yojson_of_google_folder_iam_audit_config =
+  (function
+   | {
+       folder = v_folder;
+       id = v_id;
+       service = v_service;
+       audit_log_config = v_audit_log_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_audit_log_config
+             v_audit_log_config
+         in
+         ("audit_log_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_folder in
+         ("folder", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_folder_iam_audit_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_folder_iam_audit_config
+
+[@@@deriving.end]
 
 let audit_log_config ?exempted_members ~log_type () :
     audit_log_config =

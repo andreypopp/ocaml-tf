@@ -4,17 +4,91 @@ open! Tf_core
 
 type digitalocean_certificate = {
   certificate_chain : string prop option; [@option]
-      (** certificate_chain *)
-  domains : string prop list option; [@option]  (** domains *)
-  id : string prop option; [@option]  (** id *)
+  domains : string prop list option; [@option]
+  id : string prop option; [@option]
   leaf_certificate : string prop option; [@option]
-      (** leaf_certificate *)
-  name : string prop;  (** name *)
-  private_key : string prop option; [@option]  (** private_key *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  name : string prop;
+  private_key : string prop option; [@option]
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** digitalocean_certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_certificate) -> ()
+
+let yojson_of_digitalocean_certificate =
+  (function
+   | {
+       certificate_chain = v_certificate_chain;
+       domains = v_domains;
+       id = v_id;
+       leaf_certificate = v_leaf_certificate;
+       name = v_name;
+       private_key = v_private_key;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_leaf_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "leaf_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_domains with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "domains", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_certificate_chain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "certificate_chain", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_certificate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_certificate
+
+[@@@deriving.end]
 
 let digitalocean_certificate ?certificate_chain ?domains ?id
     ?leaf_certificate ?private_key ?type_ ~name () :

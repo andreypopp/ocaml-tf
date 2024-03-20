@@ -3,148 +3,148 @@
 open! Tf_core
 
 type credentials__credential_pair = {
-  password: string prop;  (** password *)
-  username: string prop;  (** username *)
-} [@@deriving yojson_of]
-(** credentials__credential_pair *)
+  password: string prop; 
+  username: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type credentials = {
-  copy_source_arn: string  prop option; [@option] (** copy_source_arn *)
+  copy_source_arn: string  prop option; [@option]
   credential_pair: credentials__credential_pair list;
-} [@@deriving yojson_of]
-(** credentials *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__amazon_elasticsearch = {
-  domain: string prop;  (** domain *)
-} [@@deriving yojson_of]
-(** parameters__amazon_elasticsearch *)
+  domain: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__athena = {
-  work_group: string  prop option; [@option] (** work_group *)
-} [@@deriving yojson_of]
-(** parameters__athena *)
+  work_group: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__aurora = {
-  database: string prop;  (** database *)
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__aurora *)
+  database: string prop; 
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__aurora_postgresql = {
-  database: string prop;  (** database *)
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__aurora_postgresql *)
+  database: string prop; 
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__aws_iot_analytics = {
-  data_set_name: string prop;  (** data_set_name *)
-} [@@deriving yojson_of]
-(** parameters__aws_iot_analytics *)
+  data_set_name: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__jira = {
-  site_base_url: string prop;  (** site_base_url *)
-} [@@deriving yojson_of]
-(** parameters__jira *)
+  site_base_url: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__maria_db = {
-  database: string prop;  (** database *)
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__maria_db *)
+  database: string prop; 
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__mysql = {
-  database: string prop;  (** database *)
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__mysql *)
+  database: string prop; 
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__oracle = {
-  database: string prop;  (** database *)
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__oracle *)
+  database: string prop; 
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__postgresql = {
-  database: string prop;  (** database *)
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__postgresql *)
+  database: string prop; 
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__presto = {
-  catalog: string prop;  (** catalog *)
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__presto *)
+  catalog: string prop; 
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__rds = {
-  database: string prop;  (** database *)
-  instance_id: string prop;  (** instance_id *)
-} [@@deriving yojson_of]
-(** parameters__rds *)
+  database: string prop; 
+  instance_id: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__redshift = {
-  cluster_id: string  prop option; [@option] (** cluster_id *)
-  database: string prop;  (** database *)
-  host: string  prop option; [@option] (** host *)
-  port: float  prop option; [@option] (** port *)
-} [@@deriving yojson_of]
-(** parameters__redshift *)
+  cluster_id: string  prop option; [@option]
+  database: string prop; 
+  host: string  prop option; [@option]
+  port: float  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__s3__manifest_file_location = {
-  bucket: string prop;  (** bucket *)
-  key: string prop;  (** key *)
-} [@@deriving yojson_of]
-(** parameters__s3__manifest_file_location *)
+  bucket: string prop; 
+  key: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__s3 = {
   manifest_file_location: parameters__s3__manifest_file_location list;
-} [@@deriving yojson_of]
-(** parameters__s3 *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__service_now = {
-  site_base_url: string prop;  (** site_base_url *)
-} [@@deriving yojson_of]
-(** parameters__service_now *)
+  site_base_url: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__snowflake = {
-  database: string prop;  (** database *)
-  host: string prop;  (** host *)
-  warehouse: string prop;  (** warehouse *)
-} [@@deriving yojson_of]
-(** parameters__snowflake *)
+  database: string prop; 
+  host: string prop; 
+  warehouse: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__spark = {
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__spark *)
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__sql_server = {
-  database: string prop;  (** database *)
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__sql_server *)
+  database: string prop; 
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__teradata = {
-  database: string prop;  (** database *)
-  host: string prop;  (** host *)
-  port: float prop;  (** port *)
-} [@@deriving yojson_of]
-(** parameters__teradata *)
+  database: string prop; 
+  host: string prop; 
+  port: float prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters__twitter = {
-  max_rows: float prop;  (** max_rows *)
-  query: string prop;  (** query *)
-} [@@deriving yojson_of]
-(** parameters__twitter *)
+  max_rows: float prop; 
+  query: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type parameters = {
   amazon_elasticsearch: parameters__amazon_elasticsearch list;
@@ -167,40 +167,40 @@ type parameters = {
   sql_server: parameters__sql_server list;
   teradata: parameters__teradata list;
   twitter: parameters__twitter list;
-} [@@deriving yojson_of]
-(** parameters *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type permission = {
-  actions: string  prop list;  (** actions *)
-  principal: string prop;  (** principal *)
-} [@@deriving yojson_of]
-(** permission *)
+  actions: string  prop list; 
+  principal: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type ssl_properties = {
-  disable_ssl: bool prop;  (** disable_ssl *)
-} [@@deriving yojson_of]
-(** ssl_properties *)
+  disable_ssl: bool prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type vpc_connection_properties = {
-  vpc_connection_arn: string prop;  (** vpc_connection_arn *)
-} [@@deriving yojson_of]
-(** vpc_connection_properties *)
+  vpc_connection_arn: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type aws_quicksight_data_source = {
-  aws_account_id: string  prop option; [@option] (** aws_account_id *)
-  data_source_id: string prop;  (** data_source_id *)
-  id: string  prop option; [@option] (** id *)
-  name: string prop;  (** name *)
-  tags: (string * string   prop) list option; [@option] (** tags *)
-  tags_all: (string * string   prop) list option; [@option] (** tags_all *)
-  type_: string prop; [@key "type"] (** type *)
+  aws_account_id: string  prop option; [@option]
+  data_source_id: string prop; 
+  id: string  prop option; [@option]
+  name: string prop; 
+  tags: (string * string   prop) list option; [@option]
+  tags_all: (string * string   prop) list option; [@option]
+  type_: string prop; [@key "type"]
   credentials: credentials list;
   parameters: parameters list;
   permission: permission list;
   ssl_properties: ssl_properties list;
   vpc_connection_properties: vpc_connection_properties list;
-} [@@deriving yojson_of]
-(** aws_quicksight_data_source *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let credentials__credential_pair ~password ~username () =
   ({

@@ -3,55 +3,165 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_firestore_database = {
   app_engine_integration_mode : string prop option; [@option]
-      (** The App Engine integration mode to use for this database. Possible values: [ENABLED, DISABLED] *)
   concurrency_mode : string prop option; [@option]
-      (** The concurrency control mode to use for this database. Possible values: [OPTIMISTIC, PESSIMISTIC, OPTIMISTIC_WITH_ENTITY_GROUPS] *)
   delete_protection_state : string prop option; [@option]
-      (** State of delete protection for the database.
-When delete protection is enabled, this database cannot be deleted.
-The default value is 'DELETE_PROTECTION_STATE_UNSPECIFIED', which is currently equivalent to 'DELETE_PROTECTION_DISABLED'.
-**Note:** Additionally, to delete this database using 'terraform destroy', 'deletion_policy' must be set to 'DELETE'. Possible values: [DELETE_PROTECTION_STATE_UNSPECIFIED, DELETE_PROTECTION_ENABLED, DELETE_PROTECTION_DISABLED] *)
   deletion_policy : string prop option; [@option]
-      (** Deletion behavior for this database.
-If the deletion policy is 'ABANDON', the database will be removed from Terraform state but not deleted from Google Cloud upon destruction.
-If the deletion policy is 'DELETE', the database will both be removed from Terraform state and deleted from Google Cloud upon destruction.
-The default value is 'ABANDON'.
-See also 'delete_protection'. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location_id : string prop;
-      (** The location of the database. Available locations are listed at
-https://cloud.google.com/firestore/docs/locations. *)
   name : string prop;
-      (** The ID to use for the database, which will become the final
-component of the database's resource name. This value should be 4-63
-characters. Valid characters are /[a-z][0-9]-/ with first character
-a letter and the last a letter or a number. Must not be
-UUID-like /[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}/.
-(default) database id is also valid. *)
   point_in_time_recovery_enablement : string prop option; [@option]
-      (** Whether to enable the PITR feature on this database.
-If 'POINT_IN_TIME_RECOVERY_ENABLED' is selected, reads are supported on selected versions of the data from within the past 7 days.
-versionRetentionPeriod and earliestVersionTime can be used to determine the supported versions. These include reads against any timestamp within the past hour
-and reads against 1-minute snapshots beyond 1 hour and within 7 days.
-If 'POINT_IN_TIME_RECOVERY_DISABLED' is selected, reads are supported on any version of the data from within the past 1 hour. Default value: POINT_IN_TIME_RECOVERY_DISABLED Possible values: [POINT_IN_TIME_RECOVERY_ENABLED, POINT_IN_TIME_RECOVERY_DISABLED] *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   type_ : string prop; [@key "type"]
-      (** The type of the database.
-See https://cloud.google.com/datastore/docs/firestore-or-datastore
-for information about how to choose. Possible values: [FIRESTORE_NATIVE, DATASTORE_MODE] *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_firestore_database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_firestore_database) -> ()
+
+let yojson_of_google_firestore_database =
+  (function
+   | {
+       app_engine_integration_mode = v_app_engine_integration_mode;
+       concurrency_mode = v_concurrency_mode;
+       delete_protection_state = v_delete_protection_state;
+       deletion_policy = v_deletion_policy;
+       id = v_id;
+       location_id = v_location_id;
+       name = v_name;
+       point_in_time_recovery_enablement =
+         v_point_in_time_recovery_enablement;
+       project = v_project;
+       type_ = v_type_;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_point_in_time_recovery_enablement with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "point_in_time_recovery_enablement", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location_id in
+         ("location_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deletion_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_protection_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete_protection_state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_concurrency_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "concurrency_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_app_engine_integration_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "app_engine_integration_mode", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_firestore_database -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_firestore_database
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

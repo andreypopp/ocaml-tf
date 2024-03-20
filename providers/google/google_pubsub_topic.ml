@@ -4,69 +4,218 @@ open! Tf_core
 
 type message_storage_policy = {
   allowed_persistence_regions : string prop list;
-      (** A list of IDs of GCP regions where messages that are published to
-the topic may be persisted in storage. Messages published by
-publishers running in non-allowed GCP regions (or running outside
-of GCP altogether) will be routed for storage in one of the
-allowed regions. An empty list means that no regions are allowed,
-and is not a valid configuration. *)
 }
-[@@deriving yojson_of]
-(** Policy constraining the set of Google Cloud Platform regions where
-messages published to the topic may be stored. If not present, then no
-constraints are in effect. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : message_storage_policy) -> ()
+
+let yojson_of_message_storage_policy =
+  (function
+   | { allowed_persistence_regions = v_allowed_persistence_regions }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_persistence_regions
+         in
+         ("allowed_persistence_regions", arg) :: bnds
+       in
+       `Assoc bnds
+    : message_storage_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_message_storage_policy
+
+[@@@deriving.end]
 
 type schema_settings = {
   encoding : string prop option; [@option]
-      (** The encoding of messages validated against schema. Default value: ENCODING_UNSPECIFIED Possible values: [ENCODING_UNSPECIFIED, JSON, BINARY] *)
   schema : string prop;
-      (** The name of the schema that messages published should be
-validated against. Format is projects/{project}/schemas/{schema}.
-The value of this field will be _deleted-schema_
-if the schema has been deleted. *)
 }
-[@@deriving yojson_of]
-(** Settings for validating messages published against a schema. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : schema_settings) -> ()
+
+let yojson_of_schema_settings =
+  (function
+   | { encoding = v_encoding; schema = v_schema } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schema in
+         ("schema", arg) :: bnds
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : schema_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schema_settings
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_pubsub_topic = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kms_key_name : string prop option; [@option]
-      (** The resource name of the Cloud KMS CryptoKey to be used to protect access
-to messages published on this topic. Your project's PubSub service account
-('service-{{PROJECT_NUMBER}}@gcp-sa-pubsub.iam.gserviceaccount.com') must have
-'roles/cloudkms.cryptoKeyEncrypterDecrypter' to use this feature.
-The expected format is 'projects/*/locations/*/keyRings/*/cryptoKeys/*' *)
   labels : (string * string prop) list option; [@option]
-      (** A set of key/value label pairs to assign to this Topic.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   message_retention_duration : string prop option; [@option]
-      (** Indicates the minimum duration to retain a message after it is published
-to the topic. If this field is set, messages published to the topic in
-the last messageRetentionDuration are always available to subscribers.
-For instance, it allows any attached subscription to seek to a timestamp
-that is up to messageRetentionDuration in the past. If this field is not
-set, message retention is controlled by settings on individual subscriptions.
-The rotation period has the format of a decimal number, followed by the
-letter 's' (seconds). Cannot be more than 31 days or less than 10 minutes. *)
-  name : string prop;  (** Name of the topic. *)
-  project : string prop option; [@option]  (** project *)
+  name : string prop;
+  project : string prop option; [@option]
   message_storage_policy : message_storage_policy list;
   schema_settings : schema_settings list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_pubsub_topic *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_pubsub_topic) -> ()
+
+let yojson_of_google_pubsub_topic =
+  (function
+   | {
+       id = v_id;
+       kms_key_name = v_kms_key_name;
+       labels = v_labels;
+       message_retention_duration = v_message_retention_duration;
+       name = v_name;
+       project = v_project;
+       message_storage_policy = v_message_storage_policy;
+       schema_settings = v_schema_settings;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_schema_settings v_schema_settings
+         in
+         ("schema_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_message_storage_policy
+             v_message_storage_policy
+         in
+         ("message_storage_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_message_retention_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "message_retention_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_pubsub_topic -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_pubsub_topic
+
+[@@@deriving.end]
 
 let message_storage_policy ~allowed_persistence_regions () :
     message_storage_policy =

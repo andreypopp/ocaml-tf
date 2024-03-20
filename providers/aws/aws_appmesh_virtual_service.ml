@@ -3,39 +3,215 @@
 open! Tf_core
 
 type spec__provider__virtual_node = {
-  virtual_node_name : string prop;  (** virtual_node_name *)
+  virtual_node_name : string prop;
 }
-[@@deriving yojson_of]
-(** spec__provider__virtual_node *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__provider__virtual_node) -> ()
+
+let yojson_of_spec__provider__virtual_node =
+  (function
+   | { virtual_node_name = v_virtual_node_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_node_name
+         in
+         ("virtual_node_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__provider__virtual_node ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__provider__virtual_node
+
+[@@@deriving.end]
 
 type spec__provider__virtual_router = {
-  virtual_router_name : string prop;  (** virtual_router_name *)
+  virtual_router_name : string prop;
 }
-[@@deriving yojson_of]
-(** spec__provider__virtual_router *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__provider__virtual_router) -> ()
+
+let yojson_of_spec__provider__virtual_router =
+  (function
+   | { virtual_router_name = v_virtual_router_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_router_name
+         in
+         ("virtual_router_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__provider__virtual_router ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__provider__virtual_router
+
+[@@@deriving.end]
 
 type spec__provider = {
   virtual_node : spec__provider__virtual_node list;
   virtual_router : spec__provider__virtual_router list;
 }
-[@@deriving yojson_of]
-(** spec__provider *)
+[@@deriving_inline yojson_of]
 
-type spec = { provider : spec__provider list } [@@deriving yojson_of]
-(** spec *)
+let _ = fun (_ : spec__provider) -> ()
+
+let yojson_of_spec__provider =
+  (function
+   | {
+       virtual_node = v_virtual_node;
+       virtual_router = v_virtual_router;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__provider__virtual_router
+             v_virtual_router
+         in
+         ("virtual_router", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__provider__virtual_node
+             v_virtual_node
+         in
+         ("virtual_node", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec__provider -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__provider
+
+[@@@deriving.end]
+
+type spec = { provider : spec__provider list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | { provider = v_provider } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__provider v_provider
+         in
+         ("provider", arg) :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type aws_appmesh_virtual_service = {
-  id : string prop option; [@option]  (** id *)
-  mesh_name : string prop;  (** mesh_name *)
-  mesh_owner : string prop option; [@option]  (** mesh_owner *)
-  name : string prop;  (** name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  mesh_name : string prop;
+  mesh_owner : string prop option; [@option]
+  name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   spec : spec list;
 }
-[@@deriving yojson_of]
-(** aws_appmesh_virtual_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appmesh_virtual_service) -> ()
+
+let yojson_of_aws_appmesh_virtual_service =
+  (function
+   | {
+       id = v_id;
+       mesh_name = v_mesh_name;
+       mesh_owner = v_mesh_owner;
+       name = v_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       spec = v_spec;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mesh_owner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mesh_owner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mesh_name in
+         ("mesh_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_appmesh_virtual_service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appmesh_virtual_service
+
+[@@@deriving.end]
 
 let spec__provider__virtual_node ~virtual_node_name () :
     spec__provider__virtual_node =

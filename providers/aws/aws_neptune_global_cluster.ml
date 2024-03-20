@@ -3,36 +3,177 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type global_cluster_members = {
-  db_cluster_arn : string prop;  (** db_cluster_arn *)
-  is_writer : bool prop;  (** is_writer *)
+  db_cluster_arn : string prop;
+  is_writer : bool prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : global_cluster_members) -> ()
+
+let yojson_of_global_cluster_members =
+  (function
+   | { db_cluster_arn = v_db_cluster_arn; is_writer = v_is_writer }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_is_writer in
+         ("is_writer", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_db_cluster_arn
+         in
+         ("db_cluster_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : global_cluster_members -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_global_cluster_members
+
+[@@@deriving.end]
 
 type aws_neptune_global_cluster = {
   deletion_protection : bool prop option; [@option]
-      (** deletion_protection *)
-  engine : string prop option; [@option]  (** engine *)
+  engine : string prop option; [@option]
   engine_version : string prop option; [@option]
-      (** engine_version *)
   global_cluster_identifier : string prop;
-      (** global_cluster_identifier *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   source_db_cluster_identifier : string prop option; [@option]
-      (** source_db_cluster_identifier *)
   storage_encrypted : bool prop option; [@option]
-      (** storage_encrypted *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_neptune_global_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_neptune_global_cluster) -> ()
+
+let yojson_of_aws_neptune_global_cluster =
+  (function
+   | {
+       deletion_protection = v_deletion_protection;
+       engine = v_engine;
+       engine_version = v_engine_version;
+       global_cluster_identifier = v_global_cluster_identifier;
+       id = v_id;
+       source_db_cluster_identifier = v_source_db_cluster_identifier;
+       storage_encrypted = v_storage_encrypted;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_encrypted with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "storage_encrypted", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_db_cluster_identifier with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_db_cluster_identifier", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_global_cluster_identifier
+         in
+         ("global_cluster_identifier", arg) :: bnds
+       in
+       let bnds =
+         match v_engine_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_engine with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "engine", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "deletion_protection", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_neptune_global_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_neptune_global_cluster
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

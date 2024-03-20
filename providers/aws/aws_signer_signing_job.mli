@@ -10,12 +10,19 @@ type revocation_record = {
   revoked_by : string prop;  (** revoked_by *)
 }
 
+[@@@deriving.end]
+
 type signed_object__s3 = {
   bucket : string prop;  (** bucket *)
   key : string prop;  (** key *)
 }
 
+[@@@deriving.end]
+
 type signed_object = { s3 : signed_object__s3 list  (** s3 *) }
+
+[@@@deriving.end]
+
 type destination__s3
 
 val destination__s3 :

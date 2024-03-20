@@ -3,64 +3,378 @@
 open! Tf_core
 
 type maintenance_window = {
-  day_of_week : float prop option; [@option]  (** day_of_week *)
-  start_hour : float prop option; [@option]  (** start_hour *)
-  start_minute : float prop option; [@option]  (** start_minute *)
+  day_of_week : float prop option; [@option]
+  start_hour : float prop option; [@option]
+  start_minute : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** maintenance_window *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_window) -> ()
+
+let yojson_of_maintenance_window =
+  (function
+   | {
+       day_of_week = v_day_of_week;
+       start_hour = v_start_hour;
+       start_minute = v_start_minute;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_start_minute with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "start_minute", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_start_hour with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "start_hour", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day_of_week", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : maintenance_window -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_window
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_cosmosdb_postgresql_cluster = {
   administrator_login_password : string prop option; [@option]
-      (** administrator_login_password *)
-  citus_version : string prop option; [@option]  (** citus_version *)
+  citus_version : string prop option; [@option]
   coordinator_public_ip_access_enabled : bool prop option; [@option]
-      (** coordinator_public_ip_access_enabled *)
   coordinator_server_edition : string prop option; [@option]
-      (** coordinator_server_edition *)
   coordinator_storage_quota_in_mb : float prop option; [@option]
-      (** coordinator_storage_quota_in_mb *)
   coordinator_vcore_count : float prop option; [@option]
-      (** coordinator_vcore_count *)
-  ha_enabled : bool prop option; [@option]  (** ha_enabled *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
-  node_count : float prop;  (** node_count *)
+  ha_enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
+  node_count : float prop;
   node_public_ip_access_enabled : bool prop option; [@option]
-      (** node_public_ip_access_enabled *)
   node_server_edition : string prop option; [@option]
-      (** node_server_edition *)
   node_storage_quota_in_mb : float prop option; [@option]
-      (** node_storage_quota_in_mb *)
-  node_vcores : float prop option; [@option]  (** node_vcores *)
+  node_vcores : float prop option; [@option]
   point_in_time_in_utc : string prop option; [@option]
-      (** point_in_time_in_utc *)
   preferred_primary_zone : string prop option; [@option]
-      (** preferred_primary_zone *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  resource_group_name : string prop;
   shards_on_coordinator_enabled : bool prop option; [@option]
-      (** shards_on_coordinator_enabled *)
   source_location : string prop option; [@option]
-      (** source_location *)
   source_resource_id : string prop option; [@option]
-      (** source_resource_id *)
-  sql_version : string prop option; [@option]  (** sql_version *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  sql_version : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   maintenance_window : maintenance_window list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_cosmosdb_postgresql_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_cosmosdb_postgresql_cluster) -> ()
+
+let yojson_of_azurerm_cosmosdb_postgresql_cluster =
+  (function
+   | {
+       administrator_login_password = v_administrator_login_password;
+       citus_version = v_citus_version;
+       coordinator_public_ip_access_enabled =
+         v_coordinator_public_ip_access_enabled;
+       coordinator_server_edition = v_coordinator_server_edition;
+       coordinator_storage_quota_in_mb =
+         v_coordinator_storage_quota_in_mb;
+       coordinator_vcore_count = v_coordinator_vcore_count;
+       ha_enabled = v_ha_enabled;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       node_count = v_node_count;
+       node_public_ip_access_enabled =
+         v_node_public_ip_access_enabled;
+       node_server_edition = v_node_server_edition;
+       node_storage_quota_in_mb = v_node_storage_quota_in_mb;
+       node_vcores = v_node_vcores;
+       point_in_time_in_utc = v_point_in_time_in_utc;
+       preferred_primary_zone = v_preferred_primary_zone;
+       resource_group_name = v_resource_group_name;
+       shards_on_coordinator_enabled =
+         v_shards_on_coordinator_enabled;
+       source_location = v_source_location;
+       source_resource_id = v_source_resource_id;
+       sql_version = v_sql_version;
+       tags = v_tags;
+       maintenance_window = v_maintenance_window;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_window
+             v_maintenance_window
+         in
+         ("maintenance_window", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sql_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sql_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_resource_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_resource_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_shards_on_coordinator_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "shards_on_coordinator_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_preferred_primary_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preferred_primary_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_point_in_time_in_utc with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "point_in_time_in_utc", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_vcores with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "node_vcores", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_storage_quota_in_mb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "node_storage_quota_in_mb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_server_edition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_server_edition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_node_public_ip_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "node_public_ip_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_node_count in
+         ("node_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ha_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ha_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_coordinator_vcore_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "coordinator_vcore_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_coordinator_storage_quota_in_mb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "coordinator_storage_quota_in_mb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_coordinator_server_edition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "coordinator_server_edition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_coordinator_public_ip_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "coordinator_public_ip_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_citus_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "citus_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_administrator_login_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "administrator_login_password", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_cosmosdb_postgresql_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_cosmosdb_postgresql_cluster
+
+[@@@deriving.end]
 
 let maintenance_window ?day_of_week ?start_hour ?start_minute () :
     maintenance_window =

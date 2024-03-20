@@ -4,152 +4,565 @@ open! Tf_core
 
 type autoclass = {
   enabled : bool prop;
-      (** While set to true, autoclass automatically transitions objects in your bucket to appropriate storage classes based on each object's access pattern. *)
   terminal_storage_class : string prop option; [@option]
-      (** The storage class that objects in the bucket eventually transition to if they are not read for a certain length of time. Supported values include: NEARLINE, ARCHIVE. *)
 }
-[@@deriving yojson_of]
-(** The bucket's autoclass configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoclass) -> ()
+
+let yojson_of_autoclass =
+  (function
+   | {
+       enabled = v_enabled;
+       terminal_storage_class = v_terminal_storage_class;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_terminal_storage_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "terminal_storage_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : autoclass -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoclass
+
+[@@@deriving.end]
 
 type cors = {
   max_age_seconds : float prop option; [@option]
-      (** The value, in seconds, to return in the Access-Control-Max-Age header used in preflight responses. *)
   method_ : string prop list option; [@option] [@key "method"]
-      (** The list of HTTP methods on which to include CORS response headers, (GET, OPTIONS, POST, etc) Note: * is permitted in the list of methods, and means any method. *)
   origin : string prop list option; [@option]
-      (** The list of Origins eligible to receive CORS response headers. Note: * is permitted in the list of origins, and means any Origin. *)
   response_header : string prop list option; [@option]
-      (** The list of HTTP headers other than the simple response headers to give permission for the user-agent to share across domains. *)
 }
-[@@deriving yojson_of]
-(** The bucket's Cross-Origin Resource Sharing (CORS) configuration. *)
+[@@deriving_inline yojson_of]
 
-type custom_placement_config = {
-  data_locations : string prop list;
-      (** The list of individual regions that comprise a dual-region bucket. See the docs for a list of acceptable regions. Note: If any of the data_locations changes, it will recreate the bucket. *)
-}
-[@@deriving yojson_of]
-(** The bucket's custom location configuration, which specifies the individual regions that comprise a dual-region bucket. If the bucket is designated a single or multi-region, the parameters are empty. *)
+let _ = fun (_ : cors) -> ()
 
-type encryption = {
-  default_kms_key_name : string prop;
-      (** A Cloud KMS key that will be used to encrypt objects inserted into this bucket, if no encryption method is specified. You must pay attention to whether the crypto key is available in the location that this bucket is created in. See the docs for more details. *)
-}
-[@@deriving yojson_of]
-(** The bucket's encryption configuration. *)
+let yojson_of_cors =
+  (function
+   | {
+       max_age_seconds = v_max_age_seconds;
+       method_ = v_method_;
+       origin = v_origin;
+       response_header = v_response_header;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_response_header with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "response_header", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_origin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "origin", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_method_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "method", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_age_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_age_seconds", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cors -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cors
+
+[@@@deriving.end]
+
+type custom_placement_config = { data_locations : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_placement_config) -> ()
+
+let yojson_of_custom_placement_config =
+  (function
+   | { data_locations = v_data_locations } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_data_locations
+         in
+         ("data_locations", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_placement_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_placement_config
+
+[@@@deriving.end]
+
+type encryption = { default_kms_key_name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : encryption) -> ()
+
+let yojson_of_encryption =
+  (function
+   | { default_kms_key_name = v_default_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_default_kms_key_name
+         in
+         ("default_kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : encryption -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_encryption
+
+[@@@deriving.end]
 
 type lifecycle_rule__action = {
   storage_class : string prop option; [@option]
-      (** The target Storage Class of objects affected by this Lifecycle Rule. Supported values include: MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE. *)
   type_ : string prop; [@key "type"]
-      (** The type of the action of this Lifecycle Rule. Supported values include: Delete, SetStorageClass and AbortIncompleteMultipartUpload. *)
 }
-[@@deriving yojson_of]
-(** The Lifecycle Rule's action configuration. A single block of this type is supported. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : lifecycle_rule__action) -> ()
+
+let yojson_of_lifecycle_rule__action =
+  (function
+   | { storage_class = v_storage_class; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_class", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : lifecycle_rule__action -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_lifecycle_rule__action
+
+[@@@deriving.end]
 
 type lifecycle_rule__condition = {
   age : float prop option; [@option]
-      (** Minimum age of an object in days to satisfy this condition. *)
   created_before : string prop option; [@option]
-      (** Creation date of an object in RFC 3339 (e.g. 2017-06-13) to satisfy this condition. *)
   custom_time_before : string prop option; [@option]
-      (** Creation date of an object in RFC 3339 (e.g. 2017-06-13) to satisfy this condition. *)
   days_since_custom_time : float prop option; [@option]
-      (** Number of days elapsed since the user-specified timestamp set on an object. *)
   days_since_noncurrent_time : float prop option; [@option]
-      (** Number of days elapsed since the noncurrent timestamp of an object. This
-										condition is relevant only for versioned objects. *)
   matches_prefix : string prop list option; [@option]
-      (** One or more matching name prefixes to satisfy this condition. *)
   matches_storage_class : string prop list option; [@option]
-      (** Storage Class of objects to satisfy this condition. Supported values include: MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE, STANDARD, DURABLE_REDUCED_AVAILABILITY. *)
   matches_suffix : string prop list option; [@option]
-      (** One or more matching name suffixes to satisfy this condition. *)
   no_age : bool prop option; [@option]
-      (** While set true, age value will be omitted.Required to set true when age is unset in the config file. *)
   noncurrent_time_before : string prop option; [@option]
-      (** Creation date of an object in RFC 3339 (e.g. 2017-06-13) to satisfy this condition. *)
   num_newer_versions : float prop option; [@option]
-      (** Relevant only for versioned objects. The number of newer versions of an object to satisfy this condition. *)
   with_state : string prop option; [@option]
-      (** Match to live and/or archived objects. Unversioned buckets have only live objects. Supported values include: LIVE, ARCHIVED, ANY. *)
 }
-[@@deriving yojson_of]
-(** The Lifecycle Rule's condition configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : lifecycle_rule__condition) -> ()
+
+let yojson_of_lifecycle_rule__condition =
+  (function
+   | {
+       age = v_age;
+       created_before = v_created_before;
+       custom_time_before = v_custom_time_before;
+       days_since_custom_time = v_days_since_custom_time;
+       days_since_noncurrent_time = v_days_since_noncurrent_time;
+       matches_prefix = v_matches_prefix;
+       matches_storage_class = v_matches_storage_class;
+       matches_suffix = v_matches_suffix;
+       no_age = v_no_age;
+       noncurrent_time_before = v_noncurrent_time_before;
+       num_newer_versions = v_num_newer_versions;
+       with_state = v_with_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_with_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "with_state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_newer_versions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_newer_versions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_noncurrent_time_before with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "noncurrent_time_before", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_no_age with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "no_age", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_matches_suffix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "matches_suffix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_matches_storage_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "matches_storage_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_matches_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "matches_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_days_since_noncurrent_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "days_since_noncurrent_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_days_since_custom_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "days_since_custom_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_time_before with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_time_before", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_created_before with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "created_before", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_age with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "age", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : lifecycle_rule__condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_lifecycle_rule__condition
+
+[@@@deriving.end]
 
 type lifecycle_rule = {
   action : lifecycle_rule__action list;
   condition : lifecycle_rule__condition list;
 }
-[@@deriving yojson_of]
-(** The bucket's Lifecycle Rules configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : lifecycle_rule) -> ()
+
+let yojson_of_lifecycle_rule =
+  (function
+   | { action = v_action; condition = v_condition } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_lifecycle_rule__condition
+             v_condition
+         in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_lifecycle_rule__action v_action
+         in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : lifecycle_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_lifecycle_rule
+
+[@@@deriving.end]
 
 type logging = {
   log_bucket : string prop;
-      (** The bucket that will receive log objects. *)
   log_object_prefix : string prop option; [@option]
-      (** The object prefix for log objects. If it's not provided, by default Google Cloud Storage sets this to this bucket's name. *)
 }
-[@@deriving yojson_of]
-(** The bucket's Access & Storage Logs configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging) -> ()
+
+let yojson_of_logging =
+  (function
+   | {
+       log_bucket = v_log_bucket;
+       log_object_prefix = v_log_object_prefix;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_log_object_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_object_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_log_bucket in
+         ("log_bucket", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging
+
+[@@@deriving.end]
 
 type retention_policy = {
   is_locked : bool prop option; [@option]
-      (** If set to true, the bucket will be locked and permanently restrict edits to the bucket's retention policy.  Caution: Locking a bucket is an irreversible action. *)
   retention_period : float prop;
-      (** The period of time, in seconds, that objects in the bucket must be retained and cannot be deleted, overwritten, or archived. The value must be less than 3,155,760,000 seconds. *)
 }
-[@@deriving yojson_of]
-(** Configuration of the bucket's data retention policy for how long objects in the bucket should be retained. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : retention_policy) -> ()
+
+let yojson_of_retention_policy =
+  (function
+   | {
+       is_locked = v_is_locked;
+       retention_period = v_retention_period;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_retention_period
+         in
+         ("retention_period", arg) :: bnds
+       in
+       let bnds =
+         match v_is_locked with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_locked", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : retention_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_retention_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type versioning = {
-  enabled : bool prop;
-      (** While set to true, versioning is fully enabled for this bucket. *)
-}
-[@@deriving yojson_of]
-(** The bucket's Versioning configuration. *)
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; read = v_read; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type versioning = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : versioning) -> ()
+
+let yojson_of_versioning =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : versioning -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_versioning
+
+[@@@deriving.end]
 
 type website = {
   main_page_suffix : string prop option; [@option]
-      (** Behaves as the bucket's directory index where missing objects are treated as potential directories. *)
   not_found_page : string prop option; [@option]
-      (** The custom object to return when a requested resource is not found. *)
 }
-[@@deriving yojson_of]
-(** Configuration if the bucket acts as a website. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : website) -> ()
+
+let yojson_of_website =
+  (function
+   | {
+       main_page_suffix = v_main_page_suffix;
+       not_found_page = v_not_found_page;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_not_found_page with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "not_found_page", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_main_page_suffix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "main_page_suffix", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : website -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_website
+
+[@@@deriving.end]
 
 type google_storage_bucket = {
   default_event_based_hold : bool prop option; [@option]
-      (** Whether or not to automatically apply an eventBasedHold to new objects added to the bucket. *)
   enable_object_retention : bool prop option; [@option]
-      (** Enables each object in the bucket to have its own retention policy, which prevents deletion until stored for a specific length of time. *)
   force_destroy : bool prop option; [@option]
-      (** When deleting a bucket, this boolean option will delete all contained objects. If you try to delete a bucket that contains objects, Terraform will fail that run. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** A set of key/value label pairs to assign to the bucket. *)
-  location : string prop;  (** The Google Cloud Storage location *)
-  name : string prop;  (** The name of the bucket. *)
+  location : string prop;
+  name : string prop;
   project : string prop option; [@option]
-      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   public_access_prevention : string prop option; [@option]
-      (** Prevents public access to a bucket. *)
   requester_pays : bool prop option; [@option]
-      (** Enables Requester Pays on a storage bucket. *)
   rpo : string prop option; [@option]
-      (** Specifies the RPO setting of bucket. If set 'ASYNC_TURBO', The Turbo Replication will be enabled for the dual-region bucket. Value 'DEFAULT' will set RPO setting to default. Turbo Replication is only for buckets in dual-regions.See the docs for more details. *)
   storage_class : string prop option; [@option]
-      (** The Storage Class of the new bucket. Supported values include: STANDARD, MULTI_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE. *)
   uniform_bucket_level_access : bool prop option; [@option]
-      (** Enables uniform bucket-level access on a bucket. *)
   autoclass : autoclass list;
   cors : cors list;
   custom_placement_config : custom_placement_config list;
@@ -161,8 +574,202 @@ type google_storage_bucket = {
   versioning : versioning list;
   website : website list;
 }
-[@@deriving yojson_of]
-(** google_storage_bucket *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_storage_bucket) -> ()
+
+let yojson_of_google_storage_bucket =
+  (function
+   | {
+       default_event_based_hold = v_default_event_based_hold;
+       enable_object_retention = v_enable_object_retention;
+       force_destroy = v_force_destroy;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       public_access_prevention = v_public_access_prevention;
+       requester_pays = v_requester_pays;
+       rpo = v_rpo;
+       storage_class = v_storage_class;
+       uniform_bucket_level_access = v_uniform_bucket_level_access;
+       autoclass = v_autoclass;
+       cors = v_cors;
+       custom_placement_config = v_custom_placement_config;
+       encryption = v_encryption;
+       lifecycle_rule = v_lifecycle_rule;
+       logging = v_logging;
+       retention_policy = v_retention_policy;
+       timeouts = v_timeouts;
+       versioning = v_versioning;
+       website = v_website;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_website v_website in
+         ("website", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_versioning v_versioning
+         in
+         ("versioning", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_retention_policy
+             v_retention_policy
+         in
+         ("retention_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_logging v_logging in
+         ("logging", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_lifecycle_rule v_lifecycle_rule
+         in
+         ("lifecycle_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_encryption v_encryption
+         in
+         ("encryption", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_placement_config
+             v_custom_placement_config
+         in
+         ("custom_placement_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_cors v_cors in
+         ("cors", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_autoclass v_autoclass in
+         ("autoclass", arg) :: bnds
+       in
+       let bnds =
+         match v_uniform_bucket_level_access with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "uniform_bucket_level_access", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_storage_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "storage_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rpo with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rpo", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_requester_pays with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "requester_pays", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_access_prevention with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "public_access_prevention", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_object_retention with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_object_retention", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_event_based_hold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "default_event_based_hold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_storage_bucket -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_storage_bucket
+
+[@@@deriving.end]
 
 let autoclass ?terminal_storage_class ~enabled () : autoclass =
   { enabled; terminal_storage_class }

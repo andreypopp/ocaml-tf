@@ -4,89 +4,325 @@ open! Tf_core
 
 type customer_managed_key = {
   geo_backup_key_vault_key_id : string prop option; [@option]
-      (** geo_backup_key_vault_key_id *)
   geo_backup_user_assigned_identity_id : string prop option;
       [@option]
-      (** geo_backup_user_assigned_identity_id *)
   key_vault_key_id : string prop option; [@option]
-      (** key_vault_key_id *)
   primary_user_assigned_identity_id : string prop option; [@option]
-      (** primary_user_assigned_identity_id *)
 }
-[@@deriving yojson_of]
-(** customer_managed_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : customer_managed_key) -> ()
+
+let yojson_of_customer_managed_key =
+  (function
+   | {
+       geo_backup_key_vault_key_id = v_geo_backup_key_vault_key_id;
+       geo_backup_user_assigned_identity_id =
+         v_geo_backup_user_assigned_identity_id;
+       key_vault_key_id = v_key_vault_key_id;
+       primary_user_assigned_identity_id =
+         v_primary_user_assigned_identity_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_primary_user_assigned_identity_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "primary_user_assigned_identity_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_vault_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_geo_backup_user_assigned_identity_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "geo_backup_user_assigned_identity_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_geo_backup_key_vault_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "geo_backup_key_vault_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : customer_managed_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_customer_managed_key
+
+[@@@deriving.end]
 
 type high_availability = {
-  mode : string prop;  (** mode *)
+  mode : string prop;
   standby_availability_zone : string prop option; [@option]
-      (** standby_availability_zone *)
 }
-[@@deriving yojson_of]
-(** high_availability *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : high_availability) -> ()
+
+let yojson_of_high_availability =
+  (function
+   | {
+       mode = v_mode;
+       standby_availability_zone = v_standby_availability_zone;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_standby_availability_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "standby_availability_zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : high_availability -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_high_availability
+
+[@@@deriving.end]
 
 type identity = {
-  identity_ids : string prop list;  (** identity_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  identity_ids : string prop list;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_identity_ids
+         in
+         ("identity_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
 
 type maintenance_window = {
-  day_of_week : float prop option; [@option]  (** day_of_week *)
-  start_hour : float prop option; [@option]  (** start_hour *)
-  start_minute : float prop option; [@option]  (** start_minute *)
+  day_of_week : float prop option; [@option]
+  start_hour : float prop option; [@option]
+  start_minute : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** maintenance_window *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_window) -> ()
+
+let yojson_of_maintenance_window =
+  (function
+   | {
+       day_of_week = v_day_of_week;
+       start_hour = v_start_hour;
+       start_minute = v_start_minute;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_start_minute with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "start_minute", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_start_hour with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "start_hour", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_day_of_week with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "day_of_week", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : maintenance_window -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_window
+
+[@@@deriving.end]
 
 type storage = {
   auto_grow_enabled : bool prop option; [@option]
-      (** auto_grow_enabled *)
   io_scaling_enabled : bool prop option; [@option]
-      (** io_scaling_enabled *)
-  iops : float prop option; [@option]  (** iops *)
-  size_gb : float prop option; [@option]  (** size_gb *)
+  iops : float prop option; [@option]
+  size_gb : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** storage *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage) -> ()
+
+let yojson_of_storage =
+  (function
+   | {
+       auto_grow_enabled = v_auto_grow_enabled;
+       io_scaling_enabled = v_io_scaling_enabled;
+       iops = v_iops;
+       size_gb = v_size_gb;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "size_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iops with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "iops", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_io_scaling_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "io_scaling_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_grow_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_grow_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : storage -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_mysql_flexible_server = {
   administrator_login : string prop option; [@option]
-      (** administrator_login *)
   administrator_password : string prop option; [@option]
-      (** administrator_password *)
   backup_retention_days : float prop option; [@option]
-      (** backup_retention_days *)
-  create_mode : string prop option; [@option]  (** create_mode *)
+  create_mode : string prop option; [@option]
   delegated_subnet_id : string prop option; [@option]
-      (** delegated_subnet_id *)
   geo_redundant_backup_enabled : bool prop option; [@option]
-      (** geo_redundant_backup_enabled *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
   point_in_time_restore_time_in_utc : string prop option; [@option]
-      (** point_in_time_restore_time_in_utc *)
   private_dns_zone_id : string prop option; [@option]
-      (** private_dns_zone_id *)
   replication_role : string prop option; [@option]
-      (** replication_role *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  sku_name : string prop option; [@option]  (** sku_name *)
+  resource_group_name : string prop;
+  sku_name : string prop option; [@option]
   source_server_id : string prop option; [@option]
-      (** source_server_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
-  version : string prop option; [@option]  (** version *)
-  zone : string prop option; [@option]  (** zone *)
+  tags : (string * string prop) list option; [@option]
+  version : string prop option; [@option]
+  zone : string prop option; [@option]
   customer_managed_key : customer_managed_key list;
   high_availability : high_availability list;
   identity : identity list;
@@ -94,8 +330,224 @@ type azurerm_mysql_flexible_server = {
   storage : storage list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_mysql_flexible_server *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_mysql_flexible_server) -> ()
+
+let yojson_of_azurerm_mysql_flexible_server =
+  (function
+   | {
+       administrator_login = v_administrator_login;
+       administrator_password = v_administrator_password;
+       backup_retention_days = v_backup_retention_days;
+       create_mode = v_create_mode;
+       delegated_subnet_id = v_delegated_subnet_id;
+       geo_redundant_backup_enabled = v_geo_redundant_backup_enabled;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       point_in_time_restore_time_in_utc =
+         v_point_in_time_restore_time_in_utc;
+       private_dns_zone_id = v_private_dns_zone_id;
+       replication_role = v_replication_role;
+       resource_group_name = v_resource_group_name;
+       sku_name = v_sku_name;
+       source_server_id = v_source_server_id;
+       tags = v_tags;
+       version = v_version;
+       zone = v_zone;
+       customer_managed_key = v_customer_managed_key;
+       high_availability = v_high_availability;
+       identity = v_identity;
+       maintenance_window = v_maintenance_window;
+       storage = v_storage;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_storage v_storage in
+         ("storage", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_window
+             v_maintenance_window
+         in
+         ("maintenance_window", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity v_identity in
+         ("identity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_high_availability
+             v_high_availability
+         in
+         ("high_availability", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_customer_managed_key
+             v_customer_managed_key
+         in
+         ("customer_managed_key", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_source_server_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "source_server_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sku_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sku_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_replication_role with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "replication_role", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_private_dns_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "private_dns_zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_point_in_time_restore_time_in_utc with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "point_in_time_restore_time_in_utc", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_geo_redundant_backup_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "geo_redundant_backup_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delegated_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delegated_subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_backup_retention_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "backup_retention_days", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_administrator_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "administrator_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_administrator_login with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "administrator_login", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_mysql_flexible_server ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_mysql_flexible_server
+
+[@@@deriving.end]
 
 let customer_managed_key ?geo_backup_key_vault_key_id
     ?geo_backup_user_assigned_identity_id ?key_vault_key_id

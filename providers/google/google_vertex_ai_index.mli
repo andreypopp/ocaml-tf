@@ -9,10 +9,14 @@ type deployed_indexes = {
   index_endpoint : string prop;  (** index_endpoint *)
 }
 
+[@@@deriving.end]
+
 type index_stats = {
   shards_count : float prop;  (** shards_count *)
   vectors_count : string prop;  (** vectors_count *)
 }
+
+[@@@deriving.end]
 
 type metadata__config__algorithm_config__brute_force_config
 

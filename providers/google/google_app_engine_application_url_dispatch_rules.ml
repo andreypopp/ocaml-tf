@@ -4,34 +4,143 @@ open! Tf_core
 
 type dispatch_rules = {
   domain : string prop option; [@option]
-      (** Domain name to match against. The wildcard * is supported if specified before a period: *..
-Defaults to matching all domains: *. *)
   path : string prop;
-      (** Pathname within the host. Must start with a /. A single * can be included at the end of the path.
-The sum of the lengths of the domain and path may not exceed 100 characters. *)
   service : string prop;
-      (** Pathname within the host. Must start with a /. A single * can be included at the end of the path.
-The sum of the lengths of the domain and path may not exceed 100 characters. *)
 }
-[@@deriving yojson_of]
-(** Rules to match an HTTP request and dispatch that request to a service. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dispatch_rules) -> ()
+
+let yojson_of_dispatch_rules =
+  (function
+   | { domain = v_domain; path = v_path; service = v_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "domain", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : dispatch_rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dispatch_rules
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_app_engine_application_url_dispatch_rules = {
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   dispatch_rules : dispatch_rules list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_app_engine_application_url_dispatch_rules *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : google_app_engine_application_url_dispatch_rules) -> ()
+
+let yojson_of_google_app_engine_application_url_dispatch_rules =
+  (function
+   | {
+       id = v_id;
+       project = v_project;
+       dispatch_rules = v_dispatch_rules;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dispatch_rules v_dispatch_rules
+         in
+         ("dispatch_rules", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_app_engine_application_url_dispatch_rules ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_app_engine_application_url_dispatch_rules
+
+[@@@deriving.end]
 
 let dispatch_rules ?domain ~path ~service () : dispatch_rules =
   { domain; path; service }

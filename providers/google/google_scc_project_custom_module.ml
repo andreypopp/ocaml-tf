@@ -4,103 +4,403 @@ open! Tf_core
 
 type custom_config__custom_output__properties__value_expression = {
   description : string prop option; [@option]
-      (** Description of the expression. This is a longer text which describes the
-expression, e.g. when hovered over it in a UI. *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting, e.g. a
-file name and a position in the file. *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose. This can
-be used e.g. in UIs which allow to enter the expression. *)
 }
-[@@deriving yojson_of]
-(** The CEL expression for the custom output. A resource property can be specified
-to return the value of the property or a text string enclosed in quotation marks. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : custom_config__custom_output__properties__value_expression) ->
+  ()
+
+let yojson_of_custom_config__custom_output__properties__value_expression
+    =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_config__custom_output__properties__value_expression ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_custom_config__custom_output__properties__value_expression
+
+[@@@deriving.end]
 
 type custom_config__custom_output__properties = {
   name : string prop option; [@option]
-      (** Name of the property for the custom output. *)
   value_expression :
     custom_config__custom_output__properties__value_expression list;
 }
-[@@deriving yojson_of]
-(** A list of custom output properties to add to the finding. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_config__custom_output__properties) -> ()
+
+let yojson_of_custom_config__custom_output__properties =
+  (function
+   | { name = v_name; value_expression = v_value_expression } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_custom_config__custom_output__properties__value_expression
+             v_value_expression
+         in
+         ("value_expression", arg) :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_config__custom_output__properties ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_config__custom_output__properties
+
+[@@@deriving.end]
 
 type custom_config__custom_output = {
   properties : custom_config__custom_output__properties list;
 }
-[@@deriving yojson_of]
-(** Custom output properties. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_config__custom_output) -> ()
+
+let yojson_of_custom_config__custom_output =
+  (function
+   | { properties = v_properties } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_custom_config__custom_output__properties
+             v_properties
+         in
+         ("properties", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_config__custom_output ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_config__custom_output
+
+[@@@deriving.end]
 
 type custom_config__predicate = {
   description : string prop option; [@option]
-      (** Description of the expression. This is a longer text which describes the
-expression, e.g. when hovered over it in a UI. *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting, e.g. a
-file name and a position in the file. *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose. This can
-be used e.g. in UIs which allow to enter the expression. *)
 }
-[@@deriving yojson_of]
-(** The CEL expression to evaluate to produce findings. When the expression evaluates
-to true against a resource, a finding is generated. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_config__predicate) -> ()
+
+let yojson_of_custom_config__predicate =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_config__predicate -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_config__predicate
+
+[@@@deriving.end]
 
 type custom_config__resource_selector = {
   resource_types : string prop list;
-      (** The resource types to run the detector on. *)
 }
-[@@deriving yojson_of]
-(** The resource types that the custom module operates on. Each custom module
-can specify up to 5 resource types. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_config__resource_selector) -> ()
+
+let yojson_of_custom_config__resource_selector =
+  (function
+   | { resource_types = v_resource_types } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_resource_types
+         in
+         ("resource_types", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_config__resource_selector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_config__resource_selector
+
+[@@@deriving.end]
 
 type custom_config = {
   description : string prop option; [@option]
-      (** Text that describes the vulnerability or misconfiguration that the custom
-module detects. This explanation is returned with each finding instance to
-help investigators understand the detected issue. The text must be enclosed in quotation marks. *)
   recommendation : string prop;
-      (** An explanation of the recommended steps that security teams can take to resolve
-the detected issue. This explanation is returned with each finding generated by
-this module in the nextSteps property of the finding JSON. *)
   severity : string prop;
-      (** The severity to assign to findings generated by the module. Possible values: [CRITICAL, HIGH, MEDIUM, LOW] *)
   custom_output : custom_config__custom_output list;
   predicate : custom_config__predicate list;
   resource_selector : custom_config__resource_selector list;
 }
-[@@deriving yojson_of]
-(** The user specified custom configuration for the module. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_config) -> ()
+
+let yojson_of_custom_config =
+  (function
+   | {
+       description = v_description;
+       recommendation = v_recommendation;
+       severity = v_severity;
+       custom_output = v_custom_output;
+       predicate = v_predicate;
+       resource_selector = v_resource_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_config__resource_selector
+             v_resource_selector
+         in
+         ("resource_selector", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_config__predicate
+             v_predicate
+         in
+         ("predicate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_config__custom_output
+             v_custom_output
+         in
+         ("custom_output", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_severity in
+         ("severity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_recommendation
+         in
+         ("recommendation", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : custom_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_scc_project_custom_module = {
   display_name : string prop;
-      (** The display name of the Security Health Analytics custom module. This
-display name becomes the finding category for all findings that are
-returned by this custom module. The display name must be between 1 and
-128 characters, start with a lowercase letter, and contain alphanumeric
-characters or underscores only. *)
   enablement_state : string prop;
-      (** The enablement state of the custom module. Possible values: [ENABLED, DISABLED] *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   custom_config : custom_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_scc_project_custom_module *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_scc_project_custom_module) -> ()
+
+let yojson_of_google_scc_project_custom_module =
+  (function
+   | {
+       display_name = v_display_name;
+       enablement_state = v_enablement_state;
+       id = v_id;
+       project = v_project;
+       custom_config = v_custom_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_config v_custom_config
+         in
+         ("custom_config", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_enablement_state
+         in
+         ("enablement_state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_scc_project_custom_module ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_scc_project_custom_module
+
+[@@@deriving.end]
 
 let custom_config__custom_output__properties__value_expression
     ?description ?location ?title ~expression () :

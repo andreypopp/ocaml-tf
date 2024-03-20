@@ -3,14 +3,62 @@
 open! Tf_core
 
 type aws_iam_user_ssh_key = {
-  encoding : string prop;  (** encoding *)
-  id : string prop option; [@option]  (** id *)
-  public_key : string prop;  (** public_key *)
-  status : string prop option; [@option]  (** status *)
-  username : string prop;  (** username *)
+  encoding : string prop;
+  id : string prop option; [@option]
+  public_key : string prop;
+  status : string prop option; [@option]
+  username : string prop;
 }
-[@@deriving yojson_of]
-(** aws_iam_user_ssh_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_iam_user_ssh_key) -> ()
+
+let yojson_of_aws_iam_user_ssh_key =
+  (function
+   | {
+       encoding = v_encoding;
+       id = v_id;
+       public_key = v_public_key;
+       status = v_status;
+       username = v_username;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_public_key in
+         ("public_key", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_encoding in
+         ("encoding", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_iam_user_ssh_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_iam_user_ssh_key
+
+[@@@deriving.end]
 
 let aws_iam_user_ssh_key ?id ?status ~encoding ~public_key ~username
     () : aws_iam_user_ssh_key =

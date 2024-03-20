@@ -3,29 +3,121 @@
 open! Tf_core
 
 type signing_attributes = {
-  algorithm : float prop;  (** algorithm *)
-  flags : float prop;  (** flags *)
-  public_key : string prop;  (** public_key *)
+  algorithm : float prop;
+  flags : float prop;
+  public_key : string prop;
 }
-[@@deriving yojson_of]
-(** signing_attributes *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : signing_attributes) -> ()
+
+let yojson_of_signing_attributes =
+  (function
+   | {
+       algorithm = v_algorithm;
+       flags = v_flags;
+       public_key = v_public_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_public_key in
+         ("public_key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_flags in
+         ("flags", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_algorithm in
+         ("algorithm", arg) :: bnds
+       in
+       `Assoc bnds
+    : signing_attributes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_signing_attributes
+
+[@@@deriving.end]
 
 type timeouts = {
   create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_route53domains_delegation_signer_record = {
-  domain_name : string prop;  (** domain_name *)
+  domain_name : string prop;
   signing_attributes : signing_attributes list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_route53domains_delegation_signer_record *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53domains_delegation_signer_record) -> ()
+
+let yojson_of_aws_route53domains_delegation_signer_record =
+  (function
+   | {
+       domain_name = v_domain_name;
+       signing_attributes = v_signing_attributes;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_signing_attributes
+             v_signing_attributes
+         in
+         ("signing_attributes", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_route53domains_delegation_signer_record ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53domains_delegation_signer_record
+
+[@@@deriving.end]
 
 let signing_attributes ~algorithm ~flags ~public_key () :
     signing_attributes =

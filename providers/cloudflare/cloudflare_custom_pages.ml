@@ -4,19 +4,75 @@ open! Tf_core
 
 type cloudflare_custom_pages = {
   account_id : string prop option; [@option]
-      (** The account identifier to target for the resource. Conflicts with `zone_id`. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   state : string prop option; [@option]
-      (** Managed state of the custom page. Available values: `default`, `customized`. *)
   type_ : string prop; [@key "type"]
-      (** The type of custom page you wish to update. Available values: `basic_challenge`, `waf_challenge`, `waf_block`, `ratelimit_block`, `country_challenge`, `ip_block`, `under_attack`, `500_errors`, `1000_errors`, `managed_challenge`. *)
   url : string prop;
-      (** URL of where the custom page source is located. *)
   zone_id : string prop option; [@option]
-      (** The zone identifier to target for the resource. Conflicts with `account_id`. *)
 }
-[@@deriving yojson_of]
-(** Provides a resource which manages Cloudflare custom error pages. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_custom_pages) -> ()
+
+let yojson_of_cloudflare_custom_pages =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       state = v_state;
+       type_ = v_type_;
+       url = v_url;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_zone_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_url in
+         ("url", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_account_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "account_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_custom_pages -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_custom_pages
+
+[@@@deriving.end]
 
 let cloudflare_custom_pages ?account_id ?id ?state ?zone_id ~type_
     ~url () : cloudflare_custom_pages =

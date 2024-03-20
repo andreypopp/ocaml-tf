@@ -3,53 +3,295 @@
 open! Tf_core
 
 type dns_config__dns_records = {
-  ttl : float prop;  (** ttl *)
-  type_ : string prop; [@key "type"]  (** type *)
+  ttl : float prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** dns_config__dns_records *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dns_config__dns_records) -> ()
+
+let yojson_of_dns_config__dns_records =
+  (function
+   | { ttl = v_ttl; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_ttl in
+         ("ttl", arg) :: bnds
+       in
+       `Assoc bnds
+    : dns_config__dns_records -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dns_config__dns_records
+
+[@@@deriving.end]
 
 type dns_config = {
-  namespace_id : string prop;  (** namespace_id *)
+  namespace_id : string prop;
   routing_policy : string prop option; [@option]
-      (** routing_policy *)
   dns_records : dns_config__dns_records list;
 }
-[@@deriving yojson_of]
-(** dns_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dns_config) -> ()
+
+let yojson_of_dns_config =
+  (function
+   | {
+       namespace_id = v_namespace_id;
+       routing_policy = v_routing_policy;
+       dns_records = v_dns_records;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dns_config__dns_records
+             v_dns_records
+         in
+         ("dns_records", arg) :: bnds
+       in
+       let bnds =
+         match v_routing_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "routing_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_namespace_id in
+         ("namespace_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : dns_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dns_config
+
+[@@@deriving.end]
 
 type health_check_config = {
   failure_threshold : float prop option; [@option]
-      (** failure_threshold *)
-  resource_path : string prop option; [@option]  (** resource_path *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  resource_path : string prop option; [@option]
+  type_ : string prop option; [@option] [@key "type"]
 }
-[@@deriving yojson_of]
-(** health_check_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : health_check_config) -> ()
+
+let yojson_of_health_check_config =
+  (function
+   | {
+       failure_threshold = v_failure_threshold;
+       resource_path = v_resource_path;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : health_check_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_health_check_config
+
+[@@@deriving.end]
 
 type health_check_custom_config = {
   failure_threshold : float prop option; [@option]
-      (** failure_threshold *)
 }
-[@@deriving yojson_of]
-(** health_check_custom_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : health_check_custom_config) -> ()
+
+let yojson_of_health_check_custom_config =
+  (function
+   | { failure_threshold = v_failure_threshold } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : health_check_custom_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_health_check_custom_config
+
+[@@@deriving.end]
 
 type aws_service_discovery_service = {
-  description : string prop option; [@option]  (** description *)
-  force_destroy : bool prop option; [@option]  (** force_destroy *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  namespace_id : string prop option; [@option]  (** namespace_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  description : string prop option; [@option]
+  force_destroy : bool prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  namespace_id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]
   dns_config : dns_config list;
   health_check_config : health_check_config list;
   health_check_custom_config : health_check_custom_config list;
 }
-[@@deriving yojson_of]
-(** aws_service_discovery_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_service_discovery_service) -> ()
+
+let yojson_of_aws_service_discovery_service =
+  (function
+   | {
+       description = v_description;
+       force_destroy = v_force_destroy;
+       id = v_id;
+       name = v_name;
+       namespace_id = v_namespace_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       type_ = v_type_;
+       dns_config = v_dns_config;
+       health_check_config = v_health_check_config;
+       health_check_custom_config = v_health_check_custom_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_health_check_custom_config
+             v_health_check_custom_config
+         in
+         ("health_check_custom_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_health_check_config
+             v_health_check_config
+         in
+         ("health_check_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dns_config v_dns_config
+         in
+         ("dns_config", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_namespace_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_service_discovery_service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_service_discovery_service
+
+[@@@deriving.end]
 
 let dns_config__dns_records ~ttl ~type_ () : dns_config__dns_records
     =

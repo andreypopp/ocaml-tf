@@ -4,94 +4,317 @@ open! Tf_core
 
 type parameters = {
   entity_type : string prop;
-      (** The entity type of the parameter.
-Format: projects/-/locations/-/agents/-/entityTypes/<System Entity Type ID> for system entity types (for example, projects/-/locations/-/agents/-/entityTypes/sys.date), or projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>/entityTypes/<Entity Type ID> for developer entity types. *)
   id : string prop;
-      (** The unique identifier of the parameter. This field is used by training phrases to annotate their parts. *)
   is_list : bool prop option; [@option]
-      (** Indicates whether the parameter represents a list of values. *)
   redact : bool prop option; [@option]
-      (** Indicates whether the parameter content should be redacted in log. If redaction is enabled, the parameter content will be replaced by parameter name during logging.
-Note: the parameter content is subject to redaction if either parameter level redaction or entity type level redaction is enabled. *)
 }
-[@@deriving yojson_of]
-(** The collection of parameters associated with the intent. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : parameters) -> ()
+
+let yojson_of_parameters =
+  (function
+   | {
+       entity_type = v_entity_type;
+       id = v_id;
+       is_list = v_is_list;
+       redact = v_redact;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_redact with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "redact", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_list with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_list", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_entity_type in
+         ("entity_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : parameters -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_parameters
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type training_phrases__parts = {
   parameter_id : string prop option; [@option]
-      (** The parameter used to annotate this part of the training phrase. This field is required for annotated parts of the training phrase. *)
-  text : string prop;  (** The text for this part. *)
+  text : string prop;
 }
-[@@deriving yojson_of]
-(** The ordered list of training phrase parts. The parts are concatenated in order to form the training phrase.
-Note: The API does not automatically annotate training phrases like the Dialogflow Console does.
-Note: Do not forget to include whitespace at part boundaries, so the training phrase is well formatted when the parts are concatenated.
-If the training phrase does not need to be annotated with parameters, you just need a single part with only the Part.text field set.
-If you want to annotate the training phrase, you must create multiple parts, where the fields of each part are populated in one of two ways:
-Part.text is set to a part of the phrase that has no parameters.
-Part.text is set to a part of the phrase that you want to annotate, and the parameterId field is set. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : training_phrases__parts) -> ()
+
+let yojson_of_training_phrases__parts =
+  (function
+   | { parameter_id = v_parameter_id; text = v_text } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_text in
+         ("text", arg) :: bnds
+       in
+       let bnds =
+         match v_parameter_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parameter_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : training_phrases__parts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_training_phrases__parts
+
+[@@@deriving.end]
 
 type training_phrases = {
   repeat_count : float prop option; [@option]
-      (** Indicates how many times this example was added to the intent. *)
   parts : training_phrases__parts list;
 }
-[@@deriving yojson_of]
-(** The collection of training phrases the agent is trained on to identify the intent. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : training_phrases) -> ()
+
+let yojson_of_training_phrases =
+  (function
+   | { repeat_count = v_repeat_count; parts = v_parts } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_training_phrases__parts v_parts
+         in
+         ("parts", arg) :: bnds
+       in
+       let bnds =
+         match v_repeat_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "repeat_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : training_phrases -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_training_phrases
+
+[@@@deriving.end]
 
 type google_dialogflow_cx_intent = {
   description : string prop option; [@option]
-      (** Human readable description for better understanding an intent like its scope, content, result etc. Maximum character limit: 140 characters. *)
   display_name : string prop;
-      (** The human-readable name of the intent, unique within the agent. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   is_default_negative_intent : bool prop option; [@option]
-      (** Marks this as the [Default Negative Intent](https://cloud.google.com/dialogflow/cx/docs/concept/intent#negative) for an agent. When you create an agent, a Default Negative Intent is created automatically.
-The Default Negative Intent cannot be deleted; deleting the 'google_dialogflow_cx_intent' resource does nothing to the underlying GCP resources.
-
-~> Avoid having multiple 'google_dialogflow_cx_intent' resources linked to the same agent with 'is_default_negative_intent = true' because they will compete to control a single Default Negative Intent resource in GCP. *)
   is_default_welcome_intent : bool prop option; [@option]
-      (** Marks this as the [Default Welcome Intent](https://cloud.google.com/dialogflow/cx/docs/concept/intent#welcome) for an agent. When you create an agent, a Default Welcome Intent is created automatically.
-The Default Welcome Intent cannot be deleted; deleting the 'google_dialogflow_cx_intent' resource does nothing to the underlying GCP resources.
-
-~> Avoid having multiple 'google_dialogflow_cx_intent' resources linked to the same agent with 'is_default_welcome_intent = true' because they will compete to control a single Default Welcome Intent resource in GCP. *)
   is_fallback : bool prop option; [@option]
-      (** Indicates whether this is a fallback intent. Currently only default fallback intent is allowed in the agent, which is added upon agent creation.
-Adding training phrases to fallback intent is useful in the case of requests that are mistakenly matched, since training phrases assigned to fallback intents act as negative examples that triggers no-match event.
-To manage the fallback intent, set 'is_default_negative_intent = true' *)
   labels : (string * string prop) list option; [@option]
-      (** The key/value metadata to label an intent. Labels can contain lowercase letters, digits and the symbols '-' and '_'. International characters are allowed, including letters from unicase alphabets. Keys must start with a letter. Keys and values can be no longer than 63 characters and no more than 128 bytes.
-Prefix sys- is reserved for Dialogflow defined labels. Currently allowed Dialogflow defined labels include: * sys-head * sys-contextual The above labels do not require value. sys-head means the intent is a head intent. sys.contextual means the intent is a contextual intent.
-An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   language_code : string prop option; [@option]
-      (** The language of the following fields in intent:
-Intent.training_phrases.parts.text
-If not specified, the agent's default language is used. Many languages are supported. Note: languages must be enabled in the agent before they can be used. *)
   parent : string prop option; [@option]
-      (** The agent to create an intent for.
-Format: projects/<Project ID>/locations/<Location ID>/agents/<Agent ID>. *)
   priority : float prop option; [@option]
-      (** The priority of this intent. Higher numbers represent higher priorities.
-If the supplied value is unspecified or 0, the service translates the value to 500,000, which corresponds to the Normal priority in the console.
-If the supplied value is negative, the intent is ignored in runtime detect intent requests. *)
   parameters : parameters list;
   timeouts : timeouts option;
   training_phrases : training_phrases list;
 }
-[@@deriving yojson_of]
-(** google_dialogflow_cx_intent *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dialogflow_cx_intent) -> ()
+
+let yojson_of_google_dialogflow_cx_intent =
+  (function
+   | {
+       description = v_description;
+       display_name = v_display_name;
+       id = v_id;
+       is_default_negative_intent = v_is_default_negative_intent;
+       is_default_welcome_intent = v_is_default_welcome_intent;
+       is_fallback = v_is_fallback;
+       labels = v_labels;
+       language_code = v_language_code;
+       parent = v_parent;
+       priority = v_priority;
+       parameters = v_parameters;
+       timeouts = v_timeouts;
+       training_phrases = v_training_phrases;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_training_phrases
+             v_training_phrases
+         in
+         ("training_phrases", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_parameters v_parameters
+         in
+         ("parameters", arg) :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_language_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "language_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_fallback with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_fallback", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_default_welcome_intent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_default_welcome_intent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_is_default_negative_intent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_default_negative_intent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dialogflow_cx_intent ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dialogflow_cx_intent
+
+[@@@deriving.end]
 
 let parameters ?is_list ?redact ~entity_type ~id () : parameters =
   { entity_type; id; is_list; redact }

@@ -3,45 +3,263 @@
 open! Tf_core
 
 type notification = {
-  action : string prop;  (** action *)
-  digest : string prop option; [@option]  (** digest *)
-  name : string prop;  (** name *)
-  tag : string prop option; [@option]  (** tag *)
+  action : string prop;
+  digest : string prop option; [@option]
+  name : string prop;
+  tag : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** notification *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notification) -> ()
+
+let yojson_of_notification =
+  (function
+   | {
+       action = v_action;
+       digest = v_digest;
+       name = v_name;
+       tag = v_tag;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_digest with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "digest", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : notification -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notification
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_container_connected_registry = {
   audit_log_enabled : bool prop option; [@option]
-      (** audit_log_enabled *)
   client_token_ids : string prop list option; [@option]
-      (** client_token_ids *)
-  container_registry_id : string prop;  (** container_registry_id *)
-  id : string prop option; [@option]  (** id *)
-  log_level : string prop option; [@option]  (** log_level *)
-  mode : string prop option; [@option]  (** mode *)
-  name : string prop;  (** name *)
+  container_registry_id : string prop;
+  id : string prop option; [@option]
+  log_level : string prop option; [@option]
+  mode : string prop option; [@option]
+  name : string prop;
   parent_registry_id : string prop option; [@option]
-      (** parent_registry_id *)
   sync_message_ttl : string prop option; [@option]
-      (** sync_message_ttl *)
-  sync_schedule : string prop option; [@option]  (** sync_schedule *)
-  sync_token_id : string prop;  (** sync_token_id *)
-  sync_window : string prop option; [@option]  (** sync_window *)
+  sync_schedule : string prop option; [@option]
+  sync_token_id : string prop;
+  sync_window : string prop option; [@option]
   notification : notification list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_container_connected_registry *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_container_connected_registry) -> ()
+
+let yojson_of_azurerm_container_connected_registry =
+  (function
+   | {
+       audit_log_enabled = v_audit_log_enabled;
+       client_token_ids = v_client_token_ids;
+       container_registry_id = v_container_registry_id;
+       id = v_id;
+       log_level = v_log_level;
+       mode = v_mode;
+       name = v_name;
+       parent_registry_id = v_parent_registry_id;
+       sync_message_ttl = v_sync_message_ttl;
+       sync_schedule = v_sync_schedule;
+       sync_token_id = v_sync_token_id;
+       sync_window = v_sync_window;
+       notification = v_notification;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_notification v_notification
+         in
+         ("notification", arg) :: bnds
+       in
+       let bnds =
+         match v_sync_window with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sync_window", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sync_token_id in
+         ("sync_token_id", arg) :: bnds
+       in
+       let bnds =
+         match v_sync_schedule with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sync_schedule", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sync_message_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sync_message_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_parent_registry_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parent_registry_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_log_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_container_registry_id
+         in
+         ("container_registry_id", arg) :: bnds
+       in
+       let bnds =
+         match v_client_token_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "client_token_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_audit_log_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "audit_log_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_container_connected_registry ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_container_connected_registry
+
+[@@@deriving.end]
 
 let notification ?digest ?tag ~action ~name () : notification =
   { action; digest; name; tag }

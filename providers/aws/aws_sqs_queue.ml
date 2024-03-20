@@ -4,41 +4,240 @@ open! Tf_core
 
 type aws_sqs_queue = {
   content_based_deduplication : bool prop option; [@option]
-      (** content_based_deduplication *)
   deduplication_scope : string prop option; [@option]
-      (** deduplication_scope *)
-  delay_seconds : float prop option; [@option]  (** delay_seconds *)
-  fifo_queue : bool prop option; [@option]  (** fifo_queue *)
+  delay_seconds : float prop option; [@option]
+  fifo_queue : bool prop option; [@option]
   fifo_throughput_limit : string prop option; [@option]
-      (** fifo_throughput_limit *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   kms_data_key_reuse_period_seconds : float prop option; [@option]
-      (** kms_data_key_reuse_period_seconds *)
   kms_master_key_id : string prop option; [@option]
-      (** kms_master_key_id *)
   max_message_size : float prop option; [@option]
-      (** max_message_size *)
   message_retention_seconds : float prop option; [@option]
-      (** message_retention_seconds *)
-  name : string prop option; [@option]  (** name *)
-  name_prefix : string prop option; [@option]  (** name_prefix *)
-  policy : string prop option; [@option]  (** policy *)
+  name : string prop option; [@option]
+  name_prefix : string prop option; [@option]
+  policy : string prop option; [@option]
   receive_wait_time_seconds : float prop option; [@option]
-      (** receive_wait_time_seconds *)
   redrive_allow_policy : string prop option; [@option]
-      (** redrive_allow_policy *)
   redrive_policy : string prop option; [@option]
-      (** redrive_policy *)
   sqs_managed_sse_enabled : bool prop option; [@option]
-      (** sqs_managed_sse_enabled *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   visibility_timeout_seconds : float prop option; [@option]
-      (** visibility_timeout_seconds *)
 }
-[@@deriving yojson_of]
-(** aws_sqs_queue *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sqs_queue) -> ()
+
+let yojson_of_aws_sqs_queue =
+  (function
+   | {
+       content_based_deduplication = v_content_based_deduplication;
+       deduplication_scope = v_deduplication_scope;
+       delay_seconds = v_delay_seconds;
+       fifo_queue = v_fifo_queue;
+       fifo_throughput_limit = v_fifo_throughput_limit;
+       id = v_id;
+       kms_data_key_reuse_period_seconds =
+         v_kms_data_key_reuse_period_seconds;
+       kms_master_key_id = v_kms_master_key_id;
+       max_message_size = v_max_message_size;
+       message_retention_seconds = v_message_retention_seconds;
+       name = v_name;
+       name_prefix = v_name_prefix;
+       policy = v_policy;
+       receive_wait_time_seconds = v_receive_wait_time_seconds;
+       redrive_allow_policy = v_redrive_allow_policy;
+       redrive_policy = v_redrive_policy;
+       sqs_managed_sse_enabled = v_sqs_managed_sse_enabled;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       visibility_timeout_seconds = v_visibility_timeout_seconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_visibility_timeout_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "visibility_timeout_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sqs_managed_sse_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "sqs_managed_sse_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_redrive_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "redrive_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_redrive_allow_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "redrive_allow_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_receive_wait_time_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "receive_wait_time_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_message_retention_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "message_retention_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_message_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_message_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_master_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_master_key_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_data_key_reuse_period_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "kms_data_key_reuse_period_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fifo_throughput_limit with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "fifo_throughput_limit", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_fifo_queue with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "fifo_queue", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delay_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "delay_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deduplication_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deduplication_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_content_based_deduplication with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "content_based_deduplication", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_sqs_queue -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sqs_queue
+
+[@@@deriving.end]
 
 let aws_sqs_queue ?content_based_deduplication ?deduplication_scope
     ?delay_seconds ?fifo_queue ?fifo_throughput_limit ?id

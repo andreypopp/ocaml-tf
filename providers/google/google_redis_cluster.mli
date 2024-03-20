@@ -8,12 +8,16 @@ type discovery_endpoints__psc_config = {
   network : string prop;  (** network *)
 }
 
+[@@@deriving.end]
+
 type discovery_endpoints = {
   address : string prop;  (** address *)
   port : float prop;  (** port *)
   psc_config : discovery_endpoints__psc_config list;
       (** psc_config *)
 }
+
+[@@@deriving.end]
 
 type psc_connections = {
   address : string prop;  (** address *)
@@ -23,14 +27,20 @@ type psc_connections = {
   psc_connection_id : string prop;  (** psc_connection_id *)
 }
 
+[@@@deriving.end]
+
 type state_info__update_info = {
   target_replica_count : float prop;  (** target_replica_count *)
   target_shard_count : float prop;  (** target_shard_count *)
 }
 
+[@@@deriving.end]
+
 type state_info = {
   update_info : state_info__update_info list;  (** update_info *)
 }
+
+[@@@deriving.end]
 
 type psc_configs
 

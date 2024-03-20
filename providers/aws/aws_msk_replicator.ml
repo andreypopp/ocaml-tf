@@ -3,90 +3,478 @@
 open! Tf_core
 
 type kafka_cluster__amazon_msk_cluster = {
-  msk_cluster_arn : string prop;  (** msk_cluster_arn *)
+  msk_cluster_arn : string prop;
 }
-[@@deriving yojson_of]
-(** kafka_cluster__amazon_msk_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kafka_cluster__amazon_msk_cluster) -> ()
+
+let yojson_of_kafka_cluster__amazon_msk_cluster =
+  (function
+   | { msk_cluster_arn = v_msk_cluster_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_msk_cluster_arn
+         in
+         ("msk_cluster_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : kafka_cluster__amazon_msk_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kafka_cluster__amazon_msk_cluster
+
+[@@@deriving.end]
 
 type kafka_cluster__vpc_config = {
   security_groups_ids : string prop list option; [@option]
-      (** security_groups_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  subnet_ids : string prop list;
 }
-[@@deriving yojson_of]
-(** kafka_cluster__vpc_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kafka_cluster__vpc_config) -> ()
+
+let yojson_of_kafka_cluster__vpc_config =
+  (function
+   | {
+       security_groups_ids = v_security_groups_ids;
+       subnet_ids = v_subnet_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_security_groups_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_groups_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : kafka_cluster__vpc_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kafka_cluster__vpc_config
+
+[@@@deriving.end]
 
 type kafka_cluster = {
   amazon_msk_cluster : kafka_cluster__amazon_msk_cluster list;
   vpc_config : kafka_cluster__vpc_config list;
 }
-[@@deriving yojson_of]
-(** kafka_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kafka_cluster) -> ()
+
+let yojson_of_kafka_cluster =
+  (function
+   | {
+       amazon_msk_cluster = v_amazon_msk_cluster;
+       vpc_config = v_vpc_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_kafka_cluster__vpc_config
+             v_vpc_config
+         in
+         ("vpc_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_kafka_cluster__amazon_msk_cluster
+             v_amazon_msk_cluster
+         in
+         ("amazon_msk_cluster", arg) :: bnds
+       in
+       `Assoc bnds
+    : kafka_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kafka_cluster
+
+[@@@deriving.end]
 
 type replication_info_list__consumer_group_replication = {
   consumer_groups_to_exclude : string prop list option; [@option]
-      (** consumer_groups_to_exclude *)
   consumer_groups_to_replicate : string prop list;
-      (** consumer_groups_to_replicate *)
   detect_and_copy_new_consumer_groups : bool prop option; [@option]
-      (** detect_and_copy_new_consumer_groups *)
   synchronise_consumer_group_offsets : bool prop option; [@option]
-      (** synchronise_consumer_group_offsets *)
 }
-[@@deriving yojson_of]
-(** replication_info_list__consumer_group_replication *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : replication_info_list__consumer_group_replication) -> ()
+
+let yojson_of_replication_info_list__consumer_group_replication =
+  (function
+   | {
+       consumer_groups_to_exclude = v_consumer_groups_to_exclude;
+       consumer_groups_to_replicate = v_consumer_groups_to_replicate;
+       detect_and_copy_new_consumer_groups =
+         v_detect_and_copy_new_consumer_groups;
+       synchronise_consumer_group_offsets =
+         v_synchronise_consumer_group_offsets;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_synchronise_consumer_group_offsets with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "synchronise_consumer_group_offsets", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_detect_and_copy_new_consumer_groups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "detect_and_copy_new_consumer_groups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_consumer_groups_to_replicate
+         in
+         ("consumer_groups_to_replicate", arg) :: bnds
+       in
+       let bnds =
+         match v_consumer_groups_to_exclude with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "consumer_groups_to_exclude", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : replication_info_list__consumer_group_replication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication_info_list__consumer_group_replication
+
+[@@@deriving.end]
 
 type replication_info_list__topic_replication = {
   copy_access_control_lists_for_topics : bool prop option; [@option]
-      (** copy_access_control_lists_for_topics *)
   copy_topic_configurations : bool prop option; [@option]
-      (** copy_topic_configurations *)
   detect_and_copy_new_topics : bool prop option; [@option]
-      (** detect_and_copy_new_topics *)
   topics_to_exclude : string prop list option; [@option]
-      (** topics_to_exclude *)
-  topics_to_replicate : string prop list;  (** topics_to_replicate *)
+  topics_to_replicate : string prop list;
 }
-[@@deriving yojson_of]
-(** replication_info_list__topic_replication *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : replication_info_list__topic_replication) -> ()
+
+let yojson_of_replication_info_list__topic_replication =
+  (function
+   | {
+       copy_access_control_lists_for_topics =
+         v_copy_access_control_lists_for_topics;
+       copy_topic_configurations = v_copy_topic_configurations;
+       detect_and_copy_new_topics = v_detect_and_copy_new_topics;
+       topics_to_exclude = v_topics_to_exclude;
+       topics_to_replicate = v_topics_to_replicate;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_topics_to_replicate
+         in
+         ("topics_to_replicate", arg) :: bnds
+       in
+       let bnds =
+         match v_topics_to_exclude with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "topics_to_exclude", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_detect_and_copy_new_topics with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "detect_and_copy_new_topics", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_copy_topic_configurations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "copy_topic_configurations", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_copy_access_control_lists_for_topics with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "copy_access_control_lists_for_topics", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : replication_info_list__topic_replication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication_info_list__topic_replication
+
+[@@@deriving.end]
 
 type replication_info_list = {
   source_kafka_cluster_arn : string prop;
-      (** source_kafka_cluster_arn *)
   target_compression_type : string prop;
-      (** target_compression_type *)
   target_kafka_cluster_arn : string prop;
-      (** target_kafka_cluster_arn *)
   consumer_group_replication :
     replication_info_list__consumer_group_replication list;
   topic_replication : replication_info_list__topic_replication list;
 }
-[@@deriving yojson_of]
-(** replication_info_list *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : replication_info_list) -> ()
+
+let yojson_of_replication_info_list =
+  (function
+   | {
+       source_kafka_cluster_arn = v_source_kafka_cluster_arn;
+       target_compression_type = v_target_compression_type;
+       target_kafka_cluster_arn = v_target_kafka_cluster_arn;
+       consumer_group_replication = v_consumer_group_replication;
+       topic_replication = v_topic_replication;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_replication_info_list__topic_replication
+             v_topic_replication
+         in
+         ("topic_replication", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_replication_info_list__consumer_group_replication
+             v_consumer_group_replication
+         in
+         ("consumer_group_replication", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_kafka_cluster_arn
+         in
+         ("target_kafka_cluster_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_compression_type
+         in
+         ("target_compression_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_kafka_cluster_arn
+         in
+         ("source_kafka_cluster_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication_info_list -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication_info_list
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_msk_replicator = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  replicator_name : string prop;  (** replicator_name *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  replicator_name : string prop;
   service_execution_role_arn : string prop;
-      (** service_execution_role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   kafka_cluster : kafka_cluster list;
   replication_info_list : replication_info_list list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_msk_replicator *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_msk_replicator) -> ()
+
+let yojson_of_aws_msk_replicator =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       replicator_name = v_replicator_name;
+       service_execution_role_arn = v_service_execution_role_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       kafka_cluster = v_kafka_cluster;
+       replication_info_list = v_replication_info_list;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_replication_info_list
+             v_replication_info_list
+         in
+         ("replication_info_list", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_kafka_cluster v_kafka_cluster
+         in
+         ("kafka_cluster", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_service_execution_role_arn
+         in
+         ("service_execution_role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_replicator_name
+         in
+         ("replicator_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_msk_replicator -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_msk_replicator
+
+[@@@deriving.end]
 
 let kafka_cluster__amazon_msk_cluster ~msk_cluster_arn () :
     kafka_cluster__amazon_msk_cluster =

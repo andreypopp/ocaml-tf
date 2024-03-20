@@ -11,6 +11,8 @@ type all_settings = {
   value : string prop;  (** value *)
 }
 
+[@@@deriving.end]
+
 type setting
 
 val setting :

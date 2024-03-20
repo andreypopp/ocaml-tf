@@ -3,37 +3,185 @@
 open! Tf_core
 
 type cloudwatch_destination = {
-  default_value : string prop;  (** default_value *)
-  dimension_name : string prop;  (** dimension_name *)
-  value_source : string prop;  (** value_source *)
+  default_value : string prop;
+  dimension_name : string prop;
+  value_source : string prop;
 }
-[@@deriving yojson_of]
-(** cloudwatch_destination *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudwatch_destination) -> ()
+
+let yojson_of_cloudwatch_destination =
+  (function
+   | {
+       default_value = v_default_value;
+       dimension_name = v_dimension_name;
+       value_source = v_value_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value_source in
+         ("value_source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_dimension_name
+         in
+         ("dimension_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_default_value in
+         ("default_value", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudwatch_destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudwatch_destination
+
+[@@@deriving.end]
 
 type kinesis_destination = {
-  role_arn : string prop;  (** role_arn *)
-  stream_arn : string prop;  (** stream_arn *)
+  role_arn : string prop;
+  stream_arn : string prop;
 }
-[@@deriving yojson_of]
-(** kinesis_destination *)
+[@@deriving_inline yojson_of]
 
-type sns_destination = { topic_arn : string prop  (** topic_arn *) }
-[@@deriving yojson_of]
-(** sns_destination *)
+let _ = fun (_ : kinesis_destination) -> ()
+
+let yojson_of_kinesis_destination =
+  (function
+   | { role_arn = v_role_arn; stream_arn = v_stream_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stream_arn in
+         ("stream_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : kinesis_destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kinesis_destination
+
+[@@@deriving.end]
+
+type sns_destination = { topic_arn : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sns_destination) -> ()
+
+let yojson_of_sns_destination =
+  (function
+   | { topic_arn = v_topic_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic_arn in
+         ("topic_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : sns_destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sns_destination
+
+[@@@deriving.end]
 
 type aws_ses_event_destination = {
   configuration_set_name : string prop;
-      (** configuration_set_name *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  matching_types : string prop list;  (** matching_types *)
-  name : string prop;  (** name *)
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  matching_types : string prop list;
+  name : string prop;
   cloudwatch_destination : cloudwatch_destination list;
   kinesis_destination : kinesis_destination list;
   sns_destination : sns_destination list;
 }
-[@@deriving yojson_of]
-(** aws_ses_event_destination *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ses_event_destination) -> ()
+
+let yojson_of_aws_ses_event_destination =
+  (function
+   | {
+       configuration_set_name = v_configuration_set_name;
+       enabled = v_enabled;
+       id = v_id;
+       matching_types = v_matching_types;
+       name = v_name;
+       cloudwatch_destination = v_cloudwatch_destination;
+       kinesis_destination = v_kinesis_destination;
+       sns_destination = v_sns_destination;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sns_destination v_sns_destination
+         in
+         ("sns_destination", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_kinesis_destination
+             v_kinesis_destination
+         in
+         ("kinesis_destination", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cloudwatch_destination
+             v_cloudwatch_destination
+         in
+         ("cloudwatch_destination", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_matching_types
+         in
+         ("matching_types", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_configuration_set_name
+         in
+         ("configuration_set_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ses_event_destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ses_event_destination
+
+[@@@deriving.end]
 
 let cloudwatch_destination ~default_value ~dimension_name
     ~value_source () : cloudwatch_destination =

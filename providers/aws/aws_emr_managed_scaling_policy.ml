@@ -3,24 +3,112 @@
 open! Tf_core
 
 type compute_limits = {
-  maximum_capacity_units : float prop;  (** maximum_capacity_units *)
+  maximum_capacity_units : float prop;
   maximum_core_capacity_units : float prop option; [@option]
-      (** maximum_core_capacity_units *)
   maximum_ondemand_capacity_units : float prop option; [@option]
-      (** maximum_ondemand_capacity_units *)
-  minimum_capacity_units : float prop;  (** minimum_capacity_units *)
-  unit_type : string prop;  (** unit_type *)
+  minimum_capacity_units : float prop;
+  unit_type : string prop;
 }
-[@@deriving yojson_of]
-(** compute_limits *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : compute_limits) -> ()
+
+let yojson_of_compute_limits =
+  (function
+   | {
+       maximum_capacity_units = v_maximum_capacity_units;
+       maximum_core_capacity_units = v_maximum_core_capacity_units;
+       maximum_ondemand_capacity_units =
+         v_maximum_ondemand_capacity_units;
+       minimum_capacity_units = v_minimum_capacity_units;
+       unit_type = v_unit_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_unit_type in
+         ("unit_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_minimum_capacity_units
+         in
+         ("minimum_capacity_units", arg) :: bnds
+       in
+       let bnds =
+         match v_maximum_ondemand_capacity_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_ondemand_capacity_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_maximum_core_capacity_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "maximum_core_capacity_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_maximum_capacity_units
+         in
+         ("maximum_capacity_units", arg) :: bnds
+       in
+       `Assoc bnds
+    : compute_limits -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_compute_limits
+
+[@@@deriving.end]
 
 type aws_emr_managed_scaling_policy = {
-  cluster_id : string prop;  (** cluster_id *)
-  id : string prop option; [@option]  (** id *)
+  cluster_id : string prop;
+  id : string prop option; [@option]
   compute_limits : compute_limits list;
 }
-[@@deriving yojson_of]
-(** aws_emr_managed_scaling_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_emr_managed_scaling_policy) -> ()
+
+let yojson_of_aws_emr_managed_scaling_policy =
+  (function
+   | {
+       cluster_id = v_cluster_id;
+       id = v_id;
+       compute_limits = v_compute_limits;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_compute_limits v_compute_limits
+         in
+         ("compute_limits", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_emr_managed_scaling_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_emr_managed_scaling_policy
+
+[@@@deriving.end]
 
 let compute_limits ?maximum_core_capacity_units
     ?maximum_ondemand_capacity_units ~maximum_capacity_units

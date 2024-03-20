@@ -3,48 +3,136 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_identity_platform_tenant_default_supported_idp_config = {
-  client_id : string prop;  (** OAuth client ID *)
-  client_secret : string prop;  (** OAuth client secret *)
+  client_id : string prop;
+  client_secret : string prop;
   enabled : bool prop option; [@option]
-      (** If this IDP allows the user to sign in *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   idp_id : string prop;
-      (** ID of the IDP. Possible values include:
-
-* 'apple.com'
-
-* 'facebook.com'
-
-* 'gc.apple.com'
-
-* 'github.com'
-
-* 'google.com'
-
-* 'linkedin.com'
-
-* 'microsoft.com'
-
-* 'playgames.google.com'
-
-* 'twitter.com'
-
-* 'yahoo.com' *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   tenant : string prop;
-      (** The name of the tenant where this DefaultSupportedIdpConfig resource exists *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_identity_platform_tenant_default_supported_idp_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       google_identity_platform_tenant_default_supported_idp_config) ->
+  ()
+
+let yojson_of_google_identity_platform_tenant_default_supported_idp_config
+    =
+  (function
+   | {
+       client_id = v_client_id;
+       client_secret = v_client_secret;
+       enabled = v_enabled;
+       id = v_id;
+       idp_id = v_idp_id;
+       project = v_project;
+       tenant = v_tenant;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tenant in
+         ("tenant", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_idp_id in
+         ("idp_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_secret in
+         ("client_secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_client_id in
+         ("client_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_identity_platform_tenant_default_supported_idp_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_google_identity_platform_tenant_default_supported_idp_config
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

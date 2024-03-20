@@ -3,143 +3,676 @@
 open! Tf_core
 
 type arm_role_receiver = {
-  name : string prop;  (** name *)
-  role_id : string prop;  (** role_id *)
+  name : string prop;
+  role_id : string prop;
   use_common_alert_schema : bool prop option; [@option]
-      (** use_common_alert_schema *)
 }
-[@@deriving yojson_of]
-(** arm_role_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : arm_role_receiver) -> ()
+
+let yojson_of_arm_role_receiver =
+  (function
+   | {
+       name = v_name;
+       role_id = v_role_id;
+       use_common_alert_schema = v_use_common_alert_schema;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_common_alert_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_common_alert_schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_id in
+         ("role_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : arm_role_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_arm_role_receiver
+
+[@@@deriving.end]
 
 type automation_runbook_receiver = {
-  automation_account_id : string prop;  (** automation_account_id *)
-  is_global_runbook : bool prop;  (** is_global_runbook *)
-  name : string prop;  (** name *)
-  runbook_name : string prop;  (** runbook_name *)
-  service_uri : string prop;  (** service_uri *)
+  automation_account_id : string prop;
+  is_global_runbook : bool prop;
+  name : string prop;
+  runbook_name : string prop;
+  service_uri : string prop;
   use_common_alert_schema : bool prop option; [@option]
-      (** use_common_alert_schema *)
-  webhook_resource_id : string prop;  (** webhook_resource_id *)
+  webhook_resource_id : string prop;
 }
-[@@deriving yojson_of]
-(** automation_runbook_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : automation_runbook_receiver) -> ()
+
+let yojson_of_automation_runbook_receiver =
+  (function
+   | {
+       automation_account_id = v_automation_account_id;
+       is_global_runbook = v_is_global_runbook;
+       name = v_name;
+       runbook_name = v_runbook_name;
+       service_uri = v_service_uri;
+       use_common_alert_schema = v_use_common_alert_schema;
+       webhook_resource_id = v_webhook_resource_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_webhook_resource_id
+         in
+         ("webhook_resource_id", arg) :: bnds
+       in
+       let bnds =
+         match v_use_common_alert_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_common_alert_schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_uri in
+         ("service_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_runbook_name in
+         ("runbook_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_is_global_runbook
+         in
+         ("is_global_runbook", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_automation_account_id
+         in
+         ("automation_account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : automation_runbook_receiver ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_automation_runbook_receiver
+
+[@@@deriving.end]
 
 type azure_app_push_receiver = {
-  email_address : string prop;  (** email_address *)
-  name : string prop;  (** name *)
+  email_address : string prop;
+  name : string prop;
 }
-[@@deriving yojson_of]
-(** azure_app_push_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azure_app_push_receiver) -> ()
+
+let yojson_of_azure_app_push_receiver =
+  (function
+   | { email_address = v_email_address; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email_address in
+         ("email_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : azure_app_push_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azure_app_push_receiver
+
+[@@@deriving.end]
 
 type azure_function_receiver = {
   function_app_resource_id : string prop;
-      (** function_app_resource_id *)
-  function_name : string prop;  (** function_name *)
-  http_trigger_url : string prop;  (** http_trigger_url *)
-  name : string prop;  (** name *)
+  function_name : string prop;
+  http_trigger_url : string prop;
+  name : string prop;
   use_common_alert_schema : bool prop option; [@option]
-      (** use_common_alert_schema *)
 }
-[@@deriving yojson_of]
-(** azure_function_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azure_function_receiver) -> ()
+
+let yojson_of_azure_function_receiver =
+  (function
+   | {
+       function_app_resource_id = v_function_app_resource_id;
+       function_name = v_function_name;
+       http_trigger_url = v_http_trigger_url;
+       name = v_name;
+       use_common_alert_schema = v_use_common_alert_schema;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_common_alert_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_common_alert_schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_http_trigger_url
+         in
+         ("http_trigger_url", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_function_name in
+         ("function_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_function_app_resource_id
+         in
+         ("function_app_resource_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azure_function_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azure_function_receiver
+
+[@@@deriving.end]
 
 type email_receiver = {
-  email_address : string prop;  (** email_address *)
-  name : string prop;  (** name *)
+  email_address : string prop;
+  name : string prop;
   use_common_alert_schema : bool prop option; [@option]
-      (** use_common_alert_schema *)
 }
-[@@deriving yojson_of]
-(** email_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : email_receiver) -> ()
+
+let yojson_of_email_receiver =
+  (function
+   | {
+       email_address = v_email_address;
+       name = v_name;
+       use_common_alert_schema = v_use_common_alert_schema;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_common_alert_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_common_alert_schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_email_address in
+         ("email_address", arg) :: bnds
+       in
+       `Assoc bnds
+    : email_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_email_receiver
+
+[@@@deriving.end]
 
 type event_hub_receiver = {
-  event_hub_id : string prop option; [@option]  (** event_hub_id *)
+  event_hub_id : string prop option; [@option]
   event_hub_name : string prop option; [@option]
-      (** event_hub_name *)
   event_hub_namespace : string prop option; [@option]
-      (** event_hub_namespace *)
-  name : string prop;  (** name *)
+  name : string prop;
   subscription_id : string prop option; [@option]
-      (** subscription_id *)
-  tenant_id : string prop option; [@option]  (** tenant_id *)
+  tenant_id : string prop option; [@option]
   use_common_alert_schema : bool prop option; [@option]
-      (** use_common_alert_schema *)
 }
-[@@deriving yojson_of]
-(** event_hub_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : event_hub_receiver) -> ()
+
+let yojson_of_event_hub_receiver =
+  (function
+   | {
+       event_hub_id = v_event_hub_id;
+       event_hub_name = v_event_hub_name;
+       event_hub_namespace = v_event_hub_namespace;
+       name = v_name;
+       subscription_id = v_subscription_id;
+       tenant_id = v_tenant_id;
+       use_common_alert_schema = v_use_common_alert_schema;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_common_alert_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_common_alert_schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tenant_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tenant_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subscription_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subscription_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_event_hub_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "event_hub_namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event_hub_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "event_hub_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_event_hub_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "event_hub_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : event_hub_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_event_hub_receiver
+
+[@@@deriving.end]
 
 type itsm_receiver = {
-  connection_id : string prop;  (** connection_id *)
-  name : string prop;  (** name *)
-  region : string prop;  (** region *)
-  ticket_configuration : string prop;  (** ticket_configuration *)
-  workspace_id : string prop;  (** workspace_id *)
+  connection_id : string prop;
+  name : string prop;
+  region : string prop;
+  ticket_configuration : string prop;
+  workspace_id : string prop;
 }
-[@@deriving yojson_of]
-(** itsm_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : itsm_receiver) -> ()
+
+let yojson_of_itsm_receiver =
+  (function
+   | {
+       connection_id = v_connection_id;
+       name = v_name;
+       region = v_region;
+       ticket_configuration = v_ticket_configuration;
+       workspace_id = v_workspace_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workspace_id in
+         ("workspace_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ticket_configuration
+         in
+         ("ticket_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_region in
+         ("region", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_connection_id in
+         ("connection_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : itsm_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_itsm_receiver
+
+[@@@deriving.end]
 
 type logic_app_receiver = {
-  callback_url : string prop;  (** callback_url *)
-  name : string prop;  (** name *)
-  resource_id : string prop;  (** resource_id *)
+  callback_url : string prop;
+  name : string prop;
+  resource_id : string prop;
   use_common_alert_schema : bool prop option; [@option]
-      (** use_common_alert_schema *)
 }
-[@@deriving yojson_of]
-(** logic_app_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logic_app_receiver) -> ()
+
+let yojson_of_logic_app_receiver =
+  (function
+   | {
+       callback_url = v_callback_url;
+       name = v_name;
+       resource_id = v_resource_id;
+       use_common_alert_schema = v_use_common_alert_schema;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_common_alert_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_common_alert_schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_id in
+         ("resource_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_callback_url in
+         ("callback_url", arg) :: bnds
+       in
+       `Assoc bnds
+    : logic_app_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logic_app_receiver
+
+[@@@deriving.end]
 
 type sms_receiver = {
-  country_code : string prop;  (** country_code *)
-  name : string prop;  (** name *)
-  phone_number : string prop;  (** phone_number *)
+  country_code : string prop;
+  name : string prop;
+  phone_number : string prop;
 }
-[@@deriving yojson_of]
-(** sms_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sms_receiver) -> ()
+
+let yojson_of_sms_receiver =
+  (function
+   | {
+       country_code = v_country_code;
+       name = v_name;
+       phone_number = v_phone_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_phone_number in
+         ("phone_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_country_code in
+         ("country_code", arg) :: bnds
+       in
+       `Assoc bnds
+    : sms_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sms_receiver
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type voice_receiver = {
-  country_code : string prop;  (** country_code *)
-  name : string prop;  (** name *)
-  phone_number : string prop;  (** phone_number *)
+  country_code : string prop;
+  name : string prop;
+  phone_number : string prop;
 }
-[@@deriving yojson_of]
-(** voice_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : voice_receiver) -> ()
+
+let yojson_of_voice_receiver =
+  (function
+   | {
+       country_code = v_country_code;
+       name = v_name;
+       phone_number = v_phone_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_phone_number in
+         ("phone_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_country_code in
+         ("country_code", arg) :: bnds
+       in
+       `Assoc bnds
+    : voice_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_voice_receiver
+
+[@@@deriving.end]
 
 type webhook_receiver__aad_auth = {
   identifier_uri : string prop option; [@option]
-      (** identifier_uri *)
-  object_id : string prop;  (** object_id *)
-  tenant_id : string prop option; [@option]  (** tenant_id *)
+  object_id : string prop;
+  tenant_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** webhook_receiver__aad_auth *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : webhook_receiver__aad_auth) -> ()
+
+let yojson_of_webhook_receiver__aad_auth =
+  (function
+   | {
+       identifier_uri = v_identifier_uri;
+       object_id = v_object_id;
+       tenant_id = v_tenant_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tenant_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tenant_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_id in
+         ("object_id", arg) :: bnds
+       in
+       let bnds =
+         match v_identifier_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "identifier_uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : webhook_receiver__aad_auth -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_webhook_receiver__aad_auth
+
+[@@@deriving.end]
 
 type webhook_receiver = {
-  name : string prop;  (** name *)
-  service_uri : string prop;  (** service_uri *)
+  name : string prop;
+  service_uri : string prop;
   use_common_alert_schema : bool prop option; [@option]
-      (** use_common_alert_schema *)
   aad_auth : webhook_receiver__aad_auth list;
 }
-[@@deriving yojson_of]
-(** webhook_receiver *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : webhook_receiver) -> ()
+
+let yojson_of_webhook_receiver =
+  (function
+   | {
+       name = v_name;
+       service_uri = v_service_uri;
+       use_common_alert_schema = v_use_common_alert_schema;
+       aad_auth = v_aad_auth;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_webhook_receiver__aad_auth
+             v_aad_auth
+         in
+         ("aad_auth", arg) :: bnds
+       in
+       let bnds =
+         match v_use_common_alert_schema with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_common_alert_schema", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_uri in
+         ("service_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : webhook_receiver -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_webhook_receiver
+
+[@@@deriving.end]
 
 type azurerm_monitor_action_group = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop option; [@option]  (** location *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  short_name : string prop;  (** short_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  location : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
+  short_name : string prop;
+  tags : (string * string prop) list option; [@option]
   arm_role_receiver : arm_role_receiver list;
   automation_runbook_receiver : automation_runbook_receiver list;
   azure_app_push_receiver : azure_app_push_receiver list;
@@ -153,8 +686,174 @@ type azurerm_monitor_action_group = {
   voice_receiver : voice_receiver list;
   webhook_receiver : webhook_receiver list;
 }
-[@@deriving yojson_of]
-(** azurerm_monitor_action_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_monitor_action_group) -> ()
+
+let yojson_of_azurerm_monitor_action_group =
+  (function
+   | {
+       enabled = v_enabled;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       short_name = v_short_name;
+       tags = v_tags;
+       arm_role_receiver = v_arm_role_receiver;
+       automation_runbook_receiver = v_automation_runbook_receiver;
+       azure_app_push_receiver = v_azure_app_push_receiver;
+       azure_function_receiver = v_azure_function_receiver;
+       email_receiver = v_email_receiver;
+       event_hub_receiver = v_event_hub_receiver;
+       itsm_receiver = v_itsm_receiver;
+       logic_app_receiver = v_logic_app_receiver;
+       sms_receiver = v_sms_receiver;
+       timeouts = v_timeouts;
+       voice_receiver = v_voice_receiver;
+       webhook_receiver = v_webhook_receiver;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_webhook_receiver
+             v_webhook_receiver
+         in
+         ("webhook_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_voice_receiver v_voice_receiver
+         in
+         ("voice_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sms_receiver v_sms_receiver
+         in
+         ("sms_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logic_app_receiver
+             v_logic_app_receiver
+         in
+         ("logic_app_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_itsm_receiver v_itsm_receiver
+         in
+         ("itsm_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_event_hub_receiver
+             v_event_hub_receiver
+         in
+         ("event_hub_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_email_receiver v_email_receiver
+         in
+         ("email_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_azure_function_receiver
+             v_azure_function_receiver
+         in
+         ("azure_function_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_azure_app_push_receiver
+             v_azure_app_push_receiver
+         in
+         ("azure_app_push_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_automation_runbook_receiver
+             v_automation_runbook_receiver
+         in
+         ("automation_runbook_receiver", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_arm_role_receiver
+             v_arm_role_receiver
+         in
+         ("arm_role_receiver", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_short_name in
+         ("short_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_monitor_action_group ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_monitor_action_group
+
+[@@@deriving.end]
 
 let arm_role_receiver ?use_common_alert_schema ~name ~role_id () :
     arm_role_receiver =

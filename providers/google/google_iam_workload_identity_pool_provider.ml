@@ -2,174 +2,286 @@
 
 open! Tf_core
 
-type aws = { account_id : string prop  (** The AWS account ID. *) }
-[@@deriving yojson_of]
-(** An Amazon Web Services identity provider. Not compatible with the property oidc or saml. *)
+type aws = { account_id : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws) -> ()
+
+let yojson_of_aws =
+  (function
+   | { account_id = v_account_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws
+
+[@@@deriving.end]
 
 type oidc = {
   allowed_audiences : string prop list option; [@option]
-      (** Acceptable values for the 'aud' field (audience) in the OIDC token. Token exchange
-requests are rejected if the token audience does not match one of the configured
-values. Each audience may be at most 256 characters. A maximum of 10 audiences may
-be configured.
-
-If this list is empty, the OIDC token audience must be equal to the full canonical
-resource name of the WorkloadIdentityPoolProvider, with or without the HTTPS prefix.
-For example:
-'''
-//iam.googleapis.com/projects/<project-number>/locations/<location>/workloadIdentityPools/<pool-id>/providers/<provider-id>
-https://iam.googleapis.com/projects/<project-number>/locations/<location>/workloadIdentityPools/<pool-id>/providers/<provider-id>
-''' *)
-  issuer_uri : string prop;  (** The OIDC issuer URL. *)
+  issuer_uri : string prop;
   jwks_json : string prop option; [@option]
-      (** OIDC JWKs in JSON String format. For details on definition of a
-JWK, see https:tools.ietf.org/html/rfc7517. If not set, then we
-use the 'jwks_uri' from the discovery document fetched from the
-.well-known path for the 'issuer_uri'. Currently, RSA and EC asymmetric
-keys are supported. The JWK must use following format and include only
-the following fields:
-'''
-{
-  keys: [
-    {
-          kty: RSA/EC,
-          alg: <algorithm>,
-          use: sig,
-          kid: <key-id>,
-          n: ,
-          e: ,
-          x: ,
-          y: ,
-          crv: 
-    }
-  ]
 }
-''' *)
-}
-[@@deriving yojson_of]
-(** An OpenId Connect 1.0 identity provider. Not compatible with the property aws or saml. *)
+[@@deriving_inline yojson_of]
 
-type saml = {
-  idp_metadata_xml : string prop;
-      (** SAML Identity provider configuration metadata xml doc. *)
-}
-[@@deriving yojson_of]
-(** An SAML 2.0 identity provider. Not compatible with the property oidc or aws. *)
+let _ = fun (_ : oidc) -> ()
+
+let yojson_of_oidc =
+  (function
+   | {
+       allowed_audiences = v_allowed_audiences;
+       issuer_uri = v_issuer_uri;
+       jwks_json = v_jwks_json;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_jwks_json with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "jwks_json", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_issuer_uri in
+         ("issuer_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_allowed_audiences with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_audiences", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : oidc -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_oidc
+
+[@@@deriving.end]
+
+type saml = { idp_metadata_xml : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : saml) -> ()
+
+let yojson_of_saml =
+  (function
+   | { idp_metadata_xml = v_idp_metadata_xml } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_idp_metadata_xml
+         in
+         ("idp_metadata_xml", arg) :: bnds
+       in
+       `Assoc bnds
+    : saml -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_saml
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_iam_workload_identity_pool_provider = {
   attribute_condition : string prop option; [@option]
-      (** [A Common Expression Language](https://opensource.google/projects/cel) expression, in
-plain text, to restrict what otherwise valid authentication credentials issued by the
-provider should not be accepted.
-
-The expression must output a boolean representing whether to allow the federation.
-
-The following keywords may be referenced in the expressions:
-  * 'assertion': JSON representing the authentication credential issued by the provider.
-  * 'google': The Google attributes mapped from the assertion in the 'attribute_mappings'.
-  * 'attribute': The custom attributes mapped from the assertion in the 'attribute_mappings'.
-
-The maximum length of the attribute condition expression is 4096 characters. If
-unspecified, all valid authentication credential are accepted.
-
-The following example shows how to only allow credentials with a mapped 'google.groups'
-value of 'admins':
-'''
-'admins' in google.groups
-''' *)
   attribute_mapping : (string * string prop) list option; [@option]
-      (** Maps attributes from authentication credentials issued by an external identity provider
-to Google Cloud attributes, such as 'subject' and 'segment'.
-
-Each key must be a string specifying the Google Cloud IAM attribute to map to.
-
-The following keys are supported:
-  * 'google.subject': The principal IAM is authenticating. You can reference this value
-    in IAM bindings. This is also the subject that appears in Cloud Logging logs.
-    Cannot exceed 127 characters.
-  * 'google.groups': Groups the external identity belongs to. You can grant groups
-    access to resources using an IAM 'principalSet' binding; access applies to all
-    members of the group.
-
-You can also provide custom attributes by specifying 'attribute.{custom_attribute}',
-where '{custom_attribute}' is the name of the custom attribute to be mapped. You can
-define a maximum of 50 custom attributes. The maximum length of a mapped attribute key
-is 100 characters, and the key may only contain the characters [a-z0-9_].
-
-You can reference these attributes in IAM policies to define fine-grained access for a
-workload to Google Cloud resources. For example:
-  * 'google.subject':
-    'principal://iam.googleapis.com/projects/{project}/locations/{location}/workloadIdentityPools/{pool}/subject/{value}'
-  * 'google.groups':
-    'principalSet://iam.googleapis.com/projects/{project}/locations/{location}/workloadIdentityPools/{pool}/group/{value}'
-  * 'attribute.{custom_attribute}':
-    'principalSet://iam.googleapis.com/projects/{project}/locations/{location}/workloadIdentityPools/{pool}/attribute.{custom_attribute}/{value}'
-
-Each value must be a [Common Expression Language](https://opensource.google/projects/cel)
-function that maps an identity provider credential to the normalized attribute specified
-by the corresponding map key.
-
-You can use the 'assertion' keyword in the expression to access a JSON representation of
-the authentication credential issued by the provider.
-
-The maximum length of an attribute mapping expression is 2048 characters. When evaluated,
-the total size of all mapped attributes must not exceed 8KB.
-
-For AWS providers, the following rules apply:
-  - If no attribute mapping is defined, the following default mapping applies:
-    '''
-    {
-      google.subject:assertion.arn,
-      attribute.aws_role:
-        assertion.arn.contains('assumed-role')
-         ? assertion.arn.extract('{account_arn}assumed-role/')
-           + 'assumed-role/'
-           + assertion.arn.extract('assumed-role/{role_name}/')
-         : assertion.arn,
-    }
-    '''
-  - If any custom attribute mappings are defined, they must include a mapping to the
-    'google.subject' attribute.
-
-For OIDC providers, the following rules apply:
-  - Custom attribute mappings must be defined, and must include a mapping to the
-    'google.subject' attribute. For example, the following maps the 'sub' claim of the
-    incoming credential to the 'subject' attribute on a Google token.
-    '''
-    {google.subject: assertion.sub}
-    ''' *)
   description : string prop option; [@option]
-      (** A description for the provider. Cannot exceed 256 characters. *)
   disabled : bool prop option; [@option]
-      (** Whether the provider is disabled. You cannot use a disabled provider to exchange tokens.
-However, existing tokens still grant access. *)
   display_name : string prop option; [@option]
-      (** A display name for the provider. Cannot exceed 32 characters. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   workload_identity_pool_id : string prop;
-      (** The ID used for the pool, which is the final component of the pool resource name. This
-value should be 4-32 characters, and may contain the characters [a-z0-9-]. The prefix
-'gcp-' is reserved for use by Google, and may not be specified. *)
   workload_identity_pool_provider_id : string prop;
-      (** The ID for the provider, which becomes the final component of the resource name. This
-value must be 4-32 characters, and may contain the characters [a-z0-9-]. The prefix
-'gcp-' is reserved for use by Google, and may not be specified. *)
   aws : aws list;
   oidc : oidc list;
   saml : saml list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_iam_workload_identity_pool_provider *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_iam_workload_identity_pool_provider) -> ()
+
+let yojson_of_google_iam_workload_identity_pool_provider =
+  (function
+   | {
+       attribute_condition = v_attribute_condition;
+       attribute_mapping = v_attribute_mapping;
+       description = v_description;
+       disabled = v_disabled;
+       display_name = v_display_name;
+       id = v_id;
+       project = v_project;
+       workload_identity_pool_id = v_workload_identity_pool_id;
+       workload_identity_pool_provider_id =
+         v_workload_identity_pool_provider_id;
+       aws = v_aws;
+       oidc = v_oidc;
+       saml = v_saml;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_saml v_saml in
+         ("saml", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_oidc v_oidc in
+         ("oidc", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_aws v_aws in
+         ("aws", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_workload_identity_pool_provider_id
+         in
+         ("workload_identity_pool_provider_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_workload_identity_pool_id
+         in
+         ("workload_identity_pool_id", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attribute_mapping with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "attribute_mapping", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attribute_condition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "attribute_condition", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_iam_workload_identity_pool_provider ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_iam_workload_identity_pool_provider
+
+[@@@deriving.end]
 
 let aws ~account_id () : aws = { account_id }
 

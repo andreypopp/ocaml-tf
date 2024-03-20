@@ -3,25 +3,113 @@
 open! Tf_core
 
 type settings__acl = {
-  permission : string prop;  (** permission *)
-  topic : string prop;  (** topic *)
+  permission : string prop;
+  topic : string prop;
 }
-[@@deriving yojson_of]
-(** settings__acl *)
+[@@deriving_inline yojson_of]
 
-type settings = { acl : settings__acl list } [@@deriving yojson_of]
-(** settings *)
+let _ = fun (_ : settings__acl) -> ()
+
+let yojson_of_settings__acl =
+  (function
+   | { permission = v_permission; topic = v_topic } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic in
+         ("topic", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_permission in
+         ("permission", arg) :: bnds
+       in
+       `Assoc bnds
+    : settings__acl -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_settings__acl
+
+[@@@deriving.end]
+
+type settings = { acl : settings__acl list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : settings) -> ()
+
+let yojson_of_settings =
+  (function
+   | { acl = v_acl } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_settings__acl v_acl in
+         ("acl", arg) :: bnds
+       in
+       `Assoc bnds
+    : settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_settings
+
+[@@@deriving.end]
 
 type digitalocean_database_user = {
-  cluster_id : string prop;  (** cluster_id *)
-  id : string prop option; [@option]  (** id *)
+  cluster_id : string prop;
+  id : string prop option; [@option]
   mysql_auth_plugin : string prop option; [@option]
-      (** mysql_auth_plugin *)
-  name : string prop;  (** name *)
+  name : string prop;
   settings : settings list;
 }
-[@@deriving yojson_of]
-(** digitalocean_database_user *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_database_user) -> ()
+
+let yojson_of_digitalocean_database_user =
+  (function
+   | {
+       cluster_id = v_cluster_id;
+       id = v_id;
+       mysql_auth_plugin = v_mysql_auth_plugin;
+       name = v_name;
+       settings = v_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_settings v_settings in
+         ("settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mysql_auth_plugin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mysql_auth_plugin", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_id in
+         ("cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_database_user -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_database_user
+
+[@@@deriving.end]
 
 let settings__acl ~permission ~topic () : settings__acl =
   { permission; topic }

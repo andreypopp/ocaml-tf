@@ -3,17 +3,89 @@
 open! Tf_core
 
 type hcloud_load_balancer_target = {
-  id : string prop option; [@option]  (** id *)
-  ip : string prop option; [@option]  (** ip *)
+  id : string prop option; [@option]
+  ip : string prop option; [@option]
   label_selector : string prop option; [@option]
-      (** label_selector *)
-  load_balancer_id : float prop;  (** load_balancer_id *)
-  server_id : float prop option; [@option]  (** server_id *)
-  type_ : string prop; [@key "type"]  (** type *)
-  use_private_ip : bool prop option; [@option]  (** use_private_ip *)
+  load_balancer_id : float prop;
+  server_id : float prop option; [@option]
+  type_ : string prop; [@key "type"]
+  use_private_ip : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** hcloud_load_balancer_target *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : hcloud_load_balancer_target) -> ()
+
+let yojson_of_hcloud_load_balancer_target =
+  (function
+   | {
+       id = v_id;
+       ip = v_ip;
+       label_selector = v_label_selector;
+       load_balancer_id = v_load_balancer_id;
+       server_id = v_server_id;
+       type_ = v_type_;
+       use_private_ip = v_use_private_ip;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_use_private_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "use_private_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_server_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "server_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_load_balancer_id
+         in
+         ("load_balancer_id", arg) :: bnds
+       in
+       let bnds =
+         match v_label_selector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "label_selector", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : hcloud_load_balancer_target ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_hcloud_load_balancer_target
+
+[@@@deriving.end]
 
 let hcloud_load_balancer_target ?id ?ip ?label_selector ?server_id
     ?use_private_ip ~load_balancer_id ~type_ () :

@@ -3,28 +3,179 @@
 open! Tf_core
 
 type aws_ec2_capacity_reservation = {
-  availability_zone : string prop;  (** availability_zone *)
-  ebs_optimized : bool prop option; [@option]  (** ebs_optimized *)
-  end_date : string prop option; [@option]  (** end_date *)
-  end_date_type : string prop option; [@option]  (** end_date_type *)
+  availability_zone : string prop;
+  ebs_optimized : bool prop option; [@option]
+  end_date : string prop option; [@option]
+  end_date_type : string prop option; [@option]
   ephemeral_storage : bool prop option; [@option]
-      (** ephemeral_storage *)
-  id : string prop option; [@option]  (** id *)
-  instance_count : float prop;  (** instance_count *)
+  id : string prop option; [@option]
+  instance_count : float prop;
   instance_match_criteria : string prop option; [@option]
-      (** instance_match_criteria *)
-  instance_platform : string prop;  (** instance_platform *)
-  instance_type : string prop;  (** instance_type *)
-  outpost_arn : string prop option; [@option]  (** outpost_arn *)
+  instance_platform : string prop;
+  instance_type : string prop;
+  outpost_arn : string prop option; [@option]
   placement_group_arn : string prop option; [@option]
-      (** placement_group_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  tenancy : string prop option; [@option]  (** tenancy *)
+  tenancy : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_ec2_capacity_reservation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_capacity_reservation) -> ()
+
+let yojson_of_aws_ec2_capacity_reservation =
+  (function
+   | {
+       availability_zone = v_availability_zone;
+       ebs_optimized = v_ebs_optimized;
+       end_date = v_end_date;
+       end_date_type = v_end_date_type;
+       ephemeral_storage = v_ephemeral_storage;
+       id = v_id;
+       instance_count = v_instance_count;
+       instance_match_criteria = v_instance_match_criteria;
+       instance_platform = v_instance_platform;
+       instance_type = v_instance_type;
+       outpost_arn = v_outpost_arn;
+       placement_group_arn = v_placement_group_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       tenancy = v_tenancy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tenancy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tenancy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_placement_group_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "placement_group_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_outpost_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "outpost_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance_type in
+         ("instance_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_instance_platform
+         in
+         ("instance_platform", arg) :: bnds
+       in
+       let bnds =
+         match v_instance_match_criteria with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_match_criteria", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_instance_count in
+         ("instance_count", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ephemeral_storage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ephemeral_storage", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_end_date_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "end_date_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_end_date with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "end_date", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ebs_optimized with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ebs_optimized", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_availability_zone
+         in
+         ("availability_zone", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_capacity_reservation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_capacity_reservation
+
+[@@@deriving.end]
 
 let aws_ec2_capacity_reservation ?ebs_optimized ?end_date
     ?end_date_type ?ephemeral_storage ?id ?instance_match_criteria

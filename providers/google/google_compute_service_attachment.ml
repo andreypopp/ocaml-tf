@@ -4,77 +4,276 @@ open! Tf_core
 
 type consumer_accept_lists = {
   connection_limit : float prop;
-      (** The number of consumer forwarding rules the consumer project can
-create. *)
   network_url : string prop option; [@option]
-      (** The network that is allowed to connect to this service attachment.
-Only one of project_id_or_num and network_url may be set. *)
   project_id_or_num : string prop option; [@option]
-      (** A project that is allowed to connect to this service attachment.
-Only one of project_id_or_num and network_url may be set. *)
 }
-[@@deriving yojson_of]
-(** An array of projects that are allowed to connect to this service
-attachment. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : consumer_accept_lists) -> ()
+
+let yojson_of_consumer_accept_lists =
+  (function
+   | {
+       connection_limit = v_connection_limit;
+       network_url = v_network_url;
+       project_id_or_num = v_project_id_or_num;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project_id_or_num with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id_or_num", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_connection_limit
+         in
+         ("connection_limit", arg) :: bnds
+       in
+       `Assoc bnds
+    : consumer_accept_lists -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_consumer_accept_lists
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type connected_endpoints = {
-  endpoint : string prop;  (** endpoint *)
-  status : string prop;  (** status *)
+  endpoint : string prop;
+  status : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : connected_endpoints) -> ()
+
+let yojson_of_connected_endpoints =
+  (function
+   | { endpoint = v_endpoint; status = v_status } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_endpoint in
+         ("endpoint", arg) :: bnds
+       in
+       `Assoc bnds
+    : connected_endpoints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_connected_endpoints
+
+[@@@deriving.end]
 
 type google_compute_service_attachment = {
   connection_preference : string prop;
-      (** The connection preference to use for this service attachment. Valid
-values include ACCEPT_AUTOMATIC, ACCEPT_MANUAL. *)
   consumer_reject_lists : string prop list option; [@option]
-      (** An array of projects that are not allowed to connect to this service
-attachment. *)
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
   domain_names : string prop list option; [@option]
-      (** If specified, the domain name will be used during the integration between
-the PSC connected endpoints and the Cloud DNS. For example, this is a
-valid domain name: p.mycompany.com.. Current max number of domain names
-supported is 1. *)
   enable_proxy_protocol : bool prop;
-      (** If true, enable the proxy protocol which is for supplying client TCP/IP
-address data in TCP connections that traverse proxies on their way to
-destination servers. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Name of the resource. The name must be 1-63 characters long, and
-comply with RFC1035. Specifically, the name must be 1-63 characters
-long and match the regular expression '[a-z]([-a-z0-9]*[a-z0-9])?'
-which means the first character must be a lowercase letter, and all
-following characters must be a dash, lowercase letter, or digit,
-except the last character, which cannot be a dash. *)
   nat_subnets : string prop list;
-      (** An array of subnets that is provided for NAT in this service attachment. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   reconcile_connections : bool prop option; [@option]
-      (** This flag determines whether a consumer accept/reject list change can reconcile the statuses of existing ACCEPTED or REJECTED PSC endpoints.
-
-If false, connection policy update will only affect existing PENDING PSC endpoints. Existing ACCEPTED/REJECTED endpoints will remain untouched regardless how the connection policy is modified .
-If true, update will affect both PENDING and ACCEPTED/REJECTED PSC endpoints. For example, an ACCEPTED PSC endpoint will be moved to REJECTED if its project is added to the reject list. *)
   region : string prop option; [@option]
-      (** URL of the region where the resource resides. *)
   target_service : string prop;
-      (** The URL of a forwarding rule that represents the service identified by
-this service attachment. *)
   consumer_accept_lists : consumer_accept_lists list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_service_attachment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_service_attachment) -> ()
+
+let yojson_of_google_compute_service_attachment =
+  (function
+   | {
+       connection_preference = v_connection_preference;
+       consumer_reject_lists = v_consumer_reject_lists;
+       description = v_description;
+       domain_names = v_domain_names;
+       enable_proxy_protocol = v_enable_proxy_protocol;
+       id = v_id;
+       name = v_name;
+       nat_subnets = v_nat_subnets;
+       project = v_project;
+       reconcile_connections = v_reconcile_connections;
+       region = v_region;
+       target_service = v_target_service;
+       consumer_accept_lists = v_consumer_accept_lists;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_consumer_accept_lists
+             v_consumer_accept_lists
+         in
+         ("consumer_accept_lists", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_target_service
+         in
+         ("target_service", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_reconcile_connections with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "reconcile_connections", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_nat_subnets
+         in
+         ("nat_subnets", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_enable_proxy_protocol
+         in
+         ("enable_proxy_protocol", arg) :: bnds
+       in
+       let bnds =
+         match v_domain_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "domain_names", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_consumer_reject_lists with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "consumer_reject_lists", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_connection_preference
+         in
+         ("connection_preference", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_compute_service_attachment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_service_attachment
+
+[@@@deriving.end]
 
 let consumer_accept_lists ?network_url ?project_id_or_num
     ~connection_limit () : consumer_accept_lists =

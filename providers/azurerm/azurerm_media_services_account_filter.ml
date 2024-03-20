@@ -3,57 +3,296 @@
 open! Tf_core
 
 type presentation_time_range = {
-  end_in_units : float prop option; [@option]  (** end_in_units *)
-  force_end : bool prop option; [@option]  (** force_end *)
+  end_in_units : float prop option; [@option]
+  force_end : bool prop option; [@option]
   live_backoff_in_units : float prop option; [@option]
-      (** live_backoff_in_units *)
   presentation_window_in_units : float prop option; [@option]
-      (** presentation_window_in_units *)
   start_in_units : float prop option; [@option]
-      (** start_in_units *)
   unit_timescale_in_milliseconds : float prop;
-      (** unit_timescale_in_milliseconds *)
 }
-[@@deriving yojson_of]
-(** presentation_time_range *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : presentation_time_range) -> ()
+
+let yojson_of_presentation_time_range =
+  (function
+   | {
+       end_in_units = v_end_in_units;
+       force_end = v_force_end;
+       live_backoff_in_units = v_live_backoff_in_units;
+       presentation_window_in_units = v_presentation_window_in_units;
+       start_in_units = v_start_in_units;
+       unit_timescale_in_milliseconds =
+         v_unit_timescale_in_milliseconds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_unit_timescale_in_milliseconds
+         in
+         ("unit_timescale_in_milliseconds", arg) :: bnds
+       in
+       let bnds =
+         match v_start_in_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "start_in_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_presentation_window_in_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "presentation_window_in_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_live_backoff_in_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "live_backoff_in_units", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_end with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_end", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_end_in_units with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "end_in_units", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : presentation_time_range -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_presentation_time_range
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type track_selection__condition = {
-  operation : string prop;  (** operation *)
-  property : string prop;  (** property *)
-  value : string prop;  (** value *)
+  operation : string prop;
+  property : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** track_selection__condition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : track_selection__condition) -> ()
+
+let yojson_of_track_selection__condition =
+  (function
+   | {
+       operation = v_operation;
+       property = v_property;
+       value = v_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_property in
+         ("property", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operation in
+         ("operation", arg) :: bnds
+       in
+       `Assoc bnds
+    : track_selection__condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_track_selection__condition
+
+[@@@deriving.end]
 
 type track_selection = {
   condition : track_selection__condition list;
 }
-[@@deriving yojson_of]
-(** track_selection *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : track_selection) -> ()
+
+let yojson_of_track_selection =
+  (function
+   | { condition = v_condition } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_track_selection__condition
+             v_condition
+         in
+         ("condition", arg) :: bnds
+       in
+       `Assoc bnds
+    : track_selection -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_track_selection
+
+[@@@deriving.end]
 
 type azurerm_media_services_account_filter = {
   first_quality_bitrate : float prop option; [@option]
-      (** first_quality_bitrate *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   media_services_account_name : string prop;
-      (** media_services_account_name *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  name : string prop;
+  resource_group_name : string prop;
   presentation_time_range : presentation_time_range list;
   timeouts : timeouts option;
   track_selection : track_selection list;
 }
-[@@deriving yojson_of]
-(** azurerm_media_services_account_filter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_media_services_account_filter) -> ()
+
+let yojson_of_azurerm_media_services_account_filter =
+  (function
+   | {
+       first_quality_bitrate = v_first_quality_bitrate;
+       id = v_id;
+       media_services_account_name = v_media_services_account_name;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       presentation_time_range = v_presentation_time_range;
+       timeouts = v_timeouts;
+       track_selection = v_track_selection;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_track_selection v_track_selection
+         in
+         ("track_selection", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_presentation_time_range
+             v_presentation_time_range
+         in
+         ("presentation_time_range", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_media_services_account_name
+         in
+         ("media_services_account_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_first_quality_bitrate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "first_quality_bitrate", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_media_services_account_filter ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_media_services_account_filter
+
+[@@@deriving.end]
 
 let presentation_time_range ?end_in_units ?force_end
     ?live_backoff_in_units ?presentation_window_in_units

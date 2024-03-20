@@ -4,113 +4,550 @@ open! Tf_core
 
 type dry_run_spec__rules__condition = {
   description : string prop option; [@option]
-      (** Optional. Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI. *)
   expression : string prop option; [@option]
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** Optional. String indicating the location of the expression for error reporting, e.g. a file name and a position in the file. *)
   title : string prop option; [@option]
-      (** Optional. Title for the expression, i.e. a short string describing its purpose. This can be used e.g. in UIs which allow to enter the expression. *)
 }
-[@@deriving yojson_of]
-(** A condition which determines whether this rule is used in the evaluation of the policy. When set, the `expression` field in the `Expr' must include from 1 to 10 subexpressions, joined by the || or && operators. Each subexpression must be of the form resource.matchTag('/tag_key_short_name, 'tag_value_short_name'). or resource.matchTagId('tagKeys/key_id', 'tagValues/value_id'). where key_name and value_name are the resource names for Label Keys and Values. These names are available from the Tag Manager Service. An example expression is: resource.matchTag('123456789/environment, 'prod'). or resource.matchTagId('tagKeys/123', 'tagValues/456'). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dry_run_spec__rules__condition) -> ()
+
+let yojson_of_dry_run_spec__rules__condition =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expression with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expression", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : dry_run_spec__rules__condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dry_run_spec__rules__condition
+
+[@@@deriving.end]
 
 type dry_run_spec__rules__values = {
   allowed_values : string prop list option; [@option]
-      (** List of values allowed at this resource. *)
   denied_values : string prop list option; [@option]
-      (** List of values denied at this resource. *)
 }
-[@@deriving yojson_of]
-(** List of values to be used for this policy rule. This field can be set only in policies for list constraints. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dry_run_spec__rules__values) -> ()
+
+let yojson_of_dry_run_spec__rules__values =
+  (function
+   | {
+       allowed_values = v_allowed_values;
+       denied_values = v_denied_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_denied_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "denied_values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_values", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : dry_run_spec__rules__values ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dry_run_spec__rules__values
+
+[@@@deriving.end]
 
 type dry_run_spec__rules = {
   allow_all : string prop option; [@option]
-      (** Setting this to `TRUE` means that all values are allowed. This field can be set only in policies for list constraints. *)
   deny_all : string prop option; [@option]
-      (** Setting this to `TRUE` means that all values are denied. This field can be set only in policies for list constraints. *)
   enforce : string prop option; [@option]
-      (** If `TRUE`, then the policy is enforced. If `FALSE`, then any configuration is acceptable. This field can be set only in policies for boolean constraints. *)
   condition : dry_run_spec__rules__condition list;
   values : dry_run_spec__rules__values list;
 }
-[@@deriving yojson_of]
-(** In policies for boolean constraints, the following requirements apply: - There must be one and only one policy rule where condition is unset. - Boolean policy rules with conditions must set `enforced` to the opposite of the policy rule without a condition. - During policy evaluation, policy rules with conditions that are true for a target resource take precedence. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dry_run_spec__rules) -> ()
+
+let yojson_of_dry_run_spec__rules =
+  (function
+   | {
+       allow_all = v_allow_all;
+       deny_all = v_deny_all;
+       enforce = v_enforce;
+       condition = v_condition;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dry_run_spec__rules__values
+             v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dry_run_spec__rules__condition
+             v_condition
+         in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         match v_enforce with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "enforce", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deny_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deny_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "allow_all", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : dry_run_spec__rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dry_run_spec__rules
+
+[@@@deriving.end]
 
 type dry_run_spec = {
   inherit_from_parent : bool prop option; [@option]
-      (** Determines the inheritance behavior for this policy. If `inherit_from_parent` is true, policy rules set higher up in the hierarchy (up to the closest root) are inherited and present in the effective policy. If it is false, then no rules are inherited, and this policy becomes the new root for evaluation. This field can be set only for policies which configure list constraints. *)
   reset : bool prop option; [@option]
-      (** Ignores policies set above this resource and restores the `constraint_default` enforcement behavior of the specific constraint at this resource. This field can be set in policies for either list or boolean constraints. If set, `rules` must be empty and `inherit_from_parent` must be set to false. *)
   rules : dry_run_spec__rules list;
 }
-[@@deriving yojson_of]
-(** Dry-run policy. Audit-only policy, can be used to monitor how the policy would have impacted the existing and future resources if it's enforced. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : dry_run_spec) -> ()
+
+let yojson_of_dry_run_spec =
+  (function
+   | {
+       inherit_from_parent = v_inherit_from_parent;
+       reset = v_reset;
+       rules = v_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dry_run_spec__rules v_rules
+         in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         match v_reset with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "reset", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_inherit_from_parent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "inherit_from_parent", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : dry_run_spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_dry_run_spec
+
+[@@@deriving.end]
 
 type spec__rules__condition = {
   description : string prop option; [@option]
-      (** Optional. Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI. *)
   expression : string prop option; [@option]
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** Optional. String indicating the location of the expression for error reporting, e.g. a file name and a position in the file. *)
   title : string prop option; [@option]
-      (** Optional. Title for the expression, i.e. a short string describing its purpose. This can be used e.g. in UIs which allow to enter the expression. *)
 }
-[@@deriving yojson_of]
-(** A condition which determines whether this rule is used in the evaluation of the policy. When set, the `expression` field in the `Expr' must include from 1 to 10 subexpressions, joined by the || or && operators. Each subexpression must be of the form resource.matchTag('/tag_key_short_name, 'tag_value_short_name'). or resource.matchTagId('tagKeys/key_id', 'tagValues/value_id'). where key_name and value_name are the resource names for Label Keys and Values. These names are available from the Tag Manager Service. An example expression is: resource.matchTag('123456789/environment, 'prod'). or resource.matchTagId('tagKeys/123', 'tagValues/456'). *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__rules__condition) -> ()
+
+let yojson_of_spec__rules__condition =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expression with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expression", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__rules__condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rules__condition
+
+[@@@deriving.end]
 
 type spec__rules__values = {
   allowed_values : string prop list option; [@option]
-      (** List of values allowed at this resource. *)
   denied_values : string prop list option; [@option]
-      (** List of values denied at this resource. *)
 }
-[@@deriving yojson_of]
-(** List of values to be used for this PolicyRule. This field can be set only in Policies for list constraints. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__rules__values) -> ()
+
+let yojson_of_spec__rules__values =
+  (function
+   | {
+       allowed_values = v_allowed_values;
+       denied_values = v_denied_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_denied_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "denied_values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allowed_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_values", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__rules__values -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rules__values
+
+[@@@deriving.end]
 
 type spec__rules = {
   allow_all : string prop option; [@option]
-      (** Setting this to `TRUE` means that all values are allowed. This field can be set only in Policies for list constraints. *)
   deny_all : string prop option; [@option]
-      (** Setting this to `TRUE` means that all values are denied. This field can be set only in Policies for list constraints. *)
   enforce : string prop option; [@option]
-      (** If `TRUE`, then the `Policy` is enforced. If `FALSE`, then any configuration is acceptable. This field can be set only in Policies for boolean constraints. *)
   condition : spec__rules__condition list;
   values : spec__rules__values list;
 }
-[@@deriving yojson_of]
-(** Up to 10 PolicyRules are allowed. In Policies for boolean constraints, the following requirements apply: - There must be one and only one PolicyRule where condition is unset. - BooleanPolicyRules with conditions must set `enforced` to the opposite of the PolicyRule without a condition. - During policy evaluation, PolicyRules with conditions that are true for a target resource take precedence. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec__rules) -> ()
+
+let yojson_of_spec__rules =
+  (function
+   | {
+       allow_all = v_allow_all;
+       deny_all = v_deny_all;
+       enforce = v_enforce;
+       condition = v_condition;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__rules__values v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_spec__rules__condition
+             v_condition
+         in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         match v_enforce with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "enforce", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deny_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deny_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "allow_all", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec__rules -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec__rules
+
+[@@@deriving.end]
 
 type spec = {
   inherit_from_parent : bool prop option; [@option]
-      (** Determines the inheritance behavior for this `Policy`. If `inherit_from_parent` is true, PolicyRules set higher up in the hierarchy (up to the closest root) are inherited and present in the effective policy. If it is false, then no rules are inherited, and this Policy becomes the new root for evaluation. This field can be set only for Policies which configure list constraints. *)
   reset : bool prop option; [@option]
-      (** Ignores policies set above this resource and restores the `constraint_default` enforcement behavior of the specific `Constraint` at this resource. This field can be set in policies for either list or boolean constraints. If set, `rules` must be empty and `inherit_from_parent` must be set to false. *)
   rules : spec__rules list;
 }
-[@@deriving yojson_of]
-(** Basic information about the Organization Policy. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : spec) -> ()
+
+let yojson_of_spec =
+  (function
+   | {
+       inherit_from_parent = v_inherit_from_parent;
+       reset = v_reset;
+       rules = v_rules;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec__rules v_rules in
+         ("rules", arg) :: bnds
+       in
+       let bnds =
+         match v_reset with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "reset", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_inherit_from_parent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "inherit_from_parent", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : spec -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_spec
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_org_policy_policy = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** Immutable. The resource name of the Policy. Must be one of the following forms, where constraint_name is the name of the constraint which this Policy configures: * `projects/{project_number}/policies/{constraint_name}` * `folders/{folder_id}/policies/{constraint_name}` * `organizations/{organization_id}/policies/{constraint_name}` For example, projects/123/policies/compute.disableSerialPortAccess. Note: `projects/{project_id}/policies/{constraint_name}` is also an acceptable name for API requests, but responses will return the name using the equivalent project number. *)
-  parent : string prop;  (** The parent of the resource. *)
+  parent : string prop;
   dry_run_spec : dry_run_spec list;
   spec : spec list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_org_policy_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_org_policy_policy) -> ()
+
+let yojson_of_google_org_policy_policy =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       parent = v_parent;
+       dry_run_spec = v_dry_run_spec;
+       spec = v_spec;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_spec v_spec in
+         ("spec", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_dry_run_spec v_dry_run_spec
+         in
+         ("dry_run_spec", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_parent in
+         ("parent", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_org_policy_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_org_policy_policy
+
+[@@@deriving.end]
 
 let dry_run_spec__rules__condition ?description ?expression ?location
     ?title () : dry_run_spec__rules__condition =

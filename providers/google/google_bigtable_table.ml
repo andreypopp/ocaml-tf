@@ -2,38 +2,162 @@
 
 open! Tf_core
 
-type column_family = {
-  family : string prop;  (** The name of the column family. *)
-}
-[@@deriving yojson_of]
-(** A group of columns within a table which share a common configuration. This can be specified multiple times. *)
+type column_family = { family : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : column_family) -> ()
+
+let yojson_of_column_family =
+  (function
+   | { family = v_family } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_family in
+         ("family", arg) :: bnds
+       in
+       `Assoc bnds
+    : column_family -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_column_family
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigtable_table = {
   change_stream_retention : string prop option; [@option]
-      (** Duration to retain change stream data for the table. Set to 0 to disable. Must be between 1 and 7 days. *)
   deletion_protection : string prop option; [@option]
-      (** A field to make the table protected against data loss i.e. when set to PROTECTED, deleting the table, the column families in the table, and the instance containing the table would be prohibited. If not provided, currently deletion protection will be set to UNPROTECTED as it is the API default value. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   instance_name : string prop;
-      (** The name of the Bigtable instance. *)
   name : string prop;
-      (** The name of the table. Must be 1-50 characters and must only contain hyphens, underscores, periods, letters and numbers. *)
   project : string prop option; [@option]
-      (** The ID of the project in which the resource belongs. If it is not provided, the provider project is used. *)
   split_keys : string prop list option; [@option]
-      (** A list of predefined keys to split the table on. !> Warning: Modifying the split_keys of an existing table will cause Terraform to delete/recreate the entire google_bigtable_table resource. *)
   column_family : column_family list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigtable_table *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigtable_table) -> ()
+
+let yojson_of_google_bigtable_table =
+  (function
+   | {
+       change_stream_retention = v_change_stream_retention;
+       deletion_protection = v_deletion_protection;
+       id = v_id;
+       instance_name = v_instance_name;
+       name = v_name;
+       project = v_project;
+       split_keys = v_split_keys;
+       column_family = v_column_family;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_column_family v_column_family
+         in
+         ("column_family", arg) :: bnds
+       in
+       let bnds =
+         match v_split_keys with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "split_keys", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance_name in
+         ("instance_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deletion_protection with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deletion_protection", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_change_stream_retention with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "change_stream_retention", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_bigtable_table -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigtable_table
+
+[@@@deriving.end]
 
 let column_family ~family () : column_family = { family }
 let timeouts ?create ?update () : timeouts = { create; update }

@@ -4,27 +4,161 @@ open! Tf_core
 
 type aws_cognito_user = {
   attributes : (string * string prop) list option; [@option]
-      (** attributes *)
   client_metadata : (string * string prop) list option; [@option]
-      (** client_metadata *)
   desired_delivery_mediums : string prop list option; [@option]
-      (** desired_delivery_mediums *)
-  enabled : bool prop option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]
   force_alias_creation : bool prop option; [@option]
-      (** force_alias_creation *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   message_action : string prop option; [@option]
-      (** message_action *)
-  password : string prop option; [@option]  (** password *)
+  password : string prop option; [@option]
   temporary_password : string prop option; [@option]
-      (** temporary_password *)
-  user_pool_id : string prop;  (** user_pool_id *)
-  username : string prop;  (** username *)
+  user_pool_id : string prop;
+  username : string prop;
   validation_data : (string * string prop) list option; [@option]
-      (** validation_data *)
 }
-[@@deriving yojson_of]
-(** aws_cognito_user *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cognito_user) -> ()
+
+let yojson_of_aws_cognito_user =
+  (function
+   | {
+       attributes = v_attributes;
+       client_metadata = v_client_metadata;
+       desired_delivery_mediums = v_desired_delivery_mediums;
+       enabled = v_enabled;
+       force_alias_creation = v_force_alias_creation;
+       id = v_id;
+       message_action = v_message_action;
+       password = v_password;
+       temporary_password = v_temporary_password;
+       user_pool_id = v_user_pool_id;
+       username = v_username;
+       validation_data = v_validation_data;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_validation_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "validation_data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_pool_id in
+         ("user_pool_id", arg) :: bnds
+       in
+       let bnds =
+         match v_temporary_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "temporary_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_message_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "message_action", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_alias_creation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_alias_creation", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_desired_delivery_mediums with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "desired_delivery_mediums", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "client_metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_attributes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "attributes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cognito_user -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cognito_user
+
+[@@@deriving.end]
 
 let aws_cognito_user ?attributes ?client_metadata
     ?desired_delivery_mediums ?enabled ?force_alias_creation ?id

@@ -4,18 +4,67 @@ open! Tf_core
 
 type digitalocean_uptime_check = {
   enabled : bool prop option; [@option]
-      (** A boolean value indicating whether the check is enabled/disabled. *)
   name : string prop;
-      (** A human-friendly display name for the check. *)
   regions : string prop list option; [@option]
-      (** An array containing the selected regions to perform healthchecks from. *)
   target : string prop;
-      (** The endpoint to perform healthchecks on. *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The type of health check to perform. Enum: 'ping' 'http' 'https' *)
 }
-[@@deriving yojson_of]
-(** digitalocean_uptime_check *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_uptime_check) -> ()
+
+let yojson_of_digitalocean_uptime_check =
+  (function
+   | {
+       enabled = v_enabled;
+       name = v_name;
+       regions = v_regions;
+       target = v_target;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_target in
+         ("target", arg) :: bnds
+       in
+       let bnds =
+         match v_regions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "regions", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_uptime_check -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_uptime_check
+
+[@@@deriving.end]
 
 let digitalocean_uptime_check ?enabled ?regions ?type_ ~name ~target
     () : digitalocean_uptime_check =

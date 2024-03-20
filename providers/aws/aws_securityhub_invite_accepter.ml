@@ -3,11 +3,38 @@
 open! Tf_core
 
 type aws_securityhub_invite_accepter = {
-  id : string prop option; [@option]  (** id *)
-  master_id : string prop;  (** master_id *)
+  id : string prop option; [@option]
+  master_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_securityhub_invite_accepter *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_securityhub_invite_accepter) -> ()
+
+let yojson_of_aws_securityhub_invite_accepter =
+  (function
+   | { id = v_id; master_id = v_master_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_master_id in
+         ("master_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_securityhub_invite_accepter ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_securityhub_invite_accepter
+
+[@@@deriving.end]
 
 let aws_securityhub_invite_accepter ?id ~master_id () :
     aws_securityhub_invite_accepter =

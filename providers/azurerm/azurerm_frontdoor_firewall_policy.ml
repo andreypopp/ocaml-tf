@@ -3,109 +3,635 @@
 open! Tf_core
 
 type custom_rule__match_condition = {
-  match_values : string prop list;  (** match_values *)
-  match_variable : string prop;  (** match_variable *)
+  match_values : string prop list;
+  match_variable : string prop;
   negation_condition : bool prop option; [@option]
-      (** negation_condition *)
-  operator : string prop;  (** operator *)
-  selector : string prop option; [@option]  (** selector *)
-  transforms : string prop list option; [@option]  (** transforms *)
+  operator : string prop;
+  selector : string prop option; [@option]
+  transforms : string prop list option; [@option]
 }
-[@@deriving yojson_of]
-(** custom_rule__match_condition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_rule__match_condition) -> ()
+
+let yojson_of_custom_rule__match_condition =
+  (function
+   | {
+       match_values = v_match_values;
+       match_variable = v_match_variable;
+       negation_condition = v_negation_condition;
+       operator = v_operator;
+       selector = v_selector;
+       transforms = v_transforms;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_transforms with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "transforms", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_selector with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "selector", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         match v_negation_condition with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "negation_condition", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_match_variable
+         in
+         ("match_variable", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_match_values
+         in
+         ("match_values", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_rule__match_condition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_rule__match_condition
+
+[@@@deriving.end]
 
 type custom_rule = {
-  action : string prop;  (** action *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  name : string prop;  (** name *)
-  priority : float prop option; [@option]  (** priority *)
+  action : string prop;
+  enabled : bool prop option; [@option]
+  name : string prop;
+  priority : float prop option; [@option]
   rate_limit_duration_in_minutes : float prop option; [@option]
-      (** rate_limit_duration_in_minutes *)
   rate_limit_threshold : float prop option; [@option]
-      (** rate_limit_threshold *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
   match_condition : custom_rule__match_condition list;
 }
-[@@deriving yojson_of]
-(** custom_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : custom_rule) -> ()
+
+let yojson_of_custom_rule =
+  (function
+   | {
+       action = v_action;
+       enabled = v_enabled;
+       name = v_name;
+       priority = v_priority;
+       rate_limit_duration_in_minutes =
+         v_rate_limit_duration_in_minutes;
+       rate_limit_threshold = v_rate_limit_threshold;
+       type_ = v_type_;
+       match_condition = v_match_condition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_rule__match_condition
+             v_match_condition
+         in
+         ("match_condition", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_rate_limit_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "rate_limit_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_rate_limit_duration_in_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "rate_limit_duration_in_minutes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_priority with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "priority", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : custom_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_custom_rule
+
+[@@@deriving.end]
 
 type managed_rule__exclusion = {
-  match_variable : string prop;  (** match_variable *)
-  operator : string prop;  (** operator *)
-  selector : string prop;  (** selector *)
+  match_variable : string prop;
+  operator : string prop;
+  selector : string prop;
 }
-[@@deriving yojson_of]
-(** managed_rule__exclusion *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_rule__exclusion) -> ()
+
+let yojson_of_managed_rule__exclusion =
+  (function
+   | {
+       match_variable = v_match_variable;
+       operator = v_operator;
+       selector = v_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_selector in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_match_variable
+         in
+         ("match_variable", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_rule__exclusion -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_rule__exclusion
+
+[@@@deriving.end]
 
 type managed_rule__override__exclusion = {
-  match_variable : string prop;  (** match_variable *)
-  operator : string prop;  (** operator *)
-  selector : string prop;  (** selector *)
+  match_variable : string prop;
+  operator : string prop;
+  selector : string prop;
 }
-[@@deriving yojson_of]
-(** managed_rule__override__exclusion *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_rule__override__exclusion) -> ()
+
+let yojson_of_managed_rule__override__exclusion =
+  (function
+   | {
+       match_variable = v_match_variable;
+       operator = v_operator;
+       selector = v_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_selector in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_match_variable
+         in
+         ("match_variable", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_rule__override__exclusion ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_rule__override__exclusion
+
+[@@@deriving.end]
 
 type managed_rule__override__rule__exclusion = {
-  match_variable : string prop;  (** match_variable *)
-  operator : string prop;  (** operator *)
-  selector : string prop;  (** selector *)
+  match_variable : string prop;
+  operator : string prop;
+  selector : string prop;
 }
-[@@deriving yojson_of]
-(** managed_rule__override__rule__exclusion *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_rule__override__rule__exclusion) -> ()
+
+let yojson_of_managed_rule__override__rule__exclusion =
+  (function
+   | {
+       match_variable = v_match_variable;
+       operator = v_operator;
+       selector = v_selector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_selector in
+         ("selector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_operator in
+         ("operator", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_match_variable
+         in
+         ("match_variable", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_rule__override__rule__exclusion ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_rule__override__rule__exclusion
+
+[@@@deriving.end]
 
 type managed_rule__override__rule = {
-  action : string prop;  (** action *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  rule_id : string prop;  (** rule_id *)
+  action : string prop;
+  enabled : bool prop option; [@option]
+  rule_id : string prop;
   exclusion : managed_rule__override__rule__exclusion list;
 }
-[@@deriving yojson_of]
-(** managed_rule__override__rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_rule__override__rule) -> ()
+
+let yojson_of_managed_rule__override__rule =
+  (function
+   | {
+       action = v_action;
+       enabled = v_enabled;
+       rule_id = v_rule_id;
+       exclusion = v_exclusion;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_managed_rule__override__rule__exclusion
+             v_exclusion
+         in
+         ("exclusion", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_rule_id in
+         ("rule_id", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_action in
+         ("action", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_rule__override__rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_rule__override__rule
+
+[@@@deriving.end]
 
 type managed_rule__override = {
-  rule_group_name : string prop;  (** rule_group_name *)
+  rule_group_name : string prop;
   exclusion : managed_rule__override__exclusion list;
   rule : managed_rule__override__rule list;
 }
-[@@deriving yojson_of]
-(** managed_rule__override *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_rule__override) -> ()
+
+let yojson_of_managed_rule__override =
+  (function
+   | {
+       rule_group_name = v_rule_group_name;
+       exclusion = v_exclusion;
+       rule = v_rule;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_managed_rule__override__rule
+             v_rule
+         in
+         ("rule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_managed_rule__override__exclusion
+             v_exclusion
+         in
+         ("exclusion", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_rule_group_name
+         in
+         ("rule_group_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_rule__override -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_rule__override
+
+[@@@deriving.end]
 
 type managed_rule = {
-  type_ : string prop; [@key "type"]  (** type *)
-  version : string prop;  (** version *)
+  type_ : string prop; [@key "type"]
+  version : string prop;
   exclusion : managed_rule__exclusion list;
   override : managed_rule__override list;
 }
-[@@deriving yojson_of]
-(** managed_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : managed_rule) -> ()
+
+let yojson_of_managed_rule =
+  (function
+   | {
+       type_ = v_type_;
+       version = v_version;
+       exclusion = v_exclusion;
+       override = v_override;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_managed_rule__override v_override
+         in
+         ("override", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_managed_rule__exclusion
+             v_exclusion
+         in
+         ("exclusion", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : managed_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_managed_rule
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_frontdoor_firewall_policy = {
   custom_block_response_body : string prop option; [@option]
-      (** custom_block_response_body *)
   custom_block_response_status_code : float prop option; [@option]
-      (** custom_block_response_status_code *)
-  enabled : bool prop option; [@option]  (** enabled *)
-  id : string prop option; [@option]  (** id *)
-  mode : string prop option; [@option]  (** mode *)
-  name : string prop;  (** name *)
-  redirect_url : string prop option; [@option]  (** redirect_url *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  enabled : bool prop option; [@option]
+  id : string prop option; [@option]
+  mode : string prop option; [@option]
+  name : string prop;
+  redirect_url : string prop option; [@option]
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   custom_rule : custom_rule list;
   managed_rule : managed_rule list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_frontdoor_firewall_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_frontdoor_firewall_policy) -> ()
+
+let yojson_of_azurerm_frontdoor_firewall_policy =
+  (function
+   | {
+       custom_block_response_body = v_custom_block_response_body;
+       custom_block_response_status_code =
+         v_custom_block_response_status_code;
+       enabled = v_enabled;
+       id = v_id;
+       mode = v_mode;
+       name = v_name;
+       redirect_url = v_redirect_url;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       custom_rule = v_custom_rule;
+       managed_rule = v_managed_rule;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_managed_rule v_managed_rule
+         in
+         ("managed_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_custom_rule v_custom_rule
+         in
+         ("custom_rule", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_redirect_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "redirect_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_block_response_status_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "custom_block_response_status_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_custom_block_response_body with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "custom_block_response_body", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_frontdoor_firewall_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_frontdoor_firewall_policy
+
+[@@@deriving.end]
 
 let custom_rule__match_condition ?negation_condition ?selector
     ?transforms ~match_values ~match_variable ~operator () :

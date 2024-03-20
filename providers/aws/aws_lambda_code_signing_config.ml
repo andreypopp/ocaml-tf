@@ -4,26 +4,117 @@ open! Tf_core
 
 type allowed_publishers = {
   signing_profile_version_arns : string prop list;
-      (** signing_profile_version_arns *)
 }
-[@@deriving yojson_of]
-(** allowed_publishers *)
+[@@deriving_inline yojson_of]
 
-type policies = {
-  untrusted_artifact_on_deployment : string prop;
-      (** untrusted_artifact_on_deployment *)
-}
-[@@deriving yojson_of]
-(** policies *)
+let _ = fun (_ : allowed_publishers) -> ()
+
+let yojson_of_allowed_publishers =
+  (function
+   | {
+       signing_profile_version_arns = v_signing_profile_version_arns;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_signing_profile_version_arns
+         in
+         ("signing_profile_version_arns", arg) :: bnds
+       in
+       `Assoc bnds
+    : allowed_publishers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_allowed_publishers
+
+[@@@deriving.end]
+
+type policies = { untrusted_artifact_on_deployment : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : policies) -> ()
+
+let yojson_of_policies =
+  (function
+   | {
+       untrusted_artifact_on_deployment =
+         v_untrusted_artifact_on_deployment;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_untrusted_artifact_on_deployment
+         in
+         ("untrusted_artifact_on_deployment", arg) :: bnds
+       in
+       `Assoc bnds
+    : policies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_policies
+
+[@@@deriving.end]
 
 type aws_lambda_code_signing_config = {
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
+  description : string prop option; [@option]
+  id : string prop option; [@option]
   allowed_publishers : allowed_publishers list;
   policies : policies list;
 }
-[@@deriving yojson_of]
-(** aws_lambda_code_signing_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lambda_code_signing_config) -> ()
+
+let yojson_of_aws_lambda_code_signing_config =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       allowed_publishers = v_allowed_publishers;
+       policies = v_policies;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_policies v_policies in
+         ("policies", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_allowed_publishers
+             v_allowed_publishers
+         in
+         ("allowed_publishers", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_lambda_code_signing_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lambda_code_signing_config
+
+[@@@deriving.end]
 
 let allowed_publishers ~signing_profile_version_arns () :
     allowed_publishers =

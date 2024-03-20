@@ -3,41 +3,220 @@
 open! Tf_core
 
 type serialization = {
-  encoding : string prop option; [@option]  (** encoding *)
+  encoding : string prop option; [@option]
   field_delimiter : string prop option; [@option]
-      (** field_delimiter *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** serialization *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : serialization) -> ()
+
+let yojson_of_serialization =
+  (function
+   | {
+       encoding = v_encoding;
+       field_delimiter = v_field_delimiter;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_field_delimiter with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_delimiter", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encoding with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encoding", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : serialization -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_serialization
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_stream_analytics_stream_input_blob = {
-  date_format : string prop;  (** date_format *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  path_pattern : string prop;  (** path_pattern *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  storage_account_key : string prop;  (** storage_account_key *)
-  storage_account_name : string prop;  (** storage_account_name *)
+  date_format : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  path_pattern : string prop;
+  resource_group_name : string prop;
+  storage_account_key : string prop;
+  storage_account_name : string prop;
   storage_container_name : string prop;
-      (** storage_container_name *)
   stream_analytics_job_name : string prop;
-      (** stream_analytics_job_name *)
-  time_format : string prop;  (** time_format *)
+  time_format : string prop;
   serialization : serialization list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_stream_analytics_stream_input_blob *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_stream_analytics_stream_input_blob) -> ()
+
+let yojson_of_azurerm_stream_analytics_stream_input_blob =
+  (function
+   | {
+       date_format = v_date_format;
+       id = v_id;
+       name = v_name;
+       path_pattern = v_path_pattern;
+       resource_group_name = v_resource_group_name;
+       storage_account_key = v_storage_account_key;
+       storage_account_name = v_storage_account_name;
+       storage_container_name = v_storage_container_name;
+       stream_analytics_job_name = v_stream_analytics_job_name;
+       time_format = v_time_format;
+       serialization = v_serialization;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_serialization v_serialization
+         in
+         ("serialization", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_time_format in
+         ("time_format", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_stream_analytics_job_name
+         in
+         ("stream_analytics_job_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_storage_container_name
+         in
+         ("storage_container_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_storage_account_name
+         in
+         ("storage_account_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_storage_account_key
+         in
+         ("storage_account_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path_pattern in
+         ("path_pattern", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_date_format in
+         ("date_format", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_stream_analytics_stream_input_blob ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_stream_analytics_stream_input_blob
+
+[@@@deriving.end]
 
 let serialization ?encoding ?field_delimiter ~type_ () :
     serialization =

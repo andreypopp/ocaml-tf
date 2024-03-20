@@ -3,31 +3,168 @@
 open! Tf_core
 
 type autoscale_settings = {
-  max_throughput : float prop option; [@option]  (** max_throughput *)
+  max_throughput : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** autoscale_settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoscale_settings) -> ()
+
+let yojson_of_autoscale_settings =
+  (function
+   | { max_throughput = v_max_throughput } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_throughput with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_throughput", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : autoscale_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscale_settings
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_cosmosdb_mongo_database = {
-  account_name : string prop;  (** account_name *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  throughput : float prop option; [@option]  (** throughput *)
+  account_name : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
+  throughput : float prop option; [@option]
   autoscale_settings : autoscale_settings list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_cosmosdb_mongo_database *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_cosmosdb_mongo_database) -> ()
+
+let yojson_of_azurerm_cosmosdb_mongo_database =
+  (function
+   | {
+       account_name = v_account_name;
+       id = v_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       throughput = v_throughput;
+       autoscale_settings = v_autoscale_settings;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_autoscale_settings
+             v_autoscale_settings
+         in
+         ("autoscale_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_throughput with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "throughput", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_name in
+         ("account_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_cosmosdb_mongo_database ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_cosmosdb_mongo_database
+
+[@@@deriving.end]
 
 let autoscale_settings ?max_throughput () : autoscale_settings =
   { max_throughput }

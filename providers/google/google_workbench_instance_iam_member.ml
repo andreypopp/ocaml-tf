@@ -3,22 +3,22 @@
 open! Tf_core
 
 type condition = {
-  description: string  prop option; [@option] (** description *)
-  expression: string prop;  (** expression *)
-  title: string prop;  (** title *)
-} [@@deriving yojson_of]
-(** condition *)
+  description: string  prop option; [@option]
+  expression: string prop; 
+  title: string prop; 
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type google_workbench_instance_iam_member = {
-  id: string  prop option; [@option] (** id *)
-  location: string  prop option; [@option] (** location *)
-  member: string prop;  (** member *)
-  name: string prop;  (** name *)
-  project: string  prop option; [@option] (** project *)
-  role: string prop;  (** role *)
+  id: string  prop option; [@option]
+  location: string  prop option; [@option]
+  member: string prop; 
+  name: string prop; 
+  project: string  prop option; [@option]
+  role: string prop; 
   condition: condition list;
-} [@@deriving yojson_of]
-(** google_workbench_instance_iam_member *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let condition ?description ~expression ~title () =
   ({

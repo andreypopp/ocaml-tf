@@ -3,111 +3,615 @@
 open! Tf_core
 
 type azure_devops_repo = {
-  account_name : string prop;  (** account_name *)
-  branch_name : string prop;  (** branch_name *)
+  account_name : string prop;
+  branch_name : string prop;
   last_commit_id : string prop option; [@option]
-      (** last_commit_id *)
-  project_name : string prop;  (** project_name *)
-  repository_name : string prop;  (** repository_name *)
-  root_folder : string prop;  (** root_folder *)
-  tenant_id : string prop option; [@option]  (** tenant_id *)
+  project_name : string prop;
+  repository_name : string prop;
+  root_folder : string prop;
+  tenant_id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** azure_devops_repo *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azure_devops_repo) -> ()
+
+let yojson_of_azure_devops_repo =
+  (function
+   | {
+       account_name = v_account_name;
+       branch_name = v_branch_name;
+       last_commit_id = v_last_commit_id;
+       project_name = v_project_name;
+       repository_name = v_repository_name;
+       root_folder = v_root_folder;
+       tenant_id = v_tenant_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tenant_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tenant_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_root_folder in
+         ("root_folder", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_repository_name
+         in
+         ("repository_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_name in
+         ("project_name", arg) :: bnds
+       in
+       let bnds =
+         match v_last_commit_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "last_commit_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_branch_name in
+         ("branch_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_name in
+         ("account_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : azure_devops_repo -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azure_devops_repo
+
+[@@@deriving.end]
 
 type customer_managed_key = {
-  key_name : string prop option; [@option]  (** key_name *)
-  key_versionless_id : string prop;  (** key_versionless_id *)
+  key_name : string prop option; [@option]
+  key_versionless_id : string prop;
   user_assigned_identity_id : string prop option; [@option]
-      (** user_assigned_identity_id *)
 }
-[@@deriving yojson_of]
-(** customer_managed_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : customer_managed_key) -> ()
+
+let yojson_of_customer_managed_key =
+  (function
+   | {
+       key_name = v_key_name;
+       key_versionless_id = v_key_versionless_id;
+       user_assigned_identity_id = v_user_assigned_identity_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_user_assigned_identity_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "user_assigned_identity_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_key_versionless_id
+         in
+         ("key_versionless_id", arg) :: bnds
+       in
+       let bnds =
+         match v_key_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : customer_managed_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_customer_managed_key
+
+[@@@deriving.end]
 
 type github_repo = {
-  account_name : string prop;  (** account_name *)
-  branch_name : string prop;  (** branch_name *)
-  git_url : string prop option; [@option]  (** git_url *)
+  account_name : string prop;
+  branch_name : string prop;
+  git_url : string prop option; [@option]
   last_commit_id : string prop option; [@option]
-      (** last_commit_id *)
-  repository_name : string prop;  (** repository_name *)
-  root_folder : string prop;  (** root_folder *)
+  repository_name : string prop;
+  root_folder : string prop;
 }
-[@@deriving yojson_of]
-(** github_repo *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : github_repo) -> ()
+
+let yojson_of_github_repo =
+  (function
+   | {
+       account_name = v_account_name;
+       branch_name = v_branch_name;
+       git_url = v_git_url;
+       last_commit_id = v_last_commit_id;
+       repository_name = v_repository_name;
+       root_folder = v_root_folder;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_root_folder in
+         ("root_folder", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_repository_name
+         in
+         ("repository_name", arg) :: bnds
+       in
+       let bnds =
+         match v_last_commit_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "last_commit_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_git_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "git_url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_branch_name in
+         ("branch_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_name in
+         ("account_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : github_repo -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_github_repo
+
+[@@@deriving.end]
 
 type identity = {
   identity_ids : string prop list option; [@option]
-      (** identity_ids *)
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** identity *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : identity) -> ()
+
+let yojson_of_identity =
+  (function
+   | { identity_ids = v_identity_ids; type_ = v_type_ } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         match v_identity_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "identity_ids", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : identity -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_identity
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aad_admin = {
-  login : string prop;  (** login *)
-  object_id : string prop;  (** object_id *)
-  tenant_id : string prop;  (** tenant_id *)
+  login : string prop;
+  object_id : string prop;
+  tenant_id : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aad_admin) -> ()
+
+let yojson_of_aad_admin =
+  (function
+   | {
+       login = v_login;
+       object_id = v_object_id;
+       tenant_id = v_tenant_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tenant_id in
+         ("tenant_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_id in
+         ("object_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_login in
+         ("login", arg) :: bnds
+       in
+       `Assoc bnds
+    : aad_admin -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aad_admin
+
+[@@@deriving.end]
 
 type sql_aad_admin = {
-  login : string prop;  (** login *)
-  object_id : string prop;  (** object_id *)
-  tenant_id : string prop;  (** tenant_id *)
+  login : string prop;
+  object_id : string prop;
+  tenant_id : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sql_aad_admin) -> ()
+
+let yojson_of_sql_aad_admin =
+  (function
+   | {
+       login = v_login;
+       object_id = v_object_id;
+       tenant_id = v_tenant_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tenant_id in
+         ("tenant_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_object_id in
+         ("object_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_login in
+         ("login", arg) :: bnds
+       in
+       `Assoc bnds
+    : sql_aad_admin -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sql_aad_admin
+
+[@@@deriving.end]
 
 type azurerm_synapse_workspace = {
-  aad_admin : aad_admin list option; [@option]  (** aad_admin *)
+  aad_admin : aad_admin list option; [@option]
   azuread_authentication_only : bool prop option; [@option]
-      (** azuread_authentication_only *)
   compute_subnet_id : string prop option; [@option]
-      (** compute_subnet_id *)
   data_exfiltration_protection_enabled : bool prop option; [@option]
-      (** data_exfiltration_protection_enabled *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   linking_allowed_for_aad_tenant_ids : string prop list option;
       [@option]
-      (** linking_allowed_for_aad_tenant_ids *)
-  location : string prop;  (** location *)
+  location : string prop;
   managed_resource_group_name : string prop option; [@option]
-      (** managed_resource_group_name *)
   managed_virtual_network_enabled : bool prop option; [@option]
-      (** managed_virtual_network_enabled *)
-  name : string prop;  (** name *)
+  name : string prop;
   public_network_access_enabled : bool prop option; [@option]
-      (** public_network_access_enabled *)
-  purview_id : string prop option; [@option]  (** purview_id *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  purview_id : string prop option; [@option]
+  resource_group_name : string prop;
   sql_aad_admin : sql_aad_admin list option; [@option]
-      (** sql_aad_admin *)
   sql_administrator_login : string prop option; [@option]
-      (** sql_administrator_login *)
   sql_administrator_login_password : string prop option; [@option]
-      (** sql_administrator_login_password *)
   sql_identity_control_enabled : bool prop option; [@option]
-      (** sql_identity_control_enabled *)
   storage_data_lake_gen2_filesystem_id : string prop;
-      (** storage_data_lake_gen2_filesystem_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   azure_devops_repo : azure_devops_repo list;
   customer_managed_key : customer_managed_key list;
   github_repo : github_repo list;
   identity : identity list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_synapse_workspace *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_synapse_workspace) -> ()
+
+let yojson_of_azurerm_synapse_workspace =
+  (function
+   | {
+       aad_admin = v_aad_admin;
+       azuread_authentication_only = v_azuread_authentication_only;
+       compute_subnet_id = v_compute_subnet_id;
+       data_exfiltration_protection_enabled =
+         v_data_exfiltration_protection_enabled;
+       id = v_id;
+       linking_allowed_for_aad_tenant_ids =
+         v_linking_allowed_for_aad_tenant_ids;
+       location = v_location;
+       managed_resource_group_name = v_managed_resource_group_name;
+       managed_virtual_network_enabled =
+         v_managed_virtual_network_enabled;
+       name = v_name;
+       public_network_access_enabled =
+         v_public_network_access_enabled;
+       purview_id = v_purview_id;
+       resource_group_name = v_resource_group_name;
+       sql_aad_admin = v_sql_aad_admin;
+       sql_administrator_login = v_sql_administrator_login;
+       sql_administrator_login_password =
+         v_sql_administrator_login_password;
+       sql_identity_control_enabled = v_sql_identity_control_enabled;
+       storage_data_lake_gen2_filesystem_id =
+         v_storage_data_lake_gen2_filesystem_id;
+       tags = v_tags;
+       azure_devops_repo = v_azure_devops_repo;
+       customer_managed_key = v_customer_managed_key;
+       github_repo = v_github_repo;
+       identity = v_identity;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_identity v_identity in
+         ("identity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_github_repo v_github_repo
+         in
+         ("github_repo", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_customer_managed_key
+             v_customer_managed_key
+         in
+         ("customer_managed_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_azure_devops_repo
+             v_azure_devops_repo
+         in
+         ("azure_devops_repo", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_storage_data_lake_gen2_filesystem_id
+         in
+         ("storage_data_lake_gen2_filesystem_id", arg) :: bnds
+       in
+       let bnds =
+         match v_sql_identity_control_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "sql_identity_control_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sql_administrator_login_password with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sql_administrator_login_password", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sql_administrator_login with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sql_administrator_login", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_sql_aad_admin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_list yojson_of_sql_aad_admin v in
+             let bnd = "sql_aad_admin", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_purview_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "purview_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_network_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "public_network_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_managed_virtual_network_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "managed_virtual_network_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_managed_resource_group_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "managed_resource_group_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_linking_allowed_for_aad_tenant_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "linking_allowed_for_aad_tenant_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_exfiltration_protection_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "data_exfiltration_protection_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_compute_subnet_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "compute_subnet_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_azuread_authentication_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "azuread_authentication_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_aad_admin with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_list yojson_of_aad_admin v in
+             let bnd = "aad_admin", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_synapse_workspace -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_synapse_workspace
+
+[@@@deriving.end]
 
 let azure_devops_repo ?last_commit_id ?tenant_id ~account_name
     ~branch_name ~project_name ~repository_name ~root_folder () :

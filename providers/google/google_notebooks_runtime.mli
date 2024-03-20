@@ -8,6 +8,8 @@ type metrics = {
   system_metrics : (string * string prop) list;  (** system_metrics *)
 }
 
+[@@@deriving.end]
+
 type access_config
 
 val access_config :

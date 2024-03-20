@@ -9,6 +9,8 @@ type query_keys = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type identity
 
 val identity : type_:string prop -> unit -> identity

@@ -4,38 +4,131 @@ open! Tf_core
 
 type cluster_config__autoscaling_config = {
   policy_uri : string prop;
-      (** The autoscaling policy used by the cluster. *)
 }
-[@@deriving yojson_of]
-(** The autoscaling policy config associated with the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__autoscaling_config) -> ()
+
+let yojson_of_cluster_config__autoscaling_config =
+  (function
+   | { policy_uri = v_policy_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_uri in
+         ("policy_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__autoscaling_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__autoscaling_config
+
+[@@@deriving.end]
 
 type cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators = {
   accelerator_count : float prop;
-      (** The number of the accelerator cards of this type exposed to this instance. Often restricted to one of 1, 2, 4, or 8. *)
   accelerator_type : string prop;
-      (** The short name of the accelerator type to expose to this instance. For example, nvidia-tesla-k80. *)
 }
-[@@deriving yojson_of]
-(** The Compute Engine accelerator (GPU) configuration for these instances. Can be specified multiple times. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators) ->
+  ()
+
+let yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators
+    =
+  (function
+   | {
+       accelerator_count = v_accelerator_count;
+       accelerator_type = v_accelerator_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_accelerator_type
+         in
+         ("accelerator_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_accelerator_count
+         in
+         ("accelerator_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators
+
+[@@@deriving.end]
 
 type cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
-      (** Size of the primary disk attached to each node, specified in GB. The primary disk contains the boot volume and system libraries, and the smallest allowed disk size is 10GB. GCP will default to a predetermined computed value if not set (currently 500GB). Note: If SSDs are not attached, it also contains the HDFS data blocks and Hadoop working directories. *)
   boot_disk_type : string prop option; [@option]
-      (** The disk type of the primary disk attached to each node. Such as pd-ssd or pd-standard. Defaults to pd-standard. *)
   num_local_ssds : float prop option; [@option]
-      (** The amount of local SSD disks that will be attached to each master cluster node. Defaults to 0. *)
 }
-[@@deriving yojson_of]
-(** Disk Config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config) ->
+  ()
+
+let yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
+    =
+  (function
+   | {
+       boot_disk_size_gb = v_boot_disk_size_gb;
+       boot_disk_type = v_boot_disk_type;
+       num_local_ssds = v_num_local_ssds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_num_local_ssds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "boot_disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "boot_disk_size_gb", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
+
+[@@@deriving.end]
 
 type cluster_config__auxiliary_node_groups__node_group__node_group_config = {
   machine_type : string prop option; [@option]
-      (** The name of a Google Compute Engine machine type to create for the master *)
   min_cpu_platform : string prop option; [@option]
-      (** The name of a minimum generation of CPU family for the auxiliary node group. If not specified, GCP will default to a predetermined computed value for each zone. *)
   num_instances : float prop option; [@option]
-      (** Specifies the number of auxiliary nodes to create. If not specified, GCP will default to a predetermined computed value. *)
   accelerators :
     cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators
     list;
@@ -43,101 +136,427 @@ type cluster_config__auxiliary_node_groups__node_group__node_group_config = {
     cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
     list;
 }
-[@@deriving yojson_of]
-(** The node group instance group configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       cluster_config__auxiliary_node_groups__node_group__node_group_config) ->
+  ()
+
+let yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_config
+    =
+  (function
+   | {
+       machine_type = v_machine_type;
+       min_cpu_platform = v_min_cpu_platform;
+       num_instances = v_num_instances;
+       accelerators = v_accelerators;
+       disk_config = v_disk_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_config__disk_config
+             v_disk_config
+         in
+         ("disk_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_config__accelerators
+             v_accelerators
+         in
+         ("accelerators", arg) :: bnds
+       in
+       let bnds =
+         match v_num_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__auxiliary_node_groups__node_group__node_group_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_config
+
+[@@@deriving.end]
 
 type cluster_config__auxiliary_node_groups__node_group = {
-  roles : string prop list;  (** Node group roles. *)
+  roles : string prop list;
   node_group_config :
     cluster_config__auxiliary_node_groups__node_group__node_group_config
     list;
 }
-[@@deriving yojson_of]
-(** Node group configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : cluster_config__auxiliary_node_groups__node_group) -> ()
+
+let yojson_of_cluster_config__auxiliary_node_groups__node_group =
+  (function
+   | { roles = v_roles; node_group_config = v_node_group_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__auxiliary_node_groups__node_group__node_group_config
+             v_node_group_config
+         in
+         ("node_group_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_roles
+         in
+         ("roles", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__auxiliary_node_groups__node_group ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__auxiliary_node_groups__node_group
+
+[@@@deriving.end]
 
 type cluster_config__auxiliary_node_groups = {
   node_group_id : string prop option; [@option]
-      (** A node group ID. Generated if not specified. The ID must contain only letters (a-z, A-Z), numbers (0-9), underscores (_), and hyphens (-). Cannot begin or end with underscore or hyphen. Must consist of from 3 to 33 characters. *)
   node_group : cluster_config__auxiliary_node_groups__node_group list;
 }
-[@@deriving yojson_of]
-(** The node group settings. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__auxiliary_node_groups) -> ()
+
+let yojson_of_cluster_config__auxiliary_node_groups =
+  (function
+   | { node_group_id = v_node_group_id; node_group = v_node_group }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__auxiliary_node_groups__node_group
+             v_node_group
+         in
+         ("node_group", arg) :: bnds
+       in
+       let bnds =
+         match v_node_group_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_group_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__auxiliary_node_groups ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__auxiliary_node_groups
+
+[@@@deriving.end]
 
 type cluster_config__dataproc_metric_config__metrics = {
   metric_overrides : string prop list option; [@option]
-      (** Specify one or more [available OSS metrics] (https://cloud.google.com/dataproc/docs/guides/monitoring#available_oss_metrics) to collect. *)
   metric_source : string prop;
-      (** A source for the collection of Dataproc OSS metrics (see [available OSS metrics] (https://cloud.google.com//dataproc/docs/guides/monitoring#available_oss_metrics)). *)
 }
-[@@deriving yojson_of]
-(** Metrics sources to enable. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : cluster_config__dataproc_metric_config__metrics) -> ()
+
+let yojson_of_cluster_config__dataproc_metric_config__metrics =
+  (function
+   | {
+       metric_overrides = v_metric_overrides;
+       metric_source = v_metric_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_metric_source in
+         ("metric_source", arg) :: bnds
+       in
+       let bnds =
+         match v_metric_overrides with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "metric_overrides", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__dataproc_metric_config__metrics ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__dataproc_metric_config__metrics
+
+[@@@deriving.end]
 
 type cluster_config__dataproc_metric_config = {
   metrics : cluster_config__dataproc_metric_config__metrics list;
 }
-[@@deriving yojson_of]
-(** The config for Dataproc metrics. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__dataproc_metric_config) -> ()
+
+let yojson_of_cluster_config__dataproc_metric_config =
+  (function
+   | { metrics = v_metrics } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__dataproc_metric_config__metrics
+             v_metrics
+         in
+         ("metrics", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__dataproc_metric_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__dataproc_metric_config
+
+[@@@deriving.end]
 
 type cluster_config__encryption_config = {
   kms_key_name : string prop;
-      (** The Cloud KMS key name to use for PD disk encryption for all instances in the cluster. *)
 }
-[@@deriving yojson_of]
-(** The Customer managed encryption keys settings for the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__encryption_config) -> ()
+
+let yojson_of_cluster_config__encryption_config =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_name in
+         ("kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__encryption_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__encryption_config
+
+[@@@deriving.end]
 
 type cluster_config__endpoint_config = {
   enable_http_port_access : bool prop;
-      (** The flag to enable http access to specific ports on the cluster from external sources (aka Component Gateway). Defaults to false. *)
 }
-[@@deriving yojson_of]
-(** The config settings for port access on the cluster. Structure defined below. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__endpoint_config) -> ()
+
+let yojson_of_cluster_config__endpoint_config =
+  (function
+   | { enable_http_port_access = v_enable_http_port_access } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_enable_http_port_access
+         in
+         ("enable_http_port_access", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__endpoint_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__endpoint_config
+
+[@@@deriving.end]
 
 type cluster_config__gce_cluster_config__node_group_affinity = {
   node_group_uri : string prop;
-      (** The URI of a sole-tenant that the cluster will be created on. *)
 }
-[@@deriving yojson_of]
-(** Node Group Affinity for sole-tenant clusters. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : cluster_config__gce_cluster_config__node_group_affinity) ->
+  ()
+
+let yojson_of_cluster_config__gce_cluster_config__node_group_affinity
+    =
+  (function
+   | { node_group_uri = v_node_group_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_node_group_uri
+         in
+         ("node_group_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__gce_cluster_config__node_group_affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__gce_cluster_config__node_group_affinity
+
+[@@@deriving.end]
 
 type cluster_config__gce_cluster_config__reservation_affinity = {
   consume_reservation_type : string prop option; [@option]
-      (** Type of reservation to consume. *)
   key : string prop option; [@option]
-      (** Corresponds to the label key of reservation resource. *)
   values : string prop list option; [@option]
-      (** Corresponds to the label values of reservation resource. *)
 }
-[@@deriving yojson_of]
-(** Reservation Affinity for consuming Zonal reservation. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : cluster_config__gce_cluster_config__reservation_affinity) ->
+  ()
+
+let yojson_of_cluster_config__gce_cluster_config__reservation_affinity
+    =
+  (function
+   | {
+       consume_reservation_type = v_consume_reservation_type;
+       key = v_key;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_values with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "values", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_consume_reservation_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "consume_reservation_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__gce_cluster_config__reservation_affinity ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__gce_cluster_config__reservation_affinity
+
+[@@@deriving.end]
 
 type cluster_config__gce_cluster_config__shielded_instance_config = {
   enable_integrity_monitoring : bool prop option; [@option]
-      (** Defines whether instances have integrity monitoring enabled. *)
   enable_secure_boot : bool prop option; [@option]
-      (** Defines whether instances have Secure Boot enabled. *)
   enable_vtpm : bool prop option; [@option]
-      (** Defines whether instances have the vTPM enabled. *)
 }
-[@@deriving yojson_of]
-(** Shielded Instance Config for clusters using Compute Engine Shielded VMs. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       cluster_config__gce_cluster_config__shielded_instance_config) ->
+  ()
+
+let yojson_of_cluster_config__gce_cluster_config__shielded_instance_config
+    =
+  (function
+   | {
+       enable_integrity_monitoring = v_enable_integrity_monitoring;
+       enable_secure_boot = v_enable_secure_boot;
+       enable_vtpm = v_enable_vtpm;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enable_vtpm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_vtpm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_secure_boot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_secure_boot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_integrity_monitoring with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_integrity_monitoring", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__gce_cluster_config__shielded_instance_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__gce_cluster_config__shielded_instance_config
+
+[@@@deriving.end]
 
 type cluster_config__gce_cluster_config = {
   internal_ip_only : bool prop option; [@option]
-      (** By default, clusters are not restricted to internal IP addresses, and will have ephemeral external IP addresses assigned to each instance. If set to true, all instances in the cluster will only have internal IP addresses. Note: Private Google Access (also known as privateIpGoogleAccess) must be enabled on the subnetwork that the cluster will be launched in. *)
   metadata : (string * string prop) list option; [@option]
-      (** A map of the Compute Engine metadata entries to add to all instances *)
   network : string prop option; [@option]
-      (** The name or self_link of the Google Compute Engine network to the cluster will be part of. Conflicts with subnetwork. If neither is specified, this defaults to the default network. *)
   service_account : string prop option; [@option]
-      (** The service account to be used by the Node VMs. If not specified, the default service account is used. *)
   service_account_scopes : string prop list option; [@option]
-      (** The set of Google API scopes to be made available on all of the node VMs under the service_account specified. These can be either FQDNs, or scope aliases. *)
   subnetwork : string prop option; [@option]
-      (** The name or self_link of the Google Compute Engine subnetwork the cluster will be part of. Conflicts with network. *)
   tags : string prop list option; [@option]
-      (** The list of instance tags applied to instances in the cluster. Tags are used to identify valid sources or targets for network firewalls. *)
   zone : string prop option; [@option]
-      (** The GCP zone where your data is stored and used (i.e. where the master and the worker nodes will be created in). If region is set to 'global' (default) then zone is mandatory, otherwise GCP is able to make use of Auto Zone Placement to determine this automatically for you. Note: This setting additionally determines and restricts which computing resources are available for use with other configs such as cluster_config.master_config.machine_type and cluster_config.worker_config.machine_type. *)
   node_group_affinity :
     cluster_config__gce_cluster_config__node_group_affinity list;
   reservation_affinity :
@@ -145,216 +564,1088 @@ type cluster_config__gce_cluster_config = {
   shielded_instance_config :
     cluster_config__gce_cluster_config__shielded_instance_config list;
 }
-[@@deriving yojson_of]
-(** Common config settings for resources of Google Compute Engine cluster instances, applicable to all instances in the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__gce_cluster_config) -> ()
+
+let yojson_of_cluster_config__gce_cluster_config =
+  (function
+   | {
+       internal_ip_only = v_internal_ip_only;
+       metadata = v_metadata;
+       network = v_network;
+       service_account = v_service_account;
+       service_account_scopes = v_service_account_scopes;
+       subnetwork = v_subnetwork;
+       tags = v_tags;
+       zone = v_zone;
+       node_group_affinity = v_node_group_affinity;
+       reservation_affinity = v_reservation_affinity;
+       shielded_instance_config = v_shielded_instance_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__gce_cluster_config__shielded_instance_config
+             v_shielded_instance_config
+         in
+         ("shielded_instance_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__gce_cluster_config__reservation_affinity
+             v_reservation_affinity
+         in
+         ("reservation_affinity", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__gce_cluster_config__node_group_affinity
+             v_node_group_affinity
+         in
+         ("node_group_affinity", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subnetwork with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account_scopes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "service_account_scopes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_metadata with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "metadata", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_internal_ip_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "internal_ip_only", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__gce_cluster_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__gce_cluster_config
+
+[@@@deriving.end]
 
 type cluster_config__initialization_action = {
   script : string prop;
-      (** The script to be executed during initialization of the cluster. The script must be a GCS file with a gs:// prefix. *)
   timeout_sec : float prop option; [@option]
-      (** The maximum duration (in seconds) which script is allowed to take to execute its action. GCP will default to a predetermined computed value if not set (currently 300). *)
 }
-[@@deriving yojson_of]
-(** Commands to execute on each node after config is completed. You can specify multiple versions of these. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__initialization_action) -> ()
+
+let yojson_of_cluster_config__initialization_action =
+  (function
+   | { script = v_script; timeout_sec = v_timeout_sec } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_timeout_sec with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "timeout_sec", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_script in
+         ("script", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__initialization_action ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__initialization_action
+
+[@@@deriving.end]
 
 type cluster_config__lifecycle_config = {
   auto_delete_time : string prop option; [@option]
-      (** The time when cluster will be auto-deleted. A timestamp in RFC3339 UTC Zulu format, accurate to nanoseconds. Example: 2014-10-02T15:01:23.045123456Z. *)
   idle_delete_ttl : string prop option; [@option]
-      (** The duration to keep the cluster alive while idling (no jobs running). After this TTL, the cluster will be deleted. Valid range: [10m, 14d]. *)
 }
-[@@deriving yojson_of]
-(** The settings for auto deletion cluster schedule. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__lifecycle_config) -> ()
+
+let yojson_of_cluster_config__lifecycle_config =
+  (function
+   | {
+       auto_delete_time = v_auto_delete_time;
+       idle_delete_ttl = v_idle_delete_ttl;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_idle_delete_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "idle_delete_ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_delete_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auto_delete_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__lifecycle_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__lifecycle_config
+
+[@@@deriving.end]
 
 type cluster_config__master_config__accelerators = {
   accelerator_count : float prop;
-      (** The number of the accelerator cards of this type exposed to this instance. Often restricted to one of 1, 2, 4, or 8. *)
   accelerator_type : string prop;
-      (** The short name of the accelerator type to expose to this instance. For example, nvidia-tesla-k80. *)
 }
-[@@deriving yojson_of]
-(** The Compute Engine accelerator (GPU) configuration for these instances. Can be specified multiple times. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__master_config__accelerators) -> ()
+
+let yojson_of_cluster_config__master_config__accelerators =
+  (function
+   | {
+       accelerator_count = v_accelerator_count;
+       accelerator_type = v_accelerator_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_accelerator_type
+         in
+         ("accelerator_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_accelerator_count
+         in
+         ("accelerator_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__master_config__accelerators ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__master_config__accelerators
+
+[@@@deriving.end]
 
 type cluster_config__master_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
-      (** Size of the primary disk attached to each node, specified in GB. The primary disk contains the boot volume and system libraries, and the smallest allowed disk size is 10GB. GCP will default to a predetermined computed value if not set (currently 500GB). Note: If SSDs are not attached, it also contains the HDFS data blocks and Hadoop working directories. *)
   boot_disk_type : string prop option; [@option]
-      (** The disk type of the primary disk attached to each node. Such as pd-ssd or pd-standard. Defaults to pd-standard. *)
   num_local_ssds : float prop option; [@option]
-      (** The amount of local SSD disks that will be attached to each master cluster node. Defaults to 0. *)
 }
-[@@deriving yojson_of]
-(** Disk Config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__master_config__disk_config) -> ()
+
+let yojson_of_cluster_config__master_config__disk_config =
+  (function
+   | {
+       boot_disk_size_gb = v_boot_disk_size_gb;
+       boot_disk_type = v_boot_disk_type;
+       num_local_ssds = v_num_local_ssds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_num_local_ssds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "boot_disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "boot_disk_size_gb", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__master_config__disk_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__master_config__disk_config
+
+[@@@deriving.end]
 
 type cluster_config__master_config = {
   image_uri : string prop option; [@option]
-      (** The URI for the image to use for this master *)
   machine_type : string prop option; [@option]
-      (** The name of a Google Compute Engine machine type to create for the master *)
   min_cpu_platform : string prop option; [@option]
-      (** The name of a minimum generation of CPU family for the master. If not specified, GCP will default to a predetermined computed value for each zone. *)
   num_instances : float prop option; [@option]
-      (** Specifies the number of master nodes to create. If not specified, GCP will default to a predetermined computed value. *)
   accelerators : cluster_config__master_config__accelerators list;
   disk_config : cluster_config__master_config__disk_config list;
 }
-[@@deriving yojson_of]
-(** The Compute Engine config settings for the cluster's master instance. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__master_config) -> ()
+
+let yojson_of_cluster_config__master_config =
+  (function
+   | {
+       image_uri = v_image_uri;
+       machine_type = v_machine_type;
+       min_cpu_platform = v_min_cpu_platform;
+       num_instances = v_num_instances;
+       accelerators = v_accelerators;
+       disk_config = v_disk_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__master_config__disk_config
+             v_disk_config
+         in
+         ("disk_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__master_config__accelerators
+             v_accelerators
+         in
+         ("accelerators", arg) :: bnds
+       in
+       let bnds =
+         match v_num_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__master_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__master_config
+
+[@@@deriving.end]
 
 type cluster_config__metastore_config = {
   dataproc_metastore_service : string prop;
-      (** Resource name of an existing Dataproc Metastore service. *)
 }
-[@@deriving yojson_of]
-(** Specifies a Metastore configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__metastore_config) -> ()
+
+let yojson_of_cluster_config__metastore_config =
+  (function
+   | { dataproc_metastore_service = v_dataproc_metastore_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_dataproc_metastore_service
+         in
+         ("dataproc_metastore_service", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__metastore_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__metastore_config
+
+[@@@deriving.end]
 
 type cluster_config__preemptible_worker_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
-      (** Size of the primary disk attached to each preemptible worker node, specified in GB. The smallest allowed disk size is 10GB. GCP will default to a predetermined computed value if not set (currently 500GB). Note: If SSDs are not attached, it also contains the HDFS data blocks and Hadoop working directories. *)
   boot_disk_type : string prop option; [@option]
-      (** The disk type of the primary disk attached to each preemptible worker node. Such as pd-ssd or pd-standard. Defaults to pd-standard. *)
   num_local_ssds : float prop option; [@option]
-      (** The amount of local SSD disks that will be attached to each preemptible worker node. Defaults to 0. *)
 }
-[@@deriving yojson_of]
-(** Disk Config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : cluster_config__preemptible_worker_config__disk_config) ->
+  ()
+
+let yojson_of_cluster_config__preemptible_worker_config__disk_config
+    =
+  (function
+   | {
+       boot_disk_size_gb = v_boot_disk_size_gb;
+       boot_disk_type = v_boot_disk_type;
+       num_local_ssds = v_num_local_ssds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_num_local_ssds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "boot_disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "boot_disk_size_gb", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__preemptible_worker_config__disk_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__preemptible_worker_config__disk_config
+
+[@@@deriving.end]
 
 type cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list = {
   machine_types : string prop list option; [@option]
-      (** Full machine-type names, e.g. n1-standard-16. *)
   rank : float prop option; [@option]
-      (** Preference of this instance selection. Lower number means higher preference. Dataproc will first try to create a VM based on the machine-type with priority rank and fallback to next rank based on availability. Machine types and instance selections with the same priority have the same preference. *)
 }
-[@@deriving yojson_of]
-(** List of instance selection options that the group will use when creating new VMs. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list) ->
+  ()
+
+let yojson_of_cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
+    =
+  (function
+   | { machine_types = v_machine_types; rank = v_rank } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_rank with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "rank", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "machine_types", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
+
+[@@@deriving.end]
 
 type cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_results = {
-  machine_type : string prop;  (** machine_type *)
-  vm_count : float prop;  (** vm_count *)
+  machine_type : string prop;
+  vm_count : float prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_results) ->
+  ()
+
+let yojson_of_cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_results
+    =
+  (function
+   | { machine_type = v_machine_type; vm_count = v_vm_count } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_vm_count in
+         ("vm_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_machine_type in
+         ("machine_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_results ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_results
+
+[@@@deriving.end]
 
 type cluster_config__preemptible_worker_config__instance_flexibility_policy = {
   instance_selection_list :
     cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
     list;
 }
-[@@deriving yojson_of]
-(** Instance flexibility Policy allowing a mixture of VM shapes and provisioning models. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       cluster_config__preemptible_worker_config__instance_flexibility_policy) ->
+  ()
+
+let yojson_of_cluster_config__preemptible_worker_config__instance_flexibility_policy
+    =
+  (function
+   | { instance_selection_list = v_instance_selection_list } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__preemptible_worker_config__instance_flexibility_policy__instance_selection_list
+             v_instance_selection_list
+         in
+         ("instance_selection_list", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__preemptible_worker_config__instance_flexibility_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_cluster_config__preemptible_worker_config__instance_flexibility_policy
+
+[@@@deriving.end]
 
 type cluster_config__preemptible_worker_config = {
   num_instances : float prop option; [@option]
-      (** Specifies the number of preemptible nodes to create. Defaults to 0. *)
   preemptibility : string prop option; [@option]
-      (** Specifies the preemptibility of the secondary nodes. Defaults to PREEMPTIBLE. *)
   disk_config :
     cluster_config__preemptible_worker_config__disk_config list;
   instance_flexibility_policy :
     cluster_config__preemptible_worker_config__instance_flexibility_policy
     list;
 }
-[@@deriving yojson_of]
-(** The Google Compute Engine config settings for the additional (aka preemptible) instances in a cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__preemptible_worker_config) -> ()
+
+let yojson_of_cluster_config__preemptible_worker_config =
+  (function
+   | {
+       num_instances = v_num_instances;
+       preemptibility = v_preemptibility;
+       disk_config = v_disk_config;
+       instance_flexibility_policy = v_instance_flexibility_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__preemptible_worker_config__instance_flexibility_policy
+             v_instance_flexibility_policy
+         in
+         ("instance_flexibility_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__preemptible_worker_config__disk_config
+             v_disk_config
+         in
+         ("disk_config", arg) :: bnds
+       in
+       let bnds =
+         match v_preemptibility with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preemptibility", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_num_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_instances", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__preemptible_worker_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__preemptible_worker_config
+
+[@@@deriving.end]
 
 type cluster_config__security_config__kerberos_config = {
   cross_realm_trust_admin_server : string prop option; [@option]
-      (** The admin server (IP or hostname) for the remote trusted realm in a cross realm trust relationship. *)
   cross_realm_trust_kdc : string prop option; [@option]
-      (** The KDC (IP or hostname) for the remote trusted realm in a cross realm trust relationship. *)
   cross_realm_trust_realm : string prop option; [@option]
-      (** The remote realm the Dataproc on-cluster KDC will trust, should the user enable cross realm trust. *)
   cross_realm_trust_shared_password_uri : string prop option;
       [@option]
-      (** The Cloud Storage URI of a KMS encrypted file containing the shared password between the on-cluster
-Kerberos realm and the remote trusted realm, in a cross realm trust relationship. *)
   enable_kerberos : bool prop option; [@option]
-      (** Flag to indicate whether to Kerberize the cluster. *)
   kdc_db_key_uri : string prop option; [@option]
-      (** The Cloud Storage URI of a KMS encrypted file containing the master key of the KDC database. *)
   key_password_uri : string prop option; [@option]
-      (** The Cloud Storage URI of a KMS encrypted file containing the password to the user provided key. For the self-signed certificate, this password is generated by Dataproc. *)
   keystore_password_uri : string prop option; [@option]
-      (** The Cloud Storage URI of a KMS encrypted file containing
-the password to the user provided keystore. For the self-signed certificate, this password is generated
-by Dataproc *)
   keystore_uri : string prop option; [@option]
-      (** The Cloud Storage URI of the keystore file used for SSL encryption. If not provided, Dataproc will provide a self-signed certificate. *)
   kms_key_uri : string prop;
-      (** The uri of the KMS key used to encrypt various sensitive files. *)
   realm : string prop option; [@option]
-      (** The name of the on-cluster Kerberos realm. If not specified, the uppercased domain of hostnames will be the realm. *)
   root_principal_password_uri : string prop;
-      (** The cloud Storage URI of a KMS encrypted file containing the root principal password. *)
   tgt_lifetime_hours : float prop option; [@option]
-      (** The lifetime of the ticket granting ticket, in hours. *)
   truststore_password_uri : string prop option; [@option]
-      (** The Cloud Storage URI of a KMS encrypted file containing the password to the user provided truststore. For the self-signed certificate, this password is generated by Dataproc. *)
   truststore_uri : string prop option; [@option]
-      (** The Cloud Storage URI of the truststore file used for SSL encryption. If not provided, Dataproc will provide a self-signed certificate. *)
 }
-[@@deriving yojson_of]
-(** Kerberos related configuration *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : cluster_config__security_config__kerberos_config) -> ()
+
+let yojson_of_cluster_config__security_config__kerberos_config =
+  (function
+   | {
+       cross_realm_trust_admin_server =
+         v_cross_realm_trust_admin_server;
+       cross_realm_trust_kdc = v_cross_realm_trust_kdc;
+       cross_realm_trust_realm = v_cross_realm_trust_realm;
+       cross_realm_trust_shared_password_uri =
+         v_cross_realm_trust_shared_password_uri;
+       enable_kerberos = v_enable_kerberos;
+       kdc_db_key_uri = v_kdc_db_key_uri;
+       key_password_uri = v_key_password_uri;
+       keystore_password_uri = v_keystore_password_uri;
+       keystore_uri = v_keystore_uri;
+       kms_key_uri = v_kms_key_uri;
+       realm = v_realm;
+       root_principal_password_uri = v_root_principal_password_uri;
+       tgt_lifetime_hours = v_tgt_lifetime_hours;
+       truststore_password_uri = v_truststore_password_uri;
+       truststore_uri = v_truststore_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_truststore_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "truststore_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_truststore_password_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "truststore_password_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tgt_lifetime_hours with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "tgt_lifetime_hours", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_root_principal_password_uri
+         in
+         ("root_principal_password_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_realm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "realm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_uri in
+         ("kms_key_uri", arg) :: bnds
+       in
+       let bnds =
+         match v_keystore_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keystore_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_keystore_password_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "keystore_password_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key_password_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_password_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kdc_db_key_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kdc_db_key_uri", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_kerberos with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_kerberos", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cross_realm_trust_shared_password_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "cross_realm_trust_shared_password_uri", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cross_realm_trust_realm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cross_realm_trust_realm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cross_realm_trust_kdc with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cross_realm_trust_kdc", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cross_realm_trust_admin_server with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cross_realm_trust_admin_server", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__security_config__kerberos_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__security_config__kerberos_config
+
+[@@@deriving.end]
 
 type cluster_config__security_config = {
   kerberos_config :
     cluster_config__security_config__kerberos_config list;
 }
-[@@deriving yojson_of]
-(** Security related configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__security_config) -> ()
+
+let yojson_of_cluster_config__security_config =
+  (function
+   | { kerberos_config = v_kerberos_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__security_config__kerberos_config
+             v_kerberos_config
+         in
+         ("kerberos_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__security_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__security_config
+
+[@@@deriving.end]
 
 type cluster_config__software_config = {
   image_version : string prop option; [@option]
-      (** The Cloud Dataproc image version to use for the cluster - this controls the sets of software versions installed onto the nodes when you create clusters. If not specified, defaults to the latest version. *)
   optional_components : string prop list option; [@option]
-      (** The set of optional components to activate on the cluster. *)
   override_properties : (string * string prop) list option; [@option]
-      (** A list of override and additional properties (key/value pairs) used to modify various aspects of the common configuration files used when creating a cluster. *)
 }
-[@@deriving yojson_of]
-(** The config settings for software inside the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__software_config) -> ()
+
+let yojson_of_cluster_config__software_config =
+  (function
+   | {
+       image_version = v_image_version;
+       optional_components = v_optional_components;
+       override_properties = v_override_properties;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_override_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "override_properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_optional_components with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "optional_components", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_version", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__software_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__software_config
+
+[@@@deriving.end]
 
 type cluster_config__worker_config__accelerators = {
   accelerator_count : float prop;
-      (** The number of the accelerator cards of this type exposed to this instance. Often restricted to one of 1, 2, 4, or 8. *)
   accelerator_type : string prop;
-      (** The short name of the accelerator type to expose to this instance. For example, nvidia-tesla-k80. *)
 }
-[@@deriving yojson_of]
-(** The Compute Engine accelerator (GPU) configuration for these instances. Can be specified multiple times. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__worker_config__accelerators) -> ()
+
+let yojson_of_cluster_config__worker_config__accelerators =
+  (function
+   | {
+       accelerator_count = v_accelerator_count;
+       accelerator_type = v_accelerator_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_accelerator_type
+         in
+         ("accelerator_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_accelerator_count
+         in
+         ("accelerator_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__worker_config__accelerators ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__worker_config__accelerators
+
+[@@@deriving.end]
 
 type cluster_config__worker_config__disk_config = {
   boot_disk_size_gb : float prop option; [@option]
-      (** Size of the primary disk attached to each node, specified in GB. The primary disk contains the boot volume and system libraries, and the smallest allowed disk size is 10GB. GCP will default to a predetermined computed value if not set (currently 500GB). Note: If SSDs are not attached, it also contains the HDFS data blocks and Hadoop working directories. *)
   boot_disk_type : string prop option; [@option]
-      (** The disk type of the primary disk attached to each node. Such as pd-ssd or pd-standard. Defaults to pd-standard. *)
   num_local_ssds : float prop option; [@option]
-      (** The amount of local SSD disks that will be attached to each master cluster node. Defaults to 0. *)
 }
-[@@deriving yojson_of]
-(** Disk Config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__worker_config__disk_config) -> ()
+
+let yojson_of_cluster_config__worker_config__disk_config =
+  (function
+   | {
+       boot_disk_size_gb = v_boot_disk_size_gb;
+       boot_disk_type = v_boot_disk_type;
+       num_local_ssds = v_num_local_ssds;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_num_local_ssds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_local_ssds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "boot_disk_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_boot_disk_size_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "boot_disk_size_gb", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__worker_config__disk_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__worker_config__disk_config
+
+[@@@deriving.end]
 
 type cluster_config__worker_config = {
   image_uri : string prop option; [@option]
-      (** The URI for the image to use for this master/worker *)
   machine_type : string prop option; [@option]
-      (** The name of a Google Compute Engine machine type to create for the master/worker *)
   min_cpu_platform : string prop option; [@option]
-      (** The name of a minimum generation of CPU family for the master/worker. If not specified, GCP will default to a predetermined computed value for each zone. *)
   min_num_instances : float prop option; [@option]
-      (** The minimum number of primary worker instances to create. *)
   num_instances : float prop option; [@option]
-      (** Specifies the number of worker nodes to create. If not specified, GCP will default to a predetermined computed value. *)
   accelerators : cluster_config__worker_config__accelerators list;
   disk_config : cluster_config__worker_config__disk_config list;
 }
-[@@deriving yojson_of]
-(** The Compute Engine config settings for the cluster's worker instances. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config__worker_config) -> ()
+
+let yojson_of_cluster_config__worker_config =
+  (function
+   | {
+       image_uri = v_image_uri;
+       machine_type = v_machine_type;
+       min_cpu_platform = v_min_cpu_platform;
+       min_num_instances = v_min_num_instances;
+       num_instances = v_num_instances;
+       accelerators = v_accelerators;
+       disk_config = v_disk_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__worker_config__disk_config
+             v_disk_config
+         in
+         ("disk_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__worker_config__accelerators
+             v_accelerators
+         in
+         ("accelerators", arg) :: bnds
+       in
+       let bnds =
+         match v_num_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "num_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_num_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_num_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_image_uri with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "image_uri", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config__worker_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config__worker_config
+
+[@@@deriving.end]
 
 type cluster_config = {
   staging_bucket : string prop option; [@option]
-      (** The Cloud Storage staging bucket used to stage files, such as Hadoop jars, between client machines and the cluster. Note: If you don't explicitly specify a staging_bucket then GCP will auto create / assign one for you. However, you are not guaranteed an auto generated bucket which is solely dedicated to your cluster; it may be shared with other clusters in the same region/zone also choosing to use the auto generation option. *)
   temp_bucket : string prop option; [@option]
-      (** The Cloud Storage temp bucket used to store ephemeral cluster and jobs data, such as Spark and MapReduce history files. Note: If you don't explicitly specify a temp_bucket then GCP will auto create / assign one for you. *)
   autoscaling_config : cluster_config__autoscaling_config list;
   auxiliary_node_groups : cluster_config__auxiliary_node_groups list;
   dataproc_metric_config :
@@ -372,30 +1663,273 @@ type cluster_config = {
   software_config : cluster_config__software_config list;
   worker_config : cluster_config__worker_config list;
 }
-[@@deriving yojson_of]
-(** Allows you to configure various aspects of the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_config) -> ()
+
+let yojson_of_cluster_config =
+  (function
+   | {
+       staging_bucket = v_staging_bucket;
+       temp_bucket = v_temp_bucket;
+       autoscaling_config = v_autoscaling_config;
+       auxiliary_node_groups = v_auxiliary_node_groups;
+       dataproc_metric_config = v_dataproc_metric_config;
+       encryption_config = v_encryption_config;
+       endpoint_config = v_endpoint_config;
+       gce_cluster_config = v_gce_cluster_config;
+       initialization_action = v_initialization_action;
+       lifecycle_config = v_lifecycle_config;
+       master_config = v_master_config;
+       metastore_config = v_metastore_config;
+       preemptible_worker_config = v_preemptible_worker_config;
+       security_config = v_security_config;
+       software_config = v_software_config;
+       worker_config = v_worker_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_config__worker_config
+             v_worker_config
+         in
+         ("worker_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_config__software_config
+             v_software_config
+         in
+         ("software_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_config__security_config
+             v_security_config
+         in
+         ("security_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__preemptible_worker_config
+             v_preemptible_worker_config
+         in
+         ("preemptible_worker_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_config__metastore_config
+             v_metastore_config
+         in
+         ("metastore_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_config__master_config
+             v_master_config
+         in
+         ("master_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_config__lifecycle_config
+             v_lifecycle_config
+         in
+         ("lifecycle_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__initialization_action
+             v_initialization_action
+         in
+         ("initialization_action", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__gce_cluster_config
+             v_gce_cluster_config
+         in
+         ("gce_cluster_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_config__endpoint_config
+             v_endpoint_config
+         in
+         ("endpoint_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_config__encryption_config
+             v_encryption_config
+         in
+         ("encryption_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__dataproc_metric_config
+             v_dataproc_metric_config
+         in
+         ("dataproc_metric_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__auxiliary_node_groups
+             v_auxiliary_node_groups
+         in
+         ("auxiliary_node_groups", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_cluster_config__autoscaling_config
+             v_autoscaling_config
+         in
+         ("autoscaling_config", arg) :: bnds
+       in
+       let bnds =
+         match v_temp_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "temp_bucket", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_staging_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "staging_bucket", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type virtual_cluster_config__auxiliary_services_config__metastore_config = {
   dataproc_metastore_service : string prop option; [@option]
-      (** The Hive Metastore configuration for this workload. *)
 }
-[@@deriving yojson_of]
-(** The Hive Metastore configuration for this workload. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       virtual_cluster_config__auxiliary_services_config__metastore_config) ->
+  ()
+
+let yojson_of_virtual_cluster_config__auxiliary_services_config__metastore_config
+    =
+  (function
+   | { dataproc_metastore_service = v_dataproc_metastore_service } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_dataproc_metastore_service with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dataproc_metastore_service", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__auxiliary_services_config__metastore_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_virtual_cluster_config__auxiliary_services_config__metastore_config
+
+[@@@deriving.end]
 
 type virtual_cluster_config__auxiliary_services_config__spark_history_server_config = {
   dataproc_cluster : string prop option; [@option]
-      (** Resource name of an existing Dataproc Cluster to act as a Spark History Server for the workload. *)
 }
-[@@deriving yojson_of]
-(** The Spark History Server configuration for the workload. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       virtual_cluster_config__auxiliary_services_config__spark_history_server_config) ->
+  ()
+
+let yojson_of_virtual_cluster_config__auxiliary_services_config__spark_history_server_config
+    =
+  (function
+   | { dataproc_cluster = v_dataproc_cluster } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_dataproc_cluster with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dataproc_cluster", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__auxiliary_services_config__spark_history_server_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_virtual_cluster_config__auxiliary_services_config__spark_history_server_config
+
+[@@@deriving.end]
 
 type virtual_cluster_config__auxiliary_services_config = {
   metastore_config :
@@ -405,36 +1939,168 @@ type virtual_cluster_config__auxiliary_services_config = {
     virtual_cluster_config__auxiliary_services_config__spark_history_server_config
     list;
 }
-[@@deriving yojson_of]
-(** Auxiliary services configuration for a Cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : virtual_cluster_config__auxiliary_services_config) -> ()
+
+let yojson_of_virtual_cluster_config__auxiliary_services_config =
+  (function
+   | {
+       metastore_config = v_metastore_config;
+       spark_history_server_config = v_spark_history_server_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__auxiliary_services_config__spark_history_server_config
+             v_spark_history_server_config
+         in
+         ("spark_history_server_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__auxiliary_services_config__metastore_config
+             v_metastore_config
+         in
+         ("metastore_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__auxiliary_services_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_virtual_cluster_config__auxiliary_services_config
+
+[@@@deriving.end]
 
 type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling = {
   max_node_count : float prop option; [@option]
-      (** The maximum number of nodes in the node pool. Must be >= minNodeCount, and must be > 0. *)
   min_node_count : float prop option; [@option]
-      (** The minimum number of nodes in the node pool. Must be >= 0 and <= maxNodeCount. *)
 }
-[@@deriving yojson_of]
-(** The autoscaler configuration for this node pool. The autoscaler is enabled only when a valid configuration is present. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling) ->
+  ()
+
+let yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling
+    =
+  (function
+   | {
+       max_node_count = v_max_node_count;
+       min_node_count = v_min_node_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_min_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_node_count", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_node_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_node_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling
+
+[@@@deriving.end]
 
 type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config = {
   local_ssd_count : float prop option; [@option]
-      (** The minimum number of nodes in the node pool. Must be >= 0 and <= maxNodeCount. *)
   machine_type : string prop option; [@option]
-      (** The name of a Compute Engine machine type. *)
   min_cpu_platform : string prop option; [@option]
-      (** Minimum CPU platform to be used by this instance. The instance may be scheduled on the specified or a newer CPU platform. Specify the friendly names of CPU platforms, such as Intel Haswell or Intel Sandy Bridge. *)
   preemptible : bool prop option; [@option]
-      (** Whether the nodes are created as preemptible VM instances. Preemptible nodes cannot be used in a node pool with the CONTROLLER role or in the DEFAULT node pool if the CONTROLLER role is not assigned (the DEFAULT node pool will assume the CONTROLLER role). *)
   spot : bool prop option; [@option]
-      (** Spot flag for enabling Spot VM, which is a rebrand of the existing preemptible flag. *)
 }
-[@@deriving yojson_of]
-(** The node pool configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config) ->
+  ()
+
+let yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config
+    =
+  (function
+   | {
+       local_ssd_count = v_local_ssd_count;
+       machine_type = v_machine_type;
+       min_cpu_platform = v_min_cpu_platform;
+       preemptible = v_preemptible;
+       spot = v_spot;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_spot with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "spot", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preemptible with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "preemptible", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_cpu_platform with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_cpu_platform", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_local_ssd_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "local_ssd_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config
+
+[@@@deriving.end]
 
 type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config = {
   locations : string prop list;
-      (** The list of Compute Engine zones where node pool nodes associated with a Dataproc on GKE virtual cluster will be located. *)
   autoscaling :
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling
     list;
@@ -442,43 +2108,217 @@ type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config
     list;
 }
-[@@deriving yojson_of]
-(** Input only. The configuration for the GKE node pool. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config) ->
+  ()
+
+let yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
+    =
+  (function
+   | {
+       locations = v_locations;
+       autoscaling = v_autoscaling;
+       config = v_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__config
+             v_config
+         in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config__autoscaling
+             v_autoscaling
+         in
+         ("autoscaling", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_locations
+         in
+         ("locations", arg) :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
+
+[@@@deriving.end]
 
 type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target = {
   node_pool : string prop;
-      (** The target GKE node pool. Format: 'projects/{project}/locations/{location}/clusters/{cluster}/nodePools/{nodePool}' *)
   roles : string prop list;
-      (** The roles associated with the GKE node pool. *)
   node_pool_config :
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
     list;
 }
-[@@deriving yojson_of]
-(** GKE node pools where workloads will be scheduled. At least one node pool must be assigned the DEFAULT GkeNodePoolTarget.Role. If a GkeNodePoolTarget is not specified, Dataproc constructs a DEFAULT GkeNodePoolTarget. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target) ->
+  ()
+
+let yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
+    =
+  (function
+   | {
+       node_pool = v_node_pool;
+       roles = v_roles;
+       node_pool_config = v_node_pool_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target__node_pool_config
+             v_node_pool_config
+         in
+         ("node_pool_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_roles
+         in
+         ("roles", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_node_pool in
+         ("node_pool", arg) :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
+
+[@@@deriving.end]
 
 type virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config = {
   gke_cluster_target : string prop option; [@option]
-      (** A target GKE cluster to deploy to. It must be in the same project and region as the Dataproc cluster (the GKE cluster can be zonal or regional). Format: 'projects/{project}/locations/{location}/clusters/{cluster_id}' *)
   node_pool_target :
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
     list;
 }
-[@@deriving yojson_of]
-(** The configuration for running the Dataproc cluster on GKE. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config) ->
+  ()
+
+let yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
+    =
+  (function
+   | {
+       gke_cluster_target = v_gke_cluster_target;
+       node_pool_target = v_node_pool_target;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config__node_pool_target
+             v_node_pool_target
+         in
+         ("node_pool_target", arg) :: bnds
+       in
+       let bnds =
+         match v_gke_cluster_target with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "gke_cluster_target", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
+
+[@@@deriving.end]
 
 type virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config = {
   component_version : (string * string prop) list;
-      (** The components that should be installed in this Dataproc cluster. The key must be a string from the KubernetesComponent enumeration. The value is the version of the software to be installed. *)
   properties : (string * string prop) list option; [@option]
-      (** The properties to set on daemon config files. Property keys are specified in prefix:property format, for example spark:spark.kubernetes.container.image. *)
 }
-[@@deriving yojson_of]
-(** The software configuration for this Dataproc cluster running on Kubernetes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config) ->
+  ()
+
+let yojson_of_virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
+    =
+  (function
+   | {
+       component_version = v_component_version;
+       properties = v_properties;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_properties with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "properties", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_component_version
+         in
+         ("component_version", arg) :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
+
+[@@@deriving.end]
 
 type virtual_cluster_config__kubernetes_cluster_config = {
   kubernetes_namespace : string prop option; [@option]
-      (** A namespace within the Kubernetes cluster to deploy into. If this namespace does not exist, it is created. If it exists, Dataproc verifies that another Dataproc VirtualCluster is not installed into it. If not specified, the name of the Dataproc Cluster is used. *)
   gke_cluster_config :
     virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
     list;
@@ -486,41 +2326,212 @@ type virtual_cluster_config__kubernetes_cluster_config = {
     virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
     list;
 }
-[@@deriving yojson_of]
-(** The configuration for running the Dataproc cluster on Kubernetes. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : virtual_cluster_config__kubernetes_cluster_config) -> ()
+
+let yojson_of_virtual_cluster_config__kubernetes_cluster_config =
+  (function
+   | {
+       kubernetes_namespace = v_kubernetes_namespace;
+       gke_cluster_config = v_gke_cluster_config;
+       kubernetes_software_config = v_kubernetes_software_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__kubernetes_cluster_config__kubernetes_software_config
+             v_kubernetes_software_config
+         in
+         ("kubernetes_software_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__kubernetes_cluster_config__gke_cluster_config
+             v_gke_cluster_config
+         in
+         ("gke_cluster_config", arg) :: bnds
+       in
+       let bnds =
+         match v_kubernetes_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kubernetes_namespace", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config__kubernetes_cluster_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_virtual_cluster_config__kubernetes_cluster_config
+
+[@@@deriving.end]
 
 type virtual_cluster_config = {
   staging_bucket : string prop option; [@option]
-      (** A Cloud Storage bucket used to stage job dependencies, config files, and job driver console output. If you do not specify a staging bucket, Cloud Dataproc will determine a Cloud Storage location (US, ASIA, or EU) for your cluster's staging bucket according to the Compute Engine zone where your cluster is deployed, and then create and manage this project-level, per-location bucket. *)
   auxiliary_services_config :
     virtual_cluster_config__auxiliary_services_config list;
   kubernetes_cluster_config :
     virtual_cluster_config__kubernetes_cluster_config list;
 }
-[@@deriving yojson_of]
-(** The virtual cluster config is used when creating a Dataproc cluster that does not directly control the underlying compute resources, for example, when creating a Dataproc-on-GKE cluster. Dataproc may set default values, and values may change when clusters are updated. Exactly one of config or virtualClusterConfig must be specified. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : virtual_cluster_config) -> ()
+
+let yojson_of_virtual_cluster_config =
+  (function
+   | {
+       staging_bucket = v_staging_bucket;
+       auxiliary_services_config = v_auxiliary_services_config;
+       kubernetes_cluster_config = v_kubernetes_cluster_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__kubernetes_cluster_config
+             v_kubernetes_cluster_config
+         in
+         ("kubernetes_cluster_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_virtual_cluster_config__auxiliary_services_config
+             v_auxiliary_services_config
+         in
+         ("auxiliary_services_config", arg) :: bnds
+       in
+       let bnds =
+         match v_staging_bucket with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "staging_bucket", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : virtual_cluster_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_virtual_cluster_config
+
+[@@@deriving.end]
 
 type google_dataproc_cluster = {
   graceful_decommission_timeout : string prop option; [@option]
-      (** The timeout duration which allows graceful decomissioning when you change the number of worker nodes directly through a terraform apply *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** The list of the labels (key/value pairs) configured on the resource and to be applied to instances in the cluster.
-				
-				**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-				Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** The name of the cluster, unique within the project and zone. *)
   project : string prop option; [@option]
-      (** The ID of the project in which the cluster will exist. If it is not provided, the provider project is used. *)
   region : string prop option; [@option]
-      (** The region in which the cluster and associated nodes will be created in. Defaults to global. *)
   cluster_config : cluster_config list;
   timeouts : timeouts option;
   virtual_cluster_config : virtual_cluster_config list;
 }
-[@@deriving yojson_of]
-(** google_dataproc_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_dataproc_cluster) -> ()
+
+let yojson_of_google_dataproc_cluster =
+  (function
+   | {
+       graceful_decommission_timeout =
+         v_graceful_decommission_timeout;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       cluster_config = v_cluster_config;
+       timeouts = v_timeouts;
+       virtual_cluster_config = v_virtual_cluster_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_virtual_cluster_config
+             v_virtual_cluster_config
+         in
+         ("virtual_cluster_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_config v_cluster_config
+         in
+         ("cluster_config", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_graceful_decommission_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "graceful_decommission_timeout", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_dataproc_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_dataproc_cluster
+
+[@@@deriving.end]
 
 let cluster_config__autoscaling_config ~policy_uri () :
     cluster_config__autoscaling_config =

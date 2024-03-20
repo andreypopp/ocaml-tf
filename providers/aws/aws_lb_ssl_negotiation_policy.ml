@@ -2,24 +2,104 @@
 
 open! Tf_core
 
-type attribute = {
-  name : string prop;  (** name *)
-  value : string prop;  (** value *)
-}
-[@@deriving yojson_of]
-(** attribute *)
+type attribute = { name : string prop; value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attribute) -> ()
+
+let yojson_of_attribute =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : attribute -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attribute
+
+[@@@deriving.end]
 
 type aws_lb_ssl_negotiation_policy = {
-  id : string prop option; [@option]  (** id *)
-  lb_port : float prop;  (** lb_port *)
-  load_balancer : string prop;  (** load_balancer *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  lb_port : float prop;
+  load_balancer : string prop;
+  name : string prop;
   triggers : (string * string prop) list option; [@option]
-      (** triggers *)
   attribute : attribute list;
 }
-[@@deriving yojson_of]
-(** aws_lb_ssl_negotiation_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lb_ssl_negotiation_policy) -> ()
+
+let yojson_of_aws_lb_ssl_negotiation_policy =
+  (function
+   | {
+       id = v_id;
+       lb_port = v_lb_port;
+       load_balancer = v_load_balancer;
+       name = v_name;
+       triggers = v_triggers;
+       attribute = v_attribute;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_attribute v_attribute in
+         ("attribute", arg) :: bnds
+       in
+       let bnds =
+         match v_triggers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "triggers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_load_balancer in
+         ("load_balancer", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_lb_port in
+         ("lb_port", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_lb_ssl_negotiation_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lb_ssl_negotiation_policy
+
+[@@@deriving.end]
 
 let attribute ~name ~value () : attribute = { name; value }
 

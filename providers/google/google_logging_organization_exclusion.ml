@@ -4,17 +4,72 @@ open! Tf_core
 
 type google_logging_organization_exclusion = {
   description : string prop option; [@option]
-      (** A human-readable description. *)
   disabled : bool prop option; [@option]
-      (** Whether this exclusion rule should be disabled or not. This defaults to false. *)
   filter : string prop;
-      (** The filter to apply when excluding logs. Only log entries that match the filter are excluded. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The name of the logging exclusion. *)
-  org_id : string prop;  (** org_id *)
+  id : string prop option; [@option]
+  name : string prop;
+  org_id : string prop;
 }
-[@@deriving yojson_of]
-(** google_logging_organization_exclusion *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_logging_organization_exclusion) -> ()
+
+let yojson_of_google_logging_organization_exclusion =
+  (function
+   | {
+       description = v_description;
+       disabled = v_disabled;
+       filter = v_filter;
+       id = v_id;
+       name = v_name;
+       org_id = v_org_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_org_id in
+         ("org_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_logging_organization_exclusion ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_logging_organization_exclusion
+
+[@@@deriving.end]
 
 let google_logging_organization_exclusion ?description ?disabled ?id
     ~filter ~name ~org_id () : google_logging_organization_exclusion

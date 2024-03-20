@@ -3,18 +3,80 @@
 open! Tf_core
 
 type aws_appsync_api_cache = {
-  api_caching_behavior : string prop;  (** api_caching_behavior *)
-  api_id : string prop;  (** api_id *)
+  api_caching_behavior : string prop;
+  api_id : string prop;
   at_rest_encryption_enabled : bool prop option; [@option]
-      (** at_rest_encryption_enabled *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   transit_encryption_enabled : bool prop option; [@option]
-      (** transit_encryption_enabled *)
-  ttl : float prop;  (** ttl *)
-  type_ : string prop; [@key "type"]  (** type *)
+  ttl : float prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
-(** aws_appsync_api_cache *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appsync_api_cache) -> ()
+
+let yojson_of_aws_appsync_api_cache =
+  (function
+   | {
+       api_caching_behavior = v_api_caching_behavior;
+       api_id = v_api_id;
+       at_rest_encryption_enabled = v_at_rest_encryption_enabled;
+       id = v_id;
+       transit_encryption_enabled = v_transit_encryption_enabled;
+       ttl = v_ttl;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_ttl in
+         ("ttl", arg) :: bnds
+       in
+       let bnds =
+         match v_transit_encryption_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "transit_encryption_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_at_rest_encryption_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "at_rest_encryption_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_id in
+         ("api_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_api_caching_behavior
+         in
+         ("api_caching_behavior", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_appsync_api_cache -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appsync_api_cache
+
+[@@@deriving.end]
 
 let aws_appsync_api_cache ?at_rest_encryption_enabled ?id
     ?transit_encryption_enabled ~api_caching_behavior ~api_id ~ttl

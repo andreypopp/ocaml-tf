@@ -3,31 +3,165 @@
 open! Tf_core
 
 type routing_policy = {
-  destinations : string prop list;  (** destinations *)
-  name : string prop;  (** name *)
-  next_hop : string prop;  (** next_hop *)
+  destinations : string prop list;
+  name : string prop;
+  next_hop : string prop;
 }
-[@@deriving yojson_of]
-(** routing_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : routing_policy) -> ()
+
+let yojson_of_routing_policy =
+  (function
+   | {
+       destinations = v_destinations;
+       name = v_name;
+       next_hop = v_next_hop;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_next_hop in
+         ("next_hop", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_destinations
+         in
+         ("destinations", arg) :: bnds
+       in
+       `Assoc bnds
+    : routing_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_routing_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_virtual_hub_routing_intent = {
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  virtual_hub_id : string prop;  (** virtual_hub_id *)
+  id : string prop option; [@option]
+  name : string prop;
+  virtual_hub_id : string prop;
   routing_policy : routing_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_virtual_hub_routing_intent *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_virtual_hub_routing_intent) -> ()
+
+let yojson_of_azurerm_virtual_hub_routing_intent =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       virtual_hub_id = v_virtual_hub_id;
+       routing_policy = v_routing_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_routing_policy v_routing_policy
+         in
+         ("routing_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_hub_id
+         in
+         ("virtual_hub_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_virtual_hub_routing_intent ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_virtual_hub_routing_intent
+
+[@@@deriving.end]
 
 let routing_policy ~destinations ~name ~next_hop () : routing_policy
     =

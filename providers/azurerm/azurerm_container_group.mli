@@ -9,6 +9,8 @@ type exposed_port = {
   protocol : string prop;  (** protocol *)
 }
 
+[@@@deriving.end]
+
 type container__gpu
 
 val container__gpu :

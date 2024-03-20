@@ -4,72 +4,399 @@ open! Tf_core
 
 type ipv6__microsoft_peering = {
   advertised_communities : string prop list option; [@option]
-      (** advertised_communities *)
   advertised_public_prefixes : string prop list option; [@option]
-      (** advertised_public_prefixes *)
-  customer_asn : float prop option; [@option]  (** customer_asn *)
+  customer_asn : float prop option; [@option]
   routing_registry_name : string prop option; [@option]
-      (** routing_registry_name *)
 }
-[@@deriving yojson_of]
-(** ipv6__microsoft_peering *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ipv6__microsoft_peering) -> ()
+
+let yojson_of_ipv6__microsoft_peering =
+  (function
+   | {
+       advertised_communities = v_advertised_communities;
+       advertised_public_prefixes = v_advertised_public_prefixes;
+       customer_asn = v_customer_asn;
+       routing_registry_name = v_routing_registry_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_routing_registry_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "routing_registry_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_customer_asn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "customer_asn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_advertised_public_prefixes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "advertised_public_prefixes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_advertised_communities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "advertised_communities", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ipv6__microsoft_peering -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ipv6__microsoft_peering
+
+[@@@deriving.end]
 
 type ipv6 = {
-  enabled : bool prop option; [@option]  (** enabled *)
+  enabled : bool prop option; [@option]
   primary_peer_address_prefix : string prop;
-      (** primary_peer_address_prefix *)
   route_filter_id : string prop option; [@option]
-      (** route_filter_id *)
   secondary_peer_address_prefix : string prop;
-      (** secondary_peer_address_prefix *)
   microsoft_peering : ipv6__microsoft_peering list;
 }
-[@@deriving yojson_of]
-(** ipv6 *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ipv6) -> ()
+
+let yojson_of_ipv6 =
+  (function
+   | {
+       enabled = v_enabled;
+       primary_peer_address_prefix = v_primary_peer_address_prefix;
+       route_filter_id = v_route_filter_id;
+       secondary_peer_address_prefix =
+         v_secondary_peer_address_prefix;
+       microsoft_peering = v_microsoft_peering;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_ipv6__microsoft_peering
+             v_microsoft_peering
+         in
+         ("microsoft_peering", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_secondary_peer_address_prefix
+         in
+         ("secondary_peer_address_prefix", arg) :: bnds
+       in
+       let bnds =
+         match v_route_filter_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "route_filter_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_primary_peer_address_prefix
+         in
+         ("primary_peer_address_prefix", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : ipv6 -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ipv6
+
+[@@@deriving.end]
 
 type microsoft_peering_config = {
   advertised_communities : string prop list option; [@option]
-      (** advertised_communities *)
   advertised_public_prefixes : string prop list;
-      (** advertised_public_prefixes *)
-  customer_asn : float prop option; [@option]  (** customer_asn *)
+  customer_asn : float prop option; [@option]
   routing_registry_name : string prop option; [@option]
-      (** routing_registry_name *)
 }
-[@@deriving yojson_of]
-(** microsoft_peering_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : microsoft_peering_config) -> ()
+
+let yojson_of_microsoft_peering_config =
+  (function
+   | {
+       advertised_communities = v_advertised_communities;
+       advertised_public_prefixes = v_advertised_public_prefixes;
+       customer_asn = v_customer_asn;
+       routing_registry_name = v_routing_registry_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_routing_registry_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "routing_registry_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_customer_asn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "customer_asn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_advertised_public_prefixes
+         in
+         ("advertised_public_prefixes", arg) :: bnds
+       in
+       let bnds =
+         match v_advertised_communities with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "advertised_communities", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : microsoft_peering_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_microsoft_peering_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_express_route_circuit_peering = {
   express_route_circuit_name : string prop;
-      (** express_route_circuit_name *)
-  id : string prop option; [@option]  (** id *)
-  ipv4_enabled : bool prop option; [@option]  (** ipv4_enabled *)
-  peer_asn : float prop option; [@option]  (** peer_asn *)
-  peering_type : string prop;  (** peering_type *)
+  id : string prop option; [@option]
+  ipv4_enabled : bool prop option; [@option]
+  peer_asn : float prop option; [@option]
+  peering_type : string prop;
   primary_peer_address_prefix : string prop option; [@option]
-      (** primary_peer_address_prefix *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  resource_group_name : string prop;
   route_filter_id : string prop option; [@option]
-      (** route_filter_id *)
   secondary_peer_address_prefix : string prop option; [@option]
-      (** secondary_peer_address_prefix *)
-  shared_key : string prop option; [@option]  (** shared_key *)
-  vlan_id : float prop;  (** vlan_id *)
+  shared_key : string prop option; [@option]
+  vlan_id : float prop;
   ipv6 : ipv6 list;
   microsoft_peering_config : microsoft_peering_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_express_route_circuit_peering *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_express_route_circuit_peering) -> ()
+
+let yojson_of_azurerm_express_route_circuit_peering =
+  (function
+   | {
+       express_route_circuit_name = v_express_route_circuit_name;
+       id = v_id;
+       ipv4_enabled = v_ipv4_enabled;
+       peer_asn = v_peer_asn;
+       peering_type = v_peering_type;
+       primary_peer_address_prefix = v_primary_peer_address_prefix;
+       resource_group_name = v_resource_group_name;
+       route_filter_id = v_route_filter_id;
+       secondary_peer_address_prefix =
+         v_secondary_peer_address_prefix;
+       shared_key = v_shared_key;
+       vlan_id = v_vlan_id;
+       ipv6 = v_ipv6;
+       microsoft_peering_config = v_microsoft_peering_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_microsoft_peering_config
+             v_microsoft_peering_config
+         in
+         ("microsoft_peering_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_ipv6 v_ipv6 in
+         ("ipv6", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_vlan_id in
+         ("vlan_id", arg) :: bnds
+       in
+       let bnds =
+         match v_shared_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "shared_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secondary_peer_address_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secondary_peer_address_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_route_filter_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "route_filter_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_primary_peer_address_prefix with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "primary_peer_address_prefix", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_peering_type in
+         ("peering_type", arg) :: bnds
+       in
+       let bnds =
+         match v_peer_asn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "peer_asn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipv4_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ipv4_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_express_route_circuit_name
+         in
+         ("express_route_circuit_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_express_route_circuit_peering ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_express_route_circuit_peering
+
+[@@@deriving.end]
 
 let ipv6__microsoft_peering ?advertised_communities
     ?advertised_public_prefixes ?customer_asn ?routing_registry_name

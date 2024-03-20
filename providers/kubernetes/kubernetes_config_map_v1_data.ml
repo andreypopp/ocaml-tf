@@ -3,25 +3,108 @@
 open! Tf_core
 
 type metadata = {
-  name : string prop;  (** The name of the ConfigMap. *)
+  name : string prop;
   namespace : string prop option; [@option]
-      (** The namespace of the ConfigMap. *)
 }
-[@@deriving yojson_of]
-(** metadata *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | { name = v_name; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
 
 type kubernetes_config_map_v1_data = {
   data : (string * string prop) list;
-      (** The data we want to add to the ConfigMap. *)
   field_manager : string prop option; [@option]
-      (** Set the name of the field manager for the specified labels. *)
   force : bool prop option; [@option]
-      (** Force overwriting data that is managed outside of Terraform. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   metadata : metadata list;
 }
-[@@deriving yojson_of]
-(** kubernetes_config_map_v1_data *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kubernetes_config_map_v1_data) -> ()
+
+let yojson_of_kubernetes_config_map_v1_data =
+  (function
+   | {
+       data = v_data;
+       field_manager = v_field_manager;
+       force = v_force;
+       id = v_id;
+       metadata = v_metadata;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_field_manager with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "field_manager", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_data
+         in
+         ("data", arg) :: bnds
+       in
+       `Assoc bnds
+    : kubernetes_config_map_v1_data ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kubernetes_config_map_v1_data
+
+[@@@deriving.end]
 
 let metadata ?namespace ~name () : metadata = { name; namespace }
 

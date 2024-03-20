@@ -8,10 +8,14 @@ type backup_source = {
   backup_name : string prop;  (** backup_name *)
 }
 
+[@@@deriving.end]
+
 type continuous_backup_info__encryption_info = {
   encryption_type : string prop;  (** encryption_type *)
   kms_key_versions : string prop list;  (** kms_key_versions *)
 }
+
+[@@@deriving.end]
 
 type continuous_backup_info = {
   earliest_restorable_time : string prop;
@@ -22,16 +26,22 @@ type continuous_backup_info = {
   schedule : string prop list;  (** schedule *)
 }
 
+[@@@deriving.end]
+
 type encryption_info = {
   encryption_type : string prop;  (** encryption_type *)
   kms_key_versions : string prop list;  (** kms_key_versions *)
 }
+
+[@@@deriving.end]
 
 type migration_source = {
   host_port : string prop;  (** host_port *)
   reference_id : string prop;  (** reference_id *)
   source_type : string prop;  (** source_type *)
 }
+
+[@@@deriving.end]
 
 type automated_backup_policy__encryption_config
 

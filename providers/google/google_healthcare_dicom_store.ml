@@ -2,57 +2,149 @@
 
 open! Tf_core
 
-type notification_config = {
-  pubsub_topic : string prop;
-      (** The Cloud Pub/Sub topic that notifications of changes are published on. Supplied by the client.
-PubsubMessage.Data will contain the resource name. PubsubMessage.MessageId is the ID of this message.
-It is guaranteed to be unique within the topic. PubsubMessage.PublishTime is the time at which the message
-was published. Notifications are only sent if the topic is non-empty. Topic names must be scoped to a
-project. service-PROJECT_NUMBER@gcp-sa-healthcare.iam.gserviceaccount.com must have publisher permissions on the given
-Cloud Pub/Sub topic. Not having adequate permissions will cause the calls that send notifications to fail. *)
-}
-[@@deriving yojson_of]
-(** A nested object resource *)
+type notification_config = { pubsub_topic : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : notification_config) -> ()
+
+let yojson_of_notification_config =
+  (function
+   | { pubsub_topic = v_pubsub_topic } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pubsub_topic in
+         ("pubsub_topic", arg) :: bnds
+       in
+       `Assoc bnds
+    : notification_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_notification_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_healthcare_dicom_store = {
   dataset : string prop;
-      (** Identifies the dataset addressed by this request. Must be in the format
-'projects/{project}/locations/{location}/datasets/{dataset}' *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** User-supplied key-value pairs used to organize DICOM stores.
-
-Label keys must be between 1 and 63 characters long, have a UTF-8 encoding of maximum 128 bytes, and must
-conform to the following PCRE regular expression: [\p{Ll}\p{Lo}][\p{Ll}\p{Lo}\p{N}_-]{0,62}
-
-Label values are optional, must be between 1 and 63 characters long, have a UTF-8 encoding of maximum 128
-bytes, and must conform to the following PCRE regular expression: [\p{Ll}\p{Lo}\p{N}_-]{0,63}
-
-No more than 64 labels can be associated with a given store.
-
-An object containing a list of key: value pairs.
-Example: { name: wrench, mass: 1.3kg, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
   name : string prop;
-      (** The resource name for the DicomStore.
-
-** Changing this property may recreate the Dicom store (removing all data) ** *)
   notification_config : notification_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_healthcare_dicom_store *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_healthcare_dicom_store) -> ()
+
+let yojson_of_google_healthcare_dicom_store =
+  (function
+   | {
+       dataset = v_dataset;
+       id = v_id;
+       labels = v_labels;
+       name = v_name;
+       notification_config = v_notification_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_notification_config
+             v_notification_config
+         in
+         ("notification_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dataset in
+         ("dataset", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_healthcare_dicom_store ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_healthcare_dicom_store
+
+[@@@deriving.end]
 
 let notification_config ~pubsub_topic () : notification_config =
   { pubsub_topic }

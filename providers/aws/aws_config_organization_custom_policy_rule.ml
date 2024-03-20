@@ -3,39 +3,213 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_config_organization_custom_policy_rule = {
   debug_log_delivery_accounts : string prop list option; [@option]
-      (** debug_log_delivery_accounts *)
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   excluded_accounts : string prop list option; [@option]
-      (** excluded_accounts *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   input_parameters : string prop option; [@option]
-      (** input_parameters *)
   maximum_execution_frequency : string prop option; [@option]
-      (** maximum_execution_frequency *)
-  name : string prop;  (** name *)
-  policy_runtime : string prop;  (** policy_runtime *)
-  policy_text : string prop;  (** policy_text *)
+  name : string prop;
+  policy_runtime : string prop;
+  policy_text : string prop;
   resource_id_scope : string prop option; [@option]
-      (** resource_id_scope *)
   resource_types_scope : string prop list option; [@option]
-      (** resource_types_scope *)
-  tag_key_scope : string prop option; [@option]  (** tag_key_scope *)
+  tag_key_scope : string prop option; [@option]
   tag_value_scope : string prop option; [@option]
-      (** tag_value_scope *)
-  trigger_types : string prop list;  (** trigger_types *)
+  trigger_types : string prop list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_config_organization_custom_policy_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_config_organization_custom_policy_rule) -> ()
+
+let yojson_of_aws_config_organization_custom_policy_rule =
+  (function
+   | {
+       debug_log_delivery_accounts = v_debug_log_delivery_accounts;
+       description = v_description;
+       excluded_accounts = v_excluded_accounts;
+       id = v_id;
+       input_parameters = v_input_parameters;
+       maximum_execution_frequency = v_maximum_execution_frequency;
+       name = v_name;
+       policy_runtime = v_policy_runtime;
+       policy_text = v_policy_text;
+       resource_id_scope = v_resource_id_scope;
+       resource_types_scope = v_resource_types_scope;
+       tag_key_scope = v_tag_key_scope;
+       tag_value_scope = v_tag_value_scope;
+       trigger_types = v_trigger_types;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_trigger_types
+         in
+         ("trigger_types", arg) :: bnds
+       in
+       let bnds =
+         match v_tag_value_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag_value_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tag_key_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "tag_key_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_types_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "resource_types_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_id_scope with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_id_scope", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy_text in
+         ("policy_text", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_policy_runtime
+         in
+         ("policy_runtime", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_maximum_execution_frequency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "maximum_execution_frequency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_input_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "input_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_excluded_accounts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "excluded_accounts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_debug_log_delivery_accounts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "debug_log_delivery_accounts", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_config_organization_custom_policy_rule ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_config_organization_custom_policy_rule
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

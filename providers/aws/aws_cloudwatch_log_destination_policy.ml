@@ -3,13 +3,59 @@
 open! Tf_core
 
 type aws_cloudwatch_log_destination_policy = {
-  access_policy : string prop;  (** access_policy *)
-  destination_name : string prop;  (** destination_name *)
-  force_update : bool prop option; [@option]  (** force_update *)
-  id : string prop option; [@option]  (** id *)
+  access_policy : string prop;
+  destination_name : string prop;
+  force_update : bool prop option; [@option]
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_cloudwatch_log_destination_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudwatch_log_destination_policy) -> ()
+
+let yojson_of_aws_cloudwatch_log_destination_policy =
+  (function
+   | {
+       access_policy = v_access_policy;
+       destination_name = v_destination_name;
+       force_update = v_force_update;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_force_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "force_update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_destination_name
+         in
+         ("destination_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_access_policy in
+         ("access_policy", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudwatch_log_destination_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudwatch_log_destination_policy
+
+[@@@deriving.end]
 
 let aws_cloudwatch_log_destination_policy ?force_update ?id
     ~access_policy ~destination_name () :

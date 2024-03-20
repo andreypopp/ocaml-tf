@@ -3,13 +3,55 @@
 open! Tf_core
 
 type aws_identitystore_group_membership = {
-  group_id : string prop;  (** group_id *)
-  id : string prop option; [@option]  (** id *)
-  identity_store_id : string prop;  (** identity_store_id *)
-  member_id : string prop;  (** member_id *)
+  group_id : string prop;
+  id : string prop option; [@option]
+  identity_store_id : string prop;
+  member_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_identitystore_group_membership *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_identitystore_group_membership) -> ()
+
+let yojson_of_aws_identitystore_group_membership =
+  (function
+   | {
+       group_id = v_group_id;
+       id = v_id;
+       identity_store_id = v_identity_store_id;
+       member_id = v_member_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_member_id in
+         ("member_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_identity_store_id
+         in
+         ("identity_store_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group_id in
+         ("group_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_identitystore_group_membership ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_identitystore_group_membership
+
+[@@@deriving.end]
 
 let aws_identitystore_group_membership ?id ~group_id
     ~identity_store_id ~member_id () :

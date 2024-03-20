@@ -3,43 +3,232 @@
 open! Tf_core
 
 type domain_name_configuration = {
-  certificate_arn : string prop;  (** certificate_arn *)
-  endpoint_type : string prop;  (** endpoint_type *)
+  certificate_arn : string prop;
+  endpoint_type : string prop;
   ownership_verification_certificate_arn : string prop option;
       [@option]
-      (** ownership_verification_certificate_arn *)
-  security_policy : string prop;  (** security_policy *)
+  security_policy : string prop;
 }
-[@@deriving yojson_of]
-(** domain_name_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : domain_name_configuration) -> ()
+
+let yojson_of_domain_name_configuration =
+  (function
+   | {
+       certificate_arn = v_certificate_arn;
+       endpoint_type = v_endpoint_type;
+       ownership_verification_certificate_arn =
+         v_ownership_verification_certificate_arn;
+       security_policy = v_security_policy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_security_policy
+         in
+         ("security_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_ownership_verification_certificate_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd =
+               "ownership_verification_certificate_arn", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_endpoint_type in
+         ("endpoint_type", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_arn
+         in
+         ("certificate_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : domain_name_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_domain_name_configuration
+
+[@@@deriving.end]
 
 type mutual_tls_authentication = {
-  truststore_uri : string prop;  (** truststore_uri *)
+  truststore_uri : string prop;
   truststore_version : string prop option; [@option]
-      (** truststore_version *)
 }
-[@@deriving yojson_of]
-(** mutual_tls_authentication *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mutual_tls_authentication) -> ()
+
+let yojson_of_mutual_tls_authentication =
+  (function
+   | {
+       truststore_uri = v_truststore_uri;
+       truststore_version = v_truststore_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_truststore_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "truststore_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_truststore_uri
+         in
+         ("truststore_uri", arg) :: bnds
+       in
+       `Assoc bnds
+    : mutual_tls_authentication -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mutual_tls_authentication
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_apigatewayv2_domain_name = {
-  domain_name : string prop;  (** domain_name *)
-  id : string prop option; [@option]  (** id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  domain_name : string prop;
+  id : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   domain_name_configuration : domain_name_configuration list;
   mutual_tls_authentication : mutual_tls_authentication list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_apigatewayv2_domain_name *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_apigatewayv2_domain_name) -> ()
+
+let yojson_of_aws_apigatewayv2_domain_name =
+  (function
+   | {
+       domain_name = v_domain_name;
+       id = v_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       domain_name_configuration = v_domain_name_configuration;
+       mutual_tls_authentication = v_mutual_tls_authentication;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_mutual_tls_authentication
+             v_mutual_tls_authentication
+         in
+         ("mutual_tls_authentication", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_domain_name_configuration
+             v_domain_name_configuration
+         in
+         ("domain_name_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain_name in
+         ("domain_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_apigatewayv2_domain_name ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_apigatewayv2_domain_name
+
+[@@@deriving.end]
 
 let domain_name_configuration ?ownership_verification_certificate_arn
     ~certificate_arn ~endpoint_type ~security_policy () :

@@ -3,13 +3,13 @@
 open! Tf_core
 
 type google_workbench_instance_iam_policy = {
-  id: string  prop option; [@option] (** id *)
-  location: string  prop option; [@option] (** location *)
-  name: string prop;  (** name *)
-  policy_data: string prop;  (** policy_data *)
-  project: string  prop option; [@option] (** project *)
-} [@@deriving yojson_of]
-(** google_workbench_instance_iam_policy *)
+  id: string  prop option; [@option]
+  location: string  prop option; [@option]
+  name: string prop; 
+  policy_data: string prop; 
+  project: string  prop option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let google_workbench_instance_iam_policy ?id ?location ?project ~name ~policy_data () =
   ({

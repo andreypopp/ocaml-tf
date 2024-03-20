@@ -10,11 +10,15 @@ type hierarchy_path__level_two = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type hierarchy_path__level_three = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type hierarchy_path__level_one = {
   arn : string prop;  (** arn *)
@@ -22,17 +26,23 @@ type hierarchy_path__level_one = {
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type hierarchy_path__level_four = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
 
+[@@@deriving.end]
+
 type hierarchy_path__level_five = {
   arn : string prop;  (** arn *)
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
+
+[@@@deriving.end]
 
 type hierarchy_path = {
   level_five : hierarchy_path__level_five list;  (** level_five *)
@@ -41,6 +51,8 @@ type hierarchy_path = {
   level_three : hierarchy_path__level_three list;  (** level_three *)
   level_two : hierarchy_path__level_two list;  (** level_two *)
 }
+
+[@@@deriving.end]
 
 type aws_connect_user_hierarchy_group
 

@@ -3,87 +3,492 @@
 open! Tf_core
 
 type data_protection_replication = {
-  endpoint_type : string prop option; [@option]  (** endpoint_type *)
+  endpoint_type : string prop option; [@option]
   remote_volume_location : string prop;
-      (** remote_volume_location *)
   remote_volume_resource_id : string prop;
-      (** remote_volume_resource_id *)
-  replication_frequency : string prop;  (** replication_frequency *)
+  replication_frequency : string prop;
 }
-[@@deriving yojson_of]
-(** data_protection_replication *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_protection_replication) -> ()
+
+let yojson_of_data_protection_replication =
+  (function
+   | {
+       endpoint_type = v_endpoint_type;
+       remote_volume_location = v_remote_volume_location;
+       remote_volume_resource_id = v_remote_volume_resource_id;
+       replication_frequency = v_replication_frequency;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_replication_frequency
+         in
+         ("replication_frequency", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_remote_volume_resource_id
+         in
+         ("remote_volume_resource_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_remote_volume_location
+         in
+         ("remote_volume_location", arg) :: bnds
+       in
+       let bnds =
+         match v_endpoint_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "endpoint_type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_protection_replication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_protection_replication
+
+[@@@deriving.end]
 
 type data_protection_snapshot_policy = {
-  snapshot_policy_id : string prop;  (** snapshot_policy_id *)
+  snapshot_policy_id : string prop;
 }
-[@@deriving yojson_of]
-(** data_protection_snapshot_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_protection_snapshot_policy) -> ()
+
+let yojson_of_data_protection_snapshot_policy =
+  (function
+   | { snapshot_policy_id = v_snapshot_policy_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_snapshot_policy_id
+         in
+         ("snapshot_policy_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_protection_snapshot_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_protection_snapshot_policy
+
+[@@@deriving.end]
 
 type export_policy_rule = {
-  allowed_clients : string prop list;  (** allowed_clients *)
+  allowed_clients : string prop list;
   protocols_enabled : string prop list option; [@option]
-      (** protocols_enabled *)
   root_access_enabled : bool prop option; [@option]
-      (** root_access_enabled *)
-  rule_index : float prop;  (** rule_index *)
-  unix_read_only : bool prop option; [@option]  (** unix_read_only *)
+  rule_index : float prop;
+  unix_read_only : bool prop option; [@option]
   unix_read_write : bool prop option; [@option]
-      (** unix_read_write *)
 }
-[@@deriving yojson_of]
-(** export_policy_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : export_policy_rule) -> ()
+
+let yojson_of_export_policy_rule =
+  (function
+   | {
+       allowed_clients = v_allowed_clients;
+       protocols_enabled = v_protocols_enabled;
+       root_access_enabled = v_root_access_enabled;
+       rule_index = v_rule_index;
+       unix_read_only = v_unix_read_only;
+       unix_read_write = v_unix_read_write;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_unix_read_write with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "unix_read_write", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_unix_read_only with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "unix_read_only", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_rule_index in
+         ("rule_index", arg) :: bnds
+       in
+       let bnds =
+         match v_root_access_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "root_access_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_protocols_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "protocols_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_allowed_clients
+         in
+         ("allowed_clients", arg) :: bnds
+       in
+       `Assoc bnds
+    : export_policy_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_export_policy_rule
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_netapp_volume = {
-  account_name : string prop;  (** account_name *)
+  account_name : string prop;
   azure_vmware_data_store_enabled : bool prop option; [@option]
-      (** azure_vmware_data_store_enabled *)
   create_from_snapshot_resource_id : string prop option; [@option]
-      (** create_from_snapshot_resource_id *)
   encryption_key_source : string prop option; [@option]
-      (** encryption_key_source *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   key_vault_private_endpoint_id : string prop option; [@option]
-      (** key_vault_private_endpoint_id *)
-  location : string prop;  (** location *)
-  name : string prop;  (** name *)
+  location : string prop;
+  name : string prop;
   network_features : string prop option; [@option]
-      (** network_features *)
-  pool_name : string prop;  (** pool_name *)
-  protocols : string prop list option; [@option]  (** protocols *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  pool_name : string prop;
+  protocols : string prop list option; [@option]
+  resource_group_name : string prop;
   security_style : string prop option; [@option]
-      (** security_style *)
-  service_level : string prop;  (** service_level *)
+  service_level : string prop;
   smb_access_based_enumeration_enabled : bool prop option; [@option]
-      (** smb_access_based_enumeration_enabled *)
   smb_non_browsable_enabled : bool prop option; [@option]
-      (** smb_non_browsable_enabled *)
   snapshot_directory_visible : bool prop option; [@option]
-      (** snapshot_directory_visible *)
-  storage_quota_in_gb : float prop;  (** storage_quota_in_gb *)
-  subnet_id : string prop;  (** subnet_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  storage_quota_in_gb : float prop;
+  subnet_id : string prop;
+  tags : (string * string prop) list option; [@option]
   throughput_in_mibps : float prop option; [@option]
-      (** throughput_in_mibps *)
-  volume_path : string prop;  (** volume_path *)
-  zone : string prop option; [@option]  (** zone *)
+  volume_path : string prop;
+  zone : string prop option; [@option]
   data_protection_replication : data_protection_replication list;
   data_protection_snapshot_policy :
     data_protection_snapshot_policy list;
   export_policy_rule : export_policy_rule list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_netapp_volume *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_netapp_volume) -> ()
+
+let yojson_of_azurerm_netapp_volume =
+  (function
+   | {
+       account_name = v_account_name;
+       azure_vmware_data_store_enabled =
+         v_azure_vmware_data_store_enabled;
+       create_from_snapshot_resource_id =
+         v_create_from_snapshot_resource_id;
+       encryption_key_source = v_encryption_key_source;
+       id = v_id;
+       key_vault_private_endpoint_id =
+         v_key_vault_private_endpoint_id;
+       location = v_location;
+       name = v_name;
+       network_features = v_network_features;
+       pool_name = v_pool_name;
+       protocols = v_protocols;
+       resource_group_name = v_resource_group_name;
+       security_style = v_security_style;
+       service_level = v_service_level;
+       smb_access_based_enumeration_enabled =
+         v_smb_access_based_enumeration_enabled;
+       smb_non_browsable_enabled = v_smb_non_browsable_enabled;
+       snapshot_directory_visible = v_snapshot_directory_visible;
+       storage_quota_in_gb = v_storage_quota_in_gb;
+       subnet_id = v_subnet_id;
+       tags = v_tags;
+       throughput_in_mibps = v_throughput_in_mibps;
+       volume_path = v_volume_path;
+       zone = v_zone;
+       data_protection_replication = v_data_protection_replication;
+       data_protection_snapshot_policy =
+         v_data_protection_snapshot_policy;
+       export_policy_rule = v_export_policy_rule;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_export_policy_rule
+             v_export_policy_rule
+         in
+         ("export_policy_rule", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_protection_snapshot_policy
+             v_data_protection_snapshot_policy
+         in
+         ("data_protection_snapshot_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_protection_replication
+             v_data_protection_replication
+         in
+         ("data_protection_replication", arg) :: bnds
+       in
+       let bnds =
+         match v_zone with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "zone", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_path in
+         ("volume_path", arg) :: bnds
+       in
+       let bnds =
+         match v_throughput_in_mibps with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "throughput_in_mibps", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_storage_quota_in_gb
+         in
+         ("storage_quota_in_gb", arg) :: bnds
+       in
+       let bnds =
+         match v_snapshot_directory_visible with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "snapshot_directory_visible", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_smb_non_browsable_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "smb_non_browsable_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_smb_access_based_enumeration_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "smb_access_based_enumeration_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service_level in
+         ("service_level", arg) :: bnds
+       in
+       let bnds =
+         match v_security_style with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_style", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_protocols with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "protocols", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_pool_name in
+         ("pool_name", arg) :: bnds
+       in
+       let bnds =
+         match v_network_features with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network_features", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_key_vault_private_endpoint_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key_vault_private_endpoint_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption_key_source with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption_key_source", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create_from_snapshot_resource_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create_from_snapshot_resource_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_azure_vmware_data_store_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "azure_vmware_data_store_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_name in
+         ("account_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_netapp_volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_netapp_volume
+
+[@@@deriving.end]
 
 let data_protection_replication ?endpoint_type
     ~remote_volume_location ~remote_volume_resource_id

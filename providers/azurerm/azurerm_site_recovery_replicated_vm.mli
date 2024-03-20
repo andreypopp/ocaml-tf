@@ -9,10 +9,14 @@ type managed_disk__target_disk_encryption__key_encryption_key = {
   vault_id : string prop;  (** vault_id *)
 }
 
+[@@@deriving.end]
+
 type managed_disk__target_disk_encryption__disk_encryption_key = {
   secret_url : string prop;  (** secret_url *)
   vault_id : string prop;  (** vault_id *)
 }
+
+[@@@deriving.end]
 
 type managed_disk__target_disk_encryption = {
   disk_encryption_key :
@@ -22,6 +26,8 @@ type managed_disk__target_disk_encryption = {
     managed_disk__target_disk_encryption__key_encryption_key list;
       (** key_encryption_key *)
 }
+
+[@@@deriving.end]
 
 type managed_disk = {
   disk_id : string prop;  (** disk_id *)
@@ -37,6 +43,8 @@ type managed_disk = {
   target_resource_group_id : string prop;
       (** target_resource_group_id *)
 }
+
+[@@@deriving.end]
 
 type network_interface = {
   failover_test_public_ip_address_id : string prop;
@@ -54,6 +62,8 @@ type network_interface = {
   target_subnet_name : string prop;  (** target_subnet_name *)
 }
 
+[@@@deriving.end]
+
 type unmanaged_disk = {
   disk_uri : string prop;  (** disk_uri *)
   staging_storage_account_id : string prop;
@@ -61,6 +71,8 @@ type unmanaged_disk = {
   target_storage_account_id : string prop;
       (** target_storage_account_id *)
 }
+
+[@@@deriving.end]
 
 type timeouts
 

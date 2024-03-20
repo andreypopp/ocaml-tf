@@ -3,43 +3,228 @@
 open! Tf_core
 
 type catalog_adogit = {
-  branch : string prop;  (** branch *)
-  key_vault_key_url : string prop;  (** key_vault_key_url *)
-  path : string prop;  (** path *)
-  uri : string prop;  (** uri *)
+  branch : string prop;
+  key_vault_key_url : string prop;
+  path : string prop;
+  uri : string prop;
 }
-[@@deriving yojson_of]
-(** catalog_adogit *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : catalog_adogit) -> ()
+
+let yojson_of_catalog_adogit =
+  (function
+   | {
+       branch = v_branch;
+       key_vault_key_url = v_key_vault_key_url;
+       path = v_path;
+       uri = v_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_key_vault_key_url
+         in
+         ("key_vault_key_url", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_branch in
+         ("branch", arg) :: bnds
+       in
+       `Assoc bnds
+    : catalog_adogit -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_catalog_adogit
+
+[@@@deriving.end]
 
 type catalog_github = {
-  branch : string prop;  (** branch *)
-  key_vault_key_url : string prop;  (** key_vault_key_url *)
-  path : string prop;  (** path *)
-  uri : string prop;  (** uri *)
+  branch : string prop;
+  key_vault_key_url : string prop;
+  path : string prop;
+  uri : string prop;
 }
-[@@deriving yojson_of]
-(** catalog_github *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : catalog_github) -> ()
+
+let yojson_of_catalog_github =
+  (function
+   | {
+       branch = v_branch;
+       key_vault_key_url = v_key_vault_key_url;
+       path = v_path;
+       uri = v_uri;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_key_vault_key_url
+         in
+         ("key_vault_key_url", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_branch in
+         ("branch", arg) :: bnds
+       in
+       `Assoc bnds
+    : catalog_github -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_catalog_github
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_dev_center_catalog = {
-  dev_center_id : string prop;  (** dev_center_id *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
+  dev_center_id : string prop;
+  id : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
   catalog_adogit : catalog_adogit list;
   catalog_github : catalog_github list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_dev_center_catalog *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_dev_center_catalog) -> ()
+
+let yojson_of_azurerm_dev_center_catalog =
+  (function
+   | {
+       dev_center_id = v_dev_center_id;
+       id = v_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       catalog_adogit = v_catalog_adogit;
+       catalog_github = v_catalog_github;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_catalog_github v_catalog_github
+         in
+         ("catalog_github", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_catalog_adogit v_catalog_adogit
+         in
+         ("catalog_adogit", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dev_center_id in
+         ("dev_center_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_dev_center_catalog -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_dev_center_catalog
+
+[@@@deriving.end]
 
 let catalog_adogit ~branch ~key_vault_key_url ~path ~uri () :
     catalog_adogit =

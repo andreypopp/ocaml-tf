@@ -4,103 +4,495 @@ open! Tf_core
 
 type kms_settings = {
   next_rotation_time : string prop;
-      (** Required. Input only. Immutable. The time at which the Key Management Service will automatically create a new version of the crypto key and mark it as the primary. *)
   rotation_period : string prop;
-      (** Required. Input only. Immutable. will be advanced by this period when the Key Management Service automatically rotates a key. Must be at least 24 hours and at most 876,000 hours. *)
 }
-[@@deriving yojson_of]
-(** **DEPRECATED** Input only. Settings used to create a CMEK crypto key. When set, a project with a KMS CMEK key is provisioned. This field is deprecated as of Feb 28, 2022. In order to create a Keyring, callers should specify, ENCRYPTION_KEYS_PROJECT or KEYRING in ResourceSettings.resource_type field. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : kms_settings) -> ()
+
+let yojson_of_kms_settings =
+  (function
+   | {
+       next_rotation_time = v_next_rotation_time;
+       rotation_period = v_rotation_period;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_rotation_period
+         in
+         ("rotation_period", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_next_rotation_time
+         in
+         ("next_rotation_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : kms_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_kms_settings
+
+[@@@deriving.end]
 
 type partner_permissions = {
   assured_workloads_monitoring : bool prop option; [@option]
-      (** Optional. Allow partner to view violation alerts. *)
   data_logs_viewer : bool prop option; [@option]
-      (** Allow the partner to view inspectability logs and monitoring violations. *)
   service_access_approver : bool prop option; [@option]
-      (** Optional. Allow partner to view access approval logs. *)
 }
-[@@deriving yojson_of]
-(** Optional. Permissions granted to the AW Partner SA account for the customer workload *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : partner_permissions) -> ()
+
+let yojson_of_partner_permissions =
+  (function
+   | {
+       assured_workloads_monitoring = v_assured_workloads_monitoring;
+       data_logs_viewer = v_data_logs_viewer;
+       service_access_approver = v_service_access_approver;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_service_access_approver with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "service_access_approver", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_data_logs_viewer with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "data_logs_viewer", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_assured_workloads_monitoring with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "assured_workloads_monitoring", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : partner_permissions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_partner_permissions
+
+[@@@deriving.end]
 
 type resource_settings = {
   display_name : string prop option; [@option]
-      (** User-assigned resource display name. If not empty it will be used to create a resource with the specified name. *)
   resource_id : string prop option; [@option]
-      (** Resource identifier. For a project this represents projectId. If the project is already taken, the workload creation will fail. For KeyRing, this represents the keyring_id. For a folder, don't set this value as folder_id is assigned by Google. *)
   resource_type : string prop option; [@option]
-      (** Indicates the type of resource. This field should be specified to correspond the id to the right project type (CONSUMER_PROJECT or ENCRYPTION_KEYS_PROJECT) Possible values: RESOURCE_TYPE_UNSPECIFIED, CONSUMER_PROJECT, ENCRYPTION_KEYS_PROJECT, KEYRING, CONSUMER_FOLDER *)
 }
-[@@deriving yojson_of]
-(** Input only. Resource properties that are used to customize workload resources. These properties (such as custom project id) will be used to create workload resources if possible. This field is optional. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : resource_settings) -> ()
+
+let yojson_of_resource_settings =
+  (function
+   | {
+       display_name = v_display_name;
+       resource_id = v_resource_id;
+       resource_type = v_resource_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_resource_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_resource_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "resource_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_display_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "display_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : resource_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_resource_settings
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type compliance_status = {
   acknowledged_violation_count : float prop list;
-      (** acknowledged_violation_count *)
   active_violation_count : float prop list;
-      (** active_violation_count *)
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : compliance_status) -> ()
+
+let yojson_of_compliance_status =
+  (function
+   | {
+       acknowledged_violation_count = v_acknowledged_violation_count;
+       active_violation_count = v_active_violation_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_float)
+             v_active_violation_count
+         in
+         ("active_violation_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_float)
+             v_acknowledged_violation_count
+         in
+         ("acknowledged_violation_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : compliance_status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_compliance_status
+
+[@@@deriving.end]
 
 type ekm_provisioning_response = {
   ekm_provisioning_error_domain : string prop;
-      (** ekm_provisioning_error_domain *)
   ekm_provisioning_error_mapping : string prop;
-      (** ekm_provisioning_error_mapping *)
-  ekm_provisioning_state : string prop;  (** ekm_provisioning_state *)
+  ekm_provisioning_state : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : ekm_provisioning_response) -> ()
+
+let yojson_of_ekm_provisioning_response =
+  (function
+   | {
+       ekm_provisioning_error_domain =
+         v_ekm_provisioning_error_domain;
+       ekm_provisioning_error_mapping =
+         v_ekm_provisioning_error_mapping;
+       ekm_provisioning_state = v_ekm_provisioning_state;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_ekm_provisioning_state
+         in
+         ("ekm_provisioning_state", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_ekm_provisioning_error_mapping
+         in
+         ("ekm_provisioning_error_mapping", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_ekm_provisioning_error_domain
+         in
+         ("ekm_provisioning_error_domain", arg) :: bnds
+       in
+       `Assoc bnds
+    : ekm_provisioning_response -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_ekm_provisioning_response
+
+[@@@deriving.end]
 
 type resources = {
-  resource_id : float prop;  (** resource_id *)
-  resource_type : string prop;  (** resource_type *)
+  resource_id : float prop;
+  resource_type : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : resources) -> ()
+
+let yojson_of_resources =
+  (function
+   | { resource_id = v_resource_id; resource_type = v_resource_type }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_type in
+         ("resource_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_resource_id in
+         ("resource_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : resources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_resources
+
+[@@@deriving.end]
 
 type saa_enrollment_response = {
-  setup_errors : string prop list;  (** setup_errors *)
-  setup_status : string prop;  (** setup_status *)
+  setup_errors : string prop list;
+  setup_status : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : saa_enrollment_response) -> ()
+
+let yojson_of_saa_enrollment_response =
+  (function
+   | { setup_errors = v_setup_errors; setup_status = v_setup_status }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_setup_status in
+         ("setup_status", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_setup_errors
+         in
+         ("setup_errors", arg) :: bnds
+       in
+       `Assoc bnds
+    : saa_enrollment_response -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_saa_enrollment_response
+
+[@@@deriving.end]
 
 type google_assured_workloads_workload = {
   billing_account : string prop option; [@option]
-      (** Optional. Input only. The billing account used for the resources which are direct children of workload. This billing account is initially associated with the resources created as part of Workload creation. After the initial creation of these resources, the customer can change the assigned billing account. The resource name has the form `billingAccounts/{billing_account_id}`. For example, `billingAccounts/012345-567890-ABCDEF`. *)
   compliance_regime : string prop;
-      (** Required. Immutable. Compliance Regime associated with this workload. Possible values: COMPLIANCE_REGIME_UNSPECIFIED, IL4, CJIS, FEDRAMP_HIGH, FEDRAMP_MODERATE, US_REGIONAL_ACCESS, HIPAA, HITRUST, EU_REGIONS_AND_SUPPORT, CA_REGIONS_AND_SUPPORT, ITAR, AU_REGIONS_AND_US_SUPPORT, ASSURED_WORKLOADS_FOR_PARTNERS, ISR_REGIONS, ISR_REGIONS_AND_SUPPORT, CA_PROTECTED_B, IL5, IL2, JP_REGIONS_AND_SUPPORT *)
   display_name : string prop;
-      (** Required. The user-assigned display name of the Workload. When present it must be between 4 to 30 characters. Allowed characters are: lowercase and uppercase letters, numbers, hyphen, and spaces. Example: My Workload *)
   enable_sovereign_controls : bool prop option; [@option]
-      (** Optional. Indicates the sovereignty status of the given workload. Currently meant to be used by Europe/Canada customers. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Optional. Labels applied to the workload.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field `effective_labels` for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
+  location : string prop;
   organization : string prop;
-      (** The organization for the resource *)
   partner : string prop option; [@option]
-      (** Optional. Partner regime associated with this workload. Possible values: PARTNER_UNSPECIFIED, LOCAL_CONTROLS_BY_S3NS, SOVEREIGN_CONTROLS_BY_T_SYSTEMS, SOVEREIGN_CONTROLS_BY_SIA_MINSAIT, SOVEREIGN_CONTROLS_BY_PSN *)
   provisioned_resources_parent : string prop option; [@option]
-      (** Input only. The parent resource for the resources managed by this Assured Workload. May be either empty or a folder resource which is a child of the Workload parent. If not specified all resources are created under the parent organization. Format: folders/{folder_id} *)
   violation_notifications_enabled : bool prop option; [@option]
-      (** Optional. Indicates whether the e-mail notification for a violation is enabled for a workload. This value will be by default True, and if not present will be considered as true. This should only be updated via updateWorkload call. Any Changes to this field during the createWorkload call will not be honored. This will always be true while creating the workload. *)
   kms_settings : kms_settings list;
   partner_permissions : partner_permissions list;
   resource_settings : resource_settings list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_assured_workloads_workload *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_assured_workloads_workload) -> ()
+
+let yojson_of_google_assured_workloads_workload =
+  (function
+   | {
+       billing_account = v_billing_account;
+       compliance_regime = v_compliance_regime;
+       display_name = v_display_name;
+       enable_sovereign_controls = v_enable_sovereign_controls;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       organization = v_organization;
+       partner = v_partner;
+       provisioned_resources_parent = v_provisioned_resources_parent;
+       violation_notifications_enabled =
+         v_violation_notifications_enabled;
+       kms_settings = v_kms_settings;
+       partner_permissions = v_partner_permissions;
+       resource_settings = v_resource_settings;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_resource_settings
+             v_resource_settings
+         in
+         ("resource_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_partner_permissions
+             v_partner_permissions
+         in
+         ("partner_permissions", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_kms_settings v_kms_settings
+         in
+         ("kms_settings", arg) :: bnds
+       in
+       let bnds =
+         match v_violation_notifications_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "violation_notifications_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_provisioned_resources_parent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "provisioned_resources_parent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_partner with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "partner", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_organization in
+         ("organization", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enable_sovereign_controls with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_sovereign_controls", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_compliance_regime
+         in
+         ("compliance_regime", arg) :: bnds
+       in
+       let bnds =
+         match v_billing_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "billing_account", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_assured_workloads_workload ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_assured_workloads_workload
+
+[@@@deriving.end]
 
 let kms_settings ~next_rotation_time ~rotation_period () :
     kms_settings =

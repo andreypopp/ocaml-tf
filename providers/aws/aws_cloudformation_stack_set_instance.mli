@@ -11,6 +11,8 @@ type stack_instance_summaries = {
   stack_id : string prop;  (** stack_id *)
 }
 
+[@@@deriving.end]
+
 type deployment_targets
 
 val deployment_targets :

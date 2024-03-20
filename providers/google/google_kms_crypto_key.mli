@@ -9,6 +9,8 @@ type primary = {
   state : string prop;  (** state *)
 }
 
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

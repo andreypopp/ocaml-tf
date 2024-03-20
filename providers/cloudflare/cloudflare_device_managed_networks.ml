@@ -2,27 +2,86 @@
 
 open! Tf_core
 
-type config = {
-  sha256 : string prop;
-      (** The SHA-256 hash of the TLS certificate presented by the host found at tls_sockaddr. If absent, regular certificate verification (trusted roots, valid timestamp, etc) will be used to validate the certificate. *)
-  tls_sockaddr : string prop;
-      (** A network address of the form host:port that the WARP client will use to detect the presence of a TLS host. *)
-}
-[@@deriving yojson_of]
-(** The configuration containing information for the WARP client to detect the managed network. *)
+type config = { sha256 : string prop; tls_sockaddr : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config) -> ()
+
+let yojson_of_config =
+  (function
+   | { sha256 = v_sha256; tls_sockaddr = v_tls_sockaddr } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tls_sockaddr in
+         ("tls_sockaddr", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_sha256 in
+         ("sha256", arg) :: bnds
+       in
+       `Assoc bnds
+    : config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config
+
+[@@@deriving.end]
 
 type cloudflare_device_managed_networks = {
   account_id : string prop;
-      (** The account identifier to target for the resource. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   name : string prop;
-      (** The name of the Device Managed Network. Must be unique. *)
   type_ : string prop; [@key "type"]
-      (** The type of Device Managed Network. Available values: `tls`. *)
   config : config list;
 }
-[@@deriving yojson_of]
-(** Provides a Cloudflare Device Managed Network resource. Device managed networks allow for building location-aware device settings policies. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_device_managed_networks) -> ()
+
+let yojson_of_cloudflare_device_managed_networks =
+  (function
+   | {
+       account_id = v_account_id;
+       id = v_id;
+       name = v_name;
+       type_ = v_type_;
+       config = v_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_config v_config in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_device_managed_networks ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_device_managed_networks
+
+[@@@deriving.end]
 
 let config ~sha256 ~tls_sockaddr () : config =
   { sha256; tls_sockaddr }

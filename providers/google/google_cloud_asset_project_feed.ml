@@ -4,73 +4,268 @@ open! Tf_core
 
 type condition = {
   description : string prop option; [@option]
-      (** Description of the expression. This is a longer text which describes the expression,
-e.g. when hovered over it in a UI. *)
   expression : string prop;
-      (** Textual representation of an expression in Common Expression Language syntax. *)
   location : string prop option; [@option]
-      (** String indicating the location of the expression for error reporting, e.g. a file
-name and a position in the file. *)
   title : string prop option; [@option]
-      (** Title for the expression, i.e. a short string describing its purpose.
-This can be used e.g. in UIs which allow to enter the expression. *)
 }
-[@@deriving yojson_of]
-(** A condition which determines whether an asset update should be published. If specified, an asset
-will be returned only when the expression evaluates to true. When set, expression field
-must be a valid CEL expression on a TemporalAsset with name temporal_asset. Example: a Feed with
-expression temporal_asset.deleted == true will only publish Asset deletions. Other fields of
-condition are optional. *)
+[@@deriving_inline yojson_of]
 
-type feed_output_config__pubsub_destination = {
-  topic : string prop;  (** Destination on Cloud Pubsub topic. *)
-}
-[@@deriving yojson_of]
-(** Destination on Cloud Pubsub. *)
+let _ = fun (_ : condition) -> ()
+
+let yojson_of_condition =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       location = v_location;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_title with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "title", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition
+
+[@@@deriving.end]
+
+type feed_output_config__pubsub_destination = { topic : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : feed_output_config__pubsub_destination) -> ()
+
+let yojson_of_feed_output_config__pubsub_destination =
+  (function
+   | { topic = v_topic } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_topic in
+         ("topic", arg) :: bnds
+       in
+       `Assoc bnds
+    : feed_output_config__pubsub_destination ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_feed_output_config__pubsub_destination
+
+[@@@deriving.end]
 
 type feed_output_config = {
   pubsub_destination : feed_output_config__pubsub_destination list;
 }
-[@@deriving yojson_of]
-(** Output configuration for asset feed destination. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : feed_output_config) -> ()
+
+let yojson_of_feed_output_config =
+  (function
+   | { pubsub_destination = v_pubsub_destination } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_feed_output_config__pubsub_destination
+             v_pubsub_destination
+         in
+         ("pubsub_destination", arg) :: bnds
+       in
+       `Assoc bnds
+    : feed_output_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_feed_output_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_cloud_asset_project_feed = {
   asset_names : string prop list option; [@option]
-      (** A list of the full names of the assets to receive updates. You must specify either or both of
-assetNames and assetTypes. Only asset updates matching specified assetNames and assetTypes are
-exported to the feed. For example: //compute.googleapis.com/projects/my_project_123/zones/zone1/instances/instance1.
-See https://cloud.google.com/apis/design/resourceNames#fullResourceName for more info. *)
   asset_types : string prop list option; [@option]
-      (** A list of types of the assets to receive updates. You must specify either or both of assetNames
-and assetTypes. Only asset updates matching specified assetNames and assetTypes are exported to
-the feed. For example: compute.googleapis.com/Disk
-See https://cloud.google.com/asset-inventory/docs/supported-asset-types for a list of all
-supported asset types. *)
   billing_project : string prop option; [@option]
-      (** The project whose identity will be used when sending messages to the
-destination pubsub topic. It also specifies the project for API
-enablement check, quota, and billing. If not specified, the resource's
-project will be used. *)
   content_type : string prop option; [@option]
-      (** Asset content type. If not specified, no content but the asset name and type will be returned. Possible values: [CONTENT_TYPE_UNSPECIFIED, RESOURCE, IAM_POLICY, ORG_POLICY, OS_INVENTORY, ACCESS_POLICY] *)
   feed_id : string prop;
-      (** This is the client-assigned asset feed identifier and it needs to be unique under a specific parent. *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   condition : condition list;
   feed_output_config : feed_output_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_cloud_asset_project_feed *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_cloud_asset_project_feed) -> ()
+
+let yojson_of_google_cloud_asset_project_feed =
+  (function
+   | {
+       asset_names = v_asset_names;
+       asset_types = v_asset_types;
+       billing_project = v_billing_project;
+       content_type = v_content_type;
+       feed_id = v_feed_id;
+       id = v_id;
+       project = v_project;
+       condition = v_condition;
+       feed_output_config = v_feed_output_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_feed_output_config
+             v_feed_output_config
+         in
+         ("feed_output_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_condition v_condition in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_feed_id in
+         ("feed_id", arg) :: bnds
+       in
+       let bnds =
+         match v_content_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "content_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_billing_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "billing_project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_asset_types with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "asset_types", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_asset_names with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "asset_names", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_cloud_asset_project_feed ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_cloud_asset_project_feed
+
+[@@@deriving.end]
 
 let condition ?description ?location ?title ~expression () :
     condition =

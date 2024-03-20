@@ -11,6 +11,8 @@ type multi_select_observation = {
   values : string prop list;  (** values *)
 }
 
+[@@@deriving.end]
+
 type prioritized_exclude_observation = {
   description : string prop;  (** description *)
   exclude : string prop;  (** exclude *)
@@ -18,10 +20,14 @@ type prioritized_exclude_observation = {
   prioritize : string prop;  (** prioritize *)
 }
 
+[@@@deriving.end]
+
 type required_data_connector = {
   connector_id : string prop;  (** connector_id *)
   data_types : string prop list;  (** data_types *)
 }
+
+[@@@deriving.end]
 
 type single_select_observation = {
   description : string prop;  (** description *)
@@ -30,6 +36,8 @@ type single_select_observation = {
   value : string prop;  (** value *)
 }
 
+[@@@deriving.end]
+
 type threshold_observation = {
   description : string prop;  (** description *)
   max : string prop;  (** max *)
@@ -37,6 +45,8 @@ type threshold_observation = {
   name : string prop;  (** name *)
   value : string prop;  (** value *)
 }
+
+[@@@deriving.end]
 
 type timeouts
 

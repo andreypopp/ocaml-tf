@@ -2,91 +2,298 @@
 
 open! Tf_core
 
-type authorization__admin_groups = {
-  group : string prop;
-      (** The name of the group, e.g. `my-group@domain.com`. *)
-}
-[@@deriving yojson_of]
-(** Groups of users that can perform operations as a cluster admin. A managed ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole to the groups. Up to ten admin groups can be provided. For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles *)
+type authorization__admin_groups = { group : string prop }
+[@@deriving_inline yojson_of]
 
-type authorization__admin_users = {
-  username : string prop;
-      (** The name of the user, e.g. `my-gcp-id@gmail.com`. *)
-}
-[@@deriving yojson_of]
-(** Users that can perform operations as a cluster admin. A new ClusterRoleBinding will be created to grant the cluster-admin ClusterRole to the users. Up to ten admin users can be provided. For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles *)
+let _ = fun (_ : authorization__admin_groups) -> ()
+
+let yojson_of_authorization__admin_groups =
+  (function
+   | { group = v_group } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group in
+         ("group", arg) :: bnds
+       in
+       `Assoc bnds
+    : authorization__admin_groups ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authorization__admin_groups
+
+[@@@deriving.end]
+
+type authorization__admin_users = { username : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : authorization__admin_users) -> ()
+
+let yojson_of_authorization__admin_users =
+  (function
+   | { username = v_username } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       `Assoc bnds
+    : authorization__admin_users -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authorization__admin_users
+
+[@@@deriving.end]
 
 type authorization = {
   admin_groups : authorization__admin_groups list;
   admin_users : authorization__admin_users list;
 }
-[@@deriving yojson_of]
-(** Configuration related to the cluster RBAC settings. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : authorization) -> ()
+
+let yojson_of_authorization =
+  (function
+   | { admin_groups = v_admin_groups; admin_users = v_admin_users }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authorization__admin_users
+             v_admin_users
+         in
+         ("admin_users", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authorization__admin_groups
+             v_admin_groups
+         in
+         ("admin_groups", arg) :: bnds
+       in
+       `Assoc bnds
+    : authorization -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_authorization
+
+[@@@deriving.end]
 
 type azure_services_authentication = {
   application_id : string prop;
-      (** The Azure Active Directory Application ID for Authentication configuration. *)
   tenant_id : string prop;
-      (** The Azure Active Directory Tenant ID for Authentication configuration. *)
 }
-[@@deriving yojson_of]
-(** Azure authentication configuration for management of Azure resources *)
+[@@deriving_inline yojson_of]
 
-type control_plane__database_encryption = {
-  key_id : string prop;
-      (** The ARM ID of the Azure Key Vault key to encrypt / decrypt data. For example: `/subscriptions/<subscription-id>/resourceGroups/<resource-group-id>/providers/Microsoft.KeyVault/vaults/<key-vault-id>/keys/<key-name>` Encryption will always take the latest version of the key and hence specific version is not supported. *)
-}
-[@@deriving yojson_of]
-(** Optional. Configuration related to application-layer secrets encryption. *)
+let _ = fun (_ : azure_services_authentication) -> ()
+
+let yojson_of_azure_services_authentication =
+  (function
+   | { application_id = v_application_id; tenant_id = v_tenant_id }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_tenant_id in
+         ("tenant_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_application_id
+         in
+         ("application_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : azure_services_authentication ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azure_services_authentication
+
+[@@@deriving.end]
+
+type control_plane__database_encryption = { key_id : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__database_encryption) -> ()
+
+let yojson_of_control_plane__database_encryption =
+  (function
+   | { key_id = v_key_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key_id in
+         ("key_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__database_encryption ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__database_encryption
+
+[@@@deriving.end]
 
 type control_plane__main_volume = {
   size_gib : float prop option; [@option]
-      (** Optional. The size of the disk, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration related to the main volume provisioned for each control plane replica. The main volume is in charge of storing all of the cluster's etcd state. When unspecified, it defaults to a 8-GiB Azure Disk. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__main_volume) -> ()
+
+let yojson_of_control_plane__main_volume =
+  (function
+   | { size_gib = v_size_gib } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_size_gib with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "size_gib", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane__main_volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__main_volume
+
+[@@@deriving.end]
 
 type control_plane__proxy_config = {
   resource_group_id : string prop;
-      (** The ARM ID the of the resource group containing proxy keyvault. Resource group ids are formatted as `/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>` *)
   secret_id : string prop;
-      (** The URL the of the proxy setting secret with its version. Secret ids are formatted as `https:<key-vault-name>.vault.azure.net/secrets/<secret-name>/<secret-version>`. *)
 }
-[@@deriving yojson_of]
-(** Proxy configuration for outbound HTTP(S) traffic. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__proxy_config) -> ()
+
+let yojson_of_control_plane__proxy_config =
+  (function
+   | {
+       resource_group_id = v_resource_group_id;
+       secret_id = v_secret_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_id in
+         ("secret_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_id
+         in
+         ("resource_group_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__proxy_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__proxy_config
+
+[@@@deriving.end]
 
 type control_plane__replica_placements = {
   azure_availability_zone : string prop;
-      (** For a given replica, the Azure availability zone where to provision the control plane VM and the ETCD disk. *)
   subnet_id : string prop;
-      (** For a given replica, the ARM ID of the subnet where the control plane VM is deployed. Make sure it's a subnet under the virtual network in the cluster configuration. *)
 }
-[@@deriving yojson_of]
-(** Configuration for where to place the control plane replicas. Up to three replica placement instances can be specified. If replica_placements is set, the replica placement instances will be applied to the three control plane replicas as evenly as possible. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__replica_placements) -> ()
+
+let yojson_of_control_plane__replica_placements =
+  (function
+   | {
+       azure_availability_zone = v_azure_availability_zone;
+       subnet_id = v_subnet_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_azure_availability_zone
+         in
+         ("azure_availability_zone", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__replica_placements ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__replica_placements
+
+[@@@deriving.end]
 
 type control_plane__root_volume = {
   size_gib : float prop option; [@option]
-      (** Optional. The size of the disk, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration related to the root volume provisioned for each control plane replica. When unspecified, it defaults to 32-GiB Azure Disk. *)
+[@@deriving_inline yojson_of]
 
-type control_plane__ssh_config = {
-  authorized_key : string prop;
-      (** The SSH public key data for VMs managed by Anthos. This accepts the authorized_keys file format used in OpenSSH according to the sshd(8) manual page. *)
-}
-[@@deriving yojson_of]
-(** SSH configuration for how to access the underlying control plane machines. *)
+let _ = fun (_ : control_plane__root_volume) -> ()
+
+let yojson_of_control_plane__root_volume =
+  (function
+   | { size_gib = v_size_gib } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_size_gib with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "size_gib", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane__root_volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__root_volume
+
+[@@@deriving.end]
+
+type control_plane__ssh_config = { authorized_key : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__ssh_config) -> ()
+
+let yojson_of_control_plane__ssh_config =
+  (function
+   | { authorized_key = v_authorized_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_authorized_key
+         in
+         ("authorized_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__ssh_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__ssh_config
+
+[@@@deriving.end]
 
 type control_plane = {
   subnet_id : string prop;
-      (** The ARM ID of the subnet where the control plane VMs are deployed. Example: `/subscriptions//resourceGroups//providers/Microsoft.Network/virtualNetworks//subnets/default`. *)
   tags : (string * string prop) list option; [@option]
-      (** Optional. A set of tags to apply to all underlying control plane Azure resources. *)
   version : string prop;
-      (** The Kubernetes version to run on control plane replicas (e.g. `1.19.10-gke.1000`). You can list all supported versions on a given Google Cloud region by calling GetAzureServerConfig. *)
   vm_size : string prop option; [@option]
-      (** Optional. The Azure VM size name. Example: `Standard_DS2_v2`. For available VM sizes, see https://docs.microsoft.com/en-us/azure/virtual-machines/vm-naming-conventions. When unspecified, it defaults to `Standard_DS2_v2`. *)
   database_encryption : control_plane__database_encryption list;
   main_volume : control_plane__main_volume list;
   proxy_config : control_plane__proxy_config list;
@@ -94,61 +301,279 @@ type control_plane = {
   root_volume : control_plane__root_volume list;
   ssh_config : control_plane__ssh_config list;
 }
-[@@deriving yojson_of]
-(** Configuration related to the cluster control plane. *)
+[@@deriving_inline yojson_of]
 
-type fleet = {
-  project : string prop option; [@option]
-      (** The number of the Fleet host project where this cluster will be registered. *)
-}
-[@@deriving yojson_of]
-(** Fleet configuration. *)
+let _ = fun (_ : control_plane) -> ()
+
+let yojson_of_control_plane =
+  (function
+   | {
+       subnet_id = v_subnet_id;
+       tags = v_tags;
+       version = v_version;
+       vm_size = v_vm_size;
+       database_encryption = v_database_encryption;
+       main_volume = v_main_volume;
+       proxy_config = v_proxy_config;
+       replica_placements = v_replica_placements;
+       root_volume = v_root_volume;
+       ssh_config = v_ssh_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__ssh_config
+             v_ssh_config
+         in
+         ("ssh_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__root_volume
+             v_root_volume
+         in
+         ("root_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__replica_placements
+             v_replica_placements
+         in
+         ("replica_placements", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__proxy_config
+             v_proxy_config
+         in
+         ("proxy_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__main_volume
+             v_main_volume
+         in
+         ("main_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_control_plane__database_encryption
+             v_database_encryption
+         in
+         ("database_encryption", arg) :: bnds
+       in
+       let bnds =
+         match v_vm_size with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "vm_size", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane
+
+[@@@deriving.end]
+
+type fleet = { project : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fleet) -> ()
+
+let yojson_of_fleet =
+  (function
+   | { project = v_project } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : fleet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fleet
+
+[@@@deriving.end]
 
 type networking = {
   pod_address_cidr_blocks : string prop list;
-      (** The IP address range of the pods in this cluster, in CIDR notation (e.g. `10.96.0.0/14`). All pods in the cluster get assigned a unique RFC1918 IPv4 address from these ranges. Only a single range is supported. This field cannot be changed after creation. *)
   service_address_cidr_blocks : string prop list;
-      (** The IP address range for services in this cluster, in CIDR notation (e.g. `10.96.0.0/14`). All services in the cluster get assigned a unique RFC1918 IPv4 address from these ranges. Only a single range is supported. This field cannot be changed after creating a cluster. *)
   virtual_network_id : string prop;
-      (** The Azure Resource Manager (ARM) ID of the VNet associated with your cluster. All components in the cluster (i.e. control plane and node pools) run on a single VNet. Example: `/subscriptions/*/resourceGroups/*/providers/Microsoft.Network/virtualNetworks/*` This field cannot be changed after creation. *)
 }
-[@@deriving yojson_of]
-(** Cluster-wide networking configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : networking) -> ()
+
+let yojson_of_networking =
+  (function
+   | {
+       pod_address_cidr_blocks = v_pod_address_cidr_blocks;
+       service_address_cidr_blocks = v_service_address_cidr_blocks;
+       virtual_network_id = v_virtual_network_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_virtual_network_id
+         in
+         ("virtual_network_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_service_address_cidr_blocks
+         in
+         ("service_address_cidr_blocks", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_pod_address_cidr_blocks
+         in
+         ("pod_address_cidr_blocks", arg) :: bnds
+       in
+       `Assoc bnds
+    : networking -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_networking
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type workload_identity_config = {
-  identity_provider : string prop;  (** identity_provider *)
-  issuer_uri : string prop;  (** issuer_uri *)
-  workload_pool : string prop;  (** workload_pool *)
+  identity_provider : string prop;
+  issuer_uri : string prop;
+  workload_pool : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : workload_identity_config) -> ()
+
+let yojson_of_workload_identity_config =
+  (function
+   | {
+       identity_provider = v_identity_provider;
+       issuer_uri = v_issuer_uri;
+       workload_pool = v_workload_pool;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workload_pool in
+         ("workload_pool", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_issuer_uri in
+         ("issuer_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_identity_provider
+         in
+         ("identity_provider", arg) :: bnds
+       in
+       `Assoc bnds
+    : workload_identity_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_workload_identity_config
+
+[@@@deriving.end]
 
 type google_container_azure_cluster = {
   annotations : (string * string prop) list option; [@option]
-      (** Optional. Annotations on the cluster. This field has the same restrictions as Kubernetes annotations. The total size of all keys and values combined is limited to 256k. Keys can have 2 segments: prefix (optional) and name (required), separated by a slash (/). Prefix must be a DNS subdomain. Name must be 63 characters or less, begin and end with alphanumerics, with dashes (-), underscores (_), dots (.), and alphanumerics between.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
   azure_region : string prop;
-      (** The Azure region where the cluster runs. Each Google Cloud region supports a subset of nearby Azure regions. You can call to list all supported Azure regions within a given Google Cloud region. *)
   client : string prop option; [@option]
-      (** Name of the AzureClient. The `AzureClient` resource must reside on the same GCP project and region as the `AzureCluster`. `AzureClient` names are formatted as `projects/<project-number>/locations/<region>/azureClients/<client-id>`. See Resource Names (https:cloud.google.com/apis/design/resource_names) for more details on Google Cloud resource names. *)
   description : string prop option; [@option]
-      (** Optional. A human readable description of this cluster. Cannot be longer than 255 UTF-8 encoded bytes. *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location for the resource *)
-  name : string prop;  (** The name of this resource. *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
   project : string prop option; [@option]
-      (** The project for the resource *)
   resource_group_id : string prop;
-      (** The ARM ID of the resource group where the cluster resources are deployed. For example: `/subscriptions/*/resourceGroups/*` *)
   authorization : authorization list;
   azure_services_authentication : azure_services_authentication list;
   control_plane : control_plane list;
@@ -156,8 +581,139 @@ Please refer to the field `effective_annotations` for all of the annotations pre
   networking : networking list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_container_azure_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_container_azure_cluster) -> ()
+
+let yojson_of_google_container_azure_cluster =
+  (function
+   | {
+       annotations = v_annotations;
+       azure_region = v_azure_region;
+       client = v_client;
+       description = v_description;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       resource_group_id = v_resource_group_id;
+       authorization = v_authorization;
+       azure_services_authentication =
+         v_azure_services_authentication;
+       control_plane = v_control_plane;
+       fleet = v_fleet;
+       networking = v_networking;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_networking v_networking
+         in
+         ("networking", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_fleet v_fleet in
+         ("fleet", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane v_control_plane
+         in
+         ("control_plane", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_azure_services_authentication
+             v_azure_services_authentication
+         in
+         ("azure_services_authentication", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_authorization v_authorization
+         in
+         ("authorization", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_id
+         in
+         ("resource_group_id", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_client with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "client", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_azure_region in
+         ("azure_region", arg) :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_container_azure_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_container_azure_cluster
+
+[@@@deriving.end]
 
 let authorization__admin_groups ~group () :
     authorization__admin_groups =

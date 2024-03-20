@@ -4,47 +4,216 @@ open! Tf_core
 
 type subnet = {
   name : string prop option; [@option]
-      (** Subnet name (relative, not fully qualified). E.g. if the full subnet selfLink is
-https://compute.googleapis.com/compute/v1/projects/{project}/regions/{region}/subnetworks/{subnetName} the correct input for this field would be {subnetName} *)
   project_id : string prop option; [@option]
-      (** Project in which the subnet exists. If not set, this project is assumed to be the project for which the connector create request was issued. *)
 }
-[@@deriving yojson_of]
-(** The subnet in which to house the connector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : subnet) -> ()
+
+let yojson_of_subnet =
+  (function
+   | { name = v_name; project_id = v_project_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_project_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : subnet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_subnet
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_vpc_access_connector = {
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ip_cidr_range : string prop option; [@option]
-      (** The range of internal addresses that follows RFC 4632 notation. Example: '10.132.0.0/28'. *)
   machine_type : string prop option; [@option]
-      (** Machine type of VM Instance underlying connector. Default is e2-micro *)
   max_instances : float prop option; [@option]
-      (** Maximum value of instances in autoscaling group underlying the connector. *)
   max_throughput : float prop option; [@option]
-      (** Maximum throughput of the connector in Mbps, must be greater than 'min_throughput'. Default is 300. *)
   min_instances : float prop option; [@option]
-      (** Minimum value of instances in autoscaling group underlying the connector. *)
   min_throughput : float prop option; [@option]
-      (** Minimum throughput of the connector in Mbps. Default and min is 200. *)
   name : string prop;
-      (** The name of the resource (Max 25 characters). *)
   network : string prop option; [@option]
-      (** Name or self_link of the VPC network. Required if 'ip_cidr_range' is set. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** Region where the VPC Access connector resides. If it is not provided, the provider region is used. *)
   subnet : subnet list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_vpc_access_connector *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_vpc_access_connector) -> ()
+
+let yojson_of_google_vpc_access_connector =
+  (function
+   | {
+       id = v_id;
+       ip_cidr_range = v_ip_cidr_range;
+       machine_type = v_machine_type;
+       max_instances = v_max_instances;
+       max_throughput = v_max_throughput;
+       min_instances = v_min_instances;
+       min_throughput = v_min_throughput;
+       name = v_name;
+       network = v_network;
+       project = v_project;
+       region = v_region;
+       subnet = v_subnet;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_subnet v_subnet in
+         ("subnet", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_network with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "network", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_min_throughput with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_throughput", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_throughput with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_throughput", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_machine_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "machine_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ip_cidr_range with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ip_cidr_range", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_vpc_access_connector ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_vpc_access_connector
+
+[@@@deriving.end]
 
 let subnet ?name ?project_id () : subnet = { name; project_id }
 let timeouts ?create ?delete () : timeouts = { create; delete }

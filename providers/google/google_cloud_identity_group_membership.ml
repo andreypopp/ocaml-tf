@@ -4,68 +4,194 @@ open! Tf_core
 
 type preferred_member_key = {
   id : string prop;
-      (** The ID of the entity.
-
-For Google-managed entities, the id must be the email address of an existing
-group or user.
-
-For external-identity-mapped entities, the id must be a string conforming
-to the Identity Source's requirements.
-
-Must be unique within a namespace. *)
   namespace : string prop option; [@option]
-      (** The namespace in which the entity exists.
-
-If not specified, the EntityKey represents a Google-managed entity
-such as a Google user or a Google Group.
-
-If specified, the EntityKey represents an external-identity-mapped group.
-The namespace must correspond to an identity source created in Admin Console
-and must be in the form of 'identitysources/{identity_source_id}'. *)
 }
-[@@deriving yojson_of]
-(** EntityKey of the member. *)
+[@@deriving_inline yojson_of]
 
-type roles__expiry_detail = {
-  expire_time : string prop;
-      (** The time at which the MembershipRole will expire.
+let _ = fun (_ : preferred_member_key) -> ()
 
-A timestamp in RFC3339 UTC Zulu format, with nanosecond
-resolution and up to nine fractional digits.
+let yojson_of_preferred_member_key =
+  (function
+   | { id = v_id; namespace = v_namespace } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_namespace with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "namespace", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : preferred_member_key -> Ppx_yojson_conv_lib.Yojson.Safe.t)
 
-Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
-}
-[@@deriving yojson_of]
-(** The MembershipRole expiry details, only supported for MEMBER role.
-Other roles cannot be accompanied with MEMBER role having expiry. *)
+let _ = yojson_of_preferred_member_key
+
+[@@@deriving.end]
+
+type roles__expiry_detail = { expire_time : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : roles__expiry_detail) -> ()
+
+let yojson_of_roles__expiry_detail =
+  (function
+   | { expire_time = v_expire_time } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expire_time in
+         ("expire_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : roles__expiry_detail -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_roles__expiry_detail
+
+[@@@deriving.end]
 
 type roles = {
   name : string prop;
-      (** The name of the MembershipRole. Must be one of OWNER, MANAGER, MEMBER. Possible values: [OWNER, MANAGER, MEMBER] *)
   expiry_detail : roles__expiry_detail list;
 }
-[@@deriving yojson_of]
-(** The MembershipRoles that apply to the Membership.
-Must not contain duplicate MembershipRoles with the same name. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : roles) -> ()
+
+let yojson_of_roles =
+  (function
+   | { name = v_name; expiry_detail = v_expiry_detail } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_roles__expiry_detail
+             v_expiry_detail
+         in
+         ("expiry_detail", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : roles -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_roles
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_cloud_identity_group_membership = {
   group : string prop;
-      (** The name of the Group to create this membership in. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   preferred_member_key : preferred_member_key list;
   roles : roles list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_cloud_identity_group_membership *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_cloud_identity_group_membership) -> ()
+
+let yojson_of_google_cloud_identity_group_membership =
+  (function
+   | {
+       group = v_group;
+       id = v_id;
+       preferred_member_key = v_preferred_member_key;
+       roles = v_roles;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_roles v_roles in
+         ("roles", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_preferred_member_key
+             v_preferred_member_key
+         in
+         ("preferred_member_key", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_group in
+         ("group", arg) :: bnds
+       in
+       `Assoc bnds
+    : google_cloud_identity_group_membership ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_cloud_identity_group_membership
+
+[@@@deriving.end]
 
 let preferred_member_key ?namespace ~id () : preferred_member_key =
   { id; namespace }

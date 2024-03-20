@@ -4,194 +4,842 @@ open! Tf_core
 
 type blocking_functions__forward_inbound_credentials = {
   access_token : bool prop option; [@option]
-      (** Whether to pass the user's OAuth identity provider's access token. *)
   id_token : bool prop option; [@option]
-      (** Whether to pass the user's OIDC identity provider's ID token. *)
   refresh_token : bool prop option; [@option]
-      (** Whether to pass the user's OAuth identity provider's refresh token. *)
 }
-[@@deriving yojson_of]
-(** The user credentials to include in the JWT payload that is sent to the registered Blocking Functions. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : blocking_functions__forward_inbound_credentials) -> ()
+
+let yojson_of_blocking_functions__forward_inbound_credentials =
+  (function
+   | {
+       access_token = v_access_token;
+       id_token = v_id_token;
+       refresh_token = v_refresh_token;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_refresh_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "refresh_token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "id_token", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_access_token with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "access_token", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : blocking_functions__forward_inbound_credentials ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_blocking_functions__forward_inbound_credentials
+
+[@@@deriving.end]
 
 type blocking_functions__triggers = {
-  event_type : string prop;  (** event_type *)
+  event_type : string prop;
   function_uri : string prop;
-      (** HTTP URI trigger for the Cloud Function. *)
 }
-[@@deriving yojson_of]
-(** Map of Trigger to event type. Key should be one of the supported event types: beforeCreate, beforeSignIn. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : blocking_functions__triggers) -> ()
+
+let yojson_of_blocking_functions__triggers =
+  (function
+   | { event_type = v_event_type; function_uri = v_function_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_function_uri in
+         ("function_uri", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_event_type in
+         ("event_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : blocking_functions__triggers ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_blocking_functions__triggers
+
+[@@@deriving.end]
 
 type blocking_functions = {
   forward_inbound_credentials :
     blocking_functions__forward_inbound_credentials list;
   triggers : blocking_functions__triggers list;
 }
-[@@deriving yojson_of]
-(** Configuration related to blocking functions. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : blocking_functions) -> ()
+
+let yojson_of_blocking_functions =
+  (function
+   | {
+       forward_inbound_credentials = v_forward_inbound_credentials;
+       triggers = v_triggers;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_blocking_functions__triggers
+             v_triggers
+         in
+         ("triggers", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_blocking_functions__forward_inbound_credentials
+             v_forward_inbound_credentials
+         in
+         ("forward_inbound_credentials", arg) :: bnds
+       in
+       `Assoc bnds
+    : blocking_functions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_blocking_functions
+
+[@@@deriving.end]
 
 type client__permissions = {
   disabled_user_deletion : bool prop option; [@option]
-      (** When true, end users cannot delete their account on the associated project through any of our API methods *)
   disabled_user_signup : bool prop option; [@option]
-      (** When true, end users cannot sign up for a new account on the associated project through any of our API methods *)
 }
-[@@deriving yojson_of]
-(** Configuration related to restricting a user's ability to affect their account. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client__permissions) -> ()
+
+let yojson_of_client__permissions =
+  (function
+   | {
+       disabled_user_deletion = v_disabled_user_deletion;
+       disabled_user_signup = v_disabled_user_signup;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_disabled_user_signup with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled_user_signup", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disabled_user_deletion with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled_user_deletion", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : client__permissions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client__permissions
+
+[@@@deriving.end]
 
 type client = { permissions : client__permissions list }
-[@@deriving yojson_of]
-(** Options related to how clients making requests on behalf of a project should be configured. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : client) -> ()
+
+let yojson_of_client =
+  (function
+   | { permissions = v_permissions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_client__permissions v_permissions
+         in
+         ("permissions", arg) :: bnds
+       in
+       `Assoc bnds
+    : client -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_client
+
+[@@@deriving.end]
 
 type mfa__provider_configs__totp_provider_config = {
   adjacent_intervals : float prop option; [@option]
-      (** The allowed number of adjacent intervals that will be used for verification to avoid clock skew. *)
 }
-[@@deriving yojson_of]
-(** TOTP MFA provider config for this project. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mfa__provider_configs__totp_provider_config) -> ()
+
+let yojson_of_mfa__provider_configs__totp_provider_config =
+  (function
+   | { adjacent_intervals = v_adjacent_intervals } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_adjacent_intervals with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "adjacent_intervals", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : mfa__provider_configs__totp_provider_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mfa__provider_configs__totp_provider_config
+
+[@@@deriving.end]
 
 type mfa__provider_configs = {
   state : string prop option; [@option]
-      (** Whether MultiFactor Authentication has been enabled for this project. Possible values: [DISABLED, ENABLED, MANDATORY] *)
   totp_provider_config :
     mfa__provider_configs__totp_provider_config list;
 }
-[@@deriving yojson_of]
-(** A list of usable second factors for this project along with their configurations.
-This field does not support phone based MFA, for that use the 'enabledProviders' field. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mfa__provider_configs) -> ()
+
+let yojson_of_mfa__provider_configs =
+  (function
+   | {
+       state = v_state;
+       totp_provider_config = v_totp_provider_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_mfa__provider_configs__totp_provider_config
+             v_totp_provider_config
+         in
+         ("totp_provider_config", arg) :: bnds
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : mfa__provider_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mfa__provider_configs
+
+[@@@deriving.end]
 
 type mfa = {
   enabled_providers : string prop list option; [@option]
-      (** A list of usable second factors for this project. Possible values: [PHONE_SMS] *)
   state : string prop option; [@option]
-      (** Whether MultiFactor Authentication has been enabled for this project. Possible values: [DISABLED, ENABLED, MANDATORY] *)
   provider_configs : mfa__provider_configs list;
 }
-[@@deriving yojson_of]
-(** Options related to how clients making requests on behalf of a project should be configured. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : mfa) -> ()
+
+let yojson_of_mfa =
+  (function
+   | {
+       enabled_providers = v_enabled_providers;
+       state = v_state;
+       provider_configs = v_provider_configs;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_mfa__provider_configs
+             v_provider_configs
+         in
+         ("provider_configs", arg) :: bnds
+       in
+       let bnds =
+         match v_state with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "state", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled_providers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "enabled_providers", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : mfa -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_mfa
+
+[@@@deriving.end]
 
 type monitoring__request_logging = {
   enabled : bool prop option; [@option]
-      (** Whether logging is enabled for this project or not. *)
 }
-[@@deriving yojson_of]
-(** Configuration for logging requests made to this project to Stackdriver Logging *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : monitoring__request_logging) -> ()
+
+let yojson_of_monitoring__request_logging =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : monitoring__request_logging ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_monitoring__request_logging
+
+[@@@deriving.end]
 
 type monitoring = {
   request_logging : monitoring__request_logging list;
 }
-[@@deriving yojson_of]
-(** Configuration related to monitoring project activity. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : monitoring) -> ()
+
+let yojson_of_monitoring =
+  (function
+   | { request_logging = v_request_logging } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_monitoring__request_logging
+             v_request_logging
+         in
+         ("request_logging", arg) :: bnds
+       in
+       `Assoc bnds
+    : monitoring -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_monitoring
+
+[@@@deriving.end]
 
 type multi_tenant = {
   allow_tenants : bool prop option; [@option]
-      (** Whether this project can have tenants or not. *)
   default_tenant_location : string prop option; [@option]
-      (** The default cloud parent org or folder that the tenant project should be created under.
-The parent resource name should be in the format of /, such as folders/123 or organizations/456.
-If the value is not set, the tenant will be created under the same organization or folder as the agent project. *)
 }
-[@@deriving yojson_of]
-(** Configuration related to multi-tenant functionality. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : multi_tenant) -> ()
+
+let yojson_of_multi_tenant =
+  (function
+   | {
+       allow_tenants = v_allow_tenants;
+       default_tenant_location = v_default_tenant_location;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_default_tenant_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_tenant_location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_tenants with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_tenants", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : multi_tenant -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_multi_tenant
+
+[@@@deriving.end]
 
 type quota__sign_up_quota_config = {
   quota : float prop option; [@option]
-      (** A sign up APIs quota that customers can override temporarily. *)
   quota_duration : string prop option; [@option]
-      (** How long this quota will be active for. It is measurred in seconds, e.g., Example: 9.615s. *)
   start_time : string prop option; [@option]
-      (** When this quota will take affect. *)
 }
-[@@deriving yojson_of]
-(** Quota for the Signup endpoint, if overwritten. Signup quota is measured in sign ups per project per hour per IP. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : quota__sign_up_quota_config) -> ()
+
+let yojson_of_quota__sign_up_quota_config =
+  (function
+   | {
+       quota = v_quota;
+       quota_duration = v_quota_duration;
+       start_time = v_start_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_quota_duration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "quota_duration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_quota with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "quota", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : quota__sign_up_quota_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_quota__sign_up_quota_config
+
+[@@@deriving.end]
 
 type quota = {
   sign_up_quota_config : quota__sign_up_quota_config list;
 }
-[@@deriving yojson_of]
-(** Configuration related to quotas. *)
+[@@deriving_inline yojson_of]
 
-type sign_in__anonymous = {
-  enabled : bool prop;
-      (** Whether anonymous user auth is enabled for the project or not. *)
-}
-[@@deriving yojson_of]
-(** Configuration options related to authenticating an anonymous user. *)
+let _ = fun (_ : quota) -> ()
+
+let yojson_of_quota =
+  (function
+   | { sign_up_quota_config = v_sign_up_quota_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_quota__sign_up_quota_config
+             v_sign_up_quota_config
+         in
+         ("sign_up_quota_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : quota -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_quota
+
+[@@@deriving.end]
+
+type sign_in__anonymous = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in__anonymous) -> ()
+
+let yojson_of_sign_in__anonymous =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : sign_in__anonymous -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in__anonymous
+
+[@@@deriving.end]
 
 type sign_in__email = {
   enabled : bool prop;
-      (** Whether email auth is enabled for the project or not. *)
   password_required : bool prop option; [@option]
-      (** Whether a password is required for email auth or not. If true, both an email and
-password must be provided to sign in. If false, a user may sign in via either
-email/password or email link. *)
 }
-[@@deriving yojson_of]
-(** Configuration options related to authenticating a user by their email address. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in__email) -> ()
+
+let yojson_of_sign_in__email =
+  (function
+   | { enabled = v_enabled; password_required = v_password_required }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_password_required with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "password_required", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : sign_in__email -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in__email
+
+[@@@deriving.end]
 
 type sign_in__phone_number = {
   enabled : bool prop;
-      (** Whether phone number auth is enabled for the project or not. *)
   test_phone_numbers : (string * string prop) list option; [@option]
-      (** A map of <test phone number, fake code> that can be used for phone auth testing. *)
 }
-[@@deriving yojson_of]
-(** Configuration options related to authenticated a user by their phone number. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in__phone_number) -> ()
+
+let yojson_of_sign_in__phone_number =
+  (function
+   | {
+       enabled = v_enabled;
+       test_phone_numbers = v_test_phone_numbers;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_test_phone_numbers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "test_phone_numbers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : sign_in__phone_number -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in__phone_number
+
+[@@@deriving.end]
 
 type sign_in__hash_config = {
-  algorithm : string prop;  (** algorithm *)
-  memory_cost : float prop;  (** memory_cost *)
-  rounds : float prop;  (** rounds *)
-  salt_separator : string prop;  (** salt_separator *)
-  signer_key : string prop;  (** signer_key *)
+  algorithm : string prop;
+  memory_cost : float prop;
+  rounds : float prop;
+  salt_separator : string prop;
+  signer_key : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in__hash_config) -> ()
+
+let yojson_of_sign_in__hash_config =
+  (function
+   | {
+       algorithm = v_algorithm;
+       memory_cost = v_memory_cost;
+       rounds = v_rounds;
+       salt_separator = v_salt_separator;
+       signer_key = v_signer_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_signer_key in
+         ("signer_key", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_salt_separator
+         in
+         ("salt_separator", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_rounds in
+         ("rounds", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_memory_cost in
+         ("memory_cost", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_algorithm in
+         ("algorithm", arg) :: bnds
+       in
+       `Assoc bnds
+    : sign_in__hash_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in__hash_config
+
+[@@@deriving.end]
 
 type sign_in = {
   allow_duplicate_emails : bool prop option; [@option]
-      (** Whether to allow more than one account to have the same email. *)
   anonymous : sign_in__anonymous list;
   email : sign_in__email list;
   phone_number : sign_in__phone_number list;
 }
-[@@deriving yojson_of]
-(** Configuration related to local sign in methods. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sign_in) -> ()
+
+let yojson_of_sign_in =
+  (function
+   | {
+       allow_duplicate_emails = v_allow_duplicate_emails;
+       anonymous = v_anonymous;
+       email = v_email;
+       phone_number = v_phone_number;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sign_in__phone_number
+             v_phone_number
+         in
+         ("phone_number", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sign_in__email v_email in
+         ("email", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sign_in__anonymous v_anonymous
+         in
+         ("anonymous", arg) :: bnds
+       in
+       let bnds =
+         match v_allow_duplicate_emails with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_duplicate_emails", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sign_in -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sign_in
+
+[@@@deriving.end]
 
 type sms_region_config__allow_by_default = {
   disallowed_regions : string prop list option; [@option]
-      (** Two letter unicode region codes to disallow as defined by https://cldr.unicode.org/ The full list of these region codes is here: https://github.com/unicode-cldr/cldr-localenames-full/blob/master/main/en/territories.json *)
 }
-[@@deriving yojson_of]
-(** A policy of allowing SMS to every region by default and adding disallowed regions to a disallow list. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sms_region_config__allow_by_default) -> ()
+
+let yojson_of_sms_region_config__allow_by_default =
+  (function
+   | { disallowed_regions = v_disallowed_regions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_disallowed_regions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "disallowed_regions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sms_region_config__allow_by_default ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sms_region_config__allow_by_default
+
+[@@@deriving.end]
 
 type sms_region_config__allowlist_only = {
   allowed_regions : string prop list option; [@option]
-      (** Two letter unicode region codes to allow as defined by https://cldr.unicode.org/ The full list of these region codes is here: https://github.com/unicode-cldr/cldr-localenames-full/blob/master/main/en/territories.json *)
 }
-[@@deriving yojson_of]
-(** A policy of only allowing regions by explicitly adding them to an allowlist. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sms_region_config__allowlist_only) -> ()
+
+let yojson_of_sms_region_config__allowlist_only =
+  (function
+   | { allowed_regions = v_allowed_regions } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_allowed_regions with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "allowed_regions", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sms_region_config__allowlist_only ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sms_region_config__allowlist_only
+
+[@@@deriving.end]
 
 type sms_region_config = {
   allow_by_default : sms_region_config__allow_by_default list;
   allowlist_only : sms_region_config__allowlist_only list;
 }
-[@@deriving yojson_of]
-(** Configures the regions where users are allowed to send verification SMS for the project or tenant. This is based on the calling code of the destination phone number. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sms_region_config) -> ()
+
+let yojson_of_sms_region_config =
+  (function
+   | {
+       allow_by_default = v_allow_by_default;
+       allowlist_only = v_allowlist_only;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sms_region_config__allowlist_only
+             v_allowlist_only
+         in
+         ("allowlist_only", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_sms_region_config__allow_by_default
+             v_allow_by_default
+         in
+         ("allow_by_default", arg) :: bnds
+       in
+       `Assoc bnds
+    : sms_region_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sms_region_config
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_identity_platform_config = {
   authorized_domains : string prop list option; [@option]
-      (** List of domains authorized for OAuth redirects. *)
   autodelete_anonymous_users : bool prop option; [@option]
-      (** Whether anonymous users will be auto-deleted after a period of 30 days *)
-  id : string prop option; [@option]  (** id *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  project : string prop option; [@option]
   blocking_functions : blocking_functions list;
   client : client list;
   mfa : mfa list;
@@ -202,8 +850,117 @@ type google_identity_platform_config = {
   sms_region_config : sms_region_config list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_identity_platform_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_identity_platform_config) -> ()
+
+let yojson_of_google_identity_platform_config =
+  (function
+   | {
+       authorized_domains = v_authorized_domains;
+       autodelete_anonymous_users = v_autodelete_anonymous_users;
+       id = v_id;
+       project = v_project;
+       blocking_functions = v_blocking_functions;
+       client = v_client;
+       mfa = v_mfa;
+       monitoring = v_monitoring;
+       multi_tenant = v_multi_tenant;
+       quota = v_quota;
+       sign_in = v_sign_in;
+       sms_region_config = v_sms_region_config;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sms_region_config
+             v_sms_region_config
+         in
+         ("sms_region_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sign_in v_sign_in in
+         ("sign_in", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_quota v_quota in
+         ("quota", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_multi_tenant v_multi_tenant
+         in
+         ("multi_tenant", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_monitoring v_monitoring
+         in
+         ("monitoring", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_mfa v_mfa in
+         ("mfa", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_client v_client in
+         ("client", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_blocking_functions
+             v_blocking_functions
+         in
+         ("blocking_functions", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_autodelete_anonymous_users with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "autodelete_anonymous_users", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_authorized_domains with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "authorized_domains", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_identity_platform_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_identity_platform_config
+
+[@@@deriving.end]
 
 let blocking_functions__forward_inbound_credentials ?access_token
     ?id_token ?refresh_token () :

@@ -3,24 +3,118 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_kms_custom_key_store = {
-  cloud_hsm_cluster_id : string prop;  (** cloud_hsm_cluster_id *)
-  custom_key_store_name : string prop;  (** custom_key_store_name *)
-  id : string prop option; [@option]  (** id *)
-  key_store_password : string prop;  (** key_store_password *)
+  cloud_hsm_cluster_id : string prop;
+  custom_key_store_name : string prop;
+  id : string prop option; [@option]
+  key_store_password : string prop;
   trust_anchor_certificate : string prop;
-      (** trust_anchor_certificate *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_kms_custom_key_store *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_kms_custom_key_store) -> ()
+
+let yojson_of_aws_kms_custom_key_store =
+  (function
+   | {
+       cloud_hsm_cluster_id = v_cloud_hsm_cluster_id;
+       custom_key_store_name = v_custom_key_store_name;
+       id = v_id;
+       key_store_password = v_key_store_password;
+       trust_anchor_certificate = v_trust_anchor_certificate;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_trust_anchor_certificate
+         in
+         ("trust_anchor_certificate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_key_store_password
+         in
+         ("key_store_password", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_custom_key_store_name
+         in
+         ("custom_key_store_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cloud_hsm_cluster_id
+         in
+         ("cloud_hsm_cluster_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_kms_custom_key_store -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_kms_custom_key_store
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

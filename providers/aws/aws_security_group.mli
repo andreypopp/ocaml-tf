@@ -16,6 +16,8 @@ type egress = {
   to_port : float prop;  (** to_port *)
 }
 
+[@@@deriving.end]
+
 type ingress = {
   cidr_blocks : string prop list;  (** cidr_blocks *)
   description : string prop;  (** description *)
@@ -27,6 +29,8 @@ type ingress = {
   self : bool prop;  (** self *)
   to_port : float prop;  (** to_port *)
 }
+
+[@@@deriving.end]
 
 type timeouts
 

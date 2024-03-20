@@ -4,10 +4,30 @@ open! Tf_core
 
 type aws_config_retention_configuration = {
   retention_period_in_days : float prop;
-      (** retention_period_in_days *)
 }
-[@@deriving yojson_of]
-(** aws_config_retention_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_config_retention_configuration) -> ()
+
+let yojson_of_aws_config_retention_configuration =
+  (function
+   | { retention_period_in_days = v_retention_period_in_days } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_retention_period_in_days
+         in
+         ("retention_period_in_days", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_config_retention_configuration ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_config_retention_configuration
+
+[@@@deriving.end]
 
 let aws_config_retention_configuration ~retention_period_in_days () :
     aws_config_retention_configuration =

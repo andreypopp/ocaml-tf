@@ -4,23 +4,138 @@ open! Tf_core
 
 type aws_applicationinsights_application = {
   auto_config_enabled : bool prop option; [@option]
-      (** auto_config_enabled *)
-  auto_create : bool prop option; [@option]  (** auto_create *)
+  auto_create : bool prop option; [@option]
   cwe_monitor_enabled : bool prop option; [@option]
-      (** cwe_monitor_enabled *)
-  grouping_type : string prop option; [@option]  (** grouping_type *)
-  id : string prop option; [@option]  (** id *)
+  grouping_type : string prop option; [@option]
+  id : string prop option; [@option]
   ops_center_enabled : bool prop option; [@option]
-      (** ops_center_enabled *)
   ops_item_sns_topic_arn : string prop option; [@option]
-      (** ops_item_sns_topic_arn *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  resource_group_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_applicationinsights_application *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_applicationinsights_application) -> ()
+
+let yojson_of_aws_applicationinsights_application =
+  (function
+   | {
+       auto_config_enabled = v_auto_config_enabled;
+       auto_create = v_auto_create;
+       cwe_monitor_enabled = v_cwe_monitor_enabled;
+       grouping_type = v_grouping_type;
+       id = v_id;
+       ops_center_enabled = v_ops_center_enabled;
+       ops_item_sns_topic_arn = v_ops_item_sns_topic_arn;
+       resource_group_name = v_resource_group_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         match v_ops_item_sns_topic_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ops_item_sns_topic_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ops_center_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ops_center_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_grouping_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "grouping_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cwe_monitor_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "cwe_monitor_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_create", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auto_config_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_config_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_applicationinsights_application ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_applicationinsights_application
+
+[@@@deriving.end]
 
 let aws_applicationinsights_application ?auto_config_enabled
     ?auto_create ?cwe_monitor_enabled ?grouping_type ?id

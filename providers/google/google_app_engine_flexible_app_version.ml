@@ -4,127 +4,550 @@ open! Tf_core
 
 type api_config = {
   auth_fail_action : string prop option; [@option]
-      (** Action to take when users access resources that require authentication. Default value: AUTH_FAIL_ACTION_REDIRECT Possible values: [AUTH_FAIL_ACTION_REDIRECT, AUTH_FAIL_ACTION_UNAUTHORIZED] *)
   login : string prop option; [@option]
-      (** Level of login required to access this resource. Default value: LOGIN_OPTIONAL Possible values: [LOGIN_OPTIONAL, LOGIN_ADMIN, LOGIN_REQUIRED] *)
   script : string prop;
-      (** Path to the script from the application root directory. *)
   security_level : string prop option; [@option]
-      (** Security (HTTPS) enforcement for this URL. Possible values: [SECURE_DEFAULT, SECURE_NEVER, SECURE_OPTIONAL, SECURE_ALWAYS] *)
   url : string prop option; [@option]
-      (** URL to serve the endpoint at. *)
 }
-[@@deriving yojson_of]
-(** Serving configuration for Google Cloud Endpoints. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : api_config) -> ()
+
+let yojson_of_api_config =
+  (function
+   | {
+       auth_fail_action = v_auth_fail_action;
+       login = v_login;
+       script = v_script;
+       security_level = v_security_level;
+       url = v_url;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_url with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "url", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_script in
+         ("script", arg) :: bnds
+       in
+       let bnds =
+         match v_login with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "login", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auth_fail_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auth_fail_action", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : api_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_api_config
+
+[@@@deriving.end]
 
 type automatic_scaling__cpu_utilization = {
   aggregation_window_length : string prop option; [@option]
-      (** Period of time over which CPU utilization is calculated. *)
   target_utilization : float prop;
-      (** Target CPU utilization ratio to maintain when scaling. Must be between 0 and 1. *)
 }
-[@@deriving yojson_of]
-(** Target scaling by CPU usage. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : automatic_scaling__cpu_utilization) -> ()
+
+let yojson_of_automatic_scaling__cpu_utilization =
+  (function
+   | {
+       aggregation_window_length = v_aggregation_window_length;
+       target_utilization = v_target_utilization;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_target_utilization
+         in
+         ("target_utilization", arg) :: bnds
+       in
+       let bnds =
+         match v_aggregation_window_length with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "aggregation_window_length", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : automatic_scaling__cpu_utilization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_automatic_scaling__cpu_utilization
+
+[@@@deriving.end]
 
 type automatic_scaling__disk_utilization = {
   target_read_bytes_per_second : float prop option; [@option]
-      (** Target bytes read per second. *)
   target_read_ops_per_second : float prop option; [@option]
-      (** Target ops read per seconds. *)
   target_write_bytes_per_second : float prop option; [@option]
-      (** Target bytes written per second. *)
   target_write_ops_per_second : float prop option; [@option]
-      (** Target ops written per second. *)
 }
-[@@deriving yojson_of]
-(** Target scaling by disk usage. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : automatic_scaling__disk_utilization) -> ()
+
+let yojson_of_automatic_scaling__disk_utilization =
+  (function
+   | {
+       target_read_bytes_per_second = v_target_read_bytes_per_second;
+       target_read_ops_per_second = v_target_read_ops_per_second;
+       target_write_bytes_per_second =
+         v_target_write_bytes_per_second;
+       target_write_ops_per_second = v_target_write_ops_per_second;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_target_write_ops_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_write_ops_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_write_bytes_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_write_bytes_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_read_ops_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_read_ops_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_read_bytes_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_read_bytes_per_second", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : automatic_scaling__disk_utilization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_automatic_scaling__disk_utilization
+
+[@@@deriving.end]
 
 type automatic_scaling__network_utilization = {
   target_received_bytes_per_second : float prop option; [@option]
-      (** Target bytes received per second. *)
   target_received_packets_per_second : float prop option; [@option]
-      (** Target packets received per second. *)
   target_sent_bytes_per_second : float prop option; [@option]
-      (** Target bytes sent per second. *)
   target_sent_packets_per_second : float prop option; [@option]
-      (** Target packets sent per second. *)
 }
-[@@deriving yojson_of]
-(** Target scaling by network usage. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : automatic_scaling__network_utilization) -> ()
+
+let yojson_of_automatic_scaling__network_utilization =
+  (function
+   | {
+       target_received_bytes_per_second =
+         v_target_received_bytes_per_second;
+       target_received_packets_per_second =
+         v_target_received_packets_per_second;
+       target_sent_bytes_per_second = v_target_sent_bytes_per_second;
+       target_sent_packets_per_second =
+         v_target_sent_packets_per_second;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_target_sent_packets_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_sent_packets_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_sent_bytes_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_sent_bytes_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_received_packets_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_received_packets_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_received_bytes_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_received_bytes_per_second", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : automatic_scaling__network_utilization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_automatic_scaling__network_utilization
+
+[@@@deriving.end]
 
 type automatic_scaling__request_utilization = {
   target_concurrent_requests : float prop option; [@option]
-      (** Target number of concurrent requests. *)
   target_request_count_per_second : string prop option; [@option]
-      (** Target requests per second. *)
 }
-[@@deriving yojson_of]
-(** Target scaling by request utilization. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : automatic_scaling__request_utilization) -> ()
+
+let yojson_of_automatic_scaling__request_utilization =
+  (function
+   | {
+       target_concurrent_requests = v_target_concurrent_requests;
+       target_request_count_per_second =
+         v_target_request_count_per_second;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_target_request_count_per_second with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "target_request_count_per_second", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_target_concurrent_requests with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "target_concurrent_requests", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : automatic_scaling__request_utilization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_automatic_scaling__request_utilization
+
+[@@@deriving.end]
 
 type automatic_scaling = {
   cool_down_period : string prop option; [@option]
-      (** The time period that the Autoscaler should wait before it starts collecting information from a new instance.
-This prevents the autoscaler from collecting information when the instance is initializing,
-during which the collected usage would not be reliable. Default: 120s *)
   max_concurrent_requests : float prop option; [@option]
-      (** Number of concurrent requests an automatic scaling instance can accept before the scheduler spawns a new instance.
-
-Defaults to a runtime-specific value. *)
   max_idle_instances : float prop option; [@option]
-      (** Maximum number of idle instances that should be maintained for this version. *)
   max_pending_latency : string prop option; [@option]
-      (** Maximum amount of time that a request should wait in the pending queue before starting a new instance to handle it. *)
   max_total_instances : float prop option; [@option]
-      (** Maximum number of instances that should be started to handle requests for this version. Default: 20 *)
   min_idle_instances : float prop option; [@option]
-      (** Minimum number of idle instances that should be maintained for this version. Only applicable for the default version of a service. *)
   min_pending_latency : string prop option; [@option]
-      (** Minimum amount of time a request should wait in the pending queue before starting a new instance to handle it. *)
   min_total_instances : float prop option; [@option]
-      (** Minimum number of running instances that should be maintained for this version. Default: 2 *)
   cpu_utilization : automatic_scaling__cpu_utilization list;
   disk_utilization : automatic_scaling__disk_utilization list;
   network_utilization : automatic_scaling__network_utilization list;
   request_utilization : automatic_scaling__request_utilization list;
 }
-[@@deriving yojson_of]
-(** Automatic scaling is based on request rate, response latencies, and other application metrics. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : automatic_scaling) -> ()
+
+let yojson_of_automatic_scaling =
+  (function
+   | {
+       cool_down_period = v_cool_down_period;
+       max_concurrent_requests = v_max_concurrent_requests;
+       max_idle_instances = v_max_idle_instances;
+       max_pending_latency = v_max_pending_latency;
+       max_total_instances = v_max_total_instances;
+       min_idle_instances = v_min_idle_instances;
+       min_pending_latency = v_min_pending_latency;
+       min_total_instances = v_min_total_instances;
+       cpu_utilization = v_cpu_utilization;
+       disk_utilization = v_disk_utilization;
+       network_utilization = v_network_utilization;
+       request_utilization = v_request_utilization;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_automatic_scaling__request_utilization
+             v_request_utilization
+         in
+         ("request_utilization", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_automatic_scaling__network_utilization
+             v_network_utilization
+         in
+         ("network_utilization", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_automatic_scaling__disk_utilization
+             v_disk_utilization
+         in
+         ("disk_utilization", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_automatic_scaling__cpu_utilization
+             v_cpu_utilization
+         in
+         ("cpu_utilization", arg) :: bnds
+       in
+       let bnds =
+         match v_min_total_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_total_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_pending_latency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "min_pending_latency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_min_idle_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_idle_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_total_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_total_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_pending_latency with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "max_pending_latency", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_idle_instances with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_idle_instances", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_concurrent_requests with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_concurrent_requests", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cool_down_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cool_down_period", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : automatic_scaling -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_automatic_scaling
+
+[@@@deriving.end]
 
 type deployment__cloud_build_options = {
   app_yaml_path : string prop;
-      (** Path to the yaml file used in deployment, used to determine runtime configuration details. *)
   cloud_build_timeout : string prop option; [@option]
-      (** The Cloud Build timeout used as part of any dependent builds performed by version creation. Defaults to 10 minutes.
-
-A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s. *)
 }
-[@@deriving yojson_of]
-(** Options for the build operations performed as a part of the version deployment. Only applicable when creating a version using source code directly. *)
+[@@deriving_inline yojson_of]
 
-type deployment__container = {
-  image : string prop;
-      (** URI to the hosted container image in Google Container Registry. The URI must be fully qualified and include a tag or digest.
-Examples: gcr.io/my-project/image:tag or gcr.io/my-project/image@digest *)
-}
-[@@deriving yojson_of]
-(** The Docker image for the container that runs the version. *)
+let _ = fun (_ : deployment__cloud_build_options) -> ()
+
+let yojson_of_deployment__cloud_build_options =
+  (function
+   | {
+       app_yaml_path = v_app_yaml_path;
+       cloud_build_timeout = v_cloud_build_timeout;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_cloud_build_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cloud_build_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_app_yaml_path in
+         ("app_yaml_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment__cloud_build_options ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployment__cloud_build_options
+
+[@@@deriving.end]
+
+type deployment__container = { image : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployment__container) -> ()
+
+let yojson_of_deployment__container =
+  (function
+   | { image = v_image } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_image in
+         ("image", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment__container -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployment__container
+
+[@@@deriving.end]
 
 type deployment__files = {
-  name : string prop;  (** name *)
+  name : string prop;
   sha1_sum : string prop option; [@option]
-      (** SHA1 checksum of the file *)
-  source_url : string prop;  (** Source URL *)
+  source_url : string prop;
 }
-[@@deriving yojson_of]
-(** Manifest of the files stored in Google Cloud Storage that are included as part of this version.
-All files must be readable using the credentials supplied with this call. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployment__files) -> ()
+
+let yojson_of_deployment__files =
+  (function
+   | {
+       name = v_name;
+       sha1_sum = v_sha1_sum;
+       source_url = v_source_url;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source_url in
+         ("source_url", arg) :: bnds
+       in
+       let bnds =
+         match v_sha1_sum with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "sha1_sum", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment__files -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployment__files
+
+[@@@deriving.end]
 
 type deployment__zip = {
-  files_count : float prop option; [@option]  (** files count *)
-  source_url : string prop;  (** Source URL *)
+  files_count : float prop option; [@option]
+  source_url : string prop;
 }
-[@@deriving yojson_of]
-(** Zip File *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployment__zip) -> ()
+
+let yojson_of_deployment__zip =
+  (function
+   | { files_count = v_files_count; source_url = v_source_url } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_source_url in
+         ("source_url", arg) :: bnds
+       in
+       let bnds =
+         match v_files_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "files_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : deployment__zip -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployment__zip
+
+[@@@deriving.end]
 
 type deployment = {
   cloud_build_options : deployment__cloud_build_options list;
@@ -132,236 +555,781 @@ type deployment = {
   files : deployment__files list;
   zip : deployment__zip list;
 }
-[@@deriving yojson_of]
-(** Code and application artifacts that make up this version. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : deployment) -> ()
+
+let yojson_of_deployment =
+  (function
+   | {
+       cloud_build_options = v_cloud_build_options;
+       container = v_container;
+       files = v_files;
+       zip = v_zip;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_deployment__zip v_zip in
+         ("zip", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_deployment__files v_files
+         in
+         ("files", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_deployment__container v_container
+         in
+         ("container", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_deployment__cloud_build_options
+             v_cloud_build_options
+         in
+         ("cloud_build_options", arg) :: bnds
+       in
+       `Assoc bnds
+    : deployment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_deployment
+
+[@@@deriving.end]
 
 type endpoints_api_service = {
   config_id : string prop option; [@option]
-      (** Endpoints service configuration ID as specified by the Service Management API. For example 2016-09-19r1.
-
-By default, the rollout strategy for Endpoints is FIXED. This means that Endpoints starts up with a particular configuration ID.
-When a new configuration is rolled out, Endpoints must be given the new configuration ID. The configId field is used to give the configuration ID
-and is required in this case.
-
-Endpoints also has a rollout strategy called MANAGED. When using this, Endpoints fetches the latest configuration and does not need
-the configuration ID. In this case, configId must be omitted. *)
   disable_trace_sampling : bool prop option; [@option]
-      (** Enable or disable trace sampling. By default, this is set to false for enabled. *)
   name : string prop;
-      (** Endpoints service name which is the name of the service resource in the Service Management API.
-For example myapi.endpoints.myproject.cloud.goog *)
   rollout_strategy : string prop option; [@option]
-      (** Endpoints rollout strategy. If FIXED, configId must be specified. If MANAGED, configId must be omitted. Default value: FIXED Possible values: [FIXED, MANAGED] *)
 }
-[@@deriving yojson_of]
-(** Code and application artifacts that make up this version. *)
+[@@deriving_inline yojson_of]
 
-type entrypoint = {
-  shell : string prop;
-      (** The format should be a shell command that can be fed to bash -c. *)
-}
-[@@deriving yojson_of]
-(** The entrypoint for the application. *)
+let _ = fun (_ : endpoints_api_service) -> ()
 
-type handlers__script = {
-  script_path : string prop;
-      (** Path to the script from the application root directory. *)
-}
-[@@deriving yojson_of]
-(** Executes a script to handle the requests that match this URL pattern.
-Only the auto value is supported for Node.js in the App Engine standard environment, for example script: auto. *)
+let yojson_of_endpoints_api_service =
+  (function
+   | {
+       config_id = v_config_id;
+       disable_trace_sampling = v_disable_trace_sampling;
+       name = v_name;
+       rollout_strategy = v_rollout_strategy;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_rollout_strategy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rollout_strategy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_disable_trace_sampling with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_trace_sampling", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_config_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "config_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : endpoints_api_service -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_endpoints_api_service
+
+[@@@deriving.end]
+
+type entrypoint = { shell : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : entrypoint) -> ()
+
+let yojson_of_entrypoint =
+  (function
+   | { shell = v_shell } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_shell in
+         ("shell", arg) :: bnds
+       in
+       `Assoc bnds
+    : entrypoint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_entrypoint
+
+[@@@deriving.end]
+
+type handlers__script = { script_path : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : handlers__script) -> ()
+
+let yojson_of_handlers__script =
+  (function
+   | { script_path = v_script_path } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_script_path in
+         ("script_path", arg) :: bnds
+       in
+       `Assoc bnds
+    : handlers__script -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_handlers__script
+
+[@@@deriving.end]
 
 type handlers__static_files = {
   application_readable : bool prop option; [@option]
-      (** Whether files should also be uploaded as code data. By default, files declared in static file handlers are
-uploaded as static data and are only served to end users; they cannot be read by the application. If enabled,
-uploads are charged against both your code and static data storage resource quotas. *)
   expiration : string prop option; [@option]
-      (** Time a static file served by this handler should be cached by web proxies and browsers.
-A duration in seconds with up to nine fractional digits, terminated by 's'. Example 3.5s.
-Default is '0s' *)
   http_headers : (string * string prop) list option; [@option]
-      (** HTTP headers to use for all responses from these URLs.
-An object containing a list of key:value value pairs.. *)
   mime_type : string prop option; [@option]
-      (** MIME type used to serve all files served by this handler.
-Defaults to file-specific MIME types, which are derived from each file's filename extension. *)
   path : string prop option; [@option]
-      (** Path to the static files matched by the URL pattern, from the application root directory.
-The path can refer to text matched in groupings in the URL pattern. *)
   require_matching_file : bool prop option; [@option]
-      (** Whether this handler should match the request if the file referenced by the handler does not exist. *)
   upload_path_regex : string prop option; [@option]
-      (** Regular expression that matches the file paths for all files that should be referenced by this handler. *)
 }
-[@@deriving yojson_of]
-(** Files served directly to the user for a given URL, such as images, CSS stylesheets, or JavaScript source files.
-Static file handlers describe which files in the application directory are static files, and which URLs serve them. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : handlers__static_files) -> ()
+
+let yojson_of_handlers__static_files =
+  (function
+   | {
+       application_readable = v_application_readable;
+       expiration = v_expiration;
+       http_headers = v_http_headers;
+       mime_type = v_mime_type;
+       path = v_path;
+       require_matching_file = v_require_matching_file;
+       upload_path_regex = v_upload_path_regex;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_upload_path_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "upload_path_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_require_matching_file with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_matching_file", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_mime_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mime_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_http_headers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "http_headers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expiration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expiration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_application_readable with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "application_readable", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : handlers__static_files -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_handlers__static_files
+
+[@@@deriving.end]
 
 type handlers = {
   auth_fail_action : string prop option; [@option]
-      (** Actions to take when the user is not logged in. Possible values: [AUTH_FAIL_ACTION_REDIRECT, AUTH_FAIL_ACTION_UNAUTHORIZED] *)
   login : string prop option; [@option]
-      (** Methods to restrict access to a URL based on login status. Possible values: [LOGIN_OPTIONAL, LOGIN_ADMIN, LOGIN_REQUIRED] *)
   redirect_http_response_code : string prop option; [@option]
-      (** 30x code to use when performing redirects for the secure field. Possible values: [REDIRECT_HTTP_RESPONSE_CODE_301, REDIRECT_HTTP_RESPONSE_CODE_302, REDIRECT_HTTP_RESPONSE_CODE_303, REDIRECT_HTTP_RESPONSE_CODE_307] *)
   security_level : string prop option; [@option]
-      (** Security (HTTPS) enforcement for this URL. Possible values: [SECURE_DEFAULT, SECURE_NEVER, SECURE_OPTIONAL, SECURE_ALWAYS] *)
   url_regex : string prop option; [@option]
-      (** URL prefix. Uses regular expression syntax, which means regexp special characters must be escaped, but should not contain groupings.
-All URLs that begin with this prefix are handled by this handler, using the portion of the URL after the prefix as part of the file path. *)
   script : handlers__script list;
   static_files : handlers__static_files list;
 }
-[@@deriving yojson_of]
-(** An ordered list of URL-matching patterns that should be applied to incoming requests.
-The first matching URL handles the request and other request handlers are not attempted. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : handlers) -> ()
+
+let yojson_of_handlers =
+  (function
+   | {
+       auth_fail_action = v_auth_fail_action;
+       login = v_login;
+       redirect_http_response_code = v_redirect_http_response_code;
+       security_level = v_security_level;
+       url_regex = v_url_regex;
+       script = v_script;
+       static_files = v_static_files;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_handlers__static_files
+             v_static_files
+         in
+         ("static_files", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_handlers__script v_script
+         in
+         ("script", arg) :: bnds
+       in
+       let bnds =
+         match v_url_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "url_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_redirect_http_response_code with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "redirect_http_response_code", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_login with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "login", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_auth_fail_action with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "auth_fail_action", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : handlers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_handlers
+
+[@@@deriving.end]
 
 type liveness_check = {
   check_interval : string prop option; [@option]
-      (** Interval between health checks. *)
   failure_threshold : float prop option; [@option]
-      (** Number of consecutive failed checks required before considering the VM unhealthy. Default: 4. *)
   host : string prop option; [@option]
-      (** Host header to send when performing a HTTP Readiness check. Example: myapp.appspot.com *)
   initial_delay : string prop option; [@option]
-      (** The initial delay before starting to execute the checks. Default: 300s *)
-  path : string prop;  (** The request path. *)
+  path : string prop;
   success_threshold : float prop option; [@option]
-      (** Number of consecutive successful checks required before considering the VM healthy. Default: 2. *)
   timeout : string prop option; [@option]
-      (** Time before the check is considered failed. Default: 4s *)
 }
-[@@deriving yojson_of]
-(** Health checking configuration for VM instances. Unhealthy instances are killed and replaced with new instances. *)
+[@@deriving_inline yojson_of]
 
-type manual_scaling = {
-  instances : float prop;
-      (** Number of instances to assign to the service at the start.
+let _ = fun (_ : liveness_check) -> ()
 
-**Note:** When managing the number of instances at runtime through the App Engine Admin API or the (now deprecated) Python 2
-Modules API set_num_instances() you must use 'lifecycle.ignore_changes = [manual_scaling[0].instances]' to prevent drift detection. *)
-}
-[@@deriving yojson_of]
-(** A service with manual scaling runs continuously, allowing you to perform complex initialization and rely on the state of its memory over time. *)
+let yojson_of_liveness_check =
+  (function
+   | {
+       check_interval = v_check_interval;
+       failure_threshold = v_failure_threshold;
+       host = v_host;
+       initial_delay = v_initial_delay;
+       path = v_path;
+       success_threshold = v_success_threshold;
+       timeout = v_timeout;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_success_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "success_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_initial_delay with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "initial_delay", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_check_interval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "check_interval", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : liveness_check -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_liveness_check
+
+[@@@deriving.end]
+
+type manual_scaling = { instances : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : manual_scaling) -> ()
+
+let yojson_of_manual_scaling =
+  (function
+   | { instances = v_instances } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_instances in
+         ("instances", arg) :: bnds
+       in
+       `Assoc bnds
+    : manual_scaling -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_manual_scaling
+
+[@@@deriving.end]
 
 type network = {
   forwarded_ports : string prop list option; [@option]
-      (** List of ports, or port pairs, to forward from the virtual machine to the application container. *)
   instance_tag : string prop option; [@option]
-      (** Tag to apply to the instance during creation. *)
   name : string prop;
-      (** Google Compute Engine network where the virtual machines are created. Specify the short name, not the resource path. *)
   session_affinity : bool prop option; [@option]
-      (** Enable session affinity. *)
   subnetwork : string prop option; [@option]
-      (** Google Cloud Platform sub-network where the virtual machines are created. Specify the short name, not the resource path.
-
-If the network that the instance is being created in is a Legacy network, then the IP address is allocated from the IPv4Range.
-If the network that the instance is being created in is an auto Subnet Mode Network, then only network name should be specified (not the subnetworkName) and the IP address is created from the IPCidrRange of the subnetwork that exists in that zone for that network.
-If the network that the instance is being created in is a custom Subnet Mode Network, then the subnetworkName must be specified and the IP address is created from the IPCidrRange of the subnetwork.
-If specified, the subnetwork must exist in the same region as the App Engine flexible environment application. *)
 }
-[@@deriving yojson_of]
-(** Extra network settings *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network) -> ()
+
+let yojson_of_network =
+  (function
+   | {
+       forwarded_ports = v_forwarded_ports;
+       instance_tag = v_instance_tag;
+       name = v_name;
+       session_affinity = v_session_affinity;
+       subnetwork = v_subnetwork;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_subnetwork with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subnetwork", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_session_affinity with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "session_affinity", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_instance_tag with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_tag", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_forwarded_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "forwarded_ports", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : network -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network
+
+[@@@deriving.end]
 
 type readiness_check = {
   app_start_timeout : string prop option; [@option]
-      (** A maximum time limit on application initialization, measured from moment the application successfully
-replies to a healthcheck until it is ready to serve traffic. Default: 300s *)
   check_interval : string prop option; [@option]
-      (** Interval between health checks.  Default: 5s. *)
   failure_threshold : float prop option; [@option]
-      (** Number of consecutive failed checks required before removing traffic. Default: 2. *)
   host : string prop option; [@option]
-      (** Host header to send when performing a HTTP Readiness check. Example: myapp.appspot.com *)
-  path : string prop;  (** The request path. *)
+  path : string prop;
   success_threshold : float prop option; [@option]
-      (** Number of consecutive successful checks required before receiving traffic. Default: 2. *)
   timeout : string prop option; [@option]
-      (** Time before the check is considered failed. Default: 4s *)
 }
-[@@deriving yojson_of]
-(** Configures readiness health checking for instances. Unhealthy instances are not put into the backend traffic rotation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : readiness_check) -> ()
+
+let yojson_of_readiness_check =
+  (function
+   | {
+       app_start_timeout = v_app_start_timeout;
+       check_interval = v_check_interval;
+       failure_threshold = v_failure_threshold;
+       host = v_host;
+       path = v_path;
+       success_threshold = v_success_threshold;
+       timeout = v_timeout;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_success_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "success_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       let bnds =
+         match v_host with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "host", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_failure_threshold with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "failure_threshold", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_check_interval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "check_interval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_app_start_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "app_start_timeout", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : readiness_check -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_readiness_check
+
+[@@@deriving.end]
 
 type resources__volumes = {
-  name : string prop;  (** Unique name for the volume. *)
-  size_gb : float prop;  (** Volume size in gigabytes. *)
+  name : string prop;
+  size_gb : float prop;
   volume_type : string prop;
-      (** Underlying volume type, e.g. 'tmpfs'. *)
 }
-[@@deriving yojson_of]
-(** List of ports, or port pairs, to forward from the virtual machine to the application container. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : resources__volumes) -> ()
+
+let yojson_of_resources__volumes =
+  (function
+   | {
+       name = v_name;
+       size_gb = v_size_gb;
+       volume_type = v_volume_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_volume_type in
+         ("volume_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_size_gb in
+         ("size_gb", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : resources__volumes -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_resources__volumes
+
+[@@@deriving.end]
 
 type resources = {
   cpu : float prop option; [@option]
-      (** Number of CPU cores needed. *)
   disk_gb : float prop option; [@option]
-      (** Disk size (GB) needed. *)
   memory_gb : float prop option; [@option]
-      (** Memory (GB) needed. *)
   volumes : resources__volumes list;
 }
-[@@deriving yojson_of]
-(** Machine resources for a version. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : resources) -> ()
+
+let yojson_of_resources =
+  (function
+   | {
+       cpu = v_cpu;
+       disk_gb = v_disk_gb;
+       memory_gb = v_memory_gb;
+       volumes = v_volumes;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_resources__volumes v_volumes
+         in
+         ("volumes", arg) :: bnds
+       in
+       let bnds =
+         match v_memory_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "memory_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disk_gb with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "disk_gb", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cpu with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cpu", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : resources -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_resources
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type vpc_access_connector = {
-  name : string prop;
-      (** Full Serverless VPC Access Connector name e.g. /projects/my-project/locations/us-central1/connectors/c1. *)
-}
-[@@deriving yojson_of]
-(** Enables VPC connectivity for standard apps. *)
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type vpc_access_connector = { name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : vpc_access_connector) -> ()
+
+let yojson_of_vpc_access_connector =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : vpc_access_connector -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_vpc_access_connector
+
+[@@@deriving.end]
 
 type google_app_engine_flexible_app_version = {
   beta_settings : (string * string prop) list option; [@option]
-      (** Metadata settings that are supplied to this version to enable beta runtime features. *)
   default_expiration : string prop option; [@option]
-      (** Duration that static files should be cached by web proxies and browsers.
-Only applicable if the corresponding StaticFilesHandler does not specify its own expiration time. *)
   delete_service_on_destroy : bool prop option; [@option]
-      (** If set to 'true', the service will be deleted if it is the last version. *)
   env_variables : (string * string prop) list option; [@option]
-      (** Environment variables available to the application.  As these are not returned in the API request, Terraform will not detect any changes made outside of the Terraform config. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   inbound_services : string prop list option; [@option]
-      (** A list of the types of messages that this application is able to receive. Possible values: [INBOUND_SERVICE_MAIL, INBOUND_SERVICE_MAIL_BOUNCE, INBOUND_SERVICE_XMPP_ERROR, INBOUND_SERVICE_XMPP_MESSAGE, INBOUND_SERVICE_XMPP_SUBSCRIBE, INBOUND_SERVICE_XMPP_PRESENCE, INBOUND_SERVICE_CHANNEL_PRESENCE, INBOUND_SERVICE_WARMUP] *)
   instance_class : string prop option; [@option]
-      (** Instance class that is used to run this version. Valid values are
-AutomaticScaling: F1, F2, F4, F4_1G
-ManualScaling: B1, B2, B4, B8, B4_1G
-Defaults to F1 for AutomaticScaling and B1 for ManualScaling. *)
   nobuild_files_regex : string prop option; [@option]
-      (** Files that match this pattern will not be built into this version. Only applicable for Go runtimes. *)
   noop_on_destroy : bool prop option; [@option]
-      (** If set to 'true', the application version will not be deleted. *)
-  project : string prop option; [@option]  (** project *)
-  runtime : string prop;  (** Desired runtime. Example python27. *)
+  project : string prop option; [@option]
+  runtime : string prop;
   runtime_api_version : string prop option; [@option]
-      (** The version of the API in the given runtime environment.
-Please see the app.yaml reference for valid values at 'https://cloud.google.com/appengine/docs/standard/<language>/config/appref'\
-Substitute '<language>' with 'python', 'java', 'php', 'ruby', 'go' or 'nodejs'. *)
   runtime_channel : string prop option; [@option]
-      (** The channel of the runtime to use. Only available for some runtimes. *)
   runtime_main_executable_path : string prop option; [@option]
-      (** The path or name of the app's main executable. *)
   service : string prop;
-      (** AppEngine service resource. Can contain numbers, letters, and hyphens. *)
   service_account : string prop option; [@option]
-      (** The identity that the deployed version will run as. Admin API will use the App Engine Appspot service account as
-default if this field is neither provided in app.yaml file nor through CLI flag. *)
   serving_status : string prop option; [@option]
-      (** Current serving status of this version. Only the versions with a SERVING status create instances and can be billed. Default value: SERVING Possible values: [SERVING, STOPPED] *)
   version_id : string prop option; [@option]
-      (** Relative name of the version within the service. For example, 'v1'. Version names can contain only lowercase letters, numbers, or hyphens.
-Reserved names,default, latest, and any name with the prefix ah-. *)
   api_config : api_config list;
   automatic_scaling : automatic_scaling list;
   deployment : deployment list;
@@ -376,8 +1344,282 @@ Reserved names,default, latest, and any name with the prefix ah-. *)
   timeouts : timeouts option;
   vpc_access_connector : vpc_access_connector list;
 }
-[@@deriving yojson_of]
-(** google_app_engine_flexible_app_version *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_app_engine_flexible_app_version) -> ()
+
+let yojson_of_google_app_engine_flexible_app_version =
+  (function
+   | {
+       beta_settings = v_beta_settings;
+       default_expiration = v_default_expiration;
+       delete_service_on_destroy = v_delete_service_on_destroy;
+       env_variables = v_env_variables;
+       id = v_id;
+       inbound_services = v_inbound_services;
+       instance_class = v_instance_class;
+       nobuild_files_regex = v_nobuild_files_regex;
+       noop_on_destroy = v_noop_on_destroy;
+       project = v_project;
+       runtime = v_runtime;
+       runtime_api_version = v_runtime_api_version;
+       runtime_channel = v_runtime_channel;
+       runtime_main_executable_path = v_runtime_main_executable_path;
+       service = v_service;
+       service_account = v_service_account;
+       serving_status = v_serving_status;
+       version_id = v_version_id;
+       api_config = v_api_config;
+       automatic_scaling = v_automatic_scaling;
+       deployment = v_deployment;
+       endpoints_api_service = v_endpoints_api_service;
+       entrypoint = v_entrypoint;
+       handlers = v_handlers;
+       liveness_check = v_liveness_check;
+       manual_scaling = v_manual_scaling;
+       network = v_network;
+       readiness_check = v_readiness_check;
+       resources = v_resources;
+       timeouts = v_timeouts;
+       vpc_access_connector = v_vpc_access_connector;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_vpc_access_connector
+             v_vpc_access_connector
+         in
+         ("vpc_access_connector", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_resources v_resources in
+         ("resources", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_readiness_check v_readiness_check
+         in
+         ("readiness_check", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_network v_network in
+         ("network", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_manual_scaling v_manual_scaling
+         in
+         ("manual_scaling", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_liveness_check v_liveness_check
+         in
+         ("liveness_check", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_handlers v_handlers in
+         ("handlers", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_entrypoint v_entrypoint
+         in
+         ("entrypoint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_endpoints_api_service
+             v_endpoints_api_service
+         in
+         ("endpoints_api_service", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_deployment v_deployment
+         in
+         ("deployment", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_automatic_scaling
+             v_automatic_scaling
+         in
+         ("automatic_scaling", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_api_config v_api_config
+         in
+         ("api_config", arg) :: bnds
+       in
+       let bnds =
+         match v_version_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "version_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_serving_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "serving_status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_service in
+         ("service", arg) :: bnds
+       in
+       let bnds =
+         match v_runtime_main_executable_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "runtime_main_executable_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_runtime_channel with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "runtime_channel", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_runtime_api_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "runtime_api_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_runtime in
+         ("runtime", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_noop_on_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "noop_on_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_nobuild_files_regex with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "nobuild_files_regex", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_inbound_services with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "inbound_services", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_env_variables with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "env_variables", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete_service_on_destroy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "delete_service_on_destroy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_default_expiration with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "default_expiration", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_beta_settings with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "beta_settings", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_app_engine_flexible_app_version ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_app_engine_flexible_app_version
+
+[@@@deriving.end]
 
 let api_config ?auth_fail_action ?login ?security_level ?url ~script
     () : api_config =

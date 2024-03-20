@@ -4,67 +4,168 @@ open! Tf_core
 
 type cluster_operations = {
   enable_application_logs : bool prop option; [@option]
-      (** Whether collection of application logs/metrics should be enabled (in addition to system logs/metrics). *)
 }
-[@@deriving yojson_of]
-(** Specifies the Admin Cluster's observability infrastructure. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cluster_operations) -> ()
+
+let yojson_of_cluster_operations =
+  (function
+   | { enable_application_logs = v_enable_application_logs } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_enable_application_logs with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enable_application_logs", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cluster_operations -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cluster_operations
+
+[@@@deriving.end]
 
 type control_plane__api_server_args = {
   argument : string prop;
-      (** The argument name as it appears on the API Server command line please make sure to remove the leading dashes. *)
   value : string prop;
-      (** The value of the arg as it will be passed to the API Server command line. *)
 }
-[@@deriving yojson_of]
-(** Customizes the default API server args. Only a subset of
-customized flags are supported. Please refer to the API server
-documentation below to know the exact format:
-https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/ *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__api_server_args) -> ()
+
+let yojson_of_control_plane__api_server_args =
+  (function
+   | { argument = v_argument; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_argument in
+         ("argument", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__api_server_args ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__api_server_args
+
+[@@@deriving.end]
 
 type control_plane__control_plane_node_pool_config__node_pool_config__node_configs = {
   labels : (string * string prop) list option; [@option]
-      (** The map of Kubernetes labels (key/value pairs) to be applied to
-each node. These will added in addition to any default label(s)
-that Kubernetes may apply to the node. In case of conflict in
-label keys, the applied set may differ depending on the Kubernetes
-version -- it's best to assume the behavior is undefined and
-conflicts should be avoided. For more information, including usage
-and the valid values, see:
-  http://kubernetes.io/v1.1/docs/user-guide/labels.html
-An object containing a list of key: value pairs.
-Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   node_ip : string prop option; [@option]
-      (** The default IPv4 address for SSH access and Kubernetes node.
-Example: 192.168.0.1 *)
 }
-[@@deriving yojson_of]
-(** The list of machine addresses in the Bare Metal Node Pool. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       control_plane__control_plane_node_pool_config__node_pool_config__node_configs) ->
+  ()
+
+let yojson_of_control_plane__control_plane_node_pool_config__node_pool_config__node_configs
+    =
+  (function
+   | { labels = v_labels; node_ip = v_node_ip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_node_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "node_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane__control_plane_node_pool_config__node_pool_config__node_configs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_control_plane__control_plane_node_pool_config__node_pool_config__node_configs
+
+[@@@deriving.end]
 
 type control_plane__control_plane_node_pool_config__node_pool_config__taints = {
   effect : string prop option; [@option]
-      (** Specifies the nodes operating system (default: LINUX). Possible values: [EFFECT_UNSPECIFIED, PREFER_NO_SCHEDULE, NO_EXECUTE] *)
   key : string prop option; [@option]
-      (** Key associated with the effect. *)
   value : string prop option; [@option]
-      (** Value associated with the effect. *)
 }
-[@@deriving yojson_of]
-(** The initial taints assigned to nodes of this node pool. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       control_plane__control_plane_node_pool_config__node_pool_config__taints) ->
+  ()
+
+let yojson_of_control_plane__control_plane_node_pool_config__node_pool_config__taints
+    =
+  (function
+   | { effect = v_effect; key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_effect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "effect", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane__control_plane_node_pool_config__node_pool_config__taints ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_control_plane__control_plane_node_pool_config__node_pool_config__taints
+
+[@@@deriving.end]
 
 type control_plane__control_plane_node_pool_config__node_pool_config = {
   labels : (string * string prop) list option; [@option]
-      (** The map of Kubernetes labels (key/value pairs) to be applied to
-each node. These will added in addition to any default label(s)
-that Kubernetes may apply to the node. In case of conflict in
-label keys, the applied set may differ depending on the Kubernetes
-version -- it's best to assume the behavior is undefined and
-conflicts should be avoided. For more information, including usage
-and the valid values, see:
-  http://kubernetes.io/v1.1/docs/user-guide/labels.html
-An object containing a list of key: value pairs.
-Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   operating_system : string prop option; [@option]
-      (** Specifies the nodes operating system (default: LINUX). *)
   node_configs :
     control_plane__control_plane_node_pool_config__node_pool_config__node_configs
     list;
@@ -72,231 +173,957 @@ Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
     control_plane__control_plane_node_pool_config__node_pool_config__taints
     list;
 }
-[@@deriving yojson_of]
-(** The generic configuration for a node pool running the control plane. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       control_plane__control_plane_node_pool_config__node_pool_config) ->
+  ()
+
+let yojson_of_control_plane__control_plane_node_pool_config__node_pool_config
+    =
+  (function
+   | {
+       labels = v_labels;
+       operating_system = v_operating_system;
+       node_configs = v_node_configs;
+       taints = v_taints;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_control_plane__control_plane_node_pool_config__node_pool_config__taints
+             v_taints
+         in
+         ("taints", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_control_plane__control_plane_node_pool_config__node_pool_config__node_configs
+             v_node_configs
+         in
+         ("node_configs", arg) :: bnds
+       in
+       let bnds =
+         match v_operating_system with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "operating_system", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : control_plane__control_plane_node_pool_config__node_pool_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_control_plane__control_plane_node_pool_config__node_pool_config
+
+[@@@deriving.end]
 
 type control_plane__control_plane_node_pool_config = {
   node_pool_config :
     control_plane__control_plane_node_pool_config__node_pool_config
     list;
 }
-[@@deriving yojson_of]
-(** Configures the node pool running the control plane. If specified the corresponding NodePool will be created for the cluster's control plane. The NodePool will have the same name and namespace as the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : control_plane__control_plane_node_pool_config) -> ()
+
+let yojson_of_control_plane__control_plane_node_pool_config =
+  (function
+   | { node_pool_config = v_node_pool_config } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_control_plane__control_plane_node_pool_config__node_pool_config
+             v_node_pool_config
+         in
+         ("node_pool_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane__control_plane_node_pool_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane__control_plane_node_pool_config
+
+[@@@deriving.end]
 
 type control_plane = {
   api_server_args : control_plane__api_server_args list;
   control_plane_node_pool_config :
     control_plane__control_plane_node_pool_config list;
 }
-[@@deriving yojson_of]
-(** Specifies the control plane configuration. *)
+[@@deriving_inline yojson_of]
 
-type load_balancer__manual_lb_config = {
-  enabled : bool prop;
-      (** Whether manual load balancing is enabled. *)
-}
-[@@deriving yojson_of]
-(** A nested object resource *)
+let _ = fun (_ : control_plane) -> ()
+
+let yojson_of_control_plane =
+  (function
+   | {
+       api_server_args = v_api_server_args;
+       control_plane_node_pool_config =
+         v_control_plane_node_pool_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_control_plane__control_plane_node_pool_config
+             v_control_plane_node_pool_config
+         in
+         ("control_plane_node_pool_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane__api_server_args
+             v_api_server_args
+         in
+         ("api_server_args", arg) :: bnds
+       in
+       `Assoc bnds
+    : control_plane -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_control_plane
+
+[@@@deriving.end]
+
+type load_balancer__manual_lb_config = { enabled : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : load_balancer__manual_lb_config) -> ()
+
+let yojson_of_load_balancer__manual_lb_config =
+  (function
+   | { enabled = v_enabled } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : load_balancer__manual_lb_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_load_balancer__manual_lb_config
+
+[@@@deriving.end]
 
 type load_balancer__port_config = {
   control_plane_load_balancer_port : float prop;
-      (** The port that control plane hosted load balancers will listen on. *)
 }
-[@@deriving yojson_of]
-(** Specifies the load balancer ports. *)
+[@@deriving_inline yojson_of]
 
-type load_balancer__vip_config = {
-  control_plane_vip : string prop;
-      (** The VIP which you previously set aside for the Kubernetes API of this Bare Metal Admin Cluster. *)
-}
-[@@deriving yojson_of]
-(** Specified the Bare Metal Load Balancer Config *)
+let _ = fun (_ : load_balancer__port_config) -> ()
+
+let yojson_of_load_balancer__port_config =
+  (function
+   | {
+       control_plane_load_balancer_port =
+         v_control_plane_load_balancer_port;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_control_plane_load_balancer_port
+         in
+         ("control_plane_load_balancer_port", arg) :: bnds
+       in
+       `Assoc bnds
+    : load_balancer__port_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_load_balancer__port_config
+
+[@@@deriving.end]
+
+type load_balancer__vip_config = { control_plane_vip : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : load_balancer__vip_config) -> ()
+
+let yojson_of_load_balancer__vip_config =
+  (function
+   | { control_plane_vip = v_control_plane_vip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_control_plane_vip
+         in
+         ("control_plane_vip", arg) :: bnds
+       in
+       `Assoc bnds
+    : load_balancer__vip_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_load_balancer__vip_config
+
+[@@@deriving.end]
 
 type load_balancer = {
   manual_lb_config : load_balancer__manual_lb_config list;
   port_config : load_balancer__port_config list;
   vip_config : load_balancer__vip_config list;
 }
-[@@deriving yojson_of]
-(** Specifies the load balancer configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : load_balancer) -> ()
+
+let yojson_of_load_balancer =
+  (function
+   | {
+       manual_lb_config = v_manual_lb_config;
+       port_config = v_port_config;
+       vip_config = v_vip_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_load_balancer__vip_config
+             v_vip_config
+         in
+         ("vip_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_load_balancer__port_config
+             v_port_config
+         in
+         ("port_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_load_balancer__manual_lb_config
+             v_manual_lb_config
+         in
+         ("manual_lb_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : load_balancer -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_load_balancer
+
+[@@@deriving.end]
 
 type maintenance_config = {
   maintenance_address_cidr_blocks : string prop list;
-      (** All IPv4 address from these ranges will be placed into maintenance mode.
-Nodes in maintenance mode will be cordoned and drained. When both of these
-are true, the baremetal.cluster.gke.io/maintenance annotation will be set
-on the node resource. *)
 }
-[@@deriving yojson_of]
-(** Specifies the workload node configurations. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : maintenance_config) -> ()
+
+let yojson_of_maintenance_config =
+  (function
+   | {
+       maintenance_address_cidr_blocks =
+         v_maintenance_address_cidr_blocks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_maintenance_address_cidr_blocks
+         in
+         ("maintenance_address_cidr_blocks", arg) :: bnds
+       in
+       `Assoc bnds
+    : maintenance_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_maintenance_config
+
+[@@@deriving.end]
 
 type network_config__island_mode_cidr = {
   pod_address_cidr_blocks : string prop list;
-      (** All pods in the cluster are assigned an RFC1918 IPv4 address from these ranges. This field cannot be changed after creation. *)
   service_address_cidr_blocks : string prop list;
-      (** All services in the cluster are assigned an RFC1918 IPv4 address from these ranges. This field cannot be changed after creation. *)
 }
-[@@deriving yojson_of]
-(** A nested object resource *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_config__island_mode_cidr) -> ()
+
+let yojson_of_network_config__island_mode_cidr =
+  (function
+   | {
+       pod_address_cidr_blocks = v_pod_address_cidr_blocks;
+       service_address_cidr_blocks = v_service_address_cidr_blocks;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_service_address_cidr_blocks
+         in
+         ("service_address_cidr_blocks", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_pod_address_cidr_blocks
+         in
+         ("pod_address_cidr_blocks", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_config__island_mode_cidr ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_config__island_mode_cidr
+
+[@@@deriving.end]
 
 type network_config = {
   island_mode_cidr : network_config__island_mode_cidr list;
 }
-[@@deriving yojson_of]
-(** Network configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_config) -> ()
+
+let yojson_of_network_config =
+  (function
+   | { island_mode_cidr = v_island_mode_cidr } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_config__island_mode_cidr
+             v_island_mode_cidr
+         in
+         ("island_mode_cidr", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_config
+
+[@@@deriving.end]
 
 type node_access_config = {
   login_user : string prop option; [@option]
-      (** LoginUser is the user name used to access node machines.
-It defaults to root if not set. *)
 }
-[@@deriving yojson_of]
-(** Specifies the node access related settings for the bare metal user cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_access_config) -> ()
+
+let yojson_of_node_access_config =
+  (function
+   | { login_user = v_login_user } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_login_user with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "login_user", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_access_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_access_config
+
+[@@@deriving.end]
 
 type node_config = {
   max_pods_per_node : float prop option; [@option]
-      (** The maximum number of pods a node can run. The size of the CIDR range
-assigned to the node will be derived from this parameter. *)
 }
-[@@deriving yojson_of]
-(** Specifies the workload node configurations. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : node_config) -> ()
+
+let yojson_of_node_config =
+  (function
+   | { max_pods_per_node = v_max_pods_per_node } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_pods_per_node with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_pods_per_node", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : node_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_node_config
+
+[@@@deriving.end]
 
 type proxy = {
   no_proxy : string prop list option; [@option]
-      (** A list of IPs, hostnames, and domains that should skip the proxy.
-Examples: [127.0.0.1, example.com, .corp, localhost]. *)
   uri : string prop;
-      (** Specifies the address of your proxy server.
-Examples: http://domain
-WARNING: Do not provide credentials in the format
-http://(username:password@)domain these will be rejected by the server. *)
 }
-[@@deriving yojson_of]
-(** Specifies the cluster proxy configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : proxy) -> ()
+
+let yojson_of_proxy =
+  (function
+   | { no_proxy = v_no_proxy; uri = v_uri } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uri in
+         ("uri", arg) :: bnds
+       in
+       let bnds =
+         match v_no_proxy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "no_proxy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : proxy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_proxy
+
+[@@@deriving.end]
 
 type security_config__authorization__admin_users = {
   username : string prop;
-      (** The name of the user, e.g. 'my-gcp-id@gmail.com'. *)
 }
-[@@deriving yojson_of]
-(** Users that will be granted the cluster-admin role on the cluster, providing full access to the cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : security_config__authorization__admin_users) -> ()
+
+let yojson_of_security_config__authorization__admin_users =
+  (function
+   | { username = v_username } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_username in
+         ("username", arg) :: bnds
+       in
+       `Assoc bnds
+    : security_config__authorization__admin_users ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_config__authorization__admin_users
+
+[@@@deriving.end]
 
 type security_config__authorization = {
   admin_users : security_config__authorization__admin_users list;
 }
-[@@deriving yojson_of]
-(** Configures user access to the Bare Metal User cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : security_config__authorization) -> ()
+
+let yojson_of_security_config__authorization =
+  (function
+   | { admin_users = v_admin_users } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_security_config__authorization__admin_users
+             v_admin_users
+         in
+         ("admin_users", arg) :: bnds
+       in
+       `Assoc bnds
+    : security_config__authorization ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_config__authorization
+
+[@@@deriving.end]
 
 type security_config = {
   authorization : security_config__authorization list;
 }
-[@@deriving yojson_of]
-(** Specifies the security related settings for the Bare Metal User Cluster. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : security_config) -> ()
+
+let yojson_of_security_config =
+  (function
+   | { authorization = v_authorization } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_security_config__authorization
+             v_authorization
+         in
+         ("authorization", arg) :: bnds
+       in
+       `Assoc bnds
+    : security_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_security_config
+
+[@@@deriving.end]
 
 type storage__lvp_node_mounts_config = {
-  path : string prop;  (** The host machine path. *)
+  path : string prop;
   storage_class : string prop;
-      (** The StorageClass name that PVs will be created with. *)
 }
-[@@deriving yojson_of]
-(** Specifies the config for local PersistentVolumes backed
-by mounted node disks. These disks need to be formatted and mounted by the
-user, which can be done before or after cluster creation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage__lvp_node_mounts_config) -> ()
+
+let yojson_of_storage__lvp_node_mounts_config =
+  (function
+   | { path = v_path; storage_class = v_storage_class } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_storage_class in
+         ("storage_class", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : storage__lvp_node_mounts_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage__lvp_node_mounts_config
+
+[@@@deriving.end]
 
 type storage__lvp_share_config__lvp_config = {
-  path : string prop;  (** The host machine path. *)
+  path : string prop;
   storage_class : string prop;
-      (** The StorageClass name that PVs will be created with. *)
 }
-[@@deriving yojson_of]
-(** Defines the machine path and storage class for the LVP Share. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage__lvp_share_config__lvp_config) -> ()
+
+let yojson_of_storage__lvp_share_config__lvp_config =
+  (function
+   | { path = v_path; storage_class = v_storage_class } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_storage_class in
+         ("storage_class", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_path in
+         ("path", arg) :: bnds
+       in
+       `Assoc bnds
+    : storage__lvp_share_config__lvp_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage__lvp_share_config__lvp_config
+
+[@@@deriving.end]
 
 type storage__lvp_share_config = {
   shared_path_pv_count : float prop option; [@option]
-      (** The number of subdirectories to create under path. *)
   lvp_config : storage__lvp_share_config__lvp_config list;
 }
-[@@deriving yojson_of]
-(** Specifies the config for local PersistentVolumes backed by
-subdirectories in a shared filesystem. These subdirectores are
-automatically created during cluster creation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage__lvp_share_config) -> ()
+
+let yojson_of_storage__lvp_share_config =
+  (function
+   | {
+       shared_path_pv_count = v_shared_path_pv_count;
+       lvp_config = v_lvp_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_storage__lvp_share_config__lvp_config
+             v_lvp_config
+         in
+         ("lvp_config", arg) :: bnds
+       in
+       let bnds =
+         match v_shared_path_pv_count with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "shared_path_pv_count", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : storage__lvp_share_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage__lvp_share_config
+
+[@@@deriving.end]
 
 type storage = {
   lvp_node_mounts_config : storage__lvp_node_mounts_config list;
   lvp_share_config : storage__lvp_share_config list;
 }
-[@@deriving yojson_of]
-(** Specifies the cluster storage configuration. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : storage) -> ()
+
+let yojson_of_storage =
+  (function
+   | {
+       lvp_node_mounts_config = v_lvp_node_mounts_config;
+       lvp_share_config = v_lvp_share_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_storage__lvp_share_config
+             v_lvp_share_config
+         in
+         ("lvp_share_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_storage__lvp_node_mounts_config
+             v_lvp_node_mounts_config
+         in
+         ("lvp_node_mounts_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : storage -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_storage
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type fleet = { membership : string prop  (** membership *) }
-[@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type fleet = { membership : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fleet) -> ()
+
+let yojson_of_fleet =
+  (function
+   | { membership = v_membership } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_membership in
+         ("membership", arg) :: bnds
+       in
+       `Assoc bnds
+    : fleet -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fleet
+
+[@@@deriving.end]
 
 type status__conditions = {
-  last_transition_time : string prop;  (** last_transition_time *)
-  message : string prop;  (** message *)
-  reason : string prop;  (** reason *)
-  state : string prop;  (** state *)
-  type_ : string prop; [@key "type"]  (** type *)
+  last_transition_time : string prop;
+  message : string prop;
+  reason : string prop;
+  state : string prop;
+  type_ : string prop; [@key "type"]
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : status__conditions) -> ()
+
+let yojson_of_status__conditions =
+  (function
+   | {
+       last_transition_time = v_last_transition_time;
+       message = v_message;
+       reason = v_reason;
+       state = v_state;
+       type_ = v_type_;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_state in
+         ("state", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_reason in
+         ("reason", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_message in
+         ("message", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_last_transition_time
+         in
+         ("last_transition_time", arg) :: bnds
+       in
+       `Assoc bnds
+    : status__conditions -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_status__conditions
+
+[@@@deriving.end]
 
 type status = {
-  conditions : status__conditions list;  (** conditions *)
-  error_message : string prop;  (** error_message *)
+  conditions : status__conditions list;
+  error_message : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : status) -> ()
+
+let yojson_of_status =
+  (function
+   | { conditions = v_conditions; error_message = v_error_message }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_error_message in
+         ("error_message", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_status__conditions v_conditions
+         in
+         ("conditions", arg) :: bnds
+       in
+       `Assoc bnds
+    : status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_status
+
+[@@@deriving.end]
 
 type validation_check__status__result = {
-  category : string prop;  (** category *)
-  description : string prop;  (** description *)
-  details : string prop;  (** details *)
-  options : string prop;  (** options *)
-  reason : string prop;  (** reason *)
+  category : string prop;
+  description : string prop;
+  details : string prop;
+  options : string prop;
+  reason : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : validation_check__status__result) -> ()
+
+let yojson_of_validation_check__status__result =
+  (function
+   | {
+       category = v_category;
+       description = v_description;
+       details = v_details;
+       options = v_options;
+       reason = v_reason;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_reason in
+         ("reason", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_options in
+         ("options", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_details in
+         ("details", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_description in
+         ("description", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_category in
+         ("category", arg) :: bnds
+       in
+       `Assoc bnds
+    : validation_check__status__result ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_validation_check__status__result
+
+[@@@deriving.end]
 
 type validation_check__status = {
-  result : validation_check__status__result list;  (** result *)
+  result : validation_check__status__result list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : validation_check__status) -> ()
+
+let yojson_of_validation_check__status =
+  (function
+   | { result = v_result } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_validation_check__status__result
+             v_result
+         in
+         ("result", arg) :: bnds
+       in
+       `Assoc bnds
+    : validation_check__status -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_validation_check__status
+
+[@@@deriving.end]
 
 type validation_check = {
-  options : string prop;  (** options *)
-  scenario : string prop;  (** scenario *)
-  status : validation_check__status list;  (** status *)
+  options : string prop;
+  scenario : string prop;
+  status : validation_check__status list;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : validation_check) -> ()
+
+let yojson_of_validation_check =
+  (function
+   | {
+       options = v_options;
+       scenario = v_scenario;
+       status = v_status;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_validation_check__status v_status
+         in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_scenario in
+         ("scenario", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_options in
+         ("options", arg) :: bnds
+       in
+       `Assoc bnds
+    : validation_check -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_validation_check
+
+[@@@deriving.end]
 
 type google_gkeonprem_bare_metal_admin_cluster = {
   annotations : (string * string prop) list option; [@option]
-      (** Annotations on the Bare Metal Admin Cluster.
-This field has the same restrictions as Kubernetes annotations.
-The total size of all keys and values combined is limited to 256k.
-Key can have 2 segments: prefix (optional) and name (required),
-separated by a slash (/).
-Prefix must be a DNS subdomain.
-Name must be 63 characters or less, begin and end with alphanumerics,
-with dashes (-), underscores (_), dots (.), and alphanumerics between.
-
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
   bare_metal_version : string prop option; [@option]
-      (** A human readable description of this Bare Metal Admin Cluster. *)
   description : string prop option; [@option]
-      (** A human readable description of this Bare Metal Admin Cluster. *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location of the resource. *)
-  name : string prop;  (** The bare metal admin cluster name. *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
+  project : string prop option; [@option]
   cluster_operations : cluster_operations list;
   control_plane : control_plane list;
   load_balancer : load_balancer list;
@@ -309,8 +1136,161 @@ Please refer to the field 'effective_annotations' for all of the annotations pre
   storage : storage list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_gkeonprem_bare_metal_admin_cluster *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_gkeonprem_bare_metal_admin_cluster) -> ()
+
+let yojson_of_google_gkeonprem_bare_metal_admin_cluster =
+  (function
+   | {
+       annotations = v_annotations;
+       bare_metal_version = v_bare_metal_version;
+       description = v_description;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       cluster_operations = v_cluster_operations;
+       control_plane = v_control_plane;
+       load_balancer = v_load_balancer;
+       maintenance_config = v_maintenance_config;
+       network_config = v_network_config;
+       node_access_config = v_node_access_config;
+       node_config = v_node_config;
+       proxy = v_proxy;
+       security_config = v_security_config;
+       storage = v_storage;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_storage v_storage in
+         ("storage", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_security_config v_security_config
+         in
+         ("security_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_proxy v_proxy in
+         ("proxy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_config v_node_config
+         in
+         ("node_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_node_access_config
+             v_node_access_config
+         in
+         ("node_access_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_config v_network_config
+         in
+         ("network_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_maintenance_config
+             v_maintenance_config
+         in
+         ("maintenance_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_load_balancer v_load_balancer
+         in
+         ("load_balancer", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_control_plane v_control_plane
+         in
+         ("control_plane", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cluster_operations
+             v_cluster_operations
+         in
+         ("cluster_operations", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bare_metal_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bare_metal_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_gkeonprem_bare_metal_admin_cluster ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_gkeonprem_bare_metal_admin_cluster
+
+[@@@deriving.end]
 
 let cluster_operations ?enable_application_logs () :
     cluster_operations =

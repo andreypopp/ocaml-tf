@@ -3,54 +3,294 @@
 open! Tf_core
 
 type private_registry_access__ecr_image_puller_role = {
-  is_active : bool prop option; [@option]  (** is_active *)
+  is_active : bool prop option; [@option]
 }
-[@@deriving yojson_of]
-(** private_registry_access__ecr_image_puller_role *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : private_registry_access__ecr_image_puller_role) -> ()
+
+let yojson_of_private_registry_access__ecr_image_puller_role =
+  (function
+   | { is_active = v_is_active } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_is_active with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_active", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : private_registry_access__ecr_image_puller_role ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_private_registry_access__ecr_image_puller_role
+
+[@@@deriving.end]
 
 type private_registry_access = {
   ecr_image_puller_role :
     private_registry_access__ecr_image_puller_role list;
 }
-[@@deriving yojson_of]
-(** private_registry_access *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : private_registry_access) -> ()
+
+let yojson_of_private_registry_access =
+  (function
+   | { ecr_image_puller_role = v_ecr_image_puller_role } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_private_registry_access__ecr_image_puller_role
+             v_ecr_image_puller_role
+         in
+         ("ecr_image_puller_role", arg) :: bnds
+       in
+       `Assoc bnds
+    : private_registry_access -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_private_registry_access
+
+[@@@deriving.end]
 
 type public_domain_names__certificate = {
-  certificate_name : string prop;  (** certificate_name *)
-  domain_names : string prop list;  (** domain_names *)
+  certificate_name : string prop;
+  domain_names : string prop list;
 }
-[@@deriving yojson_of]
-(** public_domain_names__certificate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : public_domain_names__certificate) -> ()
+
+let yojson_of_public_domain_names__certificate =
+  (function
+   | {
+       certificate_name = v_certificate_name;
+       domain_names = v_domain_names;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_domain_names
+         in
+         ("domain_names", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_certificate_name
+         in
+         ("certificate_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : public_domain_names__certificate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_public_domain_names__certificate
+
+[@@@deriving.end]
 
 type public_domain_names = {
   certificate : public_domain_names__certificate list;
 }
-[@@deriving yojson_of]
-(** public_domain_names *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : public_domain_names) -> ()
+
+let yojson_of_public_domain_names =
+  (function
+   | { certificate = v_certificate } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_public_domain_names__certificate
+             v_certificate
+         in
+         ("certificate", arg) :: bnds
+       in
+       `Assoc bnds
+    : public_domain_names -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_public_domain_names
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_lightsail_container_service = {
-  id : string prop option; [@option]  (** id *)
-  is_disabled : bool prop option; [@option]  (** is_disabled *)
-  name : string prop;  (** name *)
-  power : string prop;  (** power *)
-  scale : float prop;  (** scale *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  is_disabled : bool prop option; [@option]
+  name : string prop;
+  power : string prop;
+  scale : float prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   private_registry_access : private_registry_access list;
   public_domain_names : public_domain_names list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_lightsail_container_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lightsail_container_service) -> ()
+
+let yojson_of_aws_lightsail_container_service =
+  (function
+   | {
+       id = v_id;
+       is_disabled = v_is_disabled;
+       name = v_name;
+       power = v_power;
+       scale = v_scale;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       private_registry_access = v_private_registry_access;
+       public_domain_names = v_public_domain_names;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_public_domain_names
+             v_public_domain_names
+         in
+         ("public_domain_names", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_private_registry_access
+             v_private_registry_access
+         in
+         ("private_registry_access", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_scale in
+         ("scale", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_power in
+         ("power", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_is_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "is_disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_lightsail_container_service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lightsail_container_service
+
+[@@@deriving.end]
 
 let private_registry_access__ecr_image_puller_role ?is_active () :
     private_registry_access__ecr_image_puller_role =

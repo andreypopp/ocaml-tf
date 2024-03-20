@@ -10,12 +10,16 @@ type status__resource_records = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+[@@@deriving.end]
+
 type status__conditions = {
   message : string prop;  (** message *)
   reason : string prop;  (** reason *)
   status : string prop;  (** status *)
   type_ : string prop; [@key "type"]  (** type *)
 }
+
+[@@@deriving.end]
 
 type status = {
   conditions : status__conditions list;  (** conditions *)
@@ -24,6 +28,8 @@ type status = {
   resource_records : status__resource_records list;
       (** resource_records *)
 }
+
+[@@@deriving.end]
 
 type metadata
 

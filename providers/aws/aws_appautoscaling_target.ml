@@ -3,19 +3,114 @@
 open! Tf_core
 
 type aws_appautoscaling_target = {
-  id : string prop option; [@option]  (** id *)
-  max_capacity : float prop;  (** max_capacity *)
-  min_capacity : float prop;  (** min_capacity *)
-  resource_id : string prop;  (** resource_id *)
-  role_arn : string prop option; [@option]  (** role_arn *)
-  scalable_dimension : string prop;  (** scalable_dimension *)
-  service_namespace : string prop;  (** service_namespace *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  max_capacity : float prop;
+  min_capacity : float prop;
+  resource_id : string prop;
+  role_arn : string prop option; [@option]
+  scalable_dimension : string prop;
+  service_namespace : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_appautoscaling_target *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_appautoscaling_target) -> ()
+
+let yojson_of_aws_appautoscaling_target =
+  (function
+   | {
+       id = v_id;
+       max_capacity = v_max_capacity;
+       min_capacity = v_min_capacity;
+       resource_id = v_resource_id;
+       role_arn = v_role_arn;
+       scalable_dimension = v_scalable_dimension;
+       service_namespace = v_service_namespace;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_service_namespace
+         in
+         ("service_namespace", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_scalable_dimension
+         in
+         ("scalable_dimension", arg) :: bnds
+       in
+       let bnds =
+         match v_role_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "role_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_id in
+         ("resource_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_capacity in
+         ("min_capacity", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_capacity in
+         ("max_capacity", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_appautoscaling_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_appautoscaling_target
+
+[@@@deriving.end]
 
 let aws_appautoscaling_target ?id ?role_arn ?tags ?tags_all
     ~max_capacity ~min_capacity ~resource_id ~scalable_dimension

@@ -2,49 +2,240 @@
 
 open! Tf_core
 
-type data_privacy = {
-  child_directed : bool prop;  (** child_directed *)
-}
-[@@deriving yojson_of]
-(** data_privacy *)
+type data_privacy = { child_directed : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_privacy) -> ()
+
+let yojson_of_data_privacy =
+  (function
+   | { child_directed = v_child_directed } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_child_directed in
+         ("child_directed", arg) :: bnds
+       in
+       `Assoc bnds
+    : data_privacy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_privacy
+
+[@@@deriving.end]
 
 type members = {
-  alias_id : string prop;  (** alias_id *)
-  alias_name : string prop;  (** alias_name *)
-  id : string prop;  (** id *)
-  name : string prop;  (** name *)
-  version : string prop;  (** version *)
+  alias_id : string prop;
+  alias_name : string prop;
+  id : string prop;
+  name : string prop;
+  version : string prop;
 }
-[@@deriving yojson_of]
-(** members *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : members) -> ()
+
+let yojson_of_members =
+  (function
+   | {
+       alias_id = v_alias_id;
+       alias_name = v_alias_name;
+       id = v_id;
+       name = v_name;
+       version = v_version;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alias_name in
+         ("alias_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_alias_id in
+         ("alias_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : members -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_members
+
+[@@@deriving.end]
 
 type timeouts = {
   create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
   update : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_lexv2models_bot = {
-  description : string prop option; [@option]  (** description *)
+  description : string prop option; [@option]
   idle_session_ttl_in_seconds : float prop;
-      (** idle_session_ttl_in_seconds *)
-  name : string prop;  (** name *)
-  role_arn : string prop;  (** role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  name : string prop;
+  role_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   test_bot_alias_tags : (string * string prop) list option; [@option]
-      (** test_bot_alias_tags *)
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
+  type_ : string prop option; [@option] [@key "type"]
   data_privacy : data_privacy list;
   members : members list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_lexv2models_bot *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_lexv2models_bot) -> ()
+
+let yojson_of_aws_lexv2models_bot =
+  (function
+   | {
+       description = v_description;
+       idle_session_ttl_in_seconds = v_idle_session_ttl_in_seconds;
+       name = v_name;
+       role_arn = v_role_arn;
+       tags = v_tags;
+       test_bot_alias_tags = v_test_bot_alias_tags;
+       type_ = v_type_;
+       data_privacy = v_data_privacy;
+       members = v_members;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_members v_members in
+         ("members", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_privacy v_data_privacy
+         in
+         ("data_privacy", arg) :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_test_bot_alias_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "test_bot_alias_tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float
+             v_idle_session_ttl_in_seconds
+         in
+         ("idle_session_ttl_in_seconds", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_lexv2models_bot -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_lexv2models_bot
+
+[@@@deriving.end]
 
 let data_privacy ~child_directed () : data_privacy =
   { child_directed }

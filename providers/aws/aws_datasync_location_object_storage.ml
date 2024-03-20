@@ -3,24 +3,155 @@
 open! Tf_core
 
 type aws_datasync_location_object_storage = {
-  access_key : string prop option; [@option]  (** access_key *)
-  agent_arns : string prop list;  (** agent_arns *)
-  bucket_name : string prop;  (** bucket_name *)
-  id : string prop option; [@option]  (** id *)
-  secret_key : string prop option; [@option]  (** secret_key *)
+  access_key : string prop option; [@option]
+  agent_arns : string prop list;
+  bucket_name : string prop;
+  id : string prop option; [@option]
+  secret_key : string prop option; [@option]
   server_certificate : string prop option; [@option]
-      (** server_certificate *)
-  server_hostname : string prop;  (** server_hostname *)
-  server_port : float prop option; [@option]  (** server_port *)
+  server_hostname : string prop;
+  server_port : float prop option; [@option]
   server_protocol : string prop option; [@option]
-      (** server_protocol *)
-  subdirectory : string prop option; [@option]  (** subdirectory *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  subdirectory : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
 }
-[@@deriving yojson_of]
-(** aws_datasync_location_object_storage *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_datasync_location_object_storage) -> ()
+
+let yojson_of_aws_datasync_location_object_storage =
+  (function
+   | {
+       access_key = v_access_key;
+       agent_arns = v_agent_arns;
+       bucket_name = v_bucket_name;
+       id = v_id;
+       secret_key = v_secret_key;
+       server_certificate = v_server_certificate;
+       server_hostname = v_server_hostname;
+       server_port = v_server_port;
+       server_protocol = v_server_protocol;
+       subdirectory = v_subdirectory;
+       tags = v_tags;
+       tags_all = v_tags_all;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_subdirectory with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "subdirectory", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_server_protocol with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "server_protocol", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_server_port with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "server_port", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_server_hostname
+         in
+         ("server_hostname", arg) :: bnds
+       in
+       let bnds =
+         match v_server_certificate with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "server_certificate", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_bucket_name in
+         ("bucket_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_agent_arns
+         in
+         ("agent_arns", arg) :: bnds
+       in
+       let bnds =
+         match v_access_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "access_key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_datasync_location_object_storage ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_datasync_location_object_storage
+
+[@@@deriving.end]
 
 let aws_datasync_location_object_storage ?access_key ?id ?secret_key
     ?server_certificate ?server_port ?server_protocol ?subdirectory

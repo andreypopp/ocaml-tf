@@ -2,40 +2,184 @@
 
 open! Tf_core
 
-type file = {
-  content : string prop;  (** The content of the file. *)
-  name : string prop;  (** The filename of the file to be uploaded. *)
-}
-[@@deriving yojson_of]
-(** file *)
+type file = { content : string prop; name : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : file) -> ()
+
+let yojson_of_file =
+  (function
+   | { content = v_content; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content in
+         ("content", arg) :: bnds
+       in
+       `Assoc bnds
+    : file -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_file
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_function_app_function = {
   config_json : string prop;
-      (** The config for this Function in JSON format. *)
   enabled : bool prop option; [@option]
-      (** Should this function be enabled. Defaults to `true`. *)
   function_app_id : string prop;
-      (** The ID of the Function App in which this function should reside. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   language : string prop option; [@option]
-      (** The language the Function is written in. *)
-  name : string prop;  (** The name of the function. *)
+  name : string prop;
   test_data : string prop option; [@option]
-      (** The test data for the function. *)
   file : file list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_function_app_function *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_function_app_function) -> ()
+
+let yojson_of_azurerm_function_app_function =
+  (function
+   | {
+       config_json = v_config_json;
+       enabled = v_enabled;
+       function_app_id = v_function_app_id;
+       id = v_id;
+       language = v_language;
+       name = v_name;
+       test_data = v_test_data;
+       file = v_file;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_file v_file in
+         ("file", arg) :: bnds
+       in
+       let bnds =
+         match v_test_data with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "test_data", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_language with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "language", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_function_app_id
+         in
+         ("function_app_id", arg) :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_config_json in
+         ("config_json", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_function_app_function ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_function_app_function
+
+[@@@deriving.end]
 
 let file ~content ~name () : file = { content; name }
 

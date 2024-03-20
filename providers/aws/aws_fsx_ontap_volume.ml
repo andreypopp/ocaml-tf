@@ -3,32 +3,171 @@
 open! Tf_core
 
 type snaplock_configuration__autocommit_period = {
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
-  value : float prop option; [@option]  (** value *)
+  type_ : string prop option; [@option] [@key "type"]
+  value : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** snaplock_configuration__autocommit_period *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snaplock_configuration__autocommit_period) -> ()
+
+let yojson_of_snaplock_configuration__autocommit_period =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snaplock_configuration__autocommit_period ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snaplock_configuration__autocommit_period
+
+[@@@deriving.end]
 
 type snaplock_configuration__retention_period__default_retention = {
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
-  value : float prop option; [@option]  (** value *)
+  type_ : string prop option; [@option] [@key "type"]
+  value : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** snaplock_configuration__retention_period__default_retention *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       snaplock_configuration__retention_period__default_retention) ->
+  ()
+
+let yojson_of_snaplock_configuration__retention_period__default_retention
+    =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snaplock_configuration__retention_period__default_retention ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snaplock_configuration__retention_period__default_retention
+
+[@@@deriving.end]
 
 type snaplock_configuration__retention_period__maximum_retention = {
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
-  value : float prop option; [@option]  (** value *)
+  type_ : string prop option; [@option] [@key "type"]
+  value : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** snaplock_configuration__retention_period__maximum_retention *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       snaplock_configuration__retention_period__maximum_retention) ->
+  ()
+
+let yojson_of_snaplock_configuration__retention_period__maximum_retention
+    =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snaplock_configuration__retention_period__maximum_retention ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snaplock_configuration__retention_period__maximum_retention
+
+[@@@deriving.end]
 
 type snaplock_configuration__retention_period__minimum_retention = {
-  type_ : string prop option; [@option] [@key "type"]  (** type *)
-  value : float prop option; [@option]  (** value *)
+  type_ : string prop option; [@option] [@key "type"]
+  value : float prop option; [@option]
 }
-[@@deriving yojson_of]
-(** snaplock_configuration__retention_period__minimum_retention *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       snaplock_configuration__retention_period__minimum_retention) ->
+  ()
+
+let yojson_of_snaplock_configuration__retention_period__minimum_retention
+    =
+  (function
+   | { type_ = v_type_; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snaplock_configuration__retention_period__minimum_retention ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_snaplock_configuration__retention_period__minimum_retention
+
+[@@@deriving.end]
 
 type snaplock_configuration__retention_period = {
   default_retention :
@@ -38,70 +177,413 @@ type snaplock_configuration__retention_period = {
   minimum_retention :
     snaplock_configuration__retention_period__minimum_retention list;
 }
-[@@deriving yojson_of]
-(** snaplock_configuration__retention_period *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snaplock_configuration__retention_period) -> ()
+
+let yojson_of_snaplock_configuration__retention_period =
+  (function
+   | {
+       default_retention = v_default_retention;
+       maximum_retention = v_maximum_retention;
+       minimum_retention = v_minimum_retention;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snaplock_configuration__retention_period__minimum_retention
+             v_minimum_retention
+         in
+         ("minimum_retention", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snaplock_configuration__retention_period__maximum_retention
+             v_maximum_retention
+         in
+         ("maximum_retention", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snaplock_configuration__retention_period__default_retention
+             v_default_retention
+         in
+         ("default_retention", arg) :: bnds
+       in
+       `Assoc bnds
+    : snaplock_configuration__retention_period ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snaplock_configuration__retention_period
+
+[@@@deriving.end]
 
 type snaplock_configuration = {
   audit_log_volume : bool prop option; [@option]
-      (** audit_log_volume *)
   privileged_delete : string prop option; [@option]
-      (** privileged_delete *)
-  snaplock_type : string prop;  (** snaplock_type *)
+  snaplock_type : string prop;
   volume_append_mode_enabled : bool prop option; [@option]
-      (** volume_append_mode_enabled *)
   autocommit_period : snaplock_configuration__autocommit_period list;
   retention_period : snaplock_configuration__retention_period list;
 }
-[@@deriving yojson_of]
-(** snaplock_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : snaplock_configuration) -> ()
+
+let yojson_of_snaplock_configuration =
+  (function
+   | {
+       audit_log_volume = v_audit_log_volume;
+       privileged_delete = v_privileged_delete;
+       snaplock_type = v_snaplock_type;
+       volume_append_mode_enabled = v_volume_append_mode_enabled;
+       autocommit_period = v_autocommit_period;
+       retention_period = v_retention_period;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snaplock_configuration__retention_period
+             v_retention_period
+         in
+         ("retention_period", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_snaplock_configuration__autocommit_period
+             v_autocommit_period
+         in
+         ("autocommit_period", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_append_mode_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "volume_append_mode_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_snaplock_type in
+         ("snaplock_type", arg) :: bnds
+       in
+       let bnds =
+         match v_privileged_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "privileged_delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_audit_log_volume with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "audit_log_volume", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : snaplock_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_snaplock_configuration
+
+[@@@deriving.end]
 
 type tiering_policy = {
   cooling_period : float prop option; [@option]
-      (** cooling_period *)
-  name : string prop option; [@option]  (** name *)
+  name : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** tiering_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tiering_policy) -> ()
+
+let yojson_of_tiering_policy =
+  (function
+   | { cooling_period = v_cooling_period; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cooling_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cooling_period", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : tiering_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tiering_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_fsx_ontap_volume = {
   bypass_snaplock_enterprise_retention : bool prop option; [@option]
-      (** bypass_snaplock_enterprise_retention *)
   copy_tags_to_backups : bool prop option; [@option]
-      (** copy_tags_to_backups *)
-  id : string prop option; [@option]  (** id *)
-  junction_path : string prop option; [@option]  (** junction_path *)
-  name : string prop;  (** name *)
+  id : string prop option; [@option]
+  junction_path : string prop option; [@option]
+  name : string prop;
   ontap_volume_type : string prop option; [@option]
-      (** ontap_volume_type *)
   security_style : string prop option; [@option]
-      (** security_style *)
-  size_in_megabytes : float prop;  (** size_in_megabytes *)
+  size_in_megabytes : float prop;
   skip_final_backup : bool prop option; [@option]
-      (** skip_final_backup *)
   snapshot_policy : string prop option; [@option]
-      (** snapshot_policy *)
   storage_efficiency_enabled : bool prop option; [@option]
-      (** storage_efficiency_enabled *)
   storage_virtual_machine_id : string prop;
-      (** storage_virtual_machine_id *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
-  volume_type : string prop option; [@option]  (** volume_type *)
+  volume_type : string prop option; [@option]
   snaplock_configuration : snaplock_configuration list;
   tiering_policy : tiering_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_fsx_ontap_volume *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_fsx_ontap_volume) -> ()
+
+let yojson_of_aws_fsx_ontap_volume =
+  (function
+   | {
+       bypass_snaplock_enterprise_retention =
+         v_bypass_snaplock_enterprise_retention;
+       copy_tags_to_backups = v_copy_tags_to_backups;
+       id = v_id;
+       junction_path = v_junction_path;
+       name = v_name;
+       ontap_volume_type = v_ontap_volume_type;
+       security_style = v_security_style;
+       size_in_megabytes = v_size_in_megabytes;
+       skip_final_backup = v_skip_final_backup;
+       snapshot_policy = v_snapshot_policy;
+       storage_efficiency_enabled = v_storage_efficiency_enabled;
+       storage_virtual_machine_id = v_storage_virtual_machine_id;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       volume_type = v_volume_type;
+       snaplock_configuration = v_snaplock_configuration;
+       tiering_policy = v_tiering_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_tiering_policy v_tiering_policy
+         in
+         ("tiering_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_snaplock_configuration
+             v_snaplock_configuration
+         in
+         ("snaplock_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_volume_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_storage_virtual_machine_id
+         in
+         ("storage_virtual_machine_id", arg) :: bnds
+       in
+       let bnds =
+         match v_storage_efficiency_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "storage_efficiency_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_snapshot_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "snapshot_policy", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_skip_final_backup with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "skip_final_backup", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_size_in_megabytes
+         in
+         ("size_in_megabytes", arg) :: bnds
+       in
+       let bnds =
+         match v_security_style with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "security_style", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ontap_volume_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ontap_volume_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_junction_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "junction_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_copy_tags_to_backups with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "copy_tags_to_backups", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bypass_snaplock_enterprise_retention with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bypass_snaplock_enterprise_retention", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_fsx_ontap_volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_fsx_ontap_volume
+
+[@@@deriving.end]
 
 let snaplock_configuration__autocommit_period ?type_ ?value () :
     snaplock_configuration__autocommit_period =

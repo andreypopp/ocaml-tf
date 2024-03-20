@@ -10,11 +10,15 @@ type connection_info__endpoint_info = {
       (** websockets_api_endpoint *)
 }
 
+[@@@deriving.end]
+
 type connection_info = {
   endpoint_info : connection_info__endpoint_info list;
       (** endpoint_info *)
   service_attachment : string prop;  (** service_attachment *)
 }
+
+[@@@deriving.end]
 
 type ethereum_details__additional_endpoints = {
   beacon_api_endpoint : string prop;  (** beacon_api_endpoint *)
@@ -23,6 +27,8 @@ type ethereum_details__additional_endpoints = {
   execution_client_prometheus_metrics_api_endpoint : string prop;
       (** execution_client_prometheus_metrics_api_endpoint *)
 }
+
+[@@@deriving.end]
 
 type ethereum_details__geth_details
 

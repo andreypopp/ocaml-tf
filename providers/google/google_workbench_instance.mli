@@ -6,6 +6,7 @@ open! Tf_core
 
 type health_info = {
 }
+[@@@deriving.end]
 type upgrade_history = {
   action: string prop;  (** action *)
   container_image: string prop;  (** container_image *)
@@ -17,6 +18,7 @@ type upgrade_history = {
   version: string prop;  (** version *)
   vm_image: string prop;  (** vm_image *)
 }
+[@@@deriving.end]
 type gce_setup__accelerator_configs
 
 val gce_setup__accelerator_configs :

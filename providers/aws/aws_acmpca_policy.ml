@@ -3,12 +3,43 @@
 open! Tf_core
 
 type aws_acmpca_policy = {
-  id : string prop option; [@option]  (** id *)
-  policy : string prop;  (** policy *)
-  resource_arn : string prop;  (** resource_arn *)
+  id : string prop option; [@option]
+  policy : string prop;
+  resource_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_acmpca_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_acmpca_policy) -> ()
+
+let yojson_of_aws_acmpca_policy =
+  (function
+   | { id = v_id; policy = v_policy; resource_arn = v_resource_arn }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_resource_arn in
+         ("resource_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_policy in
+         ("policy", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_acmpca_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_acmpca_policy
+
+[@@@deriving.end]
 
 let aws_acmpca_policy ?id ~policy ~resource_arn () :
     aws_acmpca_policy =

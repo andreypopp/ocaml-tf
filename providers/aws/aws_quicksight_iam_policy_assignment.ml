@@ -3,20 +3,20 @@
 open! Tf_core
 
 type identities = {
-  group: string   prop list option; [@option] (** group *)
-  user: string   prop list option; [@option] (** user *)
-} [@@deriving yojson_of]
-(** identities *)
+  group: string   prop list option; [@option]
+  user: string   prop list option; [@option]
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 type aws_quicksight_iam_policy_assignment = {
-  assignment_name: string prop;  (** assignment_name *)
-  assignment_status: string prop;  (** assignment_status *)
-  aws_account_id: string  prop option; [@option] (** aws_account_id *)
-  namespace: string  prop option; [@option] (** namespace *)
-  policy_arn: string  prop option; [@option] (** policy_arn *)
+  assignment_name: string prop; 
+  assignment_status: string prop; 
+  aws_account_id: string  prop option; [@option]
+  namespace: string  prop option; [@option]
+  policy_arn: string  prop option; [@option]
   identities: identities list;
-} [@@deriving yojson_of]
-(** aws_quicksight_iam_policy_assignment *)
+} [@@deriving_inline yojson_of]
+[@@@deriving.end]
 
 let identities ?group ?user () =
   ({

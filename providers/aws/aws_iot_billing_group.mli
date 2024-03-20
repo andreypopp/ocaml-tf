@@ -5,6 +5,9 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type metadata = { creation_date : string prop  (** creation_date *) }
+
+[@@@deriving.end]
+
 type properties
 
 val properties : ?description:string prop -> unit -> properties

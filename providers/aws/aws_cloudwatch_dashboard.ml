@@ -3,12 +3,50 @@
 open! Tf_core
 
 type aws_cloudwatch_dashboard = {
-  dashboard_body : string prop;  (** dashboard_body *)
-  dashboard_name : string prop;  (** dashboard_name *)
-  id : string prop option; [@option]  (** id *)
+  dashboard_body : string prop;
+  dashboard_name : string prop;
+  id : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_cloudwatch_dashboard *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudwatch_dashboard) -> ()
+
+let yojson_of_aws_cloudwatch_dashboard =
+  (function
+   | {
+       dashboard_body = v_dashboard_body;
+       dashboard_name = v_dashboard_name;
+       id = v_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_dashboard_name
+         in
+         ("dashboard_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_dashboard_body
+         in
+         ("dashboard_body", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudwatch_dashboard -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudwatch_dashboard
+
+[@@@deriving.end]
 
 let aws_cloudwatch_dashboard ?id ~dashboard_body ~dashboard_name () :
     aws_cloudwatch_dashboard =

@@ -2,82 +2,240 @@
 
 open! Tf_core
 
-type anthos_cluster = {
-  membership : string prop option; [@option]
-      (** Membership of the GKE Hub-registered cluster to which to apply the Skaffold configuration. Format is `projects/{project}/locations/{location}/memberships/{membership_name}`. *)
-}
-[@@deriving yojson_of]
-(** Information specifying an Anthos Cluster. *)
+type anthos_cluster = { membership : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : anthos_cluster) -> ()
+
+let yojson_of_anthos_cluster =
+  (function
+   | { membership = v_membership } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_membership with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "membership", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : anthos_cluster -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_anthos_cluster
+
+[@@@deriving.end]
 
 type execution_configs = {
   artifact_storage : string prop option; [@option]
-      (** Optional. Cloud Storage location in which to store execution outputs. This can either be a bucket (gs://my-bucket) or a path within a bucket (gs://my-bucket/my-dir). If unspecified, a default bucket located in the same region will be used. *)
   execution_timeout : string prop option; [@option]
-      (** Optional. Execution timeout for a Cloud Build Execution. This must be between 10m and 24h in seconds format. If unspecified, a default timeout of 1h is used. *)
   service_account : string prop option; [@option]
-      (** Optional. Google service account to use for execution. If unspecified, the project execution service account (-compute@developer.gserviceaccount.com) is used. *)
   usages : string prop list;
-      (** Required. Usages when this configuration should be applied. *)
   worker_pool : string prop option; [@option]
-      (** Optional. The resource name of the `WorkerPool`, with the format `projects/{project}/locations/{location}/workerPools/{worker_pool}`. If this optional field is unspecified, the default Cloud Build pool will be used. *)
 }
-[@@deriving yojson_of]
-(** Configurations for all execution that relates to this `Target`. Each `ExecutionEnvironmentUsage` value may only be used in a single configuration; using the same value multiple times is an error. When one or more configurations are specified, they must include the `RENDER` and `DEPLOY` `ExecutionEnvironmentUsage` values. When no configurations are specified, execution will use the default specified in `DefaultPool`. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : execution_configs) -> ()
+
+let yojson_of_execution_configs =
+  (function
+   | {
+       artifact_storage = v_artifact_storage;
+       execution_timeout = v_execution_timeout;
+       service_account = v_service_account;
+       usages = v_usages;
+       worker_pool = v_worker_pool;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_worker_pool with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "worker_pool", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_usages
+         in
+         ("usages", arg) :: bnds
+       in
+       let bnds =
+         match v_service_account with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_execution_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "execution_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_artifact_storage with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "artifact_storage", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : execution_configs -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_execution_configs
+
+[@@@deriving.end]
 
 type gke = {
   cluster : string prop option; [@option]
-      (** Information specifying a GKE Cluster. Format is `projects/{project_id}/locations/{location_id}/clusters/{cluster_id}. *)
   internal_ip : bool prop option; [@option]
-      (** Optional. If true, `cluster` is accessed using the private IP address of the control plane endpoint. Otherwise, the default IP address of the control plane endpoint is used. The default IP address is the private IP address for clusters with private control-plane endpoints and the public IP address otherwise. Only specify this option when `cluster` is a [private GKE cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/private-cluster-concept). *)
 }
-[@@deriving yojson_of]
-(** Information specifying a GKE Cluster. *)
+[@@deriving_inline yojson_of]
 
-type multi_target = {
-  target_ids : string prop list;
-      (** Required. The target_ids of this multiTarget. *)
-}
-[@@deriving yojson_of]
-(** Information specifying a multiTarget. *)
+let _ = fun (_ : gke) -> ()
 
-type run = {
-  location : string prop;
-      (** Required. The location where the Cloud Run Service should be located. Format is `projects/{project}/locations/{location}`. *)
-}
-[@@deriving yojson_of]
-(** Information specifying a Cloud Run deployment target. *)
+let yojson_of_gke =
+  (function
+   | { cluster = v_cluster; internal_ip = v_internal_ip } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_internal_ip with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "internal_ip", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cluster with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "cluster", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : gke -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_gke
+
+[@@@deriving.end]
+
+type multi_target = { target_ids : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : multi_target) -> ()
+
+let yojson_of_multi_target =
+  (function
+   | { target_ids = v_target_ids } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_target_ids
+         in
+         ("target_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : multi_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_multi_target
+
+[@@@deriving.end]
+
+type run = { location : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : run) -> ()
+
+let yojson_of_run =
+  (function
+   | { location = v_location } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       `Assoc bnds
+    : run -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_run
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_clouddeploy_target = {
   annotations : (string * string prop) list option; [@option]
-      (** Optional. User annotations. These attributes can only be set and used by the user, and not by Google Cloud Deploy. See https://google.aip.dev/128#annotations for more details such as format and size limitations.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
   deploy_parameters : (string * string prop) list option; [@option]
-      (** Optional. The deploy parameters to use for this target. *)
   description : string prop option; [@option]
-      (** Optional. Description of the `Target`. Max length is 255 characters. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** Optional. Labels are attributes that can be set and used by both the user and by Google Cloud Deploy. Labels must meet the following constraints: * Keys and values can contain only lowercase letters, numeric characters, underscores, and dashes. * All characters must use UTF-8 encoding, and international characters are allowed. * Keys must start with a lowercase letter or international character. * Each resource is limited to a maximum of 64 labels. Both keys and values are additionally constrained to be <= 128 bytes.
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field `effective_labels` for all of the labels present on the resource. *)
-  location : string prop;  (** The location for the resource *)
+  location : string prop;
   name : string prop;
-      (** Name of the `Target`. Format is [a-z][a-z0-9\-]{0,62}. *)
   project : string prop option; [@option]
-      (** The project for the resource *)
   require_approval : bool prop option; [@option]
-      (** Optional. Whether or not the `Target` requires approval. *)
   anthos_cluster : anthos_cluster list;
   execution_configs : execution_configs list;
   gke : gke list;
@@ -85,8 +243,157 @@ Please refer to the field `effective_labels` for all of the labels present on th
   run : run list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_clouddeploy_target *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_clouddeploy_target) -> ()
+
+let yojson_of_google_clouddeploy_target =
+  (function
+   | {
+       annotations = v_annotations;
+       deploy_parameters = v_deploy_parameters;
+       description = v_description;
+       id = v_id;
+       labels = v_labels;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       require_approval = v_require_approval;
+       anthos_cluster = v_anthos_cluster;
+       execution_configs = v_execution_configs;
+       gke = v_gke;
+       multi_target = v_multi_target;
+       run = v_run;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_run v_run in
+         ("run", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_multi_target v_multi_target
+         in
+         ("multi_target", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_gke v_gke in
+         ("gke", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_execution_configs
+             v_execution_configs
+         in
+         ("execution_configs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_anthos_cluster v_anthos_cluster
+         in
+         ("anthos_cluster", arg) :: bnds
+       in
+       let bnds =
+         match v_require_approval with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "require_approval", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_deploy_parameters with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "deploy_parameters", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_clouddeploy_target -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_clouddeploy_target
+
+[@@@deriving.end]
 
 let anthos_cluster ?membership () : anthos_cluster = { membership }
 

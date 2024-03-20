@@ -11,6 +11,8 @@ type private_dns_name_configuration = {
   value : string prop;  (** value *)
 }
 
+[@@@deriving.end]
+
 type timeouts
 
 val timeouts :

@@ -2,47 +2,232 @@
 
 open! Tf_core
 
-type destination__amp = {
-  workspace_arn : string prop;  (** workspace_arn *)
-}
-[@@deriving yojson_of]
-(** destination__amp *)
+type destination__amp = { workspace_arn : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : destination__amp) -> ()
+
+let yojson_of_destination__amp =
+  (function
+   | { workspace_arn = v_workspace_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workspace_arn in
+         ("workspace_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : destination__amp -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination__amp
+
+[@@@deriving.end]
 
 type destination = { amp : destination__amp list }
-[@@deriving yojson_of]
-(** destination *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : destination) -> ()
+
+let yojson_of_destination =
+  (function
+   | { amp = v_amp } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_destination__amp v_amp in
+         ("amp", arg) :: bnds
+       in
+       `Assoc bnds
+    : destination -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_destination
+
+[@@@deriving.end]
 
 type source__eks = {
-  cluster_arn : string prop;  (** cluster_arn *)
+  cluster_arn : string prop;
   security_group_ids : string prop list option; [@option]
-      (** security_group_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  subnet_ids : string prop list;
 }
-[@@deriving yojson_of]
-(** source__eks *)
+[@@deriving_inline yojson_of]
 
-type source = { eks : source__eks list } [@@deriving yojson_of]
-(** source *)
+let _ = fun (_ : source__eks) -> ()
+
+let yojson_of_source__eks =
+  (function
+   | {
+       cluster_arn = v_cluster_arn;
+       security_group_ids = v_security_group_ids;
+       subnet_ids = v_subnet_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster_arn in
+         ("cluster_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : source__eks -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source__eks
+
+[@@@deriving.end]
+
+type source = { eks : source__eks list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : source) -> ()
+
+let yojson_of_source =
+  (function
+   | { eks = v_eks } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_source__eks v_eks in
+         ("eks", arg) :: bnds
+       in
+       `Assoc bnds
+    : source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_source
+
+[@@@deriving.end]
 
 type timeouts = {
   create : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). *)
   delete : string prop option; [@option]
-      (** A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as 30s or 2h45m. Valid time units are s (seconds), m (minutes), h (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs. *)
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type aws_prometheus_scraper = {
-  alias : string prop option; [@option]  (** alias *)
-  scrape_configuration : string prop;  (** scrape_configuration *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  alias : string prop option; [@option]
+  scrape_configuration : string prop;
+  tags : (string * string prop) list option; [@option]
   destination : destination list;
   source : source list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_prometheus_scraper *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_prometheus_scraper) -> ()
+
+let yojson_of_aws_prometheus_scraper =
+  (function
+   | {
+       alias = v_alias;
+       scrape_configuration = v_scrape_configuration;
+       tags = v_tags;
+       destination = v_destination;
+       source = v_source;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_source v_source in
+         ("source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_destination v_destination
+         in
+         ("destination", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_scrape_configuration
+         in
+         ("scrape_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_alias with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "alias", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_prometheus_scraper -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_prometheus_scraper
+
+[@@@deriving.end]
 
 let destination__amp ~workspace_arn () : destination__amp =
   { workspace_arn }

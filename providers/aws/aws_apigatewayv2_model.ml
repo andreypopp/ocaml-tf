@@ -3,15 +3,68 @@
 open! Tf_core
 
 type aws_apigatewayv2_model = {
-  api_id : string prop;  (** api_id *)
-  content_type : string prop;  (** content_type *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  schema : string prop;  (** schema *)
+  api_id : string prop;
+  content_type : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  schema : string prop;
 }
-[@@deriving yojson_of]
-(** aws_apigatewayv2_model *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_apigatewayv2_model) -> ()
+
+let yojson_of_aws_apigatewayv2_model =
+  (function
+   | {
+       api_id = v_api_id;
+       content_type = v_content_type;
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       schema = v_schema;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_schema in
+         ("schema", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_content_type in
+         ("content_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_api_id in
+         ("api_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_apigatewayv2_model -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_apigatewayv2_model
+
+[@@@deriving.end]
 
 let aws_apigatewayv2_model ?description ?id ~api_id ~content_type
     ~name ~schema () : aws_apigatewayv2_model =

@@ -4,49 +4,193 @@ open! Tf_core
 
 type fields = {
   bool_value : bool prop option; [@option]
-      (** Holds the value for a tag field with boolean type. *)
   double_value : float prop option; [@option]
-      (** Holds the value for a tag field with double type. *)
   enum_value : string prop option; [@option]
-      (** The display name of the enum value. *)
-  field_name : string prop;  (** field_name *)
+  field_name : string prop;
   string_value : string prop option; [@option]
-      (** Holds the value for a tag field with string type. *)
   timestamp_value : string prop option; [@option]
-      (** Holds the value for a tag field with timestamp type. *)
 }
-[@@deriving yojson_of]
-(** This maps the ID of a tag field to the value of and additional information about that field.
-Valid field IDs are defined by the tag's template. A tag must have at least 1 field and at most 500 fields. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : fields) -> ()
+
+let yojson_of_fields =
+  (function
+   | {
+       bool_value = v_bool_value;
+       double_value = v_double_value;
+       enum_value = v_enum_value;
+       field_name = v_field_name;
+       string_value = v_string_value;
+       timestamp_value = v_timestamp_value;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_timestamp_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "timestamp_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_string_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "string_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_field_name in
+         ("field_name", arg) :: bnds
+       in
+       let bnds =
+         match v_enum_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "enum_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_double_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "double_value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bool_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "bool_value", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : fields -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_fields
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_data_catalog_tag = {
   column : string prop option; [@option]
-      (** Resources like Entry can have schemas associated with them. This scope allows users to attach tags to an
-individual column based on that schema.
-
-For attaching a tag to a nested column, use '.' to separate the column names. Example:
-'outer_column.inner_column' *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   parent : string prop option; [@option]
-      (** The name of the parent this tag is attached to. This can be the name of an entry or an entry group. If an entry group, the tag will be attached to
-all entries in that group. *)
   template : string prop;
-      (** The resource name of the tag template that this tag uses. Example:
-projects/{project_id}/locations/{location}/tagTemplates/{tagTemplateId}
-This field cannot be modified after creation. *)
   fields : fields list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_data_catalog_tag *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_data_catalog_tag) -> ()
+
+let yojson_of_google_data_catalog_tag =
+  (function
+   | {
+       column = v_column;
+       id = v_id;
+       parent = v_parent;
+       template = v_template;
+       fields = v_fields;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_fields v_fields in
+         ("fields", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_template in
+         ("template", arg) :: bnds
+       in
+       let bnds =
+         match v_parent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "parent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_column with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "column", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_data_catalog_tag -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_data_catalog_tag
+
+[@@@deriving.end]
 
 let fields ?bool_value ?double_value ?enum_value ?string_value
     ?timestamp_value ~field_name () : fields =

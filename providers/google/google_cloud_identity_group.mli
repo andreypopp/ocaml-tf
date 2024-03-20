@@ -9,6 +9,8 @@ type additional_group_keys = {
   namespace : string prop;  (** namespace *)
 }
 
+[@@@deriving.end]
+
 type group_key
 
 val group_key :

@@ -4,80 +4,258 @@ open! Tf_core
 
 type autoscaling = {
   max_node_count : float prop;
-      (** Maximum number of nodes in the NodePool. Must be >= min_node_count. *)
   min_node_count : float prop;
-      (** Minimum number of nodes in the NodePool. Must be >= 1 and <= max_node_count. *)
 }
-[@@deriving yojson_of]
-(** Autoscaler configuration for this node pool. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : autoscaling) -> ()
+
+let yojson_of_autoscaling =
+  (function
+   | {
+       max_node_count = v_max_node_count;
+       min_node_count = v_min_node_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_min_node_count in
+         ("min_node_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_max_node_count in
+         ("max_node_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : autoscaling -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_autoscaling
+
+[@@@deriving.end]
 
 type config__autoscaling_metrics_collection = {
   granularity : string prop;
-      (** The frequency at which EC2 Auto Scaling sends aggregated data to AWS CloudWatch. The only valid value is 1Minute. *)
   metrics : string prop list option; [@option]
-      (** The metrics to enable. For a list of valid metrics, see https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_EnableMetricsCollection.html. If you specify granularity and don't specify any metrics, all metrics are enabled. *)
 }
-[@@deriving yojson_of]
-(** Optional. Configuration related to CloudWatch metrics collection on the Auto Scaling group of the node pool. When unspecified, metrics collection is disabled. *)
+[@@deriving_inline yojson_of]
 
-type config__config_encryption = {
-  kms_key_arn : string prop;
-      (** The ARN of the AWS KMS key used to encrypt node pool configuration. *)
-}
-[@@deriving yojson_of]
-(** The ARN of the AWS KMS key used to encrypt node pool configuration. *)
+let _ = fun (_ : config__autoscaling_metrics_collection) -> ()
+
+let yojson_of_config__autoscaling_metrics_collection =
+  (function
+   | { granularity = v_granularity; metrics = v_metrics } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_metrics with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "metrics", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_granularity in
+         ("granularity", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__autoscaling_metrics_collection ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__autoscaling_metrics_collection
+
+[@@@deriving.end]
+
+type config__config_encryption = { kms_key_arn : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__config_encryption) -> ()
+
+let yojson_of_config__config_encryption =
+  (function
+   | { kms_key_arn = v_kms_key_arn } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_arn in
+         ("kms_key_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__config_encryption -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__config_encryption
+
+[@@@deriving.end]
 
 type config__proxy_config = {
   secret_arn : string prop;
-      (** The ARN of the AWS Secret Manager secret that contains the HTTP(S) proxy configuration. *)
   secret_version : string prop;
-      (** The version string of the AWS Secret Manager secret that contains the HTTP(S) proxy configuration. *)
 }
-[@@deriving yojson_of]
-(** Proxy configuration for outbound HTTP(S) traffic. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__proxy_config) -> ()
+
+let yojson_of_config__proxy_config =
+  (function
+   | { secret_arn = v_secret_arn; secret_version = v_secret_version }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_secret_version
+         in
+         ("secret_version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_arn in
+         ("secret_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__proxy_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__proxy_config
+
+[@@@deriving.end]
 
 type config__root_volume = {
   iops : float prop option; [@option]
-      (** Optional. The number of I/O operations per second (IOPS) to provision for GP3 volume. *)
   kms_key_arn : string prop option; [@option]
-      (** Optional. The Amazon Resource Name (ARN) of the Customer Managed Key (CMK) used to encrypt AWS EBS volumes. If not specified, the default Amazon managed key associated to the AWS region where this cluster runs will be used. *)
   size_gib : float prop option; [@option]
-      (** Optional. The size of the volume, in GiBs. When unspecified, a default value is provided. See the specific reference in the parent resource. *)
   throughput : float prop option; [@option]
-      (** Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3. If volume type is gp3 and throughput is not specified, the throughput will defaults to 125. *)
   volume_type : string prop option; [@option]
-      (** Optional. Type of the EBS volume. When unspecified, it defaults to GP2 volume. Possible values: VOLUME_TYPE_UNSPECIFIED, GP2, GP3 *)
 }
-[@@deriving yojson_of]
-(** Optional. Template for the root volume provisioned for node pool nodes. Volumes will be provisioned in the availability zone assigned to the node pool subnet. When unspecified, it defaults to 32 GiB with the GP2 volume type. *)
+[@@deriving_inline yojson_of]
 
-type config__ssh_config = {
-  ec2_key_pair : string prop;
-      (** The name of the EC2 key pair used to login into cluster machines. *)
-}
-[@@deriving yojson_of]
-(** Optional. The SSH configuration. *)
+let _ = fun (_ : config__root_volume) -> ()
+
+let yojson_of_config__root_volume =
+  (function
+   | {
+       iops = v_iops;
+       kms_key_arn = v_kms_key_arn;
+       size_gib = v_size_gib;
+       throughput = v_throughput;
+       volume_type = v_volume_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_volume_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "volume_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_throughput with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "throughput", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_size_gib with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "size_gib", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key_arn with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_arn", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_iops with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "iops", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : config__root_volume -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__root_volume
+
+[@@@deriving.end]
+
+type config__ssh_config = { ec2_key_pair : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__ssh_config) -> ()
+
+let yojson_of_config__ssh_config =
+  (function
+   | { ec2_key_pair = v_ec2_key_pair } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_ec2_key_pair in
+         ("ec2_key_pair", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__ssh_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__ssh_config
+
+[@@@deriving.end]
 
 type config__taints = {
   effect : string prop;
-      (** The taint effect. Possible values: EFFECT_UNSPECIFIED, NO_SCHEDULE, PREFER_NO_SCHEDULE, NO_EXECUTE *)
-  key : string prop;  (** Key for the taint. *)
-  value : string prop;  (** Value for the taint. *)
+  key : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** Optional. The initial taints assigned to nodes of this node pool. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : config__taints) -> ()
+
+let yojson_of_config__taints =
+  (function
+   | { effect = v_effect; key = v_key; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_effect in
+         ("effect", arg) :: bnds
+       in
+       `Assoc bnds
+    : config__taints -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config__taints
+
+[@@@deriving.end]
 
 type config = {
   iam_instance_profile : string prop;
-      (** The name of the AWS IAM role assigned to nodes in the pool. *)
   instance_type : string prop option; [@option]
-      (** Optional. The AWS instance type. When unspecified, it defaults to `m5.large`. *)
   labels : (string * string prop) list option; [@option]
-      (** Optional. The initial labels assigned to nodes of this node pool. An object containing a list of key: value pairs. Example: { name: wrench, mass: 1.3kg, count: 3 }. *)
   security_group_ids : string prop list option; [@option]
-      (** Optional. The IDs of additional security groups to add to nodes in this pool. The manager will automatically create security groups with minimum rules needed for a functioning cluster. *)
   tags : (string * string prop) list option; [@option]
-      (** Optional. Key/value metadata to assign to each underlying AWS resource. Specify at most 50 pairs containing alphanumerics, spaces, and symbols (.+-=_:@/). Keys can be up to 127 Unicode characters. Values can be up to 255 Unicode characters. *)
   autoscaling_metrics_collection :
     config__autoscaling_metrics_collection list;
   config_encryption : config__config_encryption list;
@@ -86,62 +264,303 @@ type config = {
   ssh_config : config__ssh_config list;
   taints : config__taints list;
 }
-[@@deriving yojson_of]
-(** The configuration of the node pool. *)
+[@@deriving_inline yojson_of]
 
-type management = {
-  auto_repair : bool prop option; [@option]
-      (** Optional. Whether or not the nodes will be automatically repaired. *)
-}
-[@@deriving yojson_of]
-(** The Management configuration for this node pool. *)
+let _ = fun (_ : config) -> ()
 
-type max_pods_constraint = {
-  max_pods_per_node : float prop;
-      (** The maximum number of pods to schedule on a single node. *)
-}
-[@@deriving yojson_of]
-(** The constraint on the maximum number of pods that can be run simultaneously on a node in the node pool. *)
+let yojson_of_config =
+  (function
+   | {
+       iam_instance_profile = v_iam_instance_profile;
+       instance_type = v_instance_type;
+       labels = v_labels;
+       security_group_ids = v_security_group_ids;
+       tags = v_tags;
+       autoscaling_metrics_collection =
+         v_autoscaling_metrics_collection;
+       config_encryption = v_config_encryption;
+       proxy_config = v_proxy_config;
+       root_volume = v_root_volume;
+       ssh_config = v_ssh_config;
+       taints = v_taints;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__taints v_taints
+         in
+         ("taints", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__ssh_config v_ssh_config
+         in
+         ("ssh_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__root_volume v_root_volume
+         in
+         ("root_volume", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__proxy_config
+             v_proxy_config
+         in
+         ("proxy_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_config__config_encryption
+             v_config_encryption
+         in
+         ("config_encryption", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_config__autoscaling_metrics_collection
+             v_autoscaling_metrics_collection
+         in
+         ("autoscaling_metrics_collection", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_security_group_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "security_group_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_instance_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "instance_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_iam_instance_profile
+         in
+         ("iam_instance_profile", arg) :: bnds
+       in
+       `Assoc bnds
+    : config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_config
+
+[@@@deriving.end]
+
+type management = { auto_repair : bool prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : management) -> ()
+
+let yojson_of_management =
+  (function
+   | { auto_repair = v_auto_repair } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_auto_repair with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "auto_repair", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : management -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_management
+
+[@@@deriving.end]
+
+type max_pods_constraint = { max_pods_per_node : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : max_pods_constraint) -> ()
+
+let yojson_of_max_pods_constraint =
+  (function
+   | { max_pods_per_node = v_max_pods_per_node } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_max_pods_per_node
+         in
+         ("max_pods_per_node", arg) :: bnds
+       in
+       `Assoc bnds
+    : max_pods_constraint -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_max_pods_constraint
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type update_settings__surge_settings = {
   max_surge : float prop option; [@option]
-      (** Optional. The maximum number of nodes that can be created beyond the current size of the node pool during the update process. *)
   max_unavailable : float prop option; [@option]
-      (** Optional. The maximum number of nodes that can be simultaneously unavailable during the update process. A node is considered unavailable if its status is not Ready. *)
 }
-[@@deriving yojson_of]
-(** Optional. Settings for surge update. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : update_settings__surge_settings) -> ()
+
+let yojson_of_update_settings__surge_settings =
+  (function
+   | { max_surge = v_max_surge; max_unavailable = v_max_unavailable }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_max_unavailable with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_unavailable", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_surge with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_surge", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : update_settings__surge_settings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_update_settings__surge_settings
+
+[@@@deriving.end]
 
 type update_settings = {
   surge_settings : update_settings__surge_settings list;
 }
-[@@deriving yojson_of]
-(** Optional. Update settings control the speed and disruption of the node pool update. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : update_settings) -> ()
+
+let yojson_of_update_settings =
+  (function
+   | { surge_settings = v_surge_settings } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_update_settings__surge_settings
+             v_surge_settings
+         in
+         ("surge_settings", arg) :: bnds
+       in
+       `Assoc bnds
+    : update_settings -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_update_settings
+
+[@@@deriving.end]
 
 type google_container_aws_node_pool = {
   annotations : (string * string prop) list option; [@option]
-      (** Optional. Annotations on the node pool. This field has the same restrictions as Kubernetes annotations. The total size of all keys and values combined is limited to 256k. Key can have 2 segments: prefix (optional) and name (required), separated by a slash (/). Prefix must be a DNS subdomain. Name must be 63 characters or less, begin and end with alphanumerics, with dashes (-), underscores (_), dots (.), and alphanumerics between.
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field `effective_annotations` for all of the annotations present on the resource. *)
-  cluster : string prop;  (** The awsCluster for the resource *)
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** The location for the resource *)
-  name : string prop;  (** The name of this resource. *)
+  cluster : string prop;
+  id : string prop option; [@option]
+  location : string prop;
+  name : string prop;
   project : string prop option; [@option]
-      (** The project for the resource *)
   subnet_id : string prop;
-      (** The subnet where the node pool node run. *)
   version : string prop;
-      (** The Kubernetes version to run on this node pool (e.g. `1.19.10-gke.1000`). You can list all supported versions on a given Google Cloud region by calling GetAwsServerConfig. *)
   autoscaling : autoscaling list;
   config : config list;
   management : management list;
@@ -149,8 +568,123 @@ Please refer to the field `effective_annotations` for all of the annotations pre
   timeouts : timeouts option;
   update_settings : update_settings list;
 }
-[@@deriving yojson_of]
-(** google_container_aws_node_pool *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_container_aws_node_pool) -> ()
+
+let yojson_of_google_container_aws_node_pool =
+  (function
+   | {
+       annotations = v_annotations;
+       cluster = v_cluster;
+       id = v_id;
+       location = v_location;
+       name = v_name;
+       project = v_project;
+       subnet_id = v_subnet_id;
+       version = v_version;
+       autoscaling = v_autoscaling;
+       config = v_config;
+       management = v_management;
+       max_pods_constraint = v_max_pods_constraint;
+       timeouts = v_timeouts;
+       update_settings = v_update_settings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_update_settings v_update_settings
+         in
+         ("update_settings", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_max_pods_constraint
+             v_max_pods_constraint
+         in
+         ("max_pods_constraint", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_management v_management
+         in
+         ("management", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_config v_config in
+         ("config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_autoscaling v_autoscaling
+         in
+         ("autoscaling", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_subnet_id in
+         ("subnet_id", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_cluster in
+         ("cluster", arg) :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_container_aws_node_pool ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_container_aws_node_pool
+
+[@@@deriving.end]
 
 let autoscaling ~max_node_count ~min_node_count () : autoscaling =
   { max_node_count; min_node_count }

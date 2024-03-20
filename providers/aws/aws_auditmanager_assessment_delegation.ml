@@ -3,14 +3,61 @@
 open! Tf_core
 
 type aws_auditmanager_assessment_delegation = {
-  assessment_id : string prop;  (** assessment_id *)
-  comment : string prop option; [@option]  (** comment *)
-  control_set_id : string prop;  (** control_set_id *)
-  role_arn : string prop;  (** role_arn *)
-  role_type : string prop;  (** role_type *)
+  assessment_id : string prop;
+  comment : string prop option; [@option]
+  control_set_id : string prop;
+  role_arn : string prop;
+  role_type : string prop;
 }
-[@@deriving yojson_of]
-(** aws_auditmanager_assessment_delegation *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_auditmanager_assessment_delegation) -> ()
+
+let yojson_of_aws_auditmanager_assessment_delegation =
+  (function
+   | {
+       assessment_id = v_assessment_id;
+       comment = v_comment;
+       control_set_id = v_control_set_id;
+       role_arn = v_role_arn;
+       role_type = v_role_type;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_type in
+         ("role_type", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_control_set_id
+         in
+         ("control_set_id", arg) :: bnds
+       in
+       let bnds =
+         match v_comment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_assessment_id in
+         ("assessment_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_auditmanager_assessment_delegation ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_auditmanager_assessment_delegation
+
+[@@@deriving.end]
 
 let aws_auditmanager_assessment_delegation ?comment ~assessment_id
     ~control_set_id ~role_arn ~role_type () :

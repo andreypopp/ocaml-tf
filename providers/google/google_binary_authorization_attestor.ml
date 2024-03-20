@@ -4,89 +4,266 @@ open! Tf_core
 
 type attestation_authority_note__public_keys__pkix_public_key = {
   public_key_pem : string prop option; [@option]
-      (** A PEM-encoded public key, as described in
-'https://tools.ietf.org/html/rfc7468#section-13' *)
   signature_algorithm : string prop option; [@option]
-      (** The signature algorithm used to verify a message against
-a signature using this key. These signature algorithm must
-match the structure and any object identifiers encoded in
-publicKeyPem (i.e. this algorithm must match that of the
-public key). *)
 }
-[@@deriving yojson_of]
-(** A raw PKIX SubjectPublicKeyInfo format public key.
+[@@deriving_inline yojson_of]
 
-NOTE: id may be explicitly provided by the caller when using this
-type of public key, but it MUST be a valid RFC3986 URI. If id is left
-blank, a default one will be computed based on the digest of the DER
-encoding of the public key. *)
+let _ =
+ fun (_ : attestation_authority_note__public_keys__pkix_public_key) ->
+  ()
+
+let yojson_of_attestation_authority_note__public_keys__pkix_public_key
+    =
+  (function
+   | {
+       public_key_pem = v_public_key_pem;
+       signature_algorithm = v_signature_algorithm;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_signature_algorithm with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "signature_algorithm", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_public_key_pem with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "public_key_pem", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : attestation_authority_note__public_keys__pkix_public_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_attestation_authority_note__public_keys__pkix_public_key
+
+[@@@deriving.end]
 
 type attestation_authority_note__public_keys = {
   ascii_armored_pgp_public_key : string prop option; [@option]
-      (** ASCII-armored representation of a PGP public key, as the
-entire output by the command
-'gpg --export --armor foo@example.com' (either LF or CRLF
-line endings). When using this field, id should be left
-blank. The BinAuthz API handlers will calculate the ID
-and fill it in automatically. BinAuthz computes this ID
-as the OpenPGP RFC4880 V4 fingerprint, represented as
-upper-case hex. If id is provided by the caller, it will
-be overwritten by the API-calculated ID. *)
   comment : string prop option; [@option]
-      (** A descriptive comment. This field may be updated. *)
   id : string prop option; [@option]
-      (** The ID of this public key. Signatures verified by BinAuthz
-must include the ID of the public key that can be used to
-verify them, and that ID must match the contents of this
-field exactly. Additional restrictions on this field can
-be imposed based on which public key type is encapsulated.
-See the documentation on publicKey cases below for details. *)
   pkix_public_key :
     attestation_authority_note__public_keys__pkix_public_key list;
 }
-[@@deriving yojson_of]
-(** Public keys that verify attestations signed by this attestor. This
-field may be updated.
-If this field is non-empty, one of the specified public keys must
-verify that an attestation was signed by this attestor for the
-image specified in the admission request.
-If this field is empty, this attestor always returns that no valid
-attestations exist. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attestation_authority_note__public_keys) -> ()
+
+let yojson_of_attestation_authority_note__public_keys =
+  (function
+   | {
+       ascii_armored_pgp_public_key = v_ascii_armored_pgp_public_key;
+       comment = v_comment;
+       id = v_id;
+       pkix_public_key = v_pkix_public_key;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_attestation_authority_note__public_keys__pkix_public_key
+             v_pkix_public_key
+         in
+         ("pkix_public_key", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_comment with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "comment", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ascii_armored_pgp_public_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ascii_armored_pgp_public_key", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : attestation_authority_note__public_keys ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attestation_authority_note__public_keys
+
+[@@@deriving.end]
 
 type attestation_authority_note = {
   note_reference : string prop;
-      (** The resource name of a ATTESTATION_AUTHORITY Note, created by the
-user. If the Note is in a different project from the Attestor, it
-should be specified in the format 'projects/*/notes/*' (or the legacy
-'providers/*/notes/*'). This field may not be updated.
-An attestation by this attestor is stored as a Container Analysis
-ATTESTATION_AUTHORITY Occurrence that names a container image
-and that links to this Note. *)
   public_keys : attestation_authority_note__public_keys list;
 }
-[@@deriving yojson_of]
-(** A Container Analysis ATTESTATION_AUTHORITY Note, created by the user. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : attestation_authority_note) -> ()
+
+let yojson_of_attestation_authority_note =
+  (function
+   | {
+       note_reference = v_note_reference;
+       public_keys = v_public_keys;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_attestation_authority_note__public_keys
+             v_public_keys
+         in
+         ("public_keys", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_note_reference
+         in
+         ("note_reference", arg) :: bnds
+       in
+       `Assoc bnds
+    : attestation_authority_note -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_attestation_authority_note
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_binary_authorization_attestor = {
   description : string prop option; [@option]
-      (** A descriptive comment. This field may be updated. The field may be
-displayed in chooser dialogs. *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** The resource name. *)
-  project : string prop option; [@option]  (** project *)
+  id : string prop option; [@option]
+  name : string prop;
+  project : string prop option; [@option]
   attestation_authority_note : attestation_authority_note list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_binary_authorization_attestor *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_binary_authorization_attestor) -> ()
+
+let yojson_of_google_binary_authorization_attestor =
+  (function
+   | {
+       description = v_description;
+       id = v_id;
+       name = v_name;
+       project = v_project;
+       attestation_authority_note = v_attestation_authority_note;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_attestation_authority_note
+             v_attestation_authority_note
+         in
+         ("attestation_authority_note", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_binary_authorization_attestor ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_binary_authorization_attestor
+
+[@@@deriving.end]
 
 let attestation_authority_note__public_keys__pkix_public_key
     ?public_key_pem ?signature_algorithm () :

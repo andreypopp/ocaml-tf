@@ -3,39 +3,194 @@
 open! Tf_core
 
 type logging_configuration__dag_processing_logs = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  log_level : string prop option; [@option]  (** log_level *)
+  enabled : bool prop option; [@option]
+  log_level : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logging_configuration__dag_processing_logs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_configuration__dag_processing_logs) -> ()
+
+let yojson_of_logging_configuration__dag_processing_logs =
+  (function
+   | { enabled = v_enabled; log_level = v_log_level } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_log_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : logging_configuration__dag_processing_logs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_configuration__dag_processing_logs
+
+[@@@deriving.end]
 
 type logging_configuration__scheduler_logs = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  log_level : string prop option; [@option]  (** log_level *)
+  enabled : bool prop option; [@option]
+  log_level : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logging_configuration__scheduler_logs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_configuration__scheduler_logs) -> ()
+
+let yojson_of_logging_configuration__scheduler_logs =
+  (function
+   | { enabled = v_enabled; log_level = v_log_level } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_log_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : logging_configuration__scheduler_logs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_configuration__scheduler_logs
+
+[@@@deriving.end]
 
 type logging_configuration__task_logs = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  log_level : string prop option; [@option]  (** log_level *)
+  enabled : bool prop option; [@option]
+  log_level : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logging_configuration__task_logs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_configuration__task_logs) -> ()
+
+let yojson_of_logging_configuration__task_logs =
+  (function
+   | { enabled = v_enabled; log_level = v_log_level } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_log_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : logging_configuration__task_logs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_configuration__task_logs
+
+[@@@deriving.end]
 
 type logging_configuration__webserver_logs = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  log_level : string prop option; [@option]  (** log_level *)
+  enabled : bool prop option; [@option]
+  log_level : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logging_configuration__webserver_logs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_configuration__webserver_logs) -> ()
+
+let yojson_of_logging_configuration__webserver_logs =
+  (function
+   | { enabled = v_enabled; log_level = v_log_level } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_log_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : logging_configuration__webserver_logs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_configuration__webserver_logs
+
+[@@@deriving.end]
 
 type logging_configuration__worker_logs = {
-  enabled : bool prop option; [@option]  (** enabled *)
-  log_level : string prop option; [@option]  (** log_level *)
+  enabled : bool prop option; [@option]
+  log_level : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** logging_configuration__worker_logs *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_configuration__worker_logs) -> ()
+
+let yojson_of_logging_configuration__worker_logs =
+  (function
+   | { enabled = v_enabled; log_level = v_log_level } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_log_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "log_level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : logging_configuration__worker_logs ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_configuration__worker_logs
+
+[@@@deriving.end]
 
 type logging_configuration = {
   dag_processing_logs :
@@ -45,81 +200,514 @@ type logging_configuration = {
   webserver_logs : logging_configuration__webserver_logs list;
   worker_logs : logging_configuration__worker_logs list;
 }
-[@@deriving yojson_of]
-(** logging_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : logging_configuration) -> ()
+
+let yojson_of_logging_configuration =
+  (function
+   | {
+       dag_processing_logs = v_dag_processing_logs;
+       scheduler_logs = v_scheduler_logs;
+       task_logs = v_task_logs;
+       webserver_logs = v_webserver_logs;
+       worker_logs = v_worker_logs;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_logging_configuration__worker_logs
+             v_worker_logs
+         in
+         ("worker_logs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_logging_configuration__webserver_logs
+             v_webserver_logs
+         in
+         ("webserver_logs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logging_configuration__task_logs
+             v_task_logs
+         in
+         ("task_logs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_logging_configuration__scheduler_logs
+             v_scheduler_logs
+         in
+         ("scheduler_logs", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_logging_configuration__dag_processing_logs
+             v_dag_processing_logs
+         in
+         ("dag_processing_logs", arg) :: bnds
+       in
+       `Assoc bnds
+    : logging_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_logging_configuration
+
+[@@@deriving.end]
 
 type network_configuration = {
-  security_group_ids : string prop list;  (** security_group_ids *)
-  subnet_ids : string prop list;  (** subnet_ids *)
+  security_group_ids : string prop list;
+  subnet_ids : string prop list;
 }
-[@@deriving yojson_of]
-(** network_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : network_configuration) -> ()
+
+let yojson_of_network_configuration =
+  (function
+   | {
+       security_group_ids = v_security_group_ids;
+       subnet_ids = v_subnet_ids;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_security_group_ids
+         in
+         ("security_group_ids", arg) :: bnds
+       in
+       `Assoc bnds
+    : network_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_network_configuration
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type last_updated__error = {
-  error_code : string prop;  (** error_code *)
-  error_message : string prop;  (** error_message *)
+  error_code : string prop;
+  error_message : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : last_updated__error) -> ()
+
+let yojson_of_last_updated__error =
+  (function
+   | { error_code = v_error_code; error_message = v_error_message }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_error_message in
+         ("error_message", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_error_code in
+         ("error_code", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_updated__error -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_last_updated__error
+
+[@@@deriving.end]
 
 type last_updated = {
-  created_at : string prop;  (** created_at *)
-  error : last_updated__error list;  (** error *)
-  status : string prop;  (** status *)
+  created_at : string prop;
+  error : last_updated__error list;
+  status : string prop;
 }
-[@@deriving yojson_of]
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : last_updated) -> ()
+
+let yojson_of_last_updated =
+  (function
+   | {
+       created_at = v_created_at;
+       error = v_error;
+       status = v_status;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_status in
+         ("status", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_last_updated__error v_error
+         in
+         ("error", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_created_at in
+         ("created_at", arg) :: bnds
+       in
+       `Assoc bnds
+    : last_updated -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_last_updated
+
+[@@@deriving.end]
 
 type aws_mwaa_environment = {
   airflow_configuration_options : (string * string prop) list option;
       [@option]
-      (** airflow_configuration_options *)
   airflow_version : string prop option; [@option]
-      (** airflow_version *)
-  dag_s3_path : string prop;  (** dag_s3_path *)
+  dag_s3_path : string prop;
   endpoint_management : string prop option; [@option]
-      (** endpoint_management *)
   environment_class : string prop option; [@option]
-      (** environment_class *)
-  execution_role_arn : string prop;  (** execution_role_arn *)
-  id : string prop option; [@option]  (** id *)
-  kms_key : string prop option; [@option]  (** kms_key *)
-  max_workers : float prop option; [@option]  (** max_workers *)
-  min_workers : float prop option; [@option]  (** min_workers *)
-  name : string prop;  (** name *)
+  execution_role_arn : string prop;
+  id : string prop option; [@option]
+  kms_key : string prop option; [@option]
+  max_workers : float prop option; [@option]
+  min_workers : float prop option; [@option]
+  name : string prop;
   plugins_s3_object_version : string prop option; [@option]
-      (** plugins_s3_object_version *)
   plugins_s3_path : string prop option; [@option]
-      (** plugins_s3_path *)
   requirements_s3_object_version : string prop option; [@option]
-      (** requirements_s3_object_version *)
   requirements_s3_path : string prop option; [@option]
-      (** requirements_s3_path *)
-  schedulers : float prop option; [@option]  (** schedulers *)
-  source_bucket_arn : string prop;  (** source_bucket_arn *)
+  schedulers : float prop option; [@option]
+  source_bucket_arn : string prop;
   startup_script_s3_object_version : string prop option; [@option]
-      (** startup_script_s3_object_version *)
   startup_script_s3_path : string prop option; [@option]
-      (** startup_script_s3_path *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   webserver_access_mode : string prop option; [@option]
-      (** webserver_access_mode *)
   weekly_maintenance_window_start : string prop option; [@option]
-      (** weekly_maintenance_window_start *)
   logging_configuration : logging_configuration list;
   network_configuration : network_configuration list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** aws_mwaa_environment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_mwaa_environment) -> ()
+
+let yojson_of_aws_mwaa_environment =
+  (function
+   | {
+       airflow_configuration_options =
+         v_airflow_configuration_options;
+       airflow_version = v_airflow_version;
+       dag_s3_path = v_dag_s3_path;
+       endpoint_management = v_endpoint_management;
+       environment_class = v_environment_class;
+       execution_role_arn = v_execution_role_arn;
+       id = v_id;
+       kms_key = v_kms_key;
+       max_workers = v_max_workers;
+       min_workers = v_min_workers;
+       name = v_name;
+       plugins_s3_object_version = v_plugins_s3_object_version;
+       plugins_s3_path = v_plugins_s3_path;
+       requirements_s3_object_version =
+         v_requirements_s3_object_version;
+       requirements_s3_path = v_requirements_s3_path;
+       schedulers = v_schedulers;
+       source_bucket_arn = v_source_bucket_arn;
+       startup_script_s3_object_version =
+         v_startup_script_s3_object_version;
+       startup_script_s3_path = v_startup_script_s3_path;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       webserver_access_mode = v_webserver_access_mode;
+       weekly_maintenance_window_start =
+         v_weekly_maintenance_window_start;
+       logging_configuration = v_logging_configuration;
+       network_configuration = v_network_configuration;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_network_configuration
+             v_network_configuration
+         in
+         ("network_configuration", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_logging_configuration
+             v_logging_configuration
+         in
+         ("logging_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_weekly_maintenance_window_start with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "weekly_maintenance_window_start", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_webserver_access_mode with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "webserver_access_mode", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_startup_script_s3_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "startup_script_s3_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_startup_script_s3_object_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "startup_script_s3_object_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_source_bucket_arn
+         in
+         ("source_bucket_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_schedulers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "schedulers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_requirements_s3_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "requirements_s3_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_requirements_s3_object_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "requirements_s3_object_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_plugins_s3_path with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "plugins_s3_path", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_plugins_s3_object_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "plugins_s3_object_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_min_workers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "min_workers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_max_workers with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_workers", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_kms_key with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_execution_role_arn
+         in
+         ("execution_role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_environment_class with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "environment_class", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_endpoint_management with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "endpoint_management", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_dag_s3_path in
+         ("dag_s3_path", arg) :: bnds
+       in
+       let bnds =
+         match v_airflow_version with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "airflow_version", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_airflow_configuration_options with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "airflow_configuration_options", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_mwaa_environment -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_mwaa_environment
+
+[@@@deriving.end]
 
 let logging_configuration__dag_processing_logs ?enabled ?log_level ()
     : logging_configuration__dag_processing_logs =

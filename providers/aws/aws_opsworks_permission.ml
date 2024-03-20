@@ -3,15 +3,76 @@
 open! Tf_core
 
 type aws_opsworks_permission = {
-  allow_ssh : bool prop option; [@option]  (** allow_ssh *)
-  allow_sudo : bool prop option; [@option]  (** allow_sudo *)
-  id : string prop option; [@option]  (** id *)
-  level : string prop option; [@option]  (** level *)
-  stack_id : string prop;  (** stack_id *)
-  user_arn : string prop;  (** user_arn *)
+  allow_ssh : bool prop option; [@option]
+  allow_sudo : bool prop option; [@option]
+  id : string prop option; [@option]
+  level : string prop option; [@option]
+  stack_id : string prop;
+  user_arn : string prop;
 }
-[@@deriving yojson_of]
-(** aws_opsworks_permission *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_opsworks_permission) -> ()
+
+let yojson_of_aws_opsworks_permission =
+  (function
+   | {
+       allow_ssh = v_allow_ssh;
+       allow_sudo = v_allow_sudo;
+       id = v_id;
+       level = v_level;
+       stack_id = v_stack_id;
+       user_arn = v_user_arn;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_user_arn in
+         ("user_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_stack_id in
+         ("stack_id", arg) :: bnds
+       in
+       let bnds =
+         match v_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "level", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_sudo with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_sudo", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allow_ssh with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "allow_ssh", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_opsworks_permission -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_opsworks_permission
+
+[@@@deriving.end]
 
 let aws_opsworks_permission ?allow_ssh ?allow_sudo ?id ?level
     ~stack_id ~user_arn () : aws_opsworks_permission =

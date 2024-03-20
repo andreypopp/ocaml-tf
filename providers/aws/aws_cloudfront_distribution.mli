@@ -9,20 +9,28 @@ type trusted_key_groups__items = {
   key_pair_ids : string prop list;  (** key_pair_ids *)
 }
 
+[@@@deriving.end]
+
 type trusted_key_groups = {
   enabled : bool prop;  (** enabled *)
   items : trusted_key_groups__items list;  (** items *)
 }
+
+[@@@deriving.end]
 
 type trusted_signers__items = {
   aws_account_number : string prop;  (** aws_account_number *)
   key_pair_ids : string prop list;  (** key_pair_ids *)
 }
 
+[@@@deriving.end]
+
 type trusted_signers = {
   enabled : bool prop;  (** enabled *)
   items : trusted_signers__items list;  (** items *)
 }
+
+[@@@deriving.end]
 
 type custom_error_response
 

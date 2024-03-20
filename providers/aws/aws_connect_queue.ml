@@ -4,32 +4,190 @@ open! Tf_core
 
 type outbound_caller_config = {
   outbound_caller_id_name : string prop option; [@option]
-      (** outbound_caller_id_name *)
   outbound_caller_id_number_id : string prop option; [@option]
-      (** outbound_caller_id_number_id *)
   outbound_flow_id : string prop option; [@option]
-      (** outbound_flow_id *)
 }
-[@@deriving yojson_of]
-(** outbound_caller_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : outbound_caller_config) -> ()
+
+let yojson_of_outbound_caller_config =
+  (function
+   | {
+       outbound_caller_id_name = v_outbound_caller_id_name;
+       outbound_caller_id_number_id = v_outbound_caller_id_number_id;
+       outbound_flow_id = v_outbound_flow_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_outbound_flow_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "outbound_flow_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_outbound_caller_id_number_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "outbound_caller_id_number_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_outbound_caller_id_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "outbound_caller_id_name", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : outbound_caller_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_outbound_caller_config
+
+[@@@deriving.end]
 
 type aws_connect_queue = {
-  description : string prop option; [@option]  (** description *)
-  hours_of_operation_id : string prop;  (** hours_of_operation_id *)
-  id : string prop option; [@option]  (** id *)
-  instance_id : string prop;  (** instance_id *)
-  max_contacts : float prop option; [@option]  (** max_contacts *)
-  name : string prop;  (** name *)
+  description : string prop option; [@option]
+  hours_of_operation_id : string prop;
+  id : string prop option; [@option]
+  instance_id : string prop;
+  max_contacts : float prop option; [@option]
+  name : string prop;
   quick_connect_ids : string prop list option; [@option]
-      (** quick_connect_ids *)
-  status : string prop option; [@option]  (** status *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  status : string prop option; [@option]
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   outbound_caller_config : outbound_caller_config list;
 }
-[@@deriving yojson_of]
-(** aws_connect_queue *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_connect_queue) -> ()
+
+let yojson_of_aws_connect_queue =
+  (function
+   | {
+       description = v_description;
+       hours_of_operation_id = v_hours_of_operation_id;
+       id = v_id;
+       instance_id = v_instance_id;
+       max_contacts = v_max_contacts;
+       name = v_name;
+       quick_connect_ids = v_quick_connect_ids;
+       status = v_status;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       outbound_caller_config = v_outbound_caller_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_outbound_caller_config
+             v_outbound_caller_config
+         in
+         ("outbound_caller_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_quick_connect_ids with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "quick_connect_ids", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_max_contacts with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "max_contacts", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance_id in
+         ("instance_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_hours_of_operation_id
+         in
+         ("hours_of_operation_id", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_connect_queue -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_connect_queue
+
+[@@@deriving.end]
 
 let outbound_caller_config ?outbound_caller_id_name
     ?outbound_caller_id_number_id ?outbound_flow_id () :

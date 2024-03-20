@@ -6,6 +6,8 @@ open! Tf_core
 
 type fleet = { membership : string prop  (** membership *) }
 
+[@@@deriving.end]
+
 type status__conditions = {
   last_transition_time : string prop;  (** last_transition_time *)
   message : string prop;  (** message *)
@@ -14,10 +16,14 @@ type status__conditions = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
+[@@@deriving.end]
+
 type status = {
   conditions : status__conditions list;  (** conditions *)
   error_message : string prop;  (** error_message *)
 }
+
+[@@@deriving.end]
 
 type validation_check__status__result = {
   category : string prop;  (** category *)
@@ -27,15 +33,21 @@ type validation_check__status__result = {
   reason : string prop;  (** reason *)
 }
 
+[@@@deriving.end]
+
 type validation_check__status = {
   result : validation_check__status__result list;  (** result *)
 }
+
+[@@@deriving.end]
 
 type validation_check = {
   options : string prop;  (** options *)
   scenario : string prop;  (** scenario *)
   status : validation_check__status list;  (** status *)
 }
+
+[@@@deriving.end]
 
 type binary_authorization
 

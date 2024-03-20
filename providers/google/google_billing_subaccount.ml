@@ -4,13 +4,57 @@ open! Tf_core
 
 type google_billing_subaccount = {
   deletion_policy : string prop option; [@option]
-      (** deletion_policy *)
-  display_name : string prop;  (** display_name *)
-  id : string prop option; [@option]  (** id *)
-  master_billing_account : string prop;  (** master_billing_account *)
+  display_name : string prop;
+  id : string prop option; [@option]
+  master_billing_account : string prop;
 }
-[@@deriving yojson_of]
-(** google_billing_subaccount *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_billing_subaccount) -> ()
+
+let yojson_of_google_billing_subaccount =
+  (function
+   | {
+       deletion_policy = v_deletion_policy;
+       display_name = v_display_name;
+       id = v_id;
+       master_billing_account = v_master_billing_account;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_master_billing_account
+         in
+         ("master_billing_account", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_deletion_policy with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "deletion_policy", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_billing_subaccount -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_billing_subaccount
+
+[@@@deriving.end]
 
 let google_billing_subaccount ?deletion_policy ?id ~display_name
     ~master_billing_account () : google_billing_subaccount =

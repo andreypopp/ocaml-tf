@@ -4,33 +4,172 @@ open! Tf_core
 
 type cloudflare_zone_cache_variants = {
   avif : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for avif. *)
   bmp : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for bmp. *)
   gif : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for gif. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   jp2 : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for jp2. *)
   jpeg : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for jpeg. *)
   jpg : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for jpg. *)
   jpg2 : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for jpg2. *)
   png : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for png. *)
   tif : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for tif. *)
   tiff : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for tiff. *)
   webp : string prop list option; [@option]
-      (** List of strings with the MIME types of all the variants that should be served for webp. *)
   zone_id : string prop;
-      (** The zone identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a resource which customizes Cloudflare zone cache variants. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_zone_cache_variants) -> ()
+
+let yojson_of_cloudflare_zone_cache_variants =
+  (function
+   | {
+       avif = v_avif;
+       bmp = v_bmp;
+       gif = v_gif;
+       id = v_id;
+       jp2 = v_jp2;
+       jpeg = v_jpeg;
+       jpg = v_jpg;
+       jpg2 = v_jpg2;
+       png = v_png;
+       tif = v_tif;
+       tiff = v_tiff;
+       webp = v_webp;
+       zone_id = v_zone_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_zone_id in
+         ("zone_id", arg) :: bnds
+       in
+       let bnds =
+         match v_webp with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "webp", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tiff with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tiff", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tif with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "tif", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_png with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "png", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jpg2 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jpg2", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jpg with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jpg", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jpeg with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jpeg", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_jp2 with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "jp2", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_gif with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "gif", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bmp with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "bmp", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_avif with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "avif", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_zone_cache_variants ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_zone_cache_variants
+
+[@@@deriving.end]
 
 let cloudflare_zone_cache_variants ?avif ?bmp ?gif ?id ?jp2 ?jpeg
     ?jpg ?jpg2 ?png ?tif ?tiff ?webp ~zone_id () :

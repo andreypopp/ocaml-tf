@@ -4,144 +4,443 @@ open! Tf_core
 
 type replication__auto__customer_managed_encryption = {
   kms_key_name : string prop;
-      (** The resource name of the Cloud KMS CryptoKey used to encrypt secret payloads. *)
 }
-[@@deriving yojson_of]
-(** The customer-managed encryption configuration of the Secret.
-If no configuration is provided, Google-managed default
-encryption is used. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : replication__auto__customer_managed_encryption) -> ()
+
+let yojson_of_replication__auto__customer_managed_encryption =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_name in
+         ("kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication__auto__customer_managed_encryption ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication__auto__customer_managed_encryption
+
+[@@@deriving.end]
 
 type replication__auto = {
   customer_managed_encryption :
     replication__auto__customer_managed_encryption list;
 }
-[@@deriving yojson_of]
-(** The Secret will automatically be replicated without any restrictions. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : replication__auto) -> ()
+
+let yojson_of_replication__auto =
+  (function
+   | { customer_managed_encryption = v_customer_managed_encryption }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_replication__auto__customer_managed_encryption
+             v_customer_managed_encryption
+         in
+         ("customer_managed_encryption", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication__auto -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication__auto
+
+[@@@deriving.end]
 
 type replication__user_managed__replicas__customer_managed_encryption = {
   kms_key_name : string prop;
-      (** Describes the Cloud KMS encryption key that will be used to protect destination secret. *)
 }
-[@@deriving yojson_of]
-(** Customer Managed Encryption for the secret. *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       replication__user_managed__replicas__customer_managed_encryption) ->
+  ()
+
+let yojson_of_replication__user_managed__replicas__customer_managed_encryption
+    =
+  (function
+   | { kms_key_name = v_kms_key_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_kms_key_name in
+         ("kms_key_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication__user_managed__replicas__customer_managed_encryption ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_replication__user_managed__replicas__customer_managed_encryption
+
+[@@@deriving.end]
 
 type replication__user_managed__replicas = {
   location : string prop;
-      (** The canonical IDs of the location to replicate data. For example: us-east1. *)
   customer_managed_encryption :
     replication__user_managed__replicas__customer_managed_encryption
     list;
 }
-[@@deriving yojson_of]
-(** The list of Replicas for this Secret. Cannot be empty. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : replication__user_managed__replicas) -> ()
+
+let yojson_of_replication__user_managed__replicas =
+  (function
+   | {
+       location = v_location;
+       customer_managed_encryption = v_customer_managed_encryption;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_replication__user_managed__replicas__customer_managed_encryption
+             v_customer_managed_encryption
+         in
+         ("customer_managed_encryption", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication__user_managed__replicas ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication__user_managed__replicas
+
+[@@@deriving.end]
 
 type replication__user_managed = {
   replicas : replication__user_managed__replicas list;
 }
-[@@deriving yojson_of]
-(** The Secret will be replicated to the regions specified by the user. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : replication__user_managed) -> ()
+
+let yojson_of_replication__user_managed =
+  (function
+   | { replicas = v_replicas } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_replication__user_managed__replicas v_replicas
+         in
+         ("replicas", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication__user_managed -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication__user_managed
+
+[@@@deriving.end]
 
 type replication = {
   auto : replication__auto list;
   user_managed : replication__user_managed list;
 }
-[@@deriving yojson_of]
-(** The replication policy of the secret data attached to the Secret. It cannot be changed
-after the Secret has been created. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : replication) -> ()
+
+let yojson_of_replication =
+  (function
+   | { auto = v_auto; user_managed = v_user_managed } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_replication__user_managed
+             v_user_managed
+         in
+         ("user_managed", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_replication__auto v_auto
+         in
+         ("auto", arg) :: bnds
+       in
+       `Assoc bnds
+    : replication -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_replication
+
+[@@@deriving.end]
 
 type rotation = {
   next_rotation_time : string prop option; [@option]
-      (** Timestamp in UTC at which the Secret is scheduled to rotate.
-A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z. *)
   rotation_period : string prop option; [@option]
-      (** The Duration between rotation notifications. Must be in seconds and at least 3600s (1h) and at most 3153600000s (100 years).
-If rotationPeriod is set, 'next_rotation_time' must be set. 'next_rotation_time' will be advanced by this period when the service automatically sends rotation notifications. *)
 }
-[@@deriving yojson_of]
-(** The rotation time and period for a Secret. At 'next_rotation_time', Secret Manager will send a Pub/Sub notification to the topics configured on the Secret. 'topics' must be set to configure rotation. *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : rotation) -> ()
+
+let yojson_of_rotation =
+  (function
+   | {
+       next_rotation_time = v_next_rotation_time;
+       rotation_period = v_rotation_period;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_rotation_period with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "rotation_period", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_next_rotation_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "next_rotation_time", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : rotation -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_rotation
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type topics = {
-  name : string prop;
-      (** The resource name of the Pub/Sub topic that will be published to, in the following format: projects/*/topics/*.
-For publication to succeed, the Secret Manager Service Agent service account must have pubsub.publisher permissions on the topic. *)
-}
-[@@deriving yojson_of]
-(** A list of up to 10 Pub/Sub topics to which messages are published when control plane operations are called on the secret or its versions. *)
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type topics = { name : string prop } [@@deriving_inline yojson_of]
+
+let _ = fun (_ : topics) -> ()
+
+let yojson_of_topics =
+  (function
+   | { name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : topics -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_topics
+
+[@@@deriving.end]
 
 type google_secret_manager_secret = {
   annotations : (string * string prop) list option; [@option]
-      (** Custom metadata about the secret.
-
-Annotations are distinct from various forms of labels. Annotations exist to allow
-client tools to store their own state information without requiring a database.
-
-Annotation keys must be between 1 and 63 characters long, have a UTF-8 encoding of
-maximum 128 bytes, begin and end with an alphanumeric character ([a-z0-9A-Z]), and
-may have dashes (-), underscores (_), dots (.), and alphanumerics in between these
-symbols.
-
-The total size of annotation keys and values must be less than 16KiB.
-
-An object containing a list of key: value pairs. Example:
-{ name: wrench, mass: 1.3kg, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the annotations present in your configuration.
-Please refer to the field 'effective_annotations' for all of the annotations present on the resource. *)
   expire_time : string prop option; [@option]
-      (** Timestamp in UTC when the Secret is scheduled to expire. This is always provided on output, regardless of what was sent on input.
-A timestamp in RFC3339 UTC Zulu format, with nanosecond resolution and up to nine fractional digits. Examples: 2014-10-02T15:01:23Z and 2014-10-02T15:01:23.045123456Z.
-Only one of 'expire_time' or 'ttl' can be provided. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   labels : (string * string prop) list option; [@option]
-      (** The labels assigned to this Secret.
-
-Label keys must be between 1 and 63 characters long, have a UTF-8 encoding of maximum 128 bytes,
-and must conform to the following PCRE regular expression: [\p{Ll}\p{Lo}][\p{Ll}\p{Lo}\p{N}_-]{0,62}
-
-Label values must be between 0 and 63 characters long, have a UTF-8 encoding of maximum 128 bytes,
-and must conform to the following PCRE regular expression: [\p{Ll}\p{Lo}\p{N}_-]{0,63}
-
-No more than 64 labels can be assigned to a given resource.
-
-An object containing a list of key: value pairs. Example:
-{ name: wrench, mass: 1.3kg, count: 3 }.
-
-
-**Note**: This field is non-authoritative, and will only manage the labels present in your configuration.
-Please refer to the field 'effective_labels' for all of the labels present on the resource. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   secret_id : string prop;
-      (** This must be unique within the project. *)
   ttl : string prop option; [@option]
-      (** The TTL for the Secret.
-A duration in seconds with up to nine fractional digits, terminated by 's'. Example: 3.5s.
-Only one of 'ttl' or 'expire_time' can be provided. *)
   version_aliases : (string * string prop) list option; [@option]
-      (** Mapping from version alias to version name.
-
-A version alias is a string with a maximum length of 63 characters and can contain
-uppercase and lowercase letters, numerals, and the hyphen (-) and underscore ('_')
-characters. An alias string must start with a letter and cannot be the string
-'latest' or 'NEW'. No more than 50 aliases can be assigned to a given secret.
-
-An object containing a list of key: value pairs. Example:
-{ name: wrench, mass: 1.3kg, count: 3 }. *)
   replication : replication list;
   rotation : rotation list;
   timeouts : timeouts option;
   topics : topics list;
 }
-[@@deriving yojson_of]
-(** google_secret_manager_secret *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_secret_manager_secret) -> ()
+
+let yojson_of_google_secret_manager_secret =
+  (function
+   | {
+       annotations = v_annotations;
+       expire_time = v_expire_time;
+       id = v_id;
+       labels = v_labels;
+       project = v_project;
+       secret_id = v_secret_id;
+       ttl = v_ttl;
+       version_aliases = v_version_aliases;
+       replication = v_replication;
+       rotation = v_rotation;
+       timeouts = v_timeouts;
+       topics = v_topics;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_topics v_topics in
+         ("topics", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_rotation v_rotation in
+         ("rotation", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_replication v_replication
+         in
+         ("replication", arg) :: bnds
+       in
+       let bnds =
+         match v_version_aliases with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "version_aliases", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ttl with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ttl", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_secret_id in
+         ("secret_id", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_labels with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "labels", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_expire_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "expire_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_annotations with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "annotations", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_secret_manager_secret ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_secret_manager_secret
+
+[@@@deriving.end]
 
 let replication__auto__customer_managed_encryption ~kms_key_name () :
     replication__auto__customer_managed_encryption =

@@ -4,16 +4,51 @@ open! Tf_core
 
 type cloudflare_pages_domain = {
   account_id : string prop;
-      (** The account identifier to target for the resource. **Modifying this attribute will force creation of a new resource.** *)
   domain : string prop;
-      (** Custom domain. **Modifying this attribute will force creation of a new resource.** *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   project_name : string prop;
-      (** Name of the Pages Project. **Modifying this attribute will force creation of a new resource.** *)
 }
-[@@deriving yojson_of]
-(** Provides a resource for managing Cloudflare Pages domains.
- *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cloudflare_pages_domain) -> ()
+
+let yojson_of_cloudflare_pages_domain =
+  (function
+   | {
+       account_id = v_account_id;
+       domain = v_domain;
+       id = v_id;
+       project_name = v_project_name;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_project_name in
+         ("project_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_domain in
+         ("domain", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_account_id in
+         ("account_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : cloudflare_pages_domain -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cloudflare_pages_domain
+
+[@@@deriving.end]
 
 let cloudflare_pages_domain ?id ~account_id ~domain ~project_name ()
     : cloudflare_pages_domain =

@@ -3,15 +3,68 @@
 open! Tf_core
 
 type aws_route53_key_signing_key = {
-  hosted_zone_id : string prop;  (** hosted_zone_id *)
-  id : string prop option; [@option]  (** id *)
+  hosted_zone_id : string prop;
+  id : string prop option; [@option]
   key_management_service_arn : string prop;
-      (** key_management_service_arn *)
-  name : string prop;  (** name *)
-  status : string prop option; [@option]  (** status *)
+  name : string prop;
+  status : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** aws_route53_key_signing_key *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_route53_key_signing_key) -> ()
+
+let yojson_of_aws_route53_key_signing_key =
+  (function
+   | {
+       hosted_zone_id = v_hosted_zone_id;
+       id = v_id;
+       key_management_service_arn = v_key_management_service_arn;
+       name = v_name;
+       status = v_status;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_status with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "status", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_key_management_service_arn
+         in
+         ("key_management_service_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_hosted_zone_id
+         in
+         ("hosted_zone_id", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_route53_key_signing_key ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_route53_key_signing_key
+
+[@@@deriving.end]
 
 let aws_route53_key_signing_key ?id ?status ~hosted_zone_id
     ~key_management_service_arn ~name () :

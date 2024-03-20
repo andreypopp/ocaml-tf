@@ -3,23 +3,129 @@
 open! Tf_core
 
 type data_source_configuration = {
-  intended_use : string prop option; [@option]  (** intended_use *)
+  intended_use : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** data_source_configuration *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : data_source_configuration) -> ()
+
+let yojson_of_data_source_configuration =
+  (function
+   | { intended_use = v_intended_use } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_intended_use with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "intended_use", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : data_source_configuration -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_data_source_configuration
+
+[@@@deriving.end]
 
 type aws_location_place_index = {
-  data_source : string prop;  (** data_source *)
-  description : string prop option; [@option]  (** description *)
-  id : string prop option; [@option]  (** id *)
-  index_name : string prop;  (** index_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  data_source : string prop;
+  description : string prop option; [@option]
+  id : string prop option; [@option]
+  index_name : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   data_source_configuration : data_source_configuration list;
 }
-[@@deriving yojson_of]
-(** aws_location_place_index *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_location_place_index) -> ()
+
+let yojson_of_aws_location_place_index =
+  (function
+   | {
+       data_source = v_data_source;
+       description = v_description;
+       id = v_id;
+       index_name = v_index_name;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       data_source_configuration = v_data_source_configuration;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_data_source_configuration
+             v_data_source_configuration
+         in
+         ("data_source_configuration", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_index_name in
+         ("index_name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_data_source in
+         ("data_source", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_location_place_index -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_location_place_index
+
+[@@@deriving.end]
 
 let data_source_configuration ?intended_use () :
     data_source_configuration =

@@ -4,25 +4,152 @@ open! Tf_core
 
 type aws_ec2_transit_gateway_vpc_attachment = {
   appliance_mode_support : string prop option; [@option]
-      (** appliance_mode_support *)
-  dns_support : string prop option; [@option]  (** dns_support *)
-  id : string prop option; [@option]  (** id *)
-  ipv6_support : string prop option; [@option]  (** ipv6_support *)
-  subnet_ids : string prop list;  (** subnet_ids *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  dns_support : string prop option; [@option]
+  id : string prop option; [@option]
+  ipv6_support : string prop option; [@option]
+  subnet_ids : string prop list;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   transit_gateway_default_route_table_association : bool prop option;
       [@option]
-      (** transit_gateway_default_route_table_association *)
   transit_gateway_default_route_table_propagation : bool prop option;
       [@option]
-      (** transit_gateway_default_route_table_propagation *)
-  transit_gateway_id : string prop;  (** transit_gateway_id *)
-  vpc_id : string prop;  (** vpc_id *)
+  transit_gateway_id : string prop;
+  vpc_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_ec2_transit_gateway_vpc_attachment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_ec2_transit_gateway_vpc_attachment) -> ()
+
+let yojson_of_aws_ec2_transit_gateway_vpc_attachment =
+  (function
+   | {
+       appliance_mode_support = v_appliance_mode_support;
+       dns_support = v_dns_support;
+       id = v_id;
+       ipv6_support = v_ipv6_support;
+       subnet_ids = v_subnet_ids;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       transit_gateway_default_route_table_association =
+         v_transit_gateway_default_route_table_association;
+       transit_gateway_default_route_table_propagation =
+         v_transit_gateway_default_route_table_propagation;
+       transit_gateway_id = v_transit_gateway_id;
+       vpc_id = v_vpc_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_vpc_id in
+         ("vpc_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_transit_gateway_id
+         in
+         ("transit_gateway_id", arg) :: bnds
+       in
+       let bnds =
+         match v_transit_gateway_default_route_table_propagation with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "transit_gateway_default_route_table_propagation", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_transit_gateway_default_route_table_association with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd =
+               "transit_gateway_default_route_table_association", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_subnet_ids
+         in
+         ("subnet_ids", arg) :: bnds
+       in
+       let bnds =
+         match v_ipv6_support with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "ipv6_support", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dns_support with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "dns_support", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_appliance_mode_support with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "appliance_mode_support", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_ec2_transit_gateway_vpc_attachment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_ec2_transit_gateway_vpc_attachment
+
+[@@@deriving.end]
 
 let aws_ec2_transit_gateway_vpc_attachment ?appliance_mode_support
     ?dns_support ?id ?ipv6_support ?tags ?tags_all

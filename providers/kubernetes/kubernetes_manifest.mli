@@ -8,6 +8,8 @@ type wait_for = {
   fields : (string * string prop) list;  (** fields *)
 }
 
+[@@@deriving.end]
+
 type field_manager
 
 val field_manager :

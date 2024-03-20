@@ -3,51 +3,236 @@
 open! Tf_core
 
 type staging_distribution_dns_names = {
-  items : string prop list option; [@option]  (** items *)
-  quantity : float prop;  (** quantity *)
+  items : string prop list option; [@option]
+  quantity : float prop;
 }
-[@@deriving yojson_of]
-(** staging_distribution_dns_names *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : staging_distribution_dns_names) -> ()
+
+let yojson_of_staging_distribution_dns_names =
+  (function
+   | { items = v_items; quantity = v_quantity } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_quantity in
+         ("quantity", arg) :: bnds
+       in
+       let bnds =
+         match v_items with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "items", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : staging_distribution_dns_names ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_staging_distribution_dns_names
+
+[@@@deriving.end]
 
 type traffic_config__single_header_config = {
-  header : string prop;  (** header *)
-  value : string prop;  (** value *)
+  header : string prop;
+  value : string prop;
 }
-[@@deriving yojson_of]
-(** traffic_config__single_header_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : traffic_config__single_header_config) -> ()
+
+let yojson_of_traffic_config__single_header_config =
+  (function
+   | { header = v_header; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_header in
+         ("header", arg) :: bnds
+       in
+       `Assoc bnds
+    : traffic_config__single_header_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_traffic_config__single_header_config
+
+[@@@deriving.end]
 
 type traffic_config__single_weight_config__session_stickiness_config = {
-  idle_ttl : float prop;  (** idle_ttl *)
-  maximum_ttl : float prop;  (** maximum_ttl *)
+  idle_ttl : float prop;
+  maximum_ttl : float prop;
 }
-[@@deriving yojson_of]
-(** traffic_config__single_weight_config__session_stickiness_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       traffic_config__single_weight_config__session_stickiness_config) ->
+  ()
+
+let yojson_of_traffic_config__single_weight_config__session_stickiness_config
+    =
+  (function
+   | { idle_ttl = v_idle_ttl; maximum_ttl = v_maximum_ttl } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_maximum_ttl in
+         ("maximum_ttl", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_idle_ttl in
+         ("idle_ttl", arg) :: bnds
+       in
+       `Assoc bnds
+    : traffic_config__single_weight_config__session_stickiness_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_traffic_config__single_weight_config__session_stickiness_config
+
+[@@@deriving.end]
 
 type traffic_config__single_weight_config = {
-  weight : float prop;  (** weight *)
+  weight : float prop;
   session_stickiness_config :
     traffic_config__single_weight_config__session_stickiness_config
     list;
 }
-[@@deriving yojson_of]
-(** traffic_config__single_weight_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : traffic_config__single_weight_config) -> ()
+
+let yojson_of_traffic_config__single_weight_config =
+  (function
+   | {
+       weight = v_weight;
+       session_stickiness_config = v_session_stickiness_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_traffic_config__single_weight_config__session_stickiness_config
+             v_session_stickiness_config
+         in
+         ("session_stickiness_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_weight in
+         ("weight", arg) :: bnds
+       in
+       `Assoc bnds
+    : traffic_config__single_weight_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_traffic_config__single_weight_config
+
+[@@@deriving.end]
 
 type traffic_config = {
-  type_ : string prop; [@key "type"]  (** type *)
+  type_ : string prop; [@key "type"]
   single_header_config : traffic_config__single_header_config list;
   single_weight_config : traffic_config__single_weight_config list;
 }
-[@@deriving yojson_of]
-(** traffic_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : traffic_config) -> ()
+
+let yojson_of_traffic_config =
+  (function
+   | {
+       type_ = v_type_;
+       single_header_config = v_single_header_config;
+       single_weight_config = v_single_weight_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_traffic_config__single_weight_config
+             v_single_weight_config
+         in
+         ("single_weight_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_traffic_config__single_header_config
+             v_single_header_config
+         in
+         ("single_header_config", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_type_ in
+         ("type", arg) :: bnds
+       in
+       `Assoc bnds
+    : traffic_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_traffic_config
+
+[@@@deriving.end]
 
 type aws_cloudfront_continuous_deployment_policy = {
-  enabled : bool prop;  (** enabled *)
+  enabled : bool prop;
   staging_distribution_dns_names :
     staging_distribution_dns_names list;
   traffic_config : traffic_config list;
 }
-[@@deriving yojson_of]
-(** aws_cloudfront_continuous_deployment_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudfront_continuous_deployment_policy) -> ()
+
+let yojson_of_aws_cloudfront_continuous_deployment_policy =
+  (function
+   | {
+       enabled = v_enabled;
+       staging_distribution_dns_names =
+         v_staging_distribution_dns_names;
+       traffic_config = v_traffic_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_traffic_config v_traffic_config
+         in
+         ("traffic_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_staging_distribution_dns_names
+             v_staging_distribution_dns_names
+         in
+         ("staging_distribution_dns_names", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_bool v_enabled in
+         ("enabled", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudfront_continuous_deployment_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudfront_continuous_deployment_policy
+
+[@@@deriving.end]
 
 let staging_distribution_dns_names ?items ~quantity () :
     staging_distribution_dns_names =

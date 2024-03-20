@@ -11,6 +11,8 @@ type hcx = {
   version : string prop;  (** version *)
 }
 
+[@@@deriving.end]
+
 type nsx = {
   fqdn : string prop;  (** fqdn *)
   internal_ip : string prop;  (** internal_ip *)
@@ -18,12 +20,16 @@ type nsx = {
   version : string prop;  (** version *)
 }
 
+[@@@deriving.end]
+
 type vcenter = {
   fqdn : string prop;  (** fqdn *)
   internal_ip : string prop;  (** internal_ip *)
   state : string prop;  (** state *)
   version : string prop;  (** version *)
 }
+
+[@@@deriving.end]
 
 type management_cluster__node_type_configs
 

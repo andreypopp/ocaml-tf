@@ -3,100 +3,533 @@
 open! Tf_core
 
 type pcc_rule__qos_policy__guaranteed_bit_rate = {
-  downlink : string prop;  (** downlink *)
-  uplink : string prop;  (** uplink *)
+  downlink : string prop;
+  uplink : string prop;
 }
-[@@deriving yojson_of]
-(** pcc_rule__qos_policy__guaranteed_bit_rate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : pcc_rule__qos_policy__guaranteed_bit_rate) -> ()
+
+let yojson_of_pcc_rule__qos_policy__guaranteed_bit_rate =
+  (function
+   | { downlink = v_downlink; uplink = v_uplink } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uplink in
+         ("uplink", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_downlink in
+         ("downlink", arg) :: bnds
+       in
+       `Assoc bnds
+    : pcc_rule__qos_policy__guaranteed_bit_rate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pcc_rule__qos_policy__guaranteed_bit_rate
+
+[@@@deriving.end]
 
 type pcc_rule__qos_policy__maximum_bit_rate = {
-  downlink : string prop;  (** downlink *)
-  uplink : string prop;  (** uplink *)
+  downlink : string prop;
+  uplink : string prop;
 }
-[@@deriving yojson_of]
-(** pcc_rule__qos_policy__maximum_bit_rate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : pcc_rule__qos_policy__maximum_bit_rate) -> ()
+
+let yojson_of_pcc_rule__qos_policy__maximum_bit_rate =
+  (function
+   | { downlink = v_downlink; uplink = v_uplink } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uplink in
+         ("uplink", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_downlink in
+         ("downlink", arg) :: bnds
+       in
+       `Assoc bnds
+    : pcc_rule__qos_policy__maximum_bit_rate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pcc_rule__qos_policy__maximum_bit_rate
+
+[@@@deriving.end]
 
 type pcc_rule__qos_policy = {
   allocation_and_retention_priority_level : float prop option;
       [@option]
-      (** allocation_and_retention_priority_level *)
   preemption_capability : string prop option; [@option]
-      (** preemption_capability *)
   preemption_vulnerability : string prop option; [@option]
-      (** preemption_vulnerability *)
-  qos_indicator : float prop;  (** qos_indicator *)
+  qos_indicator : float prop;
   guaranteed_bit_rate :
     pcc_rule__qos_policy__guaranteed_bit_rate list;
   maximum_bit_rate : pcc_rule__qos_policy__maximum_bit_rate list;
 }
-[@@deriving yojson_of]
-(** pcc_rule__qos_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : pcc_rule__qos_policy) -> ()
+
+let yojson_of_pcc_rule__qos_policy =
+  (function
+   | {
+       allocation_and_retention_priority_level =
+         v_allocation_and_retention_priority_level;
+       preemption_capability = v_preemption_capability;
+       preemption_vulnerability = v_preemption_vulnerability;
+       qos_indicator = v_qos_indicator;
+       guaranteed_bit_rate = v_guaranteed_bit_rate;
+       maximum_bit_rate = v_maximum_bit_rate;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_pcc_rule__qos_policy__maximum_bit_rate
+             v_maximum_bit_rate
+         in
+         ("maximum_bit_rate", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_pcc_rule__qos_policy__guaranteed_bit_rate
+             v_guaranteed_bit_rate
+         in
+         ("guaranteed_bit_rate", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_qos_indicator in
+         ("qos_indicator", arg) :: bnds
+       in
+       let bnds =
+         match v_preemption_vulnerability with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preemption_vulnerability", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preemption_capability with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preemption_capability", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allocation_and_retention_priority_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "allocation_and_retention_priority_level", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : pcc_rule__qos_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pcc_rule__qos_policy
+
+[@@@deriving.end]
 
 type pcc_rule__service_data_flow_template = {
-  direction : string prop;  (** direction *)
-  name : string prop;  (** name *)
-  ports : string prop list option; [@option]  (** ports *)
-  protocol : string prop list;  (** protocol *)
-  remote_ip_list : string prop list;  (** remote_ip_list *)
+  direction : string prop;
+  name : string prop;
+  ports : string prop list option; [@option]
+  protocol : string prop list;
+  remote_ip_list : string prop list;
 }
-[@@deriving yojson_of]
-(** pcc_rule__service_data_flow_template *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : pcc_rule__service_data_flow_template) -> ()
+
+let yojson_of_pcc_rule__service_data_flow_template =
+  (function
+   | {
+       direction = v_direction;
+       name = v_name;
+       ports = v_ports;
+       protocol = v_protocol;
+       remote_ip_list = v_remote_ip_list;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_remote_ip_list
+         in
+         ("remote_ip_list", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (yojson_of_prop yojson_of_string)
+             v_protocol
+         in
+         ("protocol", arg) :: bnds
+       in
+       let bnds =
+         match v_ports with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ports", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_direction in
+         ("direction", arg) :: bnds
+       in
+       `Assoc bnds
+    : pcc_rule__service_data_flow_template ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pcc_rule__service_data_flow_template
+
+[@@@deriving.end]
 
 type pcc_rule = {
-  name : string prop;  (** name *)
-  precedence : float prop;  (** precedence *)
+  name : string prop;
+  precedence : float prop;
   traffic_control_enabled : bool prop option; [@option]
-      (** traffic_control_enabled *)
   qos_policy : pcc_rule__qos_policy list;
   service_data_flow_template :
     pcc_rule__service_data_flow_template list;
 }
-[@@deriving yojson_of]
-(** pcc_rule *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : pcc_rule) -> ()
+
+let yojson_of_pcc_rule =
+  (function
+   | {
+       name = v_name;
+       precedence = v_precedence;
+       traffic_control_enabled = v_traffic_control_enabled;
+       qos_policy = v_qos_policy;
+       service_data_flow_template = v_service_data_flow_template;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_pcc_rule__service_data_flow_template
+             v_service_data_flow_template
+         in
+         ("service_data_flow_template", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_pcc_rule__qos_policy v_qos_policy
+         in
+         ("qos_policy", arg) :: bnds
+       in
+       let bnds =
+         match v_traffic_control_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "traffic_control_enabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_precedence in
+         ("precedence", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : pcc_rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_pcc_rule
+
+[@@@deriving.end]
 
 type service_qos_policy__maximum_bit_rate = {
-  downlink : string prop;  (** downlink *)
-  uplink : string prop;  (** uplink *)
+  downlink : string prop;
+  uplink : string prop;
 }
-[@@deriving yojson_of]
-(** service_qos_policy__maximum_bit_rate *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_qos_policy__maximum_bit_rate) -> ()
+
+let yojson_of_service_qos_policy__maximum_bit_rate =
+  (function
+   | { downlink = v_downlink; uplink = v_uplink } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_uplink in
+         ("uplink", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_downlink in
+         ("downlink", arg) :: bnds
+       in
+       `Assoc bnds
+    : service_qos_policy__maximum_bit_rate ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_qos_policy__maximum_bit_rate
+
+[@@@deriving.end]
 
 type service_qos_policy = {
   allocation_and_retention_priority_level : float prop option;
       [@option]
-      (** allocation_and_retention_priority_level *)
   preemption_capability : string prop option; [@option]
-      (** preemption_capability *)
   preemption_vulnerability : string prop option; [@option]
-      (** preemption_vulnerability *)
-  qos_indicator : float prop option; [@option]  (** qos_indicator *)
+  qos_indicator : float prop option; [@option]
   maximum_bit_rate : service_qos_policy__maximum_bit_rate list;
 }
-[@@deriving yojson_of]
-(** service_qos_policy *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : service_qos_policy) -> ()
+
+let yojson_of_service_qos_policy =
+  (function
+   | {
+       allocation_and_retention_priority_level =
+         v_allocation_and_retention_priority_level;
+       preemption_capability = v_preemption_capability;
+       preemption_vulnerability = v_preemption_vulnerability;
+       qos_indicator = v_qos_indicator;
+       maximum_bit_rate = v_maximum_bit_rate;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_service_qos_policy__maximum_bit_rate
+             v_maximum_bit_rate
+         in
+         ("maximum_bit_rate", arg) :: bnds
+       in
+       let bnds =
+         match v_qos_indicator with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "qos_indicator", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preemption_vulnerability with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preemption_vulnerability", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_preemption_capability with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "preemption_capability", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_allocation_and_retention_priority_level with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "allocation_and_retention_priority_level", arg
+             in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : service_qos_policy -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_service_qos_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_mobile_network_service = {
-  id : string prop option; [@option]  (** id *)
-  location : string prop;  (** location *)
-  mobile_network_id : string prop;  (** mobile_network_id *)
-  name : string prop;  (** name *)
-  service_precedence : float prop;  (** service_precedence *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  id : string prop option; [@option]
+  location : string prop;
+  mobile_network_id : string prop;
+  name : string prop;
+  service_precedence : float prop;
+  tags : (string * string prop) list option; [@option]
   pcc_rule : pcc_rule list;
   service_qos_policy : service_qos_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_mobile_network_service *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_mobile_network_service) -> ()
+
+let yojson_of_azurerm_mobile_network_service =
+  (function
+   | {
+       id = v_id;
+       location = v_location;
+       mobile_network_id = v_mobile_network_id;
+       name = v_name;
+       service_precedence = v_service_precedence;
+       tags = v_tags;
+       pcc_rule = v_pcc_rule;
+       service_qos_policy = v_service_qos_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_service_qos_policy
+             v_service_qos_policy
+         in
+         ("service_qos_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_pcc_rule v_pcc_rule in
+         ("pcc_rule", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_service_precedence
+         in
+         ("service_precedence", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_mobile_network_id
+         in
+         ("mobile_network_id", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_location in
+         ("location", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_mobile_network_service ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_mobile_network_service
+
+[@@@deriving.end]
 
 let pcc_rule__qos_policy__guaranteed_bit_rate ~downlink ~uplink () :
     pcc_rule__qos_policy__guaranteed_bit_rate =

@@ -3,12 +3,47 @@
 open! Tf_core
 
 type aws_connect_lambda_function_association = {
-  function_arn : string prop;  (** function_arn *)
-  id : string prop option; [@option]  (** id *)
-  instance_id : string prop;  (** instance_id *)
+  function_arn : string prop;
+  id : string prop option; [@option]
+  instance_id : string prop;
 }
-[@@deriving yojson_of]
-(** aws_connect_lambda_function_association *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_connect_lambda_function_association) -> ()
+
+let yojson_of_aws_connect_lambda_function_association =
+  (function
+   | {
+       function_arn = v_function_arn;
+       id = v_id;
+       instance_id = v_instance_id;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_instance_id in
+         ("instance_id", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_function_arn in
+         ("function_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_connect_lambda_function_association ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_connect_lambda_function_association
+
+[@@@deriving.end]
 
 let aws_connect_lambda_function_association ?id ~function_arn
     ~instance_id () : aws_connect_lambda_function_association =

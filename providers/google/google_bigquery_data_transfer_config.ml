@@ -2,106 +2,321 @@
 
 open! Tf_core
 
-type email_preferences = {
-  enable_failure_email : bool prop;
-      (** If true, email notifications will be sent on transfer run failures. *)
-}
-[@@deriving yojson_of]
-(** Email notifications will be sent according to these preferences to the
-email address of the user who owns this transfer config. *)
+type email_preferences = { enable_failure_email : bool prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : email_preferences) -> ()
+
+let yojson_of_email_preferences =
+  (function
+   | { enable_failure_email = v_enable_failure_email } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_bool v_enable_failure_email
+         in
+         ("enable_failure_email", arg) :: bnds
+       in
+       `Assoc bnds
+    : email_preferences -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_email_preferences
+
+[@@@deriving.end]
 
 type schedule_options = {
   disable_auto_scheduling : bool prop option; [@option]
-      (** If true, automatic scheduling of data transfer runs for this
-configuration will be disabled. The runs can be started on ad-hoc
-basis using transferConfigs.startManualRuns API. When automatic
-scheduling is disabled, the TransferConfig.schedule field will
-be ignored. *)
   end_time : string prop option; [@option]
-      (** Defines time to stop scheduling transfer runs. A transfer run cannot be
-scheduled at or after the end time. The end time can be changed at any
-moment. The time when a data transfer can be triggered manually is not
-limited by this option. *)
   start_time : string prop option; [@option]
-      (** Specifies time to start scheduling transfer runs. The first run will be
-scheduled at or after the start time according to a recurrence pattern
-defined in the schedule string. The start time can be changed at any
-moment. The time when a data transfer can be triggered manually is not
-limited by this option. *)
 }
-[@@deriving yojson_of]
-(** Options customizing the data transfer schedule. *)
+[@@deriving_inline yojson_of]
 
-type sensitive_params = {
-  secret_access_key : string prop;
-      (** The Secret Access Key of the AWS account transferring data from. *)
-}
-[@@deriving yojson_of]
-(** Different parameters are configured primarily using the the 'params' field on this
-resource. This block contains the parameters which contain secrets or passwords so that they can be marked
-sensitive and hidden from plan output. The name of the field, eg: secret_access_key, will be the key
-in the 'params' map in the api request.
+let _ = fun (_ : schedule_options) -> ()
 
-Credentials may not be specified in both locations and will cause an error. Changing from one location
-to a different credential configuration in the config will require an apply to update state. *)
+let yojson_of_schedule_options =
+  (function
+   | {
+       disable_auto_scheduling = v_disable_auto_scheduling;
+       end_time = v_end_time;
+       start_time = v_start_time;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_start_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "start_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_end_time with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "end_time", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_disable_auto_scheduling with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disable_auto_scheduling", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : schedule_options -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_schedule_options
+
+[@@@deriving.end]
+
+type sensitive_params = { secret_access_key : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sensitive_params) -> ()
+
+let yojson_of_sensitive_params =
+  (function
+   | { secret_access_key = v_secret_access_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_secret_access_key
+         in
+         ("secret_access_key", arg) :: bnds
+       in
+       `Assoc bnds
+    : sensitive_params -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sensitive_params
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type google_bigquery_data_transfer_config = {
   data_refresh_window_days : float prop option; [@option]
-      (** The number of days to look back to automatically refresh the data.
-For example, if dataRefreshWindowDays = 10, then every day BigQuery
-reingests data for [today-10, today-1], rather than ingesting data for
-just [today-1]. Only valid if the data source supports the feature.
-Set the value to 0 to use the default value. *)
   data_source_id : string prop;
-      (** The data source id. Cannot be changed once the transfer config is created. *)
   destination_dataset_id : string prop option; [@option]
-      (** The BigQuery target dataset id. *)
   disabled : bool prop option; [@option]
-      (** When set to true, no runs are scheduled for a given transfer. *)
   display_name : string prop;
-      (** The user specified display name for the transfer config. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   location : string prop option; [@option]
-      (** The geographic location where the transfer config should reside.
-Examples: US, EU, asia-northeast1. The default value is US. *)
   notification_pubsub_topic : string prop option; [@option]
-      (** Pub/Sub topic where notifications will be sent after transfer runs
-associated with this transfer config finish. *)
   params : (string * string prop) list;
-      (** Parameters specific to each data source. For more information see the bq tab in the 'Setting up a data transfer'
-section for each data source. For example the parameters for Cloud Storage transfers are listed here:
-https://cloud.google.com/bigquery-transfer/docs/cloud-storage-transfer#bq
-
-**NOTE** : If you are attempting to update a parameter that cannot be updated (due to api limitations) [please force recreation of the resource](https://www.terraform.io/cli/state/taint#forcing-re-creation-of-resources). *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   schedule : string prop option; [@option]
-      (** Data transfer schedule. If the data source does not support a custom
-schedule, this should be empty. If it is empty, the default value for
-the data source will be used. The specified times are in UTC. Examples
-of valid format: 1st,3rd monday of month 15:30, every wed,fri of jan,
-jun 13:15, and first sunday of quarter 00:00. See more explanation
-about the format here:
-https://cloud.google.com/appengine/docs/flexible/python/scheduling-jobs-with-cron-yaml#the_schedule_format
-NOTE: the granularity should be at least 8 hours, or less frequent. *)
   service_account_name : string prop option; [@option]
-      (** Service account email. If this field is set, transfer config will
-be created with this service account credentials. It requires that
-requesting user calling this API has permissions to act as this service account. *)
   email_preferences : email_preferences list;
   schedule_options : schedule_options list;
   sensitive_params : sensitive_params list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_bigquery_data_transfer_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_bigquery_data_transfer_config) -> ()
+
+let yojson_of_google_bigquery_data_transfer_config =
+  (function
+   | {
+       data_refresh_window_days = v_data_refresh_window_days;
+       data_source_id = v_data_source_id;
+       destination_dataset_id = v_destination_dataset_id;
+       disabled = v_disabled;
+       display_name = v_display_name;
+       id = v_id;
+       location = v_location;
+       notification_pubsub_topic = v_notification_pubsub_topic;
+       params = v_params;
+       project = v_project;
+       schedule = v_schedule;
+       service_account_name = v_service_account_name;
+       email_preferences = v_email_preferences;
+       schedule_options = v_schedule_options;
+       sensitive_params = v_sensitive_params;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_sensitive_params
+             v_sensitive_params
+         in
+         ("sensitive_params", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_schedule_options
+             v_schedule_options
+         in
+         ("schedule_options", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_email_preferences
+             v_email_preferences
+         in
+         ("email_preferences", arg) :: bnds
+       in
+       let bnds =
+         match v_service_account_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "service_account_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_schedule with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "schedule", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             (function
+               | v0, v1 ->
+                   let v0 = yojson_of_string v0
+                   and v1 = yojson_of_prop yojson_of_string v1 in
+                   `List [ v0; v1 ])
+             v_params
+         in
+         ("params", arg) :: bnds
+       in
+       let bnds =
+         match v_notification_pubsub_topic with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "notification_pubsub_topic", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_location with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "location", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_display_name in
+         ("display_name", arg) :: bnds
+       in
+       let bnds =
+         match v_disabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "disabled", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_destination_dataset_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "destination_dataset_id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_data_source_id
+         in
+         ("data_source_id", arg) :: bnds
+       in
+       let bnds =
+         match v_data_refresh_window_days with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "data_refresh_window_days", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_bigquery_data_transfer_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_bigquery_data_transfer_config
+
+[@@@deriving.end]
 
 let email_preferences ~enable_failure_email () : email_preferences =
   { enable_failure_email }

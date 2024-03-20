@@ -2,39 +2,152 @@
 
 open! Tf_core
 
-type partner_servers = { id : string prop  (** id *) }
-[@@deriving yojson_of]
-(** partner_servers *)
+type partner_servers = { id : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : partner_servers) -> ()
+
+let yojson_of_partner_servers =
+  (function
+   | { id = v_id } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_id in
+         ("id", arg) :: bnds
+       in
+       `Assoc bnds
+    : partner_servers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_partner_servers
+
+[@@@deriving.end]
 
 type read_write_endpoint_failover_policy = {
-  grace_minutes : float prop option; [@option]  (** grace_minutes *)
-  mode : string prop;  (** mode *)
+  grace_minutes : float prop option; [@option]
+  mode : string prop;
 }
-[@@deriving yojson_of]
-(** read_write_endpoint_failover_policy *)
+[@@deriving_inline yojson_of]
 
-type readonly_endpoint_failover_policy = {
-  mode : string prop;  (** mode *)
-}
-[@@deriving yojson_of]
-(** readonly_endpoint_failover_policy *)
+let _ = fun (_ : read_write_endpoint_failover_policy) -> ()
+
+let yojson_of_read_write_endpoint_failover_policy =
+  (function
+   | { grace_minutes = v_grace_minutes; mode = v_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       let bnds =
+         match v_grace_minutes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "grace_minutes", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : read_write_endpoint_failover_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_read_write_endpoint_failover_policy
+
+[@@@deriving.end]
+
+type readonly_endpoint_failover_policy = { mode : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : readonly_endpoint_failover_policy) -> ()
+
+let yojson_of_readonly_endpoint_failover_policy =
+  (function
+   | { mode = v_mode } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_mode in
+         ("mode", arg) :: bnds
+       in
+       `Assoc bnds
+    : readonly_endpoint_failover_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_readonly_endpoint_failover_policy
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_sql_failover_group = {
-  databases : string prop list option; [@option]  (** databases *)
-  id : string prop option; [@option]  (** id *)
-  name : string prop;  (** name *)
-  resource_group_name : string prop;  (** resource_group_name *)
-  server_name : string prop;  (** server_name *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  databases : string prop list option; [@option]
+  id : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
+  server_name : string prop;
+  tags : (string * string prop) list option; [@option]
   partner_servers : partner_servers list;
   read_write_endpoint_failover_policy :
     read_write_endpoint_failover_policy list;
@@ -42,8 +155,108 @@ type azurerm_sql_failover_group = {
     readonly_endpoint_failover_policy list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_sql_failover_group *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_sql_failover_group) -> ()
+
+let yojson_of_azurerm_sql_failover_group =
+  (function
+   | {
+       databases = v_databases;
+       id = v_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       server_name = v_server_name;
+       tags = v_tags;
+       partner_servers = v_partner_servers;
+       read_write_endpoint_failover_policy =
+         v_read_write_endpoint_failover_policy;
+       readonly_endpoint_failover_policy =
+         v_readonly_endpoint_failover_policy;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_readonly_endpoint_failover_policy
+             v_readonly_endpoint_failover_policy
+         in
+         ("readonly_endpoint_failover_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_read_write_endpoint_failover_policy
+             v_read_write_endpoint_failover_policy
+         in
+         ("read_write_endpoint_failover_policy", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_partner_servers v_partner_servers
+         in
+         ("partner_servers", arg) :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_server_name in
+         ("server_name", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_databases with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "databases", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_sql_failover_group -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_sql_failover_group
+
+[@@@deriving.end]
 
 let partner_servers ~id () : partner_servers = { id }
 

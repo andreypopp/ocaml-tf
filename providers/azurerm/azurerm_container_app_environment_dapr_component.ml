@@ -4,51 +4,243 @@ open! Tf_core
 
 type metadata = {
   name : string prop;
-      (** The name of the Metadata configuration item. *)
   secret_name : string prop option; [@option]
-      (** The name of a secret specified in the `secrets` block that contains the value for this metadata configuration item. *)
   value : string prop option; [@option]
-      (** The value for this metadata configuration item. *)
 }
-[@@deriving yojson_of]
-(** metadata *)
+[@@deriving_inline yojson_of]
 
-type secret = {
-  name : string prop;  (** The Secret name. *)
-  value : string prop;  (** The value for this secret. *)
-}
-[@@deriving yojson_of]
-(** secret *)
+let _ = fun (_ : metadata) -> ()
+
+let yojson_of_metadata =
+  (function
+   | { name = v_name; secret_name = v_secret_name; value = v_value }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_value with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "value", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_secret_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "secret_name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : metadata -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_metadata
+
+[@@@deriving.end]
+
+type secret = { name : string prop; value : string prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : secret) -> ()
+
+let yojson_of_secret =
+  (function
+   | { name = v_name; value = v_value } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_value in
+         ("value", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       `Assoc bnds
+    : secret -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_secret
+
+[@@@deriving.end]
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  read : string prop option; [@option]  (** read *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  read : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | {
+       create = v_create;
+       delete = v_delete;
+       read = v_read;
+       update = v_update;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
 
 type azurerm_container_app_environment_dapr_component = {
   component_type : string prop;
-      (** The Dapr Component Type. For example `state.azure.blobstorage`. *)
   container_app_environment_id : string prop;
-      (** The Container App Managed Environment ID to configure this Dapr component on. *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   ignore_errors : bool prop option; [@option]
-      (** Should the Dapr sidecar to continue initialisation if the component fails to load. Defaults to `false` *)
   init_timeout : string prop option; [@option]
-      (** The component initialisation timeout in ISO8601 format. e.g. `5s`, `2h`, `1m`. Defaults to `5s`. *)
-  name : string prop;  (** The name for this Dapr Component. *)
+  name : string prop;
   scopes : string prop list option; [@option]
-      (** A list of scopes to which this component applies. e.g. a Container App's `dapr.app_id` value. *)
-  version : string prop;  (** The version of the component. *)
+  version : string prop;
   metadata : metadata list;
   secret : secret list;
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** azurerm_container_app_environment_dapr_component *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : azurerm_container_app_environment_dapr_component) -> ()
+
+let yojson_of_azurerm_container_app_environment_dapr_component =
+  (function
+   | {
+       component_type = v_component_type;
+       container_app_environment_id = v_container_app_environment_id;
+       id = v_id;
+       ignore_errors = v_ignore_errors;
+       init_timeout = v_init_timeout;
+       name = v_name;
+       scopes = v_scopes;
+       version = v_version;
+       metadata = v_metadata;
+       secret = v_secret;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_secret v_secret in
+         ("secret", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_metadata v_metadata in
+         ("metadata", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_version in
+         ("version", arg) :: bnds
+       in
+       let bnds =
+         match v_scopes with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "scopes", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_init_timeout with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "init_timeout", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ignore_errors with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "ignore_errors", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_container_app_environment_id
+         in
+         ("container_app_environment_id", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_component_type
+         in
+         ("component_type", arg) :: bnds
+       in
+       `Assoc bnds
+    : azurerm_container_app_environment_dapr_component ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_container_app_environment_dapr_component
+
+[@@@deriving.end]
 
 let metadata ?secret_name ?value ~name () : metadata =
   { name; secret_name; value }

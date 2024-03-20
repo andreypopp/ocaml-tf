@@ -3,117 +3,265 @@
 open! Tf_core
 
 type timeouts = {
-  create : string prop option; [@option]  (** create *)
-  delete : string prop option; [@option]  (** delete *)
-  update : string prop option; [@option]  (** update *)
+  create : string prop option; [@option]
+  delete : string prop option; [@option]
+  update : string prop option; [@option]
 }
-[@@deriving yojson_of]
-(** timeouts *)
+[@@deriving_inline yojson_of]
 
-type private_interconnect_info = {
-  tag8021q : float prop;  (** tag8021q *)
-}
-[@@deriving yojson_of]
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { create = v_create; delete = v_delete; update = v_update } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_update with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "update", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_delete with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "delete", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_create with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "create", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type private_interconnect_info = { tag8021q : float prop }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : private_interconnect_info) -> ()
+
+let yojson_of_private_interconnect_info =
+  (function
+   | { tag8021q = v_tag8021q } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_tag8021q in
+         ("tag8021q", arg) :: bnds
+       in
+       `Assoc bnds
+    : private_interconnect_info -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_private_interconnect_info
+
+[@@@deriving.end]
 
 type google_compute_interconnect_attachment = {
   admin_enabled : bool prop option; [@option]
-      (** Whether the VLAN attachment is enabled or disabled.  When using
-PARTNER type this will Pre-Activate the interconnect attachment *)
   bandwidth : string prop option; [@option]
-      (** Provisioned bandwidth capacity for the interconnect attachment.
-For attachments of type DEDICATED, the user can set the bandwidth.
-For attachments of type PARTNER, the Google Partner that is operating the interconnect must set the bandwidth.
-Output only for PARTNER type, mutable for PARTNER_PROVIDER and DEDICATED,
-Defaults to BPS_10G Possible values: [BPS_50M, BPS_100M, BPS_200M, BPS_300M, BPS_400M, BPS_500M, BPS_1G, BPS_2G, BPS_5G, BPS_10G, BPS_20G, BPS_50G] *)
   candidate_subnets : string prop list option; [@option]
-      (** Up to 16 candidate prefixes that can be used to restrict the allocation
-of cloudRouterIpAddress and customerRouterIpAddress for this attachment.
-All prefixes must be within link-local address space (169.254.0.0/16)
-and must be /29 or shorter (/28, /27, etc). Google will attempt to select
-an unused /29 from the supplied candidate prefix(es). The request will
-fail if all possible /29s are in use on Google's edge. If not supplied,
-Google will randomly select an unused /29 from all of link-local space. *)
   description : string prop option; [@option]
-      (** An optional description of this resource. *)
   edge_availability_domain : string prop option; [@option]
-      (** Desired availability domain for the attachment. Only available for type
-PARTNER, at creation time. For improved reliability, customers should
-configure a pair of attachments with one per availability domain. The
-selected availability domain will be provided to the Partner via the
-pairing key so that the provisioned circuit will lie in the specified
-domain. If not specified, the value will default to AVAILABILITY_DOMAIN_ANY. *)
   encryption : string prop option; [@option]
-      (** Indicates the user-supplied encryption option of this interconnect
-attachment. Can only be specified at attachment creation for PARTNER or
-DEDICATED attachments.
-
-* NONE - This is the default value, which means that the VLAN attachment
-carries unencrypted traffic. VMs are able to send traffic to, or receive
-traffic from, such a VLAN attachment.
-
-* IPSEC - The VLAN attachment carries only encrypted traffic that is
-encrypted by an IPsec device, such as an HA VPN gateway or third-party
-IPsec VPN. VMs cannot directly send traffic to, or receive traffic from,
-such a VLAN attachment. To use HA VPN over Cloud Interconnect, the VLAN
-attachment must be created with this option. Default value: NONE Possible values: [NONE, IPSEC] *)
-  id : string prop option; [@option]  (** id *)
+  id : string prop option; [@option]
   interconnect : string prop option; [@option]
-      (** URL of the underlying Interconnect object that this attachment's
-traffic will traverse through. Required if type is DEDICATED, must not
-be set if type is PARTNER. *)
   ipsec_internal_addresses : string prop list option; [@option]
-      (** URL of addresses that have been reserved for the interconnect attachment,
-Used only for interconnect attachment that has the encryption option as
-IPSEC.
-
-The addresses must be RFC 1918 IP address ranges. When creating HA VPN
-gateway over the interconnect attachment, if the attachment is configured
-to use an RFC 1918 IP address, then the VPN gateway's IP address will be
-allocated from the IP address range specified here.
-
-For example, if the HA VPN gateway's interface 0 is paired to this
-interconnect attachment, then an RFC 1918 IP address for the VPN gateway
-interface 0 will be allocated from the IP address specified for this
-interconnect attachment.
-
-If this field is not specified for interconnect attachment that has
-encryption option as IPSEC, later on when creating HA VPN gateway on this
-interconnect attachment, the HA VPN gateway's IP address will be
-allocated from regional external IP address pool. *)
   mtu : string prop option; [@option]
-      (** Maximum Transmission Unit (MTU), in bytes, of packets passing through
-this interconnect attachment. Currently, only 1440 and 1500 are allowed. If not specified, the value will default to 1440. *)
   name : string prop;
-      (** Name of the resource. Provided by the client when the resource is created. The
-name must be 1-63 characters long, and comply with RFC1035. Specifically, the
-name must be 1-63 characters long and match the regular expression
-'[a-z]([-a-z0-9]*[a-z0-9])?' which means the first character must be a
-lowercase letter, and all following characters must be a dash, lowercase
-letter, or digit, except the last character, which cannot be a dash. *)
-  project : string prop option; [@option]  (** project *)
+  project : string prop option; [@option]
   region : string prop option; [@option]
-      (** Region where the regional interconnect attachment resides. *)
   router : string prop;
-      (** URL of the cloud router to be used for dynamic routing. This router must be in
-the same region as this InterconnectAttachment. The InterconnectAttachment will
-automatically connect the Interconnect to the network & region within which the
-Cloud Router is configured. *)
   stack_type : string prop option; [@option]
-      (** The stack type for this interconnect attachment to identify whether the IPv6
-feature is enabled or not. If not specified, IPV4_ONLY will be used.
-
-This field can be both set at interconnect attachments creation and update
-interconnect attachment operations. Possible values: [IPV4_IPV6, IPV4_ONLY] *)
   type_ : string prop option; [@option] [@key "type"]
-      (** The type of InterconnectAttachment you wish to create. Defaults to
-DEDICATED. Possible values: [DEDICATED, PARTNER, PARTNER_PROVIDER] *)
   vlan_tag8021q : float prop option; [@option]
-      (** The IEEE 802.1Q VLAN tag for this attachment, in the range 2-4094. When
-using PARTNER type this will be managed upstream. *)
   timeouts : timeouts option;
 }
-[@@deriving yojson_of]
-(** google_compute_interconnect_attachment *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_compute_interconnect_attachment) -> ()
+
+let yojson_of_google_compute_interconnect_attachment =
+  (function
+   | {
+       admin_enabled = v_admin_enabled;
+       bandwidth = v_bandwidth;
+       candidate_subnets = v_candidate_subnets;
+       description = v_description;
+       edge_availability_domain = v_edge_availability_domain;
+       encryption = v_encryption;
+       id = v_id;
+       interconnect = v_interconnect;
+       ipsec_internal_addresses = v_ipsec_internal_addresses;
+       mtu = v_mtu;
+       name = v_name;
+       project = v_project;
+       region = v_region;
+       router = v_router;
+       stack_type = v_stack_type;
+       type_ = v_type_;
+       vlan_tag8021q = v_vlan_tag8021q;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         match v_vlan_tag8021q with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "vlan_tag8021q", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_type_ with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_stack_type with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "stack_type", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_router in
+         ("router", arg) :: bnds
+       in
+       let bnds =
+         match v_region with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "region", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_mtu with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "mtu", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_ipsec_internal_addresses with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "ipsec_internal_addresses", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_interconnect with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "interconnect", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_encryption with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "encryption", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_edge_availability_domain with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "edge_availability_domain", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_candidate_subnets with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "candidate_subnets", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_bandwidth with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "bandwidth", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_admin_enabled with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "admin_enabled", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_compute_interconnect_attachment ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_compute_interconnect_attachment
+
+[@@@deriving.end]
 
 let timeouts ?create ?delete ?update () : timeouts =
   { create; delete; update }

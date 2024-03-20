@@ -18,6 +18,8 @@ type transfer_stats = {
   update_time : string prop;  (** update_time *)
 }
 
+[@@@deriving.end]
+
 type destination_volume_parameters
 
 val destination_volume_parameters :

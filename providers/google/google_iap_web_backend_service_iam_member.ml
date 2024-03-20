@@ -3,23 +3,113 @@
 open! Tf_core
 
 type condition = {
-  description : string prop option; [@option]  (** description *)
-  expression : string prop;  (** expression *)
-  title : string prop;  (** title *)
+  description : string prop option; [@option]
+  expression : string prop;
+  title : string prop;
 }
-[@@deriving yojson_of]
-(** condition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : condition) -> ()
+
+let yojson_of_condition =
+  (function
+   | {
+       description = v_description;
+       expression = v_expression;
+       title = v_title;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_title in
+         ("title", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_expression in
+         ("expression", arg) :: bnds
+       in
+       let bnds =
+         match v_description with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "description", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : condition -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_condition
+
+[@@@deriving.end]
 
 type google_iap_web_backend_service_iam_member = {
-  id : string prop option; [@option]  (** id *)
-  member : string prop;  (** member *)
-  project : string prop option; [@option]  (** project *)
-  role : string prop;  (** role *)
-  web_backend_service : string prop;  (** web_backend_service *)
+  id : string prop option; [@option]
+  member : string prop;
+  project : string prop option; [@option]
+  role : string prop;
+  web_backend_service : string prop;
   condition : condition list;
 }
-[@@deriving yojson_of]
-(** google_iap_web_backend_service_iam_member *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : google_iap_web_backend_service_iam_member) -> ()
+
+let yojson_of_google_iap_web_backend_service_iam_member =
+  (function
+   | {
+       id = v_id;
+       member = v_member;
+       project = v_project;
+       role = v_role;
+       web_backend_service = v_web_backend_service;
+       condition = v_condition;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_condition v_condition in
+         ("condition", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_web_backend_service
+         in
+         ("web_backend_service", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role in
+         ("role", arg) :: bnds
+       in
+       let bnds =
+         match v_project with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "project", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_member in
+         ("member", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : google_iap_web_backend_service_iam_member ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_google_iap_web_backend_service_iam_member
+
+[@@@deriving.end]
 
 let condition ?description ~expression ~title () : condition =
   { description; expression; title }

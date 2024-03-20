@@ -4,83 +4,444 @@ open! Tf_core
 
 type human_loop_activation_config__human_loop_activation_conditions_config = {
   human_loop_activation_conditions : string prop;
-      (** human_loop_activation_conditions *)
 }
-[@@deriving yojson_of]
-(** human_loop_activation_config__human_loop_activation_conditions_config *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       human_loop_activation_config__human_loop_activation_conditions_config) ->
+  ()
+
+let yojson_of_human_loop_activation_config__human_loop_activation_conditions_config
+    =
+  (function
+   | {
+       human_loop_activation_conditions =
+         v_human_loop_activation_conditions;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_human_loop_activation_conditions
+         in
+         ("human_loop_activation_conditions", arg) :: bnds
+       in
+       `Assoc bnds
+    : human_loop_activation_config__human_loop_activation_conditions_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_human_loop_activation_config__human_loop_activation_conditions_config
+
+[@@@deriving.end]
 
 type human_loop_activation_config = {
   human_loop_activation_conditions_config :
     human_loop_activation_config__human_loop_activation_conditions_config
     list;
 }
-[@@deriving yojson_of]
-(** human_loop_activation_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : human_loop_activation_config) -> ()
+
+let yojson_of_human_loop_activation_config =
+  (function
+   | {
+       human_loop_activation_conditions_config =
+         v_human_loop_activation_conditions_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_human_loop_activation_config__human_loop_activation_conditions_config
+             v_human_loop_activation_conditions_config
+         in
+         ("human_loop_activation_conditions_config", arg) :: bnds
+       in
+       `Assoc bnds
+    : human_loop_activation_config ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_human_loop_activation_config
+
+[@@@deriving.end]
 
 type human_loop_config__public_workforce_task_price__amount_in_usd = {
-  cents : float prop option; [@option]  (** cents *)
-  dollars : float prop option; [@option]  (** dollars *)
+  cents : float prop option; [@option]
+  dollars : float prop option; [@option]
   tenth_fractions_of_a_cent : float prop option; [@option]
-      (** tenth_fractions_of_a_cent *)
 }
-[@@deriving yojson_of]
-(** human_loop_config__public_workforce_task_price__amount_in_usd *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ :
+       human_loop_config__public_workforce_task_price__amount_in_usd) ->
+  ()
+
+let yojson_of_human_loop_config__public_workforce_task_price__amount_in_usd
+    =
+  (function
+   | {
+       cents = v_cents;
+       dollars = v_dollars;
+       tenth_fractions_of_a_cent = v_tenth_fractions_of_a_cent;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_tenth_fractions_of_a_cent with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "tenth_fractions_of_a_cent", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_dollars with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "dollars", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_cents with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "cents", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : human_loop_config__public_workforce_task_price__amount_in_usd ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ =
+  yojson_of_human_loop_config__public_workforce_task_price__amount_in_usd
+
+[@@@deriving.end]
 
 type human_loop_config__public_workforce_task_price = {
   amount_in_usd :
     human_loop_config__public_workforce_task_price__amount_in_usd
     list;
 }
-[@@deriving yojson_of]
-(** human_loop_config__public_workforce_task_price *)
+[@@deriving_inline yojson_of]
+
+let _ =
+ fun (_ : human_loop_config__public_workforce_task_price) -> ()
+
+let yojson_of_human_loop_config__public_workforce_task_price =
+  (function
+   | { amount_in_usd = v_amount_in_usd } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_human_loop_config__public_workforce_task_price__amount_in_usd
+             v_amount_in_usd
+         in
+         ("amount_in_usd", arg) :: bnds
+       in
+       `Assoc bnds
+    : human_loop_config__public_workforce_task_price ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_human_loop_config__public_workforce_task_price
+
+[@@@deriving.end]
 
 type human_loop_config = {
-  human_task_ui_arn : string prop;  (** human_task_ui_arn *)
+  human_task_ui_arn : string prop;
   task_availability_lifetime_in_seconds : float prop option;
       [@option]
-      (** task_availability_lifetime_in_seconds *)
-  task_count : float prop;  (** task_count *)
-  task_description : string prop;  (** task_description *)
+  task_count : float prop;
+  task_description : string prop;
   task_keywords : string prop list option; [@option]
-      (** task_keywords *)
   task_time_limit_in_seconds : float prop option; [@option]
-      (** task_time_limit_in_seconds *)
-  task_title : string prop;  (** task_title *)
-  workteam_arn : string prop;  (** workteam_arn *)
+  task_title : string prop;
+  workteam_arn : string prop;
   public_workforce_task_price :
     human_loop_config__public_workforce_task_price list;
 }
-[@@deriving yojson_of]
-(** human_loop_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : human_loop_config) -> ()
+
+let yojson_of_human_loop_config =
+  (function
+   | {
+       human_task_ui_arn = v_human_task_ui_arn;
+       task_availability_lifetime_in_seconds =
+         v_task_availability_lifetime_in_seconds;
+       task_count = v_task_count;
+       task_description = v_task_description;
+       task_keywords = v_task_keywords;
+       task_time_limit_in_seconds = v_task_time_limit_in_seconds;
+       task_title = v_task_title;
+       workteam_arn = v_workteam_arn;
+       public_workforce_task_price = v_public_workforce_task_price;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_human_loop_config__public_workforce_task_price
+             v_public_workforce_task_price
+         in
+         ("public_workforce_task_price", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_workteam_arn in
+         ("workteam_arn", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_task_title in
+         ("task_title", arg) :: bnds
+       in
+       let bnds =
+         match v_task_time_limit_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd = "task_time_limit_in_seconds", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_task_keywords with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list (yojson_of_prop yojson_of_string) v
+             in
+             let bnd = "task_keywords", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_task_description
+         in
+         ("task_description", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_task_count in
+         ("task_count", arg) :: bnds
+       in
+       let bnds =
+         match v_task_availability_lifetime_in_seconds with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_float v in
+             let bnd =
+               "task_availability_lifetime_in_seconds", arg
+             in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_human_task_ui_arn
+         in
+         ("human_task_ui_arn", arg) :: bnds
+       in
+       `Assoc bnds
+    : human_loop_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_human_loop_config
+
+[@@@deriving.end]
 
 type human_loop_request_source = {
   aws_managed_human_loop_request_source : string prop;
-      (** aws_managed_human_loop_request_source *)
 }
-[@@deriving yojson_of]
-(** human_loop_request_source *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : human_loop_request_source) -> ()
+
+let yojson_of_human_loop_request_source =
+  (function
+   | {
+       aws_managed_human_loop_request_source =
+         v_aws_managed_human_loop_request_source;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string
+             v_aws_managed_human_loop_request_source
+         in
+         ("aws_managed_human_loop_request_source", arg) :: bnds
+       in
+       `Assoc bnds
+    : human_loop_request_source -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_human_loop_request_source
+
+[@@@deriving.end]
 
 type output_config = {
-  kms_key_id : string prop option; [@option]  (** kms_key_id *)
-  s3_output_path : string prop;  (** s3_output_path *)
+  kms_key_id : string prop option; [@option]
+  s3_output_path : string prop;
 }
-[@@deriving yojson_of]
-(** output_config *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : output_config) -> ()
+
+let yojson_of_output_config =
+  (function
+   | { kms_key_id = v_kms_key_id; s3_output_path = v_s3_output_path }
+     ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_s3_output_path
+         in
+         ("s3_output_path", arg) :: bnds
+       in
+       let bnds =
+         match v_kms_key_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "kms_key_id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : output_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_output_config
+
+[@@@deriving.end]
 
 type aws_sagemaker_flow_definition = {
-  flow_definition_name : string prop;  (** flow_definition_name *)
-  id : string prop option; [@option]  (** id *)
-  role_arn : string prop;  (** role_arn *)
-  tags : (string * string prop) list option; [@option]  (** tags *)
+  flow_definition_name : string prop;
+  id : string prop option; [@option]
+  role_arn : string prop;
+  tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-      (** tags_all *)
   human_loop_activation_config : human_loop_activation_config list;
   human_loop_config : human_loop_config list;
   human_loop_request_source : human_loop_request_source list;
   output_config : output_config list;
 }
-[@@deriving yojson_of]
-(** aws_sagemaker_flow_definition *)
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_sagemaker_flow_definition) -> ()
+
+let yojson_of_aws_sagemaker_flow_definition =
+  (function
+   | {
+       flow_definition_name = v_flow_definition_name;
+       id = v_id;
+       role_arn = v_role_arn;
+       tags = v_tags;
+       tags_all = v_tags_all;
+       human_loop_activation_config = v_human_loop_activation_config;
+       human_loop_config = v_human_loop_config;
+       human_loop_request_source = v_human_loop_request_source;
+       output_config = v_output_config;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_output_config v_output_config
+         in
+         ("output_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_human_loop_request_source
+             v_human_loop_request_source
+         in
+         ("human_loop_request_source", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_human_loop_config
+             v_human_loop_config
+         in
+         ("human_loop_config", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_human_loop_activation_config
+             v_human_loop_activation_config
+         in
+         ("human_loop_activation_config", arg) :: bnds
+       in
+       let bnds =
+         match v_tags_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags_all", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_tags with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg =
+               yojson_of_list
+                 (function
+                   | v0, v1 ->
+                       let v0 = yojson_of_string v0
+                       and v1 = yojson_of_prop yojson_of_string v1 in
+                       `List [ v0; v1 ])
+                 v
+             in
+             let bnd = "tags", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_role_arn in
+         ("role_arn", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_flow_definition_name
+         in
+         ("flow_definition_name", arg) :: bnds
+       in
+       `Assoc bnds
+    : aws_sagemaker_flow_definition ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_sagemaker_flow_definition
+
+[@@@deriving.end]
 
 let human_loop_activation_config__human_loop_activation_conditions_config
     ~human_loop_activation_conditions () :
