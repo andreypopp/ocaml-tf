@@ -4,16 +4,17 @@
 
 ## how it works
 
-The output of `terraform providers schema -json` is parsed and used to generate
-OCaml code that provides a type-safe interface to the define resources and
-datasources.
+The output of `terraform providers schema -json` is parsed and then used to
+generate OCaml code that provides a type-safe interface to define tf resources
+and datasources programmatically.
 
-Each provider is represented by a library, each resource and datasource is
+Each provider is represented by a library, each resource or datasource is
 represented by a module.
 
 For example for a resource named `digitalocean_droplet` there's a module
-generated with the following signature. First there are constructors for
-the resource block and for the nested block types:
+generated with the following signature.
+
+First there are constructors for the resource block and for nested blocks:
 
 ```ocaml
 type timeouts
@@ -22,7 +23,7 @@ val timeouts : ... -> unit -> timeouts
 
 type digitalocean_droplet
 
-val digitalocean_droplet : ... -> unit -> digitalocean_droplet
+val digitalocean_droplet : image:string prop -> ... -> unit -> digitalocean_droplet
 ```
 
 Followed by the function to serialize the resource to JSON:
@@ -31,8 +32,9 @@ Followed by the function to serialize the resource to JSON:
 val yojson_of_digitalocean_droplet : digitalocean_droplet -> json
 ```
 
-Then a type `t` is defined which represents the resource's exported attributes,
-one can use values of such types to construct further resources which reference
+Then a type `t` is defined which represents the resource's exported attributes.
+
+One can use values of such types to construct further resources which reference
 the current resource:
 
 ```ocaml
@@ -42,9 +44,10 @@ type t = private {
 }
 ```
 
-To obtain a value of `t` one can use the `register` function. The function
-automatically registers the resource with the global registry which is then
-used to generate `.tf.json` file for you:
+To obtain a value of `t` one can use the `register` function.
+
+The function automatically registers the resource with the global registry
+which is then used to generate `.tf.json` file:
 
 ```ocaml
 val register : ... string -> t
