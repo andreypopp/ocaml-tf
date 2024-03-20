@@ -21,7 +21,9 @@ module type COLLECTION = sig
   val yojson_of : ?tf_module:tf_module -> unit -> json
 end
 
-module Make_collection () : COLLECTION = struct
+module Make_collection (S : sig
+  val name : string
+end) : COLLECTION = struct
   module Key = struct
     type t = tf_module * string * string
 
@@ -39,7 +41,9 @@ module Make_collection () : COLLECTION = struct
     let key = tf_module, type_, id in
     match T.find_opt t key with
     | None -> T.replace t key resource
-    | Some _ -> failwith "duplicate resource"
+    | Some _ ->
+        failwith
+          (Printf.sprintf "duplicate %s: %s.%s" S.name type_ id)
 
   let yojson_of ?tf_module () : json =
     `Assoc
@@ -58,8 +62,13 @@ module Make_collection () : COLLECTION = struct
       |> Seq.to_list)
 end
 
-module Resource = Make_collection ()
-module Data = Make_collection ()
+module Resource = Make_collection (struct
+  let name = "resource"
+end)
+
+module Data = Make_collection (struct
+  let name = "data source"
+end)
 
 module Prop = struct
   type 'a t =
