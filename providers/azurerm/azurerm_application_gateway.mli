@@ -9,8 +9,6 @@ type private_endpoint_connection = {
   name : string prop;  (** name *)
 }
 
-[@@@deriving.end]
-
 type authentication_certificate
 
 val authentication_certificate :

@@ -9,8 +9,6 @@ type ip_sets = {
   ip_family : string prop;  (** ip_family *)
 }
 
-[@@@deriving.end]
-
 type attributes
 
 val attributes :

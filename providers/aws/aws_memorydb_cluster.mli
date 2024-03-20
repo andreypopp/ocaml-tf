@@ -9,14 +9,10 @@ type cluster_endpoint = {
   port : float prop;  (** port *)
 }
 
-[@@@deriving.end]
-
 type shards__nodes__endpoint = {
   address : string prop;  (** address *)
   port : float prop;  (** port *)
 }
-
-[@@@deriving.end]
 
 type shards__nodes = {
   availability_zone : string prop;  (** availability_zone *)
@@ -25,16 +21,12 @@ type shards__nodes = {
   name : string prop;  (** name *)
 }
 
-[@@@deriving.end]
-
 type shards = {
   name : string prop;  (** name *)
   nodes : shards__nodes list;  (** nodes *)
   num_nodes : float prop;  (** num_nodes *)
   slots : string prop;  (** slots *)
 }
-
-[@@@deriving.end]
 
 type timeouts
 

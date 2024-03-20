@@ -15,8 +15,6 @@ type explicit_resource_order = {
   routing_rule_ids : string prop list;  (** routing_rule_ids *)
 }
 
-[@@@deriving.end]
-
 type backend_pool__backend
 
 val backend_pool__backend :

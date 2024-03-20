@@ -11,8 +11,6 @@ type user_paused_details = {
   job_paused_at : string prop;  (** job_paused_at *)
 }
 
-[@@@deriving.end]
-
 type s3_job_definition__bucket_criteria__excludes__and__simple_criterion
 
 val s3_job_definition__bucket_criteria__excludes__and__simple_criterion :

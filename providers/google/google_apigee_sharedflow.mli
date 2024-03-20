@@ -10,8 +10,6 @@ type meta_data = {
   sub_type : string prop;  (** sub_type *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

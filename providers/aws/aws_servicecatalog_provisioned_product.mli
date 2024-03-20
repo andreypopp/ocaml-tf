@@ -10,8 +10,6 @@ type outputs = {
   value : string prop;  (** value *)
 }
 
-[@@@deriving.end]
-
 type provisioning_parameters
 
 val provisioning_parameters :

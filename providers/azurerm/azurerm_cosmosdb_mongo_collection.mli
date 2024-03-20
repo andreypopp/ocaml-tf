@@ -9,8 +9,6 @@ type system_indexes = {
   unique : bool prop;  (** unique *)
 }
 
-[@@@deriving.end]
-
 type autoscale_settings
 
 val autoscale_settings :

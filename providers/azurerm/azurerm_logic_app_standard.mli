@@ -9,8 +9,6 @@ type site_credential = {
   username : string prop;  (** username *)
 }
 
-[@@@deriving.end]
-
 type connection_string
 
 val connection_string :
@@ -35,8 +33,6 @@ type site_config__ip_restriction__headers = {
   x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
 
-[@@@deriving.end]
-
 type site_config__ip_restriction = {
   action : string prop;  (** action *)
   headers : site_config__ip_restriction__headers list;
@@ -49,16 +45,12 @@ type site_config__ip_restriction = {
       (** virtual_network_subnet_id *)
 }
 
-[@@@deriving.end]
-
 type site_config__scm_ip_restriction__headers = {
   x_azure_fdid : string prop list;  (** x_azure_fdid *)
   x_fd_health_probe : string prop list;  (** x_fd_health_probe *)
   x_forwarded_for : string prop list;  (** x_forwarded_for *)
   x_forwarded_host : string prop list;  (** x_forwarded_host *)
 }
-
-[@@@deriving.end]
 
 type site_config__scm_ip_restriction = {
   action : string prop;  (** action *)
@@ -71,8 +63,6 @@ type site_config__scm_ip_restriction = {
   virtual_network_subnet_id : string prop;
       (** virtual_network_subnet_id *)
 }
-
-[@@@deriving.end]
 
 type site_config__cors
 

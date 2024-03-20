@@ -6,15 +6,11 @@ open! Tf_core
 
 type errors = { message : string prop  (** message *) }
 
-[@@@deriving.end]
-
 type workload_identity_config = {
   identity_provider : string prop;  (** identity_provider *)
   issuer_uri : string prop;  (** issuer_uri *)
   workload_pool : string prop;  (** workload_pool *)
 }
-
-[@@@deriving.end]
 
 type authorization
 

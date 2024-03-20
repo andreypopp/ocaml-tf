@@ -9,8 +9,6 @@ type validity = {
   not_before : string prop;  (** not_before *)
 }
 
-[@@@deriving.end]
-
 type registration_config
 
 val registration_config :

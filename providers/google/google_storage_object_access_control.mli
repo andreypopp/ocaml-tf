@@ -9,8 +9,6 @@ type project_team = {
   team : string prop;  (** team *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

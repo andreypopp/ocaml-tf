@@ -11,8 +11,6 @@ type status = {
   substate : string prop;  (** substate *)
 }
 
-[@@@deriving.end]
-
 type hadoop_config__logging_config
 
 val hadoop_config__logging_config :

@@ -10,21 +10,15 @@ type encryption = {
   key_vault_key_id : string prop;  (** key_vault_key_id *)
 }
 
-[@@@deriving.end]
-
 type network_rule_set__virtual_network = {
   action : string prop;  (** action *)
   subnet_id : string prop;  (** subnet_id *)
 }
 
-[@@@deriving.end]
-
 type network_rule_set__ip_rule = {
   action : string prop;  (** action *)
   ip_range : string prop;  (** ip_range *)
 }
-
-[@@@deriving.end]
 
 type network_rule_set = {
   default_action : string prop;  (** default_action *)
@@ -33,19 +27,12 @@ type network_rule_set = {
       (** virtual_network *)
 }
 
-[@@@deriving.end]
-
 type retention_policy = {
   days : float prop;  (** days *)
   enabled : bool prop;  (** enabled *)
 }
 
-[@@@deriving.end]
-
 type trust_policy = { enabled : bool prop  (** enabled *) }
-
-[@@@deriving.end]
-
 type georeplications
 
 val georeplications :

@@ -22,15 +22,11 @@ type endpoint = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type enrichment = {
   endpoint_names : string prop list;  (** endpoint_names *)
   key : string prop;  (** key *)
   value : string prop;  (** value *)
 }
-
-[@@@deriving.end]
 
 type route = {
   condition : string prop;  (** condition *)
@@ -40,16 +36,12 @@ type route = {
   source : string prop;  (** source *)
 }
 
-[@@@deriving.end]
-
 type shared_access_policy = {
   key_name : string prop;  (** key_name *)
   permissions : string prop;  (** permissions *)
   primary_key : string prop;  (** primary_key *)
   secondary_key : string prop;  (** secondary_key *)
 }
-
-[@@@deriving.end]
 
 type cloud_to_device__feedback
 

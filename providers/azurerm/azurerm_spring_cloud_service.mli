@@ -12,8 +12,6 @@ type required_network_traffic_rules = {
   protocol : string prop;  (** protocol *)
 }
 
-[@@@deriving.end]
-
 type config_server_git_setting__http_basic_auth
 
 val config_server_git_setting__http_basic_auth :

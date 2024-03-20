@@ -9,8 +9,6 @@ type evaluation_rules = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

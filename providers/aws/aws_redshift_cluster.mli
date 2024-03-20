@@ -10,8 +10,6 @@ type cluster_nodes = {
   public_ip_address : string prop;  (** public_ip_address *)
 }
 
-[@@@deriving.end]
-
 type logging
 
 val logging :

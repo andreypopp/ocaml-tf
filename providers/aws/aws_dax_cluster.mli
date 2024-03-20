@@ -11,8 +11,6 @@ type nodes = {
   port : float prop;  (** port *)
 }
 
-[@@@deriving.end]
-
 type server_side_encryption
 
 val server_side_encryption :

@@ -11,8 +11,6 @@ type configuration__bgp_configurations = {
   peer_asn : float prop;  (** peer_asn *)
 }
 
-[@@@deriving.end]
-
 type configuration = {
   bgp_configurations : configuration__bgp_configurations list;
       (** bgp_configurations *)
@@ -21,8 +19,6 @@ type configuration = {
   peer_address : string prop;  (** peer_address *)
   protocol : string prop;  (** protocol *)
 }
-
-[@@@deriving.end]
 
 type bgp_options
 

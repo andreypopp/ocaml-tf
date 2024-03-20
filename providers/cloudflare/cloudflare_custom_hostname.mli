@@ -8,8 +8,6 @@ type ssl__validation_errors = {
   message : string prop;  (** message *)
 }
 
-[@@@deriving.end]
-
 type ssl__validation_records = {
   cname_name : string prop;  (** cname_name *)
   cname_target : string prop;  (** cname_target *)
@@ -19,8 +17,6 @@ type ssl__validation_records = {
   txt_name : string prop;  (** txt_name *)
   txt_value : string prop;  (** txt_value *)
 }
-
-[@@@deriving.end]
 
 type ssl__settings
 

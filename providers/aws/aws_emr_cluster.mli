@@ -9,8 +9,6 @@ type placement_group_config = {
   placement_strategy : string prop;  (** placement_strategy *)
 }
 
-[@@@deriving.end]
-
 type step__hadoop_jar_step = {
   args : string prop list;  (** args *)
   jar : string prop;  (** jar *)
@@ -18,16 +16,12 @@ type step__hadoop_jar_step = {
   properties : (string * string prop) list;  (** properties *)
 }
 
-[@@@deriving.end]
-
 type step = {
   action_on_failure : string prop;  (** action_on_failure *)
   hadoop_jar_step : step__hadoop_jar_step list;
       (** hadoop_jar_step *)
   name : string prop;  (** name *)
 }
-
-[@@@deriving.end]
 
 type auto_termination_policy
 

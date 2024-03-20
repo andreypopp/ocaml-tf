@@ -9,8 +9,6 @@ type schema = {
   name : string prop;  (** name *)
 }
 
-[@@@deriving.end]
-
 type input_record_tables
 
 val input_record_tables :

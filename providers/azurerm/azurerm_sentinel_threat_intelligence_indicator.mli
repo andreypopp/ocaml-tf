@@ -9,15 +9,11 @@ type parsed_pattern__pattern_type_values = {
   value_type : string prop;  (** value_type *)
 }
 
-[@@@deriving.end]
-
 type parsed_pattern = {
   pattern_type_key : string prop;  (** pattern_type_key *)
   pattern_type_values : parsed_pattern__pattern_type_values list;
       (** pattern_type_values *)
 }
-
-[@@@deriving.end]
 
 type external_reference
 

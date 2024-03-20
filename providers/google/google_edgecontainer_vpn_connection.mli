@@ -5,12 +5,7 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type details__cloud_vpns = { gateway : string prop  (** gateway *) }
-
-[@@@deriving.end]
-
 type details__cloud_router = { name : string prop  (** name *) }
-
-[@@@deriving.end]
 
 type details = {
   cloud_router : details__cloud_router list;  (** cloud_router *)
@@ -18,8 +13,6 @@ type details = {
   error : string prop;  (** error *)
   state : string prop;  (** state *)
 }
-
-[@@@deriving.end]
 
 type timeouts
 

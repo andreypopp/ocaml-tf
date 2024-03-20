@@ -10,14 +10,10 @@ type attributes = {
   table_arn : string prop;  (** table_arn *)
 }
 
-[@@@deriving.end]
-
 type provider_details = {
   location : string prop;  (** location *)
   role_arn : string prop;  (** role_arn *)
 }
-
-[@@@deriving.end]
 
 type configuration__crawler_configuration
 

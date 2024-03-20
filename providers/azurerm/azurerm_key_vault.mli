@@ -15,8 +15,6 @@ type access_policy = {
   tenant_id : string prop;  (** tenant_id *)
 }
 
-[@@@deriving.end]
-
 type contact
 
 val contact :

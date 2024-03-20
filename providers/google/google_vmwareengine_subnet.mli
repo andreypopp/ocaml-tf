@@ -9,8 +9,6 @@ type dhcp_address_ranges = {
   last_address : string prop;  (** last_address *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

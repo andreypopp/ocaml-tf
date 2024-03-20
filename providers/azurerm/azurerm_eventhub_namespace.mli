@@ -10,14 +10,10 @@ type network_rulesets__virtual_network_rule = {
   subnet_id : string prop;  (** subnet_id *)
 }
 
-[@@@deriving.end]
-
 type network_rulesets__ip_rule = {
   action : string prop;  (** action *)
   ip_mask : string prop;  (** ip_mask *)
 }
-
-[@@@deriving.end]
 
 type network_rulesets = {
   default_action : string prop;  (** default_action *)
@@ -29,8 +25,6 @@ type network_rulesets = {
   virtual_network_rule : network_rulesets__virtual_network_rule list;
       (** virtual_network_rule *)
 }
-
-[@@@deriving.end]
 
 type identity
 

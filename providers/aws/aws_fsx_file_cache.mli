@@ -28,8 +28,6 @@ type lustre_configuration__log_configuration = {
   level : string prop;  (** level *)
 }
 
-[@@@deriving.end]
-
 type lustre_configuration__metadata_configuration
 
 val lustre_configuration__metadata_configuration :

@@ -11,8 +11,6 @@ type discovery_status__stats = {
   tables : float prop;  (** tables *)
 }
 
-[@@@deriving.end]
-
 type discovery_status = {
   last_run_duration : string prop;  (** last_run_duration *)
   last_run_time : string prop;  (** last_run_time *)
@@ -22,23 +20,17 @@ type discovery_status = {
   update_time : string prop;  (** update_time *)
 }
 
-[@@@deriving.end]
-
 type resource_status = {
   message : string prop;  (** message *)
   state : string prop;  (** state *)
   update_time : string prop;  (** update_time *)
 }
 
-[@@@deriving.end]
-
 type security_status = {
   message : string prop;  (** message *)
   state : string prop;  (** state *)
   update_time : string prop;  (** update_time *)
 }
-
-[@@@deriving.end]
 
 type discovery_spec__csv_options
 

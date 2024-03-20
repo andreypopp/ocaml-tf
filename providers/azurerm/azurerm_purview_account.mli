@@ -11,8 +11,6 @@ type managed_resources = {
   storage_account_id : string prop;  (** storage_account_id *)
 }
 
-[@@@deriving.end]
-
 type identity
 
 val identity :

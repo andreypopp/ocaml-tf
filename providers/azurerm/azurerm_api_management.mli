@@ -9,8 +9,6 @@ type policy = {
   xml_link : string prop;  (** xml_link *)
 }
 
-[@@@deriving.end]
-
 type additional_location__virtual_network_configuration
 
 val additional_location__virtual_network_configuration :

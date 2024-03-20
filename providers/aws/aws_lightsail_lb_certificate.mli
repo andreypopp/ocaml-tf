@@ -11,8 +11,6 @@ type domain_validation_records = {
   resource_record_value : string prop;  (** resource_record_value *)
 }
 
-[@@@deriving.end]
-
 type aws_lightsail_lb_certificate
 
 val aws_lightsail_lb_certificate :

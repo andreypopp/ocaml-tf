@@ -11,8 +11,6 @@ type job_schedule = {
   schedule_name : string prop;  (** schedule_name *)
 }
 
-[@@@deriving.end]
-
 type draft__content_link__hash
 
 val draft__content_link__hash :

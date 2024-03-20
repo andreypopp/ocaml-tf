@@ -9,14 +9,10 @@ type authentication = {
   authority : string prop;  (** authority *)
 }
 
-[@@@deriving.end]
-
 type private_endpoint = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
-
-[@@@deriving.end]
 
 type identity
 

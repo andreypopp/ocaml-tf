@@ -15,8 +15,6 @@ type conditions = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type terminal_condition = {
   execution_reason : string prop;  (** execution_reason *)
   last_transition_time : string prop;  (** last_transition_time *)
@@ -28,8 +26,6 @@ type terminal_condition = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type traffic_statuses = {
   percent : float prop;  (** percent *)
   revision : string prop;  (** revision *)
@@ -37,8 +33,6 @@ type traffic_statuses = {
   type_ : string prop; [@key "type"]  (** type *)
   uri : string prop;  (** uri *)
 }
-
-[@@@deriving.end]
 
 type binary_authorization
 

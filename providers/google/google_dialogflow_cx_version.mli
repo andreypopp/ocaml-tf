@@ -11,8 +11,6 @@ type nlu_settings = {
   model_type : string prop;  (** model_type *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

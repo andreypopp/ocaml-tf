@@ -8,8 +8,6 @@ type locale_specification = {
   source_bot_version : string prop;  (** source_bot_version *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

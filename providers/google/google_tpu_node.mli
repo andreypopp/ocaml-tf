@@ -9,8 +9,6 @@ type network_endpoints = {
   port : float prop;  (** port *)
 }
 
-[@@@deriving.end]
-
 type scheduling_config
 
 val scheduling_config :

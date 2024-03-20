@@ -9,8 +9,6 @@ type global_cluster_members = {
   is_writer : bool prop;  (** is_writer *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

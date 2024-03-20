@@ -10,16 +10,12 @@ type attestation__external_protection_level_options = {
   external_key_uri : string prop;  (** external_key_uri *)
 }
 
-[@@@deriving.end]
-
 type attestation__cert_chains = {
   cavium_certs : string prop list;  (** cavium_certs *)
   google_card_certs : string prop list;  (** google_card_certs *)
   google_partition_certs : string prop list;
       (** google_partition_certs *)
 }
-
-[@@@deriving.end]
 
 type attestation = {
   cert_chains : attestation__cert_chains list;  (** cert_chains *)
@@ -29,8 +25,6 @@ type attestation = {
       (** external_protection_level_options *)
   format : string prop;  (** format *)
 }
-
-[@@@deriving.end]
 
 type timeouts
 

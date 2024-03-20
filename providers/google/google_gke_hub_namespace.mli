@@ -5,9 +5,6 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type state = { code : string prop  (** code *) }
-
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

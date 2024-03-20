@@ -9,14 +9,10 @@ type roles = {
   role_type : string prop;  (** role_type *)
 }
 
-[@@@deriving.end]
-
 type roles_all = {
   role_arn : string prop;  (** role_arn *)
   role_type : string prop;  (** role_type *)
 }
-
-[@@@deriving.end]
 
 type assessment_reports_destination
 

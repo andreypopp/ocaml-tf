@@ -30,8 +30,6 @@ type container_configuration__container_registries = {
   user_name : string prop;  (** user_name *)
 }
 
-[@@@deriving.end]
-
 type container_configuration
 
 val container_configuration :

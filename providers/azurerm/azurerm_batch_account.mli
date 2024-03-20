@@ -8,8 +8,6 @@ type encryption = {
   key_vault_key_id : string prop;  (** key_vault_key_id *)
 }
 
-[@@@deriving.end]
-
 type identity
 
 val identity :

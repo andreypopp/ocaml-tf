@@ -13,8 +13,6 @@ type nodes = {
   updated_at : string prop;  (** updated_at *)
 }
 
-[@@@deriving.end]
-
 type taint
 
 val taint :

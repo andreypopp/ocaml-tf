@@ -10,8 +10,6 @@ type master_user_secret = {
   secret_status : string prop;  (** secret_status *)
 }
 
-[@@@deriving.end]
-
 type restore_to_point_in_time
 
 val restore_to_point_in_time :

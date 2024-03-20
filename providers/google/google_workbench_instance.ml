@@ -80,8 +80,7 @@ type timeouts = {
 } [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
-type health_info = {
-} [@@deriving_inline yojson_of]
+type health_info = unit [@@deriving_inline yojson_of]
 [@@@deriving.end]
 type upgrade_history = {
   action: string prop; 

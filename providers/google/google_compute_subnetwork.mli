@@ -9,8 +9,6 @@ type secondary_ip_range = {
   range_name : string prop;  (** range_name *)
 }
 
-[@@@deriving.end]
-
 type log_config
 
 val log_config :

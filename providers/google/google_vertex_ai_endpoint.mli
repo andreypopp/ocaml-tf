@@ -11,22 +11,16 @@ type deployed_models__private_endpoints = {
   service_attachment : string prop;  (** service_attachment *)
 }
 
-[@@@deriving.end]
-
 type deployed_models__dedicated_resources__machine_spec = {
   accelerator_count : float prop;  (** accelerator_count *)
   accelerator_type : string prop;  (** accelerator_type *)
   machine_type : string prop;  (** machine_type *)
 }
 
-[@@@deriving.end]
-
 type deployed_models__dedicated_resources__autoscaling_metric_specs = {
   metric_name : string prop;  (** metric_name *)
   target : float prop;  (** target *)
 }
-
-[@@@deriving.end]
 
 type deployed_models__dedicated_resources = {
   autoscaling_metric_specs :
@@ -40,14 +34,10 @@ type deployed_models__dedicated_resources = {
   min_replica_count : float prop;  (** min_replica_count *)
 }
 
-[@@@deriving.end]
-
 type deployed_models__automatic_resources = {
   max_replica_count : float prop;  (** max_replica_count *)
   min_replica_count : float prop;  (** min_replica_count *)
 }
-
-[@@@deriving.end]
 
 type deployed_models = {
   automatic_resources : deployed_models__automatic_resources list;
@@ -67,8 +57,6 @@ type deployed_models = {
   service_account : string prop;  (** service_account *)
   shared_resources : string prop;  (** shared_resources *)
 }
-
-[@@@deriving.end]
 
 type encryption_spec
 

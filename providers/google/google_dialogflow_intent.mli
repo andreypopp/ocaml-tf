@@ -10,8 +10,6 @@ type followup_intent_info = {
       (** parent_followup_intent_name *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

@@ -9,13 +9,9 @@ type last_test_result__conversation_turns__virtual_agent_output__triggered_inten
   name : string prop;  (** name *)
 }
 
-[@@@deriving.end]
-
 type last_test_result__conversation_turns__virtual_agent_output__text_responses = {
   text : string prop list;  (** text *)
 }
-
-[@@@deriving.end]
 
 type last_test_result__conversation_turns__virtual_agent_output__status = {
   code : float prop;  (** code *)
@@ -23,21 +19,15 @@ type last_test_result__conversation_turns__virtual_agent_output__status = {
   message : string prop;  (** message *)
 }
 
-[@@@deriving.end]
-
 type last_test_result__conversation_turns__virtual_agent_output__differences = {
   description : string prop;  (** description *)
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type last_test_result__conversation_turns__virtual_agent_output__current_page = {
   display_name : string prop;  (** display_name *)
   name : string prop;  (** name *)
 }
-
-[@@@deriving.end]
 
 type last_test_result__conversation_turns__virtual_agent_output = {
   current_page :
@@ -63,26 +53,18 @@ type last_test_result__conversation_turns__virtual_agent_output = {
       (** triggered_intent *)
 }
 
-[@@@deriving.end]
-
 type last_test_result__conversation_turns__user_input__input__text = {
   text : string prop;  (** text *)
 }
-
-[@@@deriving.end]
 
 type last_test_result__conversation_turns__user_input__input__event = {
   event : string prop;  (** event *)
 }
 
-[@@@deriving.end]
-
 type last_test_result__conversation_turns__user_input__input__dtmf = {
   digits : string prop;  (** digits *)
   finish_digit : string prop;  (** finish_digit *)
 }
-
-[@@@deriving.end]
 
 type last_test_result__conversation_turns__user_input__input = {
   dtmf :
@@ -100,8 +82,6 @@ type last_test_result__conversation_turns__user_input__input = {
       (** text *)
 }
 
-[@@@deriving.end]
-
 type last_test_result__conversation_turns__user_input = {
   enable_sentiment_analysis : bool prop;
       (** enable_sentiment_analysis *)
@@ -112,8 +92,6 @@ type last_test_result__conversation_turns__user_input = {
   is_webhook_enabled : bool prop;  (** is_webhook_enabled *)
 }
 
-[@@@deriving.end]
-
 type last_test_result__conversation_turns = {
   user_input : last_test_result__conversation_turns__user_input list;
       (** user_input *)
@@ -121,8 +99,6 @@ type last_test_result__conversation_turns = {
     last_test_result__conversation_turns__virtual_agent_output list;
       (** virtual_agent_output *)
 }
-
-[@@@deriving.end]
 
 type last_test_result = {
   conversation_turns : last_test_result__conversation_turns list;
@@ -132,8 +108,6 @@ type last_test_result = {
   test_result : string prop;  (** test_result *)
   test_time : string prop;  (** test_time *)
 }
-
-[@@@deriving.end]
 
 type test_case_conversation_turns__user_input__input__dtmf
 

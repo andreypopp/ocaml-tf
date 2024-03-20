@@ -1,0 +1,263 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf_core
+
+type cookies_config__cookies = { items : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cookies_config__cookies) -> ()
+
+let yojson_of_cookies_config__cookies =
+  (function
+   | { items = v_items } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_items
+         in
+         ("items", arg) :: bnds
+       in
+       `Assoc bnds
+    : cookies_config__cookies -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cookies_config__cookies
+
+[@@@deriving.end]
+
+type cookies_config = {
+  cookie_behavior : string prop;
+  cookies : cookies_config__cookies list;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : cookies_config) -> ()
+
+let yojson_of_cookies_config =
+  (function
+   | { cookie_behavior = v_cookie_behavior; cookies = v_cookies } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_cookies_config__cookies v_cookies
+         in
+         ("cookies", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_cookie_behavior
+         in
+         ("cookie_behavior", arg) :: bnds
+       in
+       `Assoc bnds
+    : cookies_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_cookies_config
+
+[@@@deriving.end]
+
+type headers_config__headers = { items : string prop list }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : headers_config__headers) -> ()
+
+let yojson_of_headers_config__headers =
+  (function
+   | { items = v_items } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_items
+         in
+         ("items", arg) :: bnds
+       in
+       `Assoc bnds
+    : headers_config__headers -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_headers_config__headers
+
+[@@@deriving.end]
+
+type headers_config = {
+  header_behavior : string prop;
+  headers : headers_config__headers list;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : headers_config) -> ()
+
+let yojson_of_headers_config =
+  (function
+   | { header_behavior = v_header_behavior; headers = v_headers } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list yojson_of_headers_config__headers v_headers
+         in
+         ("headers", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_header_behavior
+         in
+         ("header_behavior", arg) :: bnds
+       in
+       `Assoc bnds
+    : headers_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_headers_config
+
+[@@@deriving.end]
+
+type query_strings_config__query_strings = {
+  items : string prop list;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : query_strings_config__query_strings) -> ()
+
+let yojson_of_query_strings_config__query_strings =
+  (function
+   | { items = v_items } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_items
+         in
+         ("items", arg) :: bnds
+       in
+       `Assoc bnds
+    : query_strings_config__query_strings ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_query_strings_config__query_strings
+
+[@@@deriving.end]
+
+type query_strings_config = {
+  query_string_behavior : string prop;
+  query_strings : query_strings_config__query_strings list;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : query_strings_config) -> ()
+
+let yojson_of_query_strings_config =
+  (function
+   | {
+       query_string_behavior = v_query_string_behavior;
+       query_strings = v_query_strings;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list
+             yojson_of_query_strings_config__query_strings
+             v_query_strings
+         in
+         ("query_strings", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_query_string_behavior
+         in
+         ("query_string_behavior", arg) :: bnds
+       in
+       `Assoc bnds
+    : query_strings_config -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_query_strings_config
+
+[@@@deriving.end]
+
+type aws_cloudfront_origin_request_policy = {
+  id : string prop option; [@option]
+  name : string prop option; [@option]
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : aws_cloudfront_origin_request_policy) -> ()
+
+let yojson_of_aws_cloudfront_origin_request_policy =
+  (function
+   | { id = v_id; name = v_name } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_name with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "name", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : aws_cloudfront_origin_request_policy ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_aws_cloudfront_origin_request_policy
+
+[@@@deriving.end]
+
+let aws_cloudfront_origin_request_policy ?id ?name () :
+    aws_cloudfront_origin_request_policy =
+  { id; name }
+
+type t = {
+  comment : string prop;
+  cookies_config : cookies_config list prop;
+  etag : string prop;
+  headers_config : headers_config list prop;
+  id : string prop;
+  name : string prop;
+  query_strings_config : query_strings_config list prop;
+}
+
+let make ?id ?name __id =
+  let __type = "aws_cloudfront_origin_request_policy" in
+  let __attrs =
+    ({
+       comment = Prop.computed __type __id "comment";
+       cookies_config = Prop.computed __type __id "cookies_config";
+       etag = Prop.computed __type __id "etag";
+       headers_config = Prop.computed __type __id "headers_config";
+       id = Prop.computed __type __id "id";
+       name = Prop.computed __type __id "name";
+       query_strings_config =
+         Prop.computed __type __id "query_strings_config";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_aws_cloudfront_origin_request_policy
+        (aws_cloudfront_origin_request_policy ?id ?name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?name __id =
+  let (r : _ Tf_core.resource) = make ?id ?name __id in
+  Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

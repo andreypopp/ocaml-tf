@@ -10,8 +10,6 @@ type dns_resource_record = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

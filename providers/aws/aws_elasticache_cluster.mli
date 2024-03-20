@@ -12,8 +12,6 @@ type cache_nodes = {
   port : float prop;  (** port *)
 }
 
-[@@@deriving.end]
-
 type log_delivery_configuration
 
 val log_delivery_configuration :

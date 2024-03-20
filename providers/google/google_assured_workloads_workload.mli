@@ -11,8 +11,6 @@ type compliance_status = {
       (** active_violation_count *)
 }
 
-[@@@deriving.end]
-
 type ekm_provisioning_response = {
   ekm_provisioning_error_domain : string prop;
       (** ekm_provisioning_error_domain *)
@@ -21,21 +19,15 @@ type ekm_provisioning_response = {
   ekm_provisioning_state : string prop;  (** ekm_provisioning_state *)
 }
 
-[@@@deriving.end]
-
 type resources = {
   resource_id : float prop;  (** resource_id *)
   resource_type : string prop;  (** resource_type *)
 }
 
-[@@@deriving.end]
-
 type saa_enrollment_response = {
   setup_errors : string prop list;  (** setup_errors *)
   setup_status : string prop;  (** setup_status *)
 }
-
-[@@@deriving.end]
 
 type kms_settings
 

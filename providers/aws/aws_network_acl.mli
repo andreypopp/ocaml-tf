@@ -16,8 +16,6 @@ type egress = {
   to_port : float prop;  (** to_port *)
 }
 
-[@@@deriving.end]
-
 type ingress = {
   action : string prop;  (** action *)
   cidr_block : string prop;  (** cidr_block *)
@@ -29,8 +27,6 @@ type ingress = {
   rule_no : float prop;  (** rule_no *)
   to_port : float prop;  (** to_port *)
 }
-
-[@@@deriving.end]
 
 type aws_network_acl
 

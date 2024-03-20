@@ -9,8 +9,6 @@ type global_node_groups = {
   slots : string prop;  (** slots *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

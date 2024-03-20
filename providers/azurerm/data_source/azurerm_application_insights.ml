@@ -1,0 +1,141 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf_core
+
+type timeouts = { read : string prop option [@option] }
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : timeouts) -> ()
+
+let yojson_of_timeouts =
+  (function
+   | { read = v_read } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         match v_read with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "read", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : timeouts -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_timeouts
+
+[@@@deriving.end]
+
+type azurerm_application_insights = {
+  id : string prop option; [@option]
+  name : string prop;
+  resource_group_name : string prop;
+  timeouts : timeouts option;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : azurerm_application_insights) -> ()
+
+let yojson_of_azurerm_application_insights =
+  (function
+   | {
+       id = v_id;
+       name = v_name;
+       resource_group_name = v_resource_group_name;
+       timeouts = v_timeouts;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_option yojson_of_timeouts v_timeouts in
+         ("timeouts", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_string v_resource_group_name
+         in
+         ("resource_group_name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : azurerm_application_insights ->
+      Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_azurerm_application_insights
+
+[@@@deriving.end]
+
+let timeouts ?read () : timeouts = { read }
+
+let azurerm_application_insights ?id ?timeouts ~name
+    ~resource_group_name () : azurerm_application_insights =
+  { id; name; resource_group_name; timeouts }
+
+type t = {
+  app_id : string prop;
+  application_type : string prop;
+  connection_string : string prop;
+  id : string prop;
+  instrumentation_key : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  retention_in_days : float prop;
+  tags : (string * string) list prop;
+  workspace_id : string prop;
+}
+
+let make ?id ?timeouts ~name ~resource_group_name __id =
+  let __type = "azurerm_application_insights" in
+  let __attrs =
+    ({
+       app_id = Prop.computed __type __id "app_id";
+       application_type =
+         Prop.computed __type __id "application_type";
+       connection_string =
+         Prop.computed __type __id "connection_string";
+       id = Prop.computed __type __id "id";
+       instrumentation_key =
+         Prop.computed __type __id "instrumentation_key";
+       location = Prop.computed __type __id "location";
+       name = Prop.computed __type __id "name";
+       resource_group_name =
+         Prop.computed __type __id "resource_group_name";
+       retention_in_days =
+         Prop.computed __type __id "retention_in_days";
+       tags = Prop.computed __type __id "tags";
+       workspace_id = Prop.computed __type __id "workspace_id";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_azurerm_application_insights
+        (azurerm_application_insights ?id ?timeouts ~name
+           ~resource_group_name ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ?timeouts ~name ~resource_group_name __id
+    =
+  let (r : _ Tf_core.resource) =
+    make ?id ?timeouts ~name ~resource_group_name __id
+  in
+  Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

@@ -43,3 +43,5 @@
  (lint
   (pps ppx_yojson_conv))
  (libraries tf yojson ppx_yojson_conv_lib))
+
+(include_subdirs qualified)

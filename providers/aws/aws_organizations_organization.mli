@@ -12,8 +12,6 @@ type accounts = {
   status : string prop;  (** status *)
 }
 
-[@@@deriving.end]
-
 type non_master_accounts = {
   arn : string prop;  (** arn *)
   email : string prop;  (** email *)
@@ -22,14 +20,10 @@ type non_master_accounts = {
   status : string prop;  (** status *)
 }
 
-[@@@deriving.end]
-
 type roots__policy_types = {
   status : string prop;  (** status *)
   type_ : string prop; [@key "type"]  (** type *)
 }
-
-[@@@deriving.end]
 
 type roots = {
   arn : string prop;  (** arn *)
@@ -37,8 +31,6 @@ type roots = {
   name : string prop;  (** name *)
   policy_types : roots__policy_types list;  (** policy_types *)
 }
-
-[@@@deriving.end]
 
 type aws_organizations_organization
 

@@ -9,8 +9,6 @@ type sku = {
   name : string prop;  (** name *)
 }
 
-[@@@deriving.end]
-
 type access_control__akamai_signature_header_authentication_key
 
 val access_control__akamai_signature_header_authentication_key :

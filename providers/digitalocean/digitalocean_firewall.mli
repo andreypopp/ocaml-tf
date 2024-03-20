@@ -10,8 +10,6 @@ type pending_changes = {
   status : string prop;  (** status *)
 }
 
-[@@@deriving.end]
-
 type inbound_rule
 
 val inbound_rule :

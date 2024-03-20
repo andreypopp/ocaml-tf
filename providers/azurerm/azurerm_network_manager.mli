@@ -10,8 +10,6 @@ type cross_tenant_scopes = {
   tenant_id : string prop;  (** tenant_id *)
 }
 
-[@@@deriving.end]
-
 type scope
 
 val scope :

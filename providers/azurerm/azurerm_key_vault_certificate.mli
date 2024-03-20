@@ -13,8 +13,6 @@ type certificate_attribute = {
   updated : string prop;  (** updated *)
 }
 
-[@@@deriving.end]
-
 type certificate
 
 val certificate :

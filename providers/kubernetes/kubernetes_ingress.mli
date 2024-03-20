@@ -9,19 +9,13 @@ type status__load_balancer__ingress = {
   ip : string prop;  (** ip *)
 }
 
-[@@@deriving.end]
-
 type status__load_balancer = {
   ingress : status__load_balancer__ingress list;  (** ingress *)
 }
 
-[@@@deriving.end]
-
 type status = {
   load_balancer : status__load_balancer list;  (** load_balancer *)
 }
-
-[@@@deriving.end]
 
 type metadata
 

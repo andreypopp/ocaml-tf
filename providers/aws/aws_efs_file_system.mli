@@ -10,8 +10,6 @@ type size_in_bytes = {
   value_in_standard : float prop;  (** value_in_standard *)
 }
 
-[@@@deriving.end]
-
 type lifecycle_policy
 
 val lifecycle_policy :

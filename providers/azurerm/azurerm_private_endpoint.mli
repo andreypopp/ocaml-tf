@@ -9,14 +9,10 @@ type custom_dns_configs = {
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
-[@@@deriving.end]
-
 type network_interface = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
 }
-
-[@@@deriving.end]
 
 type private_dns_zone_configs__record_sets = {
   fqdn : string prop;  (** fqdn *)
@@ -26,8 +22,6 @@ type private_dns_zone_configs__record_sets = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type private_dns_zone_configs = {
   id : string prop;  (** id *)
   name : string prop;  (** name *)
@@ -35,8 +29,6 @@ type private_dns_zone_configs = {
   record_sets : private_dns_zone_configs__record_sets list;
       (** record_sets *)
 }
-
-[@@@deriving.end]
 
 type ip_configuration
 

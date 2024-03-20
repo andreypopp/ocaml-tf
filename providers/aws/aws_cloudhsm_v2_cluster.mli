@@ -14,8 +14,6 @@ type cluster_certificates = {
       (** manufacturer_hardware_certificate *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

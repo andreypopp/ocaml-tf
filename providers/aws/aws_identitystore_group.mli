@@ -9,8 +9,6 @@ type external_ids = {
   issuer : string prop;  (** issuer *)
 }
 
-[@@@deriving.end]
-
 type aws_identitystore_group
 
 val aws_identitystore_group :

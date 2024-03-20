@@ -9,21 +9,15 @@ type firewall_status__sync_states__attachment = {
   subnet_id : string prop;  (** subnet_id *)
 }
 
-[@@@deriving.end]
-
 type firewall_status__sync_states = {
   attachment : firewall_status__sync_states__attachment list;
       (** attachment *)
   availability_zone : string prop;  (** availability_zone *)
 }
 
-[@@@deriving.end]
-
 type firewall_status = {
   sync_states : firewall_status__sync_states list;  (** sync_states *)
 }
-
-[@@@deriving.end]
 
 type encryption_configuration
 

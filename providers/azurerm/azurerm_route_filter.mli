@@ -11,8 +11,6 @@ type rule = {
   rule_type : string prop;  (** rule_type *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

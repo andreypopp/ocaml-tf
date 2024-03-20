@@ -1,0 +1,91 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf_core
+
+(** RESOURCE SERIALIZATION *)
+
+type action__ssm_automation__parameter = {
+  name : string prop;  (** name *)
+  values : string prop list;  (** values *)
+}
+
+type action__ssm_automation = {
+  document_name : string prop;  (** document_name *)
+  document_version : string prop;  (** document_version *)
+  dynamic_parameters : (string * string prop) list;
+      (** dynamic_parameters *)
+  parameter : action__ssm_automation__parameter list;
+      (** parameter *)
+  role_arn : string prop;  (** role_arn *)
+  target_account : string prop;  (** target_account *)
+}
+
+type action = {
+  ssm_automation : action__ssm_automation list;  (** ssm_automation *)
+}
+
+type incident_template__notification_target = {
+  sns_topic_arn : string prop;  (** sns_topic_arn *)
+}
+
+type incident_template = {
+  dedupe_string : string prop;  (** dedupe_string *)
+  impact : float prop;  (** impact *)
+  incident_tags : (string * string prop) list;  (** incident_tags *)
+  notification_target : incident_template__notification_target list;
+      (** notification_target *)
+  summary : string prop;  (** summary *)
+  title : string prop;  (** title *)
+}
+
+type integration__pagerduty = {
+  name : string prop;  (** name *)
+  secret_id : string prop;  (** secret_id *)
+  service_id : string prop;  (** service_id *)
+}
+
+type integration = {
+  pagerduty : integration__pagerduty list;  (** pagerduty *)
+}
+
+type aws_ssmincidents_response_plan
+
+val aws_ssmincidents_response_plan :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  arn:string prop ->
+  unit ->
+  aws_ssmincidents_response_plan
+
+val yojson_of_aws_ssmincidents_response_plan :
+  aws_ssmincidents_response_plan -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private {
+  action : action list prop;
+  arn : string prop;
+  chat_channel : string list prop;
+  display_name : string prop;
+  engagements : string list prop;
+  id : string prop;
+  incident_template : incident_template list prop;
+  integration : integration list prop;
+  name : string prop;
+  tags : (string * string) list prop;
+}
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  arn:string prop ->
+  string ->
+  t
+
+val make :
+  ?id:string prop ->
+  ?tags:(string * string prop) list ->
+  arn:string prop ->
+  string ->
+  t Tf_core.resource

@@ -11,8 +11,6 @@ type subnet = {
   security_group : string prop;  (** security_group *)
 }
 
-[@@@deriving.end]
-
 type ddos_protection_plan
 
 val ddos_protection_plan :

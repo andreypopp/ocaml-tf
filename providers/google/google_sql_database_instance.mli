@@ -10,8 +10,6 @@ type ip_address = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type server_ca_cert = {
   cert : string prop;  (** cert *)
   common_name : string prop;  (** common_name *)
@@ -19,8 +17,6 @@ type server_ca_cert = {
   expiration_time : string prop;  (** expiration_time *)
   sha1_fingerprint : string prop;  (** sha1_fingerprint *)
 }
-
-[@@@deriving.end]
 
 type clone
 

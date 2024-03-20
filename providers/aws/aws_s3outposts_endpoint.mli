@@ -8,8 +8,6 @@ type network_interfaces = {
   network_interface_id : string prop;  (** network_interface_id *)
 }
 
-[@@@deriving.end]
-
 type aws_s3outposts_endpoint
 
 val aws_s3outposts_endpoint :

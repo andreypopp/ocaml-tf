@@ -11,8 +11,6 @@ type routes = {
   state : string prop;  (** state *)
 }
 
-[@@@deriving.end]
-
 type vgw_telemetry = {
   accepted_route_count : float prop;  (** accepted_route_count *)
   certificate_arn : string prop;  (** certificate_arn *)
@@ -21,8 +19,6 @@ type vgw_telemetry = {
   status : string prop;  (** status *)
   status_message : string prop;  (** status_message *)
 }
-
-[@@@deriving.end]
 
 type tunnel1_log_options__cloudwatch_log_options
 

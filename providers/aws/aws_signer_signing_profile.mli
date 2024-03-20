@@ -11,8 +11,6 @@ type revocation_record = {
   revoked_by : string prop;  (** revoked_by *)
 }
 
-[@@@deriving.end]
-
 type signature_validity_period
 
 val signature_validity_period :

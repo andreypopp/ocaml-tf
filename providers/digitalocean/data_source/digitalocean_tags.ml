@@ -1,0 +1,229 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf_core
+
+type filter = {
+  all : bool prop option; [@option]
+  key : string prop;
+  match_by : string prop option; [@option]
+  values : string prop list;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : filter) -> ()
+
+let yojson_of_filter =
+  (function
+   | {
+       all = v_all;
+       key = v_key;
+       match_by = v_match_by;
+       values = v_values;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg =
+           yojson_of_list (yojson_of_prop yojson_of_string) v_values
+         in
+         ("values", arg) :: bnds
+       in
+       let bnds =
+         match v_match_by with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "match_by", arg in
+             bnd :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         match v_all with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_bool v in
+             let bnd = "all", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_filter
+
+[@@@deriving.end]
+
+type sort = {
+  direction : string prop option; [@option]
+  key : string prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : sort) -> ()
+
+let yojson_of_sort =
+  (function
+   | { direction = v_direction; key = v_key } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_key in
+         ("key", arg) :: bnds
+       in
+       let bnds =
+         match v_direction with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "direction", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : sort -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_sort
+
+[@@@deriving.end]
+
+type tags = {
+  databases_count : float prop;
+  droplets_count : float prop;
+  images_count : float prop;
+  name : string prop;
+  total_resource_count : float prop;
+  volume_snapshots_count : float prop;
+  volumes_count : float prop;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : tags) -> ()
+
+let yojson_of_tags =
+  (function
+   | {
+       databases_count = v_databases_count;
+       droplets_count = v_droplets_count;
+       images_count = v_images_count;
+       name = v_name;
+       total_resource_count = v_total_resource_count;
+       volume_snapshots_count = v_volume_snapshots_count;
+       volumes_count = v_volumes_count;
+     } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_volumes_count in
+         ("volumes_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_volume_snapshots_count
+         in
+         ("volume_snapshots_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_total_resource_count
+         in
+         ("total_resource_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_string v_name in
+         ("name", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_images_count in
+         ("images_count", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_prop yojson_of_float v_droplets_count in
+         ("droplets_count", arg) :: bnds
+       in
+       let bnds =
+         let arg =
+           yojson_of_prop yojson_of_float v_databases_count
+         in
+         ("databases_count", arg) :: bnds
+       in
+       `Assoc bnds
+    : tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_tags
+
+[@@@deriving.end]
+
+type digitalocean_tags = {
+  id : string prop option; [@option]
+  filter : filter list;
+  sort : sort list;
+}
+[@@deriving_inline yojson_of]
+
+let _ = fun (_ : digitalocean_tags) -> ()
+
+let yojson_of_digitalocean_tags =
+  (function
+   | { id = v_id; filter = v_filter; sort = v_sort } ->
+       let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
+         []
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_sort v_sort in
+         ("sort", arg) :: bnds
+       in
+       let bnds =
+         let arg = yojson_of_list yojson_of_filter v_filter in
+         ("filter", arg) :: bnds
+       in
+       let bnds =
+         match v_id with
+         | Ppx_yojson_conv_lib.Option.None -> bnds
+         | Ppx_yojson_conv_lib.Option.Some v ->
+             let arg = yojson_of_prop yojson_of_string v in
+             let bnd = "id", arg in
+             bnd :: bnds
+       in
+       `Assoc bnds
+    : digitalocean_tags -> Ppx_yojson_conv_lib.Yojson.Safe.t)
+
+let _ = yojson_of_digitalocean_tags
+
+[@@@deriving.end]
+
+let filter ?all ?match_by ~key ~values () : filter =
+  { all; key; match_by; values }
+
+let sort ?direction ~key () : sort = { direction; key }
+
+let digitalocean_tags ?id ~filter ~sort () : digitalocean_tags =
+  { id; filter; sort }
+
+type t = { id : string prop; tags : tags list prop }
+
+let make ?id ~filter ~sort __id =
+  let __type = "digitalocean_tags" in
+  let __attrs =
+    ({
+       id = Prop.computed __type __id "id";
+       tags = Prop.computed __type __id "tags";
+     }
+      : t)
+  in
+  {
+    Tf_core.id = __id;
+    type_ = __type;
+    json =
+      yojson_of_digitalocean_tags
+        (digitalocean_tags ?id ~filter ~sort ());
+    attrs = __attrs;
+  }
+
+let register ?tf_module ?id ~filter ~sort __id =
+  let (r : _ Tf_core.resource) = make ?id ~filter ~sort __id in
+  Data.add ?tf_module ~type_:r.type_ ~id:r.id r.json;
+  r.attrs

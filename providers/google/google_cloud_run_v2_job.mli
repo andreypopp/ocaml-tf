@@ -15,15 +15,11 @@ type conditions = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type latest_created_execution = {
   completion_time : string prop;  (** completion_time *)
   create_time : string prop;  (** create_time *)
   name : string prop;  (** name *)
 }
-
-[@@@deriving.end]
 
 type terminal_condition = {
   execution_reason : string prop;  (** execution_reason *)
@@ -35,8 +31,6 @@ type terminal_condition = {
   state : string prop;  (** state *)
   type_ : string prop; [@key "type"]  (** type *)
 }
-
-[@@@deriving.end]
 
 type binary_authorization
 

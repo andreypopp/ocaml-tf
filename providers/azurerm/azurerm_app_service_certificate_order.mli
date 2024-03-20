@@ -11,8 +11,6 @@ type certificates = {
   provisioning_state : string prop;  (** provisioning_state *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

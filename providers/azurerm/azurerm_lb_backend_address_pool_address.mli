@@ -10,8 +10,6 @@ type inbound_nat_rule_port_mapping = {
   inbound_nat_rule_name : string prop;  (** inbound_nat_rule_name *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

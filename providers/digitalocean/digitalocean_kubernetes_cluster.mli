@@ -15,8 +15,6 @@ type kube_config = {
   token : string prop;  (** token *)
 }
 
-[@@@deriving.end]
-
 type maintenance_policy
 
 val maintenance_policy :
@@ -33,8 +31,6 @@ type node_pool__nodes = {
   status : string prop;  (** status *)
   updated_at : string prop;  (** updated_at *)
 }
-
-[@@@deriving.end]
 
 type node_pool__taint
 

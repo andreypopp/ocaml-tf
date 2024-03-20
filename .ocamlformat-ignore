@@ -6,6 +6,8 @@ providers/google/google_workbench_instance_iam_policy.ml
 providers/google/google_workbench_instance_iam_policy.mli
 providers/google/google_workbench_instance_iam_member.ml
 providers/google/google_workbench_instance_iam_member.mli
+providers/google/data_source/google_vertex_ai_index.ml
+providers/google/data_source/google_vertex_ai_index.mli
 
 providers/aws/aws_wafv2_ip_set.ml
 providers/aws/aws_wafv2_ip_set.mli

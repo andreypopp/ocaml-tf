@@ -9,28 +9,20 @@ type endpoints__smb = {
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
-[@@@deriving.end]
-
 type endpoints__nfs = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
-
-[@@@deriving.end]
 
 type endpoints__management = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
 
-[@@@deriving.end]
-
 type endpoints__iscsi = {
   dns_name : string prop;  (** dns_name *)
   ip_addresses : string prop list;  (** ip_addresses *)
 }
-
-[@@@deriving.end]
 
 type endpoints = {
   iscsi : endpoints__iscsi list;  (** iscsi *)
@@ -38,8 +30,6 @@ type endpoints = {
   nfs : endpoints__nfs list;  (** nfs *)
   smb : endpoints__smb list;  (** smb *)
 }
-
-[@@@deriving.end]
 
 type active_directory_configuration__self_managed_active_directory_configuration
 

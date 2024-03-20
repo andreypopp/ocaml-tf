@@ -15,8 +15,6 @@ type verified_access_trust_providers = {
       (** verified_access_trust_provider_id *)
 }
 
-[@@@deriving.end]
-
 type aws_verifiedaccess_instance
 
 val aws_verifiedaccess_instance :

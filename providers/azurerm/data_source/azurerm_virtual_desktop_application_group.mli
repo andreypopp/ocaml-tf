@@ -1,0 +1,54 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf_core
+
+(** RESOURCE SERIALIZATION *)
+
+type timeouts
+
+val timeouts : ?read:string prop -> unit -> timeouts
+
+type azurerm_virtual_desktop_application_group
+
+val azurerm_virtual_desktop_application_group :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  unit ->
+  azurerm_virtual_desktop_application_group
+
+val yojson_of_azurerm_virtual_desktop_application_group :
+  azurerm_virtual_desktop_application_group -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private {
+  description : string prop;
+  friendly_name : string prop;
+  host_pool_id : string prop;
+  id : string prop;
+  location : string prop;
+  name : string prop;
+  resource_group_name : string prop;
+  tags : (string * string) list prop;
+  type_ : string prop;
+  workspace_id : string prop;
+}
+
+val register :
+  ?tf_module:tf_module ->
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  string ->
+  t
+
+val make :
+  ?id:string prop ->
+  ?timeouts:timeouts ->
+  name:string prop ->
+  resource_group_name:string prop ->
+  string ->
+  t Tf_core.resource

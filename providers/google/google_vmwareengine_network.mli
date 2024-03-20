@@ -9,8 +9,6 @@ type vpc_networks = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

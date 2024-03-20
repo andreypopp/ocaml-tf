@@ -5,9 +5,6 @@ open! Tf_core
 (** RESOURCE SERIALIZATION *)
 
 type routing_vpcs = { uri : string prop  (** uri *) }
-
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

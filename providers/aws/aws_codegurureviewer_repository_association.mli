@@ -11,15 +11,11 @@ type s3_repository_details__code_artifacts = {
       (** source_code_artifacts_object_key *)
 }
 
-[@@@deriving.end]
-
 type s3_repository_details = {
   bucket_name : string prop;  (** bucket_name *)
   code_artifacts : s3_repository_details__code_artifacts list;
       (** code_artifacts *)
 }
-
-[@@@deriving.end]
 
 type kms_key_details
 

@@ -9,8 +9,6 @@ type status = {
   status : string prop;  (** status *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

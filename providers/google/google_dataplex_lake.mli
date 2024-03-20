@@ -11,16 +11,12 @@ type asset_status = {
   update_time : string prop;  (** update_time *)
 }
 
-[@@@deriving.end]
-
 type metastore_status = {
   endpoint : string prop;  (** endpoint *)
   message : string prop;  (** message *)
   state : string prop;  (** state *)
   update_time : string prop;  (** update_time *)
 }
-
-[@@@deriving.end]
 
 type metastore
 

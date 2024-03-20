@@ -8,8 +8,6 @@ type chat_engine_metadata = {
   dialogflow_agent : string prop;  (** dialogflow_agent *)
 }
 
-[@@@deriving.end]
-
 type chat_engine_config__agent_creation_config
 
 val chat_engine_config__agent_creation_config :

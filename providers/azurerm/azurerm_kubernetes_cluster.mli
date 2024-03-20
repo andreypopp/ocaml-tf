@@ -14,8 +14,6 @@ type kube_admin_config = {
   username : string prop;  (** username *)
 }
 
-[@@@deriving.end]
-
 type kube_config = {
   client_certificate : string prop;  (** client_certificate *)
   client_key : string prop;  (** client_key *)
@@ -26,16 +24,12 @@ type kube_config = {
   username : string prop;  (** username *)
 }
 
-[@@@deriving.end]
-
 type aci_connector_linux__connector_identity = {
   client_id : string prop;  (** client_id *)
   object_id : string prop;  (** object_id *)
   user_assigned_identity_id : string prop;
       (** user_assigned_identity_id *)
 }
-
-[@@@deriving.end]
 
 type aci_connector_linux
 
@@ -252,8 +246,6 @@ type ingress_application_gateway__ingress_application_gateway_identity = {
       (** user_assigned_identity_id *)
 }
 
-[@@@deriving.end]
-
 type ingress_application_gateway
 
 val ingress_application_gateway :
@@ -278,8 +270,6 @@ type key_vault_secrets_provider__secret_identity = {
   user_assigned_identity_id : string prop;
       (** user_assigned_identity_id *)
 }
-
-[@@@deriving.end]
 
 type key_vault_secrets_provider
 
@@ -447,8 +437,6 @@ type oms_agent__oms_agent_identity = {
       (** user_assigned_identity_id *)
 }
 
-[@@@deriving.end]
-
 type oms_agent
 
 val oms_agent :
@@ -501,8 +489,6 @@ type web_app_routing__web_app_routing_identity = {
   user_assigned_identity_id : string prop;
       (** user_assigned_identity_id *)
 }
-
-[@@@deriving.end]
 
 type web_app_routing
 

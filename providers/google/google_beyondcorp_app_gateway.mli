@@ -9,8 +9,6 @@ type allocated_connections = {
   psc_uri : string prop;  (** psc_uri *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

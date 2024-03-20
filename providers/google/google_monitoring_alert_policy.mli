@@ -9,8 +9,6 @@ type creation_record = {
   mutated_by : string prop;  (** mutated_by *)
 }
 
-[@@@deriving.end]
-
 type alert_strategy__notification_channel_strategy
 
 val alert_strategy__notification_channel_strategy :

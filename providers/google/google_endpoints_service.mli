@@ -11,8 +11,6 @@ type apis__methods = {
   syntax : string prop;  (** syntax *)
 }
 
-[@@@deriving.end]
-
 type apis = {
   methods : apis__methods list;  (** methods *)
   name : string prop;  (** name *)
@@ -20,14 +18,10 @@ type apis = {
   version : string prop;  (** version *)
 }
 
-[@@@deriving.end]
-
 type endpoints = {
   address : string prop;  (** address *)
   name : string prop;  (** name *)
 }
-
-[@@@deriving.end]
 
 type timeouts
 

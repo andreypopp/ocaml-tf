@@ -6,8 +6,6 @@ open! Tf_core
 
 type state = { code : string prop  (** code *) }
 
-[@@@deriving.end]
-
 type default_cluster_config__binary_authorization_config__policy_bindings
 
 val default_cluster_config__binary_authorization_config__policy_bindings :

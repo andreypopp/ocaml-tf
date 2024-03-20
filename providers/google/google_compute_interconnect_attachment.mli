@@ -8,8 +8,6 @@ type private_interconnect_info = {
   tag8021q : float prop;  (** tag8021q *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

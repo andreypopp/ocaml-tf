@@ -9,8 +9,6 @@ type output_resources__containers = {
   region : string prop;  (** region *)
 }
 
-[@@@deriving.end]
-
 type output_resources__amis = {
   account_id : string prop;  (** account_id *)
   description : string prop;  (** description *)
@@ -19,14 +17,10 @@ type output_resources__amis = {
   region : string prop;  (** region *)
 }
 
-[@@@deriving.end]
-
 type output_resources = {
   amis : output_resources__amis list;  (** amis *)
   containers : output_resources__containers list;  (** containers *)
 }
-
-[@@@deriving.end]
 
 type image_scanning_configuration__ecr_configuration
 

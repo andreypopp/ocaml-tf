@@ -19,8 +19,6 @@ type device_properties = {
   type_ : string prop; [@key "type"]  (** type *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

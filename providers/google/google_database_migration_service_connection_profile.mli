@@ -10,8 +10,6 @@ type error = {
   message : string prop;  (** message *)
 }
 
-[@@@deriving.end]
-
 type alloydb__settings__initial_user
 
 val alloydb__settings__initial_user :

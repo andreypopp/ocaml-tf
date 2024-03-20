@@ -11,15 +11,11 @@ type domain_validation_options = {
   resource_record_value : string prop;  (** resource_record_value *)
 }
 
-[@@@deriving.end]
-
 type renewal_summary = {
   renewal_status : string prop;  (** renewal_status *)
   renewal_status_reason : string prop;  (** renewal_status_reason *)
   updated_at : string prop;  (** updated_at *)
 }
-
-[@@@deriving.end]
 
 type options
 

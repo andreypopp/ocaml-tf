@@ -9,7 +9,7 @@ bug-reports: "https://github.com/andreypopp/ocaml-tf/issues"
 depends: [
   "tf"
   "ocaml"
-  "dune" {>= "3.0"}
+  "dune" {>= "3.7"}
   "containers"
   "yojson"
   "ppx_yojson_conv_lib"

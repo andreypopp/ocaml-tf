@@ -9,12 +9,7 @@ type attestation = {
   format : string prop;  (** format *)
 }
 
-[@@@deriving.end]
-
 type public_key = { pem : string prop  (** pem *) }
-
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

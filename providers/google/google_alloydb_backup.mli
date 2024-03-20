@@ -9,14 +9,10 @@ type encryption_info = {
   kms_key_versions : string prop list;  (** kms_key_versions *)
 }
 
-[@@@deriving.end]
-
 type expiry_quantity = {
   retention_count : float prop;  (** retention_count *)
   total_retention_count : float prop;  (** total_retention_count *)
 }
-
-[@@@deriving.end]
 
 type encryption_config
 

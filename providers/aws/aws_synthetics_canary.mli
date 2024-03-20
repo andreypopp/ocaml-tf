@@ -11,8 +11,6 @@ type timeline = {
   last_stopped : string prop;  (** last_stopped *)
 }
 
-[@@@deriving.end]
-
 type artifact_config__s3_encryption
 
 val artifact_config__s3_encryption :

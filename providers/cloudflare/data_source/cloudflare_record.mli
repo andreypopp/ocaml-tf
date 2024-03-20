@@ -1,0 +1,57 @@
+(* DO NOT EDIT, GENERATED AUTOMATICALLY *)
+
+open! Tf_core
+
+(** RESOURCE SERIALIZATION *)
+
+type cloudflare_record
+
+val cloudflare_record :
+  ?content:string prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?type_:string prop ->
+  hostname:string prop ->
+  zone_id:string prop ->
+  unit ->
+  cloudflare_record
+
+val yojson_of_cloudflare_record : cloudflare_record -> json
+
+(** RESOURCE REGISTRATION *)
+
+type t = private {
+  content : string prop;
+  hostname : string prop;
+  id : string prop;
+  locked : bool prop;
+  priority : float prop;
+  proxiable : bool prop;
+  proxied : bool prop;
+  ttl : float prop;
+  type_ : string prop;
+  value : string prop;
+  zone_id : string prop;
+  zone_name : string prop;
+}
+
+val register :
+  ?tf_module:tf_module ->
+  ?content:string prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?type_:string prop ->
+  hostname:string prop ->
+  zone_id:string prop ->
+  string ->
+  t
+
+val make :
+  ?content:string prop ->
+  ?id:string prop ->
+  ?priority:float prop ->
+  ?type_:string prop ->
+  hostname:string prop ->
+  zone_id:string prop ->
+  string ->
+  t Tf_core.resource

@@ -8,13 +8,9 @@ type status__version_target = {
   is_reached : bool prop;  (** is_reached *)
 }
 
-[@@@deriving.end]
-
 type status__stateful__per_instance_configs = {
   all_effective : bool prop;  (** all_effective *)
 }
-
-[@@@deriving.end]
 
 type status__stateful = {
   has_stateful_config : bool prop;  (** has_stateful_config *)
@@ -22,13 +18,9 @@ type status__stateful = {
       (** per_instance_configs *)
 }
 
-[@@@deriving.end]
-
 type status__all_instances_config = {
   effective : bool prop;  (** effective *)
 }
-
-[@@@deriving.end]
 
 type status = {
   all_instances_config : status__all_instances_config list;
@@ -37,8 +29,6 @@ type status = {
   stateful : status__stateful list;  (** stateful *)
   version_target : status__version_target list;  (** version_target *)
 }
-
-[@@@deriving.end]
 
 type all_instances_config
 

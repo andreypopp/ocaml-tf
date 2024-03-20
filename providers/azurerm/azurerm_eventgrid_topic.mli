@@ -9,8 +9,6 @@ type inbound_ip_rule = {
   ip_mask : string prop;  (** ip_mask *)
 }
 
-[@@@deriving.end]
-
 type identity
 
 val identity :

@@ -110,6 +110,35 @@ and nested_attribute_type = {
   nesting_mode : nesting_mode;
 }
 
+let to_ocaml_name = function
+  | "and" -> "and_"
+  | "string" -> "string_"
+  | "int" -> "int_"
+  | "bool" -> "bool_"
+  | "float" -> "float_"
+  | "begin" -> "begin_"
+  | "class" -> "class_"
+  | "constraint" -> "constraint_"
+  | "end" -> "end_"
+  | "external" -> "external_"
+  | "for" -> "for_"
+  | "function" -> "function_"
+  | "in" -> "in_"
+  | "include" -> "include_"
+  | "list" -> "list_"
+  | "match" -> "match_"
+  | "method" -> "method_"
+  | "module" -> "module_"
+  | "mutable" -> "mutable_"
+  | "object" -> "object_"
+  | "open" -> "open_"
+  | "option" -> "option_"
+  | "or" -> "or_"
+  | "private" -> "private_"
+  | "to" -> "to_"
+  | "type" -> "type_"
+  | x -> x
+
 let rec find_object_types acc path = function
   | Object assoc ->
       let acc = (path, assoc) :: acc in
@@ -146,33 +175,10 @@ let rec gen_attribute_type_name' ctor path ppf =
         ty
   | Object _ ->
       let ty_name = List.rev path |> String.concat ~sep:"__" in
-      Format.fprintf ppf "%s" ty_name
+      Format.fprintf ppf "%s" (to_ocaml_name ty_name)
 
 let gen_attribute_type_name path ppf ty =
   gen_attribute_type_name' "prop" path ppf ty
-
-let to_ocaml_name = function
-  | "type" -> "type_"
-  | "function" -> "function_"
-  | "match" -> "match_"
-  | "method" -> "method_"
-  | "object" -> "object_"
-  | "end" -> "end_"
-  | "and" -> "and_"
-  | "or" -> "or_"
-  | "mutable" -> "mutable_"
-  | "to" -> "to_"
-  | "include" -> "include_"
-  | "class" -> "class_"
-  | "for" -> "for_"
-  | "in" -> "in_"
-  | "module" -> "module_"
-  | "external" -> "external_"
-  | "open" -> "open_"
-  | "constraint" -> "constraint_"
-  | "option" -> "option_"
-  | "list" -> "list_"
-  | x -> x
 
 let to_ocaml_doc doc =
   doc
@@ -252,13 +258,24 @@ let gen_object_types_ml ~is_mli ~input_only ppf
                   } ))
           in
           let ty_name = List.rev path |> String.concat ~sep:"__" in
-          Format.fprintf ppf "type %s = {@." (to_ocaml_name ty_name);
-          gen_attribute_types ~is_mli (Some ty_name) ppf
-            (get_attributes ~input_only attributes);
-          if is_mli then Format.fprintf ppf "}@."
-          else
-            Format.fprintf ppf "} [%@%@deriving_inline yojson_of]@.";
-          Format.fprintf ppf "[%@%@%@deriving.end]@."))
+          if List.is_empty attributes then
+            if is_mli then
+              Format.fprintf ppf "type %s@." (to_ocaml_name ty_name)
+            else (
+              Format.fprintf ppf
+                "type %s = unit [%@%@deriving_inline yojson_of]@."
+                (to_ocaml_name ty_name);
+              Format.fprintf ppf "[%@%@%@deriving.end]@.")
+          else (
+            Format.fprintf ppf "type %s = {@."
+              (to_ocaml_name ty_name);
+            gen_attribute_types ~is_mli (Some ty_name) ppf
+              (get_attributes ~input_only attributes);
+            if is_mli then Format.fprintf ppf "}@."
+            else (
+              Format.fprintf ppf
+                "} [%@%@deriving_inline yojson_of]@.";
+              Format.fprintf ppf "[%@%@%@deriving.end]@."))))
 
 let gen_block_type_name ~kind basename
     ((block_name, block) : string * block_type) =
@@ -401,7 +418,7 @@ and gen_block_constructors ppf (name, (block : block)) =
       in
       gen_block_constructor ppf (name, block_type.block))
 
-let gen_resource_constructor ppf (name, (schema : schema)) =
+let gen_resource_constructor ppf kind (name, (schema : schema)) =
   let args = concat_space (gen_block_args schema.block) in
   Format.fprintf ppf "let make %s __id =@." args;
   Format.fprintf ppf "  let __type = %S in@." name;
@@ -423,8 +440,16 @@ let gen_resource_constructor ppf (name, (schema : schema)) =
   Format.fprintf ppf "let register ?tf_module %s __id =@." args;
   Format.fprintf ppf
     "  let (r : _ Tf_core.resource) = make %s __id in@." args;
-  Format.fprintf ppf
-    "  Resource.add ?tf_module ~type_:r.type_ ~id:r.id r.json;@.";
+  let () =
+    let collection =
+      match kind with
+      | `resource -> "Resource"
+      | `data_source -> "Data"
+    in
+    Format.fprintf ppf
+      "  %s.add ?tf_module ~type_:r.type_ ~id:r.id r.json;@."
+      collection
+  in
   Format.fprintf ppf "  r.attrs;;@.@."
 
 let gen_resource_attributes_ty ~is_mli ppf (_name, (schema : schema))
@@ -527,7 +552,7 @@ let gen_resource_constructor_sig ppf (_name, (schema : schema)) =
     (args @ [ "string"; "t Tf_core.resource" ]
     |> String.concat ~sep:" ->\n    ")
 
-let gen_resource_impl ppf (resource_name, (resource : schema)) =
+let gen_resource_impl kind ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
   Format.fprintf ppf "open! Tf_core@.@.";
   gen_block_type_ml ~is_resource:true ~input_only:true ~is_mli:false
@@ -537,7 +562,7 @@ let gen_resource_impl ppf (resource_name, (resource : schema)) =
     (resource_name, resource.block);
   gen_resource_attributes_ty ~is_mli:false ppf
     (resource_name, resource);
-  gen_resource_constructor ppf (resource_name, resource)
+  gen_resource_constructor ppf kind (resource_name, resource)
 
 let gen_resource_iface ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
@@ -595,21 +620,28 @@ let get_resource name provider =
   | None -> failwith "resource not found"
 
 let gen_provider_cmd =
+  let handle_schema kind output (name, schema) =
+    with_oc_txt (sprintf "%s/%s.ml" output name) (fun oc ->
+        let ppf = Format.formatter_of_out_channel oc in
+        gen_resource_impl kind ppf (name, schema);
+        Format.pp_print_flush ppf ());
+    with_oc_txt (sprintf "%s/%s.mli" output name) (fun oc ->
+        let ppf = Format.formatter_of_out_channel oc in
+        gen_resource_iface ppf (name, schema);
+        Format.pp_print_flush ppf ())
+  in
   let f filename provider_name output =
-    sys "mkdir -p %S" output;
+    sys "mkdir -p %S %S/data_source" output output;
     let data = In_channel.(with_open_bin filename input_all) in
     let json = Yojson.Safe.from_string data in
     let root = root_of_yojson json in
     let provider = get_provider provider_name root in
-    List.iter provider.resource_schemas ~f:(fun (name, schema) ->
-        with_oc_txt (sprintf "%s/%s.ml" output name) (fun oc ->
-            let ppf = Format.formatter_of_out_channel oc in
-            gen_resource_impl ppf (name, schema);
-            Format.pp_print_flush ppf ());
-        with_oc_txt (sprintf "%s/%s.mli" output name) (fun oc ->
-            let ppf = Format.formatter_of_out_channel oc in
-            gen_resource_iface ppf (name, schema);
-            Format.pp_print_flush ppf ()))
+    List.iter provider.resource_schemas
+      ~f:(handle_schema `resource output);
+    List.iter provider.data_source_schemas
+      ~f:
+        (handle_schema `data_source
+           (sprintf "%s/data_source" output))
   in
   let info = Cmd.info "gen-provider-ml" ~doc:"generate .ml" in
   Cmd.v info
@@ -631,7 +663,8 @@ let gen_resource_impl_cmd =
   let f filename provider_name resource_name =
     with_resouce filename provider_name resource_name
       (fun resource ->
-        Format.fprintf Format.str_formatter "%a@." gen_resource_impl
+        Format.fprintf Format.str_formatter "%a@."
+          (gen_resource_impl `resource)
           (resource_name, resource);
         print_endline (Format.flush_str_formatter ()))
   in

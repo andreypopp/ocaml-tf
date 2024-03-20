@@ -11,8 +11,6 @@ type recurring_charges = {
       (** recurring_charge_frequency *)
 }
 
-[@@@deriving.end]
-
 type timeouts
 
 val timeouts :

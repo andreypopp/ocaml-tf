@@ -15,14 +15,10 @@ type attached_disk = {
   source : string prop;  (** source *)
 }
 
-[@@@deriving.end]
-
 type guest_accelerator = {
   count : float prop;  (** count *)
   type_ : string prop; [@key "type"]  (** type *)
 }
-
-[@@@deriving.end]
 
 type scratch_disk = {
   device_name : string prop;  (** device_name *)
@@ -30,14 +26,10 @@ type scratch_disk = {
   size : float prop;  (** size *)
 }
 
-[@@@deriving.end]
-
 type service_account = {
   email : string prop;  (** email *)
   scopes : string prop list;  (** scopes *)
 }
-
-[@@@deriving.end]
 
 type advanced_machine_features
 
@@ -88,14 +80,10 @@ type network_interface__access_config = {
   public_ptr_domain_name : string prop;  (** public_ptr_domain_name *)
 }
 
-[@@@deriving.end]
-
 type network_interface__alias_ip_range = {
   ip_cidr_range : string prop;  (** ip_cidr_range *)
   subnetwork_range_name : string prop;  (** subnetwork_range_name *)
 }
-
-[@@@deriving.end]
 
 type network_interface__ipv6_access_config
 
