@@ -1,3 +1,8 @@
+(** Provides a Cloudflare Teams List resource. Teams lists are
+referenced when creating secure web gateway policies or device
+posture rules.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

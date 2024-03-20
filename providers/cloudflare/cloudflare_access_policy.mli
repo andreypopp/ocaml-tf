@@ -1,3 +1,8 @@
+(** Provides a Cloudflare Access Policy resource. Access Policies are
+used in conjunction with Access Applications to restrict access to
+a particular resource.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

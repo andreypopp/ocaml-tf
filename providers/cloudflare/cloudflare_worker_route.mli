@@ -1,3 +1,5 @@
+(** Provides a Cloudflare worker route resource. A route will also require a `cloudflare_worker_script`. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

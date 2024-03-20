@@ -1,3 +1,6 @@
+(** A Zero Trust organization defines the user login experience.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

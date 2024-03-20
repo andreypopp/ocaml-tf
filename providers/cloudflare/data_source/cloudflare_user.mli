@@ -1,3 +1,5 @@
+(** Use this data source to retrieve information about the currently authenticated user. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

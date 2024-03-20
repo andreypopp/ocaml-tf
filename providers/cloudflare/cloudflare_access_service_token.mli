@@ -1,3 +1,7 @@
+(** Access Service Tokens are used for service-to-service communication
+when an application is behind Cloudflare Access.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,8 @@
+(** Provides a Cloudflare Access Application resource. Access
+Applications are used to restrict access to a whole application using an
+authorisation gateway managed by Cloudflare.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,7 @@
+(** Provides a Cloudflare Certificate Pack resource that is used to
+provision managed TLS certificates.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

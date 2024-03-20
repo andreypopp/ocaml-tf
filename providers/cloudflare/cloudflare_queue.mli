@@ -1,3 +1,5 @@
+(** Provides the ability to manage Cloudflare Workers Queue features. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

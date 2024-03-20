@@ -1,3 +1,6 @@
+(** Provides a resource which manages Cloudflare Pages projects.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,6 @@
+(** Use this datasource to lookup Rulesets in an account or zone.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

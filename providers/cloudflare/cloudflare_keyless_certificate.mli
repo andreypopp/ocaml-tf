@@ -1,3 +1,6 @@
+(** Provides a resource, that manages Keyless certificates.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,7 @@
+(** Provides the ability to manage IP addresses that can be used by DNS records when
+they are proxied through Cloudflare.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

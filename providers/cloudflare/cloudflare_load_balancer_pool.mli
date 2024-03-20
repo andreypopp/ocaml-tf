@@ -1,3 +1,7 @@
+(** Provides a Cloudflare Load Balancer pool resource. This provides a
+pool of origins that can be used by a Cloudflare Load Balancer.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

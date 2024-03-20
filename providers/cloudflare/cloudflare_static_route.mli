@@ -1,3 +1,8 @@
+(** Provides a resource, that manages Cloudflare static routes for Magic
+Transit or Magic WAN. Static routes are used to route traffic
+through GRE tunnels.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

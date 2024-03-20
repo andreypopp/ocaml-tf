@@ -1,3 +1,5 @@
+(** Provides a resource which customizes Cloudflare zone cache variants. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

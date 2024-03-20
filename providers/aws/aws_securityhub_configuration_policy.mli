@@ -65,7 +65,7 @@ type configuration_policy__security_controls_configuration__security_control_cus
 val configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter :
   name:string prop ->
   value_type:string prop ->
-  bool:
+  bool_:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool
     list ->
   double:
@@ -77,13 +77,13 @@ val configuration_policy__security_controls_configuration__security_control_cust
   enum_list:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list
     list ->
-  int:
+  int_:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int
     list ->
   int_list:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list
     list ->
-  string:
+  string_:
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string
     list ->
   string_list:

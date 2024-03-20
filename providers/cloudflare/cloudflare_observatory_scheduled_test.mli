@@ -1,3 +1,5 @@
+(** Provides a Cloudflare Observatory Scheduled Test resource. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,6 @@
+(** Provides a resource which manages Cloudflare account members.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

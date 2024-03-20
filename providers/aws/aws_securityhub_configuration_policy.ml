@@ -251,7 +251,7 @@ let _ =
 type configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter = {
   name : string prop;
   value_type : string prop;
-  bool :
+  bool_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool
     list;
   double :
@@ -263,13 +263,13 @@ type configuration_policy__security_controls_configuration__security_control_cus
   enum_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__enum_list
     list;
-  int :
+  int_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int
     list;
   int_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list
     list;
-  string :
+  string_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string
     list;
   string_list :
@@ -289,13 +289,13 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
    | {
        name = v_name;
        value_type = v_value_type;
-       bool = v_bool;
+       bool_ = v_bool_;
        double = v_double;
        enum = v_enum;
        enum_list = v_enum_list;
-       int = v_int;
+       int_ = v_int_;
        int_list = v_int_list;
-       string = v_string;
+       string_ = v_string_;
        string_list = v_string_list;
      } ->
        let bnds : (string * Ppx_yojson_conv_lib.Yojson.Safe.t) list =
@@ -313,9 +313,9 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          let arg =
            yojson_of_list
              yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string
-             v_string
+             v_string_
          in
-         ("string", arg) :: bnds
+         ("string_", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -329,9 +329,9 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          let arg =
            yojson_of_list
              yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int
-             v_int
+             v_int_
          in
-         ("int", arg) :: bnds
+         ("int_", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -361,9 +361,9 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
          let arg =
            yojson_of_list
              yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool
-             v_bool
+             v_bool_
          in
-         ("bool", arg) :: bnds
+         ("bool_", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_value_type in
@@ -642,20 +642,20 @@ let configuration_policy__security_controls_configuration__security_control_cust
   { value }
 
 let configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter
-    ~name ~value_type ~bool ~double ~enum ~enum_list ~int ~int_list
-    ~string ~string_list () :
+    ~name ~value_type ~bool_ ~double ~enum ~enum_list ~int_ ~int_list
+    ~string_ ~string_list () :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter
     =
   {
     name;
     value_type;
-    bool;
+    bool_;
     double;
     enum;
     enum_list;
-    int;
+    int_;
     int_list;
-    string;
+    string_;
     string_list;
   }
 

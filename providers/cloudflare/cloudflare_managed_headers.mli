@@ -1,3 +1,8 @@
+(** The [Cloudflare Managed Headers](https://developers.cloudflare.com/rules/transform/managed-transforms/)
+allows you to add or remove some predefined headers to one's
+requests or origin responses.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

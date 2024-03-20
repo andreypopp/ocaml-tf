@@ -1,3 +1,5 @@
+(** Provides a Data Localization Suite Regional Hostname. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

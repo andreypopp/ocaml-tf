@@ -1,3 +1,5 @@
+(** Provides a Cloudflare Device Managed Network resource. Device managed networks allow for building location-aware device settings policies. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

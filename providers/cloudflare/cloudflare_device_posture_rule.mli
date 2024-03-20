@@ -1,3 +1,6 @@
+(** Provides a Cloudflare Device Posture Rule resource. Device posture rules configure security policies for device posture checks.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

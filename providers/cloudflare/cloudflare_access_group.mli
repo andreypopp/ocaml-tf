@@ -1,3 +1,8 @@
+(** Provides a Cloudflare Access Group resource. Access Groups are used
+in conjunction with Access Policies to restrict access to a
+particular resource based on group membership.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

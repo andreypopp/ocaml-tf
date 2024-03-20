@@ -1,3 +1,7 @@
+(** Provides a Cloudflare Account resource. Account is the basic resource for
+working with Cloudflare zones, teams and users.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

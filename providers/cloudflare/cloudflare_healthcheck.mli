@@ -1,3 +1,7 @@
+(** Standalone Health Checks provide a way to monitor origin servers
+without needing a Cloudflare Load Balancer.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

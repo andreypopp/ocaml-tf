@@ -1,3 +1,8 @@
+(** Provides a Cloudflare rate limit resource for a given zone. This can
+be used to limit the traffic you receive zone-wide, or matching more
+specific types of requests/responses.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

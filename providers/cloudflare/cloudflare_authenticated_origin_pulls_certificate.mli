@@ -1,3 +1,8 @@
+(** Provides a Cloudflare Authenticated Origin Pulls certificate
+resource. An uploaded client certificate is required to use Per-Zone
+ or Per-Hostname Authenticated Origin Pulls.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

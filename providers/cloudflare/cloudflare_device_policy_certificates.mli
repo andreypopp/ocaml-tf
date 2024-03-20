@@ -1,3 +1,8 @@
+(** Provides a Cloudflare device policy certificates resource. Device
+policy certificate resources enable client device certificate
+generation.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

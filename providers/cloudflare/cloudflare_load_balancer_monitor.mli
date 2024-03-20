@@ -1,3 +1,9 @@
+(** If Cloudflare's Load Balancing to load-balance across multiple
+origin servers or data centers, you configure one of these Monitors
+to actively check the availability of those servers over HTTP(S) or
+TCP.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,7 @@
+(** Provides the ability to manage Bring-Your-Own-IP prefixes (BYOIP)
+which are used with or without Magic Transit.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

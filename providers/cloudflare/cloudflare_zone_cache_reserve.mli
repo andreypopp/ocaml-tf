@@ -1,3 +1,10 @@
+(** Provides a Cloudflare Cache Reserve resource. Cache Reserve can
+increase cache lifetimes by automatically storing all cacheable
+files in Cloudflare's persistent object storage buckets.
+
+Note: Using Cache Reserve without Tiered Cache is not recommended.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

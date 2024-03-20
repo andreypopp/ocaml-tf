@@ -1,3 +1,5 @@
+(** Use this datasource to lookup a tunnel virtual network in an account. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

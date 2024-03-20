@@ -1,3 +1,5 @@
+(** Use this data source to look up Zone DNSSEC settings. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

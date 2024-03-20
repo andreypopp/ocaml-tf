@@ -1,3 +1,5 @@
+(** Provides a Cloudflare Device Settings Policy resource. Device policies configure settings applied to WARP devices. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

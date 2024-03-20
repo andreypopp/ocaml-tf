@@ -1,3 +1,7 @@
+(** Provides individual list items (IPs, Redirects, ASNs, Hostnames) to be used in Edge Rules Engine
+across all zones within the same account.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

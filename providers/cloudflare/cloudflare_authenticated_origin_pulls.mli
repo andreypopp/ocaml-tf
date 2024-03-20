@@ -1,3 +1,7 @@
+(** Provides a Cloudflare Authenticated Origin Pulls resource. A `cloudflare_authenticated_origin_pulls`
+resource is required to use Per-Zone or Per-Hostname Authenticated
+Origin Pulls. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

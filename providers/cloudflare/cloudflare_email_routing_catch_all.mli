@@ -1,3 +1,6 @@
+(** Provides a resource for managing Email Routing Addresses catch all behaviour.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

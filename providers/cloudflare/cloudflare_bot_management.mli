@@ -1,3 +1,12 @@
+(** Provides a resource to configure Bot Management.
+
+Specifically, this resource can be used to manage:
+
+- **Bot Fight Mode**
+- **Super Bot Fight Mode**
+- **Bot Management for Enterprise**
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

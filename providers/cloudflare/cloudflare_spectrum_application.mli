@@ -1,3 +1,8 @@
+(** Provides a Cloudflare Spectrum Application. You can extend the power
+of Cloudflare's DDoS, TLS, and IP Firewall to your other TCP-based
+services.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

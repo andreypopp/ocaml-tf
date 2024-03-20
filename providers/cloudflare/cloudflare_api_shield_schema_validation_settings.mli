@@ -1,3 +1,6 @@
+(** Provides a resource to manage settings in API Shield Schema Validation 2.0.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

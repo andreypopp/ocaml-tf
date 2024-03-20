@@ -552,6 +552,10 @@ let gen_resource_constructor_sig ppf (_name, (schema : schema)) =
     (args @ [ "string"; "t Tf_core.resource" ]
     |> String.concat ~sep:" ->\n    ")
 
+let pp_block_doc ppf = function
+  | None -> ()
+  | Some doc -> Format.fprintf ppf "(** %s *)" (to_ocaml_doc doc)
+
 let gen_resource_impl kind ppf (resource_name, (resource : schema)) =
   Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
   Format.fprintf ppf "open! Tf_core@.@.";
@@ -564,19 +568,75 @@ let gen_resource_impl kind ppf (resource_name, (resource : schema)) =
     (resource_name, resource);
   gen_resource_constructor ppf kind (resource_name, resource)
 
-let gen_resource_iface ppf (resource_name, (resource : schema)) =
-  Format.fprintf ppf "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
-  Format.fprintf ppf "open! Tf_core@.@.";
-  Format.fprintf ppf "(** RESOURCE SERIALIZATION *)@.@.";
+let gen_resource_iface ppf (name, (resource : schema)) =
+  let oname = to_ocaml_name name in
+  let p fmt = Format.fprintf ppf fmt in
+  p "%a@.@." pp_block_doc resource.block.description;
+  p "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
+  p "open! Tf_core@.@.";
+  p "(** RESOURCE SERIALIZATION *)@.@.";
   gen_block_constructor_sig ~is_resource:true ppf
-    (resource_name, resource.block);
-  Format.fprintf ppf "val yojson_of_%s : %s -> json@.@."
-    (to_ocaml_name resource_name)
-    (to_ocaml_name resource_name);
-  Format.fprintf ppf "(** RESOURCE REGISTRATION *)@.@.";
-  gen_resource_attributes_ty ~is_mli:true ppf
-    (resource_name, resource);
-  gen_resource_constructor_sig ppf (resource_name, resource)
+    (name, resource.block);
+  p "val yojson_of_%s : %s -> json@.@." oname oname;
+  p "(** RESOURCE REGISTRATION *)@.@.";
+  gen_resource_attributes_ty ~is_mli:true ppf (name, resource);
+  gen_resource_constructor_sig ppf (name, resource)
+
+[@@@ocamlformat "disable"]
+let gen_provider_constructor ppf (source, (schema : schema)) =
+  let name = Filename.basename source in
+  let args = concat_space (gen_block_args schema.block) in
+  let p fmt = Format.fprintf ppf fmt in
+  p "let make %s () =@." args;
+  p "  {Tf_core.@.";
+  p "    id=%S;@." name;
+  p "    json=yojson_of_%s (%s %s ());@." name name args;
+  p "  };;@.@.";
+  p "let register ?tf_module %s ~version () =@." args;
+  p "  let (p : Tf_core.provider) = make %s () in@." args;
+  p "  Provider.add ?tf_module ~id:p.id p.json;";
+  p "  Required_providers.add ?tf_module ~id:p.id (`Assoc [";
+  p "    %S, `String %S;" "source" source;
+  p "    %S, `String version;" "version";
+  p "  ]);";
+  p "  ();;@."
+[@@@ocamlformat "enable"]
+
+let gen_provider_constructor_sig ppf (_name, (schema : schema)) =
+  let args = gen_block_args_sig None schema.block in
+  Format.fprintf ppf "val register :@.    %s@.@."
+    (("?tf_module:tf_module" :: args)
+     @ [ "version:string"; "unit"; "unit" ]
+    |> String.concat ~sep:" ->\n    ");
+  Format.fprintf ppf "val make :@.    %s@.@."
+    (args @ [ "unit"; "Tf_core.provider" ]
+    |> String.concat ~sep:" ->\n    ")
+
+let gen_provider_impl ppf (id, (resource : schema)) =
+  let name = Filename.basename id in
+  let p fmt = Format.fprintf ppf fmt in
+  p "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
+  p "open! Tf_core@.@.";
+  gen_block_type_ml ~is_resource:true ~input_only:true ~is_mli:false
+    ppf (name, resource.block);
+  gen_block_constructor ~is_resource:true ppf (name, resource.block);
+  gen_provider_constructor ppf (id, resource)
+
+[@@@ocamlformat "disable"]
+let gen_provider_iface ppf (id, (resource : schema)) =
+  let name = Filename.basename id in
+  let oname = to_ocaml_name name in
+  let p fmt = Format.fprintf ppf fmt in
+  p "%a@.@." pp_block_doc resource.block.description;
+  p "(* DO NOT EDIT, GENERATED AUTOMATICALLY *)@.@.";
+  p "open! Tf_core@.@.";
+  p "(** PROVIDER SERIALIZATION *)@.@.";
+  gen_block_constructor_sig ~is_resource:true ppf
+    (name, resource.block);
+  p "val yojson_of_%s : %s -> json@.@." oname oname;
+  p "(** PROVIDER REGISTRATION *)@.@.";
+  gen_provider_constructor_sig ppf (name, resource)
+[@@@ocamlformat "enable"]
 
 let file_t ?doc n =
   Arg.(
@@ -620,28 +680,36 @@ let get_resource name provider =
   | None -> failwith "resource not found"
 
 let gen_provider_cmd =
-  let handle_schema kind output (name, schema) =
-    with_oc_txt (sprintf "%s/%s.ml" output name) (fun oc ->
+  let pp_schema ~pp_impl ~pp_iface output (name, schema) =
+    with_oc_txt (sprintf "%s.ml" output) (fun oc ->
         let ppf = Format.formatter_of_out_channel oc in
-        gen_resource_impl kind ppf (name, schema);
+        pp_impl ppf (name, schema);
         Format.pp_print_flush ppf ());
-    with_oc_txt (sprintf "%s/%s.mli" output name) (fun oc ->
+    with_oc_txt (sprintf "%s.mli" output) (fun oc ->
         let ppf = Format.formatter_of_out_channel oc in
-        gen_resource_iface ppf (name, schema);
+        pp_iface ppf (name, schema);
         Format.pp_print_flush ppf ())
   in
-  let f filename provider_name output =
+  let f filename provider_id output =
     sys "mkdir -p %S %S/data_source" output output;
     let data = In_channel.(with_open_bin filename input_all) in
     let json = Yojson.Safe.from_string data in
     let root = root_of_yojson json in
-    let provider = get_provider provider_name root in
-    List.iter provider.resource_schemas
-      ~f:(handle_schema `resource output);
-    List.iter provider.data_source_schemas
-      ~f:
-        (handle_schema `data_source
-           (sprintf "%s/data_source" output))
+    let provider = get_provider provider_id root in
+    let provider_name = Filename.basename provider_id in
+    pp_schema ~pp_impl:gen_provider_impl ~pp_iface:gen_provider_iface
+      (sprintf "%s/%s" output provider_name)
+      (provider_id, provider.provider);
+    List.iter provider.resource_schemas ~f:(fun (name, schema) ->
+        let output = sprintf "%s/%s" output name in
+        pp_schema ~pp_iface:gen_resource_iface
+          ~pp_impl:(gen_resource_impl `resource)
+          output (name, schema));
+    List.iter provider.data_source_schemas ~f:(fun (name, schema) ->
+        let output = sprintf "%s/data_source/%s" output name in
+        pp_schema ~pp_iface:gen_resource_iface
+          ~pp_impl:(gen_resource_impl `data_source)
+          output (name, schema))
   in
   let info = Cmd.info "gen-provider-ml" ~doc:"generate .ml" in
   Cmd.v info
@@ -651,18 +719,17 @@ let gen_provider_cmd =
       $ provider_t 1
       $ output_t 2)
 
-let with_resouce filename provider_name resource_name f =
+let with_resouce filename provider_id resource_name f =
   let data = In_channel.(with_open_bin filename input_all) in
   let json = Yojson.Safe.from_string data in
   let root = root_of_yojson json in
-  let provider = get_provider provider_name root in
+  let provider = get_provider provider_id root in
   let resource = get_resource resource_name provider in
   f resource
 
 let gen_resource_impl_cmd =
-  let f filename provider_name resource_name =
-    with_resouce filename provider_name resource_name
-      (fun resource ->
+  let f filename provider_id resource_name =
+    with_resouce filename provider_id resource_name (fun resource ->
         Format.fprintf Format.str_formatter "%a@."
           (gen_resource_impl `resource)
           (resource_name, resource);
@@ -677,9 +744,8 @@ let gen_resource_impl_cmd =
       $ resource_t 2)
 
 let gen_resource_iface_cmd =
-  let f filename provider_name resource_name =
-    with_resouce filename provider_name resource_name
-      (fun resource ->
+  let f filename provider_id resource_name =
+    with_resouce filename provider_id resource_name (fun resource ->
         Format.fprintf Format.str_formatter "%a@." gen_resource_iface
           (resource_name, resource);
         print_endline (Format.flush_str_formatter ()))

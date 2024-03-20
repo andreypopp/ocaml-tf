@@ -1,3 +1,9 @@
+(** Worker Cron Triggers allow users to map a cron expression to a Worker script
+using a `ScheduledEvent` listener that enables Workers to be executed on a
+schedule. Worker Cron Triggers are ideal for running periodic jobs for
+maintenance or calling third-party APIs to collect up-to-date data.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

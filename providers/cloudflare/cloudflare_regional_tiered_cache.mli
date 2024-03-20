@@ -1,3 +1,7 @@
+(** Instructs Cloudflare to check a regional hub data center on the way to your upper tier.
+This can help improve performance for smart and custom tiered cache topologies.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

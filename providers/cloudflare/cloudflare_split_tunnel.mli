@@ -1,3 +1,7 @@
+(** Provides a Cloudflare Split Tunnel resource. Split tunnels are used to either
+include or exclude lists of routes from the WARP client's tunnel.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

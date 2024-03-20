@@ -1,3 +1,5 @@
+(** A DNS record set within Google Cloud DNS *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,7 @@
+(** Provides a Cloudflare Teams Account resource. The Teams Account
+resource defines configuration for secure web gateway.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

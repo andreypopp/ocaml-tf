@@ -1,3 +1,5 @@
+(** Provides a resource, that manages GRE tunnels for Magic Transit. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

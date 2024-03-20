@@ -1,3 +1,5 @@
+(** Data source for looking up Cloudflare Accounts. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

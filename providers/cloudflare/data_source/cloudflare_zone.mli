@@ -1,3 +1,7 @@
+(** Use this data source to look up [zone](https://api.cloudflare.com/#zone-properties)
+info. This is the singular alternative to `cloudflare_zones`.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

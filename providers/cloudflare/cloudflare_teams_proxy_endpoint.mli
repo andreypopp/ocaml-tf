@@ -1,3 +1,8 @@
+(** Provides a Cloudflare Teams Proxy Endpoint resource. Teams Proxy
+Endpoints are used for pointing proxy clients at Cloudflare Secure
+Gateway.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

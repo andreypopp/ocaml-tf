@@ -1,3 +1,8 @@
+(** Provides a resource, that manages Cloudflare tunnel routes for Zero
+Trust. Tunnel routes are used to direct IP traffic through
+Cloudflare Tunnels.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,6 @@
+(** Provides a resource to manage URL Normalization Settings.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

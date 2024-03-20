@@ -1,3 +1,7 @@
+(** Provides a Cloudflare Zone Hold resource that prevents adding
+the hostname to another account for use.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

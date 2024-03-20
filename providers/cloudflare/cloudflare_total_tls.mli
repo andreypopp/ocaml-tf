@@ -1,3 +1,6 @@
+(** Provides a resource which manages Total TLS for a zone.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

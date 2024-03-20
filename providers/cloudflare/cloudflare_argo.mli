@@ -1,3 +1,7 @@
+(** Cloudflare Argo controls the routing to your origin and tiered
+caching options to speed up your website browsing experience.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

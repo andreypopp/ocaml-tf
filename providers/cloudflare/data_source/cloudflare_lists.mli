@@ -1,3 +1,5 @@
+(** Use this data source to lookup [Lists](https://developers.cloudflare.com/api/operations/lists-get-lists). *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

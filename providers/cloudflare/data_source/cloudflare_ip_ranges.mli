@@ -1,3 +1,5 @@
+(** Use this data source to get the [IP ranges](https://www.cloudflare.com/ips/) of Cloudflare network. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

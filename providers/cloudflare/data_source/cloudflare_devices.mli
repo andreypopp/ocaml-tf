@@ -1,3 +1,5 @@
+(** Use this data source to lookup [Devices](https://api.cloudflare.com/#devices-list-devices). *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

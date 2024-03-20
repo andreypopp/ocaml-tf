@@ -1,3 +1,5 @@
+(** Provides a Cloudflare Web Analytics Rule resource. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

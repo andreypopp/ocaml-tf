@@ -1,3 +1,5 @@
+(** Use this data source to lookup [Account Roles](https://api.cloudflare.com/#account-roles-properties). *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

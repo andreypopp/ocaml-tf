@@ -1,3 +1,6 @@
+(** Provides a resource, that manages IPsec tunnels for Magic Transit.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

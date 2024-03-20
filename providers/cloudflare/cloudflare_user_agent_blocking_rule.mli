@@ -1,3 +1,6 @@
+(** Provides a resource to manage User Agent Blocking Rules.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,8 @@
+(** Provides a resource, that manages a notification policy for
+Cloudflare's products. The delivery mechanisms supported are email,
+webhooks, and PagerDuty.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

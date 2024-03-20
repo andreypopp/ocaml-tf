@@ -1,3 +1,5 @@
+(** Provides a resource to manage a Cloudflare Workers KV Pair. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

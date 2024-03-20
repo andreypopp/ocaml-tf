@@ -1,3 +1,5 @@
+(** Provides a Cloudflare resource to create and modify zone DNSSEC settings. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

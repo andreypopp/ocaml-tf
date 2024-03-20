@@ -1,3 +1,7 @@
+(** Provides a Cloudflare Teams Location resource. Teams Locations are
+referenced when creating secure web gateway policies.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

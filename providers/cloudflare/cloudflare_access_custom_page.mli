@@ -1,3 +1,7 @@
+(** Provides a resource to customize the pages your end users will see
+when trying to reach applications behind Cloudflare Access.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,6 @@
+(** Provides a resource to manage API Shield configurations.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

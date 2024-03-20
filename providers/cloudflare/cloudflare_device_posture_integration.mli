@@ -1,3 +1,8 @@
+(** Provides a Cloudflare Device Posture Integration resource. Device
+posture integrations configure third-party data providers for device
+posture rules.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

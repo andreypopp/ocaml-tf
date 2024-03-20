@@ -1,3 +1,5 @@
+(** Provides a Cloudflare custom SSL resource. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

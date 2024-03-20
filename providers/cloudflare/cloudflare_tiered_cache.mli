@@ -1,3 +1,7 @@
+(** Provides a resource, that manages Cloudflare Tiered Cache settings.
+This allows you to adjust topologies for your zone.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

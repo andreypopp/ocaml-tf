@@ -1,3 +1,5 @@
+(** A datasource to find Load Balancer Pools. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

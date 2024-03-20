@@ -1,3 +1,7 @@
+(** Provides a Cloudflare data source to look up Cache Reserve
+status for a given zone.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

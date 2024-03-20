@@ -1,3 +1,7 @@
+(** Access Keys Configuration defines the rotation policy for the keys
+that access will use to sign data.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

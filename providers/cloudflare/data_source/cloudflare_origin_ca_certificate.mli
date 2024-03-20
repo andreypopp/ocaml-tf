@@ -1,3 +1,5 @@
+(** Use this data source to retrieve an existing origin ca certificate. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,5 @@
+(** Provides a resource, that manages a webhook destination. These destinations can be tied to the notification policies created for Cloudflare's products. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

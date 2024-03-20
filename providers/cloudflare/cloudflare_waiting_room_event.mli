@@ -1,3 +1,5 @@
+(** Provides a Cloudflare Waiting Room Event resource. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

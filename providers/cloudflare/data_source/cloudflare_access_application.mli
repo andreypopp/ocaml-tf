@@ -1,3 +1,5 @@
+(** Use this data source to lookup a single [Access Application](https://developers.cloudflare.com/cloudflare-one/applications/) *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

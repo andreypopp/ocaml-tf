@@ -1,3 +1,5 @@
+(** Allows management of the Logpull Retention settings used to control whether or not to retain HTTP request logs. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

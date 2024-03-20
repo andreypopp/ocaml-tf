@@ -1,3 +1,8 @@
+(** Provides a Cloudflare Access Identity Provider resource. Identity
+Providers are used as an authentication or authorisation source
+within Access.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

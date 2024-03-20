@@ -1,3 +1,5 @@
+(** Configure zone-wide settings for Cloudflare waiting rooms. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

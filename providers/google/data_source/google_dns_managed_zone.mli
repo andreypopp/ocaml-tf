@@ -1,3 +1,5 @@
+(** Provides access to a zone's attributes within Google Cloud DNS *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

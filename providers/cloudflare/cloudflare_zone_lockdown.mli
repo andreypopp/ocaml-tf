@@ -1,3 +1,10 @@
+(** Provides a Cloudflare Zone Lockdown resource. Zone Lockdown allows
+you to define one or more URLs (with wildcard matching on the domain
+or path) that will only permit access if the request originates
+from an IP address that matches a safelist of one or more IP
+addresses and/or IP ranges.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,6 @@
+(** Manages Web3 hostnames for IPFS and Ethereum gateways.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

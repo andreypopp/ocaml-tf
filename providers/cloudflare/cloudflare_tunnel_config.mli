@@ -1,3 +1,6 @@
+(** Provides a Cloudflare Tunnel configuration resource.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

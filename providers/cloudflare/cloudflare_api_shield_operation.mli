@@ -1,3 +1,6 @@
+(** Provides a resource to manage an operation in API Shield Endpoint Management.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -4,6 +4,8 @@ type tf_module += Tf_default
 
 val yojson_of_json : json -> json
 
+type provider = { id : string; json : json }
+
 type 'attrs resource = {
   type_ : string;
   id : string;
@@ -11,7 +13,17 @@ type 'attrs resource = {
   attrs : 'attrs;
 }
 
-module type COLLECTION = sig
+val gen_tf_json : unit -> json
+(** generate final .tf.json module *)
+
+module type COLLECTION1 = sig
+  type t
+
+  val add : ?tf_module:tf_module -> id:string -> json -> unit
+  val yojson_of : ?tf_module:tf_module -> unit -> json
+end
+
+module type COLLECTION2 = sig
   type t
 
   val add :
@@ -20,8 +32,11 @@ module type COLLECTION = sig
   val yojson_of : ?tf_module:tf_module -> unit -> json
 end
 
-module Resource : COLLECTION
-module Data : COLLECTION
+module Required_providers : COLLECTION1
+module Provider : COLLECTION1
+module Variable : COLLECTION1
+module Resource : COLLECTION2
+module Data : COLLECTION2
 
 module Prop : sig
   type 'a t
@@ -36,6 +51,19 @@ module Prop : sig
   val int_opt : int option -> float t option
   val float_opt : float option -> float t option
   val bool_opt : bool option -> bool t option
+
+  val string_var :
+    ?default:string -> ?description:string -> string -> string t
+
+  val int_var :
+    ?default:int -> ?description:string -> string -> float t
+
+  val float_var :
+    ?default:float -> ?description:string -> string -> float t
+
+  val bool_var :
+    ?default:bool -> ?description:string -> string -> bool t
+
   val dynamic : json -> json t
   val list : 'a t list -> 'a list t
 
@@ -46,6 +74,25 @@ module Prop : sig
   (** an escape hatch, as terraform doesn't model its types properly *)
 
   val yojson_of_t : 'b -> 'a t -> json
+end
+
+module Var : sig
+  type _ type_ =
+    | String : string type_
+    | Int : int type_
+    | Float : float type_
+    | Bool : bool type_
+
+  type 'a t = {
+    type_ : 'a type_;
+    id : string;
+    description : string option;
+    default : json option;
+  }
+
+  type anyvar = Anyvar : _ t -> anyvar
+
+  val registered : unit -> anyvar list
 end
 
 type 'a prop = 'a Prop.t

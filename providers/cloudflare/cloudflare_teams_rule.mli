@@ -1,3 +1,5 @@
+(** Provides a Cloudflare Teams rule resource. Teams rules comprise secure web gateway policies. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

@@ -1,3 +1,8 @@
+(** Provides a Cloudflare DLP Profile resource. Data Loss Prevention profiles
+are a set of entries that can be matched in HTTP bodies or files.
+They are referenced in Zero Trust Gateway rules.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

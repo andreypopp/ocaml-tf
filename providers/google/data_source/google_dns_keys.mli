@@ -1,3 +1,5 @@
+(** Get the DNSKEY and DS records of DNSSEC-signed managed zones *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

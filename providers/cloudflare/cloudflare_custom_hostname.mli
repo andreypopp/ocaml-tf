@@ -1,3 +1,6 @@
+(** Provides a Cloudflare custom hostname (also known as SSL for SaaS) resource.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

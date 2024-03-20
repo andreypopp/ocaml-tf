@@ -1,3 +1,8 @@
+(** Provides a Cloudflare IP Firewall Access Rule resource. Access
+control can be applied on basis of IP addresses, IP ranges, AS
+numbers or countries.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

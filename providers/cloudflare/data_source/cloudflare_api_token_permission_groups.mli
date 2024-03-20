@@ -1,3 +1,7 @@
+(** Use this data source to look up [API Token Permission Groups](https://developers.cloudflare.com/api/tokens/create/permissions).
+Commonly used as references within [`cloudflare_token`](/docs/providers/cloudflare/r/api_token.html) resources.
+ *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

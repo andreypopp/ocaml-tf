@@ -1,3 +1,5 @@
+(** Use this data source to look up Zone results for use in other resources. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core

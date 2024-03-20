@@ -1,3 +1,5 @@
+(** Creates a Worker Custom Domain. *)
+
 (* DO NOT EDIT, GENERATED AUTOMATICALLY *)
 
 open! Tf_core
