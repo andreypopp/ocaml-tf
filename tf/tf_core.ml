@@ -64,7 +64,8 @@ module Data = Make_collection ()
 module Prop = struct
   type 'a t =
     | S : string -> string t
-    | I : int -> int t
+    | I : int -> float t
+    | F : float -> float t
     | B : bool -> bool t
     | D : json -> _ t
     | L : 'a t list -> 'a list t
@@ -75,13 +76,15 @@ module Prop = struct
     match p with
     | S s -> `String s
     | I i -> `Int i
+    | F i -> `Float i
     | B b -> `Bool b
     | D j -> j
     | C c -> `String c
     | L c -> `List (List.map c ~f:yojson_of_t)
 
   let string s = S s
-  let number i = I i
+  let int i = I i
+  let float i = F i
   let bool b = B b
   let dynamic j = D j
   let list xs = L xs
@@ -90,6 +93,7 @@ module Prop = struct
     match x with
     | S s -> D (`String s)
     | I s -> D (`Int s)
+    | F s -> D (`Float s)
     | B s -> D (`Bool s)
     | D s -> D s
     | C s -> C s

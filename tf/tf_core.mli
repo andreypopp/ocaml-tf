@@ -29,7 +29,8 @@ module Prop : sig
         referenced by other resources *)
 
   val string : string -> string t
-  val number : int -> int t
+  val int : int -> float t
+  val float : float -> float t
   val bool : bool -> bool t
   val dynamic : json -> json t
   val list : 'a t list -> 'a list t
