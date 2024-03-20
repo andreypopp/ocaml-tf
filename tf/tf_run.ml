@@ -57,6 +57,14 @@ let run () =
       & opt string "_tf"
       & info [ "o"; "output" ] ~docv:"OUTPUT" ~doc:"output directory")
   in
+  let dump_config_cmd =
+    let f () = gen None in
+    let info =
+      Cmd.info "dump-config"
+        ~doc:"generate tf configuration and dump on stdout"
+    in
+    Cmd.v info Term.(const f $ const ())
+  in
   let gen_cmd =
     let f output = gen (Some (tf_output output)) in
     let info = Cmd.info "gen" ~doc:"generate tf configuration" in
@@ -75,6 +83,7 @@ let run () =
       tf_passthrough ~name:"init" ~doc:"initialize configuration";
       tf_passthrough ~name:"apply" ~doc:"apply configuration";
       tf_passthrough ~name:"plan" ~doc:"plan configuration";
+      dump_config_cmd;
       gen_cmd;
     ]
   in

@@ -233,14 +233,14 @@ let gen_tf_json () =
     | _ -> assert false
   in
   let assoc =
-    [
-      ( "terraform",
-        `Assoc
-          [ "required_providers", Required_providers.yojson_of () ] );
-    ]
+    []
     |> add_if_not_empty "data" (Data.yojson_of ())
     |> add_if_not_empty "resource" (Resource.yojson_of ())
     |> add_if_not_empty "provider" (Provider.yojson_of ())
     |> add_if_not_empty "variable" (Variable.yojson_of ())
   in
-  `Assoc assoc
+  `Assoc
+    (( "terraform",
+       `Assoc
+         [ "required_providers", Required_providers.yojson_of () ] )
+    :: assoc)
