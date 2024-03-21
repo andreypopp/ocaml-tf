@@ -8,6 +8,4 @@
   ContainersLabels
   -open
   Ppx_yojson_conv_lib.Yojson_conv.Primitives)
- (preprocess
-  (pps ppx_yojson_conv))
- (libraries unix cmdliner yojson containers))
+ (libraries unix cmdliner yojson containers ppx_yojson_conv_lib))
