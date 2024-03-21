@@ -11,7 +11,7 @@
 
 (maintainers "Andrey Popp")
 
-(license LICENSE)
+(license MIT)
 
 (package
  (name tf)
