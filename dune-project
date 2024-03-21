@@ -16,7 +16,7 @@
 (package
  (name tf)
  (synopsis "TF bindings to OCaml")
- (depends ocaml dune containers yojson))
+ (depends ocaml dune containers yojson ppx_yojson_conv_lib))
 
 (package
  (name tf_digitalocean)
