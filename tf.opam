@@ -3,7 +3,7 @@ opam-version: "2.0"
 synopsis: "TF bindings to OCaml"
 maintainer: ["Andrey Popp"]
 authors: ["Andrey Popp"]
-license: "LICENSE"
+license: "MIT"
 homepage: "https://github.com/andreypopp/ocaml-tf"
 bug-reports: "https://github.com/andreypopp/ocaml-tf/issues"
 depends: [
@@ -12,6 +12,7 @@ depends: [
   "containers"
   "yojson"
   "ppx_yojson_conv_lib"
+  "cmdliner"
   "odoc" {with-doc}
 ]
 build: [
