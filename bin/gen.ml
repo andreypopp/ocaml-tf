@@ -71,7 +71,7 @@ type root = {
 and provider = {
   provider : schema;
   resource_schemas : schema assoc;
-  data_source_schemas : schema assoc;
+  data_source_schemas : schema assoc; [@default []]
 }
 
 and schema = { version : int; block : block }
@@ -137,6 +137,7 @@ let to_ocaml_name = function
   | "private" -> "private_"
   | "to" -> "to_"
   | "type" -> "type_"
+  | "when" -> "when_"
   | x -> x
 
 let rec find_object_types acc path = function
