@@ -125,6 +125,10 @@ module Data = Make_collection2 (struct
   let name = "data source"
 end)
 
+module Output = Make_collection1 (struct
+  let name = "output"
+end)
+
 module Var = struct
   type _ type_ =
     | String : string type_
@@ -218,6 +222,9 @@ module Prop = struct
   let computed type_ id prop =
     C (Printf.sprintf "${%s.%s.%s}" type_ id prop)
 
+  let register_output id prop =
+    Output.add ~id (`Assoc [ "value", yojson_of_t prop ])
+
   let yojson_of_t _ t = yojson_of_t t
 end
 
@@ -238,6 +245,7 @@ let gen_tf_json () =
     |> add_if_not_empty "resource" (Resource.yojson_of ())
     |> add_if_not_empty "provider" (Provider.yojson_of ())
     |> add_if_not_empty "variable" (Variable.yojson_of ())
+    |> add_if_not_empty "output" (Output.yojson_of ())
   in
   `Assoc
     (( "terraform",

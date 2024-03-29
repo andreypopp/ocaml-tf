@@ -37,6 +37,7 @@ module Provider : COLLECTION1
 module Variable : COLLECTION1
 module Resource : COLLECTION2
 module Data : COLLECTION2
+module Output : COLLECTION1
 
 module Prop : sig
   type 'a t
@@ -72,6 +73,13 @@ module Prop : sig
 
   val magic : 'a t -> 'b t
   (** an escape hatch, as terraform doesn't model its types properly *)
+
+  val register_output : string -> 'a t -> unit
+  (** register prop as output
+
+      Later can be used for .ml code generation (see tf_run's gen-output-ml
+      command) to bring tf output values into OCaml.
+    *)
 
   val yojson_of_t : 'b -> 'a t -> json
 end
