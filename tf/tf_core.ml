@@ -226,6 +226,34 @@ module Prop = struct
     Output.add ~id (`Assoc [ "value", yojson_of_t prop ])
 
   let yojson_of_t _ t = yojson_of_t t
+
+  let rec to_hcl : type a. a t -> string = function
+    | S s -> s
+    | I i -> string_of_int i
+    | F f -> string_of_float f
+    | B b -> string_of_bool b
+    | D json -> json_to_hcl json
+    | L xs ->
+        Printf.sprintf "[%s]"
+          (String.concat ~sep:", " (List.map xs ~f:to_hcl))
+    | C c -> c
+
+  and json_to_hcl : json -> string = function
+    | `String s -> s
+    | `Int i -> string_of_int i
+    | `Intlit i -> i
+    | `Null -> "null"
+    | `Assoc kvs ->
+        Printf.sprintf "{%s}"
+          (String.concat ~sep:", "
+             (List.map kvs ~f:(fun (k, v) ->
+                  Printf.sprintf "%s = %s" k (json_to_hcl v))))
+    | `Float f -> string_of_float f
+    | `Bool b -> string_of_bool b
+    | `Tuple xs | `List xs ->
+        Printf.sprintf "[%s]"
+          (String.concat ~sep:", " (List.map xs ~f:string_of_yojson))
+    | `Variant _ -> failwith "didn't expect `Variant"
 end
 
 type 'a prop = 'a Prop.t

@@ -82,6 +82,9 @@ module Prop : sig
     *)
 
   val yojson_of_t : 'b -> 'a t -> json
+
+  val to_hcl : _ t -> string
+  (** produce HCL representation of the prop *)
 end
 
 module Var : sig
