@@ -1,4 +1,4 @@
-# ocaml-terraform
+# ocaml-tf
 
 **WARNING: EXPERIMENTAL, DO NOT USE**
 
