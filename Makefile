@@ -1,8 +1,13 @@
 GEN = dune exec ./bin/gen.exe gen-provider-ml ./providers.json
+PKGS = $(wildcard *.opam)
 
 .PHONY: build fmt
 build fmt:
 	dune $@
+
+.PHONY: ci-build
+ci-build:
+	dune build -p $(shell echo $(PKGS:%.opam=%) | tr ' ' ',')
 
 .PHONY: gen
 gen: gen0
