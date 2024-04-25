@@ -377,7 +377,7 @@ let _ = yojson_of_rule__filter__tag
 
 type rule__filter = {
   prefix : string prop option; [@option]
-  and_ : rule__filter__and list;
+  and_ : rule__filter__and list; [@key "and"]
   tag : rule__filter__tag list;
 }
 [@@deriving_inline yojson_of]
@@ -400,7 +400,7 @@ let yojson_of_rule__filter =
          let arg =
            yojson_of_list yojson_of_rule__filter__and v_and_
          in
-         ("and_", arg) :: bnds
+         ("and", arg) :: bnds
        in
        let bnds =
          match v_prefix with

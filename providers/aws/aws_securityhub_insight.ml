@@ -3383,7 +3383,7 @@ type filters = {
   threat_intel_indicator_value :
     filters__threat_intel_indicator_value list;
   title : filters__title list;
-  type_ : filters__type list;
+  type_ : filters__type list; [@key "type"]
   updated_at : filters__updated_at list;
   user_defined_values : filters__user_defined_values list;
   verification_state : filters__verification_state list;
@@ -3544,7 +3544,7 @@ let yojson_of_filters =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_filters__type v_type_ in
-         ("type_", arg) :: bnds
+         ("type", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_list yojson_of_filters__title v_title in

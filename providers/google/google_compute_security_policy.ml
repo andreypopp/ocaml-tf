@@ -579,7 +579,7 @@ type rule = {
   preview : bool prop option; [@option]
   priority : float prop;
   header_action : rule__header_action list;
-  match_ : rule__match list;
+  match_ : rule__match list; [@key "match"]
   rate_limit_options : rule__rate_limit_options list;
   redirect_options : rule__redirect_options list;
 }
@@ -618,7 +618,7 @@ let yojson_of_rule =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_rule__match v_match_ in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg =

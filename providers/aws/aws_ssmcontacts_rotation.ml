@@ -174,6 +174,7 @@ let _ = yojson_of_recurrence__shift_coverages__coverage_times__start
 
 type recurrence__shift_coverages__coverage_times = {
   end_ : recurrence__shift_coverages__coverage_times__end list;
+      [@key "end"]
   start : recurrence__shift_coverages__coverage_times__start list;
 }
 [@@deriving_inline yojson_of]
@@ -200,7 +201,7 @@ let yojson_of_recurrence__shift_coverages__coverage_times =
              yojson_of_recurrence__shift_coverages__coverage_times__end
              v_end_
          in
-         ("end_", arg) :: bnds
+         ("end", arg) :: bnds
        in
        `Assoc bnds
     : recurrence__shift_coverages__coverage_times ->

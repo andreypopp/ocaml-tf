@@ -175,6 +175,7 @@ type match__http_match__header_matches = {
   case_sensitive : bool prop option; [@option]
   name : string prop;
   match_ : match__http_match__header_matches__match list;
+      [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -196,7 +197,7 @@ let yojson_of_match__http_match__header_matches =
              yojson_of_match__http_match__header_matches__match
              v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -258,7 +259,7 @@ let _ = yojson_of_match__http_match__path_match__match
 
 type match__http_match__path_match = {
   case_sensitive : bool prop option; [@option]
-  match_ : match__http_match__path_match__match list;
+  match_ : match__http_match__path_match__match list; [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -275,7 +276,7 @@ let yojson_of_match__http_match__path_match =
            yojson_of_list
              yojson_of_match__http_match__path_match__match v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          match v_case_sensitive with
@@ -420,7 +421,7 @@ type aws_vpclattice_listener_rule = {
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
   action : action list;
-  match_ : match_ list;
+  match_ : match_ list; [@key "match"]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -450,7 +451,7 @@ let yojson_of_aws_vpclattice_listener_rule =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_match_ v_match_ in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_list yojson_of_action v_action in

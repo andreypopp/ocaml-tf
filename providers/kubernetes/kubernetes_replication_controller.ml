@@ -4202,6 +4202,7 @@ type spec__template__spec__dns_config = {
   nameservers : string prop list option; [@option]
   searches : string prop list option; [@option]
   option_ : spec__template__spec__dns_config__option list;
+      [@key "option"]
 }
 [@@deriving_inline yojson_of]
 
@@ -4223,7 +4224,7 @@ let yojson_of_spec__template__spec__dns_config =
              yojson_of_spec__template__spec__dns_config__option
              v_option_
          in
-         ("option_", arg) :: bnds
+         ("option", arg) :: bnds
        in
        let bnds =
          match v_searches with

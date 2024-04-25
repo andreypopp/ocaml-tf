@@ -147,7 +147,7 @@ type aws_db_option_group = {
   option_group_description : string prop option; [@option]
   tags : (string * string prop) list option; [@option]
   tags_all : (string * string prop) list option; [@option]
-  option_ : option_ list;
+  option_ : option_ list; [@key "option"]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -177,7 +177,7 @@ let yojson_of_aws_db_option_group =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_option_ v_option_ in
-         ("option_", arg) :: bnds
+         ("option", arg) :: bnds
        in
        let bnds =
          match v_tags_all with

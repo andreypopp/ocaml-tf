@@ -334,7 +334,11 @@ let rec gen_block_type_ml ?(is_resource = false) ~is_mli ~input_only
               gen_block_type_name ~kind:`record basename
                 (block_name, block)
             in
-            Format.fprintf ppf "  %s: %s;@." ocaml_name ty);
+            match String.equal ocaml_name block_name with
+            | true -> Format.fprintf ppf "  %s: %s;@." ocaml_name ty
+            | false ->
+                Format.fprintf ppf "  %s: %s; [@key %S]@." ocaml_name
+                  ty block_name);
         Format.fprintf ppf "} [%@%@deriving_inline yojson_of]@.";
         Format.fprintf ppf "[%@%@%@deriving.end]@.@.")
 

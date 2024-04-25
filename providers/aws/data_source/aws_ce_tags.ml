@@ -788,11 +788,11 @@ let _ = yojson_of_filter__tags
 [@@@deriving.end]
 
 type filter = {
-  and_ : filter__and list;
+  and_ : filter__and list; [@key "and"]
   cost_category : filter__cost_category list;
   dimension : filter__dimension list;
   not : filter__not list;
-  or_ : filter__or list;
+  or_ : filter__or list; [@key "or"]
   tags : filter__tags list;
 }
 [@@deriving_inline yojson_of]
@@ -818,7 +818,7 @@ let yojson_of_filter =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_filter__or v_or_ in
-         ("or_", arg) :: bnds
+         ("or", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_list yojson_of_filter__not v_not in
@@ -839,7 +839,7 @@ let yojson_of_filter =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_filter__and v_and_ in
-         ("and_", arg) :: bnds
+         ("and", arg) :: bnds
        in
        `Assoc bnds
     : filter -> Ppx_yojson_conv_lib.Yojson.Safe.t)

@@ -1102,6 +1102,7 @@ type policy_sets__policies = {
   compliance_standards :
     policy_sets__policies__compliance_standards list;
   constraint_ : policy_sets__policies__constraint list;
+      [@key "constraint"]
 }
 [@@deriving_inline yojson_of]
 
@@ -1123,7 +1124,7 @@ let yojson_of_policy_sets__policies =
            yojson_of_list yojson_of_policy_sets__policies__constraint
              v_constraint_
          in
-         ("constraint_", arg) :: bnds
+         ("constraint", arg) :: bnds
        in
        let bnds =
          let arg =

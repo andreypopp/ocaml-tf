@@ -852,7 +852,7 @@ type probe = {
   protocol : string prop;
   timeout : float prop;
   unhealthy_threshold : float prop;
-  match_ : probe__match list;
+  match_ : probe__match list; [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -879,7 +879,7 @@ let yojson_of_probe =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_probe__match v_match_ in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg =

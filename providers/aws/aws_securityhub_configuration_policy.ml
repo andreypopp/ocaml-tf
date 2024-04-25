@@ -254,6 +254,7 @@ type configuration_policy__security_controls_configuration__security_control_cus
   bool_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool
     list;
+      [@key "bool"]
   double :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__double
     list;
@@ -266,12 +267,14 @@ type configuration_policy__security_controls_configuration__security_control_cus
   int_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int
     list;
+      [@key "int"]
   int_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int_list
     list;
   string_ :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string
     list;
+      [@key "string"]
   string_list :
     configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string_list
     list;
@@ -315,7 +318,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
              yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__string
              v_string_
          in
-         ("string_", arg) :: bnds
+         ("string", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -331,7 +334,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
              yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__int
              v_int_
          in
-         ("int_", arg) :: bnds
+         ("int", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -363,7 +366,7 @@ let yojson_of_configuration_policy__security_controls_configuration__security_co
              yojson_of_configuration_policy__security_controls_configuration__security_control_custom_parameter__parameter__bool
              v_bool_
          in
-         ("bool_", arg) :: bnds
+         ("bool", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_value_type in

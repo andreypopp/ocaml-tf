@@ -838,11 +838,11 @@ let _ = yojson_of_threshold_expression__tags
 [@@@deriving.end]
 
 type threshold_expression = {
-  and_ : threshold_expression__and list;
+  and_ : threshold_expression__and list; [@key "and"]
   cost_category : threshold_expression__cost_category list;
   dimension : threshold_expression__dimension list;
   not : threshold_expression__not list;
-  or_ : threshold_expression__or list;
+  or_ : threshold_expression__or list; [@key "or"]
   tags : threshold_expression__tags list;
 }
 [@@deriving_inline yojson_of]
@@ -872,7 +872,7 @@ let yojson_of_threshold_expression =
          let arg =
            yojson_of_list yojson_of_threshold_expression__or v_or_
          in
-         ("or_", arg) :: bnds
+         ("or", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -899,7 +899,7 @@ let yojson_of_threshold_expression =
          let arg =
            yojson_of_list yojson_of_threshold_expression__and v_and_
          in
-         ("and_", arg) :: bnds
+         ("and", arg) :: bnds
        in
        `Assoc bnds
     : threshold_expression -> Ppx_yojson_conv_lib.Yojson.Safe.t)

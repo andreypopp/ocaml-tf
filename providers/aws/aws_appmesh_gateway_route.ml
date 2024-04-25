@@ -131,7 +131,7 @@ let _ = yojson_of_spec__grpc_route__match
 
 type spec__grpc_route = {
   action : spec__grpc_route__action list;
-  match_ : spec__grpc_route__match list;
+  match_ : spec__grpc_route__match list; [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -147,7 +147,7 @@ let yojson_of_spec__grpc_route =
          let arg =
            yojson_of_list yojson_of_spec__grpc_route__match v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -507,6 +507,7 @@ type spec__http2_route__match__header = {
   invert : bool prop option; [@option]
   name : string prop;
   match_ : spec__http2_route__match__header__match list;
+      [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -524,7 +525,7 @@ let yojson_of_spec__http2_route__match__header =
              yojson_of_spec__http2_route__match__header__match
              v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -655,6 +656,7 @@ let _ = yojson_of_spec__http2_route__match__query_parameter__match
 type spec__http2_route__match__query_parameter = {
   name : string prop;
   match_ : spec__http2_route__match__query_parameter__match list;
+      [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -672,7 +674,7 @@ let yojson_of_spec__http2_route__match__query_parameter =
              yojson_of_spec__http2_route__match__query_parameter__match
              v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -765,7 +767,7 @@ let _ = yojson_of_spec__http2_route__match
 
 type spec__http2_route = {
   action : spec__http2_route__action list;
-  match_ : spec__http2_route__match list;
+  match_ : spec__http2_route__match list; [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -781,7 +783,7 @@ let yojson_of_spec__http2_route =
          let arg =
            yojson_of_list yojson_of_spec__http2_route__match v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -1139,7 +1141,7 @@ let _ = yojson_of_spec__http_route__match__header__match
 type spec__http_route__match__header = {
   invert : bool prop option; [@option]
   name : string prop;
-  match_ : spec__http_route__match__header__match list;
+  match_ : spec__http_route__match__header__match list; [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -1157,7 +1159,7 @@ let yojson_of_spec__http_route__match__header =
              yojson_of_spec__http_route__match__header__match
              v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1288,6 +1290,7 @@ let _ = yojson_of_spec__http_route__match__query_parameter__match
 type spec__http_route__match__query_parameter = {
   name : string prop;
   match_ : spec__http_route__match__query_parameter__match list;
+      [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -1305,7 +1308,7 @@ let yojson_of_spec__http_route__match__query_parameter =
              yojson_of_spec__http_route__match__query_parameter__match
              v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_prop yojson_of_string v_name in
@@ -1398,7 +1401,7 @@ let _ = yojson_of_spec__http_route__match
 
 type spec__http_route = {
   action : spec__http_route__action list;
-  match_ : spec__http_route__match list;
+  match_ : spec__http_route__match list; [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -1414,7 +1417,7 @@ let yojson_of_spec__http_route =
          let arg =
            yojson_of_list yojson_of_spec__http_route__match v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg =

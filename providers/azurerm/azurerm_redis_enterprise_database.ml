@@ -106,7 +106,7 @@ type azurerm_redis_enterprise_database = {
   name : string prop option; [@option]
   port : float prop option; [@option]
   resource_group_name : string prop option; [@option]
-  module_ : module_ list;
+  module_ : module_ list; [@key "module"]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -139,7 +139,7 @@ let yojson_of_azurerm_redis_enterprise_database =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_module_ v_module_ in
-         ("module_", arg) :: bnds
+         ("module", arg) :: bnds
        in
        let bnds =
          match v_resource_group_name with

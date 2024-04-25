@@ -298,7 +298,7 @@ type google_compute_region_network_firewall_policy_rule = {
   region : string prop option; [@option]
   rule_name : string prop option; [@option]
   target_service_accounts : string prop list option; [@option]
-  match_ : match_ list;
+  match_ : match_ list; [@key "match"]
   target_secure_tags : target_secure_tags list;
   timeouts : timeouts option;
 }
@@ -342,7 +342,7 @@ let yojson_of_google_compute_region_network_firewall_policy_rule =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_match_ v_match_ in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          match v_target_service_accounts with

@@ -1601,7 +1601,7 @@ type cloudflare_access_group = {
   name : string prop;
   zone_id : string prop option; [@option]
   exclude : exclude list;
-  include_ : include_ list;
+  include_ : include_ list; [@key "include"]
   require : require list;
 }
 [@@deriving_inline yojson_of]
@@ -1628,7 +1628,7 @@ let yojson_of_cloudflare_access_group =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_include_ v_include_ in
-         ("include_", arg) :: bnds
+         ("include", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_list yojson_of_exclude v_exclude in

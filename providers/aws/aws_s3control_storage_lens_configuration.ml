@@ -941,6 +941,7 @@ type storage_lens_configuration = {
   data_export : storage_lens_configuration__data_export list;
   exclude : storage_lens_configuration__exclude list;
   include_ : storage_lens_configuration__include list;
+      [@key "include"]
 }
 [@@deriving_inline yojson_of]
 
@@ -964,7 +965,7 @@ let yojson_of_storage_lens_configuration =
            yojson_of_list
              yojson_of_storage_lens_configuration__include v_include_
          in
-         ("include_", arg) :: bnds
+         ("include", arg) :: bnds
        in
        let bnds =
          let arg =

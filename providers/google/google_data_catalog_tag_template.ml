@@ -98,7 +98,7 @@ type fields = {
   field_id : string prop;
   is_required : bool prop option; [@option]
   order : float prop option; [@option]
-  type_ : fields__type list;
+  type_ : fields__type list; [@key "type"]
 }
 [@@deriving_inline yojson_of]
 
@@ -119,7 +119,7 @@ let yojson_of_fields =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_fields__type v_type_ in
-         ("type_", arg) :: bnds
+         ("type", arg) :: bnds
        in
        let bnds =
          match v_order with

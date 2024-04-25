@@ -1219,7 +1219,7 @@ let _ = yojson_of_spec__ingress__rule__redirect
 type spec__ingress__rule = {
   component : spec__ingress__rule__component list;
   cors : spec__ingress__rule__cors list;
-  match_ : spec__ingress__rule__match list;
+  match_ : spec__ingress__rule__match list; [@key "match"]
   redirect : spec__ingress__rule__redirect list;
 }
 [@@deriving_inline yojson_of]
@@ -1249,7 +1249,7 @@ let yojson_of_spec__ingress__rule =
            yojson_of_list yojson_of_spec__ingress__rule__match
              v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg =
@@ -4044,7 +4044,7 @@ type spec = {
   database : spec__database list;
   domain : spec__domain list;
   env : spec__env list;
-  function_ : spec__function list;
+  function_ : spec__function list; [@key "function"]
   ingress : spec__ingress list;
   job : spec__job list;
   service : spec__service list;
@@ -4106,7 +4106,7 @@ let yojson_of_spec =
          let arg =
            yojson_of_list yojson_of_spec__function v_function_
          in
-         ("function_", arg) :: bnds
+         ("function", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_list yojson_of_spec__env v_env in

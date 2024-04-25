@@ -192,6 +192,7 @@ let _ = yojson_of_s3_job_definition__bucket_criteria__excludes__and
 
 type s3_job_definition__bucket_criteria__excludes = {
   and_ : s3_job_definition__bucket_criteria__excludes__and list;
+      [@key "and"]
 }
 [@@deriving_inline yojson_of]
 
@@ -209,7 +210,7 @@ let yojson_of_s3_job_definition__bucket_criteria__excludes =
              yojson_of_s3_job_definition__bucket_criteria__excludes__and
              v_and_
          in
-         ("and_", arg) :: bnds
+         ("and", arg) :: bnds
        in
        `Assoc bnds
     : s3_job_definition__bucket_criteria__excludes ->
@@ -409,6 +410,7 @@ let _ = yojson_of_s3_job_definition__bucket_criteria__includes__and
 
 type s3_job_definition__bucket_criteria__includes = {
   and_ : s3_job_definition__bucket_criteria__includes__and list;
+      [@key "and"]
 }
 [@@deriving_inline yojson_of]
 
@@ -426,7 +428,7 @@ let yojson_of_s3_job_definition__bucket_criteria__includes =
              yojson_of_s3_job_definition__bucket_criteria__includes__and
              v_and_
          in
-         ("and_", arg) :: bnds
+         ("and", arg) :: bnds
        in
        `Assoc bnds
     : s3_job_definition__bucket_criteria__includes ->
@@ -714,7 +716,7 @@ let _ = yojson_of_s3_job_definition__scoping__excludes__and
 [@@@deriving.end]
 
 type s3_job_definition__scoping__excludes = {
-  and_ : s3_job_definition__scoping__excludes__and list;
+  and_ : s3_job_definition__scoping__excludes__and list; [@key "and"]
 }
 [@@deriving_inline yojson_of]
 
@@ -732,7 +734,7 @@ let yojson_of_s3_job_definition__scoping__excludes =
              yojson_of_s3_job_definition__scoping__excludes__and
              v_and_
          in
-         ("and_", arg) :: bnds
+         ("and", arg) :: bnds
        in
        `Assoc bnds
     : s3_job_definition__scoping__excludes ->
@@ -950,7 +952,7 @@ let _ = yojson_of_s3_job_definition__scoping__includes__and
 [@@@deriving.end]
 
 type s3_job_definition__scoping__includes = {
-  and_ : s3_job_definition__scoping__includes__and list;
+  and_ : s3_job_definition__scoping__includes__and list; [@key "and"]
 }
 [@@deriving_inline yojson_of]
 
@@ -968,7 +970,7 @@ let yojson_of_s3_job_definition__scoping__includes =
              yojson_of_s3_job_definition__scoping__includes__and
              v_and_
          in
-         ("and_", arg) :: bnds
+         ("and", arg) :: bnds
        in
        `Assoc bnds
     : s3_job_definition__scoping__includes ->

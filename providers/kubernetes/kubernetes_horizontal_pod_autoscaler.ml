@@ -1221,8 +1221,8 @@ let _ = yojson_of_spec__metric__resource
 type spec__metric = {
   type_ : string prop; [@key "type"]
   container_resource : spec__metric__container_resource list;
-  external_ : spec__metric__external list;
-  object_ : spec__metric__object list;
+  external_ : spec__metric__external list; [@key "external"]
+  object_ : spec__metric__object list; [@key "object"]
   pods : spec__metric__pods list;
   resource : spec__metric__resource list;
 }
@@ -1259,14 +1259,14 @@ let yojson_of_spec__metric =
          let arg =
            yojson_of_list yojson_of_spec__metric__object v_object_
          in
-         ("object_", arg) :: bnds
+         ("object", arg) :: bnds
        in
        let bnds =
          let arg =
            yojson_of_list yojson_of_spec__metric__external
              v_external_
          in
-         ("external_", arg) :: bnds
+         ("external", arg) :: bnds
        in
        let bnds =
          let arg =

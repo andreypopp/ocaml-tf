@@ -46,7 +46,7 @@ type redacted_fields__uri_path = unit [@@deriving_inline yojson_of]
 [@@@deriving.end]
 
 type redacted_fields = {
-  method_: redacted_fields__method list;
+  method_: redacted_fields__method list; [@key "method"]
   query_string: redacted_fields__query_string list;
   single_header: redacted_fields__single_header list;
   uri_path: redacted_fields__uri_path list;

@@ -153,6 +153,7 @@ type spec__backend_defaults__client_policy__tls__validation__subject_alternative
   match_ :
     spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
     list;
+      [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -174,7 +175,7 @@ let yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_al
              yojson_of_spec__backend_defaults__client_policy__tls__validation__subject_alternative_names__match
              v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        `Assoc bnds
     : spec__backend_defaults__client_policy__tls__validation__subject_alternative_names ->
@@ -917,6 +918,7 @@ type spec__listener__tls__validation__subject_alternative_names = {
   match_ :
     spec__listener__tls__validation__subject_alternative_names__match
     list;
+      [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -937,7 +939,7 @@ let yojson_of_spec__listener__tls__validation__subject_alternative_names
              yojson_of_spec__listener__tls__validation__subject_alternative_names__match
              v_match_
          in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        `Assoc bnds
     : spec__listener__tls__validation__subject_alternative_names ->

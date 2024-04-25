@@ -243,7 +243,7 @@ type google_compute_firewall_policy_rule = {
   priority : float prop;
   target_resources : string prop list option; [@option]
   target_service_accounts : string prop list option; [@option]
-  match_ : match_ list;
+  match_ : match_ list; [@key "match"]
   timeouts : timeouts option;
 }
 [@@deriving_inline yojson_of]
@@ -275,7 +275,7 @@ let yojson_of_google_compute_firewall_policy_rule =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_match_ v_match_ in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          match v_target_service_accounts with

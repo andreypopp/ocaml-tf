@@ -832,11 +832,11 @@ let _ = yojson_of_rule__rule__tags
 [@@@deriving.end]
 
 type rule__rule = {
-  and_ : rule__rule__and list;
+  and_ : rule__rule__and list; [@key "and"]
   cost_category : rule__rule__cost_category list;
   dimension : rule__rule__dimension list;
   not : rule__rule__not list;
-  or_ : rule__rule__or list;
+  or_ : rule__rule__or list; [@key "or"]
   tags : rule__rule__tags list;
 }
 [@@deriving_inline yojson_of]
@@ -864,7 +864,7 @@ let yojson_of_rule__rule =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_rule__rule__or v_or_ in
-         ("or_", arg) :: bnds
+         ("or", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_list yojson_of_rule__rule__not v_not in
@@ -885,7 +885,7 @@ let yojson_of_rule__rule =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_rule__rule__and v_and_ in
-         ("and_", arg) :: bnds
+         ("and", arg) :: bnds
        in
        `Assoc bnds
     : rule__rule -> Ppx_yojson_conv_lib.Yojson.Safe.t)

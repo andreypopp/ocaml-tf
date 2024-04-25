@@ -369,7 +369,7 @@ type cloudflare_device_posture_rule = {
   schedule : string prop option; [@option]
   type_ : string prop; [@key "type"]
   input : input list;
-  match_ : match_ list;
+  match_ : match_ list; [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -393,7 +393,7 @@ let yojson_of_cloudflare_device_posture_rule =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_match_ v_match_ in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_list yojson_of_input v_input in

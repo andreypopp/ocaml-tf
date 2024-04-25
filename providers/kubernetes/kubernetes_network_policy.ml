@@ -417,7 +417,7 @@ let _ = yojson_of_spec__egress__to
 
 type spec__egress = {
   ports : spec__egress__ports list;
-  to_ : spec__egress__to list;
+  to_ : spec__egress__to list; [@key "to"]
 }
 [@@deriving_inline yojson_of]
 
@@ -431,7 +431,7 @@ let yojson_of_spec__egress =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_spec__egress__to v_to_ in
-         ("to_", arg) :: bnds
+         ("to", arg) :: bnds
        in
        let bnds =
          let arg =

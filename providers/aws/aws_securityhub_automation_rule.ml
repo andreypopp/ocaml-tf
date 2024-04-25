@@ -1757,7 +1757,7 @@ type criteria = {
   severity_label : criteria__severity_label list;
   source_url : criteria__source_url list;
   title : criteria__title list;
-  type_ : criteria__type list;
+  type_ : criteria__type list; [@key "type"]
   updated_at : criteria__updated_at list;
   user_defined_fields : criteria__user_defined_fields list;
   verification_state : criteria__verification_state list;
@@ -1843,7 +1843,7 @@ let yojson_of_criteria =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_criteria__type v_type_ in
-         ("type_", arg) :: bnds
+         ("type", arg) :: bnds
        in
        let bnds =
          let arg =

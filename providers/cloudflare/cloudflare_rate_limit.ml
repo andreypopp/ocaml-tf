@@ -253,7 +253,7 @@ type cloudflare_rate_limit = {
   zone_id : string prop;
   action : action list;
   correlate : correlate list;
-  match_ : match_ list;
+  match_ : match_ list; [@key "match"]
 }
 [@@deriving_inline yojson_of]
 
@@ -278,7 +278,7 @@ let yojson_of_cloudflare_rate_limit =
        in
        let bnds =
          let arg = yojson_of_list yojson_of_match_ v_match_ in
-         ("match_", arg) :: bnds
+         ("match", arg) :: bnds
        in
        let bnds =
          let arg = yojson_of_list yojson_of_correlate v_correlate in
